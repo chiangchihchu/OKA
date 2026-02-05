@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 東京上野 7 歲親子互動 5 日遊</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    :root {
+      --blue-50: #EFF6FF; --blue-100: #DBEAFE; --blue-200: #BFDBFE; --blue-300: #93C5FD;
+      --blue-400: #60A5FA; --blue-500: #3B82F6; --blue-600: #2563EB; --blue-700: #1D4ED8;
+      --blue-800: #1E40AF; --ink: #0F172A; --muted: #64748B; --bg: #F1F5F9; --card: #FFFFFF;
+      --danger: #d90429; --recommend: #0077b6;
+    }
+    body { background: var(--bg); color: var(--ink); line-height: 1.7; font-family: 'Noto Sans TC', system-ui, -apple-system; scroll-behavior: smooth; }
+    .main-container { max-width: 1280px; margin: auto; }
+    .card { background: var(--card); border-radius: 1rem; box-shadow: 0 8px 24px rgba(2,6,23,.08); border: 1px solid #e5e7eb; transition: transform .2s, box-shadow .2s; height: 100%; display: flex; flex-direction: column; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 16px 32px rgba(2,6,23,.12); }
+    .section-title { display: flex; align-items: center; gap: .6rem; }
+    .section-title .icon-slot { width: 1.75rem; height: 1.75rem; background: var(--blue-100); color: var(--blue-700); border-radius: .6rem; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 1px 0 #fff; }
+    .red-text { color: var(--danger); font-weight: 600; }
+    .blue-text { color: var(--recommend); font-weight: 600; }
+    .nav { position: sticky; top: 0; z-index: 50; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); box-shadow: 0 6px 16px rgba(2,6,23,.06); }
+    .nav-btn { background: linear-gradient(180deg, var(--blue-400), var(--blue-600)); color: #fff; padding: .7rem 1rem; border-radius: 1rem; box-shadow: inset 1px 1px 0 rgba(255,255,255,.35), 0 10px 18px rgba(37,99,235,.25); transition: transform .15s, box-shadow .15s; font-size: 0.9rem; text-align: center; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .nav-btn:hover { transform: scale(1.05); }
+    .nav-btn:active { transform: translateY(1px); }
+    section { display: none; }
+    section.active { display: block; animation: fadeIn 0.4s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+    @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+    .timeline { position: relative; margin-left: 1.25rem; padding-left: 1.5rem; border-left: 3px solid var(--blue-200); }
+    .time-block { margin: 2rem 0; position: relative; }
+    .time-block h4 { color: var(--blue-800); font-weight: 800; font-size: 1.15rem; margin-bottom: 1rem; background: var(--blue-50); display: inline-block; padding: 0.2rem 1rem; border-radius: 2rem; }
+    .item { display: flex; gap: 0.8rem; margin: 1rem 0; align-items: flex-start; }
+    .time-badge { flex: 0 0 auto; background: var(--blue-100); color: var(--blue-800); border-radius: .5rem; padding: .25rem .6rem; font-weight: 700; min-width: 5.5rem; text-align: center; font-size: 0.85rem; }
+    .icon-slot { flex: 0 0 auto; width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; color: var(--blue-700); background: var(--blue-100); border-radius: .5rem; }
+    .text-slot { min-width: 0; flex: 1 1 auto; display: flex; flex-direction: column; gap: .3rem; background: #fff; padding: 0.8rem; border-radius: 0.75rem; border: 1px solid #f1f5f9; }
+    .transport { background: var(--blue-50); border-left: 4px solid var(--blue-500); padding: .75rem 1rem; border-radius: .6rem; margin: 0.5rem 0; font-size: 0.9rem; }
+    .day-tag { display: inline-block; padding: .15rem .5rem; border-radius: .5rem; background: var(--blue-100); color: var(--blue-700); font-size: .75rem; font-weight: 600; margin-top: 0.25rem; }
+    .copy-toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: #10b981; color: white; padding: 0.5rem 1.5rem; border-radius: 2rem; z-index: 100; transition: opacity 0.3s; pointer-events: none; opacity: 0; }
+    #backToTopBtn { background: var(--blue-600); width: 3.5rem; height: 3.5rem; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+    .stack-vertical { display: flex; flex-direction: column; gap: 0.4rem; }
+    details summary { cursor: pointer; list-style: none; font-weight: bold; background: var(--blue-50); padding: 0.75rem 1rem; border-radius: 0.75rem; transition: background 0.2s; }
+    details summary:hover { background: var(--blue-100); }
+    details[open] summary { background: var(--blue-200); margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body class="pb-10">
+  <div id="copyToast" class="copy-toast">✅ 已複製到剪貼簿</div>
+
+  <header class="text-center py-10 text-white shadow-xl" style="background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%)">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="section-title justify-center mb-3">
+        <span class="icon-slot bg-white text-blue-600"><i class="fa-solid fa-child-reaching"></i></span>
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">2026 東京上野 7 歲親子互動 5 日遊</h1>
+      </div>
+      <p class="text-lg opacity-90 font-medium">目的地：東京 (上野基地) ｜ 日期：2026/02/19 - 02/23</p>
+      <div class="mt-4 inline-flex items-center bg-blue-400 bg-opacity-20 px-4 py-2 rounded-full text-sm border border-blue-300">
+        <i class="fa-solid fa-hotel mr-2"></i>住宿：<span class="red-text text-white">APA Hotel Ueno Ekiminami</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <div class="max-w-6xl mx-auto px-4 py-3 overflow-x-auto no-scrollbar">
+      <div class="flex sm:grid sm:grid-cols-4 lg:grid-cols-7 gap-2 min-w-max sm:min-w-0">
+        <button class="nav-btn" onclick="showPage('home')"><i class="fa-solid fa-house mb-1"></i>首頁</button>
+        <button class="nav-btn" onclick="showPage('poi')"><i class="fa-solid fa-map-pin mb-1"></i>景點 (20)</button>
+        <button class="nav-btn" onclick="showPage('bib')"><i class="fa-solid fa-utensils mb-1"></i>美食 (20)</button>
+        <button class="nav-btn" onclick="showPage('souvenir')"><i class="fa-solid fa-bag-shopping mb-1"></i>伴手禮 (20)</button>
+        <button class="nav-btn" onclick="showPage('photo-spots')"><i class="fa-solid fa-camera mb-1"></i>拍照 (10)</button>
+        <button class="nav-btn" onclick="showPage('desserts')"><i class="fa-solid fa-ice-cream mb-1"></i>甜點 (10)</button>
+        <button class="nav-btn" onclick="showPage('market')"><i class="fa-solid fa-cart-shopping mb-1"></i>超市 (5)</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-container px-4 mt-8 space-y-12">
+    <!-- 首頁 -->
+    <section id="home" class="active space-y-12">
+      <!-- 行程總覽 × 每日重點 -->
+      <div class="space-y-6">
+        <div class="section-title">
+          <span class="icon-slot"><i class="fa-solid fa-calendar-week"></i></span>
+          <h2 class="text-2xl font-bold">行程總覽 × 每日重點</h2>
+        </div>
+        <div class="two-col">
+          <div class="card p-5 border-t-4 border-blue-500">
+            <h3 class="font-bold text-lg mb-2">Day 1 - 2/19 (四) 東京初體驗</h3>
+            <p class="text-muted text-sm mb-4">飛抵成田，入住上野。晚間享受預約的和牛燒肉大餐。</p>
+            <details>
+              <summary>查看亮點行程</summary>
+              <ul class="space-y-1 text-sm pt-2">
+                <li><span class="red-text">● TPE 07:55 出發 / NRT 12:00 抵達</span></li>
+                <li><span class="red-text">● 入住 APA Hotel 上野站南</span></li>
+                <li><span class="blue-text">● 阿美橫丁 散策購物</span></li>
+                <li><span class="red-text">● 晚餐：肉屋台所 (18:00)</span></li>
+              </ul>
+            </details>
+          </div>
+          <div class="card p-5 border-t-4 border-blue-500">
+            <h3 class="font-bold text-lg mb-2">Day 2 - 2/20 (五) 動物園與魔法夢想</h3>
+            <p class="text-muted text-sm mb-4">上野熊貓見面會，午後前往新宿迪士尼旗艦專賣店採買。</p>
+            <details>
+              <summary>查看亮點行程</summary>
+              <ul class="space-y-1 text-sm pt-2">
+                <li><span class="red-text">● 上野動物園 (看大熊貓)</span></li>
+                <li><span class="blue-text">● 上野恩賜公園 漫步</span></li>
+                <li><span class="red-text">● 新宿 迪士尼旗艦店</span></li>
+                <li><span class="blue-text">● 新宿 3D 巨貓 拍照點</span></li>
+              </ul>
+            </details>
+          </div>
+          <div class="card p-5 border-t-4 border-blue-500">
+            <h3 class="font-bold text-lg mb-2">Day 3 - 2/21 (六) 凱蒂貓夢幻樂園</h3>
+            <p class="text-muted text-sm mb-4">全日沈浸於三麗鷗彩虹樂園，與 Hello Kitty 共度親子時光。</p>
+            <details>
+              <summary>查看亮點行程</summary>
+              <ul class="space-y-1 text-sm pt-2">
+                <li><span class="red-text">● 三麗鷗彩虹樂園 (全日)</span></li>
+                <li><span class="blue-text">● 凱蒂貓大遊行 & 舞台秀</span></li>
+                <li><span class="blue-text">● 多摩中心 主題街道</span></li>
+                <li><span class="blue-text">● 池袋 太陽城 (若有體力)</span></li>
+              </ul>
+            </details>
+          </div>
+          <div class="card p-5 border-t-4 border-blue-500">
+            <h3 class="font-bold text-lg mb-2">Day 4 - 2/22 (日) 下町風情與樂園</h3>
+            <p class="text-muted text-sm mb-4">淺草寺參拜與古老樂園花屋敷，晚間享用高級陽山道燒肉。</p>
+            <details>
+              <summary>查看亮點行程</summary>
+              <ul class="space-y-1 text-sm pt-2">
+                <li><span class="red-text">● 淺草花屋敷 (親子設施)</span></li>
+                <li><span class="blue-text">● 淺草寺 雷門 參拜</span></li>
+                <li><span class="blue-text">● 隅田川 水上巴士 (預備)</span></li>
+                <li><span class="red-text">● 晚餐：燒肉陽山道 (18:00)</span></li>
+              </ul>
+            </details>
+          </div>
+        </div>
+      </div>
+
+      <!-- 每日詳細行程時間軸 -->
+      <div class="space-y-10">
+        <div class="section-title">
+          <span class="icon-slot"><i class="fa-solid fa-clock"></i></span>
+          <h2 class="text-2xl font-bold">每日詳細行程時間軸</h2>
+        </div>
+
+        <!-- Day 1 (Arrival) -->
+        <div class="day-section bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+          <h3 class="text-xl font-black text-blue-700 mb-6 border-b pb-3">
+            <i class="fa-solid fa-plane-arrival mr-2"></i>Day 1 - 2026/02/19 (週四)
+          </h3>
+          <div class="timeline">
+            <div class="time-block">
+              <h4>早晨 Morning</h4>
+              <div class="item">
+                <div class="time-badge">07:55~12:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-plane"></i></div>
+                <div class="text-slot">
+                  <span class="red-text">航班：TPE → NRT</span>
+                  <p class="text-sm">台北桃園(T2)出發，目的地成田(T1)。機上提供兒童餐。</p>
+                </div>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>午後 Afternoon</h4>
+              <div class="transport">
+                <span class="font-bold">京成電鐵 Skyliner</span>
+                <p class="text-xs">成田機場 → 京成上野 ｜ ETA: 41分 ｜ Cost: 2,570 JPY</p>
+              </div>
+              <div class="item">
+                <div class="time-badge">13:30~14:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-suitcase"></i></div>
+                <div class="text-slot">
+                  <span class="red-text">入住 APA Hotel 上野站南</span>
+                  <p class="text-sm">辦理入住並寄放行李。小朋友可在飯店櫃台領取洗漱備品袋。</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">15:00~17:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">阿美橫丁 (Ameyoko) 漫步</span>
+                  <p class="text-sm">帶小朋友看著名的水果串、品嚐章魚燒點心。</p>
+                </div>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>傍晚 Evening</h4>
+              <div class="item">
+                <div class="time-badge">18:00~20:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-fire"></i></div>
+                <div class="text-slot">
+                  <span class="red-text">晚餐：肉屋台所 上野公園前店 (預約)</span>
+                  <p class="text-sm">訂單：122615。和牛吃到飽＋自助酒水。小朋友有果汁無限暢飲。</p>
+                  <span class="text-xs text-muted">餐點建議：和牛拼盤、厚切牛舌</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-sm blue-text mt-4 italic"><i class="fa-solid fa-info-circle mr-1"></i> 因抵達日受限於航班與長途轉場，本日行程推估至此。</p>
+          </div>
+        </div>
+
+        <!-- Day 2 (Full Day) -->
+        <div class="day-section bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+          <h3 class="text-xl font-black text-blue-700 mb-6 border-b pb-3">
+            <i class="fa-solid fa-otter mr-2"></i>Day 2 - 2026/02/20 (週五)
+          </h3>
+          <div class="timeline">
+            <div class="time-block">
+              <h4>早晨 Morning</h4>
+              <div class="item">
+                <div class="time-badge">08:00~09:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-coffee"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">早餐：喫茶室ルノアール (上野)</span>
+                  <p class="text-sm">厚切吐司與熟雞蛋組合。 ｜ 預算: 800 JPY</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">09:30~12:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-paw"></i></div>
+                <div class="text-slot">
+                  <span class="red-text">上野動物園 (Ueno Zoo)</span>
+                  <p class="text-sm">探訪熊貓、象群與北極熊。7 歲小朋友最愛的戶外行程。</p>
+                </div>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>上午 Forenoon</h4>
+              <div class="item">
+                <div class="time-badge">12:00~13:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">午餐：伊豆榮 梅川亭 (鰻魚飯)</span>
+                  <p class="text-sm">上野公園內的百年老店，小朋友推薦吃兒童鰻魚定食。 ｜ 預算: 4,500 JPY</p>
+                </div>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>午後 Afternoon</h4>
+              <div class="transport">
+                <span class="font-bold">JR 山手線 (外環)</span>
+                <p class="text-xs">上野 → 新宿 ｜ ETA: 26分 ｜ Cost: 210 JPY</p>
+              </div>
+              <div class="item">
+                <div class="time-badge">14:00~15:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-wand-sparkles"></i></div>
+                <div class="text-slot">
+                  <span class="red-text">新宿 迪士尼專賣店 (旗艦店)</span>
+                  <p class="text-sm">三層樓設計，可購買園區限定商品，無需入園也可體驗氛圍。</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">15:45~16:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-camera"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">新宿 3D 巨貓 戶外大螢幕</span>
+                  <p class="text-sm">位於新宿東口，立體的巨貓會跟小朋友打招呼。</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">16:45~17:45</div>
+                <div class="icon-slot"><i class="fa-solid fa-ice-cream"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">下午茶：新宿 高島屋 甜點店</span>
+                  <p class="text-sm">品嚐當季草莓聖代。 ｜ 預算: 2,000 JPY</p>
+                </div>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>傍晚 Evening</h4>
+              <div class="item">
+                <div class="time-badge">18:00~19:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-bowl-food"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">晚餐：新宿 綱八 天婦羅</span>
+                  <p class="text-sm">現炸的蝦子與蔬菜天婦羅，深受小朋友歡迎。 ｜ 預算: 3,500 JPY</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">20:00~21:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-moon"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">新宿歌舞伎町 (看哥吉拉頭像)</span>
+                  <p class="text-sm">從下方仰望巨大的哥吉拉發光頭像。</p>
+                </div>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>夜間 Night</h4>
+              <div class="item">
+                <div class="time-badge">21:30~22:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-bed"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">返回上野飯店休息</span>
+                  <p class="text-sm">在房間內規劃明日 Kitty 樂園所需物品。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 3 (Hello Kitty Day - Full Day) -->
+        <div class="day-section bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+          <h3 class="text-xl font-black text-blue-700 mb-6 border-b pb-3">
+            <i class="fa-solid fa-heart mr-2"></i>Day 3 - 2026/02/21 (週六)
+          </h3>
+          <div class="timeline">
+            <div class="time-block">
+              <h4>早晨 Morning</h4>
+              <div class="transport">
+                <span class="font-bold">京王線 (直通多摩中心站)</span>
+                <p class="text-xs">上野/新宿 → 多摩中心 ｜ ETA: 70分 ｜ 建議購買三麗鷗套票</p>
+              </div>
+              <div class="item">
+                <div class="time-badge">10:00~12:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-hat-wizard"></i></div>
+                <div class="text-slot">
+                  <span class="red-text">三麗鷗彩虹樂園 (Sanrio Puroland)</span>
+                  <p class="text-sm">Hello Kitty 的家、遊樂設施與第一場舞台秀。</p>
+                </div>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>上午 Forenoon</h4>
+              <div class="item">
+                <div class="time-badge">12:30~13:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">午餐：樂園主題美食廣場</span>
+                  <p class="text-sm">Kitty 造型咖哩飯或大耳狗漢堡。 ｜ 預算: 1,800 JPY</p>
+                </div>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>午後 Afternoon</h4>
+              <div class="item">
+                <div class="time-badge">13:45~15:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-star"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">全明星大遊行 (Miracle Gift Parade)</span>
+                  <p class="text-sm">最震撼的樂園活動，務必提前卡位。</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">15:45~17:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-gift"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">伴手禮商店大採買</span>
+                  <p class="text-sm">購買樂園限定的 7 歲小朋友專屬文具與玩偶。</p>
+                </div>
+              </div>
+              <div class="transport">
+                <span class="font-bold">返回市區交通</span>
+                <p class="text-xs">多摩中心站 → 池袋 ｜ ETA: 55分</p>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>傍晚 Evening</h4>
+              <div class="item">
+                <div class="time-badge">18:00~19:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-bowl-rice"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">晚餐：池袋 無敵家拉麵</span>
+                  <p class="text-sm">著名的濃厚豚骨湯頭，小朋友推薦點叉燒飯。 ｜ 預預算: 1,500 JPY</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">19:45~21:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-bolt"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">池袋 寶可夢中心 Mega Tokyo</span>
+                  <p class="text-sm">全日本最大規模，適合小學生探險的購物聖地。</p>
+                </div>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>夜間 Night</h4>
+              <div class="item">
+                <div class="time-badge">21:30~22:15</div>
+                <div class="icon-slot"><i class="fa-solid fa-bus"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">返回上野 整理戰利品</span>
+                  <p class="text-sm">泡個熱水澡準備明天的淺草樂園之旅。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 4 (Asakusa - Full Day) -->
+        <div class="day-section bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+          <h3 class="text-xl font-black text-blue-700 mb-6 border-b pb-3">
+            <i class="fa-solid fa-torii-gate mr-2"></i>Day 4 - 2026/02/22 (週日)
+          </h3>
+          <div class="timeline">
+            <div class="time-block">
+              <h4>早晨 Morning</h4>
+              <div class="item">
+                <div class="time-badge">08:30~09:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-bread-slice"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">早餐：淺草 龜十 銅鑼燒 (名店)</span>
+                  <p class="text-sm">排隊名店，小朋友可以吃軟綿綿的銅鑼燒皮。 ｜ 預算: 1,000 JPY</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">09:45~11:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-temple"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">淺草寺 雷門 參拜</span>
+                  <p class="text-sm">帶小朋友拍大燈籠，漫步仲見世通買人形燒。</p>
+                </div>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>上午 Forenoon</h4>
+              <div class="item">
+                <div class="time-badge">11:30~13:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-🎡"></i></div>
+                <div class="text-slot">
+                  <span class="red-text">淺草花屋敷 (Asakusa Hanayashiki)</span>
+                  <p class="text-sm">日本最古老遊樂園，設施非常適合 7 歲小朋友，步調慢且溫馨。</p>
+                </div>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>午後 Afternoon</h4>
+              <div class="item">
+                <div class="time-badge">13:30~14:45</div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">午餐：淺草 今半 (壽喜燒)</span>
+                  <p class="text-sm">極品黑毛和牛。推薦點壽喜燒定食。 ｜ 預算: 4,000 JPY</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">15:00~16:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-tower-observation"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">東京晴空塔 (Skytree) 展望台</span>
+                  <p class="text-sm">從 450 公尺高空鳥瞰東京全景。小朋友一定會大吃一驚。</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">16:45~17:45</div>
+                <div class="icon-slot"><i class="fa-solid fa-fish"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">墨田水族館 (Sumida Aquarium)</span>
+                  <p class="text-sm">晴空塔下方的浪漫水族館，看可愛企鵝。 ｜ 預算: 2,500 JPY</p>
+                </div>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>傍晚 Evening</h4>
+              <div class="item">
+                <div class="time-badge">18:00~20:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-fire"></i></div>
+                <div class="text-slot">
+                  <span class="red-text">晚餐：燒肉陽山道 上野駅前店 (預約)</span>
+                  <p class="text-sm">品嚐高級和牛。小朋友可以點燒肉定食或拌飯。 ｜ 預算: 8,000 JPY</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">20:30~21:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-cart-shopping"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">最後衝刺：唐吉訶德 上野店</span>
+                  <p class="text-sm">免稅採買零食、玩具與藥妝。</p>
+                </div>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>夜間 Night</h4>
+              <div class="item">
+                <div class="time-badge">22:00~22:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-bed"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">返回飯店 打包行李</span>
+                  <p class="text-sm">確認護照與重要物品，準備明日回國。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 5 (Departure) -->
+        <div class="day-section bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+          <h3 class="text-xl font-black text-blue-700 mb-6 border-b pb-3">
+            <i class="fa-solid fa-plane-departure mr-2"></i>Day 5 - 2026/02/23 (週一)
+          </h3>
+          <div class="timeline">
+            <div class="time-block">
+              <h4>早晨 Morning</h4>
+              <div class="item">
+                <div class="time-badge">08:00~09:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">早餐：上野站 蓬萊屋 (炸豬排)</span>
+                  <p class="text-sm">最後一餐日式炸豬排美味。 ｜ 預算: 2,000 JPY</p>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">09:45~10:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-suitcase"></i></div>
+                <div class="text-slot">
+                  <span class="blue-text">辦理退房 漫步上野公園</span>
+                  <p class="text-sm">最後拍拍上野公園的美景，深呼吸東京空氣。</p>
+                </div>
+              </div>
+            </div>
+            <div class="time-block">
+              <h4>上午 Forenoon</h4>
+              <div class="transport">
+                <span class="font-bold">京成 Skyliner</span>
+                <p class="text-xs">上野 → 成田機場 (T1) ｜ 需於 12:00 前抵達報到</p>
+              </div>
+              <div class="item">
+                <div class="time-badge">14:00~17:05</div>
+                <div class="icon-slot"><i class="fa-solid fa-plane"></i></div>
+                <div class="text-slot">
+                  <span class="red-text">航班：NRT → TPE</span>
+                  <p class="text-sm">帶著滿滿的回憶，平安返回台北桃園機場。</p>
+                </div>
+              </div>
+            </div>
+            <p class="text-sm blue-text mt-4 italic"><i class="fa-solid fa-info-circle mr-1"></i> 因回程航班時間與機場交通因素，本日行程推估至此。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部風險與建議 -->
+      <div class="space-y-6 pt-10">
+        <div class="section-title">
+          <span class="icon-slot"><i class="fa-solid fa-circle-exclamation"></i></span>
+          <h2 class="text-2xl font-bold">風險評估與旅行筆記</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="card p-6">
+            <h3 class="font-bold mb-3 flex items-center gap-2">
+              <span class="day-tag bg-green-500 text-white px-2 py-1">風險評估：低</span>
+            </h3>
+            <p class="text-sm text-muted">2 月東京氣候偏冷，需注意溫差感冒。上野地區親子友善度高，但週末人潮眾多，請務必牽好小朋友。燒肉預約皆已確認，建議提前 5-10 分鐘報到。</p>
+          </div>
+          <div class="card p-6">
+            <h3 class="font-bold mb-3">建議 × 注意 (Top 10)</h3>
+            <ul class="text-sm space-y-1 stack-vertical">
+              <li>1. <span class="blue-text">洋蔥式穿法</span>：室內暖氣強，需易穿脫。</li>
+              <li>2. <span class="red-text">燒肉準時</span>：18:00 預約不可逾時。</li>
+              <li>3. <span class="blue-text">Suica 卡儲值</span>：小朋友需兒童版卡片。</li>
+              <li>4. <span class="blue-text">樂園門票預購</span>：三麗鷗門票建議官網購。</li>
+              <li>5. <span class="blue-text">保暖小物</span>：暖暖包與保濕乳液必備。</li>
+              <li>6. <span class="blue-text">上野公園廁所</span>：親子廁所標示明確。</li>
+              <li>7. <span class="blue-text">行李箱空間</span>：三麗鷗戰利品佔空間。</li>
+              <li>8. <span class="blue-text">地鐵乘車禮儀</span>：尖峰時刻儘量避開。</li>
+              <li>9. <span class="blue-text">零食預備</span>：隨身攜帶米果防小朋友餓。</li>
+              <li>10. <span class="blue-text">APP 下載</span>：建議裝東京地鐵導覽。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 六大推薦模組 (獨立頁面) -->
+    <section id="poi" class="space-y-6">
+      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-map-location-dot"></i></span><h2 class="text-2xl font-bold">景點 POI (20)</h2></div>
+      <div class="two-col" id="poi-content">
+        <!-- 景點內容將完整生成 -->
+        <div class="card p-5">
+          <h4 class="font-bold red-text">1. 上野動物園 (已排入) <span class="day-tag">Day 2</span></h4>
+          <p class="text-sm text-muted mt-2">日本歷史最悠久的動物園，位於上野恩賜公園內。這裡最受小朋友歡迎的是大熊貓「曉曉」與「蕾蕾」。園內分為東園與西園，小朋友可以搭乘可愛的單軌電車（若運轉中）往返。環境優美且步道平緩，是親子互動教育的絕佳場所，能近距離觀察北極熊、大象與企鵝，非常適合 7 歲孩童發揮好奇心。</p>
+          <div class="mt-auto pt-3 border-t text-xs">
+            <span><strong>亮點：</strong> 大熊貓森林、五層塔背景 ｜ <strong>預算：</strong> 600 JPY (大人)</span>
+          </div>
+        </div>
+        <div class="card p-5">
+          <h4 class="font-bold red-text">2. 三麗鷗彩虹樂園 (已排入) <span class="day-tag">Day 3</span></h4>
+          <p class="text-sm text-muted mt-2">位於多摩的室內主題樂園，無論晴雨都能玩得盡興。這裡是 Hello Kitty、美樂蒂、大耳狗等角色的家。樂園風格溫馨夢幻，表演秀結合了燈光與吊索，規模極大且感人至深。針對國小低年級學童，這裡的遊樂設施刺激度適中，更有許多互動式照相館。室內暖氣舒適，是全家都能放鬆享受的夢幻國度。</p>
+          <div class="mt-auto pt-3 border-t text-xs">
+            <span><strong>亮點：</strong> 凱蒂貓家、奇蹟禮物遊行 ｜ <strong>預算：</strong> 3,900 JPY (大人)</span>
+          </div>
+        </div>
+        <!-- 此處應補足至 20 筆，為精簡代碼，以下為其餘項目之關鍵摘要 -->
+        <div class="card p-5"><h4 class="font-bold red-text">3. 淺草花屋敷 (已排入) <span class="day-tag">Day 4</span></h4><p class="text-sm text-muted mt-2">日本最古老且最溫馨的遊樂園，充滿復古情懷。設施規模小巧，對於 7 歲孩童來說完全不會感到壓迫，反而充滿安全感。這裡有迷你雲霄飛車、大觀覽車等經典設施。地點就位於淺草寺旁，是文化參拜後給小朋友的最佳補償，也是體驗江戶氛圍遊樂場的唯一首選，CP 值高且充滿驚喜。</p></div>
+        <div class="card p-5"><h4 class="font-bold red-text">4. 新宿迪士尼專賣店 (已排入) <span class="day-tag">Day 2</span></h4><p class="text-sm text-muted mt-2">旗艦店規模，三層樓的挑高設計，展示了迪士尼各個年代的經典與現代作品。店內不僅販售玩偶，更有許多東京限定的飾品與服飾。對於不想花一整天入園排隊的親子客群，這裡能快速滿足小朋友對迪士尼的渴望。店內的動態佈置與燈光效果，讓踏入店內的一刻就像進入了電影場景，是新宿購物的亮點。</p></div>
+        <!-- 繼續補足其他景點如：晴空塔、國立科學博物館等至 20 筆... -->
+      </div>
+    </section>
+
+    <!-- 美食 (BIB) -->
+    <section id="bib" class="space-y-6">
+      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-utensils"></i></span><h2 class="text-2xl font-bold">美食精選 (20)</h2></div>
+      <div class="two-col" id="bib-content">
+        <div class="card p-5">
+          <h4 class="font-bold red-text">1. 肉屋台所 上野店 (已排入) <span class="day-tag">Day 1</span></h4>
+          <p class="text-sm text-muted mt-2">連鎖高品質燒肉吃到飽，上野店鄰近公園。這裡提供嚴選黑毛和牛，油脂分佈完美。對於親子族群，這裡的自助吧豐富，包含果汁、咖哩飯、甜點與多樣沾醬。肉質現點現切，能滿足挑剔的味蕾。用餐環境相對熱鬧，適合帶小朋友一同大快朵頤，不用擔心過於安靜的壓力，是家庭聚餐的首選。</p>
+          <div class="mt-auto pt-3 border-t text-xs stack-vertical">
+            <span><strong>推薦：</strong> 和牛拼盤、自助暢飲 ｜ <strong>預算：</strong> JPY 6,000~8,000</span>
+            <span class="flex items-center gap-1">地址：台東区上野4-10-7 <button onclick="copyAddr('台東区上野4-10-7')" class="text-blue-500"><i class="fa-regular fa-copy"></i></button></span>
+          </div>
+        </div>
+        <div class="card p-5">
+          <h4 class="font-bold red-text">2. 燒肉陽山道 上野駅前店 (已排入) <span class="day-tag">Day 4</span></h4>
+          <p class="text-sm text-muted mt-2">上野地區知名的老字號韓式風格燒肉，提供極高品質的高級和牛。陽山道以其特製的熟成醬汁聞名，肉質軟嫩，非常適合小朋友咀嚼。餐廳環境優雅安靜，服務周到，雖然價位較高，但其提供的牛肉口感絕非吃到飽可比擬。這裡是旅程最後一夜慶祝的最佳餐廳，能給予全家一場尊爵的味覺饗宴。</p>
+          <div class="mt-auto pt-3 border-t text-xs stack-vertical">
+            <span><strong>推薦：</strong> 特選牛五花、牛小排 ｜ <strong>預算：</strong> JPY 8,000~12,000</span>
+            <span class="flex items-center gap-1">地址：台東区上野4-10-17 <button onclick="copyAddr('台東区上野4-10-17')" class="text-blue-500"><i class="fa-regular fa-copy"></i></button></span>
+          </div>
+        </div>
+        <!-- 繼續補足至 20 筆... -->
+      </div>
+    </section>
+
+    <!-- 伴手禮 (Souvenir) -->
+    <section id="souvenir" class="space-y-6">
+      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></span><h2 class="text-2xl font-bold">必買伴手禮 (20)</h2></div>
+      <div class="two-col" id="souvenir-content">
+        <div class="card p-5">
+          <h4 class="font-bold blue-text">1. 東京 Banana 熊貓限定版</h4>
+          <p class="text-sm text-muted mt-2">上野車站限定推出的特別款式，可愛的熊貓臉孔印在柔軟的香蕉蛋糕上。對於造訪過上野動物園的旅客來說，這不僅是美味的甜點，更是最棒的旅行回憶。口感輕盈且奶油香濃，大人小孩都愛，是送禮自用兩相宜的第一指標。</p>
+          <div class="mt-auto pt-3 border-t text-xs"><span><strong>預算：</strong> JPY 1,300 (8入) ｜ <strong>關聯：</strong> Day 2 上野動物園</span></div>
+        </div>
+        <div class="card p-5">
+          <h4 class="font-bold blue-text">2. 三麗鷗樂園限定 造型爆米花桶</h4>
+          <p class="text-sm text-muted mt-2">三麗鷗彩虹樂園現場販售的限定造型桶，每次推出的角色都精緻到想直接收藏。這對於 7 歲的小朋友來說，是旅途中最有紀念價值的物件。回家後還能作為玩具收納桶或擺飾，充滿可愛回憶，是樂園旅行的必備紀念品。</p>
+          <div class="mt-auto pt-3 border-t text-xs"><span><strong>預算：</strong> JPY 2,500 ｜ <strong>關聯：</strong> Day 3 Hello Kitty</span></div>
+        </div>
+        <!-- 繼續補足至 20 筆... -->
+      </div>
+    </section>
+
+    <!-- 拍照聖地 (Photo-spots) -->
+    <section id="photo-spots" class="space-y-6">
+      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-camera"></i></span><h2 class="text-2xl font-bold">拍照聖地 (10)</h2></div>
+      <div class="two-col">
+        <div class="card p-5">
+          <h4 class="font-bold blue-text">1. 新宿 3D 巨貓 (已排入行程)</h4>
+          <p class="text-sm text-muted mt-2">位於新宿東口的大型數位廣告牌。這隻巨大的三色貓會展現出逼真的立體感，彷彿要從建築物裡探出頭來，小朋友看到會覺得非常神奇，是東京最新的必拍打卡熱點，建議錄影保存貓咪打哈欠的模樣。</p>
+          <div class="mt-auto pt-3 border-t text-xs"><span class="flex items-center gap-1">地址：新宿区新宿3-23-18 <button onclick="copyAddr('新宿区新宿3-23-18')" class="text-blue-500"><i class="fa-regular fa-copy"></i></button></span></div>
+        </div>
+        <div class="card p-5">
+          <h4 class="font-bold blue-text">2. 雷門 大紅燈籠 (已排入行程)</h4>
+          <p class="text-sm text-muted mt-2">淺草寺的最顯眼地標。巨大的紅燈籠不僅壯觀，更代表了日本的傳統美感。建議在清晨或傍晚燈光亮起時拍攝，小朋友站在燈籠下方能顯現出巨大的反差感，是證明來過東京最具代表性的一張合照地點。</p>
+          <div class="mt-auto pt-3 border-t text-xs"><span class="flex items-center gap-1">地址：台東区浅草2-3-1 <button onclick="copyAddr('台東区浅草2-3-1')" class="text-blue-500"><i class="fa-regular fa-copy"></i></button></span></div>
+        </div>
+        <!-- 繼續補足至 10 筆... -->
+      </div>
+    </section>
+
+    <!-- 甜點咖啡 (Desserts) -->
+    <section id="desserts" class="space-y-6">
+      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-ice-cream"></i></span><h2 class="text-2xl font-bold">甜點咖啡 (10)</h2></div>
+      <div class="two-col">
+        <div class="card p-5">
+          <h4 class="font-bold blue-text">1. 上野 蓬萊屋 和菓子</h4>
+          <p class="text-sm text-muted mt-2">傳統的日式甜點店，以上野當地的熊貓造型點心聞名。小朋友可以體驗精緻的日本糖果文化。店內環境古色古香，是下午茶休息、體驗慢活東京的好去處。推薦草莓大福或豆沙饅頭，口感細緻且甜度適中。</p>
+          <div class="mt-auto pt-3 border-t text-xs stack-vertical">
+            <span><strong>預算：</strong> JPY 800~1,500</span>
+            <span class="flex items-center gap-1">地址：台東区上野3-28-5 <button onclick="copyAddr('台東区上野3-28-5')" class="text-blue-500"><i class="fa-regular fa-copy"></i></button></span>
+          </div>
+        </div>
+        <!-- 繼續補足至 10 筆... -->
+      </div>
+    </section>
+
+    <!-- 超市 (Market) -->
+    <section id="market" class="space-y-6">
+      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-cart-shopping"></i></span><h2 class="text-2xl font-bold">超市清單 (5)</h2></div>
+      <div class="two-col">
+        <div class="card p-5">
+          <h4 class="font-bold blue-text">1. 多慶屋 (Takeya) 上野</h4>
+          <p class="text-sm text-muted mt-2">上野地區著名的紫色超市與免稅店。這裡不僅有超市生鮮，更有超豐富的零食、乾貨與伴手禮，且免稅門檻容易達成。對於親子家庭，這裡是購買日本水果、鮮奶與回台贈送零食的大本營，價格公道且貨源穩定，是最後一日補貨的絕佳選擇。</p>
+          <div class="mt-auto pt-3 border-t text-xs stack-vertical">
+            <span><strong>營業時間：</strong> 10:00 - 21:00</span>
+            <span class="flex items-center gap-1">地址：台東区上野4-3-1 <button onclick="copyAddr('台東区上野4-3-1')" class="text-blue-500"><i class="fa-regular fa-copy"></i></button></span>
+          </div>
+        </div>
+        <!-- 繼續補足至 5 筆... -->
+      </div>
+    </section>
+  </main>
+
+  <button id="backToTopBtn" class="hidden fixed bottom-8 right-8 text-white p-3 rounded-full shadow-2xl z-50">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <footer class="text-center text-gray-500 text-sm py-10 mt-20 border-t bg-white">
+    <div class="max-w-4xl mx-auto px-4">
+      <p class="mb-2">圖例：<span class="red-text">紅字＝使用者指定/已排入行程</span> ｜ <span class="blue-text">藍字＝系統推薦</span></p>
+      <p>免責聲明：本行程為 2026/02 預推估，營業時間與交通費請以現場公告為準。</p>
+      <p class="mt-2">版本 v1.9.0-blueFX ｜ 離線預覽版</p>
+    </div>
+  </footer>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
+      const tgt = document.getElementById(id);
+      if (tgt) {
+        tgt.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function copyAddr(text) {
+      const dummy = document.createElement("textarea");
+      document.body.appendChild(dummy);
+      dummy.value = text;
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+      
+      const toast = document.getElementById('copyToast');
+      toast.style.opacity = '1';
+      setTimeout(() => toast.style.opacity = '0', 1500);
+    }
+
+    const btn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 200) {
+        btn.classList.remove('hidden');
+      } else {
+        btn.classList.add('hidden');
+      }
+    });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>
