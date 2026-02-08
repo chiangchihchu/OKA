@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 東京馬拉松 & 表參道新宿文青散策</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    :root {
+      --blue-50: #EFF6FF; --blue-100: #DBEAFE; --blue-200: #BFDBFE; --blue-300: #93C5FD;
+      --blue-400: #60A5FA; --blue-500: #3B82F6; --blue-600: #2563EB; --blue-700: #1D4ED8;
+      --blue-800: #1E40AF; --ink: #0F172A; --muted: #64748B; --bg: #F1F5F9;
+      --card: #FFFFFF; --danger: #d90429; --recommend: #0077b6;
+    }
+    body { background: var(--bg); color: var(--ink); line-height: 1.7; font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif; }
+    .main-container { max-width: 1280px; margin: auto; }
+    
+    /* Card Styles */
+    .card { background: var(--card); border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); border: 1px solid #e5e7eb; transition: transform .2s, box-shadow .2s; height: 100%; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+    
+    /* Typography & Colors */
+    .section-title { display: flex; align-items: center; gap: .6rem; }
+    .section-title .icon-slot { width: 2rem; height: 2rem; background: var(--blue-100); color: var(--blue-700); border-radius: .6rem; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 1px 0 #fff; font-size: 1.1rem; }
+    .red-text { color: var(--danger); font-weight: 700; }
+    .blue-text { color: var(--recommend); font-weight: 600; }
+    .text-sm-desc { font-size: 0.925rem; color: #4b5563; line-height: 1.6; text-align: justify; }
+
+    /* Navigation */
+    .nav { position: sticky; top: 0; z-index: 50; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); box-shadow: 0 4px 20px rgba(2, 6, 23, 0.08); border-bottom: 1px solid var(--blue-100); }
+    .nav-btn { background: linear-gradient(180deg, var(--blue-400), var(--blue-600)); color: #fff; padding: .6rem 0.5rem; border-radius: 0.8rem; box-shadow: inset 1px 1px 0 rgba(255,255,255,.35), 0 4px 6px rgba(37, 99, 235, .25); transition: all .2s; font-size: 0.9rem; font-weight: 600; width: 100%; text-align: center; }
+    .nav-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+    .nav-btn:active { transform: translateY(1px); box-shadow: 0 2px 4px rgba(37, 99, 235, .2); }
+    
+    /* Layout */
+    section { display: none; animation: fadeIn 0.4s ease-out; }
+    section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .two-col { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1.5rem; }
+    @media (min-width: 768px) { .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    
+    /* Timeline & Items */
+    .timeline-container { position: relative; padding-left: 0; }
+    .day-section { margin-bottom: 3rem; background: #fff; padding: 2rem; border-radius: 1.5rem; border: 1px solid var(--blue-100); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+    .time-period-header { background: var(--blue-50); color: var(--blue-800); padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 700; display: inline-block; margin: 1.5rem 0 1rem 0; border-left: 4px solid var(--blue-500); }
+    
+    .item { display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start; position: relative; }
+    .item:last-child { margin-bottom: 0; }
+    
+    /* Fixed Vertical Stack for Slots */
+    .time-badge { flex: 0 0 auto; background: var(--blue-50); color: var(--blue-800); border: 1px solid var(--blue-200); border-radius: .5rem; padding: .3rem .5rem; font-weight: 700; min-width: 5.5rem; text-align: center; display: flex; flex-direction: column; justify-content: center; gap: 2px; font-size: 0.85rem; }
+    .time-badge span.duration { font-size: 0.75rem; font-weight: 400; color: var(--muted); }
+    
+    .icon-slot-item { flex: 0 0 auto; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; color: var(--blue-600); background: white; border: 1px solid var(--blue-100); border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-size: 1.1rem; z-index: 10; }
+    
+    .text-slot { flex: 1; display: flex; flex-direction: column; gap: 0.3rem; min-width: 0; }
+    .text-slot h4 { font-weight: 700; color: var(--ink); font-size: 1.05rem; line-height: 1.4; }
+    .text-slot p { color: #475569; font-size: 0.95rem; }
+    
+    /* Transport Card */
+    .transport-card { margin: 1rem 0 1.5rem 3.5rem; background: #f8fafc; border: 1px dashed var(--blue-300); border-radius: 0.75rem; padding: 0.75rem 1rem; display: flex; flex-direction: column; gap: 0.25rem; position: relative; }
+    .transport-card::before { content: ''; position: absolute; left: -1.75rem; top: -1rem; bottom: -1rem; width: 2px; background: repeating-linear-gradient(to bottom, var(--blue-200) 0, var(--blue-200) 6px, transparent 6px, transparent 12px); z-index: 0; }
+    .transport-info { font-size: 0.85rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; }
+    .transport-info span { display: flex; align-items: center; gap: 0.3rem; }
+    
+    /* Tags */
+    .day-tag { display: inline-block; padding: .15rem .6rem; border-radius: .4rem; background: #fee2e2; color: #991b1b; font-size: .75rem; font-weight: 600; margin-top: 0.25rem; align-self: flex-start; }
+    .budget-tag { font-family: monospace; background: #ecfccb; color: #365314; padding: 0.1rem 0.4rem; border-radius: 0.3rem; font-size: 0.8rem; }
+    
+    /* Utilities */
+    .stack-vertical { display: flex; flex-direction: column; gap: 0.25rem; }
+    #backToTopBtn { transition: all 0.3s; z-index: 100; }
+    
+    /* Details Summary */
+    details summary { cursor: pointer; list-style: none; outline: none; }
+    details summary::-webkit-details-marker { display: none; }
+    .summary-card-header { display: flex; justify-content: space-between; align-items: center; }
+  </style>
+</head>
+<body class="font-sans">
+
+  <!-- Header -->
+  <header class="text-center py-10 text-white shadow-xl relative overflow-hidden" style="background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);">
+    <div class="absolute inset-0 opacity-10 pattern-dots"></div>
+    <div class="main-container px-4 relative z-10">
+      <div class="section-title justify-center mb-4">
+        <span class="icon-slot" style="background: rgba(255,255,255,0.2); color: white; width: 3rem; height: 3rem; font-size: 1.5rem;">
+          <i class="fa-solid fa-person-running"></i>
+        </span>
+        <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight">2026 東京馬拉松 & 文青散策</h1>
+      </div>
+      <p class="text-lg md:text-xl opacity-90 font-light tracking-wide">
+        <i class="fa-solid fa-map-pin mr-2"></i>2026/02/27 - 03/04 (6天) ｜ 東京深度：表參道 & 新宿
+      </p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="max-w-7xl mx-auto px-2 py-3 grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+      <button class="nav-btn" onclick="showPage('home')"><i class="fa-solid fa-house mr-1"></i>首頁</button>
+      <button class="nav-btn" onclick="showPage('poi')"><i class="fa-solid fa-landmark mr-1"></i>景點 (20)</button>
+      <button class="nav-btn" onclick="showPage('bib')"><i class="fa-solid fa-utensils mr-1"></i>美食 (20)</button>
+      <button class="nav-btn" onclick="showPage('souvenir')"><i class="fa-solid fa-gift mr-1"></i>伴手禮 (20)</button>
+      <button class="nav-btn" onclick="showPage('photo-spots')"><i class="fa-solid fa-camera mr-1"></i>拍照 (10)</button>
+      <button class="nav-btn" onclick="showPage('desserts')"><i class="fa-solid fa-mug-hot mr-1"></i>甜點 (10)</button>
+      <button class="nav-btn" onclick="showPage('market')"><i class="fa-solid fa-cart-shopping mr-1"></i>超市 (5)</button>
+    </div>
+  </nav>
+
+  <main class="main-container px-4 py-8 space-y-12 min-h-screen">
+    
+    <!-- SECTION: HOME -->
+    <section id="home" class="active space-y-10">
+      
+      <!-- 1. 行程總覽 × 每日重點 -->
+      <div class="space-y-4">
+        <div class="section-title">
+          <div class="icon-slot"><i class="fa-solid fa-list-check"></i></div>
+          <h2 class="text-2xl font-bold text-gray-800">行程總覽 × 每日重點</h2>
+        </div>
+        
+        <div class="two-col">
+          <!-- Day 1 -->
+          <div class="card p-5">
+            <h3 class="text-lg font-bold text-blue-800 mb-2">Day 1 ｜ 02/27 (五)</h3>
+            <div class="text-sm space-y-2">
+              <p><i class="fa-solid fa-plane text-blue-500 w-5"></i><span class="red-text">07:55 TPE → 12:00 NRT</span></p>
+              <p><i class="fa-solid fa-id-card text-blue-500 w-5"></i><span class="red-text">賽事報到 (Expo)</span> @東京國際展示場</p>
+              <p><i class="fa-solid fa-bed text-blue-500 w-5"></i>入住東京上野/淺草區</p>
+            </div>
+          </div>
+          <!-- Day 2 -->
+          <div class="card p-5">
+            <h3 class="text-lg font-bold text-blue-800 mb-2">Day 2 ｜ 02/28 (六)</h3>
+            <div class="text-sm space-y-2">
+              <p><i class="fa-solid fa-pen-nib text-blue-500 w-5"></i><span class="red-text">藏前 (Kuramae)</span> 文青手作巡禮</p>
+              <p><i class="fa-solid fa-torii-gate text-blue-500 w-5"></i>淺草寺祈福 & 隅田川散步</p>
+              <p><i class="fa-solid fa-bowl-rice text-blue-500 w-5"></i><span class="blue-text">高碳水肝醣超補</span> (鰻魚飯/天婦羅)</p>
+            </div>
+          </div>
+          <!-- Day 3 -->
+          <div class="card p-5">
+            <h3 class="text-lg font-bold text-blue-800 mb-2">Day 3 ｜ 03/01 (日)</h3>
+            <div class="text-sm space-y-2">
+              <p><i class="fa-solid fa-person-running text-red-600 w-5"></i><span class="red-text">2026 東京馬拉松 (Race Day)</span></p>
+              <p><i class="fa-solid fa-medal text-blue-500 w-5"></i>完賽恢復 & 飯店休息</p>
+              <p><i class="fa-solid fa-fire text-blue-500 w-5"></i><span class="red-text">上野燒肉吃到飽</span> (慶功宴)</p>
+            </div>
+          </div>
+          <!-- Day 4 -->
+          <div class="card p-5">
+            <h3 class="text-lg font-bold text-blue-800 mb-2">Day 4 ｜ 03/02 (一)</h3>
+            <div class="text-sm space-y-2">
+              <p><i class="fa-solid fa-tree text-blue-500 w-5"></i><span class="red-text">新宿御苑</span> 城市綠洲</p>
+              <p><i class="fa-solid fa-shirt text-blue-500 w-5"></i><span class="red-text">BEAMS JAPAN 新宿</span> 文化選物</p>
+              <p><i class="fa-solid fa-utensils text-blue-500 w-5"></i>新宿思出橫丁 昭和氛圍</p>
+            </div>
+          </div>
+          <!-- Day 5 -->
+          <div class="card p-5">
+            <h3 class="text-lg font-bold text-blue-800 mb-2">Day 5 ｜ 03/03 (二)</h3>
+            <div class="text-sm space-y-2">
+              <p><i class="fa-solid fa-building-columns text-blue-500 w-5"></i><span class="red-text">根津美術館</span> 隈研吾建築美學</p>
+              <p><i class="fa-solid fa-coffee text-blue-500 w-5"></i><span class="red-text">表參道 & 貓街</span> 時尚漫步</p>
+              <p><i class="fa-solid fa-bag-shopping text-blue-500 w-5"></i>青山區精品文具與咖啡</p>
+            </div>
+          </div>
+          <!-- Day 6 -->
+          <div class="card p-5">
+            <h3 class="text-lg font-bold text-blue-800 mb-2">Day 6 ｜ 03/04 (三)</h3>
+            <div class="text-sm space-y-2">
+              <p><i class="fa-solid fa-palette text-blue-500 w-5"></i><span class="red-text">國立西洋美術館</span> (上野)</p>
+              <p><i class="fa-solid fa-gift text-blue-500 w-5"></i>阿美橫丁最後採買</p>
+              <p><i class="fa-solid fa-plane-arrival text-blue-500 w-5"></i><span class="red-text">20:20 NRT → 23:25 TPE</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 每日詳細行程 -->
+      <div class="space-y-6">
+        <div class="section-title">
+          <div class="icon-slot"><i class="fa-regular fa-calendar-check"></i></div>
+          <h2 class="text-2xl font-bold text-gray-800">每日詳細行程</h2>
+        </div>
+
+        <!-- DAY 1 -->
+        <div class="day-section">
+          <h3 class="text-2xl font-extrabold text-blue-800 border-b pb-3 mb-6 flex justify-between items-center">
+            <span>Day 1 ｜ 2/27 (五) <span class="text-lg font-medium text-gray-500 ml-2">抵達東京 & 賽事報到</span></span>
+          </h3>
+          <div class="timeline-container">
+            
+            <div class="time-period-header">早晨 Morning</div>
+            <div class="item">
+              <div class="time-badge">05:00<span class="duration">出發</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-car"></i></div>
+              <div class="text-slot">
+                <h4><span class="red-text">預約送機接送</span></h4>
+                <p>肯義國際接送，前往桃園機場。</p>
+              </div>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-info">
+                <span><i class="fa-solid fa-van-shuttle"></i> Private Transfer</span>
+                <span><i class="fa-regular fa-clock"></i> 55m</span>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">07:55<span class="duration">~12:00</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-plane-departure"></i></div>
+              <div class="text-slot">
+                <h4><span class="red-text">TPE 桃園 → NRT 成田</span></h4>
+                <p>航班資訊：<span class="red-text">CI/JL/BR (依實際訂位)</span>。抵達 NRT 第一航廈。</p>
+              </div>
+            </div>
+
+            <div class="time-period-header">午後 Afternoon</div>
+            <div class="transport-card">
+              <div class="transport-info">
+                <span><i class="fa-solid fa-train"></i> Keisei Skyliner</span>
+                <span><i class="fa-regular fa-clock"></i> 45m</span>
+                <span><i class="fa-solid fa-yen-sign"></i> 2570</span>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">13:30<span class="duration">約 30分</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-hotel"></i></div>
+              <div class="text-slot">
+                <h4>飯店寄放行李 (上野區)</h4>
+                <p><span class="red-text">入住上野區域飯店</span> (方便前往機場與 Skyliner 直達)。</p>
+              </div>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-info">
+                <span><i class="fa-solid fa-train"></i> JR Yamanote + Rinkai Line</span>
+                <span><i class="fa-regular fa-clock"></i> 40m</span>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">15:00<span class="duration">約 2hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-id-card"></i></div>
+              <div class="text-slot">
+                <h4><span class="red-text">東京馬拉松 EXPO 報到</span></h4>
+                <p>地點：東京國際展示場 (Tokyo Big Sight)。領取號碼布、晶片與參賽物資。參觀博覽會攤位。</p>
+                <div class="day-tag"><i class="fa-solid fa-map-pin"></i> Tokyo Big Sight</div>
+              </div>
+            </div>
+
+            <div class="time-period-header">傍晚 Evening</div>
+            <div class="item">
+              <div class="time-badge">17:30<span class="duration">約 1hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot">
+                <h4>晚餐：<span class="blue-text">六厘舍 (Rokurinsha) 沾麵</span></h4>
+                <p>位於東京車站拉麵街或台場分店。濃郁豚骨魚介湯頭，補充碳水化合物。</p>
+                <p class="text-sm text-gray-500">推薦：特製沾麵 / 預算 ¥1200</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">20:00<span class="duration">結束</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-bed"></i></div>
+              <div class="text-slot">
+                <h4>返回飯店休息</h4>
+                <p>整理賽事物資，早點休息適應時差。</p>
+              </div>
+            </div>
+
+            <div class="card bg-blue-50 border-blue-200 mt-4 p-4">
+              <p class="text-sm text-blue-700 font-bold"><i class="fa-solid fa-circle-info mr-2"></i>本日為飛行移動日，行程集中於賽事報到，項目精簡以保留體力。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY 2 (Complete Day) -->
+        <div class="day-section">
+          <h3 class="text-2xl font-extrabold text-blue-800 border-b pb-3 mb-6 flex justify-between items-center">
+            <span>Day 2 ｜ 2/28 (六) <span class="text-lg font-medium text-gray-500 ml-2">藏前文青散策 & 淺草</span></span>
+          </h3>
+          <div class="timeline-container">
+            <!-- 10 Items Mandatory -->
+            <div class="time-period-header">早晨 Morning</div>
+            <div class="item">
+              <div class="time-badge">08:00<span class="duration">約 45分</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-mug-hot"></i></div>
+              <div class="text-slot">
+                <h4>早餐：<span class="blue-text">Pelican Cafe (藏前)</span></h4>
+                <p>東京老鋪麵包店的直營咖啡廳，以絕品炭烤吐司聞名。</p>
+                <div class="day-tag">Day 2 美食</div>
+              </div>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-info"><span><i class="fa-solid fa-person-walking"></i> Walk 5m</span></div>
+            </div>
+
+            <div class="time-period-header">上午 Forenoon</div>
+            <div class="item">
+              <div class="time-badge">09:30<span class="duration">約 2hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-pen-fancy"></i></div>
+              <div class="text-slot">
+                <h4><span class="red-text">藏前 (Kuramae) 文青雜貨巡禮</span></h4>
+                <p>Kakimori (訂製筆記本)、mt lab (紙膠帶)、道具屋 Nobori。感受「東京布魯克林」的職人氣息。</p>
+                <div class="day-tag red-text">文青散策 (POI)</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">11:30<span class="duration">約 1.5hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-gopuram"></i></div>
+              <div class="text-slot">
+                <h4><span class="blue-text">淺草寺 (Senso-ji) 參拜</span></h4>
+                <p>從藏前步行至淺草。祈求明日完賽順利。求御守，過香爐。</p>
+                <div class="day-tag red-text">已排入行程 (POI)</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">13:00<span class="duration">約 1hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot">
+                <h4>午餐：<span class="blue-text">駒形前川 (鰻魚飯)</span></h4>
+                <p>優質蛋白質與碳水。位於隅田川旁，環境舒適。</p>
+                <p class="text-sm">推薦：鰻重 (Unaju) / 預算 ¥4000</p>
+                <div class="day-tag red-text">已排入行程 (美食)</div>
+              </div>
+            </div>
+
+            <div class="time-period-header">午後 Afternoon</div>
+            <div class="item">
+              <div class="time-badge">14:30<span class="duration">約 1hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-coffee"></i></div>
+              <div class="text-slot">
+                <h4>午茶：<span class="blue-text">Leaves Coffee Apartment</span></h4>
+                <p>隅田川畔的街角咖啡，是藏前地區最受歡迎的打卡熱點。</p>
+                <div class="day-tag red-text">已排入行程 (甜點)</div>
+              </div>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-info"><span><i class="fa-solid fa-person-walking"></i> Walk across Sumida River</span><span>15m</span></div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">15:30<span class="duration">約 1.5hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-shop"></i></div>
+              <div class="text-slot">
+                <h4>東京晴空塔下町散策 (Mizumachi)</h4>
+                <p>連接淺草與晴空塔的高架橋下新興商場，風格清新，適合散步。</p>
+              </div>
+            </div>
+
+            <div class="time-period-header">傍晚 Evening</div>
+            <div class="item">
+              <div class="time-badge">17:00<span class="duration">約 30分</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-basket-shopping"></i></div>
+              <div class="text-slot">
+                <h4><span class="blue-text">Life 超市 (上野店)</span></h4>
+                <p>採買明日賽前早餐 (香蕉、麵包、能量飲)。</p>
+                <div class="day-tag red-text">已排入行程 (超市)</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">18:00<span class="duration">約 1hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot">
+                <h4>晚餐：<span class="blue-text">名代 宇奈とと (鰻魚飯/親子丼)</span></h4>
+                <p>或選擇附近的義大利麵 (Carb Loading)。避免生食與油炸。</p>
+                <p class="text-sm">推薦：雙倍鰻魚丼 / 預算 ¥1500</p>
+              </div>
+            </div>
+
+            <div class="time-period-header">夜間 Night</div>
+            <div class="item">
+              <div class="time-badge">19:30<span class="duration">約 30分</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-clipboard-check"></i></div>
+              <div class="text-slot">
+                <h4>賽前裝備定裝</h4>
+                <p>別號碼布、綁晶片、準備膠、衣物寄放袋確認。</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">21:00<span class="duration">就寢</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-bed"></i></div>
+              <div class="text-slot">
+                <h4>強制熄燈休息</h4>
+                <p>確保 8 小時睡眠，迎接明日賽事。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY 3 (Race Day) -->
+        <div class="day-section">
+          <h3 class="text-2xl font-extrabold text-blue-800 border-b pb-3 mb-6 flex justify-between items-center">
+            <span>Day 3 ｜ 3/1 (日) <span class="text-lg font-medium text-red-600 ml-2">2026 東京馬拉松</span></span>
+          </h3>
+          <div class="timeline-container">
+             <!-- 10 Items Mandatory -->
+            <div class="time-period-header">早晨 Morning</div>
+            <div class="item">
+              <div class="time-badge">05:30<span class="duration">30分</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-sun"></i></div>
+              <div class="text-slot">
+                <h4>起床 & 賽前飲食</h4>
+                <p>食用昨日準備的麵包、香蕉、麻糬。排空身體。</p>
+              </div>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-info"><span><i class="fa-solid fa-train"></i> JR/Subway to Shinjuku</span><span>30m</span></div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">07:00<span class="duration">1.5hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-people-line"></i></div>
+              <div class="text-slot">
+                <h4><span class="red-text">新宿都廳 (起點) 寄物</span></h4>
+                <p>進入起跑分區 (Gate)，最後暖身、廁所排隊、防寒衣物準備。</p>
+              </div>
+            </div>
+
+            <div class="time-period-header">上午 Forenoon</div>
+            <div class="item">
+              <div class="time-badge">09:10<span class="duration">起跑</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-gun"></i></div>
+              <div class="text-slot">
+                <h4><span class="red-text">2026 東京馬拉松 START!</span></h4>
+                <p>享受世界六大馬氛圍。路線：新宿→淺草→門前仲町→銀座→東京車站。</p>
+              </div>
+            </div>
+
+            <div class="time-period-header">午後 Afternoon</div>
+            <div class="item">
+              <div class="time-badge">13:00<span class="duration">~15:00</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-ribbon"></i></div>
+              <div class="text-slot">
+                <h4><span class="red-text">抵達終點 (東京車站行幸通)</span></h4>
+                <p>領取獎牌、毛巾、保暖毯。享受完賽榮耀。</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">15:00<span class="duration">1hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-suitcase"></i></div>
+              <div class="text-slot">
+                <h4>領取寄物 & 更衣</h4>
+                <p>於日比谷公園/終點區域領取衣物，簡單擦拭更衣，補充水分。</p>
+              </div>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-info"><span><i class="fa-solid fa-train"></i> JR to Ueno</span><span>15m</span></div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">16:30<span class="duration">1.5hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-hot-tub-person"></i></div>
+              <div class="text-slot">
+                <h4>飯店盥洗 / 泡澡</h4>
+                <p>徹底洗去汗水，熱水澡放鬆肌肉，貼足貼。</p>
+              </div>
+            </div>
+
+            <div class="time-period-header">傍晚 Evening</div>
+            <div class="item">
+              <div class="time-badge">18:00<span class="duration">30分</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-beer-mug-empty"></i></div>
+              <div class="text-slot">
+                <h4><span class="blue-text">阿美橫丁 慶功前奏</span></h4>
+                <p>感受熱鬧氣氛，隨意逛逛，掛著獎牌拍照。</p>
+                <div class="day-tag red-text">已排入行程 (POI)</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">19:00<span class="duration">2hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-fire-burner"></i></div>
+              <div class="text-slot">
+                <h4>晚餐：<span class="red-text">肉屋の台所 上野店 (燒肉吃到飽)</span></h4>
+                <p>A4/A5 和牛吃到飽，大口吃肉補充蛋白質與慰勞自己。</p>
+                <p class="text-sm">推薦：和牛拼盤 / 預算 ¥6000-8000</p>
+                <div class="day-tag red-text">已排入行程 (美食)</div>
+              </div>
+            </div>
+
+            <div class="time-period-header">夜間 Night</div>
+            <div class="item">
+              <div class="time-badge">21:30<span class="duration">30分</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-store"></i></div>
+              <div class="text-slot">
+                <h4>Don Quijote 驚安殿堂 (上野)</h4>
+                <p>飯後散步消食，購買休足時間、撒隆巴斯等恢復用品。</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">22:30<span class="duration">休息</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-bed"></i></div>
+              <div class="text-slot">
+                <h4>深層睡眠修復</h4>
+                <p>抬腿，穿著恢復襪入睡。準備明日的新宿與表參道行程。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY 4 (Shinjuku Hipster) -->
+        <div class="day-section">
+          <h3 class="text-2xl font-extrabold text-blue-800 border-b pb-3 mb-6 flex justify-between items-center">
+            <span>Day 4 ｜ 3/2 (一) <span class="text-lg font-medium text-gray-500 ml-2">新宿綠意與文化選物</span></span>
+          </h3>
+          <div class="timeline-container">
+            <div class="time-period-header">早晨 Morning</div>
+            <div class="item">
+              <div class="time-badge">09:00<span class="duration">出發</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-train"></i></div>
+              <div class="text-slot">
+                <h4>前往新宿 (Shinjuku)</h4>
+                <p>搭乘 JR 山手線前往新宿。感受東京最繁忙車站的早晨脈動。</p>
+              </div>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-info"><span><i class="fa-solid fa-train"></i> JR Yamanote Line</span><span>25m</span></div>
+            </div>
+
+            <div class="time-period-header">上午 Forenoon</div>
+            <div class="item">
+              <div class="time-badge">10:00<span class="duration">2hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-tree"></i></div>
+              <div class="text-slot">
+                <h4><span class="red-text">新宿御苑 (Shinjuku Gyoen)</span></h4>
+                <p>東京市中心的綠洲。擁有日式、法式與英式庭園。賽後隔天在草地上輕鬆散步，放鬆緊繃的雙腿。</p>
+                <div class="day-tag red-text">已排入行程 (POI)</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">12:30<span class="duration">1hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot">
+                <h4>午餐：<span class="blue-text">烏龍麵 慎 (Udon Shin)</span></h4>
+                <p>新宿超人氣烏龍麵。現切現煮，麵條極致Q彈。若排隊太長可改去「風雲兒」拉麵。</p>
+                <p class="text-sm">推薦：天婦羅烏龍麵 / 預算 ¥1500</p>
+                <div class="day-tag red-text">已排入行程 (美食)</div>
+              </div>
+            </div>
+
+            <div class="time-period-header">午後 Afternoon</div>
+            <div class="item">
+              <div class="time-badge">14:00<span class="duration">1.5hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-shirt"></i></div>
+              <div class="text-slot">
+                <h4><span class="red-text">BEAMS JAPAN 新宿旗艦店</span></h4>
+                <p>位於新宿三丁目。整棟樓集結了日本各地的民藝品、服飾與雜貨。是尋找<span class="blue-text">文青風格</span>伴手禮的最佳地點。</p>
+                <div class="day-tag red-text">文青散策 (POI)</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">16:00<span class="duration">1.5hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-bag-shopping"></i></div>
+              <div class="text-slot">
+                <h4>伊勢丹百貨 (Isetan) 地下街</h4>
+                <p>東京最強百貨地下街 (Depachika)。欣賞精緻的甜點櫃位，感受日本極致的服務業精神。</p>
+                <div class="day-tag red-text">已排入行程 (伴手禮)</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">17:30<span class="duration">1hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-mug-hot"></i></div>
+              <div class="text-slot">
+                <h4>午茶：<span class="blue-text">Blue Bottle Coffee 新宿店</span></h4>
+                <p>位於 NEWoMan，欣賞來往的人潮，享受一杯高品質手沖。</p>
+                <div class="day-tag red-text">已排入行程 (甜點)</div>
+              </div>
+            </div>
+
+            <div class="time-period-header">傍晚 Evening</div>
+            <div class="item">
+              <div class="time-badge">19:00<span class="duration">1.5hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot">
+                <h4>晚餐：<span class="blue-text">つな八 (Tsunahachi) 天婦羅</span></h4>
+                <p>新宿百年老店。現炸天婦羅外酥內嫩，搭配蘿蔔泥醬汁清爽不油膩。</p>
+                <p class="text-sm">推薦：天婦羅膳 / 預算 ¥3000</p>
+                <div class="day-tag red-text">已排入行程 (美食)</div>
+              </div>
+            </div>
+
+            <div class="time-period-header">夜間 Night</div>
+            <div class="item">
+              <div class="time-badge">21:00<span class="duration">1hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-camera-retro"></i></div>
+              <div class="text-slot">
+                <h4><span class="blue-text">思出橫丁 & 歌舞伎町</span></h4>
+                <p>拍攝狹窄巷弄與紅燈籠的昭和風情 (Omoide Yokocho)。感受哥吉拉飯店與歌舞伎町的霓虹夜色。</p>
+                <div class="day-tag red-text">已排入行程 (拍照)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY 5 (Omotesando & Aoyama) -->
+        <div class="day-section">
+          <h3 class="text-2xl font-extrabold text-blue-800 border-b pb-3 mb-6 flex justify-between items-center">
+            <span>Day 5 ｜ 3/3 (二) <span class="text-lg font-medium text-gray-500 ml-2">表參道建築與時尚漫步</span></span>
+          </h3>
+          <div class="timeline-container">
+            <div class="time-period-header">早晨 Morning</div>
+            <div class="item">
+              <div class="time-badge">09:30<span class="duration">1.5hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-torii-gate"></i></div>
+              <div class="text-slot">
+                <h4><span class="blue-text">明治神宮 (Meiji Jingu)</span></h4>
+                <p>漫步在巨大的森林參道，遠離城市喧囂。參觀著名的清酒桶牆。心靈沉澱的起點。</p>
+                <div class="day-tag red-text">已排入行程 (POI)</div>
+              </div>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-info"><span><i class="fa-solid fa-person-walking"></i> Walk</span><span>10m</span></div>
+            </div>
+
+            <div class="time-period-header">上午 Forenoon</div>
+            <div class="item">
+              <div class="time-badge">11:30<span class="duration">1.5hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-building-columns"></i></div>
+              <div class="text-slot">
+                <h4><span class="red-text">根津美術館 (Nezu Museum)</span></h4>
+                <p>隈研吾設計的竹林迴廊入口是經典地標。館內收藏豐富的東方古美術，庭園極美。</p>
+                <div class="day-tag red-text">文青散策 (POI)</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">13:00<span class="duration">1hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot">
+                <h4>午餐：<span class="blue-text">Tonkatsu Maisen (舞泉豬排) 青山本店</span></h4>
+                <p>由舊澡堂改建的餐廳，建築本身非常有特色。豬排軟嫩用筷子就能切斷。</p>
+                <p class="text-sm">推薦：黑豚腰內肉 / 預算 ¥2500</p>
+                <div class="day-tag red-text">已排入行程 (美食)</div>
+              </div>
+            </div>
+
+            <div class="time-period-header">午後 Afternoon</div>
+            <div class="item">
+              <div class="time-badge">14:30<span class="duration">1.5hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-shoe-prints"></i></div>
+              <div class="text-slot">
+                <h4>表參道 Hills & 建築巡禮</h4>
+                <p>安藤忠雄設計的表參道 Hills。沿途欣賞 Prada, Dior 等大師級建築外觀。</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">16:00<span class="duration">1hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-coffee"></i></div>
+              <div class="text-slot">
+                <h4>午茶：<span class="blue-text">Shozo Coffee Store</span></h4>
+                <p>位於 Commune 2nd 旁的木造小屋咖啡，來自那須高原的名店。氛圍極度放鬆。</p>
+                <div class="day-tag red-text">已排入行程 (甜點)</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">17:00<span class="duration">1.5hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-shirt"></i></div>
+              <div class="text-slot">
+                <h4><span class="red-text">貓街 (Cat Street) & 裏原宿</span></h4>
+                <p>連接澀谷與原宿的步行街。聚集了大量潮牌、古著店與選物店。適合慢慢挖寶。</p>
+              </div>
+            </div>
+
+            <div class="time-period-header">傍晚 Evening</div>
+            <div class="item">
+              <div class="time-badge">18:30<span class="duration">1hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-gift"></i></div>
+              <div class="text-slot">
+                <h4><span class="blue-text">NUMBER SUGAR</span></h4>
+                <p>採買手工焦糖牛奶糖，表參道必買伴手禮。</p>
+                <div class="day-tag red-text">已排入行程 (伴手禮)</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">19:30<span class="duration">1.5hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot">
+                <h4>晚餐：<span class="blue-text">AFURI 拉麵 (原宿/六本木)</span></h4>
+                <p>柚子鹽拉麵，清爽不油膩，適合連日大餐後的調整。</p>
+                <p class="text-sm">推薦：柚子鹽拉麵 / 預算 ¥1200</p>
+                <div class="day-tag red-text">已排入行程 (美食)</div>
+              </div>
+            </div>
+
+            <div class="time-period-header">夜間 Night</div>
+            <div class="item">
+              <div class="time-badge">21:30<span class="duration">回程</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-suitcase-rolling"></i></div>
+              <div class="text-slot">
+                <h4>預打包行李</h4>
+                <p>今晚需完成 90% 行李打包，明日為最後一天。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY 6 (Departure) -->
+        <div class="day-section">
+          <h3 class="text-2xl font-extrabold text-blue-800 border-b pb-3 mb-6 flex justify-between items-center">
+            <span>Day 6 ｜ 3/4 (三) <span class="text-lg font-medium text-gray-500 ml-2">上野藝術巡禮 & 返台</span></span>
+          </h3>
+          <div class="timeline-container">
+            <div class="time-period-header">早晨 Morning</div>
+            <div class="item">
+              <div class="time-badge">09:00<span class="duration">1hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot">
+                <h4>早餐：<span class="blue-text">上野兔屋 (Usagiya)</span></h4>
+                <p>百年銅鑼燒名店，早晨現做的鬆餅皮香氣迷人。</p>
+                <div class="day-tag red-text">已排入行程 (伴手禮/甜點)</div>
+              </div>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-info"><span><i class="fa-solid fa-person-walking"></i> Walk</span><span>10m</span></div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">10:30<span class="duration">2hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-palette"></i></div>
+              <div class="text-slot">
+                <h4><span class="red-text">國立西洋美術館</span> (上野公園)</h4>
+                <p>法國建築大師柯比意 (Le Corbusier) 的世界遺產建築。即使不看展，光是欣賞建築本身就充滿<span class="blue-text">文青氣息</span>。</p>
+                <div class="day-tag red-text">已排入行程 (POI)</div>
+              </div>
+            </div>
+
+            <div class="time-period-header">午後 Afternoon</div>
+            <div class="item">
+              <div class="time-badge">12:30<span class="duration">1.5hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot">
+                <h4>午餐：<span class="blue-text">山家 炸豬排 (Yamabe)</span></h4>
+                <p>上野高 CP 值炸豬排定食，酥脆多汁，為旅程畫下句點。</p>
+                <p class="text-sm">推薦：腰內肉定食 / 預算 ¥900</p>
+                <div class="day-tag red-text">已排入行程 (美食)</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">14:00<span class="duration">1.5hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-cookie"></i></div>
+              <div class="text-slot">
+                <h4><span class="blue-text">二木的菓子 (Niki no Kashi)</span></h4>
+                <p>阿美橫丁必逛，最後掃貨零食、乾貨，把日幣花完。</p>
+                <div class="day-tag red-text">已排入行程 (伴手禮)</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">16:00<span class="duration">前往機場</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-train"></i></div>
+              <div class="text-slot">
+                <h4>搭乘 Keisei Skyliner</h4>
+                <p>前往成田機場。車程約 45 分鐘。請預留退稅時間。</p>
+              </div>
+            </div>
+
+            <div class="transport-card">
+              <div class="transport-info"><span><i class="fa-solid fa-train"></i> Skyliner</span><span>45m</span><span>¥2570</span></div>
+            </div>
+
+            <div class="time-period-header">傍晚 Evening</div>
+            <div class="item">
+              <div class="time-badge">17:00<span class="duration">3hr</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-plane"></i></div>
+              <div class="text-slot">
+                <h4>NRT 機場報到 & 免稅店</h4>
+                <p>辦理登機，購買 FaSoLa 免稅品 (Tokyo Banana, Royce)。</p>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="time-badge">20:20<span class="duration">~23:25</span></div>
+              <div class="icon-slot-item"><i class="fa-solid fa-plane-up"></i></div>
+              <div class="text-slot">
+                <h4><span class="red-text">NRT 成田 → TPE 桃園</span></h4>
+                <p>航班起飛。平安返抵台北。</p>
+              </div>
+            </div>
+            
+            <div class="card bg-blue-50 border-blue-200 mt-4 p-4">
+               <p class="text-sm text-blue-700 font-bold"><i class="fa-solid fa-circle-info mr-2"></i>本日為離境日，安排上野周邊輕鬆行程，方便隨時搭乘 Skyliner 直達成田機場。</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 3. 風險評估 -->
+      <div class="card p-6 border-l-4 border-green-400">
+        <h3 class="text-xl font-bold text-green-700 mb-3"><i class="fa-solid fa-check-circle mr-2"></i>風險評估：低 (Low) - 行程穩定</h3>
+        <p class="text-gray-600">
+          取消大阪行程後，全程住宿東京，大幅降低了交通不確定性與搬運大行李的疲勞。主要風險僅剩 **東京馬拉松賽後恢復**，Day 4 新宿御苑行程輕鬆，適合排酸。Day 5 表參道步行距離稍長，建議穿著舒適鞋款。
+        </p>
+      </div>
+
+      <!-- 4. 建議 × 注意 (10條) -->
+      <div class="card p-6">
+        <h3 class="section-title text-xl font-bold mb-4">
+          <div class="icon-slot"><i class="fa-solid fa-lightbulb"></i></div>
+          建議 × 注意事項
+        </h3>
+        <ul class="space-y-3 text-sm text-gray-700">
+          <li class="flex gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i><span><strong>住宿建議：</strong>全程住上野或淺草最為便利，前往馬拉松起點與機場都很順暢。</span></li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i><span><strong>藏前散策：</strong>許多文具/咖啡小店週一或週二公休，Day 2 (週六) 前往是最佳時機，但人潮較多。</span></li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i><span><strong>根津美術館：</strong>強烈建議避開休館日 (通常週一)，此行程安排在週二，非常合適。</span></li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i><span><strong>新宿御苑：</strong>禁止攜帶酒類入內，若要野餐請準備無酒精飲料與輕食。</span></li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i><span><strong>舞泉豬排：</strong>青山本店用餐時間排隊人潮多，建議 11:30 前或 13:30 後前往。</span></li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i><span><strong>BEAMS JAPAN：</strong>新宿店有許多獨家聯名商品與日本傳統工藝品，非常適合作為特色伴手禮。</span></li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i><span><strong>賽後恢復：</strong>Day 4 雖行程輕鬆，但新宿站內迷宮般複雜，建議多利用地面出口 (如南口) 導航。</span></li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i><span><strong>交通票券：</strong>全程使用 Suica/Pasmo (Apple Pay 可綁定) 即可，不需購買地鐵通票以免受限。</span></li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i><span><strong>退稅規定：</strong>伊勢丹百貨退稅櫃台通常大排長龍，建議預留 30-40 分鐘。</span></li>
+          <li class="flex gap-2"><i class="fa-solid fa-check text-blue-500 mt-1"></i><span><strong>緊急備案：</strong>Day 6 雖然時間充裕，但仍建議 16:30 前抵達機場，以免安檢大排長龍。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION: POI (20) -->
+    <section id="poi" class="space-y-6">
+      <div class="section-title mb-6">
+        <div class="icon-slot"><i class="fa-solid fa-landmark"></i></div>
+        <h2 class="text-2xl font-bold">精選景點 (20)</h2>
+      </div>
+      <div class="two-col">
+        <!-- 1-10 -->
+        <script>
+          const pois = [
+            {name: "根津美術館", day: "Day 5", used: true, desc: "位於南青山。隈研吾設計的建築，融合了現代與傳統日式美學。竹林參道是必拍景點，館藏以東方古美術為主，庭園幽靜雅致。"},
+            {name: "BEAMS JAPAN 新宿", day: "Day 4", used: true, desc: "不只是服飾店，更是傳遞日本文化的基地。從 B1 到 5F 分別展示日本食、祭典、衣著、工藝與藝術，是尋找獨特文青選物的好地方。"},
+            {name: "新宿御苑", day: "Day 4", used: true, desc: "橫跨新宿與澀谷的大型庭園。擁有寬闊的草地與法式梧桐大道。是新海誠電影《言葉之庭》的取景地，氛圍清幽，適合城市野餐。"},
+            {name: "明治神宮", day: "Day 5", used: true, desc: "供奉明治天皇的神社，擁有佔地廣大的森林。巨大的木造鳥居與整面的清酒桶牆非常壯觀，步入碎石參道瞬間讓人忘記身處東京市中心。"},
+            {name: "藏前 (Kuramae)", day: "Day 2", used: true, desc: "被譽為「東京的布魯克林」。隅田川旁的倉庫街區改建，聚集了 Kakimori (訂製筆記本)、Dandelion Chocolate 等職人店鋪，是東京手作與咖啡的聖地。"},
+            {name: "表參道 Hills", day: "Day 5", used: true, desc: "安藤忠雄設計的商場。為了不破壞櫸木林景觀，建築向地下延伸。內部的螺旋坡道設計獨特，匯集了許多設計師品牌。"},
+            {name: "國立西洋美術館", day: "Day 6", used: true, desc: "位於上野公園。法國建築巨匠柯比意 (Le Corbusier) 唯一的日本作品，被列為世界文化遺產。館外展示有羅丹的《地獄之門》與《沉思者》。"},
+            {name: "淺草寺 (Senso-ji)", day: "Day 2", used: true, desc: "東京最古老的寺廟，雷門的大紅燈籠是東京的象徵。仲見世通商店街熱鬧非凡，販售各種傳統小吃與工藝品。賽前祈福必訪。"},
+            {name: "東京馬拉松 EXPO", day: "Day 1", used: true, desc: "位於東京國際展示場，是跑者報到的聖地。現場有各大運動品牌展售最新裝備、紀念T恤，以及各種贊助商的互動攤位，氣氛熱血沸騰。"},
+            {name: "思出橫丁 (新宿)", day: "Day 4", used: true, desc: "又稱「尿尿橫丁」。保留了戰後昭和時代的狹窄巷弄與居酒屋風情。紅燈籠與燒烤煙霧交織，是攝影迷最愛的懷舊場景。"},
+            {name: "上野恩賜公園", day: "Day 6", used: false, desc: "東京市區的綠洲，聚集了動物園、美術館與博物館。春季是賞櫻名所，平日則是市民休憩的好去處。"},
+            {name: "SHIBUYA SKY", day: "Day 5", used: false, desc: "位於澀谷 Scramble Square 頂樓的露天展望台。擁有 360 度無死角視野，角落的玻璃圍欄是 IG 爆紅打卡點。"},
+            {name: "東京鐵塔", day: "Day 5", used: false, desc: "紅白相間的經典地標，無論白天或夜晚點燈都極具魅力。建議可去增上寺拍攝「寺廟與鐵塔」同框的經典畫面。"},
+            {name: "代官山 蔦屋書店", day: "Day 5", used: false, desc: "被選為世界最美書店之一。三棟建築以 T 字型編織外牆連接，森林般的環境非常舒適，是東京文青的代名詞。"},
+            {name: "清澄白河", day: "Day 2", used: false, desc: "東京咖啡激戰區。Blue Bottle 日本一號店所在地。街道寬敞寧靜，擁有東京都現代美術館，適合午後悠閒散步。"},
+            {name: "神樂坂", day: "Day 2", used: false, desc: "保有江戶風情與法國文化的獨特街區。石板路巷弄中隱藏著許多高級料亭與法式小酒館，被稱為「東京的小巴黎」。"},
+            {name: "中目黑", day: "Day 5", used: false, desc: "沿著目黑川兩旁林立著時尚的選物店與咖啡廳。春天是櫻花隧道，平時則是充滿文青氣息的散步路線，星巴克臻選烘焙工坊也位於此。"},
+            {name: "國立新美術館", day: "Day 5", used: false, desc: "位於六本木，波浪狀的玻璃帷幕外牆是其特徵。館內空間巨大且光影變化豐富，曾是電影《你的名字》取景地。"},
+            {name: "21_21 Design Sight", day: "Day 5", used: false, desc: "安藤忠雄設計的設計美術館，位於六本木 Midtown 綠地中。折疊鋼板屋頂非常獨特，常舉辦具啟發性的設計展覽。"},
+            {name: "吉祥寺", day: "Day 4", used: false, desc: "連續多年被選為最想居住的街道。擁有井之頭公園與好逛的商店街，氛圍悠閒生活感重，適合花半天時間漫遊。"}
+          ];
+          
+          document.write(pois.map(p => `
+            <div class="card p-5 flex flex-col gap-3">
+              <div class="flex justify-between items-start">
+                <h3 class="font-bold text-lg ${p.used ? 'red-text' : 'text-blue-800'}">${p.name}</h3>
+                ${p.used ? `<span class="day-tag">已排入行程 ${p.day}</span>` : `<span class="day-tag bg-gray-100 text-gray-500">獨立行程</span>`}
+              </div>
+              <p class="text-sm-desc flex-1">${p.desc}</p>
+              <div class="mt-2 pt-2 border-t border-gray-100 text-xs text-gray-400 flex items-center gap-2">
+                <i class="fa-solid fa-star text-yellow-400"></i> 熱門推薦
+              </div>
+            </div>
+          `).join(''));
+        </script>
+      </div>
+    </section>
+
+    <!-- SECTION: FOOD (20) -->
+    <section id="bib" class="space-y-6">
+      <div class="section-title mb-6">
+        <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+        <h2 class="text-2xl font-bold">必吃美食 (20)</h2>
+      </div>
+      <div class="two-col">
+        <script>
+          const foods = [
+            {name: "烏龍麵 慎 (Udon Shin)", day: "Day 4", used: true, dish: "天婦羅烏龍麵", price: "¥1500", desc: "新宿極致的烏龍麵店。麵條現切現煮，呈現螺旋狀擺盤，口感極度Q彈。雖然排隊人潮眾多，但絕對值得一試的職人美味。", addr: "東京都渋谷区代々木2-20-16"},
+            {name: "Tonkatsu Maisen (舞泉)", day: "Day 5", used: true, dish: "黑豚腰內肉定食", price: "¥3000", desc: "青山本店是由舊澡堂改建，保留了挑高的格狀天花板。號稱「用筷子就能切斷」的軟嫩豬排，搭配特製醬汁與無限續加的高麗菜絲。", addr: "東京都渋谷区神宮前4-8-5"},
+            {name: "AFURI (阿夫利)", day: "Day 5", used: true, dish: "柚子鹽拉麵", price: "¥1200", desc: "使用神奈川阿夫利山的天然水熬煮湯頭，加入清爽的柚子汁，帶有淡淡酸味與香氣。細麵條口感佳，炙燒叉燒更是畫龍點睛，深受女性喜愛。", addr: "原宿 / 六本木 / 中目黑"},
+            {name: "つな八 (Tsunahachi)", day: "Day 4", used: true, dish: "天婦羅膳", price: "¥2500", desc: "創業於大正時代的新宿天婦羅老舖。麵衣薄酥，能鎖住食材鮮味。特別推薦炸蝦與炸蛤蜊。店內充滿濃濃的江戶風情。", addr: "東京都新宿区新宿3-31-8"},
+            {name: "Pelican Cafe", day: "Day 2", used: true, dish: "炭烤吐司套餐", price: "¥1200", desc: "淺草田原町的傳奇麵包店「Pelican」開設的咖啡廳。吐司口感極致Q彈，炭烤後外酥內軟，搭配奶油就是人間美味。", addr: "東京都台東区寿3-9-11"},
+            {name: "駒形前川 (鰻魚飯)", day: "Day 2", used: true, dish: "鰻重", price: "¥4000-6000", desc: "創業於江戶時代的老舖，位於隅田川畔，可一邊欣賞河景一邊用餐。使用頂級國產鰻魚與秘傳百年的醬汁，炭火燒烤後外皮微焦肉質軟嫩。", addr: "東京都台東区駒形2-1-29"},
+            {name: "肉屋の台所 (上野店)", day: "Day 3", used: true, dish: "和牛燒肉吃到飽", price: "¥6000-8000", desc: "CP值極高的和牛燒肉放題。提供 A4/A5 等級黑毛和牛，肉質鮮嫩油花豐富。店內氣氛熱鬧，非常適合大群朋友慶功聚餐。", addr: "東京都台東区上野6-14-7"},
+            {name: "六厘舍 (Rokurinsha)", day: "Day 1", used: true, dish: "特製沾麵", price: "¥1000-1500", desc: "東京沾麵界的霸主之一。極粗的麵條極具嚼勁，沾入以豚骨、雞骨與大量魚介熬煮的超濃郁湯頭，每一口都充滿鮮味。", addr: "東京駅一番街 B1F / 東京スカイツリータウン"},
+            {name: "山家炸豬排 (Yamabe)", day: "Day 6", used: true, dish: "腰內肉定食", price: "¥900", desc: "上野御徒町的排隊名店。以驚人的低價格提供厚實且高品質的炸豬排。麵衣酥脆不油膩，肉質軟嫩，附上的豚汁與高麗菜絲也毫不馬虎。", addr: "東京都台東区上野4-5-1"},
+            {name: "名代 宇奈とと", day: "Day 2", used: true, dish: "雙倍鰻魚丼", price: "¥1100", desc: "號稱日本最便宜的鰻魚飯連鎖店。雖然價格低廉，但炭火現烤的鰻魚厚度十足，醬汁濃郁下飯，是想吃鰻魚又不想花大錢的首選。", addr: "上野 / 淺草各分店"},
+            {name: "Misojyu", day: "Day 2", used: false, dish: "味噌湯套餐", price: "¥1500", desc: "位於淺草的味噌湯專門店。主打用料豐富的有機味噌湯與精緻飯糰。湯裡有大塊蔬菜與豆腐，溫暖且健康。", addr: "東京都台東区浅草1-7-5"},
+            {name: "挽肉と米", day: "Day 5", used: false, dish: "漢堡排定食", price: "¥1800", desc: "近年東京最紅的漢堡排店。現做現烤，每人提供三顆剛烤好的漢堡排，搭配無限續碗的釜燒白飯與生雞蛋。需一早領整理券。", addr: "東京都渋谷区道玄坂 / 吉祥寺"},
+            {name: "天房 (Tenfusa)", day: "Day 3", used: false, dish: "天丼", price: "¥1800", desc: "位於築地場外市場的老店。天婦羅麵衣薄脆，食材新鮮，特別是炸穴子魚與炸芝海老。淋上偏甜的醬汁，搭配白飯讓人一口接一口。", addr: "東京都中央区築地4-10-14"},
+            {name: "Blue Bottle Coffee", day: "Day 5", used: false, dish: "紐奧良冰咖啡", price: "¥600", desc: "雖然是美國品牌，但在日本的店舖設計獨具匠心。青山店隱身於巷弄綠意中，提供高品質的手沖咖啡與簡約時尚的空間。", addr: "東京都港区南青山3-13-1"},
+            {name: "敘敘苑 (Jojoen)", day: "Day 3", used: false, dish: "午間套餐", price: "¥3000-5000", desc: "日本高級燒肉的代名詞。若預算有限，極度推薦午間套餐，包含肉盤、沙拉、漬物與甜點，服務與肉質皆為頂級水準。", addr: "新宿 / 晴空塔 / 惠比壽"},
+            {name: "篝 (Kagari)", day: "Day 3", used: false, dish: "雞白湯 Soba", price: "¥1300", desc: "銀座小巷中的米其林推薦拉麵。湯頭如濃湯般呈現金黃色，濃郁充滿膠質。配料使用季節時蔬而非傳統筍乾，擺盤如法式料理般精緻。", addr: "東京都中央区銀座6-4-12"},
+            {name: "牛かつ もと村", day: "Day 5", used: false, dish: "炸牛排定食", price: "¥1600-2200", desc: "將牛排裹上細麵包粉快炸至半熟，再由客人在石板上自行煎烤至喜愛的熟度。搭配山葵醬油或岩鹽，外酥內嫩的口感令人難忘。", addr: "澀谷 / 新宿 / 上野"},
+            {name: "無敵家", day: "Day 3", used: false, dish: "本丸麵 (豚骨)", price: "¥1200", desc: "池袋傳奇拉麵店。超濃郁的豬背脂豚骨湯頭，搭配厚切角煮叉燒。湯頭雖然濃厚但無腥味，桌上提供濃縮茉莉花茶可解膩。", addr: "東京都豊島区南池袋1-17-1"},
+            {name: "Harbs", day: "Day 4", used: false, dish: "水果千層蛋糕", price: "¥900", desc: "雖然是甜點店，但午間套餐的義大利麵也非常受歡迎。必吃的招牌水果千層，夾滿新鮮水果與不甜膩的卡士達鮮奶油，份量十足。", addr: "新宿 / 六本木 / 丸之內"},
+            {name: "つじ半 (Tsujihan)", day: "Day 3", used: false, dish: "海鮮珠寶盒", price: "¥1250-2000", desc: "日本橋排隊名店。將各種生魚片切丁堆成小山，視覺效果極佳。吃剩三分之一時可加入鯛魚高湯做成茶泡飯，一碗兩吃大大滿足。", addr: "日本橋 / 赤坂 / 神樂坂"}
+          ];
+          
+          document.write(foods.map(f => `
+            <div class="card p-5 flex flex-col gap-2">
+              <div class="flex justify-between items-start">
+                <h3 class="font-bold text-lg ${f.used ? 'red-text' : 'text-blue-800'}">${f.name}</h3>
+                ${f.used ? `<span class="day-tag">已排入行程 ${f.day}</span>` : `<span class="day-tag bg-gray-100 text-gray-500">獨立行程</span>`}
+              </div>
+              <div class="text-sm font-semibold text-gray-700"><i class="fa-solid fa-star text-yellow-500 mr-1"></i>推：${f.dish}</div>
+              <div class="text-xs text-gray-500 font-mono bg-gray-100 inline-block px-2 py-1 rounded self-start"><i class="fa-solid fa-yen-sign"></i> ${f.price}</div>
+              <p class="text-sm-desc mt-1">${f.desc}</p>
+              <div class="text-xs text-gray-400 mt-2 border-t pt-2 cursor-pointer hover:text-blue-600" id="addr-${Math.random().toString(36).substr(2,9)}" onclick="copyToClipboard(this.id)">
+                <i class="fa-solid fa-location-dot mr-1"></i>${f.addr}
+              </div>
+            </div>
+          `).join(''));
+        </script>
+      </div>
+    </section>
+
+    <!-- SECTION: SOUVENIR (20) -->
+    <section id="souvenir" class="space-y-6">
+      <div class="section-title mb-6">
+        <div class="icon-slot"><i class="fa-solid fa-gift"></i></div>
+        <h2 class="text-2xl font-bold">必買伴手禮 (20)</h2>
+      </div>
+      <div class="two-col">
+        <script>
+          const souvenirs = [
+            {name: "NUMBER SUGAR", day: "Day 5", used: true, item: "手工焦糖牛奶糖", price: "¥1200", desc: "表參道的人氣店鋪。每一顆牛奶糖都純手工製作，無添加香料。包裝上印有 No.1 到 No.12 代表不同口味 (如海鹽、肉桂、薑味)，簡約時尚的盒子非常適合作為禮物。"},
+            {name: "Kakimori 訂製筆記本", day: "Day 2", used: true, item: "原創筆記本", price: "¥2000起", desc: "藏前文青聖地。可自由挑選封面、內頁與線圈，現場製作專屬於自己的筆記本。是文具控絕對不能錯過的獨一無二紀念品。"},
+            {name: "mt lab 紙膠帶", day: "Day 2", used: true, item: "限定款紙膠帶", price: "¥400", desc: "位於藏前。紙膠帶龍頭 mt 的實驗室店鋪。販售許多市面上買不到的實驗款、量重計價款，設計感十足，文具迷必買。"},
+            {name: "Press Butter Sand", day: "Day 4", used: true, item: "焦糖奶油夾心餅", price: "¥1026", desc: "以「烤製」為主題的甜點。厚實酥脆的餅乾內，夾著北海道鮮奶油與濃稠焦糖醬的雙層內餡。口感層次豐富，新宿車站或百貨有售。"},
+            {name: "上野兔屋 (Usagiya)", day: "Day 6", used: true, item: "銅鑼燒", price: "¥240", desc: "東京三大銅鑼燒之一。外皮鬆軟帶有蜂蜜香氣，紅豆內餡濕潤且粒粒分明。通常下午就會賣完，建議早上前往購買，保存期限短。"},
+            {name: "二木的菓子", day: "Day 6", used: true, item: "各式日本零食包", price: "¥500-2000", desc: "位於阿美橫丁的零食批發店。你可以找到所有種類的日本糖果、米果、巧克力，而且價格比一般超市更便宜。是大量採購分送同事親友的最佳補給站。"},
+            {name: "New York Perfect Cheese", day: "Day 1", used: false, item: "起司奶油脆餅", price: "¥1200", desc: "東京車站目前最難買的伴手禮之一。貓舌餅乾包裹著白巧克力、高達起司與鮮奶油。口感酥脆，起司味濃郁鹹甜交織，每天早上開門前就有人排隊。"},
+            {name: "Tokyo Banana", day: "Day 6", used: true, item: "香蕉蛋糕 (限定版)", price: "¥1200", desc: "經典中的經典。柔軟的海綿蛋糕包裹著香蕉卡士達內餡。機場常有哆啦A夢、皮卡丘等聯名限定圖案，不僅可愛，口味也持續推陳出新。"},
+            {name: "Sugar Butter Sand Tree", day: "Day 6", used: false, item: "砂糖奶油樹夾心", price: "¥750", desc: "全麥麵粉製作的酥脆餅乾，表面灑滿砂糖顆粒，夾著濃郁的白巧克力醬。奶香十足且口感酥脆，是 7-11 也有販售平價版的高人氣點心。"},
+            {name: "Royce 生巧克力", day: "Day 6", used: true, item: "牛奶/香檳口味", price: "¥800", desc: "機場免稅店必搶。北海道產的鮮奶油與頂級巧克力的完美融合，入口即化，絲滑口感令人陶醉。需冷藏，記得購買保冷袋。"},
+            {name: "薯條三兄弟", day: "Day 6", used: false, item: "北海道薯條", price: "¥900", desc: "雖然是北海道名產，但成田機場免稅店幾乎人手一盒。使用北海道馬鈴薯帶皮切條油炸，酥脆鹹香，讓人一根接一根停不下來的魔性零食。"},
+            {name: "Yoku Moku", day: "Day 5", used: false, item: "雪茄蛋捲", price: "¥1600", desc: "來自青山的西式甜點老店。使用大量北海道奶油製作，捲成雪茄狀的薄餅乾。口感細緻酥脆，濃郁的奶香在口中擴散，是送禮絕不踩雷的高級選擇。"},
+            {name: "東京牛奶起司工房", day: "Day 3", used: false, item: "海鹽卡門貝爾餅乾", price: "¥1080", desc: "使用北海道牛奶與法國蓋朗德海鹽製作的餅乾，夾著卡門貝爾起司巧克力。鹹甜風味非常獨特，配紅酒也非常適合，是大人的口味。"},
+            {name: "And the Friets", day: "Day 5", used: false, item: "特製薯條餅乾", price: "¥1500", desc: "來自廣尾的薯條專門店推出的餅乾。保留了馬鈴薯的原味，有黑松露、鯷魚大蒜等高級口味。時尚的插畫包裝非常有設計感。"},
+            {name: "Audrey", day: "Day 3", used: false, item: "草莓花束餅乾", price: "¥900", desc: "造型像一束小花束，酥脆的捲餅中擠入鮮奶油並放上一顆乾燥草莓。外觀極度可愛，是日本女生收到會尖叫的夢幻伴手禮，常需排隊購買。"},
+            {name: "Toraya (虎屋)", day: "Day 5", used: false, item: "小型羊羹", price: "¥1600", desc: "日本皇室御用的和菓子老舖。羊羹甜度高雅，口感紮實。小型羊羹包裝精美且不需切分，保存期限長，是非常體面的傳統日式伴手禮。"},
+            {name: "福砂屋", day: "Day 1", used: false, item: "長崎蛋糕", price: "¥1200", desc: "雖然源自長崎，但在東京各大百貨皆有設櫃。底部粗砂糖顆粒是其特徵，蛋糕體濕潤綿密，蛋香濃郁。簡單樸實卻有著深奧的美味。"},
+            {name: "Pistachio Mania", day: "Day 3", used: false, item: "開心果夾心餅", price: "¥1600", desc: "專注於開心果的甜點品牌。使用義大利產的開心果醬製作，濃郁的堅果香氣與餅乾的酥脆完美結合，是近年崛起的熱門新寵。"},
+            {name: "Butter Butler", day: "Day 4", used: false, item: "奶油費南雪", price: "¥1000", desc: "曾獲 JR 東日本伴手禮大賞第一名。外層烤得微焦酥脆，內部濕潤充滿楓糖與發酵奶油的香氣。加熱後食用美味更升級。"},
+            {name: "Berne", day: "Day 3", used: false, item: "巧克力千層派", price: "¥1000", desc: "日本第一家製作巧克力千層派的老店。三層酥皮夾著奶油，外層裹上牛奶、甜味或榛果巧克力。口感多層次且不甜膩，一口大小方便食用。"}
+          ];
+
+          document.write(souvenirs.map(s => `
+            <div class="card p-5 flex flex-col gap-2">
+              <div class="flex justify-between items-start">
+                <h3 class="font-bold text-lg ${s.used ? 'red-text' : 'text-blue-800'}">${s.name}</h3>
+                ${s.used ? `<span class="day-tag">關聯：${s.day}</span>` : `<span class="day-tag bg-gray-100 text-gray-500">通用</span>`}
+              </div>
+              <div class="text-sm font-semibold text-gray-700">推：${s.item}</div>
+              <div class="text-xs text-gray-500 font-mono bg-gray-100 inline-block px-2 py-1 rounded self-start"><i class="fa-solid fa-yen-sign"></i> ${s.price}</div>
+              <p class="text-sm-desc mt-1">${s.desc}</p>
+            </div>
+          `).join(''));
+        </script>
+      </div>
+    </section>
+
+    <!-- SECTION: PHOTO SPOTS (10) -->
+    <section id="photo-spots" class="space-y-6">
+      <div class="section-title mb-6">
+        <div class="icon-slot"><i class="fa-solid fa-camera"></i></div>
+        <h2 class="text-2xl font-bold">拍照聖地 (10)</h2>
+      </div>
+      <div class="two-col">
+        <script>
+          const spots = [
+            {name: "根津美術館 竹林參道", desc: "隈研吾設計的經典。一條被竹林包圍的石板小徑，通往美術館入口。光影交錯的氛圍極具禪意，是表參道最優雅的拍照點。", addr: "東京都港区南青山6-5-1"},
+            {name: "新宿思出橫丁", desc: "充滿昭和時代氛圍的狹窄巷弄，掛滿紅燈籠與燒烤店招牌。煙霧繚繞的畫面非常具有電影感，適合夜間拍攝。", addr: "東京都新宿区西新宿1-2"},
+            {name: "淺草雷門", desc: "巨大的紅色燈籠是東京必拍。建議清晨或晚上前往，避開恐怖的人潮，能拍出更有氛圍的獨照。", addr: "東京都台東区浅草2-3-1"},
+            {name: "SHIBUYA SKY 角落", desc: "頂樓全透明玻璃角落，能拍出彷彿漂浮在東京上空的驚人照片。夕陽西下轉夜景的 Magic Hour 最美。", addr: "東京都渋谷区渋谷2-24-12"},
+            {name: "原宿 Tokyu Plaza", desc: "入口處的多角鏡面手扶梯，像萬花筒般反射出人來人往的景象，極具幾何美感與時尚感。", addr: "東京都渋谷区神宮前4-30-3"},
+            {name: "新宿歌舞伎町一番街", desc: "霓虹燈牌林立的入口拱門，充滿賽博龐克風格。夜晚亮燈後最能代表東京繁華與混亂的一面。", addr: "東京都新宿区歌舞伎町1-23"},
+            {name: "東京車站 (行幸通)", desc: "站在行幸通的中央，可以拍到完整的紅磚車站建築全景。夜晚點燈後地板倒影如鏡，婚紗攝影熱點。", addr: "東京都千代田区丸の内1-9-1"},
+            {name: "東京鐵塔 (芝公園)", desc: "從芝公園的草地上，可以拍到被綠意包圍的紅色鐵塔，是經典的野餐視角，適合人像攝影。", addr: "東京都港区芝公園4-10-17"},
+            {name: "根津神社 千本鳥居", desc: "雖然規模不如京都伏見稻荷，但東京市區內也能拍到綿延的紅色鳥居隧道，幽靜且充滿神祕感。", addr: "東京都文京区根津1-28-9"},
+            {name: "豪德寺", desc: "供奉著數千隻招財貓的寺廟。密密麻麻的白貓舉著手，畫面衝擊力十足且非常可愛，貓奴必訪。", addr: "東京都世田谷区豪徳寺2-24-7"}
+          ];
+          document.write(spots.map(p => `
+            <div class="card p-5 flex flex-col gap-2">
+              <h3 class="font-bold text-lg text-blue-800">${p.name}</h3>
+              <p class="text-sm-desc flex-1">${p.desc}</p>
+              <div class="text-xs text-gray-400 mt-2 border-t pt-2 cursor-pointer hover:text-blue-600" id="photo-${Math.random().toString(36).substr(2,9)}" onclick="copyToClipboard(this.id)">
+                <i class="fa-solid fa-location-dot mr-1"></i>${p.addr}
+              </div>
+            </div>
+          `).join(''));
+        </script>
+      </div>
+    </section>
+
+    <!-- SECTION: DESSERTS (10) -->
+    <section id="desserts" class="space-y-6">
+      <div class="section-title mb-6">
+        <div class="icon-slot"><i class="fa-solid fa-mug-hot"></i></div>
+        <h2 class="text-2xl font-bold">甜點與咖啡 (10)</h2>
+      </div>
+      <div class="two-col">
+        <script>
+          const desserts = [
+            {name: "Leaves Coffee Apartment", price: "¥600", desc: "位於東京藏前，隅田川橋畔的街角咖啡。使用挪威 Fuglen 的豆子，手沖咖啡風味明亮。站在店門口拿著咖啡拍照是標準動作。", addr: "東京都台東区駒形2-2-10"},
+            {name: "Shozo Coffee Store", price: "¥550", desc: "表參道 Commune 2nd 旁的小木屋咖啡。來自那須高原的名店。司康是必點招牌，外酥內軟，搭配果醬非常美味。", addr: "東京都港区南青山3-13"},
+            {name: "Blue Bottle Coffee (新宿)", price: "¥600", desc: "位於 NEWoMan 新宿。開放式的吧台設計，可以近距離欣賞手沖過程。是購物逛累時的最佳休息站。", addr: "東京都新宿区新宿4-1-6"},
+            {name: "淺草 龜十", price: "¥400", desc: "東京三大銅鑼燒之一。外皮如同鬆餅般蓬鬆且帶有焦香，內餡分為黑餡 (紅豆) 與白餡 (手亡豆)，口感綿密不死甜，通常需排隊 30 分鐘以上。", addr: "東京都台東区雷門2-18-11"},
+            {name: "Aoyama Flower Market Tea House", price: "¥1000", desc: "在花店裡的溫室享用午茶。店內充滿鮮花與綠植，每週更換主題花卉。招牌是花草茶與法式吐司，環境極度夢幻。", addr: "東京都港区南青山5-1-2"},
+            {name: "Dominique Ansel Bakery", price: "¥850", desc: "紐約怪才甜點師的店。曾發明 Cronut (可頌甜甜圈)。店內常有創意甜點，如烤棉花糖冰淇淋，是表參道時尚人士的聚集地。", addr: "東京都渋谷区神宮前5-7-14"},
+            {name: "Qu'il fait bon (青山)", price: "¥1000", desc: "極受歡迎的水果塔專賣店。依照季節使用最新鮮的水果，塔皮酥脆，卡士達醬清爽。草莓塔與綜合水果塔是店內招牌，視覺如寶石般華麗。", addr: "東京都港区南青山3-18-5"},
+            {name: "Fuglen Tokyo", price: "¥700", desc: "來自挪威的咖啡名店，被紐約時報譽為「值得搭飛機去喝的咖啡」。保留了老屋結構，充滿北歐復古風情，淺焙咖啡帶有明亮果酸。", addr: "東京都渋谷区富ヶ谷1-16-11"},
+            {name: "茶寮都路里", price: "¥1400", desc: "來自京都宇治的抹茶名店。特選都路里聖代層層堆疊了抹茶凍、抹茶冰淇淋、白玉與紅豆。抹茶味極其濃郁，帶有微苦的大人味。", addr: "東京大丸百貨 10F"},
+            {name: "Harbs", day: "Day 4", price: "¥900", desc: "必吃的招牌水果千層，夾滿新鮮水果與不甜膩的卡士達鮮奶油，份量十足。新宿 Lumine Est 店位置方便。", addr: "新宿 / 六本木 / 丸之內"}
+          ];
+          document.write(desserts.map(d => `
+            <div class="card p-5 flex flex-col gap-2">
+              <h3 class="font-bold text-lg ${['Leaves Coffee Apartment','Shozo Coffee Store','Blue Bottle Coffee (新宿)'].includes(d.name) ? 'red-text' : 'text-blue-800'}">${d.name}</h3>
+              <div class="text-xs font-mono bg-blue-50 text-blue-600 inline-block px-2 py-1 rounded self-start">預算: ${d.price}</div>
+              <p class="text-sm-desc flex-1">${d.desc}</p>
+              <div class="text-xs text-gray-400 mt-2 border-t pt-2 cursor-pointer hover:text-blue-600" id="dessert-${Math.random().toString(36).substr(2,9)}" onclick="copyToClipboard(this.id)">
+                <i class="fa-solid fa-location-dot mr-1"></i>${d.addr}
+              </div>
+            </div>
+          `).join(''));
+        </script>
+      </div>
+    </section>
+
+    <!-- SECTION: MARKET (5) -->
+    <section id="market" class="space-y-6">
+      <div class="section-title mb-6">
+        <div class="icon-slot"><i class="fa-solid fa-cart-shopping"></i></div>
+        <h2 class="text-2xl font-bold">超市與雜貨 (5)</h2>
+      </div>
+      <div class="two-col">
+        <script>
+          const markets = [
+            {name: "Life 超市 (上野店)", time: "09:30 - 22:00", desc: "距離上野車站稍有距離但規模較大。一樓是熟食與生鮮，二樓有生活用品。賽前想買香蕉、麵包或優格這裡最齊全，晚間熟食貼標打折是省錢好幫手。", addr: "東京都台東区東上野4-24-11"},
+            {name: "Seijo Ishii (新宿 Lumine)", time: "08:00 - 22:00", desc: "走高品質路線的超市。進口食品與自有品牌的起司蛋糕、松露醬油非常有名。適合買精緻的食品伴手禮，位於新宿車站直結非常方便。", addr: "新宿 Lumine 2 1F"},
+            {name: "Kinokuniya (表參道)", time: "09:30 - 21:00", desc: "紀之國屋超市，是東京高級超市的代表。擁有種類豐富的起司、紅酒與原創環保袋。位於表參道站旁，逛街後可順道補給。", addr: "東京都港区北青山3-11-7"},
+            {name: "Don Quijote (上野店)", time: "24小時營業", desc: "驚安殿堂唐吉訶德。雖然不是傳統超市，但食品區極大且價格極具競爭力。從抹茶餅乾到泡麵、酒類一應俱全，且 24 小時營業，適合深夜最後補貨。", addr: "東京都文京区湯島3-38-10"},
+            {name: "Ito Yokado (食品館)", time: "<span class='red-text'>營業時間未確認</span>", desc: "7&i 控股旗下的超市，品質穩定。通常設有 7-11 銀行的 ATM 方便提款。自有品牌 Seven Premium 的食品性價比極高，特別是泡麵系列。", addr: "東京都內各分店"}
+          ];
+          document.write(markets.map(m => `
+            <div class="card p-5 flex flex-col gap-2">
+              <h3 class="font-bold text-lg ${m.name.includes('Life') ? 'red-text' : 'text-blue-800'}">${m.name}</h3>
+              <div class="text-xs text-gray-500"><i class="fa-regular fa-clock mr-1"></i>${m.time}</div>
+              <p class="text-sm-desc flex-1">${m.desc}</p>
+              <div class="text-xs text-gray-400 mt-2 border-t pt-2 cursor-pointer hover:text-blue-600" id="market-${Math.random().toString(36).substr(2,9)}" onclick="copyToClipboard(this.id)">
+                <i class="fa-solid fa-location-dot mr-1"></i>${m.addr}
+              </div>
+            </div>
+          `).join(''));
+        </script>
+      </div>
+    </section>
+
+  </main>
+
+  <button id="backToTopBtn" class="hidden fixed bottom-8 right-8 bg-blue-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:bg-blue-700 hover:-translate-y-1 transition-all">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <footer class="text-center text-gray-500 text-sm py-8 mt-10 border-t bg-white">
+    <div class="main-container">
+      <p class="mb-2">圖例：<span class="red-text">紅字</span>＝使用者指定／行程主體／已排入項目 ｜ <span class="blue-text">藍字</span>＝系統推薦</p>
+      <p>此行程為離線可用版本 ｜ 版本 v4.0-TokyoHipsterWalk</p>
+    </div>
+  </footer>
+
+  <script>
+    // Tab Switching Logic
+    function showPage(id) {
+      document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Copy to Clipboard
+    function copyToClipboard(elementId) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      const text = el.innerText.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        const originalHTML = el.innerHTML;
+        el.innerHTML = '<i class="fa-solid fa-check text-green-500"></i> 已複製地址';
+        setTimeout(() => {
+          el.innerHTML = originalHTML;
+        }, 1500);
+      });
+    }
+
+    // Back to Top
+    const btn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        btn.classList.remove('hidden');
+      } else {
+        btn.classList.add('hidden');
+      }
+    });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>
