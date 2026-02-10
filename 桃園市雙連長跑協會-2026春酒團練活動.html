@@ -176,6 +176,23 @@
             margin-top: 10px;
         }
 
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .menu-item {
+            background: #fff0f0;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            border: 1px solid #ffcccc;
+            font-weight: bold;
+            color: #d84315;
+        }
+
         @media print {
             body { background: white; }
             .container { box-shadow: none; padding: 0; }
@@ -308,41 +325,89 @@
         </div>
     </section>
 
+    <section id="dining-menu">
+        <h2>五、春酒菜單與用餐說明</h2>
+        <p>本次春酒選定於中壢知名「花田盛事築夢莊園」舉辦，該場地以歐式建築風格與寬敞舒適著稱，適合團體聚餐。</p>
+        
+        <h3>5.1 經典春酒桌菜 (預算規劃參考菜單)</h3>
+        <p style="font-size:0.9em; color:#666;">※ 實際菜色依餐廳當季食材與最終合約為準</p>
+        <div class="menu-grid">
+            <div class="menu-item">1. 花田賜喜大拼盤</div>
+            <div class="menu-item">2. 乾隆極品佛跳牆</div>
+            <div class="menu-item">3. 蒜泥寬粉蒸鮮蝦</div>
+            <div class="menu-item">4. 櫻花蝦蒲燒米糕</div>
+            <div class="menu-item">5. 蔥油甘露海上鮮</div>
+            <div class="menu-item">6. 筍乾富貴滷蹄膀</div>
+            <div class="menu-item">7. 季節田園炒時蔬</div>
+            <div class="menu-item">8. 養生百菇燉雞湯</div>
+            <div class="menu-item">9. 精緻雙色美甜點</div>
+            <div class="menu-item">10. 寶島四季鮮水果</div>
+        </div>
+
+        <h3>5.2 用餐與設施說明</h3>
+        <ul>
+            <li><strong>停車資訊：</strong>餐廳附設 <strong>免費大型停車場</strong>，約可容納 300 台車輛，請依現場人員指揮停放。</li>
+            <li><strong>座位安排：</strong>採圓桌桌菜形式，請依桌次表入座（桌次表將於入口處張貼）。</li>
+            <li><strong>歡唱設備：</strong>包廂/宴會廳提供卡拉 OK 設備，歡迎會員與友團代表點歌同樂。</li>
+            <li><strong>酒水規範：</strong>
+                <ul>
+                    <li>協會統一準備酒水（威士忌/啤酒/飲料）。</li>
+                    <li><strong>嚴禁酒駕</strong>：飲酒者請務必指定駕駛或搭乘計程車/共乘返家。</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
     <section id="budget">
-        <h2>五、預算估計與資源需求</h2>
+        <h2>六、預算估計與資源需求</h2>
         <table>
             <thead>
                 <tr>
-                    <th width="25%">項目</th>
-                    <th width="40%">計算說明</th>
-                    <th width="15%">預估金額</th>
-                    <th width="20%">備註/負責人</th>
+                    <th width="20%">項目</th>
+                    <th width="40%">內容明細</th>
+                    <th width="20%">預估金額</th>
+                    <th width="20%">負責單位</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>早餐/運動補給</strong></td>
-                    <td>終點早餐、水、運動飲料、香蕉、鹽錠</td>
-                    <td>$8,000</td>
-                    <td>統籌：楊梅組 美玲</td>
+                    <td><strong>早餐補給品</strong></td>
+                    <td>
+                        <ul style="margin:0; padding-left:20px; font-size:0.9em;">
+                            <li><strong>主食：</strong>綜合三明治、古早味飯糰 (素/葷)</li>
+                            <li><strong>水果：</strong>香蕉 (每人一根)</li>
+                            <li><strong>飲品：</strong>無糖豆漿、米漿</li>
+                        </ul>
+                    </td>
+                    <td rowspan="2" style="vertical-align:middle;">$8,000</td>
+                    <td rowspan="2" style="vertical-align:middle;">楊梅組<br>(美玲統籌)</td>
+                </tr>
+                <tr>
+                    <td><strong>賽道運動補給</strong></td>
+                    <td>
+                        <ul style="margin:0; padding-left:20px; font-size:0.9em;">
+                            <li>瓶裝水 (30箱)、運動飲料 (15箱)</li>
+                            <li>鹽錠、簡易餅乾</li>
+                        </ul>
+                    </td>
                 </tr>
                 <tr>
                     <td><strong>春酒餐費</strong></td>
-                    <td>預計 10 桌，每桌 $4,500</td>
+                    <td>預計 10 桌，每桌 $4,500 (含服務費)</td>
                     <td>$45,000</td>
-                    <td>預訂：總幹事</td>
+                    <td>總幹事</td>
                 </tr>
                 <tr>
                     <td><strong>酒水飲料</strong></td>
-                    <td>餐會用酒、飲料追加</td>
+                    <td>餐會用酒、飲料追加 (實報實銷)</td>
                     <td>$10,000</td>
-                    <td>實報實銷</td>
+                    <td>總幹事</td>
                 </tr>
                 <tr>
                     <td><strong>雜支預備金</strong></td>
                     <td>紅布條、舞台清潔費、保險補貼等</td>
                     <td>$2,000</td>
-                    <td>預備金</td>
+                    <td>財務</td>
                 </tr>
                 <tr class="budget-total">
                     <td>總支出預估</td>
@@ -361,7 +426,7 @@
     </section>
 
     <section id="timeline-prep">
-        <h2>六、籌備期程規劃 (2/12 - 3/7)</h2>
+        <h2>七、籌備期程規劃 (2/12 - 3/7)</h2>
         <p>為確保活動順利，自2/12起啟動報名與籌備作業，具體分工如下：</p>
         
         <table>
@@ -427,7 +492,7 @@
     </section>
 
     <section id="sop-notes">
-        <h2>七、執行說明與注意事項</h2>
+        <h2>八、執行說明與注意事項</h2>
         <ol>
             <li><strong>友團邀請機制：</strong>
                 <ul>
