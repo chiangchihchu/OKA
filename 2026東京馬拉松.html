@@ -116,16 +116,55 @@
     .copy-feedback { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: #10B981; color: white; padding: 0.5rem 1.5rem; border-radius: 2rem; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
     .copy-feedback.show { opacity: 1; }
     
-    /* 收合元件 */
-    details > summary { list-style: none; cursor: pointer; background: white; padding: 1rem; border-radius: 0.75rem; border: 1px solid #E2E8F0; font-weight: 700; color: var(--blue-800); display: flex; align-items: center; justify-content: space-between; transition: all 0.2s; }
-    details > summary:hover { background: var(--blue-50); }
-    details > summary::after { content: '\f078'; font-family: "Font Awesome 6 Free"; font-weight: 900; transition: transform 0.2s; }
-    details[open] > summary::after { transform: rotate(180deg); }
-    details[open] > summary { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: 1px solid transparent; }
-    .details-content { background: white; border: 1px solid #E2E8F0; border-top: none; border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem; padding: 1rem; }
-
     /* 欄位垂直堆疊 helper */
     .v-stack { display: flex; flex-direction: column; gap: 0.35rem; }
+
+    /* Day Tab Navigation */
+    .day-tabs-container {
+      position: sticky;
+      top: 70px; /* Adjust based on nav height */
+      z-index: 45;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(5px);
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #E2E8F0;
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+      white-space: nowrap;
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+    .day-tabs-container::-webkit-scrollbar { display: none; }
+    
+    .day-tab-btn {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1.25rem;
+      margin: 0 0.25rem;
+      border-radius: 0.75rem;
+      background: #F1F5F9;
+      color: #64748B;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+      min-width: 5rem;
+      flex-shrink: 0;
+    }
+    .day-tab-btn span { font-size: 0.75rem; font-weight: 500; opacity: 0.8; }
+    .day-tab-btn.active {
+      background: var(--blue-600);
+      color: white;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+      transform: translateY(-1px);
+    }
+    .day-tab-btn:hover:not(.active) { background: #E2E8F0; color: #475569; }
+
+    /* Day Content Animation */
+    .day-content { display: none; animation: fadeInDay 0.3s ease-out; }
+    .day-content.active { display: block; }
+    @keyframes fadeInDay { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
@@ -178,18 +217,19 @@
   <main class="main-container px-4 mt-6">
     
     <!-- ================= HOME SECTION ================= -->
-    <section id="home" class="active space-y-10">
+    <section id="home" class="active">
       
       <!-- 區塊 A: 行程總覽 x 每日重點 -->
-      <div class="bg-white rounded-2xl shadow-sm border border-blue-100 p-6">
+      <div class="bg-white rounded-2xl shadow-sm border border-blue-100 p-6 mb-8">
         <div class="flex items-center gap-3 mb-6 border-b border-gray-100 pb-4">
           <div class="icon-slot bg-blue-600 text-white shadow-lg"><i class="fa-solid fa-list-check"></i></div>
           <h2 class="text-xl font-bold text-gray-800">行程總覽 × 每日重點</h2>
+          <span class="text-xs text-gray-400 ml-auto bg-gray-100 px-2 py-1 rounded">點擊卡片跳轉行程</span>
         </div>
         
         <div class="two-col-grid">
           <!-- Day 1 -->
-          <div class="card">
+          <div class="card cursor-pointer hover:border-blue-300" onclick="selectDay(1)">
             <div class="flex items-center justify-between mb-3">
               <span class="font-bold text-lg text-blue-700">Day 1 <span class="text-sm font-normal text-gray-500">02/27 (五)</span></span>
               <i class="fa-solid fa-plane text-blue-300"></i>
@@ -206,7 +246,7 @@
           </div>
 
           <!-- Day 2 -->
-          <div class="card">
+          <div class="card cursor-pointer hover:border-blue-300" onclick="selectDay(2)">
             <div class="flex items-center justify-between mb-3">
               <span class="font-bold text-lg text-blue-700">Day 2 <span class="text-sm font-normal text-gray-500">02/28 (六)</span></span>
               <i class="fa-solid fa-handshake text-blue-300"></i>
@@ -223,7 +263,7 @@
           </div>
 
           <!-- Day 3 -->
-          <div class="card border-l-4 border-l-red-500">
+          <div class="card border-l-4 border-l-red-500 cursor-pointer hover:border-red-300" onclick="selectDay(3)">
             <div class="flex items-center justify-between mb-3">
               <span class="font-bold text-lg text-red-600">Day 3 <span class="text-sm font-normal text-gray-500">03/01 (日)</span></span>
               <i class="fa-solid fa-trophy text-red-400"></i>
@@ -240,7 +280,7 @@
           </div>
 
           <!-- Day 4 -->
-          <div class="card">
+          <div class="card cursor-pointer hover:border-blue-300" onclick="selectDay(4)">
             <div class="flex items-center justify-between mb-3">
               <span class="font-bold text-lg text-blue-700">Day 4 <span class="text-sm font-normal text-gray-500">03/02 (一)</span></span>
               <i class="fa-solid fa-bag-shopping text-blue-300"></i>
@@ -257,7 +297,7 @@
           </div>
 
           <!-- Day 5 -->
-          <div class="card">
+          <div class="card cursor-pointer hover:border-blue-300" onclick="selectDay(5)">
             <div class="flex items-center justify-between mb-3">
               <span class="font-bold text-lg text-blue-700">Day 5 <span class="text-sm font-normal text-gray-500">03/03 (二)</span></span>
               <i class="fa-solid fa-tree text-blue-300"></i>
@@ -274,7 +314,7 @@
           </div>
 
           <!-- Day 6 -->
-          <div class="card">
+          <div class="card cursor-pointer hover:border-blue-300" onclick="selectDay(6)">
             <div class="flex items-center justify-between mb-3">
               <span class="font-bold text-lg text-blue-700">Day 6 <span class="text-sm font-normal text-gray-500">03/04 (三)</span></span>
               <i class="fa-solid fa-plane-departure text-blue-300"></i>
@@ -292,686 +332,701 @@
         </div>
       </div>
 
-      <!-- 區塊 B: 每日詳細行程 -->
-      <div class="space-y-12">
+      <!-- 區塊 B: 每日詳細行程 (Tab 切換) -->
+      <div id="schedule-anchor" class="space-y-4">
         
-        <!-- DAY 1 -->
-        <div class="day-section">
-          <div class="flex items-center gap-3 mb-4 sticky top-16 bg-blue-50/90 backdrop-blur p-3 rounded-lg z-40 border border-blue-200">
-            <div class="bg-blue-600 text-white w-10 h-10 rounded-lg flex items-center justify-center font-bold text-lg shadow">D1</div>
-            <div>
-              <h3 class="text-xl font-bold text-blue-900">2月27日 (週五) 出發與報到</h3>
-              <p class="text-xs text-gray-500">移動重點日 ｜ <span class="user-input">航班 CI/BR</span> ｜ <span class="user-input">住宿：東京市區飯店 (待定)</span></p>
-            </div>
-          </div>
-          <div class="timeline-container space-y-6">
-            <!-- Morning -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Morning</h4>
-              
-              <!-- Event 1 -->
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-taxi"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">05:00 ~ 06:00</span>
-                  <p class="font-bold user-input">預約送機 (肯驛國際)</p>
-                  <p class="text-sm text-gray-600">前往桃園機場 T2，辦理登機手續。</p>
-                </div>
-              </div>
-
-              <!-- Event 2 -->
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-plane-departure"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">07:55 ~ 12:00</span>
-                  <p class="font-bold user-input">搭乘航班前往東京 (TPE → NRT)</p>
-                  <p class="text-sm text-gray-600">預計 12:00 抵達東京成田國際機場。</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Transport -->
-            <div class="transport-card">
-              <div class="font-bold text-blue-700"><i class="fa-solid fa-train mr-2"></i>Skyliner 京成電鐵</div>
-              <div>Route: 成田機場 → 日暮里/上野</div>
-              <div class="flex gap-4 text-xs mt-1">
-                <span>ETA: 45分</span>
-                <span>Cost: ¥2,570</span>
-              </div>
-            </div>
-
-            <!-- Afternoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Afternoon</h4>
-              
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">13:30 ~ 14:30</span>
-                  <p class="font-bold system-gen">午餐：機場或上野周邊簡餐</p>
-                  <p class="text-sm text-gray-600">建議：<span class="user-input font-bold">名代 宇奈とと (鰻魚飯)</span> (美食清單 NO.12)</p>
-                  <p class="text-xs text-gray-500">預算：¥1,000 - ¥2,000</p>
-                </div>
-              </div>
-
-              <div class="transport-card">
-                <div class="font-bold text-blue-700"><i class="fa-solid fa-subway mr-2"></i>百合海鷗號 / 臨海線</div>
-                <div>Route: 市區 → 東京國際展示場 (Tokyo Big Sight)</div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-id-card"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">15:30 ~ 17:30</span>
-                  <p class="font-bold user-input">東京馬拉松 EXPO 報到</p>
-                  <p class="text-sm text-gray-600">地點：Tokyo Big Sight。領取號碼布、晶片，參觀贊助商攤位。</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Evening -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Evening</h4>
-              
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-suitcase"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">18:30 ~ 19:00</span>
-                  <p class="font-bold system-gen">飯店 Check-in</p>
-                  <p class="text-sm text-gray-600">放置行李，整理裝備。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">19:30 ~ 21:00</span>
-                  <p class="font-bold system-gen">晚餐：能量補給</p>
-                  <p class="text-sm text-gray-600">推薦：<span class="system-gen">新宿 つな八 (天婦羅)</span> 或 烏龍麵。</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Note -->
-            <div class="info-missing">
-              <i class="fa-solid fa-circle-exclamation mr-1"></i>
-              註：本日因包含國際飛行與EXPO報到，行程較滿，未強制列滿10項細節，以確保休息。
-            </div>
+        <!-- Day Tabs Navigation (Sticky) -->
+        <div class="day-tabs-container">
+          <div class="max-w-6xl mx-auto flex px-2" id="dayTabsList">
+            <button class="day-tab-btn active" onclick="selectDay(1)">Day 1<span>02/27</span></button>
+            <button class="day-tab-btn" onclick="selectDay(2)">Day 2<span>02/28</span></button>
+            <button class="day-tab-btn" onclick="selectDay(3)">Day 3<span class="text-red-500 font-bold">賽事日</span></button>
+            <button class="day-tab-btn" onclick="selectDay(4)">Day 4<span>03/02</span></button>
+            <button class="day-tab-btn" onclick="selectDay(5)">Day 5<span>03/03</span></button>
+            <button class="day-tab-btn" onclick="selectDay(6)">Day 6<span>03/04</span></button>
           </div>
         </div>
 
-        <!-- DAY 2 -->
-        <div class="day-section">
-          <div class="flex items-center gap-3 mb-4 sticky top-16 bg-blue-50/90 backdrop-blur p-3 rounded-lg z-40 border border-blue-200">
-            <div class="bg-blue-600 text-white w-10 h-10 rounded-lg flex items-center justify-center font-bold text-lg shadow">D2</div>
-            <div>
-              <h3 class="text-xl font-bold text-blue-900">2月28日 (週六) 友誼跑與淺草</h3>
-              <p class="text-xs text-gray-500">完整的一天 ｜ 重點：<span class="user-input">Friendship Run</span></p>
+        <div id="daily-schedule-content" class="min-h-[500px]">
+          
+          <!-- DAY 1 Content -->
+          <div id="day-content-1" class="day-content active">
+            <div class="flex items-center gap-3 mb-4 bg-blue-50/90 backdrop-blur p-4 rounded-lg border border-blue-200 shadow-sm">
+              <div class="bg-blue-600 text-white w-12 h-12 rounded-lg flex items-center justify-center font-bold text-xl shadow">D1</div>
+              <div>
+                <h3 class="text-2xl font-bold text-blue-900">2月27日 (週五) 出發與報到</h3>
+                <p class="text-sm text-gray-500">移動重點日 ｜ <span class="user-input">航班 CI/BR</span> ｜ <span class="user-input">住宿：東京市區飯店 (待定)</span></p>
+              </div>
             </div>
-          </div>
-          <div class="timeline-container space-y-6">
-            <!-- Morning -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Morning</h4>
-              
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-mug-hot"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">07:30 ~ 08:30</span>
-                  <p class="font-bold system-gen">早餐：飯店或超商輕食</p>
-                  <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">7-11 飯糰與咖啡</span> (超市清單 NO.1)</p>
+            <div class="timeline-container space-y-6">
+              <!-- Morning -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Morning</h4>
+                
+                <!-- Event 1 -->
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-taxi"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">05:00 ~ 06:00</span>
+                    <p class="font-bold user-input">預約送機 (肯驛國際)</p>
+                    <p class="text-sm text-gray-600">前往桃園機場 T2，辦理登機手續。</p>
+                  </div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-plane-departure"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">07:55 ~ 12:00</span>
+                    <p class="font-bold user-input">搭乘航班前往東京 (TPE → NRT)</p>
+                    <p class="text-sm text-gray-600">預計 12:00 抵達東京成田國際機場。</p>
+                  </div>
                 </div>
               </div>
 
+              <!-- Transport -->
               <div class="transport-card">
-                <div class="font-bold text-blue-700"><i class="fa-solid fa-subway mr-2"></i>地鐵/電車</div>
-                <div>Route: 飯店 → 淺草站 (步行至台東體育中心)</div>
-                <div class="flex gap-4 text-xs mt-1"><span>ETA: 30分</span></div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-users"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">09:00 ~ 09:45</span>
-                  <p class="font-bold user-input">Friendship Run 接待</p>
-                  <p class="text-sm text-gray-600">地點：臺東河畔體育中心田徑場。感受國際跑者氛圍。</p>
+                <div class="font-bold text-blue-700"><i class="fa-solid fa-train mr-2"></i>Skyliner 京成電鐵</div>
+                <div>Route: 成田機場 → 日暮里/上野</div>
+                <div class="flex gap-4 text-xs mt-1">
+                  <span>ETA: 45分</span>
+                  <span>Cost: ¥2,570</span>
                 </div>
               </div>
 
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-flag-checkered"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">09:45 ~ 10:30</span>
-                  <p class="font-bold user-input">開幕與起跑 (10:00 Start)</p>
-                  <p class="text-sm text-gray-600">輕鬆跑，享受樂趣，預計 10:30 結束。</p>
+              <!-- Afternoon -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Afternoon</h4>
+                
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">13:30 ~ 14:30</span>
+                    <p class="font-bold system-gen">午餐：機場或上野周邊簡餐</p>
+                    <p class="text-sm text-gray-600">建議：<span class="user-input font-bold">名代 宇奈とと (鰻魚飯)</span> (美食清單 NO.12)</p>
+                    <p class="text-xs text-gray-500">預算：¥1,000 - ¥2,000</p>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            <!-- Forenoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Forenoon</h4>
-              
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-gopuram"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">11:00 ~ 12:30</span>
-                  <p class="font-bold system-gen">淺草寺雷門參拜</p>
-                  <p class="text-sm text-gray-600">景點 NO.1 <span class="user-input font-bold">淺草寺</span>。祈求明日賽事順利。</p>
+                <div class="transport-card">
+                  <div class="font-bold text-blue-700"><i class="fa-solid fa-subway mr-2"></i>百合海鷗號 / 臨海線</div>
+                  <div>Route: 市區 → 東京國際展示場 (Tokyo Big Sight)</div>
                 </div>
-              </div>
-            </div>
 
-            <!-- Afternoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Afternoon</h4>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">12:30 ~ 13:30</span>
-                  <p class="font-bold system-gen">午餐：淺草老街美食</p>
-                  <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">淺草今半 (壽喜燒)</span> (美食清單 NO.3)。需補充優質肉類與碳水。</p>
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-id-card"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">15:30 ~ 17:30</span>
+                    <p class="font-bold user-input">東京馬拉松 EXPO 報到</p>
+                    <p class="text-sm text-gray-600">地點：Tokyo Big Sight。領取號碼布、晶片，參觀贊助商攤位。</p>
+                  </div>
                 </div>
               </div>
 
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-cookie-bite"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">13:30 ~ 14:30</span>
-                  <p class="font-bold system-gen">仲見世通散策 & 甜點</p>
-                  <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">淺草吉備糰子</span> (甜點 NO.2)。</p>
+              <!-- Evening -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Evening</h4>
+                
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-suitcase"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">18:30 ~ 19:00</span>
+                    <p class="font-bold system-gen">飯店 Check-in</p>
+                    <p class="text-sm text-gray-600">放置行李，整理裝備。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">19:30 ~ 21:00</span>
+                    <p class="font-bold system-gen">晚餐：能量補給</p>
+                    <p class="text-sm text-gray-600">推薦：<span class="system-gen">新宿 つな八 (天婦羅)</span> 或 烏龍麵。</p>
+                  </div>
                 </div>
               </div>
 
-              <div class="transport-card">
-                <div class="font-bold text-blue-700"><i class="fa-solid fa-person-walking mr-2"></i>步行</div>
-                <div>Route: 淺草 → 隅田川步道 → 晴空塔</div>
-                <div class="flex gap-4 text-xs mt-1"><span>Time: 20分</span></div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-tower-observation"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">15:00 ~ 16:30</span>
-                  <p class="font-bold system-gen">東京晴空塔 (Tokyo Skytree)</p>
-                  <p class="text-sm text-gray-600">景點 NO.2 <span class="user-input font-bold">晴空塔</span>。不登塔也可在 Solamachi 逛逛。</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Evening -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Evening</h4>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-basket-shopping"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">17:00 ~ 18:00</span>
-                  <p class="font-bold system-gen">賽前物資最後確認</p>
-                  <p class="text-sm text-gray-600">前往 <span class="user-input font-bold">Life 超市</span> (超市清單 NO.2) 購買明日早餐與能量膠。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">18:30 ~ 19:30</span>
-                  <p class="font-bold system-gen">晚餐：賽前肝醣超補</p>
-                  <p class="text-sm text-gray-600">推薦：義大利麵或日式定食。避免生食。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-bed"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">20:30</span>
-                  <p class="font-bold system-gen">休息就寢</p>
-                  <p class="text-sm text-gray-600">整理好號碼布，早睡迎接挑戰。</p>
-                </div>
+              <!-- Note -->
+              <div class="info-missing">
+                <i class="fa-solid fa-circle-exclamation mr-1"></i>
+                註：本日因包含國際飛行與EXPO報到，行程較滿，未強制列滿10項細節，以確保休息。
               </div>
             </div>
           </div>
+
+          <!-- DAY 2 Content -->
+          <div id="day-content-2" class="day-content">
+            <div class="flex items-center gap-3 mb-4 bg-blue-50/90 backdrop-blur p-4 rounded-lg border border-blue-200 shadow-sm">
+              <div class="bg-blue-600 text-white w-12 h-12 rounded-lg flex items-center justify-center font-bold text-xl shadow">D2</div>
+              <div>
+                <h3 class="text-2xl font-bold text-blue-900">2月28日 (週六) 友誼跑與淺草</h3>
+                <p class="text-sm text-gray-500">完整的一天 ｜ 重點：<span class="user-input">Friendship Run</span></p>
+              </div>
+            </div>
+            <div class="timeline-container space-y-6">
+              <!-- Morning -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Morning</h4>
+                
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-mug-hot"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">07:30 ~ 08:30</span>
+                    <p class="font-bold system-gen">早餐：飯店或超商輕食</p>
+                    <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">7-11 飯糰與咖啡</span> (超市清單 NO.1)</p>
+                  </div>
+                </div>
+
+                <div class="transport-card">
+                  <div class="font-bold text-blue-700"><i class="fa-solid fa-subway mr-2"></i>地鐵/電車</div>
+                  <div>Route: 飯店 → 淺草站 (步行至台東體育中心)</div>
+                  <div class="flex gap-4 text-xs mt-1"><span>ETA: 30分</span></div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-users"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">09:00 ~ 09:45</span>
+                    <p class="font-bold user-input">Friendship Run 接待</p>
+                    <p class="text-sm text-gray-600">地點：臺東河畔體育中心田徑場。感受國際跑者氛圍。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-flag-checkered"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">09:45 ~ 10:30</span>
+                    <p class="font-bold user-input">開幕與起跑 (10:00 Start)</p>
+                    <p class="text-sm text-gray-600">輕鬆跑，享受樂趣，預計 10:30 結束。</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Forenoon -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Forenoon</h4>
+                
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-gopuram"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">11:00 ~ 12:30</span>
+                    <p class="font-bold system-gen">淺草寺雷門參拜</p>
+                    <p class="text-sm text-gray-600">景點 NO.1 <span class="user-input font-bold">淺草寺</span>。祈求明日賽事順利。</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Afternoon -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Afternoon</h4>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">12:30 ~ 13:30</span>
+                    <p class="font-bold system-gen">午餐：淺草老街美食</p>
+                    <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">淺草今半 (壽喜燒)</span> (美食清單 NO.3)。需補充優質肉類與碳水。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-cookie-bite"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">13:30 ~ 14:30</span>
+                    <p class="font-bold system-gen">仲見世通散策 & 甜點</p>
+                    <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">淺草吉備糰子</span> (甜點 NO.2)。</p>
+                  </div>
+                </div>
+
+                <div class="transport-card">
+                  <div class="font-bold text-blue-700"><i class="fa-solid fa-person-walking mr-2"></i>步行</div>
+                  <div>Route: 淺草 → 隅田川步道 → 晴空塔</div>
+                  <div class="flex gap-4 text-xs mt-1"><span>Time: 20分</span></div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-tower-observation"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">15:00 ~ 16:30</span>
+                    <p class="font-bold system-gen">東京晴空塔 (Tokyo Skytree)</p>
+                    <p class="text-sm text-gray-600">景點 NO.2 <span class="user-input font-bold">晴空塔</span>。不登塔也可在 Solamachi 逛逛。</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Evening -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Evening</h4>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-basket-shopping"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">17:00 ~ 18:00</span>
+                    <p class="font-bold system-gen">賽前物資最後確認</p>
+                    <p class="text-sm text-gray-600">前往 <span class="user-input font-bold">Life 超市</span> (超市清單 NO.2) 購買明日早餐與能量膠。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">18:30 ~ 19:30</span>
+                    <p class="font-bold system-gen">晚餐：賽前肝醣超補</p>
+                    <p class="text-sm text-gray-600">推薦：義大利麵或日式定食。避免生食。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-bed"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">20:30</span>
+                    <p class="font-bold system-gen">休息就寢</p>
+                    <p class="text-sm text-gray-600">整理好號碼布，早睡迎接挑戰。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DAY 3 Content -->
+          <div id="day-content-3" class="day-content">
+            <div class="flex items-center gap-3 mb-4 bg-red-50/90 backdrop-blur p-4 rounded-lg border-l-4 border-red-500 shadow-sm">
+              <div class="bg-red-600 text-white w-12 h-12 rounded-lg flex items-center justify-center font-bold text-xl shadow">D3</div>
+              <div>
+                <h3 class="text-2xl font-bold text-red-700">3月1日 (週日) 東京馬拉松 2026</h3>
+                <p class="text-sm text-gray-500">賽事日 ｜ <span class="user-input">Tokyo Marathon</span></p>
+              </div>
+            </div>
+            <div class="timeline-container space-y-6">
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Race Timeline</h4>
+                
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-sun"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">06:00 ~ 07:00</span>
+                    <p class="font-bold system-gen">起床 & 早餐</p>
+                    <p class="text-sm text-gray-600">吃習慣的早餐 (麵包、香蕉、咖啡)。</p>
+                  </div>
+                </div>
+
+                <div class="transport-card">
+                  <div class="font-bold text-blue-700"><i class="fa-solid fa-train mr-2"></i>前往起點</div>
+                  <div>Route: 飯店 → 新宿都廳 (起點)</div>
+                  <div class="flex gap-4 text-xs mt-1"><span>Gate Close: 依分區時間</span></div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-person-running"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">09:10 ~ 15:00</span>
+                    <p class="font-bold user-input">東京馬拉松 2026</p>
+                    <p class="text-sm text-gray-600">享受 42.195km 的旅程。終點：東京車站/皇居前。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-medal"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">15:00 ~ 16:00</span>
+                    <p class="font-bold system-gen">賽後領物 & 更衣</p>
+                    <p class="text-sm text-gray-600">領取獎牌、毛巾，保暖並前往會合點。</p>
+                  </div>
+                </div>
+
+                <div class="transport-card">
+                  <div class="font-bold text-blue-700"><i class="fa-solid fa-taxi mr-2"></i>計程車/地鐵</div>
+                  <div>Route: 終點 → 飯店</div>
+                  <div class="text-xs mt-1 text-gray-500">賽後建議搭車減少步行</div>
+                </div>
+                
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-hot-tub-person"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">17:00 ~ 18:30</span>
+                    <p class="font-bold system-gen">飯店梳洗 / 泡澡</p>
+                    <p class="text-sm text-gray-600">放鬆肌肉，貼足貼。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-beer-mug-empty"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">19:00 ~ 21:00</span>
+                    <p class="font-bold system-gen">慶功宴晚餐</p>
+                    <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">敘敘苑燒肉</span> (美食清單 NO.1)。補充蛋白質慰勞自己。</p>
+                  </div>
+                </div>
+              </div>
+               <!-- Note -->
+              <div class="info-missing">
+                <i class="fa-solid fa-circle-exclamation mr-1"></i>
+                註：本日為全馬賽事日，體力消耗巨大，下午行程保留彈性，未強制排滿10項活動。
+              </div>
+            </div>
+          </div>
+
+          <!-- DAY 4 Content -->
+          <div id="day-content-4" class="day-content">
+            <div class="flex items-center gap-3 mb-4 bg-blue-50/90 backdrop-blur p-4 rounded-lg border border-blue-200 shadow-sm">
+              <div class="bg-blue-600 text-white w-12 h-12 rounded-lg flex items-center justify-center font-bold text-xl shadow">D4</div>
+              <div>
+                <h3 class="text-2xl font-bold text-blue-900">3月2日 (週一) 御殿場 Outlet</h3>
+                <p class="text-sm text-gray-500">購物日 ｜ <span class="user-input">御殿場 Premium Outlets</span></p>
+              </div>
+            </div>
+            <div class="timeline-container space-y-6">
+              <!-- Morning -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Morning</h4>
+                
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-coffee"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">08:00 ~ 08:30</span>
+                    <p class="font-bold system-gen">簡單早餐</p>
+                    <p class="text-sm text-gray-600">前往巴士站前購買咖啡。</p>
+                  </div>
+                </div>
+
+                <div class="transport-card">
+                  <div class="font-bold text-blue-700"><i class="fa-solid fa-bus mr-2"></i>直達巴士</div>
+                  <div>Route: 新宿/東京車站 → 御殿場 Premium Outlets</div>
+                  <div class="flex gap-4 text-xs mt-1"><span>ETA: 90-100分</span><span>需預約</span></div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-camera"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">10:30 ~ 11:00</span>
+                    <p class="font-bold system-gen">抵達與富士山合影</p>
+                    <p class="text-sm text-gray-600">拍照聖地 NO.1 <span class="user-input font-bold">御殿場夢之大橋</span>。天氣好可見富士山。</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Forenoon / Afternoon -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Shopping Time</h4>
+                
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">11:00 ~ 13:00</span>
+                    <p class="font-bold user-input">上半場購物衝刺</p>
+                    <p class="text-sm text-gray-600">運動品牌區 (Nike, Adidas, Asics) 尋找裝備。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">13:00 ~ 14:00</span>
+                    <p class="font-bold system-gen">午餐：Outlet 美食街</p>
+                    <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">さわやか (Sawayaka) 漢堡排</span> (美食清單 NO.8)。需先抽號碼牌。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-brands fa-apple"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">14:00 ~ 16:30</span>
+                    <p class="font-bold user-input">下半場購物與伴手禮</p>
+                    <p class="text-sm text-gray-600">精品區與生活雜貨。購買 <span class="user-input font-bold">富士山造型餅乾</span> (伴手禮 NO.5)。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-ice-cream"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">16:30 ~ 17:00</span>
+                    <p class="font-bold system-gen">休息甜點</p>
+                    <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">Laduree 馬卡龍</span> 或可麗餅。</p>
+                  </div>
+                </div>
+
+                <div class="transport-card">
+                  <div class="font-bold text-blue-700"><i class="fa-solid fa-bus mr-2"></i>直達巴士 (回程)</div>
+                  <div>Route: 御殿場 → 東京市區</div>
+                  <div class="flex gap-4 text-xs mt-1"><span>ETA: 100分</span><span>可能遇塞車</span></div>
+                </div>
+              </div>
+
+              <!-- Evening -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Evening</h4>
+                
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-bowl-food"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">19:30 ~ 20:30</span>
+                    <p class="font-bold system-gen">晚餐：暖呼呼拉麵</p>
+                    <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">AFURI 阿夫利 柚子鹽拉麵</span> (美食清單 NO.2)。清爽解膩。</p>
+                  </div>
+                </div>
+
+                 <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-store"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">20:30 ~ 21:30</span>
+                    <p class="font-bold system-gen">藥妝店補貨</p>
+                    <p class="text-sm text-gray-600">前往 <span class="user-input font-bold">松本清</span> 購買休足時間、貼布。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-moon"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">22:00</span>
+                    <p class="font-bold system-gen">返回飯店休息</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DAY 5 Content -->
+          <div id="day-content-5" class="day-content">
+            <div class="flex items-center gap-3 mb-4 bg-blue-50/90 backdrop-blur p-4 rounded-lg border border-blue-200 shadow-sm">
+              <div class="bg-blue-600 text-white w-12 h-12 rounded-lg flex items-center justify-center font-bold text-xl shadow">D5</div>
+              <div>
+                <h3 class="text-2xl font-bold text-blue-900">3月3日 (週二) 公園散策與下町</h3>
+                <p class="text-sm text-gray-500">完整的一天 ｜ <span class="user-input">西新小岩五丁目公園</span></p>
+              </div>
+            </div>
+            <div class="timeline-container space-y-6">
+              <!-- Morning -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Morning</h4>
+                
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-mug-saucer"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">08:30 ~ 09:30</span>
+                    <p class="font-bold system-gen">悠閒早餐</p>
+                    <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">Komeda's Coffee</span> (甜點咖啡 NO.3)。點咖啡送吐司。</p>
+                  </div>
+                </div>
+
+                <div class="transport-card">
+                  <div class="font-bold text-blue-700"><i class="fa-solid fa-train mr-2"></i>JR總武線</div>
+                  <div>Route: 市區 → 新小岩站</div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-child-reaching"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">10:00 ~ 11:30</span>
+                    <p class="font-bold user-input">西新小岩五丁目公園 (Monster Park)</p>
+                    <p class="text-sm text-gray-600">景點 NO.18 <span class="user-input font-bold">怪獸公園</span>。特色遊具與悠閒散步。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-camera-retro"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">11:30 ~ 12:30</span>
+                    <p class="font-bold system-gen">新小岩商店街散策</p>
+                    <p class="text-sm text-gray-600">感受下町風情，購買在地零食。</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Afternoon -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Afternoon</h4>
+                
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">12:30 ~ 13:30</span>
+                    <p class="font-bold system-gen">午餐：下町美食</p>
+                    <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">麵屋 一燈 (拉麵)</span> (美食清單 NO.5)。新小岩名店。</p>
+                  </div>
+                </div>
+
+                <div class="transport-card">
+                  <div class="font-bold text-blue-700"><i class="fa-solid fa-train mr-2"></i>電車</div>
+                  <div>Route: 新小岩 → 錦糸町/押上</div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-building"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">14:00 ~ 16:00</span>
+                    <p class="font-bold system-gen">錦糸町 Parco / 阿卡將</p>
+                    <p class="text-sm text-gray-600">如有親子需求可逛阿卡將本舖，或逛 Parco。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-cake-candles"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">16:00 ~ 17:00</span>
+                    <p class="font-bold system-gen">下午茶時光</p>
+                    <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">Quil Fait Bon 水果塔</span> (甜點咖啡 NO.1)。</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Evening -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Evening</h4>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-landmark"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">17:30 ~ 18:30</span>
+                    <p class="font-bold system-gen">晴空塔夜景 (遠眺)</p>
+                    <p class="text-sm text-gray-600">拍照聖地 NO.2 <span class="user-input font-bold">十間橋</span>。拍攝晴空塔倒影。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">19:00 ~ 20:30</span>
+                    <p class="font-bold system-gen">晚餐：迴轉壽司</p>
+                    <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">Toriton 迴轉壽司</span> (美食清單 NO.4)。位於晴空塔城內。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">20:30 ~ 21:00</span>
+                    <p class="font-bold system-gen">超市最後巡禮</p>
+                    <p class="text-sm text-gray-600">前往 <span class="user-input font-bold">Ito Yokado</span> (超市清單 NO.3) 購買調味料、泡麵帶回國。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-box-open"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">22:00</span>
+                    <p class="font-bold system-gen">打包行李</p>
+                    <p class="text-sm text-gray-600">明天回國，整理戰利品。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DAY 6 Content -->
+          <div id="day-content-6" class="day-content">
+            <div class="flex items-center gap-3 mb-4 bg-blue-50/90 backdrop-blur p-4 rounded-lg border border-blue-200 shadow-sm">
+              <div class="bg-blue-600 text-white w-12 h-12 rounded-lg flex items-center justify-center font-bold text-xl shadow">D6</div>
+              <div>
+                <h3 class="text-2xl font-bold text-blue-900">3月4日 (週三) 最後衝刺與返台</h3>
+                <p class="text-sm text-gray-500">返程日 ｜ <span class="user-input">NRT T1 20:20 飛</span></p>
+              </div>
+            </div>
+            <div class="timeline-container space-y-6">
+              <!-- Morning -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Morning</h4>
+                
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-right-from-bracket"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">10:00 ~ 11:00</span>
+                    <p class="font-bold system-gen">飯店 Check-out</p>
+                    <p class="text-sm text-gray-600">寄放行李或前往京成上野站寄物。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-tree"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">11:00 ~ 12:30</span>
+                    <p class="font-bold system-gen">上野公園散步</p>
+                    <p class="text-sm text-gray-600">景點 NO.5 <span class="user-input font-bold">上野恩賜公園</span>。享受最後的東京空氣。</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Afternoon -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Afternoon</h4>
+                
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">12:30 ~ 13:30</span>
+                    <p class="font-bold system-gen">午餐：上野美食</p>
+                    <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">山家炸豬排</span> (美食清單 NO.6)。CP值高。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-store"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">13:30 ~ 15:30</span>
+                    <p class="font-bold system-gen">阿美橫丁最後採買</p>
+                    <p class="text-sm text-gray-600">購買 <span class="user-input font-bold">二木的菓子</span> (伴手禮 NO.3)。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-coffee"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">15:30 ~ 16:30</span>
+                    <p class="font-bold system-gen">休息整裝</p>
+                    <p class="text-sm text-gray-600">整理隨身行李，準備前往機場。</p>
+                  </div>
+                </div>
+
+                <div class="transport-card">
+                  <div class="font-bold text-blue-700"><i class="fa-solid fa-train mr-2"></i>Skyliner</div>
+                  <div>Route: 京成上野 → 成田機場 T1</div>
+                  <div class="flex gap-4 text-xs mt-1"><span>Dep: 17:00</span><span>Arr: 17:45</span></div>
+                </div>
+              </div>
+
+              <!-- Evening -->
+              <div class="time-block">
+                <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Evening</h4>
+                
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-passport"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">17:45 ~ 18:30</span>
+                    <p class="font-bold system-gen">機場報到與掛行李</p>
+                    <p class="text-sm text-gray-600">確認行李重量，辦理登機。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">18:30 ~ 19:30</span>
+                    <p class="font-bold system-gen">晚餐：機場餐廳</p>
+                    <p class="text-sm text-gray-600">推薦：機場內拉麵或日式定食，花完剩下的零錢。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-gift"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">19:30 ~ 20:00</span>
+                    <p class="font-bold system-gen">免稅店購物</p>
+                    <p class="text-sm text-gray-600">購買 <span class="user-input font-bold">Tokyo Banana</span>、<span class="user-input font-bold">Royce 巧克力</span> (伴手禮 NO.1, NO.2)。</p>
+                  </div>
+                </div>
+
+                <div class="item">
+                  <div class="icon-slot"><i class="fa-solid fa-plane-departure"></i></div>
+                  <div class="text-slot">
+                    <span class="time-badge">20:20 ~ 23:25</span>
+                    <p class="font-bold user-input">搭機返台 (NRT → TPE)</p>
+                    <p class="text-sm text-gray-600">抵達桃園機場，搭乘接送返家。旅程結束。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-
-        <!-- DAY 3 -->
-        <div class="day-section">
-          <div class="flex items-center gap-3 mb-4 sticky top-16 bg-white/90 backdrop-blur p-3 rounded-lg z-40 border-l-4 border-red-500 shadow-sm">
-            <div class="bg-red-600 text-white w-10 h-10 rounded-lg flex items-center justify-center font-bold text-lg shadow">D3</div>
-            <div>
-              <h3 class="text-xl font-bold text-red-700">3月1日 (週日) 東京馬拉松 2026</h3>
-              <p class="text-xs text-gray-500">賽事日 ｜ <span class="user-input">Tokyo Marathon</span></p>
-            </div>
-          </div>
-          <div class="timeline-container space-y-6">
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Race Timeline</h4>
-              
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-sun"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">06:00 ~ 07:00</span>
-                  <p class="font-bold system-gen">起床 & 早餐</p>
-                  <p class="text-sm text-gray-600">吃習慣的早餐 (麵包、香蕉、咖啡)。</p>
-                </div>
-              </div>
-
-              <div class="transport-card">
-                <div class="font-bold text-blue-700"><i class="fa-solid fa-train mr-2"></i>前往起點</div>
-                <div>Route: 飯店 → 新宿都廳 (起點)</div>
-                <div class="flex gap-4 text-xs mt-1"><span>Gate Close: 依分區時間</span></div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-person-running"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">09:10 ~ 15:00</span>
-                  <p class="font-bold user-input">東京馬拉松 2026</p>
-                  <p class="text-sm text-gray-600">享受 42.195km 的旅程。終點：東京車站/皇居前。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-medal"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">15:00 ~ 16:00</span>
-                  <p class="font-bold system-gen">賽後領物 & 更衣</p>
-                  <p class="text-sm text-gray-600">領取獎牌、毛巾，保暖並前往會合點。</p>
-                </div>
-              </div>
-
-              <div class="transport-card">
-                <div class="font-bold text-blue-700"><i class="fa-solid fa-taxi mr-2"></i>計程車/地鐵</div>
-                <div>Route: 終點 → 飯店</div>
-                <div class="text-xs mt-1 text-gray-500">賽後建議搭車減少步行</div>
-              </div>
-              
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-hot-tub-person"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">17:00 ~ 18:30</span>
-                  <p class="font-bold system-gen">飯店梳洗 / 泡澡</p>
-                  <p class="text-sm text-gray-600">放鬆肌肉，貼足貼。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-beer-mug-empty"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">19:00 ~ 21:00</span>
-                  <p class="font-bold system-gen">慶功宴晚餐</p>
-                  <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">敘敘苑燒肉</span> (美食清單 NO.1)。補充蛋白質慰勞自己。</p>
-                </div>
-              </div>
-            </div>
-             <!-- Note -->
-            <div class="info-missing">
-              <i class="fa-solid fa-circle-exclamation mr-1"></i>
-              註：本日為全馬賽事日，體力消耗巨大，下午行程保留彈性，未強制排滿10項活動。
-            </div>
-          </div>
-        </div>
-
-        <!-- DAY 4 -->
-        <div class="day-section">
-          <div class="flex items-center gap-3 mb-4 sticky top-16 bg-blue-50/90 backdrop-blur p-3 rounded-lg z-40 border border-blue-200">
-            <div class="bg-blue-600 text-white w-10 h-10 rounded-lg flex items-center justify-center font-bold text-lg shadow">D4</div>
-            <div>
-              <h3 class="text-xl font-bold text-blue-900">3月2日 (週一) 御殿場 Outlet</h3>
-              <p class="text-xs text-gray-500">購物日 ｜ <span class="user-input">御殿場 Premium Outlets</span></p>
-            </div>
-          </div>
-          <div class="timeline-container space-y-6">
-            <!-- Morning -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Morning</h4>
-              
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-coffee"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">08:00 ~ 08:30</span>
-                  <p class="font-bold system-gen">簡單早餐</p>
-                  <p class="text-sm text-gray-600">前往巴士站前購買咖啡。</p>
-                </div>
-              </div>
-
-              <div class="transport-card">
-                <div class="font-bold text-blue-700"><i class="fa-solid fa-bus mr-2"></i>直達巴士</div>
-                <div>Route: 新宿/東京車站 → 御殿場 Premium Outlets</div>
-                <div class="flex gap-4 text-xs mt-1"><span>ETA: 90-100分</span><span>需預約</span></div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-camera"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">10:30 ~ 11:00</span>
-                  <p class="font-bold system-gen">抵達與富士山合影</p>
-                  <p class="text-sm text-gray-600">拍照聖地 NO.1 <span class="user-input font-bold">御殿場夢之大橋</span>。天氣好可見富士山。</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Forenoon / Afternoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Shopping Time</h4>
-              
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">11:00 ~ 13:00</span>
-                  <p class="font-bold user-input">上半場購物衝刺</p>
-                  <p class="text-sm text-gray-600">運動品牌區 (Nike, Adidas, Asics) 尋找裝備。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">13:00 ~ 14:00</span>
-                  <p class="font-bold system-gen">午餐：Outlet 美食街</p>
-                  <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">さわやか (Sawayaka) 漢堡排</span> (美食清單 NO.8)。需先抽號碼牌。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-brands fa-apple"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">14:00 ~ 16:30</span>
-                  <p class="font-bold user-input">下半場購物與伴手禮</p>
-                  <p class="text-sm text-gray-600">精品區與生活雜貨。購買 <span class="user-input font-bold">富士山造型餅乾</span> (伴手禮 NO.5)。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-ice-cream"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">16:30 ~ 17:00</span>
-                  <p class="font-bold system-gen">休息甜點</p>
-                  <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">Laduree 馬卡龍</span> 或可麗餅。</p>
-                </div>
-              </div>
-
-              <div class="transport-card">
-                <div class="font-bold text-blue-700"><i class="fa-solid fa-bus mr-2"></i>直達巴士 (回程)</div>
-                <div>Route: 御殿場 → 東京市區</div>
-                <div class="flex gap-4 text-xs mt-1"><span>ETA: 100分</span><span>可能遇塞車</span></div>
-              </div>
-            </div>
-
-            <!-- Evening -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Evening</h4>
-              
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-bowl-food"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">19:30 ~ 20:30</span>
-                  <p class="font-bold system-gen">晚餐：暖呼呼拉麵</p>
-                  <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">AFURI 阿夫利 柚子鹽拉麵</span> (美食清單 NO.2)。清爽解膩。</p>
-                </div>
-              </div>
-
-               <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-store"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">20:30 ~ 21:30</span>
-                  <p class="font-bold system-gen">藥妝店補貨</p>
-                  <p class="text-sm text-gray-600">前往 <span class="user-input font-bold">松本清</span> 購買休足時間、貼布。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-moon"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">22:00</span>
-                  <p class="font-bold system-gen">返回飯店休息</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- DAY 5 -->
-        <div class="day-section">
-          <div class="flex items-center gap-3 mb-4 sticky top-16 bg-blue-50/90 backdrop-blur p-3 rounded-lg z-40 border border-blue-200">
-            <div class="bg-blue-600 text-white w-10 h-10 rounded-lg flex items-center justify-center font-bold text-lg shadow">D5</div>
-            <div>
-              <h3 class="text-xl font-bold text-blue-900">3月3日 (週二) 公園散策與下町</h3>
-              <p class="text-xs text-gray-500">完整的一天 ｜ <span class="user-input">西新小岩五丁目公園</span></p>
-            </div>
-          </div>
-          <div class="timeline-container space-y-6">
-            <!-- Morning -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Morning</h4>
-              
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-mug-saucer"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">08:30 ~ 09:30</span>
-                  <p class="font-bold system-gen">悠閒早餐</p>
-                  <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">Komeda's Coffee</span> (甜點咖啡 NO.3)。點咖啡送吐司。</p>
-                </div>
-              </div>
-
-              <div class="transport-card">
-                <div class="font-bold text-blue-700"><i class="fa-solid fa-train mr-2"></i>JR總武線</div>
-                <div>Route: 市區 → 新小岩站</div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-child-reaching"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">10:00 ~ 11:30</span>
-                  <p class="font-bold user-input">西新小岩五丁目公園 (Monster Park)</p>
-                  <p class="text-sm text-gray-600">景點 NO.18 <span class="user-input font-bold">怪獸公園</span>。特色遊具與悠閒散步。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-camera-retro"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">11:30 ~ 12:30</span>
-                  <p class="font-bold system-gen">新小岩商店街散策</p>
-                  <p class="text-sm text-gray-600">感受下町風情，購買在地零食。</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Afternoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Afternoon</h4>
-              
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">12:30 ~ 13:30</span>
-                  <p class="font-bold system-gen">午餐：下町美食</p>
-                  <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">麵屋 一燈 (拉麵)</span> (美食清單 NO.5)。新小岩名店。</p>
-                </div>
-              </div>
-
-              <div class="transport-card">
-                <div class="font-bold text-blue-700"><i class="fa-solid fa-train mr-2"></i>電車</div>
-                <div>Route: 新小岩 → 錦糸町/押上</div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-building"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">14:00 ~ 16:00</span>
-                  <p class="font-bold system-gen">錦糸町 Parco / 阿卡將</p>
-                  <p class="text-sm text-gray-600">如有親子需求可逛阿卡將本舖，或逛 Parco。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-cake-candles"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">16:00 ~ 17:00</span>
-                  <p class="font-bold system-gen">下午茶時光</p>
-                  <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">Quil Fait Bon 水果塔</span> (甜點咖啡 NO.1)。</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Evening -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Evening</h4>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-landmark"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">17:30 ~ 18:30</span>
-                  <p class="font-bold system-gen">晴空塔夜景 (遠眺)</p>
-                  <p class="text-sm text-gray-600">拍照聖地 NO.2 <span class="user-input font-bold">十間橋</span>。拍攝晴空塔倒影。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">19:00 ~ 20:30</span>
-                  <p class="font-bold system-gen">晚餐：迴轉壽司</p>
-                  <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">Toriton 迴轉壽司</span> (美食清單 NO.4)。位於晴空塔城內。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">20:30 ~ 21:00</span>
-                  <p class="font-bold system-gen">超市最後巡禮</p>
-                  <p class="text-sm text-gray-600">前往 <span class="user-input font-bold">Ito Yokado</span> (超市清單 NO.3) 購買調味料、泡麵帶回國。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-box-open"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">22:00</span>
-                  <p class="font-bold system-gen">打包行李</p>
-                  <p class="text-sm text-gray-600">明天回國，整理戰利品。</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- DAY 6 -->
-        <div class="day-section">
-          <div class="flex items-center gap-3 mb-4 sticky top-16 bg-blue-50/90 backdrop-blur p-3 rounded-lg z-40 border border-blue-200">
-            <div class="bg-blue-600 text-white w-10 h-10 rounded-lg flex items-center justify-center font-bold text-lg shadow">D6</div>
-            <div>
-              <h3 class="text-xl font-bold text-blue-900">3月4日 (週三) 最後衝刺與返台</h3>
-              <p class="text-xs text-gray-500">返程日 ｜ <span class="user-input">NRT T1 20:20 飛</span></p>
-            </div>
-          </div>
-          <div class="timeline-container space-y-6">
-            <!-- Morning -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Morning</h4>
-              
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-right-from-bracket"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">10:00 ~ 11:00</span>
-                  <p class="font-bold system-gen">飯店 Check-out</p>
-                  <p class="text-sm text-gray-600">寄放行李或前往京成上野站寄物。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-tree"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">11:00 ~ 12:30</span>
-                  <p class="font-bold system-gen">上野公園散步</p>
-                  <p class="text-sm text-gray-600">景點 NO.5 <span class="user-input font-bold">上野恩賜公園</span>。享受最後的東京空氣。</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Afternoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Afternoon</h4>
-              
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">12:30 ~ 13:30</span>
-                  <p class="font-bold system-gen">午餐：上野美食</p>
-                  <p class="text-sm text-gray-600">推薦：<span class="user-input font-bold">山家炸豬排</span> (美食清單 NO.6)。CP值高。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-store"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">13:30 ~ 15:30</span>
-                  <p class="font-bold system-gen">阿美橫丁最後採買</p>
-                  <p class="text-sm text-gray-600">購買 <span class="user-input font-bold">二木的菓子</span> (伴手禮 NO.3)。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-coffee"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">15:30 ~ 16:30</span>
-                  <p class="font-bold system-gen">休息整裝</p>
-                  <p class="text-sm text-gray-600">整理隨身行李，準備前往機場。</p>
-                </div>
-              </div>
-
-              <div class="transport-card">
-                <div class="font-bold text-blue-700"><i class="fa-solid fa-train mr-2"></i>Skyliner</div>
-                <div>Route: 京成上野 → 成田機場 T1</div>
-                <div class="flex gap-4 text-xs mt-1"><span>Dep: 17:00</span><span>Arr: 17:45</span></div>
-              </div>
-            </div>
-
-            <!-- Evening -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-3">Evening</h4>
-              
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-passport"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">17:45 ~ 18:30</span>
-                  <p class="font-bold system-gen">機場報到與掛行李</p>
-                  <p class="text-sm text-gray-600">確認行李重量，辦理登機。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">18:30 ~ 19:30</span>
-                  <p class="font-bold system-gen">晚餐：機場餐廳</p>
-                  <p class="text-sm text-gray-600">推薦：機場內拉麵或日式定食，花完剩下的零錢。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-gift"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">19:30 ~ 20:00</span>
-                  <p class="font-bold system-gen">免稅店購物</p>
-                  <p class="text-sm text-gray-600">購買 <span class="user-input font-bold">Tokyo Banana</span>、<span class="user-input font-bold">Royce 巧克力</span> (伴手禮 NO.1, NO.2)。</p>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="icon-slot"><i class="fa-solid fa-plane-departure"></i></div>
-                <div class="text-slot">
-                  <span class="time-badge">20:20 ~ 23:25</span>
-                  <p class="font-bold user-input">搭機返台 (NRT → TPE)</p>
-                  <p class="text-sm text-gray-600">抵達桃園機場，搭乘接送返家。旅程結束。</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
 
       <!-- 區塊 C: 風險評估 -->
@@ -1510,6 +1565,44 @@
       if (target) {
         target.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Day Selection Logic
+    function selectDay(dayNum) {
+      // 1. Update Tabs
+      const tabs = document.querySelectorAll('.day-tab-btn');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      // Find the button that calls this function with dayNum. 
+      // Simplified: Assume order matches dayNum-1 (index)
+      if(tabs[dayNum-1]) tabs[dayNum-1].classList.add('active');
+
+      // 2. Show Content
+      const contents = document.querySelectorAll('.day-content');
+      contents.forEach(content => content.classList.remove('active'));
+      const targetContent = document.getElementById('day-content-' + dayNum);
+      if(targetContent) targetContent.classList.add('active');
+
+      // 3. Scroll to Anchor if not already visible or if clicked from overview
+      const anchor = document.getElementById('schedule-anchor');
+      const headerOffset = 140; // Approx header height + sticky nav
+      const elementPosition = anchor.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      // Only scroll if the anchor is above the current view (meaning we are below it)
+      // or if we want to ensure focus. For "Overview click", we definitely want to scroll.
+      // Let's scroll smoothly.
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+      
+      // Horizontal scroll for mobile tabs
+      const tabContainer = document.querySelector('.day-tabs-container');
+      const activeTab = tabs[dayNum-1];
+      if(tabContainer && activeTab) {
+        const scrollLeft = activeTab.offsetLeft - (tabContainer.clientWidth / 2) + (activeTab.clientWidth / 2);
+        tabContainer.scrollTo({ left: scrollLeft, behavior: 'smooth' });
       }
     }
 
