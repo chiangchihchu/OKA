@@ -1,521 +1,430 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>桃園市雙連長跑協會 - 2026春酒團練活動企劃書</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桃園市雙連長跑協會 - 2026春酒暨團練活動企劃書</title>
     <style>
-        :root {
-            --primary-color: #0056b3; /* 協會藍 */
-            --secondary-color: #e6f2ff;
-            --accent-color: #ff9900;
-            --text-color: #333;
-            --border-color: #ddd;
-        }
-
         body {
-            font-family: "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
+            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
             line-height: 1.6;
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
             background-color: #f9f9f9;
         }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 40px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        }
-
-        /* Header Section */
-        header {
-            text-align: center;
-            border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            color: var(--primary-color);
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-        }
-
-        .meta-info {
-            font-size: 1.1rem;
-            color: #666;
+        h1, h2, h3 {
+            color: #0056b3;
             font-weight: bold;
         }
-
-        /* Section Styling */
-        section {
-            margin-bottom: 40px;
-            padding: 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background-color: #fff;
+        h1 {
+            text-align: center;
+            border-bottom: 3px solid #0056b3;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
         }
-
         h2 {
-            color: var(--primary-color);
-            border-left: 5px solid var(--accent-color);
-            padding-left: 15px;
-            margin-top: 0;
+            background-color: #e3f2fd;
+            padding: 10px;
+            border-left: 5px solid #0056b3;
+            margin-top: 40px;
         }
-
-        h3 {
-            color: #444;
-            margin-top: 25px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
+        section {
+            background: #fff;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
-        /* Tables */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 15px 0;
         }
-
         th, td {
-            border: 1px solid var(--border-color);
+            border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
         }
-
         th {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        /* Budget Highlighting */
-        .budget-total {
-            background-color: #fff3e0;
-            font-weight: bold;
-            color: #d84315;
-        }
-
-        /* Route Visualization */
-        .route-map-box {
-            background-color: #f4f4f4;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .route-step {
-            display: inline-block;
-            background: var(--primary-color);
+            background-color: #0056b3;
             color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            margin: 10px;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .highlight {
+            color: #d9534f;
+            font-weight: bold;
+        }
+        .note {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+        }
+        /* 甘特圖樣式 */
+        .gantt-bar {
+            height: 20px;
+            background-color: #5bc0de;
+            border-radius: 4px;
             position: relative;
         }
-
-        .route-arrow {
-            display: inline-block;
-            font-size: 20px;
-            color: #999;
-            margin: 0 5px;
-        }
-
-        /* Schedule Timeline */
-        .timeline-item {
-            display: flex;
-            margin-bottom: 15px;
-            border-bottom: 1px dashed #eee;
-            padding-bottom: 10px;
-        }
-
-        .time-col {
-            flex: 0 0 100px;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .content-col {
-            flex: 1;
-        }
-
-        /* Non-runner highlight */
-        .leisure-group {
-            background-color: #e8f5e9;
-            border-left: 5px solid #4caf50;
-            padding: 15px;
-            margin-top: 15px;
-        }
-
-        /* Gantt Chart Style */
-        .gantt-bar {
-            background-color: var(--accent-color);
-            height: 20px;
-            border-radius: 4px;
-            text-align: center;
+        .gantt-bar-text {
+            position: absolute;
+            left: 5px;
+            top: 0;
             color: white;
-            font-size: 0.8rem;
+            font-size: 12px;
             line-height: 20px;
-            box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         }
-
-        .gantt-pending {
-            background-color: #ccc;
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            color: white;
         }
-
-        /* Note Box */
-        .note-box {
-            background-color: #fff8e1;
-            padding: 15px;
-            border-radius: 5px;
-            border: 1px solid #ffe0b2;
-            margin-top: 10px;
-        }
-
-        /* Menu Grid */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .menu-item {
-            background: #fff0f0;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            border: 1px solid #ffcccc;
-            font-weight: bold;
-            color: #d84315;
-        }
-
+        .status-run { background-color: #28a745; }
+        .status-eat { background-color: #fd7e14; }
+        
         @media print {
             body { background: white; }
-            .container { box-shadow: none; padding: 0; }
-            section { page-break-inside: avoid; }
+            section { box-shadow: none; border: 1px solid #ddd; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>桃園市雙連長跑協會 2026春酒團練 活動企劃書</h1>
-        <div class="meta-info">
-            <p>活動日期：2026年3月7日 (星期六)</p>
-            <p>承辦人：總幹事 曾映仁 | 協辦：楊梅組 美玲(補給統籌)</p>
+    <section id="header">
+        <h1>桃園市雙連長跑協會<br>2026年新春團練暨春酒聯誼活動企劃書</h1>
+        <div style="text-align: center;">
+            <p><strong>活動日期：</strong>2026年3月7日 (星期六)</p>
+            <p><strong>主辦單位：</strong>桃園市雙連長跑協會</p>
+            <p><strong>承辦人：</strong>總幹事 曾映仁</p>
         </div>
-    </header>
+    </section>
 
     <section id="summary">
-        <h2>一、活動宗旨與概要</h2>
-        <p>為凝聚會員情感，推廣健康長跑運動，特於2026年新春之際舉辦春酒團練活動。本次活動結合「半程馬拉松團練」與「春酒聯誼餐會」，並邀請友團共襄盛舉，期能透過揮灑汗水後的歡聚，增進跑友間的情誼。</p>
+        <h2>一、活動宗旨與摘要</h2>
+        <p>為凝聚會員情感，提倡健康運動風氣，特於2026年新春期間舉辦「團練暨春酒聯誼」。活動結合早晨21公里長距離慢跑（LSD）與中午春酒餐敘。本次團練開放全台跑友免費參加，共享運動樂趣；春酒餐敘則專屬本會會員，以感謝會員一年的支持並展望新年度計畫。</p>
         <ul>
-            <li><strong>活動性質：</strong>LSD長距離慢跑訓練 + 春酒聯誼餐會</li>
-            <li><strong>參加對象：</strong>
-                <ul>
-                    <li><strong>春酒餐會：</strong>僅限本會會員參加。</li>
-                    <li><strong>跑步團練：</strong>開放會員、眷屬及友團跑友參加。</li>
-                </ul>
-            </li>
-            <li><strong>費用說明：</strong>
-                <ul>
-                    <li><strong>會員：</strong>免費（含團練、補給、早餐、春酒）。</li>
-                    <li><strong>非會員/友團：</strong>免費（僅含團練、補給、早餐，<strong>不含春酒餐會</strong>）。</li>
-                </ul>
-            </li>
+            <li><strong>團練特色：</strong>平路為主，折返點設於風景優美的落羽松公園，適合進行馬拉松賽前調整或以賽代訓。</li>
+            <li><strong>後勤規劃：</strong>提供定點水與運動飲料補給，確保跑者安全完賽。</li>
         </ul>
     </section>
 
-    <section id="location-time">
-        <h2>二、時間與地點規劃</h2>
+    <section id="details">
+        <h2>二、活動基本資訊</h2>
         <table>
             <tr>
                 <th width="20%">項目</th>
-                <th>詳細資訊</th>
+                <th>詳細內容</th>
             </tr>
             <tr>
-                <td><strong>團練集合</strong></td>
+                <td><strong>活動時間</strong></td>
+                <td>2026年3月7日（星期六） 05:30 - 14:30</td>
+            </tr>
+            <tr>
+                <td><strong>集合地點</strong></td>
+                <td><strong>中壢區龍岡森林公園</strong>（龍慈路與龍岡路三段路口）<br><span class="note">腹地廣大，路邊停車方便，適合熱身與集合。</span></td>
+            </tr>
+            <tr>
+                <td><strong>春酒地點</strong></td>
+                <td><strong>花田盛事築夢莊園</strong>（中壢區普忠路618號）<br>電話：(03)463-1188<br><span class="note">備有大型停車場，適合團體聚餐。</span></td>
+            </tr>
+            <tr>
+                <td><strong>參加對象</strong></td>
                 <td>
-                    <strong>時間：</strong>06:00 AM 起跑 (10:00 團練結束)<br>
-                    <strong>地點：</strong>中壢區龍岡森林公園（龍慈路與龍岡路口）
+                    1. <strong>團練跑步：</strong>歡迎全台跑友、各路英雄好漢參加（免費）。<br>
+                    2. <strong>春酒餐敘：</strong><span class="highlight">僅限雙連長跑協會會員</span>及眷屬（需報名）。
                 </td>
             </tr>
             <tr>
-                <td><strong>春酒餐會</strong></td>
+                <td><strong>補給說明</strong></td>
                 <td>
-                    <strong>時間：</strong>11:30 入席，12:00 準時開席<br>
-                    <strong>地點：</strong>花田盛事築夢莊園 (會員限定)<br>
-                    <strong>地址：</strong>中壢區普忠路618號<br>
-                    <strong>電話：</strong>(03) 463-1188
+                    1. <strong>大會提供：</strong>礦泉水、運動飲料（起終點及折返點）。<br>
+                    2. <strong>跑者自備：</strong>能量膠、鹽錠、私人補給品。
                 </td>
             </tr>
         </table>
     </section>
 
-    <section id="route-plan">
-        <h2>三、活動分組與路線規劃</h2>
-        
-        <h3>3.1 A組：精實長跑組 (21K)</h3>
-        <p><strong>路線概述：</strong>龍岡森林公園 → 龍慈路 → (經鄉間小徑/自行車道) → 落羽松公園 (折返點) → 原路返回。</p>
-        
-        <div class="route-map-box">
-            <div class="route-step">起點：龍岡森林公園</div>
-            <span class="route-arrow">➡</span>
-            <div class="route-step">龍慈路延伸段</div>
-            <span class="route-arrow">➡</span>
-            <div class="route-step">霄裡池周邊</div>
-            <span class="route-arrow">➡</span>
-            <div class="route-step" style="background:#d84315;">折返點：落羽松公園</div>
-            <br><br>
-            <span class="route-arrow">⬅</span>
-            <div class="route-step">原路折返</div>
-            <span class="route-arrow">⬅</span>
-            <div class="route-step">終點：龍岡森林公園</div>
+    <section id="route">
+        <h2>三、團練路線規劃 (21K)</h2>
+        <div style="background-color: #f8f9fa; padding: 15px; border-left: 4px solid #28a745; margin-bottom: 15px;">
+            <h3>🏃 路線說明：龍岡森林公園 ⟷ 落羽松公園 (原路折返)</h3>
+            <p><strong>總距離：</strong>約 21 公里 (半馬距離)</p>
+            <p><strong>路線特點：</strong>沿途經過龍慈路延伸段，路寬車少，適合長距離配速跑。</p>
         </div>
-
-        <h3>3.2 B組：休閒健走組 (不跑步規劃)</h3>
-        <div class="leisure-group">
-            <p>針對不參加21K長跑的會員與眷屬，規劃輕鬆的公園健走與交流行程。</p>
-            <ul>
-                <li><strong>07:30 - 08:00</strong>：集合於龍岡森林公園主舞台區。</li>
-                <li><strong>08:00 - 09:00</strong>：龍岡森林公園步道健走 (環園步道約1.5公里，建議走3圈)。</li>
-                <li><strong>09:00 - 10:00</strong>：享用終點早餐補給，擔任啦啦隊迎接長跑組歸來。</li>
-                <li><strong>10:00 - 10:30</strong>：協助現場收拾。非會員跑友於此活動結束。</li>
-            </ul>
-        </div>
+        
+        <h3>📍 路線節點與補給站配置</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>節點</th>
+                    <th>位置/地標</th>
+                    <th>里程(約)</th>
+                    <th>補給服務</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>起點</strong></td>
+                    <td>龍岡森林公園 (龍慈路口)</td>
+                    <td>0 K</td>
+                    <td>寄物區、水站</td>
+                </tr>
+                <tr>
+                    <td>中途點 1</td>
+                    <td>龍慈路與仁波路口 (需注意紅綠燈)</td>
+                    <td>約 3 K</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>中途點 2</td>
+                    <td>霄裡大池周邊 / 浮覓街</td>
+                    <td>約 6.5 K</td>
+                    <td>簡易水站 (流動補給車)</td>
+                </tr>
+                <tr>
+                    <td><strong>折返點</strong></td>
+                    <td><strong>八德/大溪落羽松公園</strong> (落羽松路)</td>
+                    <td>10.5 K</td>
+                    <td>水、運動飲料、打卡點</td>
+                </tr>
+                <tr>
+                    <td><strong>終點</strong></td>
+                    <td>龍岡森林公園</td>
+                    <td>21 K</td>
+                    <td>完賽水、休息區</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="note">※ 實際補給站位置將依當日志工人力微調，建議跑者可隨身攜帶簡易水壺。</p>
     </section>
 
-    <section id="schedule-detail">
-        <h2>四、活動當日詳細流程 (3/7)</h2>
-        <div class="timeline-item">
-            <div class="time-col">05:30 - 06:00</div>
-            <div class="content-col">工作人員集合、物資與補給站設置 (負責人：楊梅組 美玲)。</div>
-        </div>
-        <div class="timeline-item">
-            <div class="time-col">06:00</div>
-            <div class="content-col"><strong>【長跑組】準時起跑</strong> (團體暖身請於5:50完成)。</div>
-        </div>
-        <div class="timeline-item">
-            <div class="time-col">07:00 - 10:00</div>
-            <div class="content-col">
-                1. 賽道補給執行。<br>
-                2. <strong>終點提供早餐補給</strong> (跑者歸來後享用)。<br>
-                3. <strong>【休閒組】</strong>於公園健走、交流、享用早餐。
-            </div>
-        </div>
-        <div class="timeline-item">
-            <div class="time-col">10:00</div>
-            <div class="content-col"><strong>團練活動結束</strong>，跑者收操、簡易盥洗/更衣。<br>
-            <span style="color:#d84315;">※ 非會員/友團跑友領取補給後，行程至此結束，感謝參與。</span></div>
-        </div>
-        <div class="timeline-item">
-            <div class="time-col">10:30 - 11:00</div>
-            <div class="content-col">會員協助現場撤收，移動前往餐廳 (花田盛事)。</div>
-        </div>
-        <div class="timeline-item">
-            <div class="time-col">11:30</div>
-            <div class="content-col"><strong>餐廳報到、入席聯誼</strong> (會員限定)。</div>
-        </div>
-        <div class="timeline-item">
-            <div class="time-col">12:00 - 14:30</div>
-            <div class="content-col"><strong>春酒餐會正式開始</strong> (會長致詞、用餐、歡唱交流)。</div>
-        </div>
-        <div class="timeline-item">
-            <div class="time-col">14:30</div>
-            <div class="content-col">活動圓滿結束，賦歸。</div>
-        </div>
+    <section id="schedule">
+        <h2>四、活動當日流程 (3/7)</h2>
+        <p>為兼顧「精實跑者」與「不跑步會員」的需求，特規劃雙軌活動流程：</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th width="15%">時間</th>
+                    <th width="40%"><span class="status-badge status-run">A組：熱血跑馬組 (團練+春酒)</span></th>
+                    <th width="40%"><span class="status-badge status-eat">B組：樂活聯誼組 (僅春酒/加油團)</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>05:00 - 05:30</td>
+                    <td>工作人員集合、物資就位<br>跑友集合、暖身操、大合照</td>
+                    <td>(自由睡眠時間)</td>
+                </tr>
+                <tr>
+                    <td><strong>05:30</strong></td>
+                    <td><strong>準時起跑 (Start)</strong></td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>05:30 - 08:30</td>
+                    <td>21K 團練進行中<br><span class="note">限時約 3.5 小時</span></td>
+                    <td>08:00 若有志工意願，可至終點協助補給</td>
+                </tr>
+                <tr>
+                    <td>08:30 - 09:00</td>
+                    <td>陸續返抵終點、收操、簡易補給</td>
+                    <td>前往龍岡森林公園迎接跑友</td>
+                </tr>
+                <tr>
+                    <td>09:00 - 11:00</td>
+                    <td><strong>解散梳洗時間</strong><br><span class="note">各自返家沐浴更衣，準備前往餐廳</span></td>
+                    <td>自由活動 / 前往餐廳</td>
+                </tr>
+                <tr>
+                    <td>11:00 - 11:30</td>
+                    <td><strong>移師餐廳：花田盛事</strong><br>報到、繳費(如有)、入座交流</td>
+                    <td><strong>移師餐廳：花田盛事</strong><br>報到、協助場佈</td>
+                </tr>
+                <tr>
+                    <td><strong>11:30</strong></td>
+                    <td colspan="2" style="text-align: center; background-color: #fff3cd;"><strong>春酒聯誼餐會正式開始 (準時開席)</strong></td>
+                </tr>
+                <tr>
+                    <td>12:00 - 14:00</td>
+                    <td colspan="2" style="text-align: center;">會務報告、用餐、卡拉OK歡唱、交流時間</td>
+                </tr>
+                <tr>
+                    <td>14:00 - 14:30</td>
+                    <td colspan="2" style="text-align: center;">大合照、期待明年再見 (賦歸)</td>
+                </tr>
+            </tbody>
+        </table>
     </section>
 
-    <section id="dining-menu">
-        <h2>五、春酒菜單與用餐說明</h2>
-        <p>本次春酒選定於中壢知名「花田盛事築夢莊園」舉辦，該場地以歐式建築風格與寬敞舒適著稱，適合團體聚餐。</p>
-        
-        <h3>5.1 經典春酒桌菜 (預算規劃參考菜單)</h3>
-        <p style="font-size:0.9em; color:#666;">※ 實際菜色依餐廳當季食材與最終合約為準</p>
-        <div class="menu-grid">
-            <div class="menu-item">1. 花田賜喜大拼盤</div>
-            <div class="menu-item">2. 乾隆極品佛跳牆</div>
-            <div class="menu-item">3. 蒜泥寬粉蒸鮮蝦</div>
-            <div class="menu-item">4. 櫻花蝦蒲燒米糕</div>
-            <div class="menu-item">5. 蔥油甘露海上鮮</div>
-            <div class="menu-item">6. 筍乾富貴滷蹄膀</div>
-            <div class="menu-item">7. 季節田園炒時蔬</div>
-            <div class="menu-item">8. 養生百菇燉雞湯</div>
-            <div class="menu-item">9. 精緻雙色美甜點</div>
-            <div class="menu-item">10. 寶島四季鮮水果</div>
-        </div>
-
-        <h3>5.2 用餐與設施說明</h3>
-        <ul>
-            <li><strong>參加資格：</strong>本場次僅限雙連長跑協會會員參加。</li>
-            <li><strong>停車資訊：</strong>餐廳附設 <strong>免費大型停車場</strong>，約可容納 300 台車輛，請依現場人員指揮停放。</li>
-            <li><strong>座位安排：</strong>採圓桌桌菜形式，請依桌次表入座。</li>
-            <li><strong>酒水規範：</strong>協會統一準備酒水。<strong>嚴禁酒駕</strong>，飲酒者請務必指定駕駛或搭乘計程車。</li>
-        </ul>
+    <section id="gantt">
+        <h2>五、籌備進度甘特圖 (2/17 - 3/7)</h2>
+        <p>因應 2/17 開放報名，籌備期約三週，採緊湊作業模式。</p>
+        <table class="gantt-table">
+            <thead>
+                <tr>
+                    <th width="25%">任務階段</th>
+                    <th width="15%">負責人</th>
+                    <th width="12%">2/17-2/23<br>(報名週)</th>
+                    <th width="12%">2/24-3/1<br>(確認週)</th>
+                    <th width="12%">3/2-3/6<br>(衝刺週)</th>
+                    <th width="12%">3/7<br>(活動日)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1. 活動公告與報名</strong><br><span class="note">發布群組、統計人數</span></td>
+                    <td>總幹事</td>
+                    <td style="background-color: #5bc0de; color:white; font-size:10px; text-align:center;">開放報名</td>
+                    <td style="background-color: #5bc0de; color:white; font-size:10px; text-align:center;">截止/統計</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>2. 餐廳桌數確認</strong><br><span class="note">預付訂金、確認菜色</span></td>
+                    <td>財務/總幹事</td>
+                    <td></td>
+                    <td style="background-color: #f0ad4e; color:white; font-size:10px; text-align:center;">確認桌數</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>3. 補給物資採購</strong><br><span class="note">水、運動飲料、紙杯</span></td>
+                    <td>總務組</td>
+                    <td></td>
+                    <td></td>
+                    <td style="background-color: #5cb85c; color:white; font-size:10px; text-align:center;">採購/分裝</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>4. 路線試跑與勘查</strong><br><span class="note">確認路況、折返點標示</span></td>
+                    <td>活動組</td>
+                    <td></td>
+                    <td style="background-color: #5cb85c; color:white; font-size:10px; text-align:center;">試跑確認</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>5. 行前通知發布</strong><br><span class="note">提醒集合點、天氣</span></td>
+                    <td>總幹事</td>
+                    <td></td>
+                    <td></td>
+                    <td style="background-color: #0275d8; color:white; font-size:10px; text-align:center;">發布通知</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><strong>6. 活動執行</strong></td>
+                    <td>全體幹部</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="background-color: #d9534f; color:white; font-size:10px; text-align:center;">★執行</td>
+                </tr>
+            </tbody>
+        </table>
     </section>
 
     <section id="budget">
-        <h2>六、預算估計與資源需求</h2>
+        <h2>六、經費預算概算表</h2>
+        <p>本預算以 10 桌為基準估算，實際支出依當日到場人數為準。</p>
         <table>
             <thead>
                 <tr>
-                    <th width="20%">項目</th>
-                    <th width="40%">內容明細</th>
-                    <th width="20%">預估金額</th>
-                    <th width="20%">負責單位</th>
+                    <th>項目</th>
+                    <th>單價估算</th>
+                    <th>數量</th>
+                    <th>總價 (TWD)</th>
+                    <th>備註</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><strong>早餐補給品</strong></td>
-                    <td>
-                        <ul style="margin:0; padding-left:20px; font-size:0.9em;">
-                            <li><strong>主食：</strong>綜合三明治、古早味飯糰 (素/葷)</li>
-                            <li><strong>水果：</strong>香蕉 (每人一根)</li>
-                            <li><strong>飲品：</strong>無糖豆漿、米漿</li>
-                        </ul>
-                    </td>
-                    <td rowspan="2" style="vertical-align:middle;">$8,000</td>
-                    <td rowspan="2" style="vertical-align:middle;">楊梅組<br>(美玲統籌)</td>
-                </tr>
-                <tr>
-                    <td><strong>賽道運動補給</strong></td>
-                    <td>
-                        <ul style="margin:0; padding-left:20px; font-size:0.9em;">
-                            <li>瓶裝水 (30箱)、運動飲料 (15箱)</li>
-                            <li>鹽錠、簡易餅乾</li>
-                        </ul>
-                    </td>
-                </tr>
                 <tr>
                     <td><strong>春酒餐費</strong></td>
-                    <td>預計 10 桌，每桌 $4,500 (含服務費)<br><span style="font-size:0.8em; color:#666;">(會員專屬)</span></td>
+                    <td>$4,500 / 桌</td>
+                    <td>10 桌</td>
                     <td>$45,000</td>
-                    <td>總幹事</td>
+                    <td>花田盛事桌菜 (含服務費)</td>
                 </tr>
                 <tr>
-                    <td><strong>酒水飲料</strong></td>
-                    <td>餐會用酒、飲料追加 (實報實銷)</td>
+                    <td><strong>酒水飲料費</strong></td>
+                    <td>$1,000 / 桌 (平均)</td>
+                    <td>10 桌</td>
                     <td>$10,000</td>
-                    <td>總幹事</td>
+                    <td>預算上限，多退少補</td>
                 </tr>
                 <tr>
-                    <td><strong>雜支預備金</strong></td>
-                    <td>紅布條、舞台清潔費、保險補貼等</td>
-                    <td>$2,000</td>
-                    <td>財務</td>
-                </tr>
-                <tr class="budget-total">
-                    <td>總支出預估</td>
-                    <td>(不含收入扣抵)</td>
-                    <td>$65,000</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <div class="note-box">
-            <strong>收入預估：</strong><br>
-            本次春酒僅限會員參加，無非會員收費項目。全額支出預計約 $65,000，由協會經費支應。
-        </div>
-    </section>
-
-    <section id="timeline-prep">
-        <h2>七、籌備期程規劃 (2/12 - 3/7)</h2>
-        <p>為確保活動順利，自2/12起啟動報名與籌備作業，具體分工如下：</p>
-        
-        <table>
-            <thead>
-                <tr>
-                    <th width="20%">時間區段</th>
-                    <th width="30%">工作項目</th>
-                    <th width="20%">負責人</th>
-                    <th width="30%">進度規劃</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>2/12 (三)</strong></td>
-                    <td><strong>活動發布與報名啟動</strong></td>
-                    <td>總幹事</td>
-                    <td>
-                        <div class="gantt-bar">發布群組公告</div>
-                    </td>
+                    <td><strong>團練補給水</strong></td>
+                    <td>$150 / 箱</td>
+                    <td>10 箱</td>
+                    <td>$1,500</td>
+                    <td>礦泉水、運動飲料</td>
                 </tr>
                 <tr>
-                    <td><strong>2/12 - 2/25</strong></td>
-                    <td><strong>報名統計</strong><br>確認會員出席人數</td>
-                    <td>各理監事</td>
-                    <td>
-                        <div class="gantt-bar">統計人數 (期限2週)</div>
-                    </td>
+                    <td><strong>雜支</strong></td>
+                    <td>-</td>
+                    <td>1 式</td>
+                    <td>$3,500</td>
+                    <td>紙杯、垃圾袋、紅布條、標示牌等</td>
                 </tr>
+            <tfoot>
                 <tr>
-                    <td><strong>2/26 (三)</strong></td>
-                    <td><strong>桌數確認與補給採購規劃</strong><br>確認最終人數，向餐廳保桌</td>
-                    <td>總幹事/美玲</td>
-                    <td>
-                        <div class="gantt-bar" style="background-color:#4caf50;">關鍵確認點</div>
-                    </td>
+                    <td colspan="3" style="text-align: right;"><strong>預估總支出：</strong></td>
+                    <td colspan="2" style="font-size: 1.2em; font-weight: bold; color: #d9534f;">$60,000</td>
                 </tr>
-                <tr>
-                    <td><strong>2/27 - 3/5</strong></td>
-                    <td><strong>物資採購與任務分配</strong><br>購買水、補給品、酒水、早餐</td>
-                    <td>楊梅組</td>
-                    <td>
-                        <div class="gantt-bar">物資準備</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>3/6 (五)</strong></td>
-                    <td><strong>行前最終確認</strong><br>天氣確認、餐廳再次提醒</td>
-                    <td>總幹事</td>
-                    <td>
-                        <div class="gantt-bar" style="background-color:#d84315;">行前通知</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>3/7 (六)</strong></td>
-                    <td><strong>活動執行日</strong></td>
-                    <td>全體幹部</td>
-                    <td>
-                        <div class="gantt-bar">★ 活動當日</div>
-                    </td>
-                </tr>
-            </tbody>
+            </tfoot>
         </table>
     </section>
 
-    <section id="sop-notes">
-        <h2>八、執行說明與注意事項</h2>
+    <section id="sop">
+        <h2>七、執行 SOP 與工作分配</h2>
         <ol>
-            <li><strong>參加資格說明：</strong>
+            <li><strong>前置作業 (2/17 - 3/6)：</strong>
                 <ul>
-                    <li><strong>春酒餐會：</strong>僅限本會會員參加，不開放眷屬與友團。</li>
-                    <li><strong>跑步團練：</strong>開放非會員/友團免費參加，歡迎共襄盛舉（提供補給與早餐）。</li>
+                    <li><strong>總幹事：</strong> 發布報名表單，統整參加人數（區分：跑步+用餐 / 純用餐）。</li>
+                    <li><strong>財務組：</strong> 3/1 前向餐廳確認最終桌數，並支付訂金。</li>
+                    <li><strong>總務組：</strong> 3/5 前完成礦泉水與運動飲料採購，確認載運車輛。</li>
                 </ul>
             </li>
-            <li><strong>交通接駁：</strong>
+            <li><strong>活動當日 - 集合期 (05:00 - 05:30)：</strong>
                 <ul>
-                    <li>本次活動採自行前往，請會員儘量共乘。</li>
-                    <li>跑步結束後，會員請各自移動至花田盛事餐廳（距離公園約 10-15 分鐘車程）。</li>
+                    <li>05:00 幹部抵達龍岡森林公園，懸掛布條，設置寄物區。</li>
+                    <li>05:15 引導跑友停車與集合，發放簡易水。</li>
+                    <li>05:25 集合拍照，說明路線狀況。</li>
                 </ul>
             </li>
-            <li><strong>雨天備案：</strong>
+            <li><strong>活動當日 - 團練期 (05:30 - 09:00)：</strong>
                 <ul>
-                    <li>小雨：團練照常舉行，請自備雨衣。</li>
-                    <li>大雨/雷雨：取消戶外團練，會員請於 10:30 直接前往餐廳集合聯誼。</li>
-                    <li>決定時間：若需取消團練，將於活動當日 05:00 於群組公告。</li>
+                    <li><strong>機動組：</strong> 騎乘機車巡邏路線，確認跑友安全。</li>
+                    <li><strong>補給組：</strong> 06:00 前抵達折返點（落羽松公園）設置水站。</li>
+                    <li><strong>終點組：</strong> 07:30 起準備迎接第一批回程跑友，發放完賽飲料。</li>
+                </ul>
+            </li>
+            <li><strong>活動當日 - 餐敘期 (11:00 - 14:30)：</strong>
+                <ul>
+                    <li>11:00 接待組於餐廳門口指引座位。</li>
+                    <li>11:30 準時開席，主持人掌控流程（致詞、敬酒、歡唱）。</li>
+                    <li>14:30 結帳與場地復原。</li>
                 </ul>
             </li>
         </ol>
     </section>
-</div>
+
+    <section id="notes">
+        <h2>八、注意事項與安全守則</h2>
+        <ul>
+            <li><strong>交通安全：</strong>團練路線為開放道路，未申請路權，跑者請務必靠右行駛，遵守交通號誌，注意往來車輛。</li>
+            <li><strong>自身評估：</strong>21公里屬長距離運動，請衡量當日身體狀況；若感不適請立即停止跑步，並撥打緊急聯絡電話。</li>
+            <li><strong>環保原則：</strong>落羽松公園為觀光景點，請勿隨地丟棄垃圾、水瓶，共同維護環境整潔。</li>
+            <li><strong>保險說明：</strong>本次團練為免費自主參加性質，大會僅提供基本補給，<strong>不另投保公共意外險或旅遊平安險</strong>，建議參加者自行投保。</li>
+        </ul>
+    </section>
 
 </body>
 </html>
