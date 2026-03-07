@@ -9,7 +9,7 @@
     --secondary-color: #3498db;
     --accent-color: #e74c3c;
     --success-color: #27ae60;
-    --warning-color: #f39c12;
+    --warning-color: #e67e22;
     --bg-color: #f8f9fa;
     --card-bg: #ffffff;
     --text-main: #333333;
@@ -27,7 +27,7 @@
   }
 
   .reproductive-medicine-report {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     background: var(--card-bg);
     border-radius: 12px;
@@ -102,12 +102,19 @@
     padding: 12px 15px;
     border: 1px solid var(--border-color);
     text-align: left;
+    vertical-align: top;
   }
 
   th {
     background-color: #f4f6f8;
     color: var(--primary-color);
     font-weight: 600;
+  }
+
+  .table-category-row {
+    background-color: #eaf2f8;
+    font-weight: bold;
+    color: #2c3e50;
   }
 
   /* 狀態標籤 */
@@ -117,10 +124,62 @@
     font-size: 0.9em;
     font-weight: bold;
     display: inline-block;
+    white-space: nowrap;
   }
   .badge-success { background-color: #e8f5e9; color: var(--success-color); border: 1px solid #c8e6c9;}
-  .badge-warning { background-color: #fff3e0; color: var(--warning-color); border: 1px solid #ffe0b2;}
+  .badge-warning { background-color: #fff3e0; color: #d35400; border: 1px solid #ffe0b2;}
   .badge-danger { background-color: #ffebee; color: var(--accent-color); border: 1px solid #ffcdd2;}
+
+  /* 成功機率評估雙欄設計 */
+  .assessment-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .pros-card, .cons-card {
+    flex: 1;
+    min-width: 300px;
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .pros-card {
+    background-color: #f1f8f5;
+    border: 1px solid #cce5d6;
+  }
+  
+  .pros-card h3 {
+    color: #27ae60;
+    margin-top: 0;
+    border-bottom: 2px solid #a6d8b9;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .cons-card {
+    background-color: #fffaf0;
+    border: 1px solid #ffebcc;
+  }
+  
+  .cons-card h3 {
+    color: #d35400;
+    margin-top: 0;
+    border-bottom: 2px solid #ffd499;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .assessment-container ul {
+    margin-bottom: 0;
+  }
+
+  .assessment-container li {
+    margin-bottom: 12px;
+  }
 
   /* 強調區塊 (建議與醫師討論問題) */
   .doctor-questions {
@@ -128,7 +187,7 @@
     border-left: 5px solid #ffc107;
     padding: 20px;
     border-radius: 0 8px 8px 0;
-    margin: 30px 0;
+    margin: 40px 0;
   }
   
   .doctor-questions h2 {
@@ -165,16 +224,17 @@
   }
 
   @media (max-width: 768px) {
-    .reproductive-medicine-report { padding: 20px; }
-    table { font-size: 0.9rem; }
-    th, td { padding: 8px 10px; }
+    .reproductive-medicine-report { padding: 15px; }
+    table { font-size: 0.85rem; }
+    th, td { padding: 8px 6px; }
+    .assessment-container { flex-direction: column; }
   }
 </style>
 </head>
 <body>
 
 <div class="reproductive-medicine-report">
-  <h1>生殖免疫檢驗分析報告</h1>
+  <h1>生殖免疫檢驗分析報告（完整評估版）</h1>
 
   <section>
     <h2>一、個案摘要</h2>
@@ -183,71 +243,191 @@
         <li><strong>年齡：</strong>約 48 歲（1978 年出生）</li>
         <li><strong>性別／評估對象：</strong>女性 ／ 借卵試管嬰兒（Donor Egg IVF）受術者</li>
         <li><strong>主訴與現況：</strong>準備進行借卵試管嬰兒療程，目前為用藥準備期第三個月。</li>
-        <li><strong>提供資料內容：</strong>淋巴球亞群（Lymphocyte Subsets / 生殖免疫）血液檢驗報告。</li>
+        <li><strong>提供資料內容：</strong>淋巴球亞群（Lymphocyte Subsets / 生殖免疫）共 14 項血液檢驗報告。</li>
         <li><strong>資料限制：</strong>未提供目前具體用藥清單（如是否已在使用類固醇、免疫調節劑）、過去病史及其他自體免疫抗體數據。</li>
       </ul>
     </div>
   </section>
 
   <section>
-    <h2>二、檢驗報告重點整理</h2>
+    <h2>二、檢驗報告重點整理（全項目解讀）</h2>
     <table>
       <thead>
         <tr>
           <th width="20%">檢驗項目</th>
-          <th width="15%">結果</th>
-          <th width="15%">參考區間</th>
-          <th width="15%">判讀</th>
-          <th width="35%">臨床意義</th>
+          <th width="12%">結果</th>
+          <th width="14%">參考區間</th>
+          <th width="14%">判讀</th>
+          <th width="40%">臨床意義</th>
         </tr>
       </thead>
       <tbody>
+        <tr class="table-category-row">
+          <td colspan="5">🩸 整體白血球基礎 (General Immune Foundation)</td>
+        </tr>
         <tr>
-          <td>自然殺手細胞<br><small>NK cell (CD16+56)</small></td>
+          <td>白血球總數<br><small>WBC (IDM)</small></td>
+          <td>5.12 e3/ul</td>
+          <td>3.5 ~ 10</td>
+          <td><span class="badge badge-success">正常</span></td>
+          <td>整體免疫系統基礎數量正常，無系統性發炎、感染或免疫力低下狀況。</td>
+        </tr>
+
+        <tr class="table-category-row">
+          <td colspan="5">🛡️ 自然殺手細胞 (NK Cell) —— 【胚胎著床關鍵指標】</td>
+        </tr>
+        <tr>
+          <td>自然殺手細胞百分比<br><small>NK cell (CD16+56)</small></td>
           <td><strong>8.4 %</strong></td>
           <td>&lt; 14.9</td>
           <td><span class="badge badge-success">正常 / 優良</span></td>
-          <td>在生殖免疫中，周邊血 NK 細胞過高易導致胚胎排斥。此數值 8.4% 落在非常安全的範圍，對胚胎著床極為有利。</td>
+          <td><strong>生殖免疫最關鍵數據。</strong>周邊血 NK 細胞過高易對胚胎產生攻擊與排斥。此數值 8.4% 落在非常安全的低位區間，對胚胎著床極為有利。</td>
+        </tr>
+        <tr>
+          <td>自然殺手細胞絕對數<br><small>CD16+56 Absolute Count</small></td>
+          <td>140 ul</td>
+          <td>&lt; 299.9</td>
+          <td><span class="badge badge-success">正常</span></td>
+          <td>NK 細胞的整體數量在安全範圍內，進一步確認無異常增生風險。</td>
+        </tr>
+
+        <tr class="table-category-row">
+          <td colspan="5">🧬 B 細胞系統 (B Cell Series) —— 【體液免疫 / 抗體指標】</td>
         </tr>
         <tr>
           <td>B細胞百分比<br><small>B cell (CD19)</small></td>
-          <td><strong style="color: #f39c12;">17.7 %</strong></td>
+          <td><strong style="color: #d35400;">17.7 %</strong></td>
           <td>&lt; 14.9</td>
           <td><span class="badge badge-warning">輕微偏高</span></td>
-          <td>B 細胞負責產生抗體。百分比偏高可能暗示體內有自體免疫抗體活動的傾向，需留意是否干擾著床環境。</td>
+          <td>B 細胞負責產生抗體。<strong>百分比偏高暗示體內有自體免疫抗體活動的傾向。</strong>需留意是否伴隨抗甲狀腺抗體或抗磷脂質抗體，這類抗體可能形成微血栓干擾著床。</td>
         </tr>
         <tr>
           <td>B細胞絕對計數<br><small>CD19 Absolute Count</small></td>
           <td>294 ul</td>
           <td>&lt; 499.9</td>
           <td><span class="badge badge-success">正常</span></td>
-          <td>雖然百分比偏高，但 B 細胞總數仍在正常範圍，表示並非嚴重的免疫異常增生，風險相對可控。</td>
+          <td>雖然百分比偏高，但 B 細胞總數仍在正常範圍（無異常造血增生），表示風險屬於低至中度，相對可控。</td>
+        </tr>
+
+        <tr class="table-category-row">
+          <td colspan="5">⚔️ T 細胞系統 (T Cell Series) —— 【細胞免疫 / 發炎指標】</td>
         </tr>
         <tr>
-          <td>T細胞系列<br><small>T cell (CD3/4/8)</small></td>
-          <td>正常範圍</td>
-          <td>-</td>
+          <td>總 T 細胞百分比<br><small>T cell (CD3)</small></td>
+          <td>70.6 %</td>
+          <td>50 ~ 84</td>
           <td><span class="badge badge-success">正常</span></td>
-          <td>輔助型與抑制型T細胞(CD4/CD8 Ratio=0.9)比例平衡，無明顯急性發炎或細胞免疫過度活化跡象。</td>
+          <td>細胞免疫系統的總比例正常，維持穩定的免疫防線。</td>
         </tr>
         <tr>
-          <td>活化T細胞<br><small>Active T cell (HLA-DR)</small></td>
+          <td>總 T 細胞絕對數<br><small>CD3 Absolute Count</small></td>
+          <td>1172 ul</td>
+          <td>723 ~ 2737</td>
+          <td><span class="badge badge-success">正常</span></td>
+          <td>T 細胞總數量健康充足。</td>
+        </tr>
+        <tr>
+          <td>輔助型 T 細胞<br><small>Helper cell (CD4)</small></td>
+          <td>32.3 %</td>
+          <td>27 ~ 51</td>
+          <td><span class="badge badge-success">正常</span></td>
+          <td>負責發出免疫攻擊訊號。數值在安全範圍，無過度發炎反應。</td>
+        </tr>
+        <tr>
+          <td>輔助型 T 細胞絕對數<br><small>CD4 Absolute Count</small></td>
+          <td>533 ul</td>
+          <td>404 ~ 1612</td>
+          <td><span class="badge badge-success">正常</span></td>
+          <td>數量正常，無免疫缺陷或過度活躍。</td>
+        </tr>
+        <tr>
+          <td>抑制型 T 細胞<br><small>Suppressor cell (CD8)</small></td>
+          <td>34.6 %</td>
+          <td>15 ~ 44</td>
+          <td><span class="badge badge-success">正常</span></td>
+          <td>負責清除異常細胞並調節免疫。數值正常。</td>
+        </tr>
+        <tr>
+          <td>抑制型 T 細胞絕對數<br><small>CD8 Absolute Count</small></td>
+          <td>572 ul</td>
+          <td>220 ~ 1129</td>
+          <td><span class="badge badge-success">正常</span></td>
+          <td>數量正常。</td>
+        </tr>
+        <tr>
+          <td><strong>CD4/CD8 比值</strong><br><small>CD4/CD8 Ratio</small></td>
+          <td><strong>0.9</strong></td>
+          <td>0.6 ~ 2.5</td>
+          <td><span class="badge badge-success">正常 / 穩定</span></td>
+          <td><strong>判讀免疫平衡的重要指標。</strong>比值 0.9 落在完美的平衡區，代表體內沒有偏向慢性發炎（過高）或免疫低下（過低），具備良好的胚胎包容性。</td>
+        </tr>
+        
+        <tr class="table-category-row">
+          <td colspan="5">🔥 活化 T 細胞 (Active T Cell) —— 【近期發炎狀態】</td>
+        </tr>
+        <tr>
+          <td>活化 T 細胞百分比<br><small>Active T cell (HLA-DR)</small></td>
           <td>4.4 %</td>
           <td>1.9 ~ 19.6</td>
           <td><span class="badge badge-success">正常</span></td>
-          <td>顯示體內 T 細胞並未處於過度活躍的攻擊狀態，有利於母體對外來胚胎產生免疫耐受。</td>
+          <td>數值偏低代表體內的 T 細胞目前處於「安靜」狀態，未進行積極攻擊，有利於母體對外來胚胎產生免疫耐受。</td>
+        </tr>
+        <tr>
+          <td>活化 T 細胞絕對數<br><small>Active T cell abs count</small></td>
+          <td>73</td>
+          <td>-</td>
+          <td><span class="badge badge-success">正常</span></td>
+          <td>絕對數值低，進一步確認無急性或慢性免疫發炎反應。</td>
         </tr>
       </tbody>
     </table>
   </section>
 
   <section>
-    <h2>三、整體評估</h2>
-    <p>針對<strong>借卵試管嬰兒（Donor Egg IVF）</strong>療程，因胚胎對母體而言屬於完全的外來抗原，因此<strong>「母體免疫耐受性」</strong>是療程成功的核心關鍵。您已用藥三個月，目前的免疫輪廓整體而言<strong>相當樂觀且適合植入</strong>：</p>
+    <h2>三、整體評估（綜合分析）</h2>
+    <p>針對<strong>借卵試管嬰兒（Donor Egg IVF）</strong>療程，因胚胎對母體而言屬於完全的外來抗原，因此<strong>「母體免疫耐受性」</strong>是療程成功的核心關鍵。您已用藥三個月，綜觀上述 14 項指標，您目前的免疫輪廓整體而言<strong>相當樂觀且極度適合植入</strong>：</p>
     <ul>
-      <li>最常導致反覆植入失敗的殺手細胞（NK cell）比例完美控制在安全範圍內（8.4%）。</li>
-      <li>T 細胞系統穩定，無發炎過激反應。</li>
-      <li>唯一需關注的是 <strong>B 細胞（CD19）百分比輕微偏高</strong>，這通常對應到自體免疫抗體的潛在可能，但因其絕對數量正常，風險屬於低度。</li>
+      <li><strong>優勢 1：NK 殺手細胞極為溫和。</strong> 最常導致反覆植入失敗的殺手細胞（NK cell）比例完美控制在 8.4%，處於低攻擊性狀態。</li>
+      <li><strong>優勢 2：T 細胞系統穩定平衡。</strong> CD4/CD8 比值 0.9 以及極低的活化 T 細胞（4.4%），顯示子宮與全身免疫沒有發炎拒斥反應。</li>
+      <li><strong>唯一關注點： B 細胞（CD19）百分比輕微偏高。</strong> 這是整份報告唯一紅字，可能與體內潛在的微小自體免疫抗體相關，但因其絕對數量正常，風險可控。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>四、目前成功機率評估與影響因素</h2>
+    <p>在「借卵試管」療程中，因卵子來源年輕，胚胎染色體異常的機率已大幅降低。因此，<strong>母體子宮環境與免疫耐受度</strong>成為決定著床成敗的絕對關鍵。基於您當前的檢驗數據與療程特性，您的整體著床成功率評估為<strong>【高度樂觀】（通常臨床成功率可達 60%~80% 以上）</strong>，但仍需小心防範少數風險：</p>
+
+    <div class="assessment-container">
+      <!-- 正面因素 -->
+      <div class="pros-card">
+        <h3>🌟 有利於成功的正面因素</h3>
+        <ul>
+          <li><strong>殺手細胞（NK Cell）極低：</strong> 8.4% 是一個非常完美的著床數據。這代表當外來胚胎進入子宮時，您的免疫系統不會將其視為敵人進行主動攻擊。</li>
+          <li><strong>無急慢性發炎干擾：</strong> CD4/CD8 比例完美平衡（0.9），且活化 T 細胞極低，顯示身體目前處於高度包容、平靜無發炎的「黃金著床期」。</li>
+          <li><strong>借卵的先天優勢：</strong> 卵子來源年輕，排除了高齡試管最常見的失敗主因（卵子老化導致的染色體異常），大幅降低了早期流產的機率。</li>
+          <li><strong>絕佳的藥物反應：</strong> 若您目前有使用免疫調節藥物，這份漂亮數據證明您對藥物的吸收與反應極佳；若無用藥，則證明您的先天免疫包容力強大。</li>
+        </ul>
+      </div>
+
+      <!-- 潛在風險因素 -->
+      <div class="cons-card">
+        <h3>⚠️ 可能導致失敗的潛在風險</h3>
+        <ul>
+          <li><strong>B細胞偏高隱含的微血栓風險：</strong> 17.7% 的 B 細胞可能伴隨潛在的血栓抗體或甲狀腺抗體。若未預防性使用低劑量阿斯匹靈等抗凝血藥物，微血栓可能會阻斷胚胎著床時微血管的血流供給。</li>
+          <li><strong>未知的子宮內膜環境（盲區）：</strong> 血液免疫數據雖好，但著床也極度依賴「物理環境」。若存在子宮內膜過薄、子宮肌腺症、子宮腔息肉，或著床窗（ERA）偏移，仍會導致植入失敗。</li>
+          <li><strong>年齡相關的生理負載：</strong> 48 歲受孕後，母體心血管負荷較大。需提前防範妊娠高血壓及妊娠糖尿病，這不僅影響懷孕中後期，也會影響初期胎盤植入的穩固性。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>五、建議補充檢查</h2>
+    <p>為了將「可能導致失敗的潛在風險」降至最低，建議確認是否需補充以下資料以排除隱藏的「抗體型」風險與「環境」問題：</p>
+    <ul>
+      <li><strong>自體免疫抗體篩檢：</strong> 抗核抗體 (ANA)、抗磷脂質抗體 (ACA, β2-GPI)、狼瘡抗凝血因子 (LA)。</li>
+      <li><strong>甲狀腺與血栓指標：</strong> TSH, Free T4, Anti-TPO, Anti-Tg，以及血栓體質指標 D-dimer、血栓蛋白 C/S。</li>
+      <li><strong>內膜環境評估：</strong> 植入前的 3D 超音波或子宮鏡檢查（確認無息肉或沾黏）。</li>
     </ul>
   </section>
 
@@ -256,48 +436,30 @@
     <p>為了確保植入順利，建議您在下次門診時（或植入前），直接向主治醫師提出以下問題：</p>
     <ul>
       <li>
-        <strong>關於 B 細胞偏高：</strong>
-        「我的 B 細胞百分比(17.7%)稍微偏高，這是否代表潛在的自體免疫抗體活躍？是否建議進一步抽血檢查（如抗磷脂質抗體、甲狀腺抗體或血栓指數）？」
+        <strong>關於隱藏風險：</strong>
+        「這份報告除了 B 細胞百分比(17.7%)稍微偏高之外，其餘都很好。這是否代表潛在的自體免疫抗體活躍？在借卵療程中，這會不會增加微血栓阻斷胚胎血流的風險？」
       </li>
       <li>
         <strong>關於用藥調整：</strong>
-        「針對目前的免疫數值，現有的用藥方案是否需要調整？例如是否需要增加低劑量阿斯匹靈(Aspirin)或奎寧(Plaquenil)來優化子宮微血管環境？」
+        「針對目前 B 細胞偏高但 NK 細胞很正常的狀況，現有的用藥方案是否需要微調？是否建議預防性增加『低劑量阿斯匹靈(Aspirin)』或『奎寧(Plaquenil)』來優化子宮微血管環境？」
       </li>
       <li>
-        <strong>關於植入時機：</strong>
-        「我的殺手細胞(NK cell)數值非常理想(8.4%)，整體 T 細胞也很穩定，這樣的免疫環境是否已經算是準備好迎接胚胎植入了？」
+        <strong>關於植入時機與物理環境：</strong>
+        「我的免疫環境目前看起來是高度樂觀的。請問我目前的『子宮內膜厚度』與『子宮腔環境』是否也跟免疫一樣，已經達到適合植入的最佳狀態了？」
       </li>
       <li>
         <strong>關於後續監測：</strong>
-        「在胚胎植入後，或是確認懷孕初期，是否需要再次抽血追蹤這份免疫細胞報告？」
+        「在胚胎順利植入後，或是確認懷孕初期，是否需要再次抽血追蹤這份淋巴球免疫報告或是血栓指數（D-dimer）？」
       </li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>四、可能問題與風險分析</h2>
-    <ol>
-      <li><strong>自體免疫抗體干擾（低風險）：</strong> B 細胞偏高可能伴隨某些非特異性抗體（如甲狀腺抗體）。若未曾檢驗過，可能會隱藏微血栓影響著床的風險。</li>
-      <li><strong>藥物反應評估：</strong> 若您這三個月的用藥包含免疫調節劑，這份報告顯示藥效極佳；若尚未開始免疫用藥，則表示您先天的免疫包容性極好。</li>
-    </ol>
-  </section>
-
-  <section>
-    <h2>五、建議補充檢查</h2>
-    <p>若過去尚未檢測，建議確認是否需補充以下資料以排除隱藏風險：</p>
-    <ul>
-      <li><strong>自體免疫抗體篩檢：</strong> 抗核抗體 (ANA)、抗磷脂質抗體 (ACA, β2-GPI)、狼瘡抗凝血因子 (LA)。</li>
-      <li><strong>甲狀腺功能與抗體：</strong> TSH, Free T4, 及 Anti-TPO, Anti-Tg（因 B 細胞偏高，需排除甲狀腺自體免疫）。</li>
-      <li><strong>血栓體質指標：</strong> D-dimer, Protein C, Protein S。</li>
     </ul>
   </section>
 
   <section>
     <h2>六、生活與治療建議</h2>
     <ul>
-      <li><strong>抗發炎飲食：</strong> 建議維持地中海飲食，減少精緻糖分與加工食品，以持續穩定免疫系統。</li>
-      <li><strong>日常照護：</strong> 充足睡眠（7-8 小時）與適度溫和運動（如瑜珈、散步）能有效調節 T/B 細胞平衡，避免過度疲勞。</li>
-      <li><strong>用藥遵從性：</strong> 借卵療程的荷爾蒙用藥時間非常嚴格，請務必精準設定鬧鐘按時服藥或使用塞劑，絕不可自行停藥。</li>
+      <li><strong>抗發炎飲食：</strong> 建議維持地中海飲食，減少精緻糖分與加工食品，以持續穩定 T 細胞與 NK 細胞的良好狀態。</li>
+      <li><strong>微循環保養：</strong> 適度的溫和運動（如瑜珈、散步）有助於骨盆腔的血液循環，防範微血栓，但請避免過度劇烈導致身體發炎。</li>
+      <li><strong>用藥遵從性：</strong> 借卵療程的內膜準備與免疫用藥時間非常嚴格，請務必精準設定鬧鐘按時服藥或使用塞劑，絕不可自行停藥。</li>
     </ul>
   </section>
 
@@ -307,7 +469,7 @@
       <strong>⚠️ 需盡快就醫提醒：</strong>
       <ul style="margin-top: 10px; margin-bottom: 0;">
         <li>在用藥準備期間，若出現不正常陰道出血、異常下腹劇痛，或因用藥產生過敏反應（起疹、呼吸急促），請立即回診。</li>
-        <li>若近期有<strong>嚴重感冒、發燒或感染</strong>，可能會短暫改變體內的免疫活性，請務必主動告知生殖中心醫師，評估是否需延緩植入。</li>
+        <li>若近期有<strong>嚴重感冒、發燒或感染</strong>，可能會短暫改變體內 T 細胞或 NK 細胞的免疫活性，請務必主動告知生殖中心醫師，評估是否需延緩植入。</li>
       </ul>
     </div>
   </section>
