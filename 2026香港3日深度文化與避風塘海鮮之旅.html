@@ -8,63 +8,186 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     :root {
-      --blue-50: #EFF6FF; --blue-100: #DBEAFE; --blue-200: #BFDBFE;
-      --blue-300: #93C5FD; --blue-400: #60A5FA; --blue-500: #3B82F6;
-      --blue-600: #2563EB; --blue-700: #1D4ED8; --blue-800: #1E40AF;
-      --ink: #0F172A; --muted: #64748B; --bg: #F1F5F9; --card: #FFFFFF;
-      --danger: #d90429; --recommend: #0077b6;
+      /* 香港經典配色系統 */
+      --hk-mtr-red: #D1282F;      /* 港鐵紅 / 的士紅 */
+      --hk-ferry-green: #005B3A;  /* 天星小輪綠 / 電車綠 */
+      --hk-night-blue: #0B132B;   /* 維港夜空深藍 */
+      --hk-neon-cyan: #00F0FF;    /* 賽博龐克霓虹青 */
+      --hk-neon-pink: #FF007F;    /* 霓虹粉紅 */
+      --hk-gold: #F5A623;         /* 復古招牌金 */
+      --hk-tile-bg: #F4F3EF;      /* 冰室復古白 */
+      
+      --ink: #2C3E50;
+      --muted: #64748B;
+      --card: #FFFFFF;
+      --danger: var(--hk-mtr-red);
+      --recommend: #023E8A;
     }
-    body { background: var(--bg); color: var(--ink); line-height: 1.7; font-family: 'Noto Sans TC', system-ui, -apple-system; }
+
+    /* 復古馬賽克方格磚背景 */
+    body { 
+      background-color: var(--hk-tile-bg); 
+      background-image: 
+        linear-gradient(#e5e4e0 1px, transparent 1px),
+        linear-gradient(90deg, #e5e4e0 1px, transparent 1px);
+      background-size: 24px 24px;
+      color: var(--ink); 
+      line-height: 1.7; 
+      font-family: 'Noto Sans TC', system-ui, -apple-system; 
+    }
+
     .main-container { max-width: 1280px; margin: auto; padding-bottom: 4rem; }
-    .card { background: var(--card); border-radius: 1rem; box-shadow: 0 8px 24px rgba(2,6,23,.08); border: 1px solid #e5e7eb; transition: transform .2s, box-shadow .2s; }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 16px 32px rgba(2,6,23,.12); }
+    
+    /* 卡片設計：頂部帶有港鐵紅飾條，展現俐落都會感 */
+    .card { 
+      background: var(--card); 
+      border-radius: 12px; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06); 
+      border: 1px solid #e0e0e0; 
+      border-top: 5px solid var(--hk-mtr-red);
+      transition: transform .2s, box-shadow .2s; 
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+    
     .section-title { display: flex; align-items: center; gap: .6rem; }
-    .section-title .icon-slot { width: 1.75rem; height: 1.75rem; background: var(--blue-100); color: var(--blue-700); border-radius: .6rem; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 1px 0 #fff; }
-    .red-text { color: var(--danger); font-weight: 700; }
-    .blue-text { color: var(--recommend); font-weight: 700; }
-    .nav { position: sticky; top: 0; z-index: 50; background: #fff; box-shadow: 0 6px 16px rgba(2,6,23,.06); }
-    .nav-btn { background: linear-gradient(180deg, var(--blue-400), var(--blue-600)); color: #fff; padding: .7rem 1rem; border-radius: 1rem; box-shadow: inset 1px 1px 0 rgba(255,255,255,.35), 0 10px 18px rgba(37,99,235,.25); transition: transform .15s, box-shadow .15s; font-weight: bold; font-size: 0.95rem; text-align: center; }
-    .nav-btn:hover { transform: scale(1.05); }
+    .section-title .icon-slot { width: 2rem; height: 2rem; background: var(--hk-ferry-green); color: #fff; border-radius: .4rem; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
+    
+    .red-text { color: var(--danger); font-weight: 800; }
+    .blue-text { color: var(--recommend); font-weight: 800; }
+    
+    /* 導航列：維港夜空藍背景搭配復古金邊 */
+    .nav { position: sticky; top: 0; z-index: 50; background: var(--hk-night-blue); border-bottom: 4px solid var(--hk-gold); box-shadow: 0 6px 16px rgba(0,0,0,.15); }
+    .nav-btn { 
+      background: rgba(255,255,255,0.05); 
+      color: #fff; 
+      padding: .6rem 1rem; 
+      border-radius: .4rem; 
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all .2s; 
+      font-weight: bold; 
+      font-size: 0.95rem; 
+      text-align: center; 
+      letter-spacing: 1px;
+    }
+    .nav-btn:hover, .nav-btn.active { 
+      background: var(--hk-mtr-red); 
+      border-color: var(--hk-mtr-red);
+      color: #fff;
+      transform: scale(1.03);
+      box-shadow: 0 0 15px rgba(209, 40, 47, 0.5);
+    }
     .nav-btn:active { transform: translateY(1px); }
-    .nav-btn:focus-visible { outline: 3px solid var(--blue-300); outline-offset: 2px; }
+    
     section { display: none; } section.active { display: block; animation: fadeIn 0.4s ease-out; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
     .two-col { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1.5rem; }
     @media (min-width: 768px) { .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    
+    /* 時間軸：金色軌道 */
     .timeline { position: relative; margin-left: 1.25rem; padding-bottom: 1rem; }
-    .timeline:before { content: ""; position: absolute; left: 1.35rem; top: 0; bottom: 0; width: 3px; background: var(--blue-200); border-radius: 2px; }
+    .timeline:before { content: ""; position: absolute; left: 1.35rem; top: 0; bottom: 0; width: 4px; background: var(--hk-gold); border-radius: 2px; }
     .time-block { margin: 1.5rem 0; position: relative; z-index: 1; }
-    .time-block-title { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--blue-600); color: white; padding: 0.3rem 1rem; border-radius: 2rem; font-weight: bold; margin-bottom: 1rem; font-size: 0.9rem; letter-spacing: 1px; }
-    .item { display: flex; gap: 1rem; margin: 1.2rem 0; align-items: flex-start; background: #fff; padding: 1.2rem; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-    .time-badge { flex: 0 0 auto; background: var(--blue-100); color: var(--blue-800); border-radius: 0.5rem; padding: 0.4rem 0.6rem; font-weight: 800; min-width: 5rem; text-align: center; font-size: 0.9rem; border: 1px solid var(--blue-200); }
-    .icon-slot { flex: 0 0 auto; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; color: var(--blue-700); background: var(--blue-50); border-radius: 0.5rem; font-size: 1.2rem; box-shadow: inset 0 1px 0 #fff, 0 2px 4px rgba(0,0,0,0.05); }
+    
+    /* 時間區塊標題：天星小輪綠 */
+    .time-block-title { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--hk-ferry-green); color: white; padding: 0.4rem 1.2rem; border-radius: 4px; font-weight: bold; margin-bottom: 1rem; font-size: 0.95rem; letter-spacing: 1px; box-shadow: 2px 2px 0px rgba(0,0,0,0.15); }
+    
+    .item { display: flex; gap: 1rem; margin: 1.2rem 0; align-items: flex-start; background: #fff; padding: 1.2rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); border: 1px solid #eee; }
+    
+    /* 復古車票風格的時間標籤 */
+    .time-badge { 
+      flex: 0 0 auto; 
+      background: var(--hk-mtr-red); 
+      color: #FFF; 
+      border-radius: 4px; 
+      padding: 0.4rem 0.6rem; 
+      font-weight: 800; 
+      min-width: 5.5rem; 
+      text-align: center; 
+      font-size: 0.9rem; 
+      font-family: 'Courier New', Courier, monospace;
+      letter-spacing: -0.5px;
+      box-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    /* 車票打孔效果 */
+    .time-badge::before, .time-badge::after {
+      content: ''; position: absolute; top: 50%; width: 10px; height: 10px; background: #fff; border-radius: 50%; transform: translateY(-50%);
+    }
+    .time-badge::before { left: -5px; }
+    .time-badge::after { right: -5px; }
+
+    /* 圖標插槽：復古圓形 */
+    .icon-slot { flex: 0 0 auto; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; color: var(--hk-night-blue); background: #F4F3EF; border-radius: 50%; font-size: 1.2rem; border: 2px solid var(--hk-night-blue); }
+    
     .text-slot { min-width: 0; flex: 1 1 auto; word-break: break-word; display: flex; flex-direction: column; gap: 0.5rem; }
-    .text-slot h5 { font-size: 1.1rem; font-weight: 700; color: var(--ink); margin: 0; }
-    .transport { background: linear-gradient(to right, var(--blue-50), #fff); border-left: 4px solid var(--blue-500); padding: 0.8rem 1rem; border-radius: 0.6rem; margin: 0.5rem 0 0.5rem 2.5rem; font-size: 0.9rem; display: flex; align-items: flex-start; gap: 0.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+    .text-slot h5 { font-size: 1.15rem; font-weight: 800; margin: 0; }
+    
+    /* 交通卡片：類似港鐵指標的設計 */
+    .transport { 
+      background: #fff; 
+      border-left: 6px solid var(--hk-ferry-green); 
+      padding: 0.8rem 1rem; 
+      border-radius: 0 6px 6px 0; 
+      margin: 0.5rem 0 0.5rem 2.5rem; 
+      font-size: 0.9rem; 
+      display: flex; 
+      align-items: flex-start; 
+      gap: 0.8rem; 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+      border-top: 1px solid #eee;
+      border-right: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+    
     .stack-vertical { display: flex; flex-direction: column; gap: 0.5rem; }
-    .day-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 0.6rem; background: var(--blue-100); color: var(--blue-800); font-size: 0.8rem; font-weight: 600; margin-top: 0.5rem; align-self: flex-start; }
+    
+    .day-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; background: var(--hk-night-blue); color: #fff; font-size: 0.8rem; font-weight: 600; margin-top: 0.5rem; align-self: flex-start; letter-spacing: 1px; }
+    
     .day-details[open] summary ~ * { animation: fadeIn 0.3s ease-in-out; }
-    summary { cursor: pointer; list-style: none; font-weight: bold; font-size: 1.2rem; padding: 1rem; background: var(--blue-50); border-radius: 0.8rem; color: var(--blue-800); transition: background 0.2s; }
+    summary { cursor: pointer; list-style: none; font-weight: bold; font-size: 1.2rem; padding: 1rem; background: #fff; border-radius: 8px 8px 0 0; color: var(--hk-night-blue); transition: background 0.2s; border-bottom: 2px solid #eee; }
     summary::-webkit-details-marker { display: none; }
-    summary:hover { background: var(--blue-100); }
-    #backToTopBtn { background: var(--blue-600); z-index: 100; transition: opacity 0.3s; opacity: 0; pointer-events: none; }
+    summary:hover { background: #fafafa; }
+    
+    #backToTopBtn { background: var(--hk-mtr-red); z-index: 100; transition: opacity 0.3s, transform 0.2s; opacity: 0; pointer-events: none; border: 2px solid #fff; }
+    #backToTopBtn:hover { transform: scale(1.1); }
     #backToTopBtn.show { opacity: 1; pointer-events: auto; }
-    .copy-btn { cursor: pointer; color: var(--blue-600); background: var(--blue-50); padding: 0.2rem 0.5rem; border-radius: 0.4rem; font-size: 0.85rem; transition: background 0.2s; border: 1px solid var(--blue-200); }
-    .copy-btn:hover { background: var(--blue-100); }
+    
+    .copy-btn { cursor: pointer; color: var(--hk-night-blue); background: #eee; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.85rem; transition: background 0.2s; border: 1px solid #ccc; font-weight: bold; }
+    .copy-btn:hover { background: #ddd; }
+
+    /* 頁首：維港夜空與霓虹燈效 */
+    .hk-header {
+      background: linear-gradient(135deg, var(--hk-night-blue) 0%, #152238 50%, #050a15 100%);
+      border-bottom: 6px solid var(--hk-mtr-red);
+      position: relative;
+      overflow: hidden;
+    }
+    /* 模擬霓虹燈招牌發光效果 */
+    .hk-neon-title {
+      color: #fff;
+      text-shadow: 
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px var(--hk-neon-pink),
+        0 0 40px var(--hk-neon-pink),
+        0 0 80px var(--hk-neon-pink);
+      font-family: 'Noto Sans TC', sans-serif;
+    }
   </style>
 </head>
 <body>
-  <header class="text-center py-10 text-white shadow-lg" style="background: linear-gradient(135deg, #1E3A8A, #3B82F6, #0EA5E9)">
-    <div class="section-title justify-center mb-3">
-      <span class="icon-slot" style="background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4); width: 3rem; height: 3rem; font-size: 1.5rem;"><i class="fa-solid fa-plane-departure"></i></span>
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-wide drop-shadow-md">2026香港3日深度文化與避風塘海鮮之旅</h1>
+  <header class="hk-header text-center py-12 text-white shadow-2xl">
+    <div class="section-title justify-center mb-4 relative z-10">
+      <span class="icon-slot" style="background: transparent; color: var(--hk-neon-cyan); border-color: var(--hk-neon-cyan); width: 3.5rem; height: 3.5rem; font-size: 1.8rem; box-shadow: 0 0 15px rgba(0,240,255,0.5);"><i class="fa-solid fa-plane-departure"></i></span>
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-wider hk-neon-title drop-shadow-md">2026香港3日深度文化與避風塘海鮮之旅</h1>
     </div>
-    <p class="text-lg opacity-95 mt-2 font-medium"><i class="fa-solid fa-location-dot mr-2"></i>目的地：香港 ｜ <i class="fa-regular fa-calendar-days mr-2"></i>日期：3/21 - 3/23 (3天2夜)</p>
+    <p class="text-lg mt-3 font-medium text-gray-300 relative z-10 tracking-widest"><i class="fa-solid fa-location-dot mr-2 text-red-400"></i>目的地：香港 ｜ <i class="fa-regular fa-calendar-days mr-2 text-red-400"></i>日期：3/21 - 3/23 (3天2夜)</p>
   </header>
 
   <nav class="nav">
     <div class="max-w-6xl mx-auto px-4 py-3 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
-      <button class="nav-btn" onclick="showPage('home')"><i class="fa-solid fa-house mr-1"></i> 首頁行程</button>
+      <button class="nav-btn active" onclick="showPage('home')"><i class="fa-solid fa-house mr-1"></i> 首頁行程</button>
       <button class="nav-btn" onclick="showPage('poi')"><i class="fa-solid fa-camera mr-1"></i> 景點 POI (20)</button>
       <button class="nav-btn" onclick="showPage('bib')"><i class="fa-solid fa-utensils mr-1"></i> 美食 (20)</button>
       <button class="nav-btn" onclick="showPage('souvenir')"><i class="fa-solid fa-gift mr-1"></i> 伴手禮 (20)</button>
@@ -74,7 +197,7 @@
     </div>
   </nav>
 
-  <main class="main-container px-4 mt-8">
+  <main class="main-container px-4 mt-10">
     
     <!-- ========================================== -->
     <!-- 首頁：行程總覽 × 每日重點 + 每日詳細行程 -->
@@ -85,28 +208,28 @@
       <div>
         <div class="section-title mb-6">
           <span class="icon-slot"><i class="fa-solid fa-map-location-dot"></i></span>
-          <h2 class="text-2xl font-bold text-blue-900">行程總覽 × 每日重點</h2>
+          <h2 class="text-2xl font-extrabold" style="color: var(--hk-night-blue);">行程總覽 × 每日重點</h2>
         </div>
         <div class="two-col">
           <details class="day-details card" open>
-            <summary><i class="fa-solid fa-calendar-day mr-2 text-blue-600"></i>Day 1 (3/21) 中環壁畫與微醺之夜</summary>
-            <div class="p-4 stack-vertical text-gray-700">
-              <p><i class="fa-solid fa-thumbtack mr-2 text-blue-500"></i><span class="font-bold">重點摘要：</span>清晨抵港、品味米其林點心與燒鵝，午後探索中環街頭藝術，夜幕降臨感受蘭桂坊隱藏酒吧魅力。</p>
-              <p><i class="fa-solid fa-location-arrow mr-2 text-blue-500"></i><span class="font-bold">主要區域：</span>機場、上環、中環、蘭桂坊</p>
+            <summary><i class="fa-solid fa-calendar-day mr-2" style="color: var(--hk-mtr-red);"></i>Day 1 (3/21) 中環壁畫與微醺之夜</summary>
+            <div class="p-5 stack-vertical text-gray-700 bg-white" style="border-radius: 0 0 8px 8px;">
+              <p><i class="fa-solid fa-thumbtack mr-2" style="color: var(--hk-gold);"></i><span class="font-bold">重點摘要：</span>清晨抵港、品味米其林點心與燒鵝，午後探索中環街頭藝術，夜幕降臨感受蘭桂坊隱藏酒吧魅力。</p>
+              <p><i class="fa-solid fa-location-arrow mr-2" style="color: var(--hk-gold);"></i><span class="font-bold">主要區域：</span>機場、上環、中環、蘭桂坊</p>
             </div>
           </details>
           <details class="day-details card" open>
-            <summary><i class="fa-solid fa-calendar-day mr-2 text-blue-600"></i>Day 2 (3/22) 文青舊區與避風塘炒蟹</summary>
-            <div class="p-4 stack-vertical text-gray-700">
-              <p><i class="fa-solid fa-thumbtack mr-2 text-blue-500"></i><span class="font-bold">重點摘要：</span>深入深水埗文青區尋寶，漫步西九文化區，傍晚搭天星小輪，晚餐大啖正宗橋底避風塘炒蟹，並體驗夜間叮叮車。</p>
-              <p><i class="fa-solid fa-location-arrow mr-2 text-blue-500"></i><span class="font-bold">主要區域：</span>深水埗、西九龍、尖沙咀、灣仔、銅鑼灣</p>
+            <summary><i class="fa-solid fa-calendar-day mr-2" style="color: var(--hk-mtr-red);"></i>Day 2 (3/22) 文青舊區與避風塘炒蟹</summary>
+            <div class="p-5 stack-vertical text-gray-700 bg-white" style="border-radius: 0 0 8px 8px;">
+              <p><i class="fa-solid fa-thumbtack mr-2" style="color: var(--hk-gold);"></i><span class="font-bold">重點摘要：</span>深入深水埗文青區尋寶，漫步西九文化區，傍晚搭天星小輪，晚餐大啖正宗橋底避風塘炒蟹，並體驗夜間叮叮車。</p>
+              <p><i class="fa-solid fa-location-arrow mr-2" style="color: var(--hk-gold);"></i><span class="font-bold">主要區域：</span>深水埗、西九龍、尖沙咀、灣仔、銅鑼灣</p>
             </div>
           </details>
           <details class="day-details card" open>
-            <summary><i class="fa-solid fa-calendar-day mr-2 text-blue-600"></i>Day 3 (3/23) 纜車美景與血拼賦歸</summary>
-            <div class="p-4 stack-vertical text-gray-700">
-              <p><i class="fa-solid fa-thumbtack mr-2 text-blue-500"></i><span class="font-bold">重點摘要：</span>懷舊冰室甦醒、搭乘昂坪360纜車俯瞰美景、東薈城Outlet最後衝刺採購、傍晚班機返台。</p>
-              <p><i class="fa-solid fa-location-arrow mr-2 text-blue-500"></i><span class="font-bold">主要區域：</span>上環、東涌、大嶼山、機場</p>
+            <summary><i class="fa-solid fa-calendar-day mr-2" style="color: var(--hk-mtr-red);"></i>Day 3 (3/23) 纜車美景與血拼賦歸</summary>
+            <div class="p-5 stack-vertical text-gray-700 bg-white" style="border-radius: 0 0 8px 8px;">
+              <p><i class="fa-solid fa-thumbtack mr-2" style="color: var(--hk-gold);"></i><span class="font-bold">重點摘要：</span>懷舊冰室甦醒、搭乘昂坪360纜車俯瞰美景、東薈城Outlet最後衝刺採購、傍晚班機返台。</p>
+              <p><i class="fa-solid fa-location-arrow mr-2" style="color: var(--hk-gold);"></i><span class="font-bold">主要區域：</span>上環、東涌、大嶼山、機場</p>
             </div>
           </details>
         </div>
@@ -116,12 +239,13 @@
       <div class="space-y-10">
         <div class="section-title mb-6">
           <span class="icon-slot"><i class="fa-solid fa-route"></i></span>
-          <h2 class="text-2xl font-bold text-blue-900">每日詳細行程</h2>
+          <h2 class="text-2xl font-extrabold" style="color: var(--hk-night-blue);">每日詳細行程</h2>
         </div>
 
         <!-- =========== Day 1 =========== -->
-        <div class="day-section bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <h3 class="text-xl font-extrabold text-blue-800 border-b-2 border-blue-200 pb-2 mb-6"><i class="fa-regular fa-clock mr-2"></i>Day 1 - 3/21 (週六)</h3>
+        <div class="day-section bg-white p-6 md:p-8 rounded-xl shadow-md border border-gray-200 relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-600 via-yellow-500 to-green-600"></div>
+          <h3 class="text-2xl font-extrabold border-b-2 border-gray-100 pb-3 mb-6" style="color: var(--hk-night-blue);"><i class="fa-regular fa-clock mr-2" style="color: var(--hk-mtr-red);"></i>Day 1 - 3/21 (週六)</h3>
           <div class="timeline">
             
             <!-- Morning -->
@@ -129,7 +253,7 @@
               <div class="time-block-title"><i class="fa-regular fa-sun"></i> 早晨 Morning</div>
               
               <div class="item">
-                <div class="time-badge">04:30<br><span class="text-xs text-gray-500">約 1.5 小時</span></div>
+                <div class="time-badge">04:30<br><span class="text-xs text-red-100 font-normal">約 1.5 小時</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-plane-departure"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">抵達機場報到</h5>
@@ -138,15 +262,15 @@
               </div>
 
               <div class="transport">
-                <i class="fa-solid fa-arrow-right text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-arrow-right mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">步行前往登機門</span>
-                  <span class="text-xs text-gray-500">ETA: 06:30 | 準備登機</span>
+                  <span class="font-bold text-gray-800">步行前往登機門</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 06:30 | 準備登機</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">07:00<br><span class="text-xs text-gray-500">~08:50</span></div>
+                <div class="time-badge">07:00<br><span class="text-xs text-red-100 font-normal">~08:50</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-plane"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">長榮航空 BR 891 航班啟程</h5>
@@ -160,24 +284,24 @@
               <div class="time-block-title"><i class="fa-solid fa-sun"></i> 上午 Forenoon</div>
               
               <div class="item">
-                <div class="time-badge">09:30<br><span class="text-xs text-gray-500">約 45 分</span></div>
+                <div class="time-badge">09:30<br><span class="text-xs text-red-100 font-normal">約 45 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-passport"></i></div>
                 <div class="text-slot">
-                  <h5 class="red-text">入境通關與領取行李</h5> <!-- 由於這算主體行程的一部分，保持紅字或依照標記規則 -->
+                  <h5 class="red-text">入境通關與領取行李</h5>
                   <span class="text-sm text-gray-600">辦理入境手續並領取託運行李。</span>
                 </div>
               </div>
 
               <div class="transport">
-                <i class="fa-solid fa-train text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-train mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">機場快線 (機場站 → 香港站)</span>
-                  <span class="text-xs text-gray-500">ETA: 24分鐘 | Cost: HK$115 | 轉乘計程車/步行至上環</span>
+                  <span class="font-bold text-gray-800">機場快線 (機場站 → 香港站)</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 24分鐘 | Cost: HK$115 | 轉乘計程車/步行至上環</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">10:45<br><span class="text-xs text-gray-500">約 30 分</span></div>
+                <div class="time-badge">10:45<br><span class="text-xs text-red-100 font-normal">約 30 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-bed"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">抵達飯店：富荟上环酒店 (iclub Sheung Wan Hotel)</h5>
@@ -186,15 +310,15 @@
               </div>
 
               <div class="transport">
-                <i class="fa-solid fa-person-walking text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-person-walking mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">步行前往餐廳</span>
-                  <span class="text-xs text-gray-500">ETA: 10分鐘</span>
+                  <span class="font-bold text-gray-800">步行前往餐廳</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 10分鐘</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">11:30<br><span class="text-xs text-gray-500">約 90 分</span></div>
+                <div class="time-badge">11:30<br><span class="text-xs text-red-100 font-normal">約 90 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">午餐：一點心 (One Dim Sum)</h5>
@@ -208,15 +332,15 @@
               <div class="time-block-title"><i class="fa-solid fa-cloud-sun"></i> 午後 Afternoon</div>
               
               <div class="transport">
-                <i class="fa-solid fa-train-subway text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-train-subway mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">港鐵 (太子站 → 中環站)</span>
-                  <span class="text-xs text-gray-500">ETA: 15分鐘 | Cost: HK$12 | 轉乘次數: 0</span>
+                  <span class="font-bold text-gray-800">港鐵 (太子站 → 中環站)</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 15分鐘 | Cost: HK$12 | 轉乘次數: 0</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">13:30<br><span class="text-xs text-gray-500">約 120 分</span></div>
+                <div class="time-badge">13:30<br><span class="text-xs text-red-100 font-normal">約 120 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-city"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">中環 (大館/PMQ) 深度文化遊</h5>
@@ -225,15 +349,15 @@
               </div>
 
               <div class="transport">
-                <i class="fa-solid fa-person-walking text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-person-walking mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">步行前往打卡點</span>
-                  <span class="text-xs text-gray-500">ETA: 5分鐘</span>
+                  <span class="font-bold text-gray-800">步行前往打卡點</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 5分鐘</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">15:30<br><span class="text-xs text-gray-500">約 30 分</span></div>
+                <div class="time-badge">15:30<br><span class="text-xs text-red-100 font-normal">約 30 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-camera-retro"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">打卡：中環荷李活道壁畫街</h5>
@@ -242,15 +366,15 @@
               </div>
 
               <div class="transport">
-                <i class="fa-solid fa-person-walking text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-person-walking mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">步行前往商店</span>
-                  <span class="text-xs text-gray-500">ETA: 5分鐘</span>
+                  <span class="font-bold text-gray-800">步行前往商店</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 5分鐘</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">16:00<br><span class="text-xs text-gray-500">約 45 分</span></div>
+                <div class="time-badge">16:00<br><span class="text-xs text-red-100 font-normal">約 45 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">購物：Miniso香港分店</h5>
@@ -264,15 +388,15 @@
               <div class="time-block-title"><i class="fa-solid fa-moon"></i> 傍晚 Evening</div>
               
               <div class="transport">
-                <i class="fa-solid fa-person-walking text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-person-walking mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">步行前往餐廳</span>
-                  <span class="text-xs text-gray-500">ETA: 10分鐘</span>
+                  <span class="font-bold text-gray-800">步行前往餐廳</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 10分鐘</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">17:00<br><span class="text-xs text-gray-500">約 90 分</span></div>
+                <div class="time-badge">17:00<br><span class="text-xs text-red-100 font-normal">約 90 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">晚餐：一樂燒鵝 (Yat Lok)</h5>
@@ -286,15 +410,15 @@
               <div class="time-block-title"><i class="fa-solid fa-star"></i> 夜間 Night</div>
               
               <div class="transport">
-                <i class="fa-solid fa-person-walking text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-person-walking mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">步行前往蘭桂坊一帶</span>
-                  <span class="text-xs text-gray-500">ETA: 10分鐘</span>
+                  <span class="font-bold text-gray-800">步行前往蘭桂坊一帶</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 10分鐘</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">19:00<br><span class="text-xs text-gray-500">約 120 分</span></div>
+                <div class="time-badge">19:00<br><span class="text-xs text-red-100 font-normal">約 120 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-wine-glass"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">蘭桂坊 (Lan Kwai Fong) 微醺體驗</h5>
@@ -303,16 +427,17 @@
               </div>
             </div>
             
-            <div class="card mt-4 p-4 border-l-4 border-blue-400 bg-blue-50">
-              <h5 class="font-bold text-blue-800"><i class="fa-solid fa-circle-info mr-2"></i>資料不足原因備註</h5>
-              <p class="text-sm text-gray-700">因本日為航班抵達日，可用時段主要涵蓋午後至晚間，為預留充分通關、交通轉場與飯店入住時間，行程項目總數未滿 10 項，以確保旅遊節奏舒適可行。</p>
+            <div class="card mt-4 p-5 bg-gray-50 border-l-4" style="border-left-color: var(--hk-gold);">
+              <h5 class="font-extrabold text-gray-800"><i class="fa-solid fa-circle-info mr-2" style="color: var(--hk-gold);"></i>資料不足原因備註</h5>
+              <p class="text-sm text-gray-600 mt-2">因本日為航班抵達日，可用時段主要涵蓋午後至晚間，為預留充分通關、交通轉場與飯店入住時間，行程項目總數未滿 10 項，以確保旅遊節奏舒適可行。</p>
             </div>
           </div>
         </div>
 
         <!-- =========== Day 2 =========== -->
-        <div class="day-section bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <h3 class="text-xl font-extrabold text-blue-800 border-b-2 border-blue-200 pb-2 mb-6"><i class="fa-regular fa-clock mr-2"></i>Day 2 - 3/22 (週日)</h3>
+        <div class="day-section bg-white p-6 md:p-8 rounded-xl shadow-md border border-gray-200 relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-600 via-yellow-500 to-green-600"></div>
+          <h3 class="text-2xl font-extrabold border-b-2 border-gray-100 pb-3 mb-6" style="color: var(--hk-night-blue);"><i class="fa-regular fa-clock mr-2" style="color: var(--hk-mtr-red);"></i>Day 2 - 3/22 (週日)</h3>
           <div class="timeline">
             
             <!-- Morning -->
@@ -320,7 +445,7 @@
               <div class="time-block-title"><i class="fa-regular fa-sun"></i> 早晨 Morning</div>
               
               <div class="item">
-                <div class="time-badge">08:30<br><span class="text-xs text-gray-500">約 60 分</span></div>
+                <div class="time-badge">08:30<br><span class="text-xs text-red-100 font-normal">約 60 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-mug-hot"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">早餐：蓮香居 (Lin Heung Kui)</h5>
@@ -329,10 +454,10 @@
               </div>
 
               <div class="transport">
-                <i class="fa-solid fa-train-subway text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-train-subway mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">港鐵 (上環站 → 深水埗站)</span>
-                  <span class="text-xs text-gray-500">ETA: 20分鐘 | Cost: HK$12.5 | 轉乘次數: 1 (金鐘轉車)</span>
+                  <span class="font-bold text-gray-800">港鐵 (上環站 → 深水埗站)</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 20分鐘 | Cost: HK$12.5 | 轉乘次數: 1 (金鐘轉車)</span>
                 </div>
               </div>
             </div>
@@ -342,7 +467,7 @@
               <div class="time-block-title"><i class="fa-solid fa-sun"></i> 上午 Forenoon</div>
 
               <div class="item">
-                <div class="time-badge">10:00<br><span class="text-xs text-gray-500">約 90 分</span></div>
+                <div class="time-badge">10:00<br><span class="text-xs text-red-100 font-normal">約 90 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-palette"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">深水埗大南街文青區</h5>
@@ -351,15 +476,15 @@
               </div>
               
               <div class="transport">
-                <i class="fa-solid fa-person-walking text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-person-walking mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">步行至街頭小吃</span>
-                  <span class="text-xs text-gray-500">ETA: 5分鐘</span>
+                  <span class="font-bold text-gray-800">步行至街頭小吃</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 5分鐘</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">11:30<br><span class="text-xs text-gray-500">約 45 分</span></div>
+                <div class="time-badge">11:30<br><span class="text-xs text-red-100 font-normal">約 45 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-bowl-food"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">街頭小吃：合益泰小食</h5>
@@ -373,15 +498,15 @@
               <div class="time-block-title"><i class="fa-solid fa-cloud-sun"></i> 午後 Afternoon</div>
               
               <div class="transport">
-                <i class="fa-solid fa-train-subway text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-train-subway mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">港鐵 (深水埗站 → 佐敦站)</span>
-                  <span class="text-xs text-gray-500">ETA: 10分鐘 | Cost: HK$5.6</span>
+                  <span class="font-bold text-gray-800">港鐵 (深水埗站 → 佐敦站)</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 10分鐘 | Cost: HK$5.6</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">12:45<br><span class="text-xs text-gray-500">約 60 分</span></div>
+                <div class="time-badge">12:45<br><span class="text-xs text-red-100 font-normal">約 60 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">午餐：澳洲牛奶公司 (Australia Dairy Company)</h5>
@@ -390,15 +515,15 @@
               </div>
 
               <div class="transport">
-                <i class="fa-solid fa-person-walking text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-person-walking mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">步行前往甜點店</span>
-                  <span class="text-xs text-gray-500">ETA: 5分鐘</span>
+                  <span class="font-bold text-gray-800">步行前往甜點店</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 5分鐘</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">14:15<br><span class="text-xs text-gray-500">約 30 分</span></div>
+                <div class="time-badge">14:15<br><span class="text-xs text-red-100 font-normal">約 30 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-ice-cream"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">甜點下午茶：媽咪雞蛋仔 (Mammy Pancake)</h5>
@@ -407,15 +532,15 @@
               </div>
 
               <div class="transport">
-                <i class="fa-solid fa-train-subway text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-train-subway mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">港鐵 (佐敦站 → 九龍站) / 步行</span>
-                  <span class="text-xs text-gray-500">ETA: 20分鐘 | 轉乘與步行至西九龍</span>
+                  <span class="font-bold text-gray-800">港鐵 (佐敦站 → 九龍站) / 步行</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 20分鐘 | 轉乘與步行至西九龍</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">15:30<br><span class="text-xs text-gray-500">約 90 分</span></div>
+                <div class="time-badge">15:30<br><span class="text-xs text-red-100 font-normal">約 90 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-building-columns"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">西九文化區 (含M+視覺文化博物館)</h5>
@@ -429,15 +554,15 @@
               <div class="time-block-title"><i class="fa-solid fa-moon"></i> 傍晚 Evening</div>
               
               <div class="transport">
-                <i class="fa-solid fa-person-walking text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-person-walking mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">步行/小巴至尖沙咀天星碼頭</span>
-                  <span class="text-xs text-gray-500">ETA: 15分鐘</span>
+                  <span class="font-bold text-gray-800">步行/小巴至尖沙咀天星碼頭</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 15分鐘</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">17:30<br><span class="text-xs text-gray-500">約 30 分</span></div>
+                <div class="time-badge">17:30<br><span class="text-xs text-red-100 font-normal">約 30 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-ship"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">天星小輪 (Star Ferry) 跨越維港</h5>
@@ -446,15 +571,15 @@
               </div>
 
               <div class="transport">
-                <i class="fa-solid fa-taxi text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-taxi mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">計程車/巴士 (灣仔碼頭 → 銅鑼灣)</span>
-                  <span class="text-xs text-gray-500">ETA: 10分鐘</span>
+                  <span class="font-bold text-gray-800">計程車/巴士 (灣仔碼頭 → 銅鑼灣)</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 10分鐘</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">18:15<br><span class="text-xs text-gray-500">約 90 分</span></div>
+                <div class="time-badge">18:15<br><span class="text-xs text-red-100 font-normal">約 90 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-crab"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">晚餐：橋底辣蟹 (正宗避風塘炒蟹)</h5>
@@ -468,15 +593,15 @@
               <div class="time-block-title"><i class="fa-solid fa-star"></i> 夜間 Night</div>
               
               <div class="transport">
-                <i class="fa-solid fa-person-walking text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-person-walking mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">步行至軒尼詩道電車站</span>
-                  <span class="text-xs text-gray-500">ETA: 5分鐘</span>
+                  <span class="font-bold text-gray-800">步行至軒尼詩道電車站</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 5分鐘</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">20:00<br><span class="text-xs text-gray-500">約 30 分</span></div>
+                <div class="time-badge">20:00<br><span class="text-xs text-red-100 font-normal">約 30 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-train-tram"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">香港電車 (叮叮車) 夜遊都會叢林</h5>
@@ -485,15 +610,15 @@
               </div>
 
               <div class="transport">
-                <i class="fa-solid fa-person-walking text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-person-walking mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">下車後步行至超市</span>
-                  <span class="text-xs text-gray-500">ETA: 5分鐘</span>
+                  <span class="font-bold text-gray-800">下車後步行至超市</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 5分鐘</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">20:45<br><span class="text-xs text-gray-500">約 45 分</span></div>
+                <div class="time-badge">20:45<br><span class="text-xs text-red-100 font-normal">約 45 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-basket-shopping"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">惠康超級市場 (Wellcome) - 採買伴手禮</h5>
@@ -506,8 +631,9 @@
         </div>
 
         <!-- =========== Day 3 =========== -->
-        <div class="day-section bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <h3 class="text-xl font-extrabold text-blue-800 border-b-2 border-blue-200 pb-2 mb-6"><i class="fa-regular fa-clock mr-2"></i>Day 3 - 3/23 (週一)</h3>
+        <div class="day-section bg-white p-6 md:p-8 rounded-xl shadow-md border border-gray-200 relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-600 via-yellow-500 to-green-600"></div>
+          <h3 class="text-2xl font-extrabold border-b-2 border-gray-100 pb-3 mb-6" style="color: var(--hk-night-blue);"><i class="fa-regular fa-clock mr-2" style="color: var(--hk-mtr-red);"></i>Day 3 - 3/23 (週一)</h3>
           <div class="timeline">
             
             <!-- Morning -->
@@ -515,7 +641,7 @@
               <div class="time-block-title"><i class="fa-regular fa-sun"></i> 早晨 Morning</div>
               
               <div class="item">
-                <div class="time-badge">08:30<br><span class="text-xs text-gray-500">約 60 分</span></div>
+                <div class="time-badge">08:30<br><span class="text-xs text-red-100 font-normal">約 60 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-mug-saucer"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">早餐：瑞記咖啡 (Shui Kee Coffee)</h5>
@@ -524,15 +650,15 @@
               </div>
 
               <div class="transport">
-                <i class="fa-solid fa-person-walking text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-person-walking mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">步行返回飯店</span>
-                  <span class="text-xs text-gray-500">ETA: 5分鐘</span>
+                  <span class="font-bold text-gray-800">步行返回飯店</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 5分鐘</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">09:45<br><span class="text-xs text-gray-500">約 30 分</span></div>
+                <div class="time-badge">09:45<br><span class="text-xs text-red-100 font-normal">約 30 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-suitcase"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">飯店退房：富荟上环酒店</h5>
@@ -546,15 +672,15 @@
               <div class="time-block-title"><i class="fa-solid fa-sun"></i> 上午 Forenoon</div>
               
               <div class="transport">
-                <i class="fa-solid fa-train-subway text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-train-subway mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">港鐵 (上環站 → 東涌站)</span>
-                  <span class="text-xs text-gray-500">ETA: 45分鐘 | Cost: HK$24 | 轉乘: 1 (香港站換乘東涌線)</span>
+                  <span class="font-bold text-gray-800">港鐵 (上環站 → 東涌站)</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 45分鐘 | Cost: HK$24 | 轉乘: 1 (香港站換乘東涌線)</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">11:00<br><span class="text-xs text-gray-500">約 120 分</span></div>
+                <div class="time-badge">11:00<br><span class="text-xs text-red-100 font-normal">約 120 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">購物：東薈城 (Citygate Outlets)</h5>
@@ -568,15 +694,15 @@
               <div class="time-block-title"><i class="fa-solid fa-cloud-sun"></i> 午後 Afternoon</div>
               
               <div class="transport">
-                <i class="fa-solid fa-person-walking text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-person-walking mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">商場內步行至餐廳</span>
-                  <span class="text-xs text-gray-500">ETA: 5分鐘</span>
+                  <span class="font-bold text-gray-800">商場內步行至餐廳</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 5分鐘</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">13:15<br><span class="text-xs text-gray-500">約 75 分</span></div>
+                <div class="time-badge">13:15<br><span class="text-xs text-red-100 font-normal">約 75 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">午餐：添好運 (Tim Ho Wan - 東薈城店)</h5>
@@ -585,15 +711,15 @@
               </div>
 
               <div class="transport">
-                <i class="fa-solid fa-person-walking text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-person-walking mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">步行至纜車站</span>
-                  <span class="text-xs text-gray-500">ETA: 5分鐘</span>
+                  <span class="font-bold text-gray-800">步行至纜車站</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 5分鐘</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">14:45<br><span class="text-xs text-gray-500">約 100 分</span></div>
+                <div class="time-badge">14:45<br><span class="text-xs text-red-100 font-normal">約 100 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-cable-car"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">昂坪360纜車 (Ngong Ping 360)</h5>
@@ -607,15 +733,15 @@
               <div class="time-block-title"><i class="fa-solid fa-moon"></i> 傍晚 Evening</div>
               
               <div class="transport">
-                <i class="fa-solid fa-bus text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-bus mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">S1巴士 (東涌站 → 機場)</span>
-                  <span class="text-xs text-gray-500">ETA: 15分鐘 | 取回行李後搭乘巴士直達機場</span>
+                  <span class="font-bold text-gray-800">S1巴士 (東涌站 → 機場)</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 15分鐘 | 取回行李後搭乘巴士直達機場</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">17:00<br><span class="text-xs text-gray-500">約 60 分</span></div>
+                <div class="time-badge">17:00<br><span class="text-xs text-red-100 font-normal">約 60 分</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-burger"></i></div>
                 <div class="text-slot">
                   <h5 class="blue-text">晚餐：機場內餐廳/貴賓室</h5> <!-- 這是推薦填補行程所以維持藍字 -->
@@ -624,10 +750,10 @@
               </div>
 
               <div class="transport">
-                <i class="fa-solid fa-person-walking text-blue-500 mt-1"></i>
+                <i class="fa-solid fa-person-walking mt-1" style="color: var(--hk-ferry-green);"></i>
                 <div class="stack-vertical">
-                  <span class="font-bold">前往登機門</span>
-                  <span class="text-xs text-gray-500">ETA: 19:00 準備登機</span>
+                  <span class="font-bold text-gray-800">前往登機門</span>
+                  <span class="text-xs text-gray-500 font-mono">ETA: 19:00 準備登機</span>
                 </div>
               </div>
             </div>
@@ -637,7 +763,7 @@
               <div class="time-block-title"><i class="fa-solid fa-star"></i> 夜間 Night</div>
 
               <div class="item">
-                <div class="time-badge">19:40<br><span class="text-xs text-gray-500">賦歸</span></div>
+                <div class="time-badge">19:40<br><span class="text-xs text-red-100 font-normal">賦歸</span></div>
                 <div class="icon-slot"><i class="fa-solid fa-plane-arrival"></i></div>
                 <div class="text-slot">
                   <h5 class="red-text">長榮航空 BR 872 航班賦歸</h5>
@@ -646,9 +772,9 @@
               </div>
             </div>
 
-            <div class="card mt-4 p-4 border-l-4 border-blue-400 bg-blue-50">
-              <h5 class="font-bold text-blue-800"><i class="fa-solid fa-circle-info mr-2"></i>資料不足原因備註</h5>
-              <p class="text-sm text-gray-700">因本日傍晚須搭乘班機離境，行程僅規劃至下午時段，並預留充足時間返回機場進行報到與安檢手續，故事件卡總數未滿 10 項。</p>
+            <div class="card mt-4 p-5 bg-gray-50 border-l-4" style="border-left-color: var(--hk-gold);">
+              <h5 class="font-extrabold text-gray-800"><i class="fa-solid fa-circle-info mr-2" style="color: var(--hk-gold);"></i>資料不足原因備註</h5>
+              <p class="text-sm text-gray-600 mt-2">因本日傍晚須搭乘班機離境，行程僅規劃至下午時段，並預留充足時間返回機場進行報到與安檢手續，故事件卡總數未滿 10 項。</p>
             </div>
           </div>
         </div>
@@ -656,14 +782,14 @@
       </div>
 
       <!-- 區塊 C/D：風險評估與注意事項 -->
-      <div class="space-y-6 pt-6 border-t border-gray-200">
-        <div class="card p-6 bg-blue-50 border-l-4 border-blue-500">
-          <h3 class="text-xl font-extrabold text-blue-900 mb-2"><i class="fa-solid fa-shield-halved mr-2"></i>風險評估：低</h3>
+      <div class="space-y-6 pt-6 border-t border-gray-300">
+        <div class="card p-6 border-l-4" style="background: var(--hk-tile-bg); border-left-color: var(--hk-mtr-red);">
+          <h3 class="text-xl font-extrabold mb-2" style="color: var(--hk-night-blue);"><i class="fa-solid fa-shield-halved mr-2"></i>風險評估：低</h3>
           <p class="text-gray-700">香港治安良好，大眾交通發達且語言(中文/英文)皆通，唯獨需注意人潮擁擠處的扒手，以及夏季可能有颱風或暴雨影響航班與戶外行程。</p>
         </div>
 
         <div class="card p-6">
-          <h3 class="text-xl font-extrabold text-blue-900 mb-4"><i class="fa-solid fa-clipboard-list mr-2"></i>建議 × 注意事項</h3>
+          <h3 class="text-xl font-extrabold mb-4" style="color: var(--hk-night-blue);"><i class="fa-solid fa-clipboard-list mr-2"></i>建議 × 注意事項</h3>
           <ol class="list-decimal pl-5 space-y-2 text-gray-700 font-medium">
             <li>八達通卡必備，可用於地鐵、巴士、叮叮車、渡輪及多數超商和餐廳付款，極其方便。</li>
             <li>香港插座為英式三腳插頭(220V)，務必攜帶國際萬用轉接頭以免無法充電。</li>
@@ -684,9 +810,9 @@
     <!-- 獨立分頁：景點 POI (20) -->
     <!-- ========================================== -->
     <section id="poi" class="space-y-6">
-      <div class="section-title mb-6"><span class="icon-slot"><i class="fa-solid fa-camera"></i></span><h2 class="text-2xl font-bold text-blue-900">景點 POI 推薦</h2></div>
+      <div class="section-title mb-6"><span class="icon-slot"><i class="fa-solid fa-camera"></i></span><h2 class="text-2xl font-extrabold" style="color: var(--hk-night-blue);">景點 POI 推薦</h2></div>
       <div class="two-col" id="poi-container">
-        <!-- JS generates these 20 items to ensure exact count and format. See Script. -->
+        <!-- JS generates these items -->
       </div>
     </section>
 
@@ -694,7 +820,7 @@
     <!-- 獨立分頁：美食 BIB (20) -->
     <!-- ========================================== -->
     <section id="bib" class="space-y-6">
-      <div class="section-title mb-6"><span class="icon-slot"><i class="fa-solid fa-utensils"></i></span><h2 class="text-2xl font-bold text-blue-900">美食 推薦</h2></div>
+      <div class="section-title mb-6"><span class="icon-slot"><i class="fa-solid fa-utensils"></i></span><h2 class="text-2xl font-extrabold" style="color: var(--hk-night-blue);">美食 推薦</h2></div>
       <div class="two-col" id="bib-container"></div>
     </section>
 
@@ -702,7 +828,7 @@
     <!-- 獨立分頁：伴手禮 Souvenir (20) -->
     <!-- ========================================== -->
     <section id="souvenir" class="space-y-6">
-      <div class="section-title mb-6"><span class="icon-slot"><i class="fa-solid fa-gift"></i></span><h2 class="text-2xl font-bold text-blue-900">伴手禮 推薦</h2></div>
+      <div class="section-title mb-6"><span class="icon-slot"><i class="fa-solid fa-gift"></i></span><h2 class="text-2xl font-extrabold" style="color: var(--hk-night-blue);">伴手禮 推薦</h2></div>
       <div class="two-col" id="souvenir-container"></div>
     </section>
 
@@ -710,7 +836,7 @@
     <!-- 獨立分頁：拍照聖地 Photo Spots (10) -->
     <!-- ========================================== -->
     <section id="photo-spots" class="space-y-6">
-      <div class="section-title mb-6"><span class="icon-slot"><i class="fa-solid fa-image"></i></span><h2 class="text-2xl font-bold text-blue-900">拍照聖地 推薦</h2></div>
+      <div class="section-title mb-6"><span class="icon-slot"><i class="fa-solid fa-image"></i></span><h2 class="text-2xl font-extrabold" style="color: var(--hk-night-blue);">拍照聖地 推薦</h2></div>
       <div class="two-col" id="photo-spots-container"></div>
     </section>
 
@@ -718,7 +844,7 @@
     <!-- 獨立分頁：甜點咖啡 Desserts (10) -->
     <!-- ========================================== -->
     <section id="desserts" class="space-y-6">
-      <div class="section-title mb-6"><span class="icon-slot"><i class="fa-solid fa-ice-cream"></i></span><h2 class="text-2xl font-bold text-blue-900">甜點咖啡 推薦</h2></div>
+      <div class="section-title mb-6"><span class="icon-slot"><i class="fa-solid fa-ice-cream"></i></span><h2 class="text-2xl font-extrabold" style="color: var(--hk-night-blue);">甜點咖啡 推薦</h2></div>
       <div class="two-col" id="desserts-container"></div>
     </section>
 
@@ -726,7 +852,7 @@
     <!-- 獨立分頁：超市 Market (5) -->
     <!-- ========================================== -->
     <section id="market" class="space-y-6">
-      <div class="section-title mb-6"><span class="icon-slot"><i class="fa-solid fa-basket-shopping"></i></span><h2 class="text-2xl font-bold text-blue-900">超市 推薦</h2></div>
+      <div class="section-title mb-6"><span class="icon-slot"><i class="fa-solid fa-basket-shopping"></i></span><h2 class="text-2xl font-extrabold" style="color: var(--hk-night-blue);">超市 推薦</h2></div>
       <div class="two-col" id="market-container"></div>
     </section>
 
@@ -736,7 +862,7 @@
 
   <footer class="text-center text-gray-500 text-sm py-8 mt-10 border-t bg-gray-50">
     <p class="font-bold mb-2">圖例：<span class="red-text">紅字</span>＝使用者指定／排入每日行程項目 ｜ <span class="blue-text">藍字</span>＝系統備用推薦 ｜ Day Tag = 最近日或「獨立行程」</p>
-    <p>離線可用版 ｜ 版本 v1.8.1-blueFX-Special</p>
+    <p>離線可用版 ｜ 版本 v1.9.0-HK-Neon-Theme</p>
   </footer>
 
   <script>
@@ -752,7 +878,7 @@
       { name: "香港電車(叮叮車)", desc: "全球現存唯一全數採用雙層電車的系統，為港島獨有景致。行駛速度緩慢且票價便宜，坐在上層吹著微風穿梭繁華街道，是深入感受香港老情懷的最佳移動體驗。", highlight: "百年雙層電車、慢活體驗", day: "Day 2", used: true },
       { name: "東薈城 (Citygate)", desc: "全港最大的Outlet折扣商場，匯集超過150個國際知名品牌，提供極具吸引力的折扣。鄰近機場且有大型置物櫃，是搭機離開香港前進行最後血拼的最佳中繼站。", highlight: "國際品牌折扣、交通便利", day: "Day 3", used: true },
       { name: "昂坪360纜車", desc: "連接東涌與昂坪的雙纜索纜車系統，搭乘過程能飽覽大嶼山翠綠山巒與南中國海的壯闊景色。抵達後可順遊充滿東方色彩的昂坪市集與莊嚴的天壇大佛。", highlight: "水晶車廂、天壇大佛", day: "Day 3", used: true },
-      { name: "太平山頂 (Victoria Peak)", desc: "香港島最高峰，能俯瞰維多利亞港兩岸壯麗的高樓天際線。搭乘百年歷史的山頂纜車緩緩上山本身就是絕佳體驗，日夜景色皆美，凌霄閣是最佳觀景台。", highlight: "世界三大夜景、纜車體驗", day: "獨立行程", used: false },
+      { name: "太平山頂 (Victoria Peak)", desc: "香港島最高峰，能俯瞰維多利亞港兩岸壯麗的高樓天際線。搭乘百年歷史的山頂纜車緩奉上山本身就是絕佳體驗，日夜景色皆美，凌霄閣是最佳觀景台。", highlight: "世界三大夜景、纜車體驗", day: "獨立行程", used: false },
       { name: "香港藝術館 (HKMoA)", desc: "位於尖沙咀海旁，外觀採用現代感十足的波浪紋設計。館內收藏超過一萬七千件藝術品，涵蓋中國書畫、歷史畫作及當代藝術，大片落地窗能欣賞絕美海景。", highlight: "免費入場(特展除外)、維港景觀", day: "獨立行程", used: false },
       { name: "尖沙咀海濱花園", desc: "沿著維多利亞港而建的長廊，是欣賞對岸香港島摩天大樓群的最佳位置。星光大道亦在此處，可尋找巨星手印並與李小龍銅像合影，感受東方好萊塢魅力。", highlight: "星光大道、李小龍銅像", day: "獨立行程", used: false },
       { name: "旺角女人街", desc: "香港最著名的露天市集之一，以販售女性服飾及用品起家。如今商品五花八門，包含3C周邊、特色紀念品與包包，是體驗香港在地議價文化與庶民生活的好去處。", highlight: "庶民市集、在地議價體驗", day: "獨立行程", used: false },
@@ -856,14 +982,14 @@
         
         // Construct fields matching constraints
         let extraFields = '';
-        if (item.highlight) extraFields += `<p><i class="fa-solid fa-star text-blue-400 mr-2 w-4"></i><span class="font-bold">亮點/門票：</span>${item.highlight}</p>`;
-        if (item.dish) extraFields += `<p><i class="fa-solid fa-utensils text-blue-400 mr-2 w-4"></i><span class="font-bold">推薦餐點：</span>${item.dish}</p>`;
-        if (item.item) extraFields += `<p><i class="fa-solid fa-box-open text-blue-400 mr-2 w-4"></i><span class="font-bold">推薦品項：</span>${item.item}</p>`;
+        if (item.highlight) extraFields += `<p><i class="fa-solid fa-star mr-2 w-4" style="color: var(--hk-gold);"></i><span class="font-bold">亮點/門票：</span>${item.highlight}</p>`;
+        if (item.dish) extraFields += `<p><i class="fa-solid fa-utensils mr-2 w-4" style="color: var(--hk-gold);"></i><span class="font-bold">推薦餐點：</span>${item.dish}</p>`;
+        if (item.item) extraFields += `<p><i class="fa-solid fa-box-open mr-2 w-4" style="color: var(--hk-gold);"></i><span class="font-bold">推薦品項：</span>${item.item}</p>`;
         
         let addressField = '';
         if (item.address) {
           const btnId = `copy-${Math.random().toString(36).substr(2, 5)}`;
-          addressField = `<p class="flex items-start gap-1"><i class="fa-solid fa-location-dot text-blue-400 mr-1 w-4 mt-1"></i>
+          addressField = `<p class="flex items-start gap-1"><i class="fa-solid fa-location-dot mr-1 w-4 mt-1" style="color: var(--hk-mtr-red);"></i>
             <span class="font-bold flex-shrink-0">地址：</span>
             <span id="${btnId}" class="flex-grow">${item.address}</span>
             <button class="copy-btn ml-1 flex-shrink-0" onclick="copyToClipboard('${btnId}', this)"><i class="fa-regular fa-copy"></i> 複製</button>
@@ -871,11 +997,11 @@
         }
         
         let hoursField = '';
-        if (item.hours) hoursField = `<p><i class="fa-regular fa-clock text-blue-400 mr-2 w-4"></i><span class="font-bold">營業時間：</span>${item.hours}</p>`;
+        if (item.hours) hoursField = `<p><i class="fa-regular fa-clock mr-2 w-4" style="color: var(--hk-ferry-green);"></i><span class="font-bold">營業時間：</span>${item.hours}</p>`;
         
         let budgetField = '';
         if (hasBudget && item.budget) {
-          budgetField = `<p><i class="fa-solid fa-coins text-blue-400 mr-2 w-4"></i><span class="font-bold">預算估計：</span>${item.budget}</p>`;
+          budgetField = `<p><i class="fa-solid fa-coins mr-2 w-4" style="color: var(--hk-gold);"></i><span class="font-bold">預算估計：</span>${item.budget}</p>`;
         }
         
         let dayTag = '';
@@ -884,10 +1010,10 @@
         }
 
         const html = `
-          <div class="card p-5 stack-vertical border-t-4 border-blue-400">
+          <div class="card p-5 stack-vertical">
             <h4 class="${titleClass} text-xl mb-1">${item.name} ${usedTag}</h4>
             ${dayTag}
-            <div class="text-gray-600 text-sm my-2 text-justify bg-gray-50 p-3 rounded-lg border border-gray-100">${item.desc}</div>
+            <div class="text-gray-600 text-sm my-2 text-justify p-3 rounded-lg border" style="background: var(--hk-tile-bg); border-color: #e5e4e0;">${item.desc}</div>
             <div class="stack-vertical text-sm text-gray-800 mt-2">
               ${extraFields}
               ${addressField}
@@ -913,9 +1039,12 @@
     // Navigation logic
     function showPage(id) {
       document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      
       const tgt = document.getElementById(id); 
       if (tgt) {
         tgt.classList.add('active'); 
+        event.currentTarget.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
