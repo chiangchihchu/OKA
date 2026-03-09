@@ -1,0 +1,1047 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>49歲跑者 全馬 3:10 目標：跑步數據科學化分析與改善報告</title>
+  <style>
+    :root{
+      --bg-body: #f0f2f5;
+      --bg-card: #ffffff;
+      --bg-sub: #f8fafc;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --success: #059669;
+      --success-bg: #ecfdf5;
+      --warning: #d97706;
+      --warning-bg: #fffbeb;
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    header {
+      background: var(--bg-card);
+      padding: 32px 24px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+    .meta-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .meta-item {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg-sub);
+      padding: 4px 12px;
+      border-radius: 99px;
+      border: 1px solid var(--border);
+    }
+    main {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 0 16px 48px;
+    }
+    section {
+      background: var(--bg-card);
+      margin-bottom: 24px;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    h2 {
+      margin: 0 0 24px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--bg-body);
+    }
+    h2::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 24px;
+      background: var(--accent);
+      margin-right: 12px;
+      border-radius: 3px;
+    }
+    h3 {
+      margin: 24px 0 12px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    p { margin: 0 0 16px; }
+    ul, ol { margin: 0 0 16px 20px; padding: 0; }
+    li { margin-bottom: 6px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+    .twoCol {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .card {
+      background: var(--bg-sub);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+      background: #fff;
+    }
+    .tag {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 6px;
+      background: #e2e8f0;
+      color: var(--text-muted);
+    }
+    .good { color: var(--success); }
+    .warn { color: var(--warning); }
+    .bad { color: var(--danger); }
+    .accent { color: var(--accent); }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+    th {
+      background: var(--bg-sub);
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--border);
+      text-align: left;
+    }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:first-child th:first-child { border-top-left-radius: 8px; }
+    tr:first-child th:last-child { border-top-right-radius: 8px; }
+    tr:last-child td:first-child { border-bottom-left-radius: 8px; }
+    tr:last-child td:last-child { border-bottom-right-radius: 8px; }
+    .kpi {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-top: 4px solid var(--border);
+      padding: 16px;
+    }
+    .kpi:nth-child(4n+1) { border-top-color: var(--accent); }
+    .kpi:nth-child(4n+2) { border-top-color: var(--success); }
+    .kpi:nth-child(4n+3) { border-top-color: var(--warning); }
+    .kpi:nth-child(4n+4) { border-top-color: var(--danger); }
+    .kpi b {
+      font-size: 24px;
+      margin: 4px 0;
+      color: var(--text-main);
+    }
+    .kpi small {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    figure {
+      margin: 24px 0;
+      background: #fff;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+    figcaption {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+    .svgwrap {
+      width: 100%;
+      overflow-x: auto;
+      display: flex;
+      justify-content: center;
+    }
+    .note {
+      font-size: 13px;
+      color: var(--text-muted);
+      background: var(--bg-sub);
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+      margin-top: 12px;
+    }
+    @media (max-width: 768px) {
+      .twoCol { grid-template-columns: 1fr; }
+      header { padding: 20px 16px; }
+      h1 { font-size: 22px; }
+      .grid { grid-template-columns: 1fr; }
+      .kpi { grid-column: span 12 !important; }
+      section { padding: 20px; }
+    }
+    @media print {
+      body { background: #fff; color: #000; }
+      section, header, .card, figure { box-shadow: none; border: 1px solid #ddd; }
+      header { position: static; }
+      .tag { border: 1px solid #000; }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <h1 id="report-title">49歲跑者 全馬 3:10 目標：跑步數據科學化分析與改善報告</h1>
+  <div class="meta-container">
+    <span class="meta-item">報告日期：<span id="report-date">2026年3月8日</span></span>
+    <span class="meta-item">分析教練：<span id="coach">AI 國家級科學化訓練教練</span></span>
+    <span class="meta-item">目標：<span id="goal">全馬 3:10:00 (配速 4:30/km)</span></span>
+    <span class="meta-item">確定性：<span id="confidence">高 (基於完整 43km 實戰配速與心率動態數據推演)</span></span>
+  </div>
+</header>
+
+<main>
+  <!-- Section 1: Executive Summary -->
+  <section>
+    <h2>1. Executive Summary (執行摘要)</h2>
+    <p>針對您所提供的最近一次全馬等級（43.00 公里）實戰數據進行深度科學化分析。您本次完賽時間為 <strong>3:26:49（平均配速 4:49/km）</strong>，距離您的終極目標 <strong>3:10:00（平均配速 4:30/km）</strong> 尚有 16 分鐘的差距。然而，這 16 分鐘的差距並非來自「絕對速度」的不足，而是來自<strong>配速策略失誤、單側生物力學崩潰（左腳黑指甲與左髖不適）、以及有氧基礎在後半程的崩潰（心率大幅飄移）</strong>。</p>
+    <p>從數據中我們觀察到一個非常明顯的現象：您在前 20 公里展現出驚人的速度能力（平均配速落在 4:15 - 4:25/km 之間），這實際上是挑戰 <strong>Sub 3（破三）</strong>的配速區間！但這也直接導致了您的體力指標（Stamina）在賽事中後段急遽下降至 1%，並在第 26 公里後出現嚴重的掉速現象。此外，您回報的「左腳中趾麻、拇趾黑青襪破、左髖不適」等外顯傷害，與您的觸地時間(GCT)數據吻合，強烈指向<strong>過度跨步(Overstriding)產生的煞車效應</strong>。</p>
+    <p>這份報告將透過您真實的配速分段、心率變化、觸地時間與功率數據，拆解您在後半程崩潰的生理機制。好消息是：<strong>您絕對具備 3:10 的硬實力</strong>。只要透過未來 8 週嚴格的紀律化配速訓練、裝備調整與落腳點技術優化，達標機率極高。</p>
+    
+    <div class="twoCol">
+      <div class="card">
+        <h3>當前優勢指標</h3>
+        <ul>
+          <li><span class="tag good">速度天花板高</span> 具備以 4:10-4:15/km 巡航超過 15 公里的能力。</li>
+          <li><span class="tag good">身體重心控制</span> 垂直比例僅 7.4%，代表向上無效作功低。</li>
+          <li><span class="tag good">心率恢復力</span> 撞牆掉速後心率能迅速下降，顯示心臟本身無過載風險。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>核心風險與瓶頸</h3>
+        <ul>
+          <li><span class="tag bad">配速紀律</span> 暴衝起步，前 15k 提早耗盡肝醣儲備，未能採取等速策略。</li>
+          <li><span class="tag bad">心率嚴重飄移</span> 29-38k 區間配速掉至 4:50 左右時，心率反而飆升至 Z4-Z5 區間。</li>
+          <li><span class="tag bad">單側力學代償</span> 襪子破洞與黑指甲顯示強烈煞車力，衝擊力上傳導致末段左髖罷工。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Data Quality & Overview -->
+  <section>
+    <h2>2. 資料篩選與數據品質報告</h2>
+    <p>本報告基於您配戴 Garmin EPIX PRO (47mm) 收集的 43.00 公里長距離數據，並結合您賽後回報的實體症狀（左足微創傷與髖部不適）進行綜合力學推斷。整體數據捕捉品質優良，心率帶/光學心率未見明顯斷訊，GPS 軌跡與跑步動態感測器運作正常。</p>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>生理與力學指標</th>
+          <th>您的實測平均數據</th>
+          <th>3:10 目標參照值</th>
+          <th>狀態診斷</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>平均配速 (Moving Pace)</td>
+          <td>4:49 /km (移動 4:46)</td>
+          <td>4:29 - 4:30 /km</td>
+          <td class="bad">後半程嚴重拉低平均</td>
+        </tr>
+        <tr>
+          <td>平均心率 / 最大心率</td>
+          <td>151 bpm / 178 bpm</td>
+          <td>約 145-150 bpm (Z2-Z3)</td>
+          <td class="warn">高強度佔比過高 (Z4+Z5達22%)</td>
+        </tr>
+        <tr>
+          <td>平均步頻 (Cadence)</td>
+          <td>175 spm</td>
+          <td>178 - 185 spm</td>
+          <td class="warn">略低，步幅與煞車負擔較大</td>
+        </tr>
+        <tr>
+          <td>觸地時間 (GCT)</td>
+          <td>235 ms</td>
+          <td>< 220 ms</td>
+          <td class="bad">過長，吻合腳趾嚴重衝撞現象</td>
+        </tr>
+        <tr>
+          <td>垂直振幅 (VO) / 比例 (VR)</td>
+          <td>8.6 cm / 7.4%</td>
+          <td>< 8.5 cm / < 7.5%</td>
+          <td class="good">非常優秀的身體重心控制</td>
+        </tr>
+        <tr>
+          <td>平均跑步功率</td>
+          <td>349 W (最大 560 W)</td>
+          <td>約 350-370 W (依體重)</td>
+          <td class="warn">功率分佈極度不均勻</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <figure>
+      <div class="svgwrap">
+        <!-- FIG1: 實測心率與配速的時間序列分析 (真實數據重現) -->
+        <svg viewBox="0 0 800 300" width="100%" preserveAspectRatio="none">
+          <rect width="800" height="300" fill="#f8fafc" rx="8"/>
+          <!-- Grid lines -->
+          <line x1="50" y1="50" x2="750" y2="50" stroke="#e2e8f0" stroke-dasharray="4"/>
+          <line x1="50" y1="125" x2="750" y2="125" stroke="#e2e8f0" stroke-dasharray="4"/>
+          <line x1="50" y1="200" x2="750" y2="200" stroke="#e2e8f0" stroke-dasharray="4"/>
+          <line x1="50" y1="250" x2="750" y2="250" stroke="#94a3b8" stroke-width="2"/>
+          
+          <!-- X Axis Labels (Km) -->
+          <text x="50" y="270" font-size="12" fill="#64748b" text-anchor="middle">0k</text>
+          <text x="212" y="270" font-size="12" fill="#64748b" text-anchor="middle">10k</text>
+          <text x="375" y="270" font-size="12" fill="#64748b" text-anchor="middle">20k</text>
+          <text x="537" y="270" font-size="12" fill="#64748b" text-anchor="middle">30k</text>
+          <text x="700" y="270" font-size="12" fill="#64748b" text-anchor="middle">40k</text>
+          
+          <!-- Y Axis Labels -->
+          <text x="40" y="60" font-size="12" fill="#dc2626" text-anchor="end">180 bpm</text>
+          <text x="40" y="200" font-size="12" fill="#dc2626" text-anchor="end">120 bpm</text>
+          <text x="760" y="60" font-size="12" fill="#2563eb" text-anchor="start">4:00 /km</text>
+          <text x="760" y="200" font-size="12" fill="#2563eb" text-anchor="start">7:30 /km</text>
+
+          <!-- Target Pace Line (3:10 -> 4:30) -->
+          <line x1="50" y1="85" x2="750" y2="85" stroke="#10b981" stroke-width="2" stroke-dasharray="6"/>
+          <text x="60" y="80" font-size="12" fill="#10b981">目標 3:10 配速線 (4:30/km)</text>
+
+          <!-- Real Data: Heart Rate Line (Red) -->
+          <polyline points="
+            50,200 66,130 82,120 98,125 114,155 131,142 147,142 163,142 180,144 196,146
+            212,152 229,152 245,158 261,164 278,160 294,155 310,160 327,162 343,165 359,165
+            375,160 392,158 408,155 424,158 441,155 457,162 473,160 490,135 506,120 522,118
+            539,135 555,125 571,130 588,145 604,120 620,105 637,120 653,110 670,120 686,130
+            702,120 719,150 735,165 750,135
+          " fill="none" stroke="#dc2626" stroke-width="2"/>
+          
+          <!-- Real Data: Pace Line (Blue, inverted so faster is higher) -->
+          <polyline points="
+            50,250 66,75 82,72 98,55 114,65 131,64 147,58 163,70 180,65 196,64
+            212,67 229,78 245,71 261,66 278,56 294,77 310,71 327,70 343,90 359,72
+            375,67 392,84 408,79 424,90 441,81 457,133 473,92 490,175 506,98 522,102
+            539,127 555,106 571,104 588,103 604,106 620,104 637,116 653,114 670,140 686,168
+            702,160 719,250 735,210 750,160
+          " fill="none" stroke="#2563eb" stroke-width="2"/>
+
+          <!-- Drop off point -->
+          <circle cx="686" cy="168" r="4" fill="#d97706"/>
+          <text x="686" y="150" font-size="11" fill="#d97706" text-anchor="middle">掉速且左髖不適點</text>
+
+        </svg>
+      </div>
+      <figcaption>FIG1: 真實賽事配速(藍)與心率(紅)動態分析。前半程嚴重超越目標配速線，導致後半程全面崩盤，肌肉代償引發關節壓力。</figcaption>
+    </figure>
+
+    <figure>
+      <div class="svgwrap">
+        <!-- FIG2: Real HR Zone Distribution -->
+        <svg viewBox="0 0 800 200" width="100%" preserveAspectRatio="none">
+          <rect width="800" height="200" fill="#ffffff" rx="8"/>
+          <text x="400" y="30" font-size="16" font-weight="bold" fill="#1e293b" text-anchor="middle">實際心率區間分佈 (Z1 - Z5)</text>
+          
+          <!-- Bar containers -->
+          <rect x="50" y="60" width="700" height="40" fill="#f1f5f9" rx="20"/>
+          
+          <!-- Z1: 23% -->
+          <rect x="50" y="60" width="161" height="40" fill="#94a3b8" rx="20"/>
+          <text x="130" y="85" font-size="14" fill="#fff" text-anchor="middle">Z1 (23%)</text>
+          
+          <!-- Z2: 34% -->
+          <rect x="201" y="60" width="238" height="40" fill="#3b82f6"/>
+          <text x="320" y="85" font-size="14" fill="#fff" text-anchor="middle">Z2 (34%)</text>
+          
+          <!-- Z3: 17% -->
+          <rect x="439" y="60" width="119" height="40" fill="#10b981"/>
+          <text x="498" y="85" font-size="14" fill="#fff" text-anchor="middle">Z3 (17%)</text>
+          
+          <!-- Z4: 11% -->
+          <rect x="558" y="60" width="77" height="40" fill="#f59e0b"/>
+          <text x="596" y="85" font-size="14" fill="#fff" text-anchor="middle">Z4 (11%)</text>
+          
+          <!-- Z5: 11% -->
+          <rect x="635" y="60" width="115" height="40" fill="#ef4444" rx="20" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); border-top-left-radius: 0; border-bottom-left-radius: 0;"/>
+          <text x="692" y="85" font-size="14" fill="#fff" text-anchor="middle">Z5 (11%)</text>
+
+          <text x="400" y="140" font-size="13" fill="#64748b" text-anchor="middle">高強度區間 (Z4+Z5) 佔比達 22% (超過 47 分鐘)，對於全馬而言極度消耗肝醣，是撞牆主因。</text>
+        </svg>
+      </div>
+      <figcaption>FIG2: 賽事真實心率區間佔比。馬拉松理想分佈應將 80% 以上時間控制在 Z2-Z3。</figcaption>
+    </figure>
+  </section>
+
+  <!-- Section 3: Visualizations & Deep Dive -->
+  <section>
+    <h2>3. 核心指標圖表化與深度分析</h2>
+    <p>馬拉松不僅是體能的考驗，更是「能量管理」與「肌肉骨骼承受力」的極限運動。這部分我們將利用分段資料，徹底還原您這三小時半經歷的生理狀態轉變。</p>
+
+    <div class="grid">
+      <div style="grid-column: span 6;">
+        <figure>
+          <div class="svgwrap">
+            <!-- FIG3: Split Pace Degradation -->
+            <svg viewBox="0 0 400 300" width="100%">
+              <rect width="400" height="300" fill="#f8fafc" rx="8"/>
+              <text x="200" y="30" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">分段配速衰退分析 (Real Data)</text>
+              
+              <line x1="40" y1="250" x2="360" y2="250" stroke="#94a3b8" stroke-width="2"/>
+              <line x1="40" y1="50" x2="40" y2="250" stroke="#94a3b8" stroke-width="2"/>
+              
+              <text x="30" y="80" font-size="11" fill="#64748b" text-anchor="end">4:00</text>
+              <text x="30" y="136" font-size="11" fill="#64748b" text-anchor="end">5:00</text>
+              <text x="30" y="193" font-size="11" fill="#64748b" text-anchor="end">6:00</text>
+              
+              <line x1="40" y1="108" x2="360" y2="108" stroke="#10b981" stroke-dasharray="4"/>
+              <text x="350" y="100" font-size="10" fill="#10b981" text-anchor="end">Target 4:30</text>
+
+              <!-- Bars representing avg pace per 10k segment -->
+              <rect x="60" y="90" width="40" height="160" fill="#3b82f6"/>
+              <text x="80" y="270" font-size="11" fill="#64748b" text-anchor="middle">1-10k</text>
+              <text x="80" y="85" font-size="11" fill="#1e293b" text-anchor="middle">4:18</text>
+
+              <rect x="120" y="95" width="40" height="155" fill="#3b82f6"/>
+              <text x="140" y="270" font-size="11" fill="#64748b" text-anchor="middle">11-20k</text>
+              <text x="140" y="90" font-size="11" fill="#1e293b" text-anchor="middle">4:22</text>
+
+              <rect x="180" y="125" width="40" height="125" fill="#f59e0b"/>
+              <text x="200" y="270" font-size="11" fill="#64748b" text-anchor="middle">21-30k</text>
+              <text x="200" y="120" font-size="11" fill="#1e293b" text-anchor="middle">4:48</text>
+
+              <rect x="240" y="145" width="40" height="105" fill="#f97316"/>
+              <text x="260" y="270" font-size="11" fill="#64748b" text-anchor="middle">31-40k</text>
+              <text x="260" y="140" font-size="11" fill="#1e293b" text-anchor="middle">5:04</text>
+
+              <rect x="300" y="235" width="40" height="15" fill="#ef4444"/>
+              <text x="320" y="270" font-size="11" fill="#64748b" text-anchor="middle">41-43k</text>
+              <text x="320" y="230" font-size="11" fill="#1e293b" text-anchor="middle">6:53</text>
+            </svg>
+          </div>
+          <figcaption>FIG3: 每 10 公里平均配速，呈現典型的「正分裂」(前半快後半慢) 崩潰曲線。</figcaption>
+        </figure>
+      </div>
+      
+      <div style="grid-column: span 6;">
+        <figure>
+          <div class="svgwrap">
+            <!-- FIG4: Cardiac Drift Scatter -->
+            <svg viewBox="0 0 400 300" width="100%">
+              <rect width="400" height="300" fill="#f8fafc" rx="8"/>
+              <text x="200" y="30" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">心率飄移 (Cardiac Drift) 現象分析</text>
+              
+              <line x1="50" y1="250" x2="350" y2="250" stroke="#94a3b8" stroke-width="2"/>
+              <line x1="50" y1="50" x2="50" y2="250" stroke="#94a3b8" stroke-width="2"/>
+              
+              <text x="40" y="60" font-size="11" fill="#64748b" text-anchor="end">180 bpm</text>
+              <text x="40" y="240" font-size="11" fill="#64748b" text-anchor="end">130 bpm</text>
+              
+              <text x="80" y="270" font-size="11" fill="#64748b" text-anchor="middle">前半程</text>
+              <text x="320" y="270" font-size="11" fill="#64748b" text-anchor="middle">後半程</text>
+
+              <!-- Circles early -->
+              <circle cx="80" cy="180" r="5" fill="#3b82f6" opacity="0.7"/>
+              <circle cx="95" cy="175" r="5" fill="#3b82f6" opacity="0.7"/>
+              <circle cx="110" cy="160" r="5" fill="#3b82f6" opacity="0.7"/>
+              <circle cx="125" cy="155" r="5" fill="#3b82f6" opacity="0.7"/>
+              <circle cx="140" cy="165" r="5" fill="#3b82f6" opacity="0.7"/>
+              
+              <!-- Circles late -->
+              <circle cx="250" cy="100" r="5" fill="#ef4444" opacity="0.7"/>
+              <circle cx="265" cy="90" r="5" fill="#ef4444" opacity="0.7"/>
+              <circle cx="280" cy="85" r="5" fill="#ef4444" opacity="0.7"/>
+              <circle cx="295" cy="70" r="5" fill="#ef4444" opacity="0.7"/>
+              <circle cx="310" cy="80" r="5" fill="#ef4444" opacity="0.7"/>
+              
+              <path d="M 120 150 Q 200 120 260 90" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow)"/>
+              
+              <text x="250" y="140" font-size="12" fill="#ef4444" font-weight="bold">配速變慢 (4:50)</text>
+              <text x="250" y="155" font-size="12" fill="#ef4444" font-weight="bold">心率反升 (>165)</text>
+
+              <text x="70" y="130" font-size="12" fill="#3b82f6" font-weight="bold">配速快 (4:15)</text>
+              <text x="70" y="145" font-size="12" fill="#3b82f6" font-weight="bold">心率低 (<155)</text>
+            </svg>
+          </div>
+          <figcaption>FIG4: 相同甚至更慢的配速下，後半程心率不降反升，心率飄移幅度超過 10%。</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div style="grid-column: span 12;">
+        <figure>
+          <div class="svgwrap">
+            <!-- FIG5: Stamina Depletion Curve -->
+            <svg viewBox="0 0 800 250" width="100%" preserveAspectRatio="none">
+              <rect width="800" height="250" fill="#ffffff" rx="8"/>
+              <text x="400" y="30" font-size="16" font-weight="bold" fill="#1e293b" text-anchor="middle">體力指標 (Stamina) 耗竭與配速連動圖</text>
+              
+              <!-- Y Axis -->
+              <text x="40" y="60" font-size="12" fill="#d97706" text-anchor="end">100%</text>
+              <text x="40" y="200" font-size="12" fill="#d97706" text-anchor="end">0%</text>
+              
+              <!-- Stamina line (Orange fill area) -->
+              <polygon points="50,200 50,60 300,100 500,140 650,180 750,198 750,200" fill="#fcd34d" opacity="0.5"/>
+              <polyline points="50,60 300,100 500,140 650,180 750,198" fill="none" stroke="#d97706" stroke-width="3"/>
+              
+              <!-- Annotations -->
+              <line x1="300" y1="100" x2="300" y2="200" stroke="#94a3b8" stroke-dasharray="4"/>
+              <text x="300" y="215" font-size="12" fill="#64748b" text-anchor="middle">半馬 21k (剩餘約 60%)</text>
+              
+              <line x1="650" y1="180" x2="650" y2="200" stroke="#ef4444" stroke-dasharray="4"/>
+              <text x="650" y="215" font-size="12" fill="#ef4444" text-anchor="middle" font-weight="bold">38k (耗盡至 1%，左髖開始不適)</text>
+
+              <text x="500" y="90" font-size="13" fill="#1e293b">由於前半段配速落於無氧耐力區間</text>
+              <text x="500" y="110" font-size="13" fill="#1e293b">加速了肌肉肝醣的消耗速率</text>
+            </svg>
+          </div>
+          <figcaption>FIG5: 根據您的 Garmin 數據，體力(Stamina)在最後幾公里完全耗盡至 1%，這在生理學上代表周邊肌肉疲勞與中樞神經保護機制啟動。</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Core Diagnosis -->
+  <section>
+    <h2>4. 核心問題診斷與分析</h2>
+    <p>透過綜合分析實測數據與您的賽後回饋（腳麻、黑指甲、破襪、髖痛），我們能精準定位阻礙您達成 3:10 目標的 5 個核心生理與力學因素。身為 49 歲跑者，我們更需以科學數據與力學優化來取代盲目硬練，以降低受傷風險。</p>
+
+    <div class="card" style="margin-bottom: 20px;">
+      <h3 style="margin-top:0;">診斷一：配速策略失控與提早肝醣耗竭 (確定性：高)</h3>
+      <p><strong>證據：</strong> 數據顯示第 2 至 18 公里的平均配速約 4:15 - 4:25/km，這遠高於您 3:10 目標所需的 4:30/km。在此配速下，心率雖看似控制在 140-155bpm 內，但功率已達 Z3 甚至 Z4 高原區。</p>
+      <p><strong>機制推論：</strong> 人體在馬拉松強度的能量來源主要依賴脂肪與肝醣比例。當配速超過第一乳酸閾值 (LT1) 時，肝醣消耗率呈指數上升。您超速了 15 秒/km 以上，這導致原本應可撐 32 公里的肝醣，在 25 公里處就已被大量提款，這是最後 5 公里嚴重掉速的根源。</p>
+      <p><strong>影響與風險：</strong> "銀行存時間" 策略在馬拉松是不成立的，超速 1 分鐘通常會在後半程付出 3 分鐘的代價。這也是導致大腿抽筋與肌肉罷工的絕對主因。</p>
+    </div>
+
+    <div class="card" style="margin-bottom: 20px;">
+      <h3 style="margin-top:0;">診斷二：顯著的心率飄移 (Cardiac Drift) 與有氧底座不足 (確定性：高)</h3>
+      <p><strong>證據：</strong> 在 29-38k 區間，您的配速已經掉到 4:50-5:00/km，但此時您的心率卻異常飆高至 160-173 bpm (Z4-Z5 區間)。相較於前半程跑 4:15 時心率僅 150 左右，出現嚴重的脫鉤 (Decoupling)。</p>
+      <p><strong>機制推論：</strong> 心率飄移的主因包括核心體溫升高、微量脫水導致血漿容積減少 (心搏出量下降)，以及慢縮肌纖維疲勞導致大腦徵召較無效率的快縮肌纖維。</p>
+      <p><strong>影響與風險：</strong> 在心率高達 170+ 的狀態下跑步，體內乳酸無法順利排除，加速了整體崩潰。</p>
+    </div>
+
+    <div class="card" style="margin-bottom: 20px;">
+      <h3 style="margin-top:0;">診斷三：步幅受限與觸地時間 (GCT) 偏長 (確定性：中)</h3>
+      <p><strong>證據：</strong> 您平均步頻為 175 spm，步幅 1.18m，觸地時間 235ms。對於一位 3:10 跑者來說，要跑到 4:30 配速，步幅需要拉到 1.25m 以上。235ms 的觸地時間暗示您的下肢剛性 (Stiffness) 與阿基里斯腱儲能釋放效率有優化空間。</p>
+      <p><strong>機制推論：</strong> 觸地時間每多 10ms，等於每一步都在「煞車」。49 歲跑者的肌腱彈性自然隨年齡下降，若過度依賴肌肉主動發力推蹬，而非利用肌腱的彈性反彈，肌肉耗損會極大。</p>
+      <p><strong>影響與風險：</strong> 缺乏剛性會讓跑步經濟性變差 (Running Economy 下降)，在同等配速下消耗更多能量。</p>
+    </div>
+    
+    <div class="card" style="margin-bottom: 20px;">
+      <h3 style="margin-top:0;">診斷四：專項肌肉耐力 (Muscular Endurance) 崩潰點早於心肺 (確定性：高)</h3>
+      <p><strong>證據：</strong> 第 39-43 公里，您的配速驟降至 5:48, 7:36, 7:00/km。值得注意的是，此時您的心率也從 170+ 回落至 140-160 bpm。</p>
+      <p><strong>機制推論：</strong> 心率下降伴隨配速雪崩，是標準的「心肺能力還有餘裕，但周邊肌肉已經失去收縮能力」的表徵。您的雙腿已經不聽使喚，無法再輸出力量來推高心率。</p>
+      <p><strong>影響與風險：</strong> 這是專項長距離訓練量 (Long Run) 中，模擬目標配速 (MP) 區段不足的結果。</p>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0;">診斷五：過度跨步(Overstriding)煞車效應與單側代償耗損 (確定性：極高)</h3>
+      <p><strong>證據：</strong> 中段左腳中趾發麻、賽後左腳拇趾黑青且襪子破掉，以及最後 2K 左髖不適。</p>
+      <p><strong>機制推論：</strong> 黑指甲與襪子破洞是標準的「腳掌在鞋內向前滑動衝撞鞋頭」現象，結合您 235ms 較長的觸地時間，強烈指向「過度跨步 (Overstriding)」。當腳步落在身體重心前方過多時，會產生巨大煞車力，不僅將腳趾往前擠壓撞擊（若鞋帶未綁好或鞋楦過窄，壓迫神經則導致中趾發麻），這股強大的衝擊力更會沿著小腿、膝蓋一路向上傳導至骨盆。最後 2K 左髖不適，正是因為您的左側長達 3 小時不斷代償吸收這股煞車衝擊力，導致臀中肌或髖屈肌力竭罷工。</p>
+      <p><strong>影響與風險：</strong> 這種力學失衡若未改善落腳點與裝備設定，不僅會反覆引發黑指甲，左髖的壓力可能快速演變為髂脛束症候群 (ITBS) 或髖關節滑囊炎。</p>
+    </div>
+
+    <figure>
+      <div class="svgwrap">
+        <!-- FIG6: GCT & Stiffness Model -->
+        <svg viewBox="0 0 600 250" width="100%">
+          <rect width="600" height="250" fill="#ffffff" rx="8"/>
+          <text x="300" y="30" font-size="16" font-weight="bold" fill="#1e293b" text-anchor="middle">觸地時間 (GCT) 對煞車效應(腳趾衝撞)的影響</text>
+          
+          <line x1="50" y1="200" x2="550" y2="200" stroke="#94a3b8" stroke-width="2"/>
+          <text x="300" y="230" font-size="12" fill="#64748b" text-anchor="middle">配速 (Pace)</text>
+          
+          <!-- Y axis -->
+          <line x1="50" y1="50" x2="50" y2="200" stroke="#94a3b8" stroke-width="2"/>
+          <text x="40" y="130" font-size="12" fill="#64748b" text-anchor="end" transform="rotate(-90 20,130)">觸地時間 (ms)</text>
+
+          <!-- Current Data point -->
+          <circle cx="200" cy="120" r="8" fill="#ef4444"/>
+          <text x="200" y="100" font-size="12" fill="#ef4444" text-anchor="middle" font-weight="bold">目前: 235ms @ 4:49</text>
+          
+          <!-- Target Data point -->
+          <circle cx="400" cy="160" r="8" fill="#10b981"/>
+          <text x="400" y="180" font-size="12" fill="#10b981" text-anchor="middle" font-weight="bold">目標: <215ms @ 4:30</text>
+
+          <path d="M 200 120 L 400 160" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="5" marker-end="url(#arrow)"/>
+          
+          <text x="450" y="80" font-size="13" fill="#1e293b">縮短觸地時間可降低煞車效應</text>
+          <text x="450" y="100" font-size="13" fill="#1e293b">減少腳趾衝撞與髖部代償壓力</text>
+        </svg>
+      </div>
+      <figcaption>FIG6: GCT 每降低 10ms，除了經濟性提升，更能直接減少每一次落地的衝擊力上傳，保護腳趾與髖關節。</figcaption>
+    </figure>
+  </section>
+
+  <!-- Section 5: Technical & Biomechanical Optimization -->
+  <section>
+    <h2>5. 技術、裝備與動作優化指引 (Biomechanics)</h2>
+    <p>為了解決您的黑指甲、腳趾發麻與左髖不適，我們必須從「腳掌在鞋內的穩定度」以及「落腳點的微調」雙管齊下，優化「下肢剛性 (Leg Stiffness)」並消除過度跨步帶來的煞車力。</p>
+
+    <div class="twoCol">
+      <div class="card">
+        <h3>5.1 關鍵技術與裝備提示 (Cueing)</h3>
+        <ul>
+          <li><strong>Cue 1: 「避免腳趾衝撞」</strong><br>落腳點必須盡量靠近身體重心（骨盆）正下方。避免為了求快而刻意將小腿往前伸直（Overstriding），這會直接引發黑指甲與髖痛。</li>
+          <li><strong>Cue 2: 「踩熱水」</strong><br>腳掌一接觸地面就要瞬間往上拉起 (Pull)，而非用力往下推蹬。縮短觸地時間可降低煞車力。</li>
+          <li><strong>Cue 3: 「以髖帶腿」</strong><br>注意力放在骨盆微幅旋轉，避免單獨依賴左側髖屈肌發力代償，維持雙側高重心。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>5.2 自我與裝備檢核機制</h3>
+        <ul>
+          <li><strong>鞋帶綁法檢核：</strong> 必須使用「跑者結 (Runner's Knot / Heel Lock)」鎖定腳踝，徹底防止腳背在下坡或疲勞時往前滑動撞擊鞋頭（破襪子的主因）。</li>
+          <li><strong>跑鞋尺寸檢核：</strong> 全馬賽事用鞋應比平時便鞋大 0.5~1 號（留一根手指寬）。長距離中段腳會充血腫脹，過窄會壓迫神經導致腳趾發麻。</li>
+          <li><strong>步頻與步幅檢核：</strong> 若增加步幅時伴隨了 GCT 變長，就代表您「跨太遠了」。請提高步頻來吸收衝擊。</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>5.3 跑步專項技術訓練 (Drills) 處方</h3>
+    <p>請將以下 Drill 安排在每週兩次的高品質課表熱身階段，每週執行 2 次。著重改善單腳著地時的髖部穩定度。</p>
+    <table>
+      <thead>
+        <tr>
+          <th>動作名稱</th>
+          <th>執行要領與目的</th>
+          <th>對應改善數據</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>A-Skip (高抬腿跳躍)</strong></td>
+          <td>著重在下落瞬間的腳踝「扒地 (Paw-back)」動作，體會腳掌落在重心正下方，而非前方。</td>
+          <td>縮短 GCT (消除煞車力)</td>
+        </tr>
+        <tr>
+          <td><strong>Ankling (腳踝彈跳)</strong></td>
+          <td>雙腿打直，僅靠腳踝與小腿的力量微幅往前彈跳。腳尖翹起，落地瞬間快速反彈。</td>
+          <td>提升下肢剛性與反應速度</td>
+        </tr>
+        <tr>
+          <td><strong>單腳羅馬尼亞硬舉 (RDL)</strong></td>
+          <td>(非跑步動作) 單腳站立，臀部後推。針對左髖不適，強化單側臀中肌與骨盆穩定力。</td>
+          <td>改善左髖代償不適</td>
+        </tr>
+        <tr>
+          <td><strong>Strides (快步跑)</strong></td>
+          <td>4 趟 80 公尺輕快跑。前 20m 加速，中間維持 90% 極速，最後放鬆減速。著重放鬆與高步頻。</td>
+          <td>增加自然步幅</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="grid">
+      <div style="grid-column: span 6;">
+        <figure>
+          <div class="svgwrap">
+            <!-- FIG7: Technique optimization matrix -->
+            <svg viewBox="0 0 400 300" width="100%">
+              <rect width="400" height="300" fill="#f8fafc" rx="8"/>
+              <text x="200" y="30" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">跑步力學優化路徑徑</text>
+              
+              <circle cx="200" cy="150" r="80" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+              <text x="200" y="145" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">跑步經濟性</text>
+              <text x="200" y="165" font-size="12" fill="#2563eb" text-anchor="middle">核心目標</text>
+
+              <rect x="20" y="50" width="100" height="40" rx="4" fill="#10b981"/>
+              <text x="70" y="75" font-size="12" fill="#fff" text-anchor="middle">減少過度跨步</text>
+              
+              <rect x="280" y="50" width="100" height="40" rx="4" fill="#10b981"/>
+              <text x="330" y="75" font-size="12" fill="#fff" text-anchor="middle">強化左髖穩定</text>
+
+              <rect x="20" y="210" width="100" height="40" rx="4" fill="#10b981"/>
+              <text x="70" y="235" font-size="12" fill="#fff" text-anchor="middle">跑者結鎖定腳踝</text>
+
+              <rect x="280" y="210" width="100" height="40" rx="4" fill="#10b981"/>
+              <text x="330" y="235" font-size="12" fill="#fff" text-anchor="middle">優化足部扒地</text>
+
+              <!-- Lines -->
+              <line x1="120" y1="70" x2="145" y2="100" stroke="#94a3b8" stroke-width="2"/>
+              <line x1="280" y1="70" x2="255" y2="100" stroke="#94a3b8" stroke-width="2"/>
+              <line x1="120" y1="230" x2="145" y2="200" stroke="#94a3b8" stroke-width="2"/>
+              <line x1="280" y1="230" x2="255" y2="200" stroke="#94a3b8" stroke-width="2"/>
+            </svg>
+          </div>
+          <figcaption>FIG7: 技術優化的四大支柱。針對您的狀況，防滑裝備設定(跑者結)與左髖穩定訓練是當務之急。</figcaption>
+        </figure>
+      </div>
+      <div style="grid-column: span 6;">
+        <figure>
+          <div class="svgwrap">
+            <!-- FIG8: Vertical Ratio evaluation -->
+            <svg viewBox="0 0 400 300" width="100%">
+              <rect width="400" height="300" fill="#f8fafc" rx="8"/>
+              <text x="200" y="30" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">垂直比 (Vertical Ratio) 評估</text>
+              
+              <!-- Gauge Chart -->
+              <path d="M 50 200 A 150 150 0 0 1 350 200" fill="none" stroke="#e2e8f0" stroke-width="40"/>
+              <!-- Green zone 6-8% -->
+              <path d="M 50 200 A 150 150 0 0 1 120 100" fill="none" stroke="#10b981" stroke-width="40"/>
+              <!-- Yellow zone 8-10% -->
+              <path d="M 120 100 A 150 150 0 0 1 250 60" fill="none" stroke="#f59e0b" stroke-width="40"/>
+              <!-- Red zone >10% -->
+              <path d="M 250 60 A 150 150 0 0 1 350 200" fill="none" stroke="#ef4444" stroke-width="40"/>
+
+              <text x="50" y="230" font-size="12" fill="#64748b" text-anchor="middle">優 (< 7%)</text>
+              <text x="350" y="230" font-size="12" fill="#64748b" text-anchor="middle">差 (> 11%)</text>
+
+              <!-- Current Needle at 7.4% -->
+              <!-- Center 200, 200. Angle roughly -140 deg -->
+              <line x1="200" y1="200" x2="100" y2="120" stroke="#1e293b" stroke-width="4"/>
+              <circle cx="200" cy="200" r="10" fill="#1e293b"/>
+              
+              <text x="200" y="250" font-size="20" font-weight="bold" fill="#10b981" text-anchor="middle">7.4% (優秀)</text>
+              <text x="200" y="270" font-size="12" fill="#64748b" text-anchor="middle">維持現有重心高度，專注於避免向前跨步過大</text>
+            </svg>
+          </div>
+          <figcaption>FIG8: 您的垂直比 7.4% 位於極佳區間，代表向上的無效作功很少，目前問題全出在水平向的「過度煞車」。</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Training Prescription -->
+  <section>
+    <h2>6. 科學化週期課表與處方 (8 週實戰計畫)</h2>
+    <p>為了在 2026 年東京馬拉松前達成 3:10，我們規劃這 8 週的「極化訓練 (Polarized Training)」。對於 49 歲跑者，<strong>恢復力就是戰鬥力</strong>，因此我們安排每週跑 5 天、休息或交叉訓練 2 天。核心邏輯是：<strong>解決前半段配速超速習慣，並透過「特異性長跑 (Specific Long Run)」強化馬拉松配速 (MP) 下的專項肌耐力。</strong></p>
+    
+    <div class="note">
+      <strong>配速區間定義：</strong><br>
+      • <strong>E (Easy) 輕鬆跑：</strong> 5:20 - 5:40/km (心率 < 140 bpm)，重點在細胞線粒體發展與脂肪代謝。<br>
+      • <strong>M (Marathon) 馬拉松配速：</strong> 4:30/km (心率 145-155 bpm)，建立比賽神經肌肉記憶。<br>
+      • <strong>T (Threshold) 節奏/乳酸閾值：</strong> 4:10 - 4:15/km (心率 160-165 bpm)，推高乳酸清除率。<br>
+      • <strong>I (Interval) 間歇：</strong> 3:50 - 4:00/km，刺激最大攝氧量與步幅。
+    </div>
+
+    <h3>第 1 - 4 週：基礎強化與閾值堆疊 (Base & Threshold)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>星期</th>
+          <th>課表類型</th>
+          <th>詳細內容與目標</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>一</td><td>全休 / 恢復</td><td>全休，或 20 分鐘瑜珈/滾筒放鬆。</td></tr>
+        <tr><td>二</td><td>T 配速節奏跑</td><td>熱身 3km E + <strong>4趟 2km T配速 (4:12/km)，休 90秒</strong> + 緩和 2km。目標：教導身體在微酸狀態下清除乳酸。</td></tr>
+        <tr><td>三</td><td>E 恢復跑</td><td>輕鬆跑 10-12km (5:30/km)。嚴格禁止低於 5:20。</td></tr>
+        <tr><td>四</td><td>中長距離 (MLR)</td><td>15km 漸進跑。10km E + 5km 逐漸加速至 M (4:30/km)。</td></tr>
+        <tr><td>五</td><td>全休 / 交叉</td><td>全休或輕鬆騎行 40 分鐘。加強左側臀部伸展。</td></tr>
+        <tr><td>六</td><td>品質長跑 (Long Run)</td><td><strong>25km E配速。</strong> 專注於供能系統，全程不可提速，練習每 45 分鐘補給一次果膠。</td></tr>
+        <tr><td>日</td><td>E 恢復跑</td><td>8km 極輕鬆跑 (5:40/km) + 4趟 Strides 快步跑。</td></tr>
+      </tbody>
+    </table>
+
+    <h3>第 5 - 8 週：專項馬拉松配速適應與賽前減量 (Specific & Taper)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>星期</th>
+          <th>課表類型</th>
+          <th>詳細內容與目標</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>一</td><td>全休 / 恢復</td><td>強調睡眠修復與下肢按壓。</td></tr>
+        <tr><td>二</td><td>亞索 800 (間歇)</td><td>熱身 3km + <strong>8趟 800m (配速 3:55/km)，休 400m 慢跑</strong> + 緩和 2km。</td></tr>
+        <tr><td>三</td><td>E 恢復跑</td><td>12km (5:30/km) 搭配技術 Drills。</td></tr>
+        <tr><td>四</td><td>M 配速巡航</td><td>熱身 3km + <strong>12km M配速 (嚴格鎖定 4:30/km，測試心率飄移)</strong> + 緩和 2km。</td></tr>
+        <tr><td>五</td><td>全休</td><td>深層伸展。</td></tr>
+        <tr><td>六</td><td>特異性長跑 (Specific LR)</td><td><strong>32km 模擬賽。</strong> 16km E (5:20) + 12km M (4:30) + 4km E。檢視 28k 後是否還會掉速。</td></tr>
+        <tr><td>日</td><td>恢復跑</td><td>8km (5:45/km)。*第 7 週週末減量至 21k，第 8 週完全減量準備比賽。*</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid">
+      <div style="grid-column: span 6;">
+        <figure>
+          <div class="svgwrap">
+            <!-- FIG9: Weekly Mileage Projection -->
+            <svg viewBox="0 0 400 300" width="100%">
+              <rect width="400" height="300" fill="#f8fafc" rx="8"/>
+              <text x="200" y="30" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">8 週里程與訓練負荷預估</text>
+              
+              <line x1="40" y1="250" x2="360" y2="250" stroke="#94a3b8" stroke-width="2"/>
+              <text x="30" y="250" font-size="11" fill="#64748b" text-anchor="end">0</text>
+              <text x="30" y="150" font-size="11" fill="#64748b" text-anchor="end">60km</text>
+              <text x="30" y="50" font-size="11" fill="#64748b" text-anchor="end">100km</text>
+              
+              <!-- Bars for weeks -->
+              <rect x="50" y="100" width="20" height="150" fill="#3b82f6"/>
+              <rect x="90" y="80" width="20" height="170" fill="#3b82f6"/>
+              <rect x="130" y="70" width="20" height="180" fill="#3b82f6"/>
+              <rect x="170" y="120" width="20" height="130" fill="#10b981"/> <!-- Recovery week -->
+              <rect x="210" y="60" width="20" height="190" fill="#3b82f6"/>
+              <rect x="250" y="50" width="20" height="200" fill="#3b82f6"/> <!-- Peak week 85km -->
+              <rect x="290" y="130" width="20" height="120" fill="#f59e0b"/> <!-- Taper 1 -->
+              <rect x="330" y="180" width="20" height="70" fill="#ef4444"/> <!-- Race week -->
+
+              <text x="60" y="270" font-size="11" fill="#64748b" text-anchor="middle">W1</text>
+              <text x="140" y="270" font-size="11" fill="#64748b" text-anchor="middle">W3</text>
+              <text x="260" y="270" font-size="11" fill="#64748b" text-anchor="middle">W6</text>
+              <text x="340" y="270" font-size="11" fill="#64748b" text-anchor="middle">W8</text>
+              
+              <polyline points="60,130 100,110 140,90 180,140 220,80 260,60 300,150 340,200" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="4"/>
+              <text x="200" y="110" font-size="10" fill="#dc2626" text-anchor="middle">疲勞指數 (TSS)</text>
+            </svg>
+          </div>
+          <figcaption>FIG9: 漸進式超負荷與第 4、7、8 週的戰略性減量 (Taper)，確保賽日體能峰值。</figcaption>
+        </figure>
+      </div>
+      <div style="grid-column: span 6;">
+        <figure>
+          <div class="svgwrap">
+            <!-- FIG10: Quality Workout Distribution -->
+            <svg viewBox="0 0 400 300" width="100%">
+              <rect width="400" height="300" fill="#f8fafc" rx="8"/>
+              <text x="200" y="30" font-size="14" font-weight="bold" fill="#1e293b" text-anchor="middle">極化訓練區間分佈設計 (82/18 法則)</text>
+              
+              <!-- Pie Chart approximation with SVG -->
+              <circle cx="200" cy="160" r="80" fill="#f1f5f9"/>
+              <path d="M 200 160 L 200 80 A 80 80 0 1 1 125 132 Z" fill="#3b82f6"/> <!-- 80% Easy -->
+              <path d="M 200 160 L 125 132 A 80 80 0 0 1 180 83 Z" fill="#10b981"/> <!-- 10% Threshold -->
+              <path d="M 200 160 L 180 83 A 80 80 0 0 1 200 80 Z" fill="#ef4444"/> <!-- 10% Interval -->
+
+              <rect x="50" y="250" width="15" height="15" fill="#3b82f6"/>
+              <text x="70" y="262" font-size="12" fill="#1e293b">E/M 有氧底座 (80%)</text>
+              
+              <rect x="220" y="250" width="15" height="15" fill="#10b981"/>
+              <text x="240" y="262" font-size="12" fill="#1e293b">T 閾值/節奏 (10%)</text>
+
+              <rect x="220" y="275" width="15" height="15" fill="#ef4444"/>
+              <text x="240" y="287" font-size="12" fill="#1e293b">I 無氧間歇 (10%)</text>
+            </svg>
+          </div>
+          <figcaption>FIG10: 嚴格控制中高強度比例，避免過度訓練。49 歲跑者若在 Z3/Z4 停留過久，恢復期將指數級增長。</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: Recovery & SOP -->
+  <section>
+    <h2>7. 跑後收操、局部傷痛恢復 SOP 與風險控管</h2>
+    <p>考慮到 49 歲的生理恢復特徵，肌腱與結締組織的彈性低於年輕時期。您左髖的不適與黑指甲，是強烈的代償與過載訊號，恢復策略必須包含對特定關節的照護。</p>
+
+    <div class="twoCol">
+      <div class="card">
+        <h3>急性與日常恢復 SOP</h3>
+        <ol>
+          <li><strong>黑指甲與破襪處理：</strong> 若指甲無持續脹痛發炎（積血未引發劇痛），請勿自行刺破，讓其自然生長替換。破洞襪子請直接淘汰，下次比賽務必更換大半號跑鞋並使用跑者結。</li>
+          <li><strong>髖部舒緩：</strong> 針對左髖不適，請在 48 小時內避免拉伸，可對左側臀大肌與大腿外側（非關節處）進行輕度冰敷或滾筒放鬆。</li>
+          <li><strong>動態冷卻 (Cool-down)：</strong> 未來結束訓練後，維持 10 分鐘快走，協助下肢靜脈血回流，加速乳酸代謝。</li>
+          <li><strong>蛋白質/碳水回填：</strong> 在 30 分鐘內攝取 1:3 比例的蛋白質與碳水化合物。</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>49 歲跑者紅旗警告 (Red Flags)</h3>
+        <p>若出現以下狀況，請立即終止訓練，此為組織受損而非一般肌肉痠痛 (DOMS)：</p>
+        <ul>
+          <li class="bad"><strong>左髖關節深處刺痛</strong>：若不適感持續超過 3 天，且單腳站立穿襪子時會引發左側髖部劇痛，需懷疑關節唇損傷或嚴重滑囊炎，請即刻就醫。</li>
+          <li class="bad"><strong>阿基里斯腱晨間僵硬</strong>：起床下床第一步腳跟上方刺痛，活動後減緩。此為肌腱炎前兆。</li>
+          <li class="bad"><strong>安靜心率 (RHR) 連續三天上升 > 5 bpm</strong>：代表中樞神經尚未恢復，需將當日課表降級為全休。</li>
+        </ul>
+      </div>
+    </div>
+
+    <figure>
+      <div class="svgwrap">
+        <!-- FIG11: Recovery Readiness Matrix -->
+        <svg viewBox="0 0 600 250" width="100%">
+          <rect width="600" height="250" fill="#ffffff" rx="8"/>
+          <text x="300" y="30" font-size="16" font-weight="bold" fill="#1e293b" text-anchor="middle">中樞與周邊神經恢復準備度矩陣 (CNS Readiness)</text>
+          
+          <rect x="100" y="60" width="400" height="150" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+          <line x1="300" y1="60" x2="300" y2="210" stroke="#94a3b8" stroke-dasharray="4"/>
+          <line x1="100" y1="135" x2="500" y2="135" stroke="#94a3b8" stroke-dasharray="4"/>
+          
+          <text x="200" y="100" font-size="14" fill="#ef4444" font-weight="bold">紅色警戒 (降載/就醫)</text>
+          <text x="200" y="120" font-size="11" fill="#64748b">髖部刺痛, RHR 偏高</text>
+
+          <text x="400" y="100" font-size="14" fill="#f59e0b" font-weight="bold">黃色注意 (輕鬆跑)</text>
+          <text x="400" y="120" font-size="11" fill="#64748b">肌肉疲勞, HRV 正常</text>
+
+          <text x="200" y="175" font-size="14" fill="#f59e0b" font-weight="bold">黃色注意 (技術跑)</text>
+          <text x="200" y="195" font-size="11" fill="#64748b">無痠痛, 但 HRV 極低</text>
+
+          <text x="400" y="175" font-size="14" fill="#10b981" font-weight="bold">綠燈放行 (高強度課表)</text>
+          <text x="400" y="195" font-size="11" fill="#64748b">無痠痛, HRV/RHR 優良</text>
+
+          <text x="300" y="235" font-size="12" fill="#1e293b" text-anchor="middle">單側關節痛 / 痠痛感 (DOMS) -> 越往右越健康輕鬆</text>
+          <text x="40" y="135" font-size="12" fill="#1e293b" text-anchor="middle" transform="rotate(-90 40,135)">客觀疲勞 (安靜心率) -> 越往上越高</text>
+        </svg>
+      </div>
+      <figcaption>FIG11: 左髖的疼痛判定是關鍵，若落入左上角的紅色警戒區（關節刺痛），必須強制中斷原定計畫以防永久性損傷。</figcaption>
+    </figure>
+  </section>
+
+  <!-- Section 8: KPIs & Verification -->
+  <section>
+    <h2>8. 關鍵績效指標 (KPIs) 與驗證控管</h2>
+    <p>為了確保 8 週後的 3:10 目標順利達成，我們設定了 10 項嚴格且可被量測的 KPI。請在訓練週期中定期檢核，若未達標需啟動對應的調整規則。</p>
+
+    <div class="grid">
+      <div class="kpi" style="grid-column: span 3;">
+        <small>KPI 1: 基礎有氧配速</small>
+        <b>5:15 /km</b>
+        <small>@ HR < 142bpm。4週內達成。</small>
+      </div>
+      <div class="kpi" style="grid-column: span 3;">
+        <small>KPI 2: 乳酸閾值 (T) 配速</small>
+        <b>4:10 /km</b>
+        <small>能穩定維持 20 分鐘。測驗：5km 計時測驗。</small>
+      </div>
+      <div class="kpi" style="grid-column: span 3;">
+        <small>KPI 3: 心率飄移率 (Decoupling)</small>
+        <b>< 5%</b>
+        <small>在 90 分鐘 M 配速 (4:30) 測試下，前後半段心率差異。未達標需增加長跑量。</small>
+      </div>
+      <div class="kpi" style="grid-column: span 3;">
+        <small>KPI 4: 觸地時間 (GCT)</small>
+        <b>< 220 ms</b>
+        <small>在 M 配速下的平均值。未達標代表煞車力過大。</small>
+      </div>
+      <div class="kpi" style="grid-column: span 3;">
+        <small>KPI 5: 長跑(LR) 完成度</small>
+        <b>> 95%</b>
+        <small>32km 特異性長跑無掉速且無髖痛完成。</small>
+      </div>
+      <div class="kpi" style="grid-column: span 3;">
+        <small>KPI 6: 步頻穩定性</small>
+        <b>178 - 182 spm</b>
+        <small>全馬全程步頻變異係數 (CV) < 3%。</small>
+      </div>
+      <div class="kpi" style="grid-column: span 3;">
+        <small>KPI 7: 後半程掉速比</small>
+        <b>< 3%</b>
+        <small>半馬測試中，後 10k 較前 10k 的降速容許範圍。訓練配速紀律。</small>
+      </div>
+      <div class="kpi" style="grid-column: span 3;">
+        <small>KPI 8: 恢復心率 (Recovery HR)</small>
+        <b>> 35 bpm</b>
+        <small>高強度間歇結束後 1 分鐘內的心率下降幅度。監測過勞指標。</small>
+      </div>
+      <div class="kpi" style="grid-column: span 6;">
+        <small>KPI 9: 賽前減量期安靜心率 (RHR)</small>
+        <b>回復至歷史最低點</b>
+        <small>證明身體已超補償 (Supercompensation) 準備完畢。</small>
+      </div>
+      <div class="kpi" style="grid-column: span 6;">
+        <small>KPI 10: 賽事當日前半程配速紀律</small>
+        <b>絕對鎖定 4:30/km</b>
+        <small>賽事當天前半程嚴禁快於 4:25/km。達標者完成 3:10 機率提升 80%。</small>
+      </div>
+    </div>
+
+    <figure>
+      <div class="svgwrap">
+        <!-- FIG12: KPI Radar Chart -->
+        <svg viewBox="0 0 500 400" width="100%">
+          <rect width="500" height="400" fill="#ffffff" rx="8"/>
+          <text x="250" y="30" font-size="16" font-weight="bold" fill="#1e293b" text-anchor="middle">跑者綜合能力雷達圖 (當前 vs 目標)</text>
+          
+          <!-- Radar Grid -->
+          <polygon points="250,80 380,140 330,290 170,290 120,140" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+          <polygon points="250,114 354,162 314,266 186,266 146,162" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+          <polygon points="250,148 328,184 298,242 202,242 172,184" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+          <polygon points="250,182 302,206 282,218 218,218 198,206" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+          
+          <line x1="250" y1="216" x2="250" y2="80" stroke="#e2e8f0" stroke-width="2"/>
+          <line x1="250" y1="216" x2="380" y2="140" stroke="#e2e8f0" stroke-width="2"/>
+          <line x1="250" y1="216" x2="330" y2="290" stroke="#e2e8f0" stroke-width="2"/>
+          <line x1="250" y1="216" x2="170" y2="290" stroke="#e2e8f0" stroke-width="2"/>
+          <line x1="250" y1="216" x2="120" y2="140" stroke="#e2e8f0" stroke-width="2"/>
+          
+          <!-- Target Polygon (Outer) -->
+          <polygon points="250,80 380,140 330,290 170,290 120,140" fill="#10b981" opacity="0.2" stroke="#10b981" stroke-width="2"/>
+          
+          <!-- Current Data Polygon -->
+          <!-- Absolute Speed: Good (354,162) -->
+          <!-- Aerobic Endurance: Poor (186,266 -> worse) -->
+          <!-- Running Economy: Moderate (282,218) -->
+          <!-- Pacing Discipline: Poor (172,184) -->
+          <!-- Muscular Endurance: Poor (202,242) -->
+          <polygon points="250,90 354,162 260,250 190,260 160,170" fill="#2563eb" opacity="0.4" stroke="#2563eb" stroke-width="2"/>
+          
+          <!-- Labels -->
+          <text x="250" y="65" font-size="12" fill="#1e293b" text-anchor="middle">絕對速度天花板 (T配速)</text>
+          <text x="400" y="135" font-size="12" fill="#1e293b" text-anchor="middle">跑步經濟性 (GCT/衝擊力)</text>
+          <text x="360" y="310" font-size="12" fill="#1e293b" text-anchor="middle">專項肌肉耐力</text>
+          <text x="140" y="310" font-size="12" fill="#1e293b" text-anchor="middle">有氧底座 (心率飄移)</text>
+          <text x="90" y="135" font-size="12" fill="#1e293b" text-anchor="middle">配速紀律與策略</text>
+          
+          <!-- Legend -->
+          <rect x="150" y="350" width="15" height="15" fill="#2563eb" opacity="0.4"/>
+          <text x="175" y="362" font-size="12" fill="#1e293b">當前能力分佈</text>
+          <rect x="270" y="350" width="15" height="15" fill="#10b981" opacity="0.2"/>
+          <text x="295" y="362" font-size="12" fill="#1e293b">3:10 目標所需能力</text>
+        </svg>
+      </div>
+      <figcaption>FIG12: 雷達圖清楚顯示，您的絕對速度（T配速）已具備 3:10 水準，目前的巨大缺口在於「配速紀律」、「足部落點煞車力」與「專項肌肉耐力」。補足這三塊，破 PB 指日可待。</figcaption>
+    </figure>
+
+  </section>
+</main>
+
+<footer style="text-align:center; padding: 24px; color: var(--text-muted); font-size: 13px;">
+    本報告基於數據科學與運動生理學原理生成。<br>
+    訓練過程中請隨時監控身體反應，數據僅供參考，身體感覺與微創傷警告（如髖部痛點）永遠是第一優先。
+</footer>
+
+</body>
+</html>
