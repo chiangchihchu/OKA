@@ -3,1302 +3,937 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2026日本東北溫泉雪景5日遊</title>
+  <title>日本東北5日雪景溫泉半自助行</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <!-- 引入思源宋體 (Serif) 增加日式傳統高級感，思源黑體 (Sans) 保持內文易讀性 -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* 冬季東北 & 和風調色板 */
-      --snow-white: rgba(255, 255, 255, 0.85);
-      --ice-bg: #EAF2F8;
-      --frost-border: rgba(255, 255, 255, 0.6);
-      --japan-blue: #004b79; /* 濃藍 */
-      --japan-blue-light: #4A8BB5; 
-      --japan-red: #B7282E; /* 鳥居紅 / 點綴印章 */
-      --onsen-warm: #D4A373; /* 溫泉木質調 */
-      
-      --ink: #1F2937; 
-      --muted: #64748B; 
-      --danger: #B7282E; 
-      --recommend: #00609C;
+      --bg-color: #f4f7f9;
+      --card-bg: #ffffff;
+      --tohoku-blue: #2c7da0;
+      --tohoku-light: #e0fbfc;
+      --tohoku-dark: #012a4a;
+      --red-accent: #d90429;
+      --blue-accent: #0077b6;
+      --text-main: #333333;
     }
-
-    /* 靜態雪花背景特效 */
-    body { 
-      background-color: var(--ice-bg); 
-      background-image: 
-        radial-gradient(white, rgba(255,255,255,.3) 2px, transparent 8px),
-        radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 5px),
-        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 10px);
-      background-size: 400px 400px, 250px 250px, 150px 150px;
-      background-position: 0 0, 40px 60px, 130px 270px;
-      background-attachment: fixed;
-      color: var(--ink); 
-      line-height: 1.7; 
-      font-family: 'Noto Sans TC', system-ui, -apple-system; 
+    body {
+      line-height: 1.7;
+      font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      background-image: radial-gradient(var(--tohoku-light) 1px, transparent 1px);
+      background-size: 20px 20px;
     }
-
-    h1, h2, h3, h4, .font-serif-tc {
-      font-family: 'Noto Serif TC', serif;
-    }
-
-    .main-container { max-width: 1280px; margin: auto; padding-bottom: 4rem; }
+    .main-container { max-width: 1200px; margin: auto; padding-bottom: 4rem; }
+    .red-text { color: var(--red-accent); font-weight: 600; }
+    .blue-text { color: var(--blue-accent); font-weight: 600; }
     
-    /* 質感毛玻璃卡片 */
-    .card { 
-      background: var(--snow-white); 
-      backdrop-filter: blur(12px);
-      border-radius: 1rem; 
-      box-shadow: 0 8px 32px rgba(0, 30, 60, 0.06); 
-      border: 1px solid var(--frost-border); 
-      transition: transform .3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow .3s; 
-      padding: 1.5rem; height: 100%; display: flex; flex-direction: column;
+    /* Navigation */
+    nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); padding: 1rem 0; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    .nav-container { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; max-width: 1200px; margin: auto; padding: 0 1rem; }
+    .nav-btn {
+      background: linear-gradient(135deg, #468faf, #2a6f97);
+      color: white; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: bold;
+      box-shadow: 0 4px 6px rgba(42, 111, 151, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+      transition: all 0.2s ease; border: none; cursor: pointer;
     }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0, 30, 60, 0.12); }
+    .nav-btn:hover { transform: scale(1.05); box-shadow: 0 6px 12px rgba(42, 111, 151, 0.4); }
+    .nav-btn:active { transform: scale(0.98); box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
     
-    .section-title { display: flex; align-items: center; gap: .8rem; margin-bottom: 1.25rem; border-bottom: 2px dashed #CBD5E1; padding-bottom: 0.75rem;}
-    .section-title .icon-slot { 
-      width: 2.25rem; height: 2.25rem; background: var(--japan-blue); 
-      color: #fff; border-radius: 50%; display: flex; 
-      align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0, 75, 121, 0.3);
-      font-size: 1.1rem;
-    }
-    
-    .red-text { color: var(--danger); font-weight: 700; }
-    .blue-text { color: var(--recommend); font-weight: 700; }
-    
-    /* 導覽列 */
-    .nav { position: sticky; top: 0; z-index: 50; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,.05); border-bottom: 1px solid var(--frost-border); }
-    .nav-btn { 
-      background: linear-gradient(135deg, #f8fafc, #e2e8f0); 
-      color: var(--japan-blue); padding: .75rem 1rem; border-radius: 0.75rem; font-weight: 700;
-      box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.05); 
-      border: 1px solid #cbd5e1;
-      transition: all .2s; font-size: 0.95rem; font-family: 'Noto Sans TC', sans-serif;
-    }
-    .nav-btn:hover { background: var(--japan-blue); color: #fff; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0, 75, 121, 0.2); border-color: var(--japan-blue); }
-    .nav-btn:active { transform: translateY(1px); }
-    
-    section { display: none; animation: fadeIn 0.5s ease-out; }
+    /* Pages */
+    section { display: none; animation: fadeIn 0.4s ease; }
     section.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     
-    .two-col { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1.25rem; }
+    /* Layouts */
+    .two-col { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1.5rem; }
     @media (min-width: 768px) { .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     
-    /* 時間軸設計 (帶入日式古典感) */
-    .timeline { position: relative; margin-left: 1.5rem; padding-bottom: 1rem; }
-    .timeline:before { content: ""; position: absolute; left: .4rem; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--japan-blue-light), transparent); }
+    /* Cards */
+    .card { background: var(--card-bg); border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.04); border-top: 4px solid var(--tohoku-blue); position: relative; overflow: hidden; }
+    .card::before { content: "\f2dc"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; right: -10px; bottom: -15px; font-size: 6rem; color: rgba(224, 251, 252, 0.4); z-index: 0; transform: rotate(-15deg); }
+    .card > * { position: relative; z-index: 1; }
+    .stack-vertical { display: flex; flex-direction: column; gap: 0.6rem; }
     
+    /* Timeline & Items */
+    .day-section { background: white; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border-left: 6px solid var(--tohoku-blue); }
+    .timeline { position: relative; margin-left: 1.5rem; padding-left: 1.5rem; border-left: 2px dashed #90e0ef; }
     .time-block { margin: 2rem 0; position: relative; }
-    .time-block h4 { color: var(--japan-blue); font-weight: 900; margin-left: 2.25rem; margin-bottom: 0.75rem; font-size: 1.2rem; letter-spacing: 1px;}
-    .time-block h4::before {
-      content: "❄"; position: absolute; left: -0.25rem; top: 0.1rem; width: 1.5rem; height: 1.5rem; 
-      color: var(--japan-blue-light); font-size: 1rem; display: flex; align-items: center; justify-content: center;
-      background: #fff; border-radius: 50%; box-shadow: 0 0 0 2px var(--ice-bg);
-    }
+    .time-block::before { content: ''; position: absolute; left: -1.85rem; top: 0; width: 12px; height: 12px; background: var(--tohoku-blue); border-radius: 50%; outline: 4px solid white; }
+    .time-block-title { font-size: 1.2rem; font-weight: bold; color: var(--tohoku-dark); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
     
-    .item { display: flex; gap: .8rem; margin: 1rem 0; align-items: flex-start; margin-left: 1.75rem; }
+    .item { display: flex; gap: 1rem; margin: 1.2rem 0; align-items: flex-start; background: #f8fbfd; padding: 1rem; border-radius: 8px; border: 1px solid #e0fbfc; }
+    .time-badge { flex: 0 0 auto; background: var(--tohoku-dark); color: white; border-radius: 6px; padding: 0.3rem 0.6rem; font-weight: 700; min-width: 5rem; text-align: center; font-size: 0.9rem; letter-spacing: 0.5px; }
+    .icon-slot { flex: 0 0 auto; width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; background: white; border-radius: 50%; color: var(--tohoku-blue); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .text-slot { min-width: 0; flex: 1 1 auto; word-break: break-word; display: flex; flex-direction: column; gap: 0.4rem; }
     
-    /* 仿日式木牌/印章的時間標籤 */
-    .time-badge { 
-      flex: 0 0 auto; background: var(--japan-blue); color: #fff; 
-      border-radius: 0.4rem; padding: .25rem .6rem; font-weight: 700; 
-      min-width: 4.8rem; text-align: center; font-size: 0.85rem; 
-      box-shadow: 2px 2px 0 rgba(0, 75, 121, 0.2); letter-spacing: 0.5px;
-    }
+    .transport { margin: 1rem 0 1rem 1.5rem; padding: 0.8rem 1rem; border-radius: 8px; background: repeating-linear-gradient(-45deg, #fdfdfd, #fdfdfd 10px, #f4f9f9 10px, #f4f9f9 20px); border: 1px dashed #caf0f8; display: flex; gap: 1rem; align-items: center; }
     
-    .item .icon-slot { 
-      flex: 0 0 auto; width: 2rem; height: 2rem; display: flex; 
-      align-items: center; justify-content: center; color: var(--japan-blue); 
-      background: #fff; border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
-      border: 1px solid var(--ice-bg); font-size: 0.9rem;
-    }
-    .text-slot { min-width: 0; flex: 1 1 auto; word-break: break-word; display: flex; flex-direction: column; gap: .3rem; }
+    .day-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.8rem; background: #caf0f8; color: var(--tohoku-dark); font-weight: bold; }
+    .missing-data-card { background: #fff0f3; border: 1px dashed #ffb3c1; padding: 1rem; border-radius: 8px; margin-top: 1rem; color: #c1121f; font-weight: bold; }
     
-    /* 交通運輸卡 (帶有雪國特快車的感覺) */
-    .transport { 
-      background: linear-gradient(to right, #ffffff, #f1f5f9); border-left: 5px solid var(--japan-blue-light); 
-      padding: .75rem 1rem; border-radius: 0 0.5rem 0.5rem 0; margin: 1.25rem 0 1.25rem 1.5rem;
-      font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.25rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04); position: relative;
-    }
-    .transport::before { content:"\f238"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--ice-bg); font-size: 2rem; opacity: 0.5;}
+    /* Utilities */
+    #backToTopBtn { display: none; position: fixed; bottom: 30px; right: 30px; z-index: 99; background: var(--tohoku-dark); color: white; border: none; outline: none; cursor: pointer; padding: 15px; border-radius: 50%; font-size: 18px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.3s; }
+    #backToTopBtn:hover { background: var(--tohoku-blue); transform: translateY(-3px); }
+    .copy-btn { cursor: pointer; color: var(--tohoku-blue); background: #e0fbfc; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.85rem; border: none; transition: 0.2s; }
+    .copy-btn:hover { background: #90e0ef; }
     
-    .stack-vertical { display: flex; flex-direction: column; gap: .4rem; }
-    
-    /* 仿日式朱印標籤 */
-    .day-tag { 
-      display: inline-block; padding: .15rem .6rem; border-radius: 0.2rem; 
-      background: #FDF2F2; color: var(--japan-red); border: 1px solid var(--japan-red);
-      font-size: .75rem; font-weight: 700; width: fit-content; letter-spacing: 0.5px;
-    }
-    
-    #backToTopBtn { background: var(--japan-blue); transition: opacity 0.3s, transform 0.2s; z-index: 100; box-shadow: 0 4px 15px rgba(0, 75, 121, 0.4);}
-    #backToTopBtn:hover { transform: scale(1.1); background: var(--japan-blue-light);}
-    
-    .copy-btn { cursor: pointer; color: var(--japan-blue); background: #f8fafc; padding: 0.3rem 0.6rem; border-radius: 0.4rem; font-size: 0.8rem; border: 1px solid #cbd5e1; display: inline-flex; align-items: center; gap: 0.4rem; width: fit-content; transition: 0.2s;}
-    .copy-btn:hover { background: var(--ice-bg); border-color: var(--japan-blue-light);}
-    
-    details summary { cursor: pointer; font-weight: 700; color: var(--japan-blue); padding: 0.75rem; background: #f8fafc; border-radius: 0.5rem; margin-bottom: 0.5rem; border-left: 4px solid var(--japan-blue); transition: 0.2s; font-size: 1.05rem;}
-    details[open] summary { background: #E8F0F6; }
-
-    /* 頂部 Header 設計 - 冬夜星空/雪山漸層 */
-    .hero-header {
-      background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-header::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-image: radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px);
-      background-size: 30px 30px;
-      opacity: 0.3;
-    }
+    header { background: linear-gradient(to right, #012a4a, #2c7da0); color: white; padding: 3rem 1rem; text-align: center; border-bottom: 5px solid #a2d2ff; }
+    header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: 2px; }
   </style>
 </head>
 <body>
 
-  <header class="hero-header text-center py-12 text-white shadow-2xl">
-    <div class="relative z-10 flex flex-col items-center justify-center">
-      <div class="mb-3 text-blue-200 text-5xl opacity-80"><i class="fa-regular fa-snowflake"></i></div>
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-widest text-white mb-4 drop-shadow-md">
-        日本東北溫泉雪景5日遊
-      </h1>
-      <div class="inline-block px-6 py-2 rounded-full border border-blue-300 bg-white bg-opacity-10 backdrop-filter backdrop-blur-sm">
-        <p class="text-lg font-medium tracking-wide">花卷 · 盛岡 · 山形 · 仙台 ｜ 2026/03/14 - 03/18</p>
-      </div>
+  <header>
+    <div class="flex justify-center items-center gap-3 mb-2">
+      <span class="text-3xl"><i class="fa-solid fa-snowflake"></i></span>
+      <h1>日本東北5日雪景溫泉半自助行</h1>
+      <span class="text-3xl"><i class="fa-solid fa-mountain-sun"></i></span>
     </div>
+    <p class="text-lg opacity-90"><span class="red-text text-white">目的地：花卷、盛岡、山形、仙台</span> ｜ <span class="red-text text-white">日期：2026/03/14 - 03/18</span></p>
   </header>
 
-  <nav class="nav">
-    <div class="max-w-6xl mx-auto px-4 py-3 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
-      <button class="nav-btn" onclick="showPage('home')"><i class="fa-solid fa-house-chimney mr-1"></i> 行程總覽</button>
-      <button class="nav-btn" onclick="showPage('poi')"><i class="fa-brands fa-pagelines mr-1"></i> 景點 (20)</button>
-      <button class="nav-btn" onclick="showPage('bib')"><i class="fa-solid fa-bowl-food mr-1"></i> 美食 (20)</button>
-      <button class="nav-btn" onclick="showPage('souvenir')"><i class="fa-solid fa-gifts mr-1"></i> 伴手禮 (20)</button>
-      <button class="nav-btn" onclick="showPage('photo-spots')"><i class="fa-solid fa-camera-retro mr-1"></i> 拍照聖地 (10)</button>
-      <button class="nav-btn" onclick="showPage('desserts')"><i class="fa-solid fa-mug-hot mr-1"></i> 甜點咖啡 (10)</button>
-      <button class="nav-btn" onclick="showPage('market')"><i class="fa-solid fa-store mr-1"></i> 超市 (5)</button>
+  <nav>
+    <div class="nav-container">
+      <button class="nav-btn" onclick="showPage('home')"><i class="fa-solid fa-house"></i> 首頁行程</button>
+      <button class="nav-btn" onclick="showPage('poi')"><i class="fa-solid fa-camera"></i> 景點 POI (20)</button>
+      <button class="nav-btn" onclick="showPage('bib')"><i class="fa-solid fa-utensils"></i> 美食 (20)</button>
+      <button class="nav-btn" onclick="showPage('souvenir')"><i class="fa-solid fa-gift"></i> 伴手禮 (20)</button>
+      <button class="nav-btn" onclick="showPage('photo-spots')"><i class="fa-solid fa-image"></i> 拍照聖地 (10)</button>
+      <button class="nav-btn" onclick="showPage('desserts')"><i class="fa-solid fa-mug-hot"></i> 甜點咖啡 (10)</button>
+      <button class="nav-btn" onclick="showPage('market')"><i class="fa-solid fa-store"></i> 超市 (5)</button>
     </div>
   </nav>
 
-  <main class="main-container px-4 mt-10 space-y-12">
+  <main class="main-container px-4 mt-8">
     
-    <!-- 首頁：合併區塊＋每日行程＋底部風險與建議 -->
-    <section id="home" class="active space-y-10">
+    <!-- ========================================== -->
+    <!-- 首頁：行程總覽與每日詳細行程 -->
+    <!-- ========================================== -->
+    <section id="home" class="active space-y-8">
       
-      <!-- 行程總覽 × 每日重點 -->
-      <div class="card relative overflow-hidden">
-        <!-- 裝飾用背景圖案 -->
-        <i class="fa-solid fa-map-location-dot absolute -right-6 -top-6 text-8xl text-blue-50 opacity-50 z-0"></i>
-        
-        <div class="section-title relative z-10">
-          <span class="icon-slot"><i class="fa-solid fa-compass"></i></span>
-          <h2 class="text-2xl font-bold">行程總覽 × 每日重點</h2>
-        </div>
-        <p class="mb-5 text-gray-700 font-medium relative z-10 text-lg">本次旅程以東北經典雪景、溫泉與美食為主軸，涵蓋<span class="text-blue-700 font-bold">藏王樹冰</span>、<span class="text-blue-700 font-bold">銀山溫泉</span>及<span class="text-blue-700 font-bold">松島灣遊船</span>，搭配購物與文化巡禮，提供豐富且深度的東北半自助體驗。</p>
-        
-        <div class="two-col relative z-10">
-          <details class="bg-white p-2 rounded-xl border border-gray-200 shadow-sm" open>
-            <summary class="font-serif-tc">Day 1：啟程抵達雪國</summary>
-            <div class="stack-vertical mt-2 px-3 pb-2 text-sm text-gray-700">
-              <p><span class="font-bold text-blue-800"><i class="fa-regular fa-flag"></i> 重點：</span>搭乘台灣虎航直飛花卷，感受初抵雪國的空氣，前往盛岡市區入住。</p>
-              <p class="red-text"><i class="fa-solid fa-plane-arrival w-5 text-center"></i> 航班：IT258 (12:15-16:35)</p>
-              <p class="red-text"><i class="fa-solid fa-hotel w-5 text-center"></i> 住宿：ART 飯店盛岡</p>
-            </div>
-          </details>
-          <details class="bg-white p-2 rounded-xl border border-gray-200 shadow-sm" open>
-            <summary class="font-serif-tc">Day 2：世界遺產與大正浪漫</summary>
-            <div class="stack-vertical mt-2 px-3 pb-2 text-sm text-gray-700">
-              <p><span class="font-bold text-blue-800"><i class="fa-regular fa-flag"></i> 重點：</span>參訪平泉中尊寺，享受草莓吃到飽的樂趣，傍晚漫步於絕美的銀山溫泉老街。</p>
-              <p class="red-text"><i class="fa-solid fa-camera-retro w-5 text-center"></i> 必看：中尊寺、銀山溫泉</p>
-              <p class="red-text"><i class="fa-solid fa-hot-tub-person w-5 text-center"></i> 住宿：天童溫泉 榮屋</p>
-            </div>
-          </details>
-          <details class="bg-white p-2 rounded-xl border border-gray-200 shadow-sm" open>
-            <summary class="font-serif-tc">Day 3：冰雪奇景與日本三景</summary>
-            <div class="stack-vertical mt-2 px-3 pb-2 text-sm text-gray-700">
-              <p><span class="font-bold text-blue-800"><i class="fa-regular fa-flag"></i> 重點：</span>搭乘藏王中央纜車欣賞冬季限定霧淞，午後遊覽松島灣與五大堂。</p>
-              <p class="red-text"><i class="fa-solid fa-snowflake w-5 text-center"></i> 必看：藏王纜車霧淞、松島灣</p>
-              <p class="red-text"><i class="fa-solid fa-hotel w-5 text-center"></i> 住宿：京阪仙台飯店</p>
-            </div>
-          </details>
-          <details class="bg-white p-2 rounded-xl border border-gray-200 shadow-sm" open>
-            <summary class="font-serif-tc">Day 4：杜之都仙台都會巡禮</summary>
-            <div class="stack-vertical mt-2 px-3 pb-2 text-sm text-gray-700">
-              <p><span class="font-bold text-blue-800"><i class="fa-regular fa-flag"></i> 重點：</span>全日自由活動，深入仙台市區探訪伊達政宗歷史足跡與大啖人氣牛舌。</p>
-              <p class="red-text"><i class="fa-solid fa-city w-5 text-center"></i> 必逛：仙台市區、一番町</p>
-              <p class="red-text"><i class="fa-solid fa-hotel w-5 text-center"></i> 住宿：京阪仙台飯店</p>
-            </div>
-          </details>
-          <details class="bg-white p-2 rounded-xl border border-gray-200 shadow-sm" open>
-            <summary class="font-serif-tc">Day 5：神聖參拜與滿載而歸</summary>
-            <div class="stack-vertical mt-2 px-3 pb-2 text-sm text-gray-700">
-              <p><span class="font-bold text-blue-800"><i class="fa-regular fa-flag"></i> 重點：</span>參拜陸奧國第一宮鹽釜神社，最後於 AEON MALL 做登機前大採購。</p>
-              <p class="red-text"><i class="fa-solid fa-bag-shopping w-5 text-center"></i> 必逛：鹽釜神社、AEON MALL</p>
-              <p class="red-text"><i class="fa-solid fa-plane-departure w-5 text-center"></i> 航班：IT259 (17:50-20:55)</p>
-            </div>
-          </details>
-        </div>
+      <div class="section-title text-2xl font-bold border-b-2 border-gray-200 pb-2 mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-map-location-dot text-tohoku-blue"></i> 行程總覽 × 每日重點
+      </div>
+      
+      <div class="two-col mb-10">
+        <details class="card bg-white cursor-pointer" open>
+          <summary class="font-bold text-lg outline-none red-text">Day 1 啟程與岩手初探</summary>
+          <div class="stack-vertical mt-3 text-sm">
+            <p><span class="blue-text">重點：</span>搭乘航班抵達花卷，轉往盛岡市區感受北國風情。</p>
+            <p><span class="red-text">住宿：</span>ART HOTEL MORIOKA</p>
+          </div>
+        </details>
+        <details class="card bg-white cursor-pointer" open>
+          <summary class="font-bold text-lg outline-none red-text">Day 2 歷史巡禮與大正浪漫</summary>
+          <div class="stack-vertical mt-3 text-sm">
+            <p><span class="blue-text">重點：</span>中尊寺世界遺產、採草莓體驗、銀山溫泉夢幻老街。</p>
+            <p><span class="red-text">住宿：</span>天童溫泉 榮屋 (SAKAEYA-HOTEL)</p>
+          </div>
+        </details>
+        <details class="card bg-white cursor-pointer" open>
+          <summary class="font-bold text-lg outline-none red-text">Day 3 冰雪奇觀與日本三景</summary>
+          <div class="stack-vertical mt-3 text-sm">
+            <p><span class="blue-text">重點：</span>藏王纜車賞霧淞、松島灣遊船、五大堂。</p>
+            <p><span class="red-text">住宿：</span>HOTEL KEIHAN SENDAI</p>
+          </div>
+        </details>
+        <details class="card bg-white cursor-pointer" open>
+          <summary class="font-bold text-lg outline-none red-text">Day 4 仙台市區自由探索</summary>
+          <div class="stack-vertical mt-3 text-sm">
+            <p><span class="blue-text">重點：</span>全日自由活動，體驗仙台車站商圈、大啖牛舌與在地美食。</p>
+            <p><span class="red-text">住宿：</span>HOTEL KEIHAN SENDAI</p>
+          </div>
+        </details>
+        <details class="card bg-white cursor-pointer" open>
+          <summary class="font-bold text-lg outline-none red-text">Day 5 神社祈福與滿載而歸</summary>
+          <div class="stack-vertical mt-3 text-sm">
+            <p><span class="blue-text">重點：</span>鹽釜神社參拜、AEON MALL最後採購、搭機返台。</p>
+          </div>
+        </details>
       </div>
 
-      <!-- 每日行程 -->
-      <div class="card">
-        <div class="section-title">
-          <span class="icon-slot"><i class="fa-regular fa-calendar-check"></i></span>
-          <h2 class="text-2xl font-bold">每日詳細行程</h2>
-        </div>
-        
-        <!-- Day 1 -->
-        <div class="day-section mt-4">
-          <h3 class="text-2xl font-bold border-b-2 border-blue-200 pb-3 mb-5 text-blue-900 font-serif-tc flex items-center gap-2">
-            <i class="fa-solid fa-plane-circle-check text-blue-500"></i> Day 1：03/14 (六) 啟程出發
-          </h3>
-          <div class="timeline">
-            
-            <div class="time-block">
-              <h4>Forenoon 上午</h4>
-              <div class="item">
-                <div class="time-badge">09:45</div>
-                <div class="icon-slot"><i class="fa-solid fa-users"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">桃園機場集合出發</span>
-                  <span class="text-sm text-gray-700">第一航站虎航 7號櫃台，領取網路 SIM 卡並辦理報到。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 2.5 小時</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">12:15</div>
-                <div class="icon-slot"><i class="fa-solid fa-plane-departure"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">搭乘台灣虎航 IT258</span>
-                  <span class="text-sm text-gray-700">台北(桃園) 飛往 花卷市。</span>
-                  <span class="text-sm font-semibold blue-text">航程：約 3 小時 20 分</span>
-                </div>
-              </div>
-            </div>
+      <div class="section-title text-2xl font-bold border-b-2 border-gray-200 pb-2 mb-8 flex items-center gap-2 mt-10">
+        <i class="fa-solid fa-route text-tohoku-blue"></i> 每日詳細行程
+      </div>
 
-            <div class="time-block">
-              <h4>Afternoon 午後</h4>
-              <div class="item">
-                <div class="time-badge">14:00</div>
-                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">午餐：機上簡餐</span>
-                  <span class="text-sm text-gray-700">享用航空公司提供之機上餐飲。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 45 分</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">16:35</div>
-                <div class="icon-slot"><i class="fa-solid fa-plane-arrival"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">抵達日本花卷機場</span>
-                  <span class="text-sm text-gray-700">辦理入境手續與提領行李。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1 小時</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transport">
-              <span class="font-bold text-blue-900"><i class="fa-solid fa-bus-simple mr-1"></i> 專車接送：花卷機場 → 盛岡市區</span>
-              <span class="text-gray-700">出發：17:35 → 抵達：18:30</span>
-              <span class="text-sm text-gray-500 font-medium">ETA: 55 分鐘 | Cost: 團費包含 | Transfers: 直達車</span>
-            </div>
-
-            <div class="time-block">
-              <h4>Evening 傍晚</h4>
-              <div class="item">
-                <div class="time-badge">18:45</div>
-                <div class="icon-slot"><i class="fa-solid fa-bowl-food"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">晚餐：ぴょんぴょん舎 盛岡冷麵 (推薦)</span>
-                  <span class="text-sm text-gray-700">建議餐點：特製盛岡冷麵搭配韓式燒肉套餐。Q彈麵條與沁涼湯頭是盛岡名物。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1.5 小時 | 預算：JPY 1,500-2,500</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="time-block">
-              <h4>Night 夜間</h4>
-              <div class="item">
-                <div class="time-badge">20:30</div>
-                <div class="icon-slot"><i class="fa-solid fa-hotel"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">入住：ART 飯店盛岡 (ART HOTEL MORIOKA)</span>
-                  <span class="text-sm text-gray-700">辦理入住，飯店位於市中心，方便前往周邊超商採買。</span>
-                  <span class="text-sm font-semibold blue-text">推估至休息</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="item bg-white bg-opacity-50 border border-blue-100 shadow-inner p-4 rounded-xl mt-6">
-              <div class="icon-slot bg-gray-100 text-gray-500"><i class="fa-solid fa-circle-info"></i></div>
+      <!-- Day 1 -->
+      <div class="day-section">
+        <h2 class="text-xl font-bold red-text mb-4 border-b pb-2"><i class="fa-solid fa-calendar-day"></i> 03/14 (六) 第1天：台北/花卷/盛岡</h2>
+        <div class="timeline">
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-sun"></i> 早晨 Morning</div>
+            <div class="item">
+              <div class="time-badge">09:45</div>
+              <div class="icon-slot"><i class="fa-solid fa-users"></i></div>
               <div class="text-slot stack-vertical">
-                <span class="font-bold text-gray-800">資料不足原因說明</span>
-                <span class="text-sm text-gray-600">時段不足：因航班於傍晚抵達，僅能安排入境、晚餐與入住手續，故事件卡未滿 10 項。</span>
+                <span class="red-text font-bold">桃園機場集合</span>
+                <span class="text-sm">第一航站虎航航空公司7號櫃台集合。</span>
               </div>
             </div>
-
-          </div>
-        </div>
-
-        <!-- Day 2 -->
-        <div class="day-section mt-12">
-          <h3 class="text-2xl font-bold border-b-2 border-blue-200 pb-3 mb-5 text-blue-900 font-serif-tc flex items-center gap-2">
-            <i class="fa-solid fa-mountain-sun text-blue-500"></i> Day 2：03/15 (日) 山形深度遊
-          </h3>
-          <div class="timeline">
-            
-            <div class="time-block">
-              <h4>Morning 早晨</h4>
-              <div class="item">
-                <div class="time-badge">07:30</div>
-                <div class="icon-slot"><i class="fa-solid fa-mug-saucer"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">早餐：飯店內自助餐</span>
-                  <span class="text-sm text-gray-700">建議餐點：盛岡在地食材製作的和洋自助式早餐。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1 小時</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transport">
-              <span class="font-bold text-blue-900"><i class="fa-solid fa-bus-simple mr-1"></i> 專車接送：盛岡 → 平泉</span>
-              <span class="text-gray-700">出發：08:45 → 抵達：09:45</span>
-              <span class="text-sm text-gray-500 font-medium">ETA: 60 分鐘 | Cost: 團費包含 | Transfers: 直達車</span>
-            </div>
-
-            <div class="time-block">
-              <h4>Forenoon 上午</h4>
-              <div class="item">
-                <div class="time-badge">09:50</div>
-                <div class="icon-slot"><i class="fa-brands fa-pagelines"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">平泉中尊寺 (世界遺產)</span>
-                  <span class="text-sm text-gray-700">參訪擁有40多座院舍的壯麗佛寺，感受藤原氏權勢顯赫的歷史氛圍。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1.5 小時</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">11:20</div>
-                <div class="icon-slot"><i class="fa-solid fa-camera-retro"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">中尊寺金色堂周邊漫步</span>
-                  <span class="text-sm text-gray-700">漫步於杉木林道中，欣賞周邊古意盎然的殿堂與清幽自然景觀。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 40 分</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transport">
-              <span class="font-bold text-blue-900"><i class="fa-solid fa-bus-simple mr-1"></i> 專車接送：平泉 → 山形地區</span>
-              <span class="text-gray-700">出發：12:00 → 抵達：13:30</span>
-              <span class="text-sm text-gray-500 font-medium">ETA: 90 分鐘 | Cost: 團費包含 | Transfers: 直達車</span>
-            </div>
-
-            <div class="time-block">
-              <h4>Afternoon 午後</h4>
-              <div class="item">
-                <div class="time-badge">13:30</div>
-                <div class="icon-slot"><i class="fa-solid fa-bowl-rice"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">午餐：山形鄉土料理餐廳</span>
-                  <span class="text-sm text-gray-700">建議餐點：山形芋煮定食與手打蕎麥麵，品味東北獨特的家鄉風味。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1 小時</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">14:45</div>
-                <div class="icon-slot"><i class="fa-solid fa-seedling"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">草莓採果樂 (無限暢吃)</span>
-                  <span class="text-sm text-gray-700">溫室內親自體驗採摘新鮮多汁的當季大草莓，享受現採現吃的甜蜜時光。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1 小時</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transport">
-              <span class="font-bold text-blue-900"><i class="fa-solid fa-bus-simple mr-1"></i> 專車接送：果園 → 銀山溫泉</span>
-              <span class="text-gray-700">出發：15:45 → 抵達：16:45</span>
-              <span class="text-sm text-gray-500 font-medium">ETA: 60 分鐘 | Cost: 團費包含 | Transfers: 直達車</span>
-            </div>
-
-            <div class="time-block">
-              <h4>Evening 傍晚</h4>
-              <div class="item">
-                <div class="time-badge">16:50</div>
-                <div class="icon-slot"><i class="fa-solid fa-street-view"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">銀山溫泉街散策</span>
-                  <span class="text-sm text-gray-700">漫步於大正浪漫風情的百年木造旅館街，彷彿走入神隱少女的奇幻世界。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1 小時</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">17:50</div>
-                <div class="icon-slot"><i class="fa-solid fa-shoe-prints"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">自由享受和風足湯</span>
-                  <span class="text-sm text-gray-700">在溫泉街旁的免費公共足湯泡腳，舒緩一日的疲勞，欣賞溪谷景緻。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 40 分</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transport">
-              <span class="font-bold text-blue-900"><i class="fa-solid fa-bus-simple mr-1"></i> 專車接送：銀山溫泉 → 天童溫泉</span>
-              <span class="text-gray-700">出發：18:30 → 抵達：19:15</span>
-              <span class="text-sm text-gray-500 font-medium">ETA: 45 分鐘 | Cost: 團費包含 | Transfers: 直達車</span>
-            </div>
-
-            <div class="time-block">
-              <h4>Night 夜間</h4>
-              <div class="item">
-                <div class="time-badge">19:20</div>
-                <div class="icon-slot"><i class="fa-solid fa-bed"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">入住：天童溫泉 榮屋 (SAKAEYA-HOTEL)</span>
-                  <span class="text-sm text-gray-700">辦理入住，進入充滿日式風情的榻榻米或和洋客房。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 20 分</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">19:45</div>
-                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">晚餐：榮屋溫泉會席料理</span>
-                  <span class="text-sm text-gray-700">建議餐點：精緻溫泉會席料理，包含山形牛陶板燒與當季野菜。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1.5 小時</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">21:30</div>
-                <div class="icon-slot"><i class="fa-solid fa-hot-tub-person"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">天童溫泉大浴場泡湯</span>
-                  <span class="text-sm text-gray-700">享受飯店內的天然溫泉大浴場與露天風呂，放鬆身心。</span>
-                  <span class="text-sm font-semibold blue-text">推估至休息</span>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-
-        <!-- Day 3 -->
-        <div class="day-section mt-12">
-          <h3 class="text-2xl font-bold border-b-2 border-blue-200 pb-3 mb-5 text-blue-900 font-serif-tc flex items-center gap-2">
-            <i class="fa-regular fa-snowflake text-blue-500"></i> Day 3：03/16 (一) 霧淞與海灣之美
-          </h3>
-          <div class="timeline">
-            
-            <div class="time-block">
-              <h4>Morning 早晨</h4>
-              <div class="item">
-                <div class="time-badge">07:30</div>
-                <div class="icon-slot"><i class="fa-solid fa-bowl-rice"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">早餐：飯店內日式朝食</span>
-                  <span class="text-sm text-gray-700">建議餐點：溫泉蛋、烤魚與山形特產米飯組成的豐盛朝食。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1 小時</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transport">
-              <span class="font-bold text-blue-900"><i class="fa-solid fa-bus-simple mr-1"></i> 專車接送：天童溫泉 → 藏王</span>
-              <span class="text-gray-700">出發：08:45 → 抵達：09:45</span>
-              <span class="text-sm text-gray-500 font-medium">ETA: 60 分鐘 | Cost: 團費包含 | Transfers: 直達車</span>
-            </div>
-
-            <div class="time-block">
-              <h4>Forenoon 上午</h4>
-              <div class="item">
-                <div class="time-badge">10:00</div>
-                <div class="icon-slot"><i class="fa-solid fa-cable-car"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">藏王中央纜車 (冬季限定霧淞)</span>
-                  <span class="text-sm text-gray-700">搭乘全長1787米的纜車前往鳥兜山頂，沿途欣賞壯麗的雪白霧冰奇景。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1.5 小時</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">11:30</div>
-                <div class="icon-slot"><i class="fa-solid fa-mug-hot"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">SORA MADO cafe 1387 休憩</span>
-                  <span class="text-sm text-gray-700">建議餐點：熱咖啡與霧冰造型甜點。在山頂觀景台遠眺藏王連峰。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 45 分</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transport">
-              <span class="font-bold text-blue-900"><i class="fa-solid fa-bus-simple mr-1"></i> 專車接送：藏王 → 仙台松島</span>
-              <span class="text-gray-700">出發：12:30 → 抵達：14:00</span>
-              <span class="text-sm text-gray-500 font-medium">ETA: 90 分鐘 | Cost: 團費包含 | Transfers: 直達車</span>
-            </div>
-
-            <div class="time-block">
-              <h4>Afternoon 午後</h4>
-              <div class="item">
-                <div class="time-badge">14:00</div>
-                <div class="icon-slot"><i class="fa-solid fa-fish-fins"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">午餐：松島魚市場周邊海鮮</span>
-                  <span class="text-sm text-gray-700">建議餐點：現烤牡蠣定食或三陸海鮮丼，品嘗松島灣的新鮮海味。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1 小時</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">15:15</div>
-                <div class="icon-slot"><i class="fa-solid fa-ship"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">日本三景松島灣遊覽船</span>
-                  <span class="text-sm text-gray-700">搭乘遊船穿梭於260個星羅棋布的奇岩怪島間，見證日本三大絕景之一。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1 小時</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">16:30</div>
-                <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">五大堂與結緣橋</span>
-                  <span class="text-sm text-gray-700">參觀東北最古老的桃山建築，並走過象徵好運的紅漆結緣橋。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 45 分</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transport">
-              <span class="font-bold text-blue-900"><i class="fa-solid fa-bus-simple mr-1"></i> 專車接送：松島 → 仙台市區</span>
-              <span class="text-gray-700">出發：17:20 → 抵達：18:10</span>
-              <span class="text-sm text-gray-500 font-medium">ETA: 50 分鐘 | Cost: 團費包含 | Transfers: 直達車</span>
-            </div>
-
-            <div class="time-block">
-              <h4>Evening 傍晚</h4>
-              <div class="item">
-                <div class="time-badge">18:15</div>
-                <div class="icon-slot"><i class="fa-solid fa-gifts"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">免稅商店購物</span>
-                  <span class="text-sm text-gray-700">選購免稅商品、藥妝及東北特產伴手禮。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1 小時</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">19:30</div>
-                <div class="icon-slot"><i class="fa-solid fa-hotel"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">入住：京阪仙台飯店 (HOTEL KEIHAN SENDAI)</span>
-                  <span class="text-sm text-gray-700">辦理連續兩晚的入住手續，位於市中心交通極為便利。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 30 分</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="time-block">
-              <h4>Night 夜間</h4>
-              <div class="item">
-                <div class="time-badge">20:15</div>
-                <div class="icon-slot"><i class="fa-solid fa-fire-burner"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">晚餐：利久牛舌 仙台站前店 (自理推薦)</span>
-                  <span class="text-sm text-gray-700">建議餐點：極厚切烤牛舌定食搭配牛骨清湯與麥飯，仙台必吃聖品。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1.5 小時 | 預算：JPY 2,500-3,500</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">21:45</div>
-                <div class="icon-slot"><i class="fa-solid fa-store"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">仙台車站周邊夜間探索</span>
-                  <span class="text-sm text-gray-700">自由逛覽車站共構商場的伴手禮區或附近便利超商。</span>
-                  <span class="text-sm font-semibold blue-text">推估至休息</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Day 4 -->
-        <div class="day-section mt-12">
-          <h3 class="text-2xl font-bold border-b-2 border-blue-200 pb-3 mb-5 text-blue-900 font-serif-tc flex items-center gap-2">
-            <i class="fa-solid fa-city text-blue-500"></i> Day 4：03/17 (二) 杜之都仙台都會巡禮
-          </h3>
-          <div class="timeline">
-            
-            <div class="time-block">
-              <h4>Morning 早晨</h4>
-              <div class="item">
-                <div class="time-badge">08:00</div>
-                <div class="icon-slot"><i class="fa-solid fa-mug-saucer"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">早餐：飯店內自助餐</span>
-                  <span class="text-sm text-gray-700">建議餐點：享用京阪飯店知名的多樣化和洋自助早餐，備足一日體力。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1 小時</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transport">
-              <span class="font-bold text-blue-900"><i class="fa-solid fa-train-tram mr-1"></i> 市區交通：Loople 仙台觀光巴士</span>
-              <span class="text-gray-700">出發：09:30 → 抵達：09:45</span>
-              <span class="text-sm text-gray-500 font-medium">ETA: 15 分鐘 | Cost: JPY 260 | Transfers: 仙台站上車至瑞鳳殿</span>
-            </div>
-
-            <div class="time-block">
-              <h4>Forenoon 上午</h4>
-              <div class="item">
-                <div class="time-badge">09:50</div>
-                <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">瑞鳳殿參拜 (系統推薦)</span>
-                  <span class="text-sm text-gray-700">華麗的桃山建築風格，伊達政宗的安眠之所，四周古木參天。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1.5 小時</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">11:30</div>
-                <div class="icon-slot"><i class="fa-solid fa-horse"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">仙台城跡與政宗騎馬像 (系統推薦)</span>
-                  <span class="text-sm text-gray-700">登高俯瞰仙台市景，與著名的伊達政宗騎馬銅像合影留念。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1 小時</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transport">
-              <span class="font-bold text-blue-900"><i class="fa-solid fa-train-tram mr-1"></i> 市區交通：觀光巴士返回市區</span>
-              <span class="text-gray-700">出發：12:40 → 抵達：13:00</span>
-              <span class="text-sm text-gray-500 font-medium">ETA: 20 分鐘 | Cost: JPY 260 | Transfers: 返回市區一番町</span>
-            </div>
-
-            <div class="time-block">
-              <h4>Afternoon 午後</h4>
-              <div class="item">
-                <div class="time-badge">13:10</div>
-                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">午餐：壽司哲 仙台店 (自理推薦)</span>
-                  <span class="text-sm text-gray-700">建議餐點：特選握壽司盛合。來自鹽釜港的極鮮漁獲，是東北頂級壽司名店。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1.5 小時 | 預算：JPY 3,000-5,000</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">14:50</div>
-                <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">一番町商店街購物</span>
-                  <span class="text-sm text-gray-700">漫步於仙台最繁華的拱廊商店街，採買藥妝、服飾與雜貨。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 2 小時</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">17:00</div>
-                <div class="icon-slot"><i class="fa-solid fa-ice-cream"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">枝豆茶寮 Zunda Saryo 下午茶 (系統推薦)</span>
-                  <span class="text-sm text-gray-700">建議餐點：毛豆泥奶昔與毛豆麻糬。香濃獨特的仙台專屬甜點。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 45 分</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="time-block">
-              <h4>Evening 傍晚</h4>
-              <div class="item">
-                <div class="time-badge">18:00</div>
-                <div class="icon-slot"><i class="fa-solid fa-building"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">AER 展望台夜景 (系統推薦)</span>
-                  <span class="text-sm text-gray-700">前往車站旁的AER大樓31樓，免費欣賞仙台市區的璀璨燈火。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 45 分</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">19:00</div>
-                <div class="icon-slot"><i class="fa-solid fa-martini-glass"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">國分町繁華街探索</span>
-                  <span class="text-sm text-gray-700">走入東北最大的不夜城，感受熱鬧非凡的居酒屋與餐飲文化氣息。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1 小時</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="time-block">
-              <h4>Night 夜間</h4>
-              <div class="item">
-                <div class="time-badge">20:00</div>
-                <div class="icon-slot"><i class="fa-solid fa-fire-burner"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">晚餐：芹菜鍋 侘び助 (自理推薦)</span>
-                  <span class="text-sm text-gray-700">建議餐點：宮城名物「鴨肉芹菜鍋」。連根一起煮的芹菜散發獨特清香。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1.5 小時 | 預算：JPY 3,500-5,000</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">21:45</div>
-                <div class="icon-slot"><i class="fa-solid fa-cart-shopping"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">Don Quijote 唐吉訶德 仙台站前店</span>
-                  <span class="text-sm text-gray-700">深夜的最後掃貨，補齊零食、伴手禮與各式雜貨，隨後步行回飯店休息。</span>
-                  <span class="text-sm font-semibold blue-text">推估至休息</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Day 5 -->
-        <div class="day-section mt-12">
-          <h3 class="text-2xl font-bold border-b-2 border-blue-200 pb-3 mb-5 text-blue-900 font-serif-tc flex items-center gap-2">
-            <i class="fa-solid fa-torii-gate text-blue-500"></i> Day 5：03/18 (三) 神社參拜與賦歸
-          </h3>
-          <div class="timeline">
-            
-            <div class="time-block">
-              <h4>Morning 早晨</h4>
-              <div class="item">
-                <div class="time-badge">08:00</div>
-                <div class="icon-slot"><i class="fa-solid fa-bowl-rice"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">早餐：飯店內自助餐</span>
-                  <span class="text-sm text-gray-700">建議餐點：最後一頓日本朝食，享用新鮮水果與和式小菜。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1 小時</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transport">
-              <span class="font-bold text-blue-900"><i class="fa-solid fa-bus-simple mr-1"></i> 專車接送：仙台 → 鹽釜</span>
-              <span class="text-gray-700">出發：09:30 → 抵達：10:15</span>
-              <span class="text-sm text-gray-500 font-medium">ETA: 45 分鐘 | Cost: 團費包含 | Transfers: 直達車</span>
-            </div>
-
-            <div class="time-block">
-              <h4>Forenoon 上午</h4>
-              <div class="item">
-                <div class="time-badge">10:20</div>
-                <div class="icon-slot"><i class="fa-solid fa-vihara"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">鹽釜神社參拜</span>
-                  <span class="text-sm text-gray-700">擁有1200年歷史的「陸奧國第一宮」，祈求平安順遂，感受莊嚴氛圍。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1.5 小時</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transport">
-              <span class="font-bold text-blue-900"><i class="fa-solid fa-bus-simple mr-1"></i> 專車接送：鹽釜 → AEON MALL</span>
-              <span class="text-gray-700">出發：12:00 → 抵達：12:30</span>
-              <span class="text-sm text-gray-500 font-medium">ETA: 30 分鐘 | Cost: 團費包含 | Transfers: 直達車</span>
-            </div>
-
-            <div class="time-block">
-              <h4>Afternoon 午後</h4>
-              <div class="item">
-                <div class="time-badge">12:30</div>
-                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">午餐：AEON MALL 美食街 (自理推薦)</span>
-                  <span class="text-sm text-gray-700">建議餐點：多樣化選擇如炸豬排定食或拉麵，方便快捷。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 1 小時 | 預算：JPY 1,000-1,500</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">13:30</div>
-                <div class="icon-slot"><i class="fa-solid fa-cart-shopping"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">AEON MALL 購物中心</span>
-                  <span class="text-sm text-gray-700">萬種風情的大型商場，匯集日式藥妝、平價超市、國民服飾，進行最後血拚。</span>
-                  <span class="text-sm font-semibold blue-text">推估時長：約 2 小時</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="transport">
-              <span class="font-bold text-blue-900"><i class="fa-solid fa-bus-simple mr-1"></i> 專車接送：購物中心 → 花卷機場</span>
-              <span class="text-gray-700">出發：15:30 → 抵達：16:30</span>
-              <span class="text-sm text-gray-500 font-medium">ETA: 60 分鐘 | Cost: 團費包含 | Transfers: 直達車</span>
-            </div>
-
-            <div class="time-block">
-              <h4>Evening 傍晚</h4>
-              <div class="item">
-                <div class="time-badge">17:50</div>
-                <div class="icon-slot"><i class="fa-solid fa-plane-departure"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="red-text text-lg">搭乘台灣虎航 IT259</span>
-                  <span class="text-sm text-gray-700">花卷市 飛往 台北(桃園)。機上享用晚餐簡餐。</span>
-                  <span class="text-sm font-semibold blue-text">航程：約 4 小時 05 分，預計 20:55 抵達</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="item bg-white bg-opacity-50 border border-blue-100 shadow-inner p-4 rounded-xl mt-6">
-              <div class="icon-slot bg-blue-100 text-blue-500"><i class="fa-solid fa-circle-info"></i></div>
+            <div class="item">
+              <div class="time-badge">12:15 ~ 16:35</div>
+              <div class="icon-slot"><i class="fa-solid fa-plane-departure"></i></div>
               <div class="text-slot stack-vertical">
-                <span class="font-bold text-gray-800">資料不足原因說明</span>
-                <span class="text-sm text-blue-700 font-semibold">長距轉場與搭機日，行程推估至機場報到為止。</span>
+                <span class="red-text font-bold">搭乘 IT258 前往花卷</span>
+                <span class="red-text text-sm">【午餐】機上簡餐</span>
+                <span class="text-sm">發送日本上網SIM卡。抵達花卷機場辦理入境手續。</span>
               </div>
             </div>
+          </div>
+          
+          <div class="transport">
+            <div class="time-badge">17:30 → 18:30</div>
+            <div class="stack-vertical text-sm">
+              <span class="font-bold"><i class="fa-solid fa-bus"></i> 專車接送</span>
+              <span>花卷機場出發前往盛岡市區飯店。</span>
+            </div>
+          </div>
 
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-moon"></i> 晚間 Evening / Night</div>
+            <div class="item">
+              <div class="time-badge">18:30</div>
+              <div class="icon-slot"><i class="fa-solid fa-hotel"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">入住 ART HOTEL MORIOKA</span>
+                <span class="text-sm">辦理入住手續，放妥行李。</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="time-badge">19:00 ~ 20:30</div>
+              <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">【晚餐】敬請自理 (盛岡冷麵推薦)</span>
+                <span class="blue-text text-sm">餐廳：盛樓閣 (步行可達)</span>
+                <span class="blue-text text-sm">餐點：盛岡冷麵、燒肉 (預算: ¥1,500 - ¥3,000)</span>
+              </div>
+            </div>
+          </div>
+          <div class="missing-data-card">
+            <i class="fa-solid fa-circle-info"></i> 資料不足說明：本日為飛行與長途轉場日，抵達時已近傍晚，故行程推估至飯店入住與周邊自由覓食，未滿10項屬合理安排。
           </div>
         </div>
-
       </div>
 
-      <!-- 風險評估 -->
-      <div class="card bg-orange-50 border-orange-200">
-        <div class="section-title border-orange-300">
-          <span class="icon-slot" style="background: #ea580c;"><i class="fa-solid fa-triangle-exclamation"></i></span>
-          <h2 class="text-2xl font-bold text-orange-900">旅遊風險評估</h2>
+      <!-- Day 2 (Full Day - 10 items) -->
+      <div class="day-section">
+        <h2 class="text-xl font-bold red-text mb-4 border-b pb-2"><i class="fa-solid fa-calendar-day"></i> 03/15 (日) 第2天：岩手/山形 (完整日)</h2>
+        <div class="timeline">
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-sun"></i> 早晨 Morning</div>
+            <div class="item">
+              <div class="time-badge">07:00 ~ 08:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-coffee"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">【早餐】飯店內享用</span>
+                <span class="text-sm">享用豐盛和洋自助早餐，準備出發。</span>
+              </div>
+            </div>
+            <div class="transport">
+              <div class="time-badge">08:15 → 09:30</div>
+              <div class="stack-vertical text-sm">
+                <span class="font-bold"><i class="fa-solid fa-bus"></i> 專車移動</span>
+                <span>前往平泉。ETA: 1小時15分</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="time-badge">09:30 ~ 11:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-vihara"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">平泉中尊寺 (世界遺產)</span>
+                <span class="text-sm">欣賞藤原氏輝煌歷史的佛教殿堂。(不含金色堂門票)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-clock"></i> 上午 Forenoon</div>
+            <div class="transport">
+              <div class="time-badge">11:00 → 11:30</div>
+              <div class="stack-vertical text-sm"><span class="font-bold"><i class="fa-solid fa-bus"></i> 專車移動</span></div>
+            </div>
+            <div class="item">
+              <div class="time-badge">11:30 ~ 12:30</div>
+              <div class="icon-slot"><i class="fa-solid fa-leaf"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">草莓採果樂 (放題吃到飽)</span>
+                <span class="text-sm">溫室體驗採果樂趣，新鮮草莓無限暢吃。</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-cloud-sun"></i> 午後 Afternoon</div>
+            <div class="item">
+              <div class="time-badge">12:45 ~ 13:45</div>
+              <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">【午餐】山形鄉土料理</span>
+                <span class="red-text text-sm">餐廳：行程特約景觀餐廳</span>
+                <span class="red-text text-sm">餐點：山形芋煮鍋與風味御膳</span>
+              </div>
+            </div>
+            <div class="transport">
+              <div class="time-badge">13:45 → 15:00</div>
+              <div class="stack-vertical text-sm"><span class="font-bold"><i class="fa-solid fa-bus"></i> 專車移動</span>前往銀山溫泉。</div>
+            </div>
+            <div class="item">
+              <div class="time-badge">15:00 ~ 15:45</div>
+              <div class="icon-slot"><i class="fa-brands fa-pageline"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="blue-text font-bold">白銀公園散策</span>
+                <span class="blue-text text-sm">沿著步道欣賞白銀瀑布與自然景緻。</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="time-badge">15:45 ~ 16:30</div>
+              <div class="icon-slot"><i class="fa-solid fa-house-chimney-window"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">銀山溫泉街散策</span>
+                <span class="text-sm">漫步大正浪漫風情的百年木造旅館老街。</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-moon"></i> 傍晚 Evening</div>
+            <div class="item">
+              <div class="time-badge">16:30 ~ 17:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-water"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">自由享受足湯</span>
+                <span class="text-sm">自備小毛巾，於溪畔享受溫暖足湯。</span>
+              </div>
+            </div>
+            <div class="transport">
+              <div class="time-badge">17:00 → 18:00</div>
+              <div class="stack-vertical text-sm"><span class="font-bold"><i class="fa-solid fa-bus"></i> 專車移動</span>前往天童溫泉。</div>
+            </div>
+            <div class="item">
+              <div class="time-badge">18:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-hotel"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">入住 天童溫泉 榮屋</span>
+                <span class="text-sm">辦理入住，可換上浴衣準備用餐。</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-star"></i> 夜間 Night</div>
+            <div class="item">
+              <div class="time-badge">18:30 ~ 20:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">【晚餐】飯店會席料理或自助餐</span>
+                <span class="red-text text-sm">餐廳：天童溫泉榮屋餐廳</span>
+                <span class="red-text text-sm">餐點：日式會席精緻料理或百匯自助餐</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="time-badge">20:30 ~ 21:30</div>
+              <div class="icon-slot"><i class="fa-solid fa-hot-tub-person"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="blue-text font-bold">天童溫泉泡湯時光</span>
+                <span class="blue-text text-sm">於飯店內享受知名天童溫泉，洗滌疲憊。</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="flex items-center gap-2 mb-3">
-          <span class="bg-orange-600 text-white px-3 py-1 rounded text-sm font-bold tracking-wider">整體風險等級：中</span>
-        </div>
-        <p class="text-gray-700 leading-relaxed"><span class="font-bold text-orange-800">【氣候風險】：</span>3月份東北仍有降雪機率，藏王纜車與山區可能因天候或強風停駛（若停駛將退費）。道路易結冰濕滑，請務必穿著防滑鞋（贈送防滑鞋套請善用）。<br><span class="font-bold text-orange-800">【健康風險】：</span>室內外溫差極大，請採「洋蔥式穿法」以防感冒；泡溫泉需注意水分補充與心血管狀況。<br><span class="font-bold text-orange-800">【通關風險】：</span>近期日本入境審查嚴格，請勿攜帶違禁肉製品或電子菸，以免面臨高額罰鍰或拒絕入境。</p>
       </div>
 
-      <!-- 建議 × 注意 (10條) -->
-      <div class="card relative overflow-hidden">
-        <i class="fa-brands fa-pagelines absolute -right-4 -bottom-4 text-7xl text-blue-50 opacity-60 z-0"></i>
-        <div class="section-title relative z-10">
-          <span class="icon-slot"><i class="fa-solid fa-clipboard-list"></i></span>
-          <h2 class="text-2xl font-bold">建議 × 注意事項</h2>
+      <!-- Day 3 (Full Day - 10 items) -->
+      <div class="day-section">
+        <h2 class="text-xl font-bold red-text mb-4 border-b pb-2"><i class="fa-solid fa-calendar-day"></i> 03/16 (一) 第3天：山形/仙台 (完整日)</h2>
+        <div class="timeline">
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-sun"></i> 早晨 Morning</div>
+            <div class="item">
+              <div class="time-badge">07:00 ~ 08:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-coffee"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">【早餐】飯店內享用</span>
+                <span class="text-sm">享用早餐。</span>
+              </div>
+            </div>
+            <div class="transport">
+              <div class="time-badge">08:15 → 09:15</div>
+              <div class="stack-vertical text-sm"><span class="font-bold"><i class="fa-solid fa-bus"></i> 專車移動</span>前往藏王。</div>
+            </div>
+            <div class="item">
+              <div class="time-badge">09:15 ~ 09:45</div>
+              <div class="icon-slot"><i class="fa-solid fa-tram"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">藏王中央纜車</span>
+                <span class="text-sm">搭乘纜車(約7.5分)直達鳥兜山頂。</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="time-badge">09:45 ~ 10:30</div>
+              <div class="icon-slot"><i class="fa-solid fa-snowflake"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">冬季限定霧淞雪景</span>
+                <span class="text-sm">欣賞標高1387米的壯觀樹冰奇景。</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-clock"></i> 上午 Forenoon</div>
+            <div class="item">
+              <div class="time-badge">10:30 ~ 11:15</div>
+              <div class="icon-slot"><i class="fa-solid fa-mug-hot"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">SORA MADO cafe 1387</span>
+                <span class="text-sm">於山頂商店附設霧冰露台眺望藏王山脈。</span>
+              </div>
+            </div>
+            <div class="transport">
+              <div class="time-badge">11:15 → 12:00</div>
+              <div class="stack-vertical text-sm"><span class="font-bold"><i class="fa-solid fa-bus"></i> 專車移動</span>下山並前往餐廳。</div>
+            </div>
+            <div class="item">
+              <div class="time-badge">12:00 ~ 13:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">【午餐】山形鄉土風味</span>
+                <span class="red-text text-sm">餐廳：行程特約餐廳</span>
+                <span class="red-text text-sm">餐點：特色和風定食</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-cloud-sun"></i> 午後 Afternoon</div>
+            <div class="transport">
+              <div class="time-badge">13:00 → 14:30</div>
+              <div class="stack-vertical text-sm"><span class="font-bold"><i class="fa-solid fa-bus"></i> 專車移動</span>前往松島。</div>
+            </div>
+            <div class="item">
+              <div class="time-badge">14:30 ~ 15:30</div>
+              <div class="icon-slot"><i class="fa-solid fa-ship"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">日本三景松島遊覽船</span>
+                <span class="text-sm">搭船穿梭於260個大小島嶼間，欣賞絕美海景。</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="time-badge">15:30 ~ 16:15</div>
+              <div class="icon-slot"><i class="fa-solid fa-torii-gate"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">五大堂</span>
+                <span class="text-sm">東北最古老桃山建築，走過結緣橋感受古意。</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="time-badge">16:15 ~ 17:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">免稅商店採購</span>
+                <span class="text-sm">選購免稅物品與親友伴手禮。</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-moon"></i> 傍晚 Evening / Night</div>
+            <div class="transport">
+              <div class="time-badge">17:00 → 18:00</div>
+              <div class="stack-vertical text-sm"><span class="font-bold"><i class="fa-solid fa-bus"></i> 專車移動</span>前往仙台市區。</div>
+            </div>
+            <div class="item">
+              <div class="time-badge">18:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-hotel"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">入住 HOTEL KEIHAN SENDAI</span>
+                <span class="text-sm">抵達仙台京阪飯店，連泊第一晚。</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="time-badge">18:30 ~ 20:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">【晚餐】敬請自理 (牛舌推薦)</span>
+                <span class="blue-text text-sm">餐廳：伊達の牛たん本舗 仙台站店</span>
+                <span class="blue-text text-sm">餐點：厚切牛舌定食 (預算: ¥2,000 - ¥3,500)</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <ol class="list-decimal list-inside text-gray-700 space-y-3 mt-2 relative z-10">
-          <li><span class="font-bold text-blue-900">證件與簽證：</span>請確認護照效期大於六個月，並事先登錄 Visit Japan Web 以加速通關。</li>
-          <li><span class="font-bold text-blue-900">禦寒衣物：</span>氣溫約 4°C~14°C，需備妥大衣、手套、圍巾與毛帽，室內有暖氣建議洋蔥式穿搭。</li>
-          <li><span class="font-bold text-blue-900">現金與支付：</span>雖多處可刷卡，但溫泉小鎮或小店仍以日幣現金為主，建議準備充足現金。</li>
-          <li><span class="font-bold text-blue-900">行李規範：</span>虎航托運行李限重20公斤，手提總重不可超過10公斤（最多2件），液體請確實裝袋。</li>
-          <li><span class="font-bold text-blue-900">行動電源：</span>嚴禁托運，必須隨身攜帶上機，請於出發前確認規格標示清晰。</li>
-          <li><span class="font-bold text-blue-900">網路通訊：</span>已贈送每日 2GB 網卡，若需大量觀看影片建議於飯店內使用免費 Wi-Fi。</li>
-          <li><span class="font-bold text-blue-900">泡湯禮儀：</span>進入浴池前請先淋浴淨身，毛巾不可入水，有刺青者請遵守飯店相關規定。</li>
-          <li><span class="font-bold text-blue-900">防疫與藥品：</span>請攜帶個人慣用常備藥（腸胃、感冒、暈車藥等），若有特殊處方藥請備妥英文證明。</li>
-          <li><span class="font-bold text-blue-900">退稅規定：</span>購買免稅品（滿5000日圓）需出示護照，消耗品包裝於免稅袋內禁止於日本境內拆封使用。</li>
-          <li><span class="font-bold text-blue-900">動植物檢疫：</span>嚴禁攜帶含肉製品、生鮮蔬果、電子菸回台，違者將面臨最高100萬元之重罰。</li>
-        </ol>
       </div>
 
+      <!-- Day 4 (Free Day - Full Day - 10 items) -->
+      <div class="day-section">
+        <h2 class="text-xl font-bold red-text mb-4 border-b pb-2"><i class="fa-solid fa-calendar-day"></i> 03/17 (二) 第4天：仙台市區自由活動 (完整日)</h2>
+        <div class="timeline">
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-sun"></i> 早晨 Morning</div>
+            <div class="item">
+              <div class="time-badge">08:00 ~ 09:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-coffee"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">【早餐】飯店內享用</span>
+                <span class="text-sm">悠閒享用早餐，準備全日自由探索。</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="time-badge">09:30 ~ 11:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-train"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">仙台車站前商圈巡禮</span>
+                <span class="text-sm">感受東北最大都市的繁華，逛百貨與車站周邊。</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-clock"></i> 上午 Forenoon</div>
+            <div class="item">
+              <div class="time-badge">11:00 ~ 12:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-store"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="blue-text font-bold">仙台朝市 (市民廚房)</span>
+                <span class="blue-text text-sm">體驗在地朝氣，可品嚐炸葫蘆、新鮮海產小吃。</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="time-badge">12:00 ~ 13:30</div>
+              <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">【午餐】推薦：仔虎 燒肉 (自費)</span>
+                <span class="blue-text text-sm">餐廳：燒肉 仔虎 仙台站前店</span>
+                <span class="blue-text text-sm">餐點：米澤牛燒肉午間套餐 (預算: ¥2,500 - ¥4,000)</span>
+                <span class="blue-text text-sm">＊您的專屬推薦名單一</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-cloud-sun"></i> 午後 Afternoon</div>
+            <div class="transport">
+              <div class="time-badge">13:30 → 14:00</div>
+              <div class="stack-vertical text-sm"><span class="font-bold"><i class="fa-solid fa-bus"></i> 觀光巴士 (盧葡兒仙台)</span>前往瑞鳳殿。Cost: ¥260</div>
+            </div>
+            <div class="item">
+              <div class="time-badge">14:00 ~ 15:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-vihara"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="blue-text font-bold">瑞鳳殿</span>
+                <span class="blue-text text-sm">參觀伊達政宗的華麗陵廟，感受戰國大名威風。</span>
+              </div>
+            </div>
+            <div class="transport">
+              <div class="time-badge">15:00 → 15:20</div>
+              <div class="stack-vertical text-sm"><span class="font-bold"><i class="fa-solid fa-bus"></i> 觀光巴士</span>前往仙台城跡。</div>
+            </div>
+            <div class="item">
+              <div class="time-badge">15:20 ~ 16:30</div>
+              <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="blue-text font-bold">仙台城跡 (青葉城)</span>
+                <span class="blue-text text-sm">與伊達政宗騎馬像合影，俯瞰仙台市全景。</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-moon"></i> 傍晚 Evening / Night</div>
+            <div class="transport">
+              <div class="time-badge">16:30 → 17:00</div>
+              <div class="stack-vertical text-sm"><span class="font-bold"><i class="fa-solid fa-train"></i> 地鐵</span>返回市區商圈。</div>
+            </div>
+            <div class="item">
+              <div class="time-badge">17:00 ~ 18:30</div>
+              <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">一番町、國分町商店街</span>
+                <span class="text-sm">逛街採購，漫步林蔭大道與懷舊小巷交錯的商圈。</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="time-badge">18:30 ~ 20:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">【晚餐】推薦：旨味太助 牛舌 (自費)</span>
+                <span class="blue-text text-sm">餐廳：旨味太助 (牛舌發祥地之一)</span>
+                <span class="blue-text text-sm">餐點：傳統炭烤牛舌定食 (預算: ¥2,000 - ¥3,000)</span>
+                <span class="blue-text text-sm">＊您的專屬推薦名單二</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="time-badge">20:30 ~ 21:30</div>
+              <div class="icon-slot"><i class="fa-solid fa-bowl-food"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">【宵夜】推薦：末廣拉麵本鋪 (自費)</span>
+                <span class="blue-text text-sm">餐廳：末廣ラーメン本舗 仙台站前分店</span>
+                <span class="blue-text text-sm">餐點：中華拉麵加蔥放題 (預算: ¥800 - ¥1,200)</span>
+                <span class="blue-text text-sm">＊您的專屬推薦名單三</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Day 5 -->
+      <div class="day-section">
+        <h2 class="text-xl font-bold red-text mb-4 border-b pb-2"><i class="fa-solid fa-calendar-day"></i> 03/18 (三) 第5天：仙台/花卷/台北</h2>
+        <div class="timeline">
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-sun"></i> 早晨 Morning</div>
+            <div class="item">
+              <div class="time-badge">07:30 ~ 08:30</div>
+              <div class="icon-slot"><i class="fa-solid fa-coffee"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">【早餐】飯店內享用</span>
+                <span class="text-sm">辦理退房，準備今日行程。</span>
+              </div>
+            </div>
+            <div class="transport">
+              <div class="time-badge">08:45 → 09:45</div>
+              <div class="stack-vertical text-sm"><span class="font-bold"><i class="fa-solid fa-bus"></i> 專車移動</span>前往鹽釜。</div>
+            </div>
+            <div class="item">
+              <div class="time-badge">09:45 ~ 11:00</div>
+              <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">鹽釜神社</span>
+                <span class="text-sm">參拜陸奧國第一宮，祈求平安，欣賞1200年歷史古剎。</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-clock"></i> 上午 Forenoon</div>
+            <div class="transport">
+              <div class="time-badge">11:00 → 11:30</div>
+              <div class="stack-vertical text-sm"><span class="font-bold"><i class="fa-solid fa-bus"></i> 專車移動</span>前往商場。</div>
+            </div>
+            <div class="item">
+              <div class="time-badge">11:30 ~ 14:00</div>
+              <div class="icon-slot"><i class="fa-solid fa-cart-shopping"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">AEON MALL 購物中心</span>
+                <span class="text-sm">最後掃貨時間，藥妝、服飾、超市一次買齊。</span>
+              </div>
+            </div>
+            <div class="item">
+              <div class="time-badge">12:30 ~ 13:30</div>
+              <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">【午餐】敬請自理</span>
+                <span class="blue-text text-sm">餐廳：AEON MALL 美食街</span>
+                <span class="blue-text text-sm">餐點：各式日式定食或麵食自由選擇</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="time-block">
+            <div class="time-block-title"><i class="fa-solid fa-cloud-sun"></i> 午後 Afternoon</div>
+            <div class="transport">
+              <div class="time-badge">14:00 → 15:30</div>
+              <div class="stack-vertical text-sm"><span class="font-bold"><i class="fa-solid fa-bus"></i> 專車移動</span>前往花卷機場。</div>
+            </div>
+            <div class="item">
+              <div class="time-badge">15:50 ~ 17:50</div>
+              <div class="icon-slot"><i class="fa-solid fa-plane"></i></div>
+              <div class="text-slot stack-vertical">
+                <span class="red-text font-bold">花卷機場報到搭機 (IT259)</span>
+                <span class="red-text text-sm">【晚餐】機上簡餐</span>
+                <span class="text-sm">帶著滿滿回憶，搭乘17:50班機，預計20:55抵達桃園。</span>
+              </div>
+            </div>
+          </div>
+          <div class="missing-data-card">
+            <i class="fa-solid fa-circle-info"></i> 資料不足說明：本日為搭機返程日，行程以機場周邊及購物為主，推估至機場報到後即結束當地行程，未滿10項屬合理安排。
+          </div>
+        </div>
+      </div>
+
+      <!-- 風險與注意 -->
+      <div class="mt-12 bg-white p-6 border-l-4 border-yellow-400 rounded-lg shadow-sm">
+        <h3 class="text-lg font-bold mb-2 flex items-center gap-2 text-yellow-700"><i class="fa-solid fa-triangle-exclamation"></i> 旅遊風險評估</h3>
+        <p class="font-bold">風險等級：低至中 (氣候因素)</p>
+        <p class="text-sm mt-1">三月份東北地區仍可能有殘雪或低溫，藏王山頂氣溫極低，需注意保暖與雪地防滑。如遇暴雪等不可抗力，纜車或遊船可能停駛，需有彈性備案心理準備。</p>
+      </div>
+
+      <div class="mt-6 bg-white p-6 border-l-4 border-tohoku-blue rounded-lg shadow-sm">
+        <h3 class="text-lg font-bold mb-4 flex items-center gap-2 text-tohoku-blue"><i class="fa-solid fa-clipboard-check"></i> 建議 × 注意 (Top 10)</h3>
+        <ul class="list-decimal pl-5 space-y-2 text-sm">
+          <li>請務必於班機起飛前2.5小時到指定櫃檯集合。</li>
+          <li>冬季氣候嚴寒，請採「洋蔥式穿法」，並攜帶防滑鞋、毛帽、手套等禦寒衣物。</li>
+          <li>護照效期以出國日基準需滿六個月以上，入境日本需提供指紋與拍照。</li>
+          <li>藏王纜車若因天候停駛，將退費2000日幣/人；松島遊船停駛退500日幣/人。</li>
+          <li>銀山溫泉街多為石板路且可能有積雪，行走請務必小心滑倒。</li>
+          <li>草莓放題為現場現採現吃，若需外帶需另行自費購買。</li>
+          <li>日本電壓為100V(雙平腳插座)，一般3C產品無需變壓器，但部分電器需留意。</li>
+          <li>泡溫泉時請遵守禮儀，入池前請先將身體洗淨，毛巾不可泡入水中。</li>
+          <li>每日領隊、導遊、司機小費為新台幣300元 x 5天 = 1500元。</li>
+          <li>入境台灣嚴禁攜帶肉類製品(含真空包裝)、新鮮水果及電子菸等違禁品，違者重罰。</li>
+        </ul>
+      </div>
     </section>
 
-    <!-- 景點 POI (20) -->
+    <!-- ========================================== -->
+    <!-- 六大推薦模組 (各為獨立區塊) -->
+    <!-- ========================================== -->
+
+    <!-- POI 景點 (20) -->
     <section id="poi" class="space-y-6">
-      <div class="section-title"><span class="icon-slot"><i class="fa-brands fa-pagelines"></i></span><h2 class="text-3xl font-bold font-serif-tc">推薦景點 (20)</h2></div>
-      <div class="two-col">
-        <!-- 1 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">平泉中尊寺 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">西元850年開山，藤原氏三代構築的黃金淨土。寺內保有國寶金色堂，整座佛堂內外覆蓋金箔並鑲嵌夜光貝，極其華麗，是世界文化遺產的核心，漫步杉木林道洗滌身心。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>國寶金色堂、世界遺產</p>
-            <div class="day-tag mt-1">Day 2</div>
-          </div>
-        </div>
-        <!-- 2 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">銀山溫泉老街 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">因銀礦開採繁榮的小鎮，銀山川兩岸林立著大正時代的百年木造多層旅館。冬季白雪覆蓋屋頂，瓦斯燈亮起時，如夢似幻的場景彷彿讓人走入神隱少女的動漫世界，浪漫至極。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>大正浪漫風情、免費足湯</p>
-            <div class="day-tag mt-1">Day 2</div>
-          </div>
-        </div>
-        <!-- 3 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">藏王中央纜車 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">搭乘纜車直達鳥兜山頂，冬季限定的「樹冰（霧淞）」奇景盡收眼底。極度嚴寒與特殊地形造就了這些被稱為「雪怪」的自然冰雪藝術品，是東北冬季絕對不容錯過的震撼美景。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>壯觀樹冰群、山頂無死角視野</p>
-            <div class="day-tag mt-1">Day 3</div>
-          </div>
-        </div>
-        <!-- 4 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">松島灣 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">位列日本三景之一，風平浪靜的海灣內散佈著260多座長滿松樹的奇岩小島。搭乘觀光遊覽船穿梭其間，可飽覽海天一色的絕景，秋楓與冬雪時節更有不同凡響的寧靜詩意。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-ticket text-blue-500 text-xs"></i> 門票：</span>遊船需購票</p>
-            <div class="day-tag mt-1">Day 3</div>
-          </div>
-        </div>
-        <!-- 5 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">五大堂 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">坐落於松島灣內小島上的古老佛堂，建材全採櫸木，是東北最古老的桃山建築代表。連接本島的紅色木橋被稱為「結緣橋」，橋面透空設計提醒參拜者需步步為營、心存敬畏。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>古老桃山建築、結緣橋</p>
-            <div class="day-tag mt-1">Day 3</div>
-          </div>
-        </div>
-        <!-- 6 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">鹽釜神社 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">擁有1200年以上歷史，被尊為「陸奧國第一宮」。自古以來便是保佑航海安全、安產及漁獲豐收的信仰中心。境內古木參天，春季時獨特的「鹽釜櫻」盛開，更被列為天然紀念物。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>陸奧國第一宮、莊嚴氛圍</p>
-            <div class="day-tag mt-1">Day 5</div>
-          </div>
-        </div>
-        <!-- 7 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">瑞鳳殿 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">戰國名將伊達政宗的靈屋，建築以極度華麗的桃山樣式展現，色彩絢麗且雕刻精美。周遭種滿古老百年巨杉，四季景色更迭，給人一種既莊嚴又神秘的歷史厚重感。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-ticket text-blue-500 text-xs"></i> 門票：</span>需購票 (約570日圓)</p>
-            <div class="day-tag mt-1">Day 4</div>
-          </div>
-        </div>
-        <!-- 8 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">仙台城跡 (青葉城) <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">伊達政宗所築的城堡遺址，雖無天守閣保留，但雄偉的石垣仍訴說著昔日榮光。位於高地的本丸廣場設有政宗騎馬銅像，是俯瞰仙台市全景及太平洋海平面的最佳據點。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>政宗騎馬像、無敵市景</p>
-            <div class="day-tag mt-1">Day 4</div>
-          </div>
-        </div>
-        <!-- 9 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold blue-text font-serif-tc">大崎八幡宮</h3>
-            <p class="text-sm text-gray-600 mt-1">日本國寶建築，由伊達政宗聘請當代一流工匠所建，為現存最古老的「權現造」神社。黑漆與金箔的強烈對比，展現了伊達家獨特且華貴的審美觀，也是仙台市內的能量景點。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>國寶級權現造建築</p>
-            <div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div>
-          </div>
-        </div>
-        <!-- 10 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold blue-text font-serif-tc">山寺 (立石寺)</h3>
-            <p class="text-sm text-gray-600 mt-1">建於陡峭山壁上的千年古剎，需攀登一千多階的石階才能登頂。絕壁上的五大堂能俯瞰山形美麗的田園風光與遠山，俳句大師松尾芭蕉曾在此留下詠唱蟬鳴的千古名句。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>千階石階修行、絕壁風光</p>
-            <div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div>
-          </div>
-        </div>
-        <!-- 11-20 同理套用版型 -->
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">嚴美溪</h3><p class="text-sm text-gray-600 mt-1">磐井川侵蝕岩石而成的美麗溪谷，全長兩公里，奇岩、壺穴與瀑布交織出充滿動態美的景觀。最知名的是「郭公飛天糰子」，只需將錢放入籃中敲響木板，糰子便會滑繩而來。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>奇岩溪流、飛天糰子</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">猊鼻溪</h3><p class="text-sm text-gray-600 mt-1">與嚴美溪齊名的勝景，兩側是高達50公尺的石灰岩峭壁。乘坐由船夫以單竿撐航的木舟順流而下，聆聽悠揚的「猊鼻追分」民謠，感受與世隔絕的寧靜，秋季楓紅尤為迷人。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>乘舟遊船、絕壁迴音</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">秋保大瀑布</h3><p class="text-sm text-gray-600 mt-1">被譽為日本三大名瀑之一，寬6公尺、落差高達55公尺的巨瀑。沿著步道可以下至瀑布潭邊，近距離感受水花四濺的震撼與轟鳴聲，周圍滿是原始林木，負離子能量滿滿。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>日本三大名瀑</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">弘前城</h3><p class="text-sm text-gray-600 mt-1">位於青森的弘前城，擁有現存的十二天守之一。不僅是歷史愛好者的必訪之地，其廣大的公園內更種植了數千株櫻花，春天櫻花如雪、秋天菊葉飄零，冬季則有美麗的雪燈籠祭典。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>古老天守、賞櫻名勝</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">奧入瀨溪流</h3><p class="text-sm text-gray-600 mt-1">從十和田湖流出的唯一河川，全長約14公里，沿途佈滿千變萬化的瀑布、清流與覆蓋青苔的岩石。被蒼鬱的原始森林包圍，一年四季都有著極致的美景，是徒步愛好者的天堂。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>絕美溪流步道</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">田澤湖</h3><p class="text-sm text-gray-600 mt-1">日本最深的神祕湖泊，水深達423公尺，湖水呈現出如藍寶石般的深邃琉璃色。湖畔的「辰子像」閃耀著金光，背後流傳著祈求永遠美麗而化身為龍的傳說，為湖泊增添神話色彩。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>琉璃湖水、金色辰子像</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">角館武家屋敷</h3><p class="text-sm text-gray-600 mt-1">被稱為「陸奧小京都」，保留著江戶時代藩士所居住的傳統武士宅邸。廣闊的街道兩側種滿了垂櫻與黑木板牆相互映襯，漫步其中能深刻感受到數百年前沉靜、典雅的歷史氛圍。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>小京都風情、武士宅邸</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">盛岡城跡公園</h3><p class="text-sm text-gray-600 mt-1">盛岡藩主南部氏的居城遺址，雖無天守建築，但壯觀的花崗岩石垣依然完好保留。公園四季皆美，春季的櫻花與秋季的紅葉將石牆點綴得如詩如畫，是當地人休憩的重要場所。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>巨石垣、紅葉櫻花名所</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 1</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">鶴岡市立加茂水族館</h3><p class="text-sm text-gray-600 mt-1">位於山形縣，以擁有世界最多種類的「水母」展示而聞名於世。直徑達五公尺的巨大水母展示水槽「水母夢幻劇場」，萬隻水母在光影交錯中漂浮，帶來極具療癒感的神奇視覺體驗。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-ticket text-blue-500 text-xs"></i> 門票：</span>需購票</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">毛越寺</h3><p class="text-sm text-gray-600 mt-1">同樣位於平泉的世界遺產之一，其「淨土庭園」以寬闊的池水與四季花卉為中心，完美體現了佛教經典中描繪的極樂淨土意境。初夏的菖蒲花與秋季的紅葉在此庭園中尤為動人。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-star text-yellow-500 text-xs"></i> 亮點：</span>淨土庭園、世界遺產</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 2</div></div></div>
+      <div class="section-title text-2xl font-bold border-b-2 border-gray-200 pb-2 mb-6 flex items-center gap-2"><i class="fa-solid fa-camera text-tohoku-blue"></i> 景點 POI (20)</div>
+      <div class="two-col" id="poi-container">
+        <!-- JS 生成 20 筆 -->
       </div>
     </section>
 
-    <!-- 美食 BIB (20) -->
+    <!-- BIB 美食 (20) -->
     <section id="bib" class="space-y-6">
-      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-bowl-food"></i></span><h2 class="text-3xl font-bold font-serif-tc">推薦美食 (20)</h2></div>
-      <div class="two-col">
-        <!-- 1 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">ぴょんぴょん舎 盛岡冷麵 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">盛岡三大麵之一。這裡的冷麵以充滿嚼勁的半透明麵條著稱，搭配以牛骨長時間熬製的濃郁冷湯，佐以爽脆的泡菜與當季水果，酸辣清甜的平衡感極佳，配上韓式燒肉更是絕配。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>冷麵燒肉特餐</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>岩手縣盛岡市盛岡站前通9-3</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 1,500 - 2,500</p>
-            <div class="day-tag mt-1">Day 1</div>
-          </div>
-        </div>
-        <!-- 2 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">天童溫泉 榮屋會席料理 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">溫泉旅館的招牌晚餐，採用山形縣在地當季新鮮食材。主菜通常是知名的山形牛陶板燒，搭配精緻的前菜、新鮮刺身與溫泉湯豆腐，不僅味覺滿足，視覺排盤也充滿濃厚的和風美學。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>山形牛會席料理</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>山形縣天童市鎌田2-3-16</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>住宿包餐 (約 JPY 8,000+)</p>
-            <div class="day-tag mt-1">Day 2</div>
-          </div>
-        </div>
-        <!-- 3 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">利久牛舌 仙台站前店 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">發源於仙台的牛舌名店，職人以純熟刀工將牛舌厚切，再用猛烈炭火快速燒烤，將肉汁緊緊封鎖。咬下瞬間外層微焦香脆，內部多汁彈牙，配上熱騰騰的麥飯與牛尾清湯，堪稱完美。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>極厚切烤牛舌定食</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區中央1-8-29</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 2,500 - 3,500</p>
-            <div class="day-tag mt-1">Day 3</div>
-          </div>
-        </div>
-        <!-- 4 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">壽司哲 仙台店 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">來自知名漁港鹽釜市的頂級壽司老舖分店。嚴選三陸海岸當日捕獲的最頂級海鮮，醋飯捏製的力道恰到好處。其海膽與鮪魚大腹入口即化，是在都會區品嚐極致鮮味的最高享受。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>特選握壽司盛合</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區中央1-1-1 仙台S-PAL B1</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 3,000 - 5,000</p>
-            <div class="day-tag mt-1">Day 4</div>
-          </div>
-        </div>
-        <!-- 5 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">芹菜鍋 侘び助 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">宮城縣特有的冬季鄉土料理「芹菜鍋」。特別之處在於連同富含香氣的鮮甜根部一起下鍋涮煮，配上肥美的鴨肉或雞肉，湯頭清甜不膩，芹菜清脆的口感讓人一吃就難以忘懷。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>仙台鴨肉芹菜鍋</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區立町15-18</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 3,500 - 5,000</p>
-            <div class="day-tag mt-1">Day 4</div>
-          </div>
-        </div>
-        <!-- 6-20 (縮編呈現，同理套用格式) -->
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">牛舌 善治郎</h3><p class="text-sm text-gray-600 mt-1">仙台另一家牛舌排隊名店，堅持手工備料與傳統炭烤。其特點在於獨家秘製的鹽味醃料，烤出來的牛舌帶著迷人的炭火香氣，肉質柔軟多汁，附餐的山藥泥拌飯更是開胃良伴。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>鹽烤牛舌山藥泥定食</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區中央1-8-38</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 2,500 - 3,500</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">燒肉 仔虎</h3><p class="text-sm text-gray-600 mt-1">專門提供高級米澤牛、山形牛與仙台牛的高端燒肉店。肉品油花分布如藝術品般均勻，稍微炙烤後入口即化，肉汁鮮甜無比。午餐時段的燒肉定食CP值極高，是愛肉人士的首選。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>和牛特選燒肉午餐</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區中央1-6-1</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 2,500 - 8,000</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">盛岡炸醬麵 白龍</h3><p class="text-sm text-gray-600 mt-1">盛岡三大麵之一。將溫熱的平打麵條拌上獨家秘製的濃郁肉味噌、蔥花與小黃瓜絲。吃完麵後，將生雞蛋打入碗中，請店員加入熱湯製成「雞蛋湯」，一麵兩吃，滋味醇厚暖胃。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>盛岡炸醬麵加雞蛋湯</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>岩手縣盛岡市內丸5-15</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 800 - 1,200</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">山形蕎麥麵 庄司屋</h3><p class="text-sm text-gray-600 mt-1">擁有百年歷史的山形手打蕎麥麵老舖。山形縣水質純淨，造就了蕎麥麵獨特的清香與強烈的咬勁。這裡的「板蕎麥麵」份量豪邁，沾著昆布與鰹魚熬煮的冷麵汁，滑順且香氣四溢。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>天婦羅板蕎麥麵</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>山形縣山形市幸町14-28</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 1,500 - 2,500</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">松島 牡蠣小屋</h3><p class="text-sm text-gray-600 mt-1">冬季遊覽松島不可錯過的平民美食。在簡樸的鐵皮屋內，客人可以體驗用大鐵板豪邁地將整把帶殼牡蠣蒸烤。牡蠣飽滿多汁，帶有淡淡海水鹹香，幾乎不需要調味就極度鮮美。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>烤牡蠣吃到飽套餐</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣宮城郡松島町松島字普賢堂</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 2,500 - 3,500</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 3</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">秋田比內地雞 極</h3><p class="text-sm text-gray-600 mt-1">專注於日本三大地雞之一「秋田比內地雞」的料理專門店。招牌的「極致親子丼」，雞肉緊實有彈性且肉汁飽滿，搭配濃郁半熟的雞蛋與特製醬汁，口感滑順，美味在口中爆發。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>究極比內地雞親子丼</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區中央（站前百貨內）</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 1,500 - 2,500</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">牛舌 司 (Tsukasa)</h3><p class="text-sm text-gray-600 mt-1">深受在地人推崇的低調牛舌名店。有別於其他連鎖店，這裡的烤牛舌選用更為珍貴的頂級部位，火候掌握出神入化，外酥內嫩的程度令人驚豔。此外，燉煮牛舌亦是軟爛入味的佳作。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>特級烤牛舌定食</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區國分町2-13-27</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 3,000 - 4,000</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">仙台朝市食堂 (莊內屋)</h3><p class="text-sm text-gray-600 mt-1">位於「仙台的廚房」朝市之內，以最實惠的價格提供爆量的生鮮海鮮丼。從三陸海岸直送的鮭魚卵、海膽、鮪魚及甜蝦鋪滿整碗白飯，新鮮度破表，是早起旅客的最佳早餐選擇。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>朝市特上海鮮丼</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區中央4-3-28</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 1,000 - 2,000</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">米澤牛登起波</h3><p class="text-sm text-gray-600 mt-1">山形縣內創立超過百年的米澤牛老舖。專門提供頂級霜降米澤牛的壽喜燒，將牛肉放入秘傳醬汁中輕涮，搭配生雞蛋食用，肉質在口中瞬間融化，散發出無與倫比的甜味與香氣。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>特選米澤牛壽喜燒</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>山形縣米澤市中央7-2-3</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 6,000 - 10,000</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">閣 牛舌 (Kaku)</h3><p class="text-sm text-gray-600 mt-1">曾獲得米其林指南推薦的牛舌專門店。店內招牌除了經典炭烤牛舌外，還有半生熟的「牛舌刺身」與極度費工的「牛舌角煮」。其獨特的調味與料理手法，顛覆了傳統對牛舌的想像。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>牛舌刺身與炭烤拼盤</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區一番町3-8-14 B1</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 3,500 - 5,000</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">麵屋政宗</h3><p class="text-sm text-gray-600 mt-1">深受在地大學生與上班族喜愛的沾麵店。以濃厚魚介豬骨熬製的熱沾湯，搭配彈牙的粗麵條，每一口都吸附滿滿濃郁湯汁。豪邁的炙烤大塊叉燒肉更是增添了豐富的層次與飽足感。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>濃厚魚介炙烤叉燒沾麵</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區中央1-6-39</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 900 - 1,200</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">伊達之牛舌 本舖</h3><p class="text-sm text-gray-600 mt-1">在仙台擁有極高知名度，店鋪環境寬敞舒適，適合攜家帶眷。特選的「芯舌」部位肉質極度軟嫩，碳烤後香氣四溢。除了內用，他們家的牛舌伴手禮與便當也是旅客搭乘新幹線的最愛。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>芯舌定食 (極厚切)</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區中央4-10-11</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 2,500 - 3,500</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">櫻岡茶寮</h3><p class="text-sm text-gray-600 mt-1">隱身於西公園內的日式料亭。在充滿綠意的靜謐環境中，享用由職人精心製作的四季懷石料理。菜色宛如藝術品，運用宮城在地小農蔬菜與新鮮海產，展現日本料理最原始的細緻之美。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>午間櫻懷石御膳</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區櫻岡公園1-1</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 4,000 - 8,000</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">松島 圓通院周邊 穴子飯</h3><p class="text-sm text-gray-600 mt-1">松島除了牡蠣，當地的星鰻（穴子）也非常著名。將捕獲的新鮮星鰻以特製醬汁反覆塗抹慢烤，鋪在熱騰騰的白飯上，肉質細緻且毫無腥味，入口即化，醬香與米飯交織出絕妙滋味。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>炭烤特上穴子重</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣宮城郡松島町松島字町內</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 2,000 - 3,000</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 3</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">藏王山頂餐廳 (SORA MADO)</h3><p class="text-sm text-gray-600 mt-1">位於藏王中央纜車鳥兜站旁的觀景餐廳。提供約50種以當地食材製作的輕食。在寒冷的雪山之巔，喝上一碗熱騰騰的山形名物芋煮湯或濃郁咖哩飯，望著窗外的雪白霧冰，是極大享受。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-utensils text-orange-500 text-xs"></i> 推薦：</span>熱芋煮湯與特製咖哩</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>山形縣山形市藏王溫泉 纜車山頂站</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 1,000 - 1,500</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 3</div></div></div>
+      <div class="section-title text-2xl font-bold border-b-2 border-gray-200 pb-2 mb-6 flex items-center gap-2"><i class="fa-solid fa-utensils text-tohoku-blue"></i> 美食 (20)</div>
+      <div class="two-col" id="bib-container">
+        <!-- JS 生成 20 筆 -->
       </div>
     </section>
 
-    <!-- 伴手禮 Souvenir (20) -->
+    <!-- Souvenir 伴手禮 (20) -->
     <section id="souvenir" class="space-y-6">
-      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-gifts"></i></span><h2 class="text-3xl font-bold font-serif-tc">推薦伴手禮 (20)</h2></div>
-      <div class="two-col">
-        <!-- 1 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold blue-text font-serif-tc">萩之月 (菓匠三全)</h3>
-            <p class="text-sm text-gray-600 mt-1">仙台最具代表性的頂級銘菓。鬆軟綿密的鵝黃色海綿蛋糕內，包裹著使用大量雞蛋熬煮的獨家卡士達奶油。口感香醇滑順、甜而不膩，冰鎮後食用風味更佳，是送禮絕對不會出錯的首選。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>萩之月 8入盒裝</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 1,600</p>
-            <div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div>
-          </div>
-        </div>
-        <!-- 2 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold blue-text font-serif-tc">毛豆泥麻糬 (Zunda Mochi)</h3>
-            <p class="text-sm text-gray-600 mt-1">將煮熟的年輕毛豆搗碎後拌入糖水製成綠色豆泥，裹在軟糯Q彈的白玉麻糬外。保留了毛豆粗糙的顆粒感與天然的豆香，不僅顏色鮮豔可愛，健康的微甜滋味更深受女性與長輩喜愛。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>冷凍毛豆麻糬禮盒</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 1,000</p>
-            <div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div>
-          </div>
-        </div>
-        <!-- 3-20 (縮編呈現) -->
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">鷗之玉子 (かもめの玉子)</h3><p class="text-sm text-gray-600 mt-1">岩手縣知名的可愛和菓子。外層披著白巧克力，內部是以奶油烘焙的白豆沙餡，造型猶如一顆真實的海鷗蛋。咬下時巧克力的脆甜與豆沙的綿密完美結合，冬季還會推出限定的草莓口味。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>鷗之玉子 標準9入</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 1,200</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 1</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">南部鐵器</h3><p class="text-sm text-gray-600 mt-1">日本東北岩手縣傳承數百年的傳統工藝品。以精湛的鑄鐵技術製成的鐵壺，不僅保溫性極佳，煮出來的水含有微量鐵質，能讓茶湯更為甘甜。近年來也推出許多色彩繽紛的現代改良款。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>彩色小鐵壺/茶杯</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 8,000 - 15,000</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 1</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">藏王起司 (Zao Cheese)</h3><p class="text-sm text-gray-600 mt-1">來自山形藏王高原牧場的純淨乳製品。其生產的塗抹式奶油起司擁有多種口味，如草莓、藍莓、香草等，質地如絲綢般滑順，塗抹於餅乾或剛烤好的吐司上簡直是人間美味。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>香草奶油起司罐</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 600 - 800</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 3</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">牛舌辣油 (陣中)</h3><p class="text-sm text-gray-600 mt-1">被日本電視節目譽為「最強的白飯殺手」。在充滿蒜香與微辣的辣油中，滿滿浸泡著切塊的滷牛舌丁。不僅能拌飯、拌麵，用來炒菜或當作下酒小菜更是極品，是送給嗜辣朋友的絕佳禮物。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>陣中 具九割牛舌辣油</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 900</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">山形櫻桃果凍</h3><p class="text-sm text-gray-600 mt-1">山形縣是日本最高級「佐藤錦櫻桃」的產地。這款果凍將整顆珍貴的去籽佐藤錦櫻桃封存在晶瑩剔透、酸甜適中的果凍裡，保留了水果最天然的色澤與香氣，宛如寶石般高雅的甜點。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>佐藤錦櫻桃果凍禮盒</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 1,500</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 2</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">青森整顆蘋果派</h3><p class="text-sm text-gray-600 mt-1">使用青森縣產的優質大蘋果，將整顆蘋果去核並浸泡於糖漿中入味，最後包裹酥脆的派皮烘烤而成。切開時能看到一整顆完整的蘋果果肉，視覺極具震撼力，酸甜交織令人回味無窮。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>気になるリンゴ 蘋果派</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 900</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">仙台笹蒲鉾 (竹葉魚板)</h3><p class="text-sm text-gray-600 mt-1">宮城縣的名產，因形狀像竹葉而得名。使用白肉魚打成魚漿，再以碳火慢烤而成。口感厚實彈牙，帶有濃郁的魚鮮味與淡淡的碳烤香。除了原味，還有起司、毛豆等創新口味可供選擇。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>阿部蒲鉾店 綜合魚板包</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 1,200</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">仙台草莓夾心餅</h3><p class="text-sm text-gray-600 mt-1">採用東北特產的完熟草莓製成。外層是酥脆的奶油餅乾，內餡夾著厚厚一層融入草莓果乾的白巧克力。一口咬下，草莓的天然酸甜與巧克力的濃郁奶香完美融合，包裝粉嫩適合送禮。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>草莓白巧克力夾心餅乾</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 1,100</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 5</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">粟之海 (粟野之海)</h3><p class="text-sm text-gray-600 mt-1">以核桃、芝麻等堅果類為基底，結合麥芽糖製成的傳統和菓子。其表面灑滿了如同海浪般的糖霜，吃起來口感酥脆中帶有堅果的濃厚香氣，是配搭綠茶或黑咖啡的極佳傳統茶點。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>傳統核桃芝麻糖盒</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 1,000</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">盛岡冷麵包 (伴手禮盒)</h3><p class="text-sm text-gray-600 mt-1">將盛岡必吃的特色冷麵做成方便攜帶的生麵真空包裝。內附Q彈的特製麵條與濃縮高湯包，只需在家簡單水煮並加入喜歡的泡菜、小黃瓜與水煮蛋，就能完美還原當地的酸辣沁涼風味。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>ぴょんぴょん舎 冷麵2食入</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 900</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 1</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">伊達政宗文創周邊</h3><p class="text-sm text-gray-600 mt-1">仙台市到處可見以獨眼龍武將「伊達政宗」為主題的周邊商品。從設計精緻的弦月前立武士頭盔鑰匙圈、蒔繪貼紙，到充滿和風設計的御朱印帳與手帕，是歷史愛好者最具紀念價值的禮物。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>弦月頭盔金屬鑰匙圈</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 500 - 1,500</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">津輕塗漆器</h3><p class="text-sm text-gray-600 mt-1">青森縣代表性的傳統工藝品，以其繁複的「唐塗」技法聞名。工匠需反覆塗抹數十層不同顏色的天然漆，再經過精細打磨，使表面呈現出獨特且斑斕的紋理。筷子或小木碗是高雅實用的紀念。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>津輕塗傳統工藝筷</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 2,500 - 4,000</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">東北限定 Pocky</h3><p class="text-sm text-gray-600 mt-1">日本知名零食品牌推出的巨大版地區限定口味。東北地區專屬的分別是山形佐藤錦櫻桃風味與仙台毛豆風味。單支獨立包裝的大根 Pocky，果香與奶香四溢，非常適合分送給辦公室同事。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>巨大版佐藤錦櫻桃 Pocky</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 900</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 5</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">銀山溫泉 溫泉饅頭</h3><p class="text-sm text-gray-600 mt-1">溫泉街上現蒸的熱騰騰點心，也是帶回家的好選擇。薄薄的黑糖外皮充滿獨特的溫泉香氣，內餡則是甜度適中的綿密紅豆沙。買盒裝帶回家後稍微用微波爐加熱，即可重溫當時的溫暖。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>黑糖紅豆溫泉饅頭裝</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 800</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 2</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">仙台味噌</h3><p class="text-sm text-gray-600 mt-1">起源於伊達政宗時代的傳統紅味噌，以大豆與鹽的比例及長期熟成見長。其特色是味道深沉濃郁、鹽味鮮明且不易變質。用來煮味噌湯或是製作味噌烤魚，都能讓料理瞬間升級為高級和風。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>伊達正宗公御用 仙台味噌</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 700 - 1,200</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">100% 青森蘋果汁</h3><p class="text-sm text-gray-600 mt-1">不加一滴水、完全由青森產新鮮蘋果冷壓榨取而成的純天然果汁。市面上有將不同品種（如富士、王林、喬納金）分別裝瓶的款式，可以明顯喝出各品種間不同的酸甜比例與獨特香氣。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>品種比較蘋果汁小瓶裝組</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 1,500</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">金箔蜂蜜蛋糕</h3><p class="text-sm text-gray-600 mt-1">部分岩手及平泉地區受中尊寺金色堂啟發而推出的高級甜點。將傳統綿密濕潤的蜂蜜蛋糕，於表面大方鋪撒上一層奢華的食用純金箔。外觀極度尊貴耀眼，是送給重要長官或長輩的極品。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>黃金蜂蜜蛋糕長條裝</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 1,800</p><div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 2</div></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">秋田犬絨毛玩偶</h3><p class="text-sm text-gray-600 mt-1">以東北聞名的國寶犬種「秋田犬」為原型製作的絨毛玩具。秋田犬特有的捲尾巴、三角形立耳以及憨厚忠誠的笑容被完美還原，觸感極為柔軟。無論是大人還是小孩都無法抗拒這份療癒感。</p><p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-box-open text-orange-400 text-xs"></i> 推薦：</span>秋田犬坐姿玩偶 (中型)</p><p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-solid fa-yen-sign text-green-600 text-xs"></i> 預算：</span>JPY 2,200</p><div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div></div></div>
+      <div class="section-title text-2xl font-bold border-b-2 border-gray-200 pb-2 mb-6 flex items-center gap-2"><i class="fa-solid fa-gift text-tohoku-blue"></i> 伴手禮 (20)</div>
+      <div class="two-col" id="souvenir-container">
+        <!-- JS 生成 20 筆 -->
       </div>
     </section>
 
-    <!-- 拍照聖地 Photo-Spots (10) -->
+    <!-- Photo Spots 拍照聖地 (10) -->
     <section id="photo-spots" class="space-y-6">
-      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-camera-retro"></i></span><h2 class="text-3xl font-bold font-serif-tc">拍照聖地 (10)</h2></div>
-      <div class="two-col">
-        <!-- 1 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">銀山溫泉夜景 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">黃昏時分，百年木造建築前的瓦斯燈亮起，溫泉熱氣在冷空氣中氤氳，搭配白雪覆蓋的屋頂，隨手一拍都是神隱少女的魔幻場景，建議站在紅橋上向街道內部取景。</p>
-            <button class="copy-btn mt-3" onclick="copyToClipboard('addr-photo-1')"><i class="fa-regular fa-copy"></i> <span id="addr-photo-1">山形縣尾花澤市銀山新畑</span></button>
-          </div>
-        </div>
-        <!-- 2 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">藏王樹冰雪原 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">乘坐纜車抵達山頂，眼前是一望無際的雪怪群。在晴朗藍天的襯托下，巨大且形狀奇特的霧冰呈現極強的視覺張力，建議穿著鮮豔色彩的外套在純白雪原中拍照最為突出。</p>
-            <button class="copy-btn mt-3" onclick="copyToClipboard('addr-photo-2')"><i class="fa-regular fa-copy"></i> <span id="addr-photo-2">山形縣山形市藏王溫泉 藏王纜車地藏山頂站</span></button>
-          </div>
-        </div>
-        <!-- 3-10 -->
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold red-text font-serif-tc">松島四大觀 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3><p class="text-sm text-gray-600 mt-1">搭乘遊覽船出海，近距離拍攝海灣內長滿松樹的奇岩異石。海鷗常會伴隨船隻飛舞，捕捉海鷗與松島灣背景同框的瞬間，能展現出日本三景特有的生動與壯闊感。</p><button class="copy-btn mt-3" onclick="copyToClipboard('addr-photo-3')"><i class="fa-regular fa-copy"></i> <span id="addr-photo-3">宮城縣宮城郡松島町松島字町內98-1</span></button></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold red-text font-serif-tc">五大堂紅橋 (結緣橋) <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3><p class="text-sm text-gray-600 mt-1">通往五大堂的這座朱紅色透空木橋，在藍色的海灣與綠色的松林映襯下極具視覺焦點。站在橋上或是以橋為前景拍攝古老的木造佛堂，都能拍出充滿日式古典禪意的畫面。</p><button class="copy-btn mt-3" onclick="copyToClipboard('addr-photo-4')"><i class="fa-regular fa-copy"></i> <span id="addr-photo-4">宮城縣宮城郡松島町松島町內111</span></button></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold red-text font-serif-tc">仙台城伊達政宗騎馬像 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3><p class="text-sm text-gray-600 mt-1">位於青葉城址的本丸廣場，這座標誌性的銅像威武非凡。以雄偉的騎馬像為前景，將整個仙台市區與遠處的太平洋作為背景，是證明「我來過仙台」最具代表性的打卡聖地。</p><button class="copy-btn mt-3" onclick="copyToClipboard('addr-photo-5')"><i class="fa-regular fa-copy"></i> <span id="addr-photo-5">宮城縣仙台市青葉區川內1</span></button></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold red-text font-serif-tc">鹽釜神社表參道 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3><p class="text-sm text-gray-600 mt-1">擁有超過兩百階的陡峭石階參道，兩側是被列為天然紀念物的古老巨木。從階梯底部向上仰拍，可以完美呈現出神社特有的神聖感與壓倒性的氣勢，周邊環境靜謐而莊嚴。</p><button class="copy-btn mt-3" onclick="copyToClipboard('addr-photo-6')"><i class="fa-regular fa-copy"></i> <span id="addr-photo-6">宮城縣鹽竈市一森山1-1</span></button></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold red-text font-serif-tc">中尊寺金色堂周邊 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3><p class="text-sm text-gray-600 mt-1">雖然國寶金色堂內部禁止攝影，但通往佛堂的表參道「月見坂」卻是絕佳的攝影點。兩側樹齡超過三百年的高大杉木林立，冬季白雪覆蓋於枝椏上，拍出的照片充滿空靈與幽玄之美。</p><button class="copy-btn mt-3" onclick="copyToClipboard('addr-photo-7')"><i class="fa-regular fa-copy"></i> <span id="addr-photo-7">岩手縣西磐井郡平泉町平泉衣關202</span></button></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">嚴美溪 飛天糰子</h3><p class="text-sm text-gray-600 mt-1">站在奇岩怪石交錯的溪谷旁，將相機對準懸掛在空中的繩索。當對岸的木籃裝著糰子與熱茶，順著溜索急速滑過翠綠的溪谷來到面前時，這個充滿趣味的動態瞬間絕對值得捕捉。</p><button class="copy-btn mt-3" onclick="copyToClipboard('addr-photo-8')"><i class="fa-regular fa-copy"></i> <span id="addr-photo-8">岩手縣一關市嚴美町字瀧之上211</span></button></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">秋保溫泉 磊磊峽</h3><p class="text-sm text-gray-600 mt-1">名取川侵蝕切割出來的美麗峽谷，步道規劃完善。從「覗橋」向下俯瞰，能在溪谷岩石間發現一個天然的心型水窪，被認證為戀人聖地，是情侶來到秋保溫泉必拍的浪漫象徵。</p><button class="copy-btn mt-3" onclick="copyToClipboard('addr-photo-9')"><i class="fa-regular fa-copy"></i> <span id="addr-photo-9">宮城縣仙台市太白區秋保町湯元</span></button></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">仙台光之樂章 (定禪寺通)</h3><p class="text-sm text-gray-600 mt-1">雖是冬季限定祭典，但定禪寺通的櫸木林蔭大道一年四季都極美。尤其是入夜後，道路中央的綠化帶在街燈點綴下，營造出都會中的寧靜隧道感，非常有歐洲都市的優雅氛圍。</p><button class="copy-btn mt-3" onclick="copyToClipboard('addr-photo-10')"><i class="fa-regular fa-copy"></i> <span id="addr-photo-10">宮城縣仙台市青葉區定禪寺通</span></button></div></div>
+      <div class="section-title text-2xl font-bold border-b-2 border-gray-200 pb-2 mb-6 flex items-center gap-2"><i class="fa-solid fa-image text-tohoku-blue"></i> 拍照聖地 (10)</div>
+      <div class="two-col" id="photo-container">
+        <!-- JS 生成 10 筆 -->
       </div>
     </section>
 
-    <!-- 甜點咖啡 Desserts (10) -->
+    <!-- Desserts 甜點咖啡 (10) -->
     <section id="desserts" class="space-y-6">
-      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-mug-hot"></i></span><h2 class="text-3xl font-bold font-serif-tc">甜點咖啡 (10)</h2></div>
-      <div class="two-col">
-        <!-- 1 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">枝豆茶寮 Zunda Saryo <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">將傳統的毛豆泥（Zunda）改良為現代人喜愛的洋式甜品。招牌的「毛豆泥奶昔」有著濃郁的奶香與豆香，冰涼滑順，就連討厭蔬菜的人也能開心享用，是仙台車站周邊必喝的超人氣飲品。</p>
-            <button class="copy-btn mt-2" onclick="copyToClipboard('addr-dessert-1')"><i class="fa-solid fa-location-dot"></i> <span id="addr-dessert-1">宮城縣仙台市青葉區中央1-1-1 仙台站3F</span></button>
-            <p class="text-sm font-semibold text-blue-800 mt-2"><i class="fa-solid fa-yen-sign text-green-600"></i> 預算：JPY 400 - 800</p>
-          </div>
-        </div>
-        <!-- 2 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">SORA MADO cafe 1387 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">位於標高1387公尺的藏王纜車鳥兜站內。店內裝潢木質溫馨，透過大片玻璃窗可以一覽雪白的山脈全景。提供熱呼呼的手沖咖啡、在地特製的暖胃湯品，以及結合雪季元素的限定造型蛋糕。</p>
-            <button class="copy-btn mt-2" onclick="copyToClipboard('addr-dessert-2')"><i class="fa-solid fa-location-dot"></i> <span id="addr-dessert-2">山形縣山形市藏王溫泉 纜車鳥兜站</span></button>
-            <p class="text-sm font-semibold text-blue-800 mt-2"><i class="fa-solid fa-yen-sign text-green-600"></i> 預算：JPY 600 - 1,200</p>
-          </div>
-        </div>
-        <!-- 3-10 -->
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">鯛魚燒 鯛吉 (鯛きち)</h3><p class="text-sm text-gray-600 mt-1">仙台超人氣的排隊鯛魚燒專賣店。外皮烤得極度薄脆，內餡則是飽滿到快要爆出來。除了經典的北海道十勝紅豆與卡士達奶油，還常推出黑芝麻、毛豆泥與季節限定的草莓或栗子口味。</p><button class="copy-btn mt-2" onclick="copyToClipboard('addr-dessert-3')"><i class="fa-solid fa-location-dot"></i> <span id="addr-dessert-3">宮城縣仙台市青葉區中央2-1-30</span></button><p class="text-sm font-semibold text-blue-800 mt-2"><i class="fa-solid fa-yen-sign text-green-600"></i> 預算：JPY 200 - 400</p></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">仙台車站 善治郎甘味處</h3><p class="text-sm text-gray-600 mt-1">除了賣牛舌，善治郎旗下的甜品店同樣出色。店內提供精緻的日式和菓子拼盤，包含手作白玉、抹茶冰淇淋與溫熱的紅豆湯。在等候新幹線的空檔，坐在舒適的店內享用一份傳統和風下午茶最為合適。</p><button class="copy-btn mt-2" onclick="copyToClipboard('addr-dessert-4')"><i class="fa-solid fa-location-dot"></i> <span id="addr-dessert-4">宮城縣仙台市青葉區中央1-1-1 仙台站內</span></button><p class="text-sm font-semibold text-blue-800 mt-2"><i class="fa-solid fa-yen-sign text-green-600"></i> 預算：JPY 800 - 1,500</p></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">藏王溫泉 山形布丁專賣店</h3><p class="text-sm text-gray-600 mt-1">使用山形縣產最高級純鮮奶與新鮮土雞蛋製作的手工布丁。口感極度綿密滑順，入口即化。除了經典原味，還會搭配當季水果如櫻桃、西洋梨，底層的微苦焦糖更巧妙地提升了整體的層次感。</p><button class="copy-btn mt-2" onclick="copyToClipboard('addr-dessert-5')"><i class="fa-solid fa-location-dot"></i> <span id="addr-dessert-5">山形縣上山市葉山4-33</span></button><p class="text-sm font-semibold text-blue-800 mt-2"><i class="fa-solid fa-yen-sign text-green-600"></i> 預算：JPY 400 - 600</p></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">銀山溫泉 はいからさん通り</h3><p class="text-sm text-gray-600 mt-1">銀山溫泉街上的復古咖啡小館。這裡最知名的是使用尾花澤特產「西瓜」製作的各種甜點。即使在冬季，在充滿暖氣的浪漫木造建築內，來一份特製西瓜冰淇淋或是熱可可，別有一番獨特風情。</p><button class="copy-btn mt-2" onclick="copyToClipboard('addr-dessert-6')"><i class="fa-solid fa-location-dot"></i> <span id="addr-dessert-6">山形縣尾花澤市銀山新畑451</span></button><p class="text-sm font-semibold text-blue-800 mt-2"><i class="fa-solid fa-yen-sign text-green-600"></i> 預算：JPY 500 - 1,000</p></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">盛岡 松ぼっくり 義式冰淇淋</h3><p class="text-sm text-gray-600 mt-1">岩手縣超高人氣的義式冰淇淋專賣店，以自家牧場的新鮮牛奶為基底。每日現做十多種口味，最受歡迎的是濃郁的特濃牛奶與南瓜口味。冰淇淋質地扎實卻又清爽，常吸引旅客大排長龍。</p><button class="copy-btn mt-2" onclick="copyToClipboard('addr-dessert-7')"><i class="fa-solid fa-location-dot"></i> <span id="addr-dessert-7">岩手縣岩手郡雫石町長山早坂70-48</span></button><p class="text-sm font-semibold text-blue-800 mt-2"><i class="fa-solid fa-yen-sign text-green-600"></i> 預算：JPY 400 - 600</p></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">ITAGAKI FRUIT CAFE</h3><p class="text-sm text-gray-600 mt-1">由仙台百年頂級水果老舖「ITAGAKI」開設的水果咖啡廳。這裡的鮮果千層蛋糕、季節水果塔與百匯冰淇淋，豪邁地鋪滿了當季最高級、甜度爆表的鮮果，是享受貴婦級奢華下午茶的首選。</p><button class="copy-btn mt-2" onclick="copyToClipboard('addr-dessert-8')"><i class="fa-solid fa-location-dot"></i> <span id="addr-dessert-8">宮城縣仙台市青葉區中央1-1-1 B1</span></button><p class="text-sm font-semibold text-blue-800 mt-2"><i class="fa-solid fa-yen-sign text-green-600"></i> 預算：JPY 1,200 - 2,500</p></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">青森 蘋果派專賣店 ALAJIN</h3><p class="text-sm text-gray-600 mt-1">雖然主打青森，但在東北特產展店也很常見。專注於將不同品種的蘋果烘焙成千層派。層層疊疊的酥脆外皮，包裹著酸甜適中、仍帶有清脆果肉口感的蘋果餡，剛出爐時香氣撲鼻，令人垂涎。</p><button class="copy-btn mt-2" onclick="copyToClipboard('addr-dessert-9')"><i class="fa-solid fa-location-dot"></i> <span id="addr-dessert-9">青森縣弘前市 (東北物產特展店)</span></button><p class="text-sm font-semibold text-blue-800 mt-2"><i class="fa-solid fa-yen-sign text-green-600"></i> 預算：JPY 400 - 800</p></div></div>
-        <div class="card"><div class="stack-vertical"><h3 class="text-xl font-bold blue-text font-serif-tc">抹茶甜點 辻利 (仙台S-PAL店)</h3><p class="text-sm text-gray-600 mt-1">來自京都的宇治抹茶名店在仙台的據點。提供極度純粹濃郁的抹茶聖代、抹茶白玉霜淇淋與特製的抹茶拿鐵。高雅的微苦與甘甜在舌尖交織，是逛街疲憊時，撫慰身心的絕佳日式甜品。</p><button class="copy-btn mt-2" onclick="copyToClipboard('addr-dessert-10')"><i class="fa-solid fa-location-dot"></i> <span id="addr-dessert-10">宮城縣仙台市青葉區中央1-1-1 S-PAL B1</span></button><p class="text-sm font-semibold text-blue-800 mt-2"><i class="fa-solid fa-yen-sign text-green-600"></i> 預算：JPY 600 - 1,200</p></div></div>
+      <div class="section-title text-2xl font-bold border-b-2 border-gray-200 pb-2 mb-6 flex items-center gap-2"><i class="fa-solid fa-mug-hot text-tohoku-blue"></i> 甜點咖啡 (10)</div>
+      <div class="two-col" id="dessert-container">
+        <!-- JS 生成 10 筆 -->
       </div>
     </section>
 
-    <!-- 超市 Market (5) -->
+    <!-- Market 超市 (5) -->
     <section id="market" class="space-y-6">
-      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-store"></i></span><h2 class="text-3xl font-bold font-serif-tc">超市清單 (5)</h2></div>
-      <div class="two-col">
-        <!-- 1 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">AEON MALL 名取 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">東北地區規模最大的購物中心之一，館內結合了大型超市、日式服飾、生活雜貨及美食街。一樓的超市區商品齊全，無論是新鮮水果、當地零食還是大包裝伴手禮，都能在此享受一站式免稅採購的便利。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣名取市杜せきのした5丁目3番地</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-regular fa-clock text-blue-500 text-xs"></i> 營業時間：</span>10:00 - 21:00</p>
-            <div class="day-tag mt-1">Day 5</div>
-          </div>
-        </div>
-        <!-- 2 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold blue-text font-serif-tc">仙台朝市 (Ameyoko)</h3>
-            <p class="text-sm text-gray-600 mt-1">被稱為「仙台的廚房」，這條充滿活力的露天市集距離仙台車站僅五分鐘步程。雖然不是傳統超市，但這裡聚集了數十家攤販，販售宮城縣產的頂級新鮮蔬果、三陸海鮮與各式便宜的手作熟食小吃。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區中央4丁目</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-regular fa-clock text-blue-500 text-xs"></i> 營業時間：</span>08:00 - 18:00 (週日與國定假日休市)</p>
-            <div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div>
-          </div>
-        </div>
-        <!-- 3 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold blue-text font-serif-tc">業務超市 仙台站東口店</h3>
-            <p class="text-sm text-gray-600 mt-1">深受在地人與觀光客喜愛的平價量販超市。特色是大包裝、極具性價比的價格。可以在這裡找到各種便宜的日本調味料、大容量糖果餅乾、綠茶包，非常適合用來採買分送給親友的平價零食大禮包。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市宮城野區榴岡2-1-12</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-regular fa-clock text-blue-500 text-xs"></i> 營業時間：</span>09:00 - 22:00</p>
-            <div class="day-tag mt-1 bg-gray-100 text-gray-600 border-gray-300">獨立行程</div>
-          </div>
-        </div>
-        <!-- 4 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold blue-text font-serif-tc">ITAGAKI 鮮果超市 (S-PAL店)</h3>
-            <p class="text-sm text-gray-600 mt-1">創立超過120年的高級水果專賣店兼精緻生鮮超市。專門嚴選日本全國各地最高等級的水果，如山形的櫻桃、青森的蘋果、靜岡的哈密瓜。想買回飯店晚上享受頂級的日本水果，來這裡準沒錯。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區中央1-1-1 B1</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-regular fa-clock text-blue-500 text-xs"></i> 營業時間：</span>10:00 - 21:00</p>
-            <div class="day-tag mt-1 bg-blue-50 text-blue-700 border-blue-200">Day 4</div>
-          </div>
-        </div>
-        <!-- 5 -->
-        <div class="card">
-          <div class="stack-vertical">
-            <h3 class="text-xl font-bold red-text font-serif-tc">Don Quijote 唐吉訶德 仙台站西口店 <span class="text-sm font-sans font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded">已排入行程</span></h3>
-            <p class="text-sm text-gray-600 mt-1">不朽的深夜購物天堂，結合超市、藥妝、電器與雜貨的綜合型商場。商品種類繁多到令人眼花撩亂，價格親民且提供免稅服務。最重要的是營業到深夜甚至24小時，是填補行程空檔的極佳去處。</p>
-            <p class="text-sm mt-2"><span class="font-semibold text-blue-800"><i class="fa-solid fa-location-dot text-red-500 text-xs"></i> 地址：</span>宮城縣仙台市青葉區中央1-8-20</p>
-            <p class="text-sm"><span class="font-semibold text-blue-800"><i class="fa-regular fa-clock text-blue-500 text-xs"></i> 營業時間：</span><span class="text-red-600 font-bold">24 小時營業</span></p>
-            <div class="day-tag mt-1">Day 4</div>
-          </div>
-        </div>
+      <div class="section-title text-2xl font-bold border-b-2 border-gray-200 pb-2 mb-6 flex items-center gap-2"><i class="fa-solid fa-store text-tohoku-blue"></i> 超市清單 (5)</div>
+      <div class="two-col" id="market-container">
+        <!-- JS 生成 5 筆 -->
       </div>
     </section>
 
   </main>
 
-  <button id="backToTopBtn" class="hidden fixed bottom-10 right-8 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl hover:bg-blue-800">
-    <i class="fa-solid fa-arrow-up"></i>
-  </button>
+  <button id="backToTopBtn" title="回到頂部"><i class="fa-solid fa-chevron-up"></i></button>
 
-  <footer class="text-center text-gray-600 text-sm py-8 mt-12 border-t" style="background: rgba(255,255,255,0.7); backdrop-filter: blur(5px);">
-    <div class="max-w-4xl mx-auto px-4 stack-vertical gap-2">
-      <p class="font-bold"><span class="text-red-700">紅字</span>＝使用者指定／已排入行程主體 ｜ <span class="text-blue-700">藍字</span>＝系統智能推薦 ｜ Day Tag = 最近日或「獨立行程」</p>
-      <p class="opacity-80">以上時間與路線皆為大數據推估，實際交通狀況與營業時間可能因當地雪候變動，建議出發前再次確認。</p>
-      <p class="opacity-80">離線可用版 ｜ 系統版本 v1.9.0-SnowOnsen</p>
+  <footer class="bg-gray-800 text-gray-300 text-sm py-6 mt-10 text-center">
+    <div class="max-w-4xl mx-auto px-4 stack-vertical">
+      <p>圖例：<span class="text-red-400 font-bold">紅字</span>＝使用者指定／行程主體／已排入行程 ｜ <span class="text-blue-400 font-bold">藍字</span>＝系統推薦</p>
+      <p>Day Tag = 建議安排的最近日或「獨立行程」</p>
+      <p class="mt-2 text-xs opacity-70">離線可用版 ｜ 版本 v1.8.0-blueFX ｜ 日本東北特仕版</p>
     </div>
   </footer>
 
   <script>
+    // 導航切換邏輯
     function showPage(id) {
-      document.querySelectorAll('main > section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
       const tgt = document.getElementById(id); 
-      if (tgt) {
+      if(tgt) { 
         tgt.classList.add('active'); 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({top: 0, behavior: 'smooth'});
       }
     }
-    
-    function copyToClipboard(nodeId) {
-      const el = document.getElementById(nodeId); 
-      if (!el) return;
-      const originalText = el.innerText.trim();
-      navigator.clipboard.writeText(originalText).then(() => {
-        el.parentElement.innerHTML = '<i class="fa-solid fa-check text-green-600"></i> <span class="text-green-600 font-bold" id="'+nodeId+'">已複製！</span>';
-        setTimeout(() => {
-          const newEl = document.getElementById(nodeId);
-          if (newEl) {
-             newEl.parentElement.innerHTML = '<i class="fa-regular fa-copy"></i> <span id="'+nodeId+'">' + originalText + '</span>';
-          }
-        }, 1500);
+
+    // 複製功能
+    function copyToClipboard(btn, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> 已複製';
+        setTimeout(() => { btn.innerHTML = originalHTML; }, 1500);
       });
     }
-    
+
+    // 回到頂部按鈕
     const btn = document.getElementById('backToTopBtn');
     window.addEventListener('scroll', () => { 
-      if (window.scrollY > 300) { 
-        btn.classList.remove('hidden'); 
-      } else { 
-        btn.classList.add('hidden'); 
-      } 
+      if(window.scrollY > 300) { btn.style.display = 'block'; } 
+      else { btn.style.display = 'none'; } 
     });
-    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    btn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+    // ==========================================
+    // 資料生成區 (嚴格符合字數與欄位垂直要求)
+    // ==========================================
+    
+    // POI Data (20)
+    const poiData = [
+      { name: "中尊寺", intro: "位於岩手縣平泉町的天台宗東北大本山，建於850年，是奧州藤原氏繁榮的象徵。境內擁有包含國寶金色堂在內的眾多珍貴文化財，展現了平安時代晚期精湛的佛教藝術。漫步於古杉林立的參道，能深刻感受到歷史的莊嚴與寧靜，是東北必訪的世界文化遺產。", highlight: "世界遺產、金色堂", day: "Day 2 (已排入行程)", used: true },
+      { name: "銀山溫泉", intro: "隱身於山形縣尾花澤市的深山溫泉鄉，因五百年前開採銀礦而得名。沿著銀山川兩岸矗立著大正時代的木造多層旅館，夕陽西下時煤氣燈亮起，搭配冬季的白雪，彷彿走入宮崎駿動畫《神隱少女》的夢幻場景。此處的硫磺泉質對消除疲勞極具功效，浪漫氛圍令人流連忘返。", highlight: "大正浪漫老街、足湯", day: "Day 2 (已排入行程)", used: true },
+      { name: "藏王纜車", intro: "山形藏王溫泉區的重要交通樞紐，可直達海拔近1400公尺的鳥兜山頂。冬季時，西伯利亞季風帶來水氣，在針葉林上結冰形成壯觀的「樹冰（雪怪）」。搭乘纜車的7分多鐘內，可從高空俯瞰整片銀白色的樹冰群與連綿壯闊的藏王山脈，是東北冬季最具代表性的絕景。", highlight: "樹冰奇觀、高空絕景", day: "Day 3 (已排入行程)", used: true },
+      { name: "松島灣", intro: "宮城縣的松島與京都天橋立、廣島宮島並列為「日本三景」。廣闊的松島灣內散佈著260多個長滿松樹的島嶼，無論是搭乘遊覽船穿梭其間，或從四大觀景台俯瞰，皆能欣賞到如詩如畫的海上盆景奇觀。四季皆有不同風情，冬季更可品嚐到當地盛產的肥美鮮蚵。", highlight: "日本三景、遊船體驗", day: "Day 3 (已排入行程)", used: true },
+      { name: "五大堂", intro: "位於松島海岸邊的小島上，是東北現存最古老的桃山建築，由伊達政宗於1604年重建。堂內安置著五大明王像，平時不對外開放。通往五大堂的紅漆「結緣橋」橋板間有縫隙，設計用意是讓參拜者集中注意力、端正身心。此處是眺望松島灣絕美海景的絕佳地點。", highlight: "桃山建築、結緣橋", day: "Day 3 (已排入行程)", used: true },
+      { name: "仙台城跡(青葉城)", intro: "由戰國名將伊達政宗建立於青葉山上的居城，雖然建築主體因戰火已不復存在，但仍保留了雄偉的石垣。這裡最著名的地標是伊達政宗騎馬銅像，居高臨下的地勢使其成為俯瞰仙台市區及太平洋的絕佳觀景台，夜晚的百萬夜景更是迷人，是感受武將歷史的必遊之地。", highlight: "伊達政宗銅像、夜景", day: "Day 4 (已排入行程)", used: true },
+      { name: "瑞鳳殿", intro: "伊達政宗的靈廟，隱身於仙台市中心的杉木林中。這座建築展現了桃山文化華麗絢爛的特色，以極彩色的木雕與金箔裝飾，精緻程度令人嘆為觀止。雖然原建築毀於二戰，但依原貌重建後依然雄偉。周圍環境清幽，秋季時更是仙台知名的賞楓勝地，充滿著歷史的靜謐感。", highlight: "華麗靈廟、歷史建築", day: "Day 4 (已排入行程)", used: true },
+      { name: "鹽釜神社", intro: "擁有1200年以上歷史的古老神社，被尊為「陸奧國第一宮」。自古以來便是保佑航海安全、安產與交通安全的重要信仰中心。神社建於高台上，參道兩旁古木參天，春季時境內著名的「鹽釜櫻」盛開，美不勝收。此處也是當地漁民與居民心靈的寄託，莊嚴且神聖。", highlight: "陸奧一宮、祈福安產", day: "Day 5 (已排入行程)", used: true },
+      { name: "白銀公園", intro: "位於銀山溫泉街盡頭的自然景觀區，園內最著名的亮點是落差達22公尺的「白銀瀑布」。瀑布分為兩道水流傾瀉而下，水花飛濺，在冬季白雪的映襯下更顯清幽秀麗。沿著溪谷的散步道前行，可欣賞到隨四季變化的峽谷風光，是溫泉街泡湯後散步呼吸芬多精的好去處。", highlight: "白銀瀑布、溪谷散步", day: "Day 2 (已排入行程)", used: true },
+      { name: "仙台車站商圈", intro: "作為東北地方最大的玄關，仙台車站周邊匯集了大型百貨、電器城與無數美食。車站內的「牛舌通」和「壽司通」讓旅客能輕鬆品嚐在地美味。連接車站的S-PAL百貨與周邊的AER大樓、Parco，提供了極佳的購物體驗。這裡是體驗東北現代都會繁華脈動的最佳起點。", highlight: "購物聖地、交通樞紐", day: "Day 4 (已排入行程)", used: true },
+      { name: "山寺(立石寺)", intro: "山形縣的著名古剎，建於陡峭的山壁上，需攀爬1015階的石階才能抵達奧之院。日本俳聖松尾芭蕉曾在此留下千古絕句。沿途奇岩怪石林立，登頂後五大堂的絕佳視野，能將美麗的山谷村落盡收眼底。雖然攀爬過程稍具挑戰，但登高望遠的成就感絕對令人難忘。", highlight: "絕景寺廟、千階考驗", day: "獨立行程", used: false },
+      { name: "定禪寺通", intro: "仙台市被譽為「杜之都（森林之都）」的象徵性街道。道路兩旁種滿了高大的櫸樹，綠意盎然的林蔭大道中穿插著多座藝術雕像。冬季時，這裡會舉辦著名的「仙台光之樂章」，數十萬顆LED燈飾將整條街道點綴得如夢似幻，是散步、喝咖啡、享受悠閒都會氣息的絕佳去處。", highlight: "林蔭大道、冬季燈飾", day: "獨立行程", used: false },
+      { name: "花卷溫泉", intro: "岩手縣著名的溫泉鄉，環境清幽，被群山與河川環繞。這裡擁有多種不同泉質的溫泉，並且有廣闊的玫瑰園，深受文人墨客喜愛，著名童話作家宮澤賢治也曾多次造訪。來到這裡不僅可以享受泡湯的樂趣，還能感受充滿文學氣息的自然環境，是非常適合放鬆身心的療癒聖地。", highlight: "文學氣息、溫泉療癒", day: "獨立行程", used: false },
+      { name: "嚴美溪", intro: "位於岩手縣一關市，被譽為「日本第一美溪」。由盤井川侵蝕而成的奇岩怪石與深淵，綿延約兩公里。水流湍急，兩岸翠綠的植被與灰白岩石形成強烈對比。最特別的體驗是購買對岸的「郭公飛天糰子」，只需將錢放入籃中敲擊木板，店家就會透過繩索將糰子與茶滑過來，十分有趣。", highlight: "奇岩溪谷、飛天糰子", day: "獨立行程", used: false },
+      { name: "大崎八幡宮", intro: "由伊達政宗於1607年創建的神社，是日本現存最古老的桃山建築之一，被指定為國寶。建築外觀以黑漆為主色調，並飾以極彩色的雕刻與金箔，展現了伊達家獨特的華麗風格與強大威權。每年一月舉辦的「松焚祭」是日本最大規模的焚除厄運祭典，充滿神聖且神秘的氣氛。", highlight: "國寶建築、桃山文化", day: "獨立行程", used: false },
+      { name: "藏王御釜", intro: "藏王連峰上的火山口湖，因形狀類似釜（鍋子）而得名。湖水呈現神秘的翠綠色，並會隨著天氣與陽光角度改變顏色，因此有「五色沼」之稱。周圍荒涼的火山地形與湖泊的柔美形成強烈對比。冬季因積雪封山無法前往，適合夏秋兩季造訪，是東北極具代表性的自然奇景。", highlight: "火山口湖、五色沼", day: "獨立行程", used: false },
+      { name: "宮城藏王狐狸村", intro: "位於宮城縣白石市，是世界上少見的狐狸放養動物園。園內放養了超過100隻、多達6種品種的狐狸。遊客可以近距離觀察牠們睡覺、玩耍的可愛模樣，甚至有機會體驗抱狐狸。尤其在冬季，狐狸們為了禦寒會長出蓬鬆的冬毛，圓滾滾的模樣更是超級療癒，是動物愛好者的天堂。", highlight: "療癒動物、近距離接觸", day: "獨立行程", used: false },
+      { name: "盛岡城跡公園", intro: "位於岩手縣盛岡市中心，是南部藩主昔日的居城遺跡。雖然城閣已不存在，但壯觀的花崗岩石垣依然保存完好。園內四季景色分明，春季是賞櫻名所，秋季則是紅葉滿園。這裡也是市民休閒散步的好去處，充滿著懷舊與寧靜的氛圍，讓人能在城市中找到一片綠意與歷史感。", highlight: "壯觀石垣、賞櫻名所", day: "獨立行程", used: false },
+      { name: "秋保溫泉", intro: "距離仙台市區僅需半小時車程的知名溫泉鄉，與鳴子溫泉、飯坂溫泉並列為奧州三名湯。起源可追溯至1500年前，歷史悠久。這裡擁有豐富的自然景觀，如秋保大瀑布與磊磊峽。許多高級溫泉旅館林立於名取川畔，提供旅客遠離城市喧囂的極致放鬆體驗，交通便利是其最大優勢。", highlight: "奧州名湯、秋保瀑布", day: "獨立行程", used: false },
+      { name: "仙台海洋森林水族館", intro: "位於仙台港區的現代化水族館，以展示東北三陸近海的豐富海洋生態為最大特色。擁有巨大無縫水槽，重現了生機蓬勃的海洋世界。館內每天都有精彩的海豚與海獅表演，並且提供與企鵝、海龜互動的機會。周邊還緊鄰三井Outlet，是非常適合親子同遊、兼具教育與娛樂的景點。", highlight: "三陸海洋生態、親子同遊", day: "獨立行程", used: false }
+    ];
+
+    // BIB Data (20)
+    const bibData = [
+      { name: "燒肉 仔虎 仙台站前店", intro: "仙台當地極高評價的燒肉名店，主打提供頂級的米澤牛與仙台牛。肉質油花分佈極為均勻，入口即化，炭火燒烤後更添迷人香氣。午間套餐CP值極高，能以划算的價格品嚐到高等級和牛。店內裝潢高級典雅，適合重視用餐環境與食材品質的旅客，是來到仙台犒賞自己的絕佳選擇。", dish: "米澤牛燒肉午間套餐、特選和牛拼盤", address: "宮城縣仙台市青葉區中央1-6-1 Herb Sendai 8F", budget: "JPY ¥2,500 - ¥4,000", day: "Day 4 (已排入行程)", used: true },
+      { name: "旨味太助 (牛舌發祥地)", intro: "被公認為仙台牛舌料理的發源老店之一，承襲了創始人的傳統手藝。這裡的牛舌純以炭火高溫燒烤，外表微焦帶有濃郁炭香，內部肉質厚實彈牙、嚼勁十足。搭配麥飯、清甜的牛尾湯與醃製小菜，是最正宗的仙台牛舌定食體驗。店內空間不大，充滿濃厚昭和氣息，深受在地人與遊客喜愛。", dish: "經典炭烤牛舌定食、牛尾湯", address: "宮城縣仙台市青葉區國分町2-11-11", budget: "JPY ¥2,000 - ¥3,000", day: "Day 4 (已排入行程)", used: true },
+      { name: "末廣ラーメン本舗 仙台站前分店", intro: "起源於京都、在東北發揚光大的知名拉麵店。特色是深色濃郁的醬油豚骨湯頭，搭配薄切的叉燒肉鋪滿碗面。最受食客歡迎的是桌上無限量免費供應的京都九條蔥，大把加入湯中，青蔥的辛香完美中和了湯頭的油膩感，風味絕佳。營業至深夜，是仙台當地人飲酒後最愛的宵夜首選。", dish: "中華拉麵、無限加蔥", address: "宮城縣仙台市青葉區中央1-7-18", budget: "JPY ¥800 - ¥1,200", day: "Day 4 (已排入行程)", used: true },
+      { name: "盛樓閣", intro: "位於盛岡車站正對面的知名老店，是品嚐「盛岡三大麵」之一「盛岡冷麵」的必訪聖地。其冷麵麵條使用馬鈴薯澱粉製作，半透明且極具彈性，咬勁十足；湯頭以牛骨熬製，清甜而不膩，搭配辣泡菜與水果，層次豐富。除了冷麵，這裡的高品質燒肉也極具水準，是岩手縣的味覺代表。", dish: "盛岡冷麵、頂級燒肉", address: "岩手縣盛岡市盛岡站前通15-5", budget: "JPY ¥1,500 - ¥3,000", day: "Day 1 (已排入行程)", used: true },
+      { name: "伊達の牛たん本舗 仙台站店", intro: "仙台市區隨處可見的知名牛舌連鎖品牌，在仙台車站內就有多間分店，交通極為便利。主打厚切牛舌，肉質軟嫩且富含油脂，特別推薦「芯タン（牛舌根）」，數量稀少且口感極佳。除了現烤定食，店內也販售各式牛舌伴手禮。用餐環境現代舒適，非常適合行程緊湊的旅客快速享用地道美食。", dish: "厚切芯タン定食", address: "宮城縣仙台市青葉區中央1-1-1 仙台車站內", budget: "JPY ¥2,000 - ¥3,500", day: "Day 3 (已排入行程)", used: true },
+      { name: "山形芋煮亭", intro: "提供山形縣最具代表性鄉土料理「芋煮」的專門店。芋煮是將在地特產的里芋（小芋頭）、牛肉、蒟蒻與大蔥，以醬油和糖為基底燉煮而成的濃郁鍋物，口感溫潤暖胃，是東北秋季傳統活動「芋煮會」的靈魂料理。搭配山形當地生產的晶瑩白米飯，展現出最樸實純粹的地方風味。", dish: "山形牛芋煮定食", address: "山形縣山形市城南町1-1-1", budget: "JPY ¥1,500 - ¥2,500", day: "Day 2 (已排入行程)", used: true },
+      { name: "松島 魚市場", intro: "位於松島海岸邊的生鮮市場，是品嚐三陸海岸新鮮海產的天堂。一樓販售當日捕獲的各式魚貨，二樓則提供平價美味的海鮮丼飯。特別是在冬季，這裡的現烤松島牡蠣與牡蠣漢堡絕對不能錯過，牡蠣鮮甜肥美、毫無腥味。市場內氣氛熱鬧，是體驗在地漁市文化與大啖海鮮的絕佳去處。", dish: "松島烤牡蠣、豪華海鮮丼", address: "宮城縣宮城郡松島町松島字普賢堂4-10", budget: "JPY ¥1,000 - ¥2,500", day: "獨立行程", used: false },
+      { name: "SORA MADO cafe 1387", intro: "位於藏王纜車鳥兜山頂站的小巧咖啡廳，海拔1387公尺，擁有極佳的視野。店內提供約50多種使用在地食材製作的輕食與熱飲。坐在窗邊或戶外的霧冰露台，一邊喝著熱騰騰的咖啡或熱可可，一邊欣賞窗外壯麗的樹冰雪景與連綿山脈，是藏王旅遊中溫暖身心、最愜意的歇息之處。", dish: "熱巧克力、特製山形蘋果派", address: "山形縣山形市藏王溫泉 鳥兜山頂站", budget: "JPY ¥500 - ¥1,500", day: "Day 3 (已排入行程)", used: true },
+      { name: "白龍 本店", intro: "盛岡三大麵之一「盛岡炸醬麵」的創始名店。麵條類似烏龍麵，溫熱且Q彈，上面覆蓋著秘製的濃郁肉醬、小黃瓜絲與蔥花。食用時需將肉醬與麵條徹底攪拌均勻，還可依個人喜好加入辣油或蒜泥。吃完麵後，在碗中打入一顆生雞蛋，倒入熱麵湯做成「雞蛋湯」，是一麵兩吃的獨特文化。", dish: "盛岡炸醬麵(じゃじゃ麺)", address: "岩手縣盛岡市內丸5-15", budget: "JPY ¥800 - ¥1,200", day: "獨立行程", used: false },
+      { name: "東家 本店", intro: "來到岩手縣絕對要體驗的「一口麵（わんこそば）」老字號名店。服務員會以極快的節奏，不斷將一口份量的蕎麥麵倒入客人的碗中，並伴隨著獨特的吆喝聲，直到客人將碗蓋上為止。這不僅是品嚐美食，更是一場充滿娛樂性的大胃王挑戰，結束後還會頒發證明書，趣味十足。", dish: "一口麵(Wanko Soba)體驗套餐", address: "岩手縣盛岡市中ノ橋通1-8-3", budget: "JPY ¥3,500 - ¥4,500", day: "獨立行程", used: false },
+      { name: "米澤牛 登起波", intro: "擁有百年歷史的米澤牛專賣老店，提供最高品質的日本三大和牛之一「米澤牛」。無論是壽喜燒、涮涮鍋或網烤，都能將米澤牛細緻的霜降油花與入口即化的奢華口感完美呈現。店家對肉品的熟成與切法極為講究，醬汁也傳承百年的秘方，是追求極致和牛體驗的老饕首選。", dish: "特選米澤牛壽喜燒", address: "山形縣米澤市中央7丁目2-3", budget: "JPY ¥6,000 - ¥12,000", day: "獨立行程", used: false },
+      { name: "仙台朝市 食堂", intro: "隱藏在仙台朝市內的地下一樓食堂，以提供極具性價比的生魚片丼飯聞名。食材每日由朝市的魚販直送，保證絕對新鮮。招牌的「朝市丼」鋪滿了鮭魚、鮪魚、鮮蝦等多種當季海鮮，份量十足，價格卻非常親民。店內空間簡樸，是感受在地平民美食魅力的絕佳地點。", dish: "朝市海鮮丼、鮪魚生魚片定食", address: "宮城縣仙台市青葉區中央4-3-28", budget: "JPY ¥1,000 - ¥1,500", day: "Day 4 (已排入行程)", used: true },
+      { name: "阿部蒲鉾店 本店", intro: "仙台名物「魚板（笹かまぼこ）」的老字號品牌。除了販售各式精美的魚板伴手禮，本店最受歡迎的是提供「手烤魚板體驗」。遊客可以親自在炭火上烤製白色的魚板，直到表面呈現微焦的金黃色，剛烤好的魚板香氣四溢、口感彈牙。另一款名物「炸葫蘆」也是熱門的散步小吃。", dish: "手烤魚板體驗、炸葫蘆(ひょうたん揚げ)", address: "宮城縣仙台市青葉區中央2-3-18", budget: "JPY ¥300 - ¥1,000", day: "獨立行程", used: false },
+      { name: "鯛吉 仙台站前店", intro: "位於仙台車站附近，總是排著長長人龍的鯛魚燒專賣店。外皮烤得極為酥脆，內餡則是滿滿的北海道十勝紅豆，甜而不膩，口感扎實。除了經典的紅豆口味，還有毛豆泥（Zunda）、卡士達醬等東北特色口味可供選擇。冷冷的天氣裡買一個熱騰騰的鯛魚燒邊走邊吃，是最幸福的享受。", dish: "薄皮脆皮鯛魚燒(毛豆泥口味)", address: "宮城縣仙台市青葉區中央3-1-20", budget: "JPY ¥200 - ¥500", day: "獨立行程", used: false },
+      { name: "平田牧場 仙台Metropolitan店", intro: "發跡於山形縣庄內地區的頂級豬肉品牌「平田牧場」直營餐廳。主打使用自家培育的「平田牧場金華豬」與「三元豬」，肉質細緻多汁，脂肪呈現雪白色且帶有甜味。最推薦的是厚切炸豬排定食，外衣酥脆，咬下後肉汁四溢，搭配特製的豬排醬與高麗菜絲，令人回味無窮。", dish: "金華豬厚切炸豬排定食", address: "宮城縣仙台市青葉區中央1-1-1 S-PAL仙台地下1樓", budget: "JPY ¥1,800 - ¥2,500", day: "獨立行程", used: false },
+      { name: "KIKUCHI 烤蘋果", intro: "位於青森的蘋果甜點名店，但在東北多個物產展與部分百貨也能買到。嚴選青森當地盛產的高品質蘋果，整顆連皮烘烤，內部挖空填入卡士達醬或特製奶油。外層保留了蘋果的酸甜與脆感，內餡濃郁香滑，完美結合了水果的清新與西式甜點的層次，是東北蘋果加工品的極致呈現。", dish: "整顆特製烤蘋果", address: "(東北各大百貨物產區)", budget: "JPY ¥800 - ¥1,500", day: "獨立行程", used: false },
+      { name: "秋田 比內地雞專門店", intro: "提供日本三大地雞之一「秋田比內地雞」的專賣餐廳。比內地雞以放養方式飼育，肉質緊實有彈性，越嚼越香。招牌料理是「極上親子丼」，半熟的滑嫩雞蛋包裹著充滿炭香的雞肉塊，覆蓋在白飯上，醬汁鹹甜適中，將雞肉的鮮美發揮到極致，是令人難以抗拒的極品美味。", dish: "比內地雞極上親子丼", address: "宮城縣仙台市青葉區中央1-1-1 S-PAL 3F", budget: "JPY ¥1,500 - ¥2,000", day: "獨立行程", used: false },
+      { name: "牛舌燒 司", intro: "在仙台牛舌激戰區中異軍突起的名店，曾在當地美食票選中名列前茅。這裡的牛舌特別選用來自澳洲的高品質肉品，並只取最軟嫩的舌根部位。炭烤技術極佳，外表焦脆，內部呈現粉紅色澤，口感柔軟卻不失嚼勁。除了定食，其燉煮牛舌與牛尾湯也極具水準，值得一試。", dish: "特切烤牛舌定食", address: "宮城縣仙台市青葉區國分町2-13-27", budget: "JPY ¥2,500 - ¥3,500", day: "獨立行程", used: false },
+      { name: "山形 蒟蒻番所", intro: "以山形特產「蒟蒻」為主題的懷石料理餐廳。店家發揮極致創意，將平凡的蒟蒻變化成仿造生魚片、麵條、肉類等各式精緻料理。不僅外觀逼真，口感也令人驚艷，且熱量極低、富含膳食纖維。用餐環境古色古香，是在大魚大肉的旅程中，體驗健康與創意結合的絕佳素食/輕食選擇。", dish: "蒟蒻懷石全餐", address: "山形縣上山市楢下1233-2", budget: "JPY ¥3,000 - ¥5,000", day: "獨立行程", used: false },
+      { name: "青森 帆立貝小屋", intro: "雖然位於青森，但其海鮮文化影響整個東北。以提供巨大鮮甜的陸奧灣帆立貝（干貝）聞名。店內最受歡迎的是「釣帆立貝體驗」，遊客可親自用釣竿釣水槽裡的干貝，限時內釣到的都可以選擇做成生魚片、奶油燒烤或握壽司。好吃又好玩，充分展現了東北海產的豐富與活力。", dish: "釣干貝體驗、奶油烤帆立貝", address: "(東北海鮮市場常見體驗)", budget: "JPY ¥1,000 - ¥2,000", day: "獨立行程", used: false }
+    ];
+
+    // Souvenir Data (20)
+    const souvenirData = [
+      { intro: "仙台最具代表性的經典伴手禮，無人不知。鬆軟的海綿蛋糕內，包裹著以特製卡士達醬與當地雞蛋熬製而成的濃郁奶油餡，口感綿密、香甜不膩。其圓潤的造型宛如夜空中的明月，包裝精美典雅。無論是常溫食用或冷藏後享用，皆有不同風味，是送給長輩與親友的絕對安全牌。", item: "菓匠三全 萩之月 (萩の月)", budget: "JPY ¥1,500 - ¥3,000", day: "Day 4 (已排入行程)", used: true },
+      { intro: "將毛豆煮熟後搗碎，加入砂糖製成的綠色泥狀甜餡，是宮城縣獨有的傳統鄉土甜點。裹在Q彈的麻糬外層，毛豆的清香與麻糬的米香完美結合，口感獨特且甜度適中。除了傳統的麻糬形式，現在也開發出毛豆泥奶昔、毛豆泥蛋糕等多樣化商品，深受年輕人喜愛，是體驗在地文化的必吃甜品。", item: "毛豆泥麻糬 (ずんだ餅)", budget: "JPY ¥800 - ¥1,500", day: "Day 4 (已排入行程)", used: true },
+      { intro: "岩手縣大船渡市的知名甜點，外觀完美仿造了海鷗的蛋。最內層是濃郁的黃身餡（蛋黃豆沙），中間包覆著長崎蛋糕般的柔軟外皮，最外層再裹上一層薄脆的白巧克力。三層口感交織，香甜可口。這款甜點不僅美味，更蘊含了東北三陸海岸的風情，在歷經311地震後更是復興的象徵之一。", item: "海鷗蛋 (かもめの玉子)", budget: "JPY ¥1,000 - ¥2,000", day: "Day 1 (已排入行程)", used: true },
+      { intro: "擁有四百年歷史的岩手縣傳統工藝品。以精湛的鑄造技術製作，鐵器表面通常帶有細緻的顆粒紋路（霰紋），保溫效果極佳且堅固耐用。使用南部鐵器煮水，能釋放易於人體吸收的鐵質，使水質變得甘甜，泡出來的茶風味更佳。雖然價格不菲且重量較重，但絕對是極具收藏價值的頂級伴手禮。", item: "南部鐵器 (茶壺、風鈴)", budget: "JPY ¥5,000 - ¥20,000+", day: "Day 1 (已排入行程)", used: true },
+      { intro: "東北地區傳統的木製人偶，以圓形頭部與圓柱形身軀為特徵，沒有手腳。不同縣市有不同的流派與彩繪風格，如鳴子系、遠刈田系等。職人一筆一畫手工繪製出純樸可愛的面容與花卉圖案，充滿溫潤的手作質感。近年來，除了傳統造型，也推出許多結合現代設計的創意小芥子，非常適合作為居家擺飾。", item: "傳統小芥子木偶 (こけし)", budget: "JPY ¥1,500 - ¥4,000", day: "獨立行程", used: false },
+      { intro: "仙台發祥的老字號仙貝店，以香脆的口感與多樣化的口味聞名。有別於一般的薄片仙貝，九重本舖的產品口感較為扎實，米香濃郁。包裝設計充滿和風美感，特別是節慶限定的包裝盒更是精美。適合搭配綠茶享用，是辦公室分送同事或作為體面伴手禮的絕佳選擇。", item: "九重本舖 澤乃泉仙貝", budget: "JPY ¥1,000 - ¥2,500", day: "獨立行程", used: false },
+      { intro: "利用青森縣特產的優質蘋果整顆切片，採用獨特工藝乾燥而成的蘋果脆片。完全不添加化學人工香料與防腐劑，保留了蘋果天然的酸甜風味與豐富營養。口感酥脆爽口，一口接一口停不下來。包裝輕巧且易於攜帶，是大人小孩都會喜歡的健康零嘴，完美濃縮了東北蘋果的精華。", item: "青森 蘋果脆片 (Apple Snack)", budget: "JPY ¥500 - ¥1,000", day: "獨立行程", used: false },
+      { intro: "仙台市知名和菓子老舖「白松がモナカ本舗」的招牌商品。最月餅（Monaka）外皮使用糯米烤製，極其薄脆且入口即化；內餡則有紅豆、芝麻、白豆沙等多種選擇，餡料飽滿且甜度適中。外觀印有精緻的花紋，展現了日本傳統甜點的細膩與優雅，搭配無糖熱茶食用最為對味。", item: "白松最月餅 (白松がモナカ)", budget: "JPY ¥1,200 - ¥2,500", day: "獨立行程", used: false },
+      { intro: "山形縣因盛產櫻桃，被譽為「水果王國」。這款果凍使用整顆頂級的佐藤錦櫻桃製作，宛如將寶石封存在透明的果凍中。果凍口感滑順，櫻桃果肉飽滿多汁，酸甜平衡得恰到好處，冷藏後食用風味更佳。外觀晶瑩剔透，包裝精緻高級，是非常受女性歡迎的夢幻甜點伴手禮。", item: "山形櫻桃果凍 (佐藤錦)", budget: "JPY ¥1,500 - ¥3,000", day: "獨立行程", used: false },
+      { intro: "來到牛舌發源地仙台，絕不能錯過的伴手禮就是各式牛舌加工品。其中最受歡迎的是牛舌肉乾，保留了牛舌獨特的嚼勁與炭烤香氣，越嚼越有味，是絕佳的下酒菜。此外，牛舌咖哩包也是熱門選擇，將牛舌的精華融入濃郁的日式咖哩中，只需加熱即可在家享受高級美味。", item: "仙台牛舌肉乾 / 牛舌咖哩包", budget: "JPY ¥800 - ¥2,000", day: "Day 4 (已排入行程)", used: true },
+      { intro: "「生剝鬼」是秋田縣傳統民俗活動中的神明使者，外觀雖然猙獰嚇人，但其實是為了驅除邪氣與怠惰。以生剝鬼面具為造型的周邊商品，如鑰匙圈、面具模型、甚至面膜，都極具東北地方特色。買一個面具掛在門口，據說能保佑家內安全與無病息災，是充滿文化意涵的特色紀念品。", item: "秋田 生剝鬼 (なまはげ) 紀念品", budget: "JPY ¥500 - ¥2,500", day: "獨立行程", used: false },
+      { intro: "米澤織是山形縣米澤市的傳統絲織品，歷史悠久。採用天然植物染料，並以細膩的提花技術織成，布料光澤柔和、觸感極佳且不易起皺。過去多用於製作高級和服，現在則開發出名片夾、化妝包、領帶等實用小物。精美的紋理與高雅的質感，非常適合送給重視生活品味的親友。", item: "米澤織 傳統工藝小物", budget: "JPY ¥2,000 - ¥5,000", day: "獨立行程", used: false },
+      { intro: "宮城縣的傳統工藝品，使用桑木或櫸木等天然木材，經過車床加工與細緻打磨後，不上漆而直接呈現木頭溫潤的原始紋理。隨著使用時間增加，顏色會逐漸變深，散發出獨特的光澤。木製茶筒具有極佳的防潮性，能完美保存茶葉的香氣。是兼具實用性與工藝美學的頂級生活道具。", item: "鳴子木作茶筒 (木地玩具)", budget: "JPY ¥3,000 - ¥8,000", day: "獨立行程", used: false },
+      { intro: "山形縣特產的法蘭酥餅乾，將傳統和菓子技術與西式餅乾結合。薄脆的煎餅外皮夾著兩層濃郁的奶油夾心，最受歡迎的口味包含抹茶、紅豆與卡士達。口感酥脆與滑順交織，層次豐富，甜而不膩。片裝設計方便分享，價格親民，是山形當地機場與車站長年暢銷的必買零食。", item: "山形 樹冰羅曼 (樹氷ロマン)", budget: "JPY ¥600 - ¥1,500", day: "獨立行程", used: false },
+      { intro: "這是一種被稱為「琥珀糖」的傳統日式甜點，外表看似堅硬的水晶寶石，咬下後外層有一層薄薄的糖霜脆殼，內部卻是柔軟的寒天果凍。以秋田縣特產的果汁調味，色彩繽紛夢幻，在光線照射下閃閃發光。不僅美味，更具有極高的視覺享受，是拍照打卡與送給女性朋友的完美禮物。", item: "秋田 水晶琥珀糖", budget: "JPY ¥800 - ¥1,200", day: "獨立行程", used: false },
+      { intro: "日本東北地方因水質清澈純淨，加上盛產優質酒米，是日本知名的清酒產地。其中「伯樂星」被譽為「究極的餐中酒」，口感清爽純淨，不會搶過食物的風采，反而能引出料理的美味。在仙台各大車站與百貨皆可購得，帶一瓶東北地酒回家，能在微醺中重溫旅途的美好回憶。", item: "東北地酒 (如：伯樂星 純米吟釀)", budget: "JPY ¥1,500 - ¥4,000", day: "Day 4 (已排入行程)", used: true },
+      { intro: "青森市傳統祭典「睡魔祭」的周邊商品。睡魔祭以巨大的立體彩色紙紮燈籠花車聞名，色彩強烈且充滿魄力。將這些圖騰縮小製作成的日式手拭巾（手帕），不僅可作為手帕或頭巾使用，精美的圖案也非常適合裱框作為壁畫裝飾。純棉材質吸水性佳，是實用又具民俗風情的伴手禮。", item: "青森 睡魔祭手拭巾", budget: "JPY ¥1,000 - ¥2,000", day: "獨立行程", used: false },
+      { intro: "以岩手縣特產的南部小麥為原料烘焙而成的傳統煎餅。口感堅硬扎實，越嚼越有小麥的純粹香氣。除了原味，還有加入大量花生或芝麻的口味，堅果的香氣與餅乾完美融合。這是一種充滿懷舊風味的樸實零食，非常耐放，適合搭配熱茶或咖啡，是體驗東北農村質樸風味的最佳代表。", item: "南部煎餅 (花生/芝麻)", budget: "JPY ¥500 - ¥1,200", day: "獨立行程", used: false },
+      { intro: "發祥於仙台市的傳統工藝品，已有兩百多年歷史。以櫸木等木材雕刻出精巧的衣櫥或收納盒，表面塗上多層生漆，並裝飾著精美的鐵製雕花金屬配件。雖然大型家具難以攜帶，但職人們也推出了小巧的珠寶盒或名片盒。其堅固耐用且越用越亮的特性，展現了日本極致的職人精神。", item: "仙台櫥櫃工藝小盒 (仙台箪笥)", budget: "JPY ¥10,000 - ¥30,000+", day: "獨立行程", used: false },
+      { intro: "東北地區冬季盛產蘋果，將蘋果原汁濃縮製成的熱飲包。只需加入熱水沖泡，就能立刻聞到濃郁的蘋果香氣。除了原味，還有加入生薑或蜂蜜的配方，在寒冷的冬天飲用能迅速溫暖身體。體積小巧重量輕，是冬季前往東北旅遊時非常適合大量購買分送親友的平價小禮物。", item: "蘋果生薑熱飲粉", budget: "JPY ¥400 - ¥800", day: "獨立行程", used: false }
+    ];
+
+    // Photo Spots Data (10)
+    const photoData = [
+      { name: "銀山溫泉街夜景", intro: "當夜幕降臨，銀山溫泉街兩旁的煤氣燈亮起，昏黃的燈光映照在大正時代的百年木造建築上，若恰逢冬季飄雪，整條街道宛如童話世界般夢幻。站在溫泉街入口的橋上往內拍攝，是捕捉這份浪漫氛圍的最佳角度，絕對是社群媒體上最吸睛的絕美照片。", address: "山形縣尾花澤市銀山新畑", day: "Day 2 (已排入行程)", used: true },
+      { name: "藏王樹冰群 (雪怪)", intro: "搭乘藏王纜車至地藏山頂站，一出站便能被滿山遍野的「樹冰」包圍。這些由冰雪與強風雕塑而成的巨大雪怪，形態各異，蔚為奇觀。在晴朗的藍天映襯下，白雪皚皚的樹冰更顯壯觀。除了白天，二月的夜間點燈活動更增添了神秘詭譎的氣氛，是極具視覺震撼的拍攝點。", address: "山形縣山形市藏王溫泉", day: "Day 3 (已排入行程)", used: true },
+      { name: "松島灣 四大觀", intro: "被譽為日本三景的松島灣，從周邊的高處俯瞰最能展現其壯闊。其中「四大觀」之一的「大高森（壯觀）」，能以360度無死角的視野俯瞰整個星羅棋布的島嶼群與平靜的海灣。傍晚時分，夕陽將海面染成金黃色，與深綠色的松樹小島形成強烈對比，是攝影愛好者的必訪聖地。", address: "宮城縣東松島市宮戶", day: "Day 3 (已排入行程)", used: true },
+      { name: "AER 展望台 (仙台夜景)", intro: "位於仙台車站旁的AER大樓31樓，設有免費開放的觀景台。分為東西兩側，可以俯瞰整個仙台市區的繁華街景與遠方的群山。入夜後，萬家燈火點亮，形成璀璨的百萬夜景。觀景台內環境安靜，隔著玻璃拍攝不易反光，是輕鬆捕捉都會夜色與浪漫氣氛的隱藏版打卡點。", address: "宮城縣仙台市青葉區中央1-3-1 AER 31F", day: "Day 4 (已排入行程)", used: true },
+      { name: "只見線 第一鐵橋", intro: "福島縣奧會津地區的只見線，被譽為「世界最浪漫的鐵道」。其中拍攝「第一只見川橋樑」的展望台是最著名的景點。當綠白相間的列車緩緩駛過橫跨在翠綠河谷上的拱橋，四周被雲霧繚繞或冬季白雪覆蓋的群山環抱，畫面如詩如畫，彷彿遺世獨立的仙境，吸引全球攝影師朝聖。", address: "福島縣大沼郡三島町", day: "獨立行程", used: false },
+      { name: "山寺 (五大堂絕景)", intro: "攀爬千階石梯抵達山寺的最高點「五大堂」，這座建於懸崖峭壁上的木造舞台，提供了令人屏息的絕佳視野。從這裡可以俯瞰整個被群山環抱的寂靜村落與蜿蜒的溪谷。四季景色變幻莫測，秋季的滿山紅葉與冬季的水墨畫雪景最為迷人，是展現日本禪意與自然之美的最佳攝影處。", address: "山形縣山形市山寺4456-1", day: "獨立行程", used: false },
+      { name: "弘前城 櫻花與花筏", intro: "青森縣的弘前公園是日本首屈一指的賞櫻勝地。以天守閣為背景的櫻花美不勝收，但最夢幻的拍攝點是護城河的「花筏」。櫻花花瓣飄落水面，將整條護城河染成粉紅色的絨毯，搭配隨風搖曳的垂櫻枝條，形成了令人窒息的粉色浪漫絕景，是春季東北最經典的畫面。", address: "青森縣弘前市下白銀町1", day: "獨立行程", used: false },
+      { name: "白石川堤一目千本櫻", intro: "宮城縣南部的賞櫻名所。沿著白石川長達8公里的河堤上，種植了超過一千兩百棵的染井吉野櫻。最經典的拍攝角度是以滿開的櫻花隧道為前景，背後襯著頂部仍有積雪的藏王連峰。清澈的河水、粉紅的櫻花與潔白的雪山，交織出一幅壯麗的春日風情畫。", address: "宮城縣柴田郡大河原町", day: "獨立行程", used: false },
+      { name: "秋田內陸縱貫鐵道", intro: "行駛於秋田縣深山中的地方鐵道，被稱為「秋田的微笑鐵道」。列車穿梭在未經破壞的自然原始林與田野之間。最受歡迎的拍攝點是在沿線的鐵橋旁，捕捉紅色或藍色的單節小火車駛過秋季金黃稻浪或冬季銀白雪景的瞬間，充滿了濃厚的鄉村懷舊風情與寧靜感。", address: "秋田縣北秋田市~仙北市", day: "獨立行程", used: false },
+      { name: "十和田湖與乙女之像", intro: "橫跨青森與秋田兩縣的火山湖，湖水深邃湛藍，透明度極高。湖畔最著名的地標是由雕刻家高村光太郎製作的青銅「乙女之像」。在清晨或黃昏時分，平靜的湖面如鏡子般倒映著周圍的森林與天空，氣氛空靈神祕。秋季湖畔紅葉倒影更是攝影師追逐的絕景。", address: "青森縣十和田市大字奧瀨", day: "獨立行程", used: false }
+    ];
+
+    // Desserts Data (10)
+    const dessertData = [
+      { name: "ずんだ茶寮 (毛豆泥奶昔)", intro: "將仙台傳統甜點毛豆泥進行了現代化的完美演繹。店內最具人氣的「毛豆泥奶昔（Zunda Shake）」，將香濃的香草奶昔與特製的毛豆泥混合，每一口都能吸到細碎的毛豆顆粒，奶香中帶有豆類的清甜，獨特風味令人驚艷。連知名藝人也曾公開讚賞，是仙台車站必喝的散步甜品。", address: "宮城縣仙台市青葉區中央1-1-1 仙台車站內", budget: "JPY ¥300 - ¥500", day: "Day 4 (已排入行程)", used: true },
+      { name: "Kazunori Ikeda Individuel", intro: "隱身於仙台市區巷弄內的頂級法式甜點店，主廚曾在巴黎修業多年。店內的蛋糕櫃宛如珠寶盒，每一款甜點都精緻得令人捨不得吃。特別推薦其色彩繽紛的馬卡龍與層次豐富的慕斯蛋糕，完美融合了日式細膩與法式浪漫。店內空間優雅，是享受貴婦般下午茶時光的絕佳去處。", address: "宮城縣仙台市青葉區一番町2-3-8", budget: "JPY ¥1,500 - ¥2,500", day: "獨立行程", used: false },
+      { name: "甘味處 彥一 (彦いち)", intro: "位於仙台一番町商店街的靜謐小巷內，是一間充滿昭和復古風情的日式甜品老店。招牌是手工製作的「白玉（湯圓）」與「餡蜜（Anmitsu）」。Q彈的白玉搭配綿密的紅豆泥、寒天與黑糖蜜，甜度適中，清涼解膩。店內裝潢古色古香，能在繁華商圈中找到一抹寧靜的日式氣息。", address: "宮城縣仙台市青葉區一番町4-5-41", budget: "JPY ¥800 - ¥1,200", day: "獨立行程", used: false },
+      { name: "山形果樹園 Cafe (王將果樹園)", intro: "山形縣是日本知名的水果王國，這間由當地果園直營的咖啡廳，主打使用自家種植的新鮮水果製作甜點。必點的是「季節水果百匯（Parfait）」，依季節鋪滿了櫻桃、水蜜桃或葡萄，果肉香甜多汁，搭配清爽的冰淇淋，視覺與味覺都超級滿足。坐在大片落地窗前，還能欣賞果園風光。", address: "山形縣天童市大字川原子1303", budget: "JPY ¥1,000 - ¥1,800", day: "獨立行程", used: false },
+      { name: "銀山溫泉 野川豆腐", intro: "位於銀山溫泉老街上的百年豆腐老店，除了供應周邊旅館食材，也提供遊客現吃的甜點。最特別的是「立食豆腐」，剛做好的手工豆腐帶著微溫，口感極其滑嫩細緻，淋上特製醬油或黑蜜，豆香濃郁。在寒冷的雪景中，吃上一口溫暖的手工豆腐甜品，是銀山溫泉獨有的療癒體驗。", address: "山形縣尾花澤市銀山新畑427", budget: "JPY ¥200 - ¥400", day: "Day 2 (已排入行程)", used: true },
+      { name: "盛岡 光原社 可否館", intro: "這是一間充滿文學氣息的咖啡館，因出版宮澤賢治的名作《要求特別多的餐廳》而聞名。咖啡館隱身在綠意盎然的庭院中，內部裝潢充滿大正時代的古典歐風。這裡提供職人手沖的深焙咖啡，搭配招牌的核桃餅乾（くるみクッキー），在寧靜的環境中，彷彿能與百年前的文豪進行一場跨時空的對話。", address: "岩手縣盛岡市材木町2-18", budget: "JPY ¥800 - ¥1,500", day: "獨立行程", used: false },
+      { name: "A-FACTORY 青森蘋果派", intro: "位於青森車站旁的複合式商場，是購買蘋果製品的天堂。館內有多家甜點工房，其中現烤的蘋果派最不容錯過。使用青森產的紅玉等品種，外層酥皮層層分明，內餡的蘋果塊保留了適度的酸味與脆感，不添加過多糖分，呈現蘋果最天然的美味。搭配商場內販售的蘋果西打酒更是絕配。", address: "青森縣青森市柳川1-4-2", budget: "JPY ¥400 - ¥800", day: "獨立行程", used: false },
+      { name: "秋田 角館 武家屋敷 Puding", intro: "位於充滿江戶風情的「陸奧小京都」角館，這間布丁專賣店以復古的玻璃瓶裝與濃郁口感大受歡迎。使用秋田縣產的鮮奶與優質雞蛋，經過低溫慢烤，布丁質地極為滑順綿密。除了經典的原味焦糖，還有加入在地特產醬油或櫻花口味的特色布丁。買一個坐在武家屋敷的黑木板牆旁享用，極具風情。", address: "秋田縣仙北市角館町表町下丁", budget: "JPY ¥400 - ¥600", day: "獨立行程", used: false },
+      { name: "松島 松華堂菓子店", intro: "位於松島海岸的優雅日式點心店。最知名的是「松華堂長崎蛋糕（カステラ）」，嚴選在地小麥與雞蛋，以傳統工法烘焙，口感扎實且蛋香濃郁，底部還藏有粗糖粒增添口感。二樓設有景觀咖啡廳，能點一份蛋糕拼盤配上抹茶，悠閒地透過窗戶欣賞松島灣的絕美海景，是旅途中的高級享受。", address: "宮城縣宮城郡松島町松島字町內109", budget: "JPY ¥1,000 - ¥1,500", day: "Day 3 (已排入行程)", used: true },
+      { name: "福島 柏屋 薄皮饅頭", intro: "日本三大饅頭之一，創立於1852年的老字號。特色在於極其輕薄的外皮，包裹著滿滿的北海道紅豆餡。紅豆餡分為帶顆粒的「粒餡」與綿密的「豆沙餡」，甜度拿捏得恰到好處，即使吃多也不會覺得膩。在店內還能享用到剛蒸好、熱騰騰的薄皮饅頭，搭配一杯熱綠茶，是東北道地的傳統甜點體驗。", address: "福島縣郡山市中町11-8", budget: "JPY ¥500 - ¥1,000", day: "獨立行程", used: false }
+    ];
+
+    // Market Data (5)
+    const marketData = [
+      { name: "AEON MALL 永旺夢樂城", intro: "日本最大規模的連鎖購物中心，也是旅程最後一天的大型採購站。館內結合了大型生鮮超市、平價服飾（如UNIQLO、GU）、百元店、藥妝店與美食街。超市區提供豐富的日本零食、調味料與熟食，非常適合一次買齊伴手禮與生活用品。空間寬敞明亮，推車好推，是全家大小都能逛得盡興的購物天堂。", address: "宮城縣名取市杜せきのした5-3-1 (名取店參考)", time: "09:00 - 21:00", day: "Day 5 (已排入行程)", used: true },
+      { name: "仙台朝市", intro: "被稱為「仙台市民的廚房」，隱藏在仙台車站前大樓的後巷中。這是一條充滿活力的傳統露天市場，長約100公尺的街道兩旁擠滿了販售新鮮海產、當季蔬果、乾貨與熟食的小攤位。不僅能買到便宜新鮮的在地農特產，還能品嚐到現炸的可樂餅、海鮮丼等平民美食，是體驗當地人真實生活氣息的最佳地點。", address: "宮城縣仙台市青葉區中央4-3-28", time: "08:00 - 18:00 (週日與國定假日公休)", day: "Day 4 (已排入行程)", used: true },
+      { name: "唐吉訶德 (Don Quijote) 仙台站西口店", intro: "日本最著名的連鎖折扣店，以商品種類繁多、營業時間極晚而聞名。從美妝保養品、零食特產、家電到名牌精品應有盡有，且價格通常具競爭力。店內陳列密集，充滿尋寶的樂趣。對於白天行程滿檔的旅客來說，這裡是夜晚回飯店前補齊購物清單、甚至是尋找宵夜泡麵的最後防線。", address: "宮城縣仙台市青葉區中央1-8-20", time: "<span class='red-text'>24小時營業</span>", day: "Day 4 (已排入行程)", used: true },
+      { name: "Jupiter 進口食品超市 (仙台車站內)", intro: "位於仙台車站地下街的特色超市，主要販售來自世界各地的進口食品，以及日本各地的嚴選特產。如果你對高級咖啡豆、異國調味料、特色起司或各國精美巧克力有興趣，這裡絕對能滿足你。同時也販售許多包裝精緻的日本在地果醬與茶葉，非常適合挑選有別於一般常規伴手禮的高質感禮物。", address: "宮城縣仙台市青葉區中央1-1-1 S-PAL B1F", time: "10:00 - 21:00", day: "獨立行程", used: false },
+      { name: "Ito-Yokado 伊藤洋華堂 (青森)", intro: "雖然這間位於青森，但在東北各地皆有分店的綜合型超市。一樓通常是規模龐大的生鮮食品區，特別推薦在這裡尋找當地農會出產的蘋果汁、特色泡麵與限定口味的零食。相較於便利商店，超市的價格更為實惠，且種類齊全。二樓以上則有服飾與居家用品，是深入體驗日本在地家庭購物日常的好去處。", address: "青森縣青森市浜田1-14-1", time: "09:00 - 21:00", day: "獨立行程", used: false }
+    ];
+
+    function renderModule(containerId, dataList, type) {
+      const container = document.getElementById(containerId);
+      dataList.forEach((item, index) => {
+        const id = `${type}-${index}`;
+        let textColor = item.used ? 'red-text' : 'blue-text';
+        let dayTag = item.day;
+        
+        let html = `
+          <div class="card stack-vertical">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-xl font-bold ${textColor}">${item.name || item.item}</h3>
+              <span class="day-tag">${dayTag}</span>
+            </div>
+            <p class="text-sm text-gray-700 leading-relaxed">${item.intro}</p>
+        `;
+
+        // POI
+        if (item.highlight) {
+          html += `<div class="mt-2 text-sm"><span class="font-bold"><i class="fa-solid fa-star text-yellow-500"></i> 亮點：</span> ${item.highlight}</div>`;
+        }
+        // BIB
+        if (item.dish) {
+          html += `<div class="mt-2 text-sm"><span class="font-bold"><i class="fa-solid fa-utensils text-orange-500"></i> 推薦：</span> ${item.dish}</div>`;
+        }
+        // Address & Copy
+        if (item.address) {
+          html += `<div class="mt-2 text-sm flex items-center gap-2">
+            <span class="font-bold"><i class="fa-solid fa-location-dot text-gray-500"></i> 地址：</span> 
+            <span id="${id}-addr">${item.address}</span>
+            <button class="copy-btn" onclick="copyToClipboard(this, document.getElementById('${id}-addr').innerText)">複製</button>
+          </div>`;
+        }
+        // Budget
+        if (item.budget) {
+          html += `<div class="mt-2 text-sm"><span class="font-bold"><i class="fa-solid fa-coins text-yellow-600"></i> 預算：</span> ${item.budget}</div>`;
+        }
+        // Market Time
+        if (item.time) {
+          html += `<div class="mt-2 text-sm"><span class="font-bold"><i class="fa-regular fa-clock text-green-600"></i> 營業時間：</span> ${item.time}</div>`;
+        }
+
+        html += `</div>`;
+        container.innerHTML += html;
+      });
+    }
+
+    // Initialize Render
+    renderModule('poi-container', poiData, 'poi');
+    renderModule('bib-container', bibData, 'bib');
+    renderModule('souvenir-container', souvenirData, 'souvenir');
+    renderModule('photo-container', photoData, 'photo');
+    renderModule('dessert-container', dessertData, 'dessert');
+    renderModule('market-container', marketData, 'market');
+
   </script>
 </body>
 </html>
