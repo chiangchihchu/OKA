@@ -1,0 +1,455 @@
+<style>
+  :root {
+    --primary-color: #1A365D;
+    --secondary-color: #0D9488;
+    --bg-light: #F8FAFC;
+    --text-main: #334155;
+    --text-muted: #64748B;
+    --border-color: #E2E8F0;
+    --white: #FFFFFF;
+    
+    /* 狀態顏色 */
+    --normal-bg: #DCFCE7;
+    --normal-text: #166534;
+    --borderline-bg: #FEF9C3;
+    --borderline-text: #854D0E;
+    --abnormal-bg: #FEE2E2;
+    --abnormal-text: #991B1B;
+    --unknown-bg: #F1F5F9;
+    --unknown-text: #475569;
+    
+    /* 提示框顏色 */
+    --info-bg: #EFF6FF;
+    --info-border: #93C5FD;
+    --warning-bg: #FFFBEB;
+    --warning-border: #FDE047;
+    --alert-bg: #FEF2F2;
+    --alert-border: #FCA5A5;
+    --success-bg: #F0FDF4;
+    --success-border: #86EFAC;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .report-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--bg-light);
+  }
+
+  .report-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .report-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+  }
+
+  .report-subtitle {
+    margin: 10px 0 0 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+
+  .card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+  }
+
+  .card h2 {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--bg-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card h3 {
+    color: var(--secondary-color);
+    font-size: 1.15rem;
+    margin-bottom: 15px;
+  }
+
+  /* 標籤樣式 */
+  .tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+  .tag.normal { background: var(--normal-bg); color: var(--normal-text); }
+  .tag.borderline { background: var(--borderline-bg); color: var(--borderline-text); }
+  .tag.abnormal { background: var(--abnormal-bg); color: var(--abnormal-text); }
+  .tag.insufficient { background: var(--unknown-bg); color: var(--unknown-text); }
+
+  .chance-tag {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .chance-tag.high { background: var(--normal-bg); color: var(--normal-text); border: 1px solid #86EFAC; }
+  .chance-tag.mid-high { background: #E0F2FE; color: #0369A1; border: 1px solid #7DD3FC; }
+  .chance-tag.medium { background: var(--borderline-bg); color: var(--borderline-text); border: 1px solid #FDE047; }
+  .chance-tag.mid-low { background: #FFEDD5; color: #C2410C; border: 1px solid #FDBA74; }
+  .chance-tag.low { background: var(--abnormal-bg); color: var(--abnormal-text); border: 1px solid #FCA5A5; }
+  .chance-tag.unknown { background: var(--unknown-bg); color: var(--unknown-text); border: 1px solid #CBD5E1; }
+
+  /* 表格樣式 */
+  .lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+  }
+  .lab-table th, .lab-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .lab-table th {
+    background: var(--bg-light);
+    color: var(--text-main);
+    font-weight: 600;
+  }
+  .lab-table tr:hover {
+    background-color: #F8FAFC;
+  }
+
+  /* 雙欄佈局 */
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 768px) {
+    .two-column-grid { grid-template-columns: 1fr; }
+  }
+
+  .good-factors-box, .risk-factors-box {
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid;
+  }
+  .good-factors-box {
+    background: var(--success-bg);
+    border-color: var(--success-border);
+  }
+  .risk-factors-box {
+    background: var(--alert-bg);
+    border-color: var(--alert-border);
+  }
+
+  /* 提示框 */
+  .info-box { background: var(--info-bg); border-left: 4px solid var(--info-border); padding: 15px; margin-bottom: 15px; border-radius: 0 8px 8px 0; }
+  .warning-box { background: var(--warning-bg); border-left: 4px solid var(--warning-border); padding: 15px; margin-bottom: 15px; border-radius: 0 8px 8px 0; }
+  .alert-box { background: var(--alert-bg); border-left: 4px solid var(--alert-border); padding: 15px; margin-bottom: 15px; border-radius: 0 8px 8px 0; color: #991B1B; font-weight: 500;}
+  .tip-box { background: #F5F3FF; border-left: 4px solid #A78BFA; padding: 15px; margin-bottom: 15px; border-radius: 0 8px 8px 0; }
+
+  /* 詳細檢驗項目區塊 */
+  .lab-item-block {
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+  }
+  .lab-item-block h3 {
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .lab-item-block ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .lab-item-block li {
+    margin-bottom: 8px;
+  }
+
+  /* 清單與雜項 */
+  ul.custom-list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  ul.custom-list li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+  }
+  ul.custom-list li::before {
+    content: "•";
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    position: absolute;
+    left: 8px;
+    top: -4px;
+  }
+  
+  .disclaimer-card {
+    background: #F1F5F9;
+    border-color: #CBD5E1;
+  }
+  .disclaimer-card h2 {
+    color: #475569;
+    border-bottom-color: #E2E8F0;
+  }
+</style>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>🧬 生殖免疫與檢驗分析報告</h1>
+    <p class="report-subtitle">專業判讀・免疫重點整理・後續植入指引</p>
+  </header>
+
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要</h2>
+    <div class="info-box">
+      本報告基於語音轉文字（ASR）之看診紀錄進行醫學邏輯重建與分析。部分名詞已校正為生殖免疫專業術語（如：明細胞 → B細胞；腫瘤化引子 → 腫瘤壞死因子 TNF-α；IVI機 → IVIG 靜脈注射免疫球蛋白）。
+    </div>
+    <ul class="custom-list">
+      <li><strong>評估對象：</strong> 女性，準備進行試管嬰兒（IVF）胚胎植入療程。</li>
+      <li><strong>基本生理數據：</strong> 體重 58 公斤（用於計算免疫球蛋白劑量）。</li>
+      <li><strong>既往病史：</strong> 已有 3 次胚胎植入失敗經驗（臨床定義屬「反覆著床失敗，RIF」）。</li>
+      <li><strong>目前主要問題：</strong> 免疫指標異常（B細胞比例與絕對值偏高），使用免疫抑制劑（口服藥）壓制效果有限，且曾因藥物劑量導致白血球下降過多。</li>
+      <li><strong>本次看診重點：</strong> 抽血排查潛在病毒感染（巨細胞病毒、皰疹病毒、披衣菌等），並擬定下一次植入週期的「高階免疫用藥策略」（生物製劑 + IVIG）。</li>
+    </ul>
+  </section>
+
+  <section class="card highlight-card">
+    <h2>🔎 二、檢驗報告重點整理</h2>
+    <div style="overflow-x: auto;">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th>結果</th>
+            <th>單位</th>
+            <th>時間點</th>
+            <th>狀態</th>
+            <th>簡要判讀</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>B細胞 (CD19+) 百分比</td>
+            <td>22</td>
+            <td>%</td>
+            <td>去年11/18及近期</td>
+            <td><span class="tag abnormal">異常偏高</span></td>
+            <td>遠高於備孕安全範圍，易引發免疫排斥。</td>
+          </tr>
+          <tr>
+            <td>B細胞 絕對值</td>
+            <td>> 600</td>
+            <td>/uL (推估)</td>
+            <td>去年11/18</td>
+            <td><span class="tag abnormal">異常偏高</span></td>
+            <td>目標值應小於 200 或 150，目前未達標。</td>
+          </tr>
+          <tr>
+            <td>白血球 (WBC)</td>
+            <td>偏低 → 正常</td>
+            <td>未提供</td>
+            <td>近期用藥調整後</td>
+            <td><span class="tag normal">目前穩定</span></td>
+            <td>口服免疫藥減量為1顆後，數值已回穩。</td>
+          </tr>
+          <tr>
+            <td>腫瘤壞死因子 (TNF-α)</td>
+            <td>未提供具體數字</td>
+            <td>未提供</td>
+            <td>過往病史提及</td>
+            <td><span class="tag abnormal">需合併治療</span></td>
+            <td>屬於發炎因子，需在植入週期一併控制。</td>
+          </tr>
+          <tr>
+            <td>病毒與感染篩檢<br>(CMV, HSV, 披衣菌)</td>
+            <td>等待報告中</td>
+            <td>-</td>
+            <td>今日抽血</td>
+            <td><span class="tag insufficient">待確認</span></td>
+            <td>排查是否因潛在感染導致B細胞居高不下。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+    
+    <div class="lab-item-block">
+      <h3>B細胞 (B Cell, 通常為 CD19+) 百分比：22% <span class="tag abnormal">明顯異常</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> B細胞是人體白血球中淋巴球的一種，負責產生抗體以對抗外來物。其百分比代表B細胞在整體淋巴球中所佔的比例。</li>
+        <li><strong>在生殖評估中的意義：</strong> 生殖免疫學中，胚胎對母體而言是一半外來的基因。若母體B細胞過度活躍，可能會產生自體免疫抗體，將胚胎視為外來異物而展開攻擊，導致著床失敗或早期流產。</li>
+        <li><strong>若偏高常見代表：</strong> 免疫系統處於過度敏感、發炎或受感染狀態；或者是原發性的自體免疫體質。</li>
+        <li><strong>本個案的可能解讀：</strong> 高達 22% 屬於臨床顯著偏高（生殖醫學通常希望控制在 10-15% 以下，依各實驗室而異）。這極可能是過去三次植入失敗（黑歷史）的關鍵免疫因素。</li>
+        <li><strong>是否需要追蹤：</strong> 絕對需要。目前已使用口服藥控制，但效果不彰，需尋找背後刺激原因（如病毒）或改用更強的標靶藥物。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>B細胞 絕對值：> 600 <span class="tag abnormal">明顯異常</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> 血液中每單位體積實際擁有的B細胞總數量。</li>
+        <li><strong>在生殖評估中的意義：</strong> 醫師提到目標是「壓到 200 以下，甚至 150」，但目前即使吃藥仍難以下降。絕對值居高不下，表示體內的抗體生成工廠仍在大量運作。</li>
+        <li><strong>本個案的可能解讀：</strong> 單純使用口服免疫調節劑/抑制劑（一天一顆）無法有效抑制B細胞增生。必須轉換策略，要麼找出感染源，要麼使用單株抗體（如生物製劑）強制清除。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>白血球 (WBC) 狀態：先降後穩 <span class="tag normal">目前正常/需注意</span></h3>
+      <ul>
+        <li><strong>這個狀態代表什麼：</strong> 血液中所有白血球的總和，是人體第一線免疫防禦力。</li>
+        <li><strong>本個案的可能解讀：</strong> 個案先前為了壓制B細胞，口服免疫用藥（一天兩顆），結果導致整體白血球降得太低（這會增加嚴重感染的風險）。因此醫師緊急將藥物減為一天一顆。這顯示個案對該口服藥的骨髓抑制副作用較敏感，無法靠「增加口服藥劑量」來達成壓低B細胞的目的，藥物治療已達瓶頸。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>體重：58 kg <span class="tag normal">用藥基準</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> 體重是計算許多高階免疫藥物（特別是靜脈注射免疫球蛋白 IVIG）劑量的絕對依據。</li>
+        <li><strong>本個案的可能解讀：</strong> IVIG 通常的標準劑量是每公斤體重 0.4~0.5 克。以 58 公斤計算，若要打足劑量，可能需要數瓶大劑量的 IVIG。醫師考量成本與半衰期，提出「先打一半劑量（如兩大一小或兩小一大）」的策略，讓藥效涵蓋到植入後第 7 天的驗孕期，若成功著床再行追加。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體評估</h2>
+    
+    <div class="warning-box">
+      <strong>核心診斷方向：免疫型反覆著床失敗 (Immunological Recurrent Implantation Failure)</strong>
+    </div>
+    <p>綜合以上病史與檢驗，本個案屬於標準的<strong>免疫因素導致之不孕/著床失敗</strong>。體內負責製造抗體的 B 細胞群體異常龐大且頑固，同時合併腫瘤壞死因子 (TNF-α) 偏高的疑慮。這種「雙重免疫活化」的子宮環境對胚胎極不友善。</p>
+    <p>目前的治療難題在於：常規口服免疫用藥已碰到天花板（加藥會導致白血球過低，減藥則B細胞壓不下來）。因此，醫療團隊的最新策略非常精準且符合現代生殖免疫邏輯：</p>
+    <ol>
+      <li><strong>先排除干擾：</strong> 檢測是否為隱性病毒（CMV, HSV）或細菌（披衣菌）感染在背後持續刺激B細胞。</li>
+      <li><strong>精準打擊：</strong> 若非感染所致，將啟動高階療程。在植入前使用「生物製劑（如點滴型的單株抗體，直接結合並抑制 B 細胞或中和 TNF-α）」加上「IVIG 靜脈注射免疫球蛋白（調節整體免疫寬容度）」。</li>
+    </ol>
+  </section>
+
+  <section class="card chance-card">
+    <h2>📈 五、目前成功機率評估</h2>
+    <div class="chance-level">
+      <span class="chance-tag mid-high">中等偏高 (若採用完整免疫療程)</span>
+    </div>
+    <p><strong>判斷依據與情境：</strong> 此評估適用於「在即將到來的凍胚植入週期中，若採用醫師建議的進階免疫用藥（生物製劑 + IVIG）」。由於針對過去失敗的痛點（B細胞過高）已擬定了強力的針對性解方，只要胚胎品質良好，著床機率將大幅翻轉提升。</p>
+    
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面原因</h3>
+        <ul class="custom-list">
+          <li><strong>已找到明確失敗原因：</strong> 發現 B 細胞與 TNF-α 異常，不再是「不明原因」失敗。</li>
+          <li><strong>年輕/優質胚胎（推測）：</strong> 醫師提及「胚胎是年輕的，分裂速度快」，代表胚胎本身的著床潛力與生命力強。</li>
+          <li><strong>治療策略升級：</strong> 準備動用生殖免疫領域的兩大最後防線（生物製劑與 IVIG），防護網建立完整。</li>
+        </ul>
+      </div>
+      <div class="risk-factors-box">
+        <h3>⚠️ 可能失敗原因</h3>
+        <ul class="custom-list">
+          <li><strong>頑固型免疫反應：</strong> 個案的 B 細胞對初步口服藥物反應不佳，屬於較強勢的免疫體質，即使打點滴仍有突破防線的微小可能。</li>
+          <li><strong>潛在感染未明：</strong> 若今日抽血證實有巨細胞病毒或披衣菌等感染，需先治療，可能會延遲植入時程。</li>
+          <li><strong>過往黑歷史：</strong> 三次失敗可能對子宮內膜容受性或心理壓力造成影響。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card research-card">
+    <h2>📚 七、調研資料摘要</h2>
+    
+    <ul class="custom-list">
+      <li><strong>B細胞與著床：</strong> 臨床生殖免疫學共識指出，CD19+ B細胞與子宮內膜的免疫耐受性相關。過高的B細胞易產生抗磷脂質抗體或抗甲狀腺抗體等，干擾胎盤微血管發育。</li>
+      <li><strong>生物製劑 (Biologics)：</strong> 針對 TNF-α (如復邁 Humira) 或 CD20 (如莫須瘤 Rituximab) 的標靶藥物，常以點滴或皮下注射給藥。能特異性地讓過度活躍的免疫細胞失去活性，是治療頑固型著床失敗的利器。</li>
+      <li><strong>靜脈注射免疫球蛋白 (IVIG)：</strong> 提取自健康捐血者的抗體。在生殖醫學中，IVIG 被認為能「稀釋或中和」母體內的有害自體抗體，並調控 NK 細胞與 B 細胞的功能，保護胚胎度過植入初期的危險期。半衰期約為 2-3 週。</li>
+    </ul>
+  </section>
+
+  <section class="card plan-card">
+    <h2>🪜 八、步驟指引</h2>
+    <div class="tip-box">
+      <strong>目前應對策略分為兩條路線，取決於今日的抽血結果：</strong>
+    </div>
+    <ol>
+      <li><strong>等待病毒報告 (明後天)：</strong> 
+         <ul>
+           <li><strong>若為陽性 (有感染)：</strong> 暫停植入計畫，優先服用抗病毒藥物，將潛在感染源清除後，B細胞應會自然下降。</li>
+           <li><strong>若為陰性 (無感染)：</strong> 確認是純粹的自體免疫問題，按原計畫進入植入週期。</li>
+         </ul>
+      </li>
+      <li><strong>植入週期前準備 (無感染路線)：</strong> 接受生物製劑點滴注射（需時 1-2 小時），將 B 細胞與 TNF-α 強制壓制。</li>
+      <li><strong>植入前奏與 IVIG 施打：</strong> 植入前數天，依體重施打「半劑量」的免疫球蛋白 (IVIG) 以節省經費並確保覆蓋關鍵期。</li>
+      <li><strong>植入後驗孕 (放榜)：</strong> 於植入後第 7 天提早抽血驗孕（若 β-hCG > 35 視為有著床）。若確認著床，再追加後續的 IVIG 劑量以安胎。</li>
+    </ol>
+  </section>
+
+  <section class="card advice-card">
+    <h2>💡 九、生活與胚胎植入策略建議</h2>
+    <ul class="custom-list">
+      <li><strong>預算與胚胎數量的權衡：</strong> 由於 IVIG 與生物製劑所費不貲，若您庫存的「年輕優質胚胎」數量很多，可以考慮醫師提議的「冒險方案」（第一次不打昂貴點滴，先植入一顆賭看看）；但若胚胎庫存少且珍貴，強烈建議<strong>不要省藥錢</strong>，直接採用完整免疫防護方案。</li>
+      <li><strong>感染防護：</strong> 目前白血球因減藥而恢復正常，但未來若施打生物製劑，免疫力仍會下降。備孕與植入期間，務必戴口罩、勤洗手，避免生食，嚴防感冒或腸胃炎。</li>
+      <li><strong>寵物接觸：</strong> 醫師詢問「是否有養貓」是因為貓糞便容易傳染弓漿蟲（Toxoplasma），這也是會刺激免疫系統並導致流產的病原。家中無養貓是好消息，但也請避免接觸流浪動物。</li>
+    </ul>
+  </section>
+
+  <section class="card discussion-card">
+    <h2>🗣️ 十、建議與醫師討論的關鍵問題</h2>
+    <p>下次看診（看病毒報告時），建議向醫師確認以下問題：</p>
+    <ul class="custom-list">
+      <li><strong>關於病毒報告：</strong> 「醫師，今天的 CMV、HSV 或披衣菌報告結果如何？是否需要先吃抗生素/抗病毒藥？」</li>
+      <li><strong>關於生物製劑：</strong> 「您提到的點滴型藥物（生物製劑），確定是針對 B 細胞的（如莫須瘤）還是針對 TNF-α 的（如復邁）？施打後大約幾天內可以植入？」</li>
+      <li><strong>關於 IVIG 預算：</strong> 「若依照我 58 公斤的體重，先打半劑量（兩瓶大/小？）的精確自費價格大約是多少？後續如果著床，追加的頻率和費用大約如何？」</li>
+      <li><strong>關於胚胎策略：</strong> 「目前我的優質凍胚還有幾顆？您建議我這次就火力全開用藥，還是先試一次不用高階藥物？」</li>
+      <li><strong>關於副作用：</strong> 「打完生物製劑和 IVIG，植入前後我可能會出現哪些副作用（如發燒、頭痛、過敏）？該如何應對？」</li>
+    </ul>
+  </section>
+
+  <section class="card alert-card">
+    <h2>🚨 十一、警示訊號</h2>
+    <div class="alert-box">
+      <strong>免疫治療期間，若出現以下症狀，請立即聯絡生殖中心或急診：</strong>
+      <ul style="margin-top: 10px; margin-bottom: 0;">
+        <li><strong>施打點滴時或返家後：</strong> 出現呼吸急促、胸悶、皮疹、嚴重畏寒或發燒（可能是對藥物或血製品的急性過敏反應）。</li>
+        <li><strong>日常生活中：</strong> 因免疫力被刻意壓制，若有泌尿道感染（頻尿、解尿劇痛）、嚴重咳嗽、持續高燒不退，必須盡快就醫並主動告知急診醫師正在接受生殖免疫抑制治療。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card disclaimer-card">
+    <h2>📌 十二、重要聲明</h2>
+    <p>本報告由 AI 生殖醫學資訊模型依據您提供的「語音轉文字看診紀錄」生成。由於語音辨識可能存在誤差（如藥名、專有名詞之諧音），本報告已盡力依臨床邏輯還原真實醫療情境，並進行風險分層與資訊整理。<strong>然而，本報告非正式醫療診斷，亦無法取代您的主治醫師之臨床專業判斷。</strong>實際用藥種類（如確切的生物製劑名稱）、IVIG 劑量、費用及植入時程，請務必以生殖中心醫師的最終醫囑為準。成功機率評估僅供方向性參考，不代表對醫療結果的保證。</p>
+  </section>
+</div>
