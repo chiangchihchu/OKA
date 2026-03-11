@@ -1,0 +1,335 @@
+<style>
+  :root {
+    --primary-color: #1A5F7A;
+    --secondary-color: #227C9D;
+    --bg-color: #F8F9FA;
+    --card-bg: #FFFFFF;
+    --text-main: #333333;
+    --text-muted: #666666;
+    --border-color: #E9ECEF;
+    
+    /* Tag Colors */
+    --tag-normal-bg: #D4EDDA;
+    --tag-normal-text: #155724;
+    --tag-borderline-bg: #FFF3CD;
+    --tag-borderline-text: #856404;
+    --tag-abnormal-bg: #F8D7DA;
+    --tag-abnormal-text: #721C24;
+    --tag-insufficient-bg: #E2E3E5;
+    --tag-insufficient-text: #383D41;
+    
+    /* Box Colors */
+    --info-bg: #E1F5FE;
+    --info-border: #81D4FA;
+    --warning-bg: #FFF8E1;
+    --warning-border: #FFE082;
+    --alert-bg: #FFEBEE;
+    --alert-border: #EF9A9A;
+    --success-bg: #E8F5E9;
+    --success-border: #A5D6A7;
+  }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, 'Microsoft JhengHei', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .report-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: transparent;
+  }
+
+  .report-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .report-header h1 {
+    margin: 0 0 10px 0;
+    font-size: 1.8rem;
+  }
+
+  .report-subtitle {
+    margin: 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-top: 4px solid var(--secondary-color);
+  }
+
+  .card h2 {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Tables */
+  .lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+  }
+
+  .lab-table th, .lab-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .lab-table th {
+    background-color: #F1F8FF;
+    color: var(--primary-color);
+    font-weight: bold;
+  }
+
+  .lab-table tr:hover {
+    background-color: #F8F9FA;
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .tag.normal { background: var(--tag-normal-bg); color: var(--tag-normal-text); }
+  .tag.borderline { background: var(--tag-borderline-bg); color: var(--tag-borderline-text); }
+  .tag.abnormal { background: var(--tag-abnormal-bg); color: var(--tag-abnormal-text); }
+  .tag.insufficient { background: var(--tag-insufficient-bg); color: var(--tag-insufficient-text); }
+
+  /* Two Column Grid */
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .two-column-grid { grid-template-columns: 1fr; }
+  }
+
+  .scenario-box {
+    padding: 20px;
+    border-radius: 8px;
+    background: #FAFAFA;
+    border: 1px solid var(--border-color);
+  }
+
+  .scenario-box h3 {
+    margin-top: 0;
+    color: var(--secondary-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+  }
+
+  .scenario-total {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #D32F2F;
+    text-align: right;
+    margin-top: 15px;
+  }
+
+  /* Info Boxes */
+  .info-box, .warning-box, .alert-box, .tip-box, .success-box {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 5px solid;
+  }
+  .info-box { background: var(--info-bg); border-color: var(--info-border); }
+  .warning-box { background: var(--warning-bg); border-color: var(--warning-border); }
+  .alert-box { background: var(--alert-bg); border-color: var(--alert-border); }
+  .tip-box { background: #F3E5F5; border-color: #CE93D8; }
+  .success-box { background: var(--success-bg); border-color: var(--success-border); }
+
+  /* Lists */
+  ul.custom-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  ul.custom-list li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+  }
+  ul.custom-list li::before {
+    content: '•';
+    color: var(--secondary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 8px;
+    top: -2px;
+  }
+</style>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>💰 生殖療程自費項目與預算分析報告</h1>
+    <p class="report-subtitle">針對子宮環境評估與高階免疫治療之費用解析與建議</p>
+  </header>
+
+  <section class="card summary-card">
+    <h2>📋 一、各項自費檢查與治療費用明細</h2>
+    <p>根據您與諮詢師的對話紀錄，為您整理出即將面臨的各項自費項目明細。<br>
+    <span style="font-size: 0.9em; color: var(--text-muted);">*註：部分對話錄音的數字可能有口誤或轉錄誤差（如 6500 與 65000、220000 與 22000），以下已依據臨床合理行情為您校正並說明。</span></p>
+    
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th>項目類別</th>
+          <th>具體項目</th>
+          <th>單次/單劑費用 (NTD)</th>
+          <th>臨床必要性與備註</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td rowspan="2" style="font-weight: bold; color: var(--primary-color);">子宮環境評估</td>
+          <td><strong>子宮鏡檢查</strong> (Hysteroscopy)</td>
+          <td>$7,000</td>
+          <td>確認子宮腔內是否有息肉、沾黏。若有異常需當下「加做治療」，則另收 <strong>$5,000</strong> (處置費) + <strong>病理化驗費</strong>。</td>
+        </tr>
+        <tr>
+          <td><strong>輸卵管攝影</strong> (HSG)</td>
+          <td>$2,500</td>
+          <td>確認輸卵管是否暢通或有水腫。若有水腫積液會毒殺胚胎，是排除反覆著床失敗的關鍵。</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold; color: var(--primary-color);">內膜著床窗</td>
+          <td><strong>ERA 內膜容受性檢測</strong></td>
+          <td>約 $50,000</td>
+          <td>找出最佳植入時間點。<span class="tag borderline">若子宮鏡發現息肉，當日將取消 ERA，以免影響準確度。</span></td>
+        </tr>
+        <tr>
+          <td rowspan="3" style="font-weight: bold; color: var(--primary-color);">高階免疫治療</td>
+          <td><strong>生物製劑</strong> (如：復邁/復立森)</td>
+          <td>約 $23,000 / 劑</td>
+          <td>對話提及「一隻 22,000 + 點滴耗材 1,000」。有急救型用法，或常規每三週打一次共三次的療程。</td>
+        </tr>
+        <tr>
+          <td><strong>IVIG 免疫球蛋白</strong> (小瓶)</td>
+          <td>$6,500 / 瓶</td>
+          <td rowspan="2">對話提及預計打「2 大 2 小」：<br>(2 × $26,000) + (2 × $6,500) = <strong>$65,000 / 組</strong>。<br>通常在植入前 2 天施打，作為免疫急救防線。</td>
+        </tr>
+        <tr>
+          <td><strong>IVIG 免疫球蛋白</strong> (大瓶)</td>
+          <td>$26,000 / 瓶</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  <section class="card chance-card">
+    <h2>📈 二、後續療程情境與預算加總試算</h2>
+    <p>由於生殖療程是動態變化的，您的實際花費將取決於「下個週期子宮鏡的結果」以及「免疫報告抽血數值」。以下為您試算三種最可能發生的情境：</p>
+
+    <div class="two-column-grid">
+      <div class="scenario-box">
+        <h3>✅ 情境 A：一路綠燈 (檢查皆正常)</h3>
+        <p><strong>狀況：</strong>子宮鏡完全正常，無息肉；當天順利完成 ERA 與輸卵管攝影。</p>
+        <ul class="custom-list">
+          <li>子宮鏡檢查：$7,000</li>
+          <li>ERA 檢測：$50,000</li>
+          <li>輸卵管攝影：$2,500</li>
+          <li>前置口服藥物：數千元內</li>
+        </ul>
+        <div class="scenario-total">當週期總計：約 $59,500</div>
+        <div style="font-size: 0.85em; color: var(--text-muted); margin-top: 10px;">*此情境最省時間，下下週期即可準備植入。</div>
+      </div>
+
+      <div class="scenario-box" style="border-color: #FFB74D;">
+        <h3>⚠️ 情境 B：需清除路障 (發現息肉/水腫)</h3>
+        <p><strong>狀況：</strong>子宮鏡發現息肉需現場切除。為求準確，當日 ERA 與攝影會<strong>取消且不收費</strong>。</p>
+        <ul class="custom-list">
+          <li>子宮鏡檢查：$7,000</li>
+          <li>息肉切除處置費：$5,000</li>
+          <li>病理化驗費：約數千元</li>
+          <li><span style="text-decoration: line-through; color:#999;">ERA與攝影：$0 (延至下週期)</span></li>
+        </ul>
+        <div class="scenario-total">當週期總計：約 $12,000 + 化驗費</div>
+        <div style="font-size: 0.85em; color: var(--text-muted); margin-top: 10px;">*此情境預算會遞延，下個週期需重新吃藥再做一次 ERA 與攝影。</div>
+      </div>
+    </div>
+
+    <div class="scenario-box" style="margin-top: 20px; border-color: #EF5350; background: #FFEBEE;">
+      <h3 style="color: #C62828;">💉 情境 C：啟動高階免疫防護 (植入當週期)</h3>
+      <p><strong>狀況：</strong>免疫報告顯示抗體活躍，醫師判斷必須加打生物製劑或 IVIG 才能植入，以避免再次發生反覆著床失敗。</p>
+      <ul class="custom-list">
+        <li>若選擇 <strong>IVIG (2大2小急救型)</strong>：單次約加收 <strong>$65,000</strong>。</li>
+        <li>若選擇 <strong>生物製劑 (打三次療程)</strong>：約 <strong>$69,000</strong> ($23,000 × 3)。</li>
+      </ul>
+      <div class="info-box" style="background: white;">
+        <strong>💡 財務影響：</strong>在真正進入「解凍植入」那個週期時，除了常規的植入費、超音波與黃體素費用（約 4~6 萬）外，需<strong>額外準備 6~7 萬元的免疫藥物預算</strong>。
+      </div>
+    </div>
+  </section>
+
+  <section class="card evaluation-card">
+    <h2>🧠 三、費用分析與臨床策略建議</h2>
+    
+    <div class="success-box">
+      <strong>1. 關於「三合一檢查」的費用效益：極高</strong>
+      <p>花費約 6 萬元的檢查費（子宮鏡 + ERA + 輸卵管攝影）看似不低，但您已取得 24 顆珍貴卵子。若因為盲目植入，導致優質胚胎浪費在長息肉、水腫毒殺或著床窗偏離的子宮裡，損失的將不僅是單次植入費（約 5 萬），還有珍貴的胚胎。這筆檢查費是<strong>「停損與提高勝率的必要投資」</strong>。</p>
+    </div>
+
+    <div class="warning-box">
+      <strong>2. 關於「是否不打高階免疫藥物」的抉擇：不建議省此費用</strong>
+      <p>諮詢師提到：「有客戶沒打也成功，但結果不太好…如果你在外院已經失敗超過三次，再跟你賭，就跟之前的診所沒什麼兩樣了。」<br>
+      這是非常中肯的醫療建議。反覆著床失敗的個案，胚胎非常珍貴。若抽血報告顯示免疫異常，強烈建議<strong>備妥免疫藥物的預算</strong>，不要在最後一哩路讓免疫系統攻擊胚胎。</p>
+    </div>
+
+    <div class="tip-box">
+      <strong>3. 醫療險理賠提醒</strong>
+      <p>「子宮鏡息肉切除」屬於門診手術，若您有投保醫療險（實支實付或手術險），通常可以申請理賠（包含處置費與化驗費）。建議您可以先向保險業務員確認您的保單條款，就診時可請醫師開立診斷證明書。</p>
+    </div>
+  </section>
+
+  <section class="card discussion-card">
+    <h2>🗣️ 四、與醫師 / 諮詢師確認費用的關鍵問題</h2>
+    <p>建議您在下次門診時，可以針對預算與療程彈性提出以下確認：</p>
+    <ul class="custom-list">
+      <li>「如果下週期子宮鏡真的發現息肉而取消 ERA，那前置吃的益斯得藥費可以退嗎？下一次重新週期的藥費大約多少？」</li>
+      <li>「關於免疫用藥，IVIG 和生物製劑的費用差不多（約 6 萬多），醫師會根據什麼數值來決定我適合打哪一種？」</li>
+      <li>「如果輸卵管攝影發現有水腫，後續如果需要轉介做腹腔鏡結紮手術，這部分費用與復原時間大約要抓多少？」</li>
+      <li>「我之前的保險如果有理賠門診手術，子宮鏡息肉切除的診斷證明書名稱可以怎麼開立比較妥當？」</li>
+    </ul>
+  </section>
+
+  <section class="card disclaimer-card">
+    <h2>📌 五、重要聲明</h2>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">
+      本費用分析報告為根據您提供的語音對話脈絡所進行之合理推算，目的在於協助您進行療程前之財務規劃與心理準備。實際收費標準、藥價浮動與處置項目，絕對可能因診所政策及當下醫療需求而有所變更。請務必以醫療院所開立之正式批價單及報價為準。
+    </p>
+  </section>
+</div>
