@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生殖醫學檢驗分析報告</title>
+<style>
+  :root {
+    --primary-color: #1e3a8a; /* 深藍色 */
+    --secondary-color: #0d9488; /* 藍綠色 */
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #334155;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    
+    /* 提示區塊底色 */
+    --info-bg: #eff6ff;
+    --warning-bg: #fffbeb;
+    --alert-bg: #fef2f2;
+    --success-bg: #f0fdf4;
+    
+    /* 標籤顏色 */
+    --tag-normal-bg: #d1fae5;
+    --tag-normal-text: #065f46;
+    --tag-borderline-bg: #fef3c7;
+    --tag-borderline-text: #92400e;
+    --tag-abnormal-bg: #fee2e2;
+    --tag-abnormal-text: #991b1b;
+    --tag-info-bg: #dbeafe;
+    --tag-info-text: #1e40af;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .report-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: transparent;
+  }
+
+  /* 標題區 */
+  .report-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  .report-header h1 {
+    margin: 0 0 10px 0;
+    font-size: 1.8rem;
+  }
+  .report-subtitle {
+    margin: 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+
+  /* 卡片設計 */
+  .card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+  }
+  .card h2 {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--info-bg);
+    padding-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* 表格設計 */
+  .lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.95rem;
+  }
+  .lab-table th, .lab-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .lab-table th {
+    background-color: var(--info-bg);
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+  .lab-table tr:hover {
+    background-color: #f8fafc;
+  }
+
+  /* 逐項數字說明區塊 */
+  .lab-item-block {
+    background-color: #f8fafc;
+    border-left: 4px solid var(--secondary-color);
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    border-radius: 0 8px 8px 0;
+  }
+  .lab-item-block h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .lab-item-block ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .lab-item-block li {
+    margin-bottom: 8px;
+  }
+
+  /* 雙欄設計 */
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 16px;
+  }
+  .good-factors-box, .risk-factors-box {
+    padding: 16px;
+    border-radius: 8px;
+  }
+  .good-factors-box {
+    background-color: var(--success-bg);
+    border: 1px solid #bbf7d0;
+  }
+  .risk-factors-box {
+    background-color: var(--alert-bg);
+    border: 1px solid #fecaca;
+  }
+  .good-factors-box h3, .risk-factors-box h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .good-factors-box h3 { color: #166534; }
+  .risk-factors-box h3 { color: #991b1b; }
+
+  /* 狀態標籤 */
+  .tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .tag.normal { background-color: var(--tag-normal-bg); color: var(--tag-normal-text); }
+  .tag.info { background-color: var(--tag-info-bg); color: var(--tag-info-text); }
+  .tag.borderline { background-color: var(--tag-borderline-bg); color: var(--tag-borderline-text); }
+  .tag.abnormal { background-color: var(--tag-abnormal-bg); color: var(--tag-abnormal-text); }
+
+  /* 成功機率標籤 */
+  .chance-level {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    padding: 16px;
+    background-color: var(--info-bg);
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  .chance-tag {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+  }
+  .chance-tag.mid-high { background-color: #d1fae5; color: #065f46; border: 1px solid #34d399; }
+
+  /* 提示框 */
+  .tip-box {
+    background-color: var(--info-bg);
+    border-left: 4px solid var(--primary-color);
+    padding: 16px;
+    border-radius: 4px;
+    margin: 16px 0;
+  }
+  .warning-box {
+    background-color: var(--warning-bg);
+    border-left: 4px solid #f59e0b;
+    padding: 16px;
+    border-radius: 4px;
+    margin: 16px 0;
+  }
+
+  /* 響應式設計 */
+  @media (max-width: 768px) {
+    .two-column-grid {
+      grid-template-columns: 1fr;
+    }
+    .lab-table th, .lab-table td {
+      padding: 8px;
+      font-size: 0.85rem;
+    }
+    .report-header h1 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>🧬 生殖醫學：胚胎解凍與培養計畫分析報告</h1>
+    <p class="report-subtitle">專業判讀・療程重點整理・後續指引</p>
+  </header>
+
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要</h2>
+    <ul>
+      <li><strong>目前療程階段：</strong> 冷凍卵子解凍與受精培養（IVF/ICSI 階段）</li>
+      <li><strong>預計解凍卵子數：</strong> 24 顆</li>
+      <li><strong>受精方式：</strong> 顯微受精（ICSI）</li>
+      <li><strong>胚胎著床前染色體篩檢（PGT-A / PGS）：</strong> 不進行</li>
+      <li><strong>重要背景提示：</strong> 夫妻將於本週六至下週三外出旅遊，先生體貼太太心情，約定旅遊期間不主動查看 APP 數據，待下週四由胚胎師統一電話報告最終結果，以避免每日數據波動影響情緒。</li>
+    </ul>
+    <div class="tip-box">
+      <strong>臨床人員註記：</strong> 此為胚胎實驗室解說之摘要紀錄。主要針對卵子解凍後的受精預期、胚胎發育漏斗效應（Attrition rate）及囊胚評分標準進行衛教與規劃。
+    </div>
+  </section>
+
+  <section class="card highlight-card">
+    <h2>🔎 二、實驗室預期數據重點整理</h2>
+    <p>依據生殖醫學常規及胚胎師的說明，針對本次 24 顆卵子的後續發展進行數據預估：</p>
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th>階段</th>
+          <th>評估項目</th>
+          <th>預估數字/比例</th>
+          <th>時間點</th>
+          <th>狀態</th>
+          <th>簡要判讀</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>解凍日</td>
+          <td>起始卵子數</td>
+          <td>24 顆</td>
+          <td>Day 0</td>
+          <td><span class="tag info">基礎數量優良</span></td>
+          <td>卵子庫存極佳，提供良好的容錯率。</td>
+        </tr>
+        <tr>
+          <td>受精日</td>
+          <td>預期受精率</td>
+          <td>約 70%</td>
+          <td>Day 1</td>
+          <td><span class="tag normal">符合常規</span></td>
+          <td>預期約有 16-17 顆卵子能正常受精（出現 2PN）。</td>
+        </tr>
+        <tr>
+          <td>培養期</td>
+          <td>囊胚形成率</td>
+          <td>約 25%-33%</td>
+          <td>Day 5-7</td>
+          <td><span class="tag normal">符合常規</span></td>
+          <td>由「初始卵子數」推算，預計最終可能獲得 3-5 顆（或以上）可冷凍之囊胚。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、療程關鍵數字與指標詳細說明</h2>
+    
+    <div class="lab-item-block">
+      <h3>起始解凍卵子：24 顆 <span class="tag info">數量優勢</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> 本次療程可供使用的卵子總數。</li>
+        <li><strong>在生殖評估中的意義：</strong> 24 顆卵子在試管嬰兒療程中屬於「非常充裕」的基數，大幅提升了最終獲得優質囊胚的機率。</li>
+        <li><strong>本個案的可能解讀：</strong> 雖然胚胎培養過程中必然會有耗損，但 24 顆的龐大基數提供了極佳的緩衝空間。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>預期正常受精率：約 70% <span class="tag normal">常規指標</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> 採用顯微受精（ICSI）後，卵子成功與精子結合並出現兩個原核（2PN）的比例。</li>
+        <li><strong>在生殖評估中的意義：</strong> 正常受精（2PN）代表來自卵子與精子的遺傳物質順利結合。異常受精（如 3PN、多 PN）則不可使用。</li>
+        <li><strong>特殊情況（0PN/1PN）：</strong> 胚胎師提及若觀察到 0 或 1 個圓核，可能是發育過快/過慢或異常。這些會「分開培養」，若最終形成囊胚，原則上**優先植入確定為 2PN 正常受精發育而來的胚胎**。</li>
+        <li><strong>本個案的可能解讀：</strong> 以 24 顆卵子計算，預期會有約 16-17 顆正常受精。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>囊胚形成率：約 1/4 ~ 1/3 (每10顆約3±1顆) <span class="tag normal">常規指標</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> 這是試管嬰兒療程中著名的「漏斗效應」。並非所有受精卵都能長到第 5-7 天變成囊胚。</li>
+        <li><strong>在生殖評估中的意義：</strong> 胚胎在第 3 天後會啟動自身的基因表現，若胚胎品質不佳或染色體異常，往往會在第 3 到第 5 天之間停止分裂（淘汰）。</li>
+        <li><strong>本個案的可能解讀：</strong> 胚胎師保守估計，24顆卵子最終可能獲得 3-5 顆（或稍多）的可用囊胚。這是一個**非常正常且合理的醫學現象**，家屬（特別是太太）無需因為數字從 24 掉到個位數而感到自責或焦慮。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>囊胚等級評分標準 (例: 4AA, 5BC) <span class="tag info">專業知識</span></h3>
+      <ul>
+        <li><strong>數字 (4, 5, 6)：</strong> 代表囊胚的發育階段與孵化狀態。4 代表在殼內，5 代表正在孵出（破殼），6 代表完全孵出。數字**不代表品質好壞**，僅代表「進程」。</li>
+        <li><strong>第一個英文字母 (A, B, C)：</strong> 評估「內細胞團 (ICM)」，這部分未來會發育成**胎兒**。細胞越緊密、越多為 A，其次為 B。若為 C（無明顯內細胞團），則不具備冷凍與使用價值。</li>
+        <li><strong>第二個英文字母 (A, B, C)：</strong> 評估「滋養層細胞 (TE)」，這部分未來會發育成**胎盤**。細胞數量多為 A，其次為 B、C。</li>
+        <li><strong>本個案的可能解讀：</strong> 只要第一個字母不是 C（例如 AA, AB, BA, BB, BC, CB），都屬於有機會著床的囊胚，診所就會進行冷凍保存。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體評估</h2>
+    <p>本個案目前正處於試管嬰兒療程中最關鍵的「胚胎實驗室培養階段」。醫療團隊採取了非常穩健的策略：</p>
+    <ol>
+      <li>使用 <strong>ICSI（單一精子顯微注射）</strong> 確保最高機率的受精。</li>
+      <li>規劃培養至 <strong>Day 5-7 的囊胚期</strong>，這是自然淘汰不良胚胎的最佳方式，能確保最終冷凍的胚胎具有較高的著床潛力。</li>
+      <li>對於 1PN/0PN 等邊緣狀況，採取「不輕易放棄但分開培養、降級使用」的嚴謹態度。</li>
+    </ol>
+    <p>先生提議在旅遊期間（週六至週三）不刻意查看 APP 數據，是非常具有心理支持意義的決定，這能有效避免「卵子數銳減效應」對女方造成的心理壓力。</p>
+  </section>
+
+  <section class="card chance-card">
+    <h2>📈 五、目前療程預期結果評估</h2>
+    <div class="chance-level"><span class="chance-tag mid-high">中等偏高 (具有優勢)</span></div>
+    <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: -10px; margin-bottom: 20px;">此評估適用於：本次獲得「可冷凍囊胚」之機率</p>
+    
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面原因</h3>
+        <ul>
+          <li><strong>卵子數量極佳：</strong> 24顆的起點遠高於平均值，能有效抵抗培養過程中的自然淘汰。</li>
+          <li><strong>採用顯微受精：</strong> 克服了精卵自然結合可能失敗的風險。</li>
+          <li><strong>心理狀態管理：</strong> 伴侶主動介入管理資訊接收頻率，有助於維持穩定的情緒，這對後續的內膜準備與植入非常重要。</li>
+        </ul>
+      </div>
+      <div class="risk-factors-box">
+        <h3>⚠️ 可能帶來挫折的因素</h3>
+        <ul>
+          <li><strong>漏斗效應的心理衝擊：</strong> 從 24 顆卵子到預期約 3-5 顆囊胚，視覺上的「衰退率」很大，若未建立正確期待，容易產生嚴重的失落感。</li>
+          <li><strong>未做 PGS（染色體篩檢）：</strong> 雖然不影響囊胚形成，但未來植入時，需承擔高齡或自然機率下的染色體異常盲測風險。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card research-card">
+    <h2>📚 七、調研資料摘要（試管嬰兒漏斗效應）</h2>
+    <p>在生殖醫學臨床實務中，從取卵到最終獲得囊胚，存在著名的「IVF 漏斗效應 (IVF Funnel)」。常見的耗損指標如下：</p>
+    <ul>
+      <li><strong>成熟率：</strong> 取出的卵子約有 75%-80% 為成熟卵子 (MII) 可供受精。解凍卵子通常已篩選過成熟度。</li>
+      <li><strong>受精率：</strong> 使用 ICSI 的正常受精率約為 70%-80%。</li>
+      <li><strong>卵裂率：</strong> 受精卵分裂成 Day 3 胚胎的比例極高（約 90% 以上）。</li>
+      <li><strong>囊胚形成率：</strong> Day 3 胚胎繼續發育至 Day 5/6 囊胚的比例約為 40%-50%。但若以「初始總卵子數」來算，最終獲得囊胚的比例大約落在 20%-35% 之間。</li>
+      <li><strong>結論：</strong> 胚胎師所說的「10顆大概成3顆」，完全符合國際生殖醫學的標準常態。</li>
+    </ul>
+  </section>
+
+  <section class="card plan-card">
+    <h2>🪜 八、步驟指引與時間軸</h2>
+    <div class="tip-box">
+      <strong>目前狀態：</strong> Day 0 (解凍日) ➔ <strong>下一步：等待培養完成</strong>
+    </div>
+    <ol>
+      <li><strong>本週四、週五：</strong> 實驗室進行解凍、受精（Day 1 確認 2PN）、早期分裂觀察。</li>
+      <li><strong>本週六～下週三：</strong> <strong>【重要】安心出遊旅遊，放鬆心情！</strong> 夫妻雙方皆不需登入 APP 觀看分裂過程，避免徒增煩惱。</li>
+      <li><strong>下週四：</strong> 接收胚胎師的主動來電回報。此時胚胎已發育至 Day 5-7，將得知「最終成功冷凍的囊胚數量與等級」。</li>
+      <li><strong>下次回診：</strong> 待月經週期到來，回診與醫師討論冷凍胚胎植入（FET）的內膜準備計畫。</li>
+    </ol>
+  </section>
+
+  <section class="card advice-card">
+    <h2>💡 九、生活與心理建議</h2>
+    <ul>
+      <li><strong>放鬆與轉移注意力：</strong> 實驗室的培養全由專業人員操作，患者的焦慮無法改變胚胎發展。旅遊是極佳的安排，請盡情享受假期。</li>
+      <li><strong>建立正確期待：</strong> 請先生協助太太建立「質量重於數量」的觀念。試管療程最終只需要「一顆」健康的胚胎就能順利抱到寶寶。只要最後有順利凍到優質囊胚，前面的耗損都是值得的。</li>
+    </ul>
+  </section>
+
+  <section class="card discussion-card">
+    <h2>🗣️ 十、下週四接獲報告後，建議詢問的關鍵問題</h2>
+    <p>當下週四胚胎師致電報告結果時，先生可以記錄以下問題的答案：</p>
+    <ol>
+      <li>請問最終成功冷凍了幾顆囊胚？它們的等級分別是什麼？</li>
+      <li>請問其中有沒有第一天是 1PN 或 0PN 發展而來的？如果有，診所有沒有特別標記？</li>
+      <li>以目前的囊胚數量與等級，醫師對於我們接下來的植入計畫有沒有初步的建議？（例如：建議單一植入還是雙胚胎植入？）</li>
+      <li>我們需要預約哪一天的門診回診，開始準備子宮內膜？</li>
+    </ol>
+  </section>
+
+  <section class="card disclaimer-card">
+    <h2>📌 十一、重要聲明</h2>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">
+      本報告由生殖醫學資訊系統依據您提供的語音摘要紀錄自動生成。內容旨在協助您理解實驗室流程與胚胎學專有名詞，幫助您與伴侶建立合理的療程期待。本報告<strong>無法取代生殖專科醫師的正式醫療診斷或胚胎師的最終書面報告</strong>。實際囊胚養成數量、等級與後續植入成功率，仍需視胚胎發育的實際狀況而定。如有任何醫療決策，請務必與您的主治醫師討論。
+    </p>
+  </section>
+
+</div>
+
+</body>
+</html>
