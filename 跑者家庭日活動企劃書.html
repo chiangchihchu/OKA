@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>【桃園市雙連長跑協會】跑者家庭日活動企劃書</title>
+  <style>
+    /* =========================================
+       草原 & 運動風格版面設計 (Grassland & Sports Theme)
+       ========================================= */
+    :root {
+      --primary-color: #4CAF50; /* 草原綠：象徵自然、戶外 */
+      --secondary-color: #2E7D32; /* 深林綠：專業、沉穩 */
+      --accent-color: #FF9800; /* 運動橘：增加對比與活力 */
+      --track-color: #8D6E63; /* 泥土小徑棕 */
+      --bg-color: #E8F5E9;
+      --text-color: #2C3E50;
+      --card-bg: #FFFFFF;
+      --border-color: #C8E6C9;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, "PingFang TC", "LiHei Pro", "Microsoft JhengHei", Arial, sans-serif;
+      line-height: 1.8;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      /* 加上淡淡的雙色綠斜線背景，呈現草皮的層次與速度感 */
+      background-image: repeating-linear-gradient(
+        -45deg,
+        #E8F5E9,
+        #E8F5E9 15px,
+        #F1F8E9 15px,
+        #F1F8E9 30px
+      );
+      margin: 0;
+      padding: 20px 10px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      overflow: hidden;
+      position: relative;
+      border-top: 5px solid var(--accent-color);
+    }
+
+    /* 左側跑道視覺裝飾線 - 改為越野土徑風格 */
+    .container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 10px;
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--track-color),
+        var(--track-color) 30px,
+        #D7CCC8 30px,
+        #D7CCC8 45px
+      );
+      border-right: 2px solid var(--primary-color);
+    }
+
+    .header-banner {
+      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      border-bottom: 5px solid var(--accent-color);
+    }
+
+    .header-banner h1 {
+      margin: 0;
+      font-size: 2.2em;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .header-banner p {
+      margin: 10px 0 0 0;
+      font-size: 1.2em;
+      color: #E8F5E9;
+    }
+
+    .content {
+      padding: 30px 50px;
+    }
+
+    @media (max-width: 600px) {
+      .content { padding: 20px; }
+      .header-banner h1 { font-size: 1.8em; }
+    }
+
+    h2 {
+      color: var(--secondary-color);
+      font-size: 1.5em;
+      margin-top: 40px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+    }
+
+    /* 標題旁的小圖示（運用戶外元素） */
+    h2::before {
+      content: "🏕️";
+      margin-right: 10px;
+      font-size: 1.2em;
+    }
+
+    ul {
+      padding-left: 20px;
+      list-style-type: none;
+    }
+
+    ul > li {
+      position: relative;
+      padding-left: 25px;
+      margin-bottom: 12px;
+    }
+
+    ul > li::before {
+      content: "🍃";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      font-size: 0.9em;
+    }
+
+    ul ul > li::before {
+      content: "▹";
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      background-color: #FFF;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background-color: var(--secondary-color);
+      color: #FFF;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    tbody tr:hover {
+      background-color: #F1F8E9; /* 懸停時的淺草綠反饋 */
+      transition: background-color 0.3s;
+    }
+
+    .highlight {
+      color: #FFF;
+      font-weight: bold;
+      background-color: var(--accent-color);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: var(--accent-color);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.85em;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    .note-box {
+      background: #E8F5E9;
+      border-left: 5px solid var(--primary-color);
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+      color: #1B5E20;
+    }
+    
+    .warning-box {
+      background: #FFF3E0;
+      border-left: 5px solid #FF9800;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+      color: #E65100;
+      font-weight: bold;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 25px;
+      background-color: var(--secondary-color);
+      color: #C8E6C9;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- 頁首動感橫幅 -->
+  <div class="header-banner">
+    <h1>桃園市雙連長跑協會</h1>
+    <p>「跑向山林，接力傳愛」2026 跑者家庭日企劃書</p>
+  </div>
+
+  <div class="content">
+    <h2>一、 活動摘要</h2>
+    <ul>
+      <li><strong>活動名稱：</strong>「跑向山林，接力傳愛」—— 桃園市雙連長跑協會家庭日</li>
+      <li><strong>活動日期：</strong><span class="highlight">2026年 7月 18日（星期六）</span> 09:30 - 15:30</li>
+      <li><strong>活動地點：</strong>新竹 馬武督探索森林（新竹縣關西鎮錦山里12鄰138-3號）</li>
+      <li><strong>參與人數：</strong>預計 <span class="highlight">40人</span>。以本會社團成員優先報名，若未額滿則開放會員眷屬參加。</li>
+      <li><strong>主辦單位：</strong>桃園市雙連長跑協會</li>
+      <li><strong>主辦窗口：</strong><span class="highlight">魏苔妘 理事</span></li>
+      <li><strong>活動目的：</strong>
+        <ul>
+          <li><strong>賽後恢復與放鬆：</strong>將日常的柏油路訓練轉換為森林步道健行，藉由芬多精進行身心「恢復跑」。</li>
+          <li><strong>凝聚團隊向心力：</strong>透過趣味團康與烤肉活動，增進跑友與眷屬間的感情，打造「不僅是一起跑步，更是一起生活」的社團氛圍。</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2>二、 預算規劃 <span class="badge">總預算 $52,000</span></h2>
+    <div class="note-box">
+      <strong>💡 經費說明：</strong>本次活動社團專案原補助 $50,000，因升級烤肉食材並增列共乘車資補助，總預算微調至 $52,000。社團會員全額補助免費，非會員（眷屬）每人酌收 $500 餐費，所收費用將用於補貼超支預算或歸入社團公積金。交通由參加者自行處理，唯提供車主定額油資補貼。
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>預算項目</th>
+          <th>說明與計算基準</th>
+          <th>單價預估</th>
+          <th>數量</th>
+          <th>小計 (NTD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>場地門票與停車</td>
+          <td>成人團體/假日票 $150/人；小客車停車費 $60/輛 (預估13輛)</td>
+          <td>-</td>
+          <td>40人/13車</td>
+          <td>$6,780</td>
+        </tr>
+        <tr>
+          <td>能量補給 (烤肉)</td>
+          <td>升級版 10 人份豪華海陸烤肉套餐 x 4組 (含食材、烤肉架及清潔費)</td>
+          <td>$5,000/組</td>
+          <td>4</td>
+          <td>$20,000</td>
+        </tr>
+        <tr>
+          <td>【共乘動能】車資補助</td>
+          <td>鼓勵共乘，體恤車主辛勞，每台出車載客之車輛定額油資補助</td>
+          <td>$500/車</td>
+          <td>13</td>
+          <td>$6,500</td>
+        </tr>
+        <tr>
+          <td>【微醺綠洲】酒精飲品</td>
+          <td>各式啤酒、微醺氣泡酒、冰鎮水果酒及調酒材料</td>
+          <td>-</td>
+          <td>一式</td>
+          <td>$10,000</td>
+        </tr>
+        <tr>
+          <td>水站補給與副食</td>
+          <td>運動飲料、礦泉水、大冰塊、當季消暑水果</td>
+          <td>-</td>
+          <td>一式</td>
+          <td>$2,000</td>
+        </tr>
+        <tr>
+          <td>旅遊平安保險</td>
+          <td>100萬意外險 + 10萬醫療險</td>
+          <td>$100/人</td>
+          <td>40</td>
+          <td>$4,000</td>
+        </tr>
+        <tr>
+          <td>雜支與醫療包</td>
+          <td>急救箱補充(肌貼、白藥水、防蚊液)、紅布條、活動道具</td>
+          <td>-</td>
+          <td>一式</td>
+          <td>$2,000</td>
+        </tr>
+        <tr>
+          <td><strong>活動預備金</strong></td>
+          <td>應付突發狀況或現場價格波動之結餘款</td>
+          <td>-</td>
+          <td>-</td>
+          <td>$720</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr style="background-color: #FFF3E0; font-weight: bold; color: var(--primary-color);">
+          <td colspan="4" style="text-align: right;">總計：</td>
+          <td>$52,000</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <h2>三、 行程與流程表</h2>
+    <p>以「休閒、交流」為主軸，將跑步術語融入各個環節，增添社團專屬趣味。</p>
+    <table>
+      <thead>
+        <tr>
+          <th width="15%">時間</th>
+          <th width="28%">環節主題</th>
+          <th width="37%">內容說明</th>
+          <th width="20%">負責人 / 地點</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>09:30 - 10:00</strong></td>
+          <td><strong>【起跑線準備】</strong><br>跑者集合與報到</td>
+          <td>於第一停車場集合，發放名牌。進行馬武督大會操，確實熱身防護。</td>
+          <td>主辦窗口 / 售票口外</td>
+        </tr>
+        <tr>
+          <td><strong>10:00 - 11:30</strong></td>
+          <td><strong>【芬多精配速】</strong><br>森林恢復跑健行</td>
+          <td>分組漫步綠光小學、虹橋瀑布等步道。設立「尋寶打卡點」，各組完成合照任務。</td>
+          <td>活動組 / 園區步道</td>
+        </tr>
+        <tr>
+          <td><strong>11:30 - 14:00</strong></td>
+          <td><strong>【PB 挑戰】</strong><br>Personal BBQ 派對</td>
+          <td>抵達烤肉區生火。期間穿插敬酒與年度回顧小聊，交流日常練跑心得。</td>
+          <td>全體 / 烤肉區</td>
+        </tr>
+        <tr>
+          <td><strong>14:00 - 15:30</strong></td>
+          <td><strong>【接力傳愛】</strong><br>草地趣味團康</td>
+          <td>舉辦結合跑步元素的微型競賽，如「盲跑引導」。進行積分結算與團康同樂。</td>
+          <td>活動組 / 綠光小學操場</td>
+        </tr>
+        <tr>
+          <td><strong>15:30 - 16:00</strong></td>
+          <td><strong>【快樂完賽】</strong><br>大合照與場地復原</td>
+          <td>落實「無痕山林」垃圾清理。拍攝家庭日大合照，宣佈活動圓滿結束。</td>
+          <td>主辦窗口 / 園區</td>
+        </tr>
+        <tr>
+          <td><strong>16:00 ~</strong></td>
+          <td><strong>【賦歸】</strong></td>
+          <td>車友互助，平安返家，期待下次賽道見。</td>
+          <td>各車負責人</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>四、 交通與餐飲規劃</h2>
+    <ul>
+      <li><strong>交通方式（自行前往）：</strong>
+        <ul>
+          <li>本次活動採<span class="highlight">自行開車前往</span>。</li>
+          <li>鼓勵社團成員「共乘（Carpool）」，於報名表內調查「可提供車位數」與「需搭便車人數」，由行政組協助媒合。<span class="highlight">為體恤車主辛勞，每台實際出車載客之車輛將補助 $500 元油資。</span></li>
+          <li><strong>導航設定：</strong>請定位「馬武督探索森林」（新竹縣關西鎮錦山里12鄰138-3號）。</li>
+        </ul>
+      </li>
+      <li><strong>餐飲規劃（草原烤肉與微醺派對）：</strong>
+        <ul>
+          <li><strong>PB 烤肉主食：</strong>午餐採園區內大草皮旁烤肉，統一由社團代訂<span class="highlight">升級版 $5,000 豪華海陸食材組</span>。如有素食需求者，將另備專屬素食烤肉組（需於報名時註明）。</li>
+          <li><strong>微醺綠洲 (特調吧台)：</strong>本次特別編列 $10,000 預算購買各類沁涼啤酒、微醺氣泡酒及調酒，供成員在賽後放鬆暢飲，享受大自然的微醺時光。</li>
+          <li><strong>恢復水站：</strong>考量跑者對水分及電解質的龐大需求，現場另備大桶冰鎮運動飲料、礦泉水與當季水果。</li>
+        </ul>
+      </li>
+      <div class="warning-box">
+        ⚠️ 飲酒安全宣導：喝酒不開車，開車不喝酒！<br>
+        報名表內將特別調查「指定駕駛（不飲酒）」，確保每車皆有清醒駕駛。若需飲酒請務必參與共乘，保障全體跑友安全。
+      </div>
+      <li><strong>住宿安排：</strong>單日活動，無住宿規劃。</li>
+    </ul>
+
+    <h2>五、 工作人員配置</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>職務</th>
+          <th>建議人數</th>
+          <th>負責範圍</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>總召 / 窗口</strong></td>
+          <td>魏苔妘 理事</td>
+          <td>活動總指揮、預算控管、場地接洽、對外發言。</td>
+        </tr>
+        <tr>
+          <td><strong>行政與財務組</strong></td>
+          <td>2人</td>
+          <td>發送報名表、收取保險資料、車位媒合、現場報到點名、經費核銷。</td>
+        </tr>
+        <tr>
+          <td><strong>活動與器材組</strong></td>
+          <td>2-3人</td>
+          <td>策劃健行尋寶與團康、採買補給與雜支、活動主持、搬運器材。</td>
+        </tr>
+        <tr>
+          <td><strong>安全與攝影組</strong></td>
+          <td>1-2人</td>
+          <td>攜帶醫藥箱、注意行進與用火安全；活動全程拍照/錄影紀錄。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>六、 報名方式與建議欄位</h2>
+    <ul>
+      <li><strong>報名時程：</strong>
+        <ul>
+          <li><strong>第一階段：</strong>僅限「雙連長跑協會」正式會員報名，<span class="highlight">為期 2 週</span>。</li>
+          <li><strong>第二階段：</strong>若第一階段結束後未滿 40 人，開啟第二階段開放會員攜帶直系眷屬報名，額滿為止。</li>
+        </ul>
+      </li>
+      <li><strong>報名費用：</strong>本會正式會員<span class="highlight">免費</span>（全額由社團補助）；非會員之眷屬或其他參加者，每人酌收 <span class="highlight">$500 餐費</span>（交通自理）。</li>
+      <li><strong>建議表單欄位：</strong>
+        <ul>
+          <li>中文姓名 / 聯絡電話 / Line ID</li>
+          <li>身分證字號 / 出生年月日（辦理旅平險必須）</li>
+          <li>緊急聯絡人姓名與電話</li>
+          <li>交通與飲酒意願（自行開車不喝酒 可載O人 / 需搭車想微醺 / 開車剛好滿載）</li>
+          <li>飲食禁忌（無 / 蛋奶素 / 全素 / 其他）</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2>七、 安全須知與風險管理</h2>
+    <ul>
+      <li><strong>服裝裝備建議：</strong>請穿著透氣排汗運動服裝、越野鞋或抓地力良好的跑鞋。請自備輕薄防風外套與雨具。</li>
+      <li><strong>防蟲與防曬：</strong>森林區域蚊蟲較多，行政組會準備防蚊液，也建議參加者自備。</li>
+      <li><strong>傷病預防：</strong>跑者偶有舊傷（如阿基里斯腱、膝蓋不適），請視自身狀況行走，切勿勉強。安全組將備妥肌貼、冷凍噴劑等。</li>
+      <li><strong>緊急應變（雨備）：</strong>
+        <ul>
+          <li><strong>小雨：</strong>發放輕便雨衣，健行照常，烤肉區有頂棚不受影響。團康改至棚內進行靜態遊戲。</li>
+          <li><strong>豪雨/颱風：</strong>於活動前兩天於社團群組佈達延期或取消，並向園區申請保留訂位。</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    🏃‍♂️ 本企劃書由 雙連長跑協會 家庭日小組編製 | 提案日期：2026年 🏃‍♀️
+  </div>
+</div>
+
+</body>
+</html>
