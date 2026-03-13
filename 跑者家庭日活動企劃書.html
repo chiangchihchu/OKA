@@ -6,110 +6,101 @@
   <title>【桃園市雙連長跑協會】跑者家庭日活動企劃書</title>
   <style>
     /* =========================================
-       草原 & 運動風格版面設計 (Grassland & Sports Theme)
+       輕鬆自在風格版面設計 (Relaxed & Cozy Theme)
        ========================================= */
     :root {
-      --primary-color: #4CAF50; /* 草原綠：象徵自然、戶外 */
-      --secondary-color: #2E7D32; /* 深林綠：專業、沉穩 */
-      --accent-color: #FF9800; /* 運動橘：增加對比與活力 */
-      --track-color: #8D6E63; /* 泥土小徑棕 */
-      --bg-color: #E8F5E9;
-      --text-color: #2C3E50;
+      --primary-color: #8BA888; /* 柔和抹茶綠：放鬆、自然 */
+      --secondary-color: #6D5953; /* 暖木棕：溫潤、安定 */
+      --accent-color: #EFA06A; /* 暖陽橘：溫馨點綴 */
+      --bg-color: #F9F8F4; /* 燕麥奶白：舒適不刺眼 */
+      --text-color: #4A403A;
       --card-bg: #FFFFFF;
-      --border-color: #C8E6C9;
+      --border-color: #E6E2D8;
     }
 
     body {
-      font-family: "Helvetica Neue", Helvetica, "PingFang TC", "LiHei Pro", "Microsoft JhengHei", Arial, sans-serif;
+      font-family: "Nunito", "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", sans-serif;
       line-height: 1.8;
       color: var(--text-color);
       background-color: var(--bg-color);
-      /* 加上淡淡的雙色綠斜線背景，呈現草皮的層次與速度感 */
-      background-image: repeating-linear-gradient(
-        -45deg,
-        #E8F5E9,
-        #E8F5E9 15px,
-        #F1F8E9 15px,
-        #F1F8E9 30px
-      );
+      /* 輕鬆的波點背景，像是野餐墊或手帳本 */
+      background-image: radial-gradient(var(--border-color) 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
       margin: 0;
-      padding: 20px 10px;
+      padding: 30px 15px;
     }
 
     .container {
-      max-width: 960px;
+      max-width: 900px; /* 稍微縮小寬度，增加輕巧感 */
       margin: 0 auto;
       background-color: var(--card-bg);
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border-radius: 20px; /* 更圓潤的邊角 */
+      box-shadow: 0 8px 40px rgba(109, 89, 83, 0.08); /* 偏暖色的輕柔陰影 */
       overflow: hidden;
       position: relative;
-      border-top: 5px solid var(--accent-color);
+      border: 1px solid #F0ECE1;
     }
 
-    /* 左側跑道視覺裝飾線 - 改為越野土徑風格 */
+    /* 頂部柔和的彩色裝飾線 */
     .container::before {
       content: "";
       position: absolute;
       top: 0;
-      bottom: 0;
       left: 0;
-      width: 10px;
-      background: repeating-linear-gradient(
-        to bottom,
-        var(--track-color),
-        var(--track-color) 30px,
-        #D7CCC8 30px,
-        #D7CCC8 45px
-      );
-      border-right: 2px solid var(--primary-color);
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
     }
 
     .header-banner {
-      background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-      color: white;
-      padding: 40px 20px;
+      background-color: #FAF5F0;
+      background-image: linear-gradient(120deg, #FDFBF7 0%, #FAF5F0 100%);
+      color: var(--secondary-color);
+      padding: 50px 30px 40px;
       text-align: center;
-      border-bottom: 5px solid var(--accent-color);
+      border-bottom: 2px dashed var(--border-color); /* 改為手帳風虛線 */
     }
 
     .header-banner h1 {
       margin: 0;
       font-size: 2.2em;
-      letter-spacing: 2px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      letter-spacing: 1px;
+      color: var(--secondary-color);
+      text-shadow: none; /* 移除沉重的陰影 */
+      font-weight: 800;
     }
     
     .header-banner p {
-      margin: 10px 0 0 0;
+      margin: 15px 0 0 0;
       font-size: 1.2em;
-      color: #E8F5E9;
+      color: #8BA888;
+      font-weight: bold;
     }
 
     .content {
-      padding: 30px 50px;
+      padding: 40px 60px;
     }
 
     @media (max-width: 600px) {
-      .content { padding: 20px; }
+      .content { padding: 25px; }
       .header-banner h1 { font-size: 1.8em; }
     }
 
     h2 {
       color: var(--secondary-color);
-      font-size: 1.5em;
-      margin-top: 40px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid var(--border-color);
+      font-size: 1.4em;
+      margin-top: 45px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #F4EFEB; /* 更柔和的底線 */
       display: flex;
       align-items: center;
     }
 
-    /* 標題旁的小圖示（運用戶外元素） */
+    /* 標題旁的小圖示換成放鬆的野餐籃符號 */
     h2::before {
-      content: "🏕️";
-      margin-right: 10px;
-      font-size: 1.2em;
+      content: "🧺";
+      margin-right: 12px;
+      font-size: 1.3em;
     }
 
     ul {
@@ -119,97 +110,108 @@
 
     ul > li {
       position: relative;
-      padding-left: 25px;
-      margin-bottom: 12px;
+      padding-left: 28px;
+      margin-bottom: 14px;
     }
 
     ul > li::before {
-      content: "🍃";
+      content: "✿"; /* 改用可愛的小花 */
       position: absolute;
       left: 0;
-      top: 2px;
-      font-size: 0.9em;
+      top: 0px;
+      color: var(--accent-color);
+      font-size: 1.1em;
     }
 
     ul ul > li::before {
-      content: "▹";
-      color: var(--accent-color);
+      content: "◦";
+      color: var(--primary-color);
       font-weight: bold;
+      font-size: 1.2em;
     }
 
     table {
       width: 100%;
-      border-collapse: collapse;
-      margin: 25px 0;
+      border-collapse: separate; /* 改為 separate 以支援圓角 */
+      border-spacing: 0;
+      margin: 30px 0;
       background-color: #FFF;
-      border-radius: 8px;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
     }
 
     th, td {
-      padding: 15px;
+      padding: 16px;
       text-align: left;
       border-bottom: 1px solid var(--border-color);
     }
 
     th {
-      background-color: var(--secondary-color);
-      color: #FFF;
-      font-weight: 600;
-      letter-spacing: 1px;
+      background-color: #F7F5F0;
+      color: var(--secondary-color);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
     }
 
     tbody tr:hover {
-      background-color: #F1F8E9; /* 懸停時的淺草綠反饋 */
-      transition: background-color 0.3s;
+      background-color: #FCFAEF; /* 極淺的鵝黃色懸停反饋 */
+      transition: background-color 0.3s ease;
     }
 
     .highlight {
-      color: #FFF;
+      color: #D36C44;
       font-weight: bold;
-      background-color: var(--accent-color);
-      padding: 2px 8px;
-      border-radius: 4px;
+      background-color: #FFF0E6;
+      padding: 3px 10px;
+      border-radius: 20px; /* 更圓潤的高光標籤 */
     }
 
     .badge {
       display: inline-block;
-      background-color: var(--accent-color);
+      background-color: #EFA06A;
       color: white;
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 20px;
       font-size: 0.85em;
       font-weight: bold;
-      margin-left: 10px;
+      margin-left: 12px;
+      box-shadow: 0 2px 8px rgba(239, 160, 106, 0.3);
     }
 
     .note-box {
-      background: #E8F5E9;
-      border-left: 5px solid var(--primary-color);
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 0 8px 8px 0;
-      color: #1B5E20;
+      background: #F4F7F4;
+      border: 1px dashed #A5C2A1;
+      border-left: 6px solid #8BA888;
+      padding: 18px;
+      margin: 25px 0;
+      border-radius: 8px;
+      color: #5C705A;
     }
     
     .warning-box {
-      background: #FFF3E0;
-      border-left: 5px solid #FF9800;
-      padding: 15px;
-      margin: 20px 0;
-      border-radius: 0 8px 8px 0;
-      color: #E65100;
+      background: #FFF5F0;
+      border: 1px dashed #F5BCA0;
+      border-left: 6px solid #EFA06A;
+      padding: 18px;
+      margin: 25px 0;
+      border-radius: 8px;
+      color: #C25B32;
       font-weight: bold;
     }
 
     .footer {
       text-align: center;
-      margin-top: 40px;
-      padding: 25px;
-      background-color: var(--secondary-color);
-      color: #C8E6C9;
+      margin-top: 50px;
+      padding: 30px;
+      background-color: #F7F5F0;
+      color: #8C837C;
       font-size: 0.9em;
+      border-top: 1px solid var(--border-color);
     }
   </style>
 </head>
@@ -461,7 +463,7 @@
   </div>
 
   <div class="footer">
-    🏃‍♂️ 本企劃書由 雙連長跑協會 家庭日小組編製 | 提案日期：2026年 🏃‍♀️
+    🏃‍♂️ 本企劃書由 雙連長跑協會 活動籌備小組編製 | 提案日期：2026年 🏃‍♀️
   </div>
 </div>
 
