@@ -1,384 +1,378 @@
 <style>
-  :root {
-    --primary-color: #005b9f;
-    --secondary-color: #008ba3;
-    --bg-color: #f4f7f9;
-    --card-bg: #ffffff;
-    --text-main: #2c3e50;
-    --text-muted: #607d8b;
-    --border-color: #e0e6ed;
-    
-    /* 標籤與提示顏色 */
-    --normal-bg: #e8f5e9; --normal-text: #2e7d32;
-    --borderline-bg: #fff3e0; --borderline-text: #ef6c00;
-    --abnormal-bg: #ffebee; --abnormal-text: #c62828;
-    --info-bg: #e3f2fd; --info-text: #1565c0;
-    
-    /* 成功機率標籤顏色 */
-    --chance-high: #4caf50;
-    --chance-mid-high: #8bc34a;
-    --chance-mid: #ffb300;
-    --chance-mid-low: #fb8c00;
-    --chance-low: #e53935;
-  }
+:root {
+--primary-color: #005b9f;
+--secondary-color: #008ba3;
+--bg-color: #f4f7f9;
+--card-bg: #ffffff;
+--text-main: #2c3e50;
+--text-muted: #607d8b;
+--border-color: #e0e6ed;
+/* 標籤與提示顏色 */
+--normal-bg: #e8f5e9; --normal-text: #2e7d32;
+--borderline-bg: #fff3e0; --borderline-text: #ef6c00;
+--abnormal-bg: #ffebee; --abnormal-text: #c62828;
+--info-bg: #e3f2fd; --info-text: #1565c0;
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    line-height: 1.6;
-    margin: 0;
-    padding: 20px;
-  }
+/* 成功機率與潛力標籤顏色 */
+--chance-high: #4caf50;
+--chance-mid-high: #8bc34a;
+--chance-mid: #ffb300;
+--chance-mid-low: #fb8c00;
+--chance-low: #e53935;
 
-  .report-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    background: transparent;
-  }
+--pot-high-bg: #dcedc8; --pot-high-text: #33691e;
+--pot-mid-bg: #fff9c4; --pot-mid-text: #f57f17;
+--pot-low-bg: #f5f5f5; --pot-low-text: #757575;
+--pot-done-bg: #bbdefb; --pot-done-text: #0d47a1;
 
-  .report-header {
-    text-align: center;
-    margin-bottom: 30px;
-    padding: 30px 20px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-
-  .report-header h1 {
-    margin: 0;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 1px;
-  }
-
-  .report-subtitle {
-    margin: 10px 0 0 0;
-    font-size: 16px;
-    opacity: 0.9;
-  }
-
-  .card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    border: 1px solid var(--border-color);
-  }
-
-  .card h2 {
-    color: var(--primary-color);
-    font-size: 20px;
-    margin-top: 0;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--info-bg);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  /* 標籤設計 */
-  .tag {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    margin-left: 8px;
-    vertical-align: middle;
-  }
-  .tag.normal { background: var(--normal-bg); color: var(--normal-text); }
-  .tag.borderline { background: var(--borderline-bg); color: var(--borderline-text); }
-  .tag.abnormal { background: var(--abnormal-bg); color: var(--abnormal-text); }
-  .tag.info { background: var(--info-bg); color: var(--info-text); }
-
-  .chance-tag {
-    display: inline-block;
-    padding: 6px 16px;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 16px;
-  }
-  .chance-tag.mid-low { background-color: var(--chance-mid-low); }
-
-  /* 表格設計 */
-  .lab-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 15px;
-    font-size: 14px;
-  }
-  .lab-table th, .lab-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
-  }
-  .lab-table th {
-    background-color: var(--bg-color);
-    color: var(--text-muted);
-    font-weight: 600;
-  }
-  .lab-table tr:hover {
-    background-color: #f9fbfd;
-  }
-
-  /* 每一項說明區塊 */
-  .lab-item-block {
-    background: #fafcff;
-    border-left: 4px solid var(--secondary-color);
-    padding: 16px;
-    margin-bottom: 16px;
-    border-radius: 0 8px 8px 0;
-  }
-  .lab-item-block h3 {
-    margin-top: 0;
-    color: var(--primary-color);
-    font-size: 16px;
-  }
-  .lab-item-block ul {
-    margin: 10px 0 0 0;
-    padding-left: 20px;
-    color: var(--text-main);
-  }
-  .lab-item-block li {
-    margin-bottom: 8px;
-  }
-
-  /* 雙欄設計 */
-  .two-column-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-  @media (max-width: 768px) {
-    .two-column-grid { grid-template-columns: 1fr; }
-  }
-  .good-factors-box, .risk-factors-box {
-    padding: 16px;
-    border-radius: 8px;
-  }
-  .good-factors-box { background: #f1f8e9; border: 1px solid #c5e1a5; }
-  .good-factors-box h3 { color: #33691e; margin-top: 0; }
-  .risk-factors-box { background: #fff3e0; border: 1px solid #ffcc80; }
-  .risk-factors-box h3 { color: #e65100; margin-top: 0; }
-
-  /* 提示框 */
-  .info-box { background: var(--info-bg); color: var(--info-text); padding: 16px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--primary-color); }
-  .alert-box { background: var(--abnormal-bg); color: var(--abnormal-text); padding: 16px; border-radius: 8px; border-left: 4px solid var(--chance-low); font-weight: bold; }
-  .tip-box { background: #fff8e1; color: #f57f17; padding: 16px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #fbc02d; }
-
-  /* 其他 */
-  .report-container ul { padding-left: 20px; }
-  .report-container li { margin-bottom: 8px; }
-  
-  /* 圖片網格視覺模擬 */
-  .image-grid-summary {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  .grid-item {
-    background: #eee;
-    padding: 10px;
-    border-radius: 6px;
-    text-align: center;
-    font-size: 13px;
-    font-weight: bold;
-    color: #444;
-    border: 1px solid #ddd;
-  }
-  .grid-item.frozen {
-    background: #e3f2fd;
-    border-color: #90caf9;
-    color: #0d47a1;
-  }
+}
+body {
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+background-color: var(--bg-color);
+color: var(--text-main);
+line-height: 1.6;
+margin: 0;
+padding: 20px;
+}
+.report-container {
+max-width: 1000px;
+margin: 0 auto;
+background: transparent;
+}
+.report-header {
+text-align: center;
+margin-bottom: 30px;
+padding: 30px 20px;
+background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+color: white;
+border-radius: 12px;
+box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.report-header h1 {
+margin: 0;
+font-size: 28px;
+font-weight: 700;
+letter-spacing: 1px;
+}
+.report-subtitle {
+margin: 10px 0 0 0;
+font-size: 16px;
+opacity: 0.9;
+}
+.card {
+background: var(--card-bg);
+border-radius: 12px;
+padding: 24px;
+margin-bottom: 24px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+border: 1px solid var(--border-color);
+}
+.card h2 {
+color: var(--primary-color);
+font-size: 20px;
+margin-top: 0;
+margin-bottom: 20px;
+padding-bottom: 10px;
+border-bottom: 2px solid var(--info-bg);
+display: flex;
+align-items: center;
+gap: 10px;
+}
+/* 標籤設計 */
+.tag {
+display: inline-block;
+padding: 4px 10px;
+border-radius: 20px;
+font-size: 13px;
+font-weight: 600;
+margin-left: 8px;
+vertical-align: middle;
+}
+.tag.normal { background: var(--normal-bg); color: var(--normal-text); }
+.tag.borderline { background: var(--borderline-bg); color: var(--borderline-text); }
+.tag.abnormal { background: var(--abnormal-bg); color: var(--abnormal-text); }
+.tag.info { background: var(--info-bg); color: var(--info-text); }
+.tag.pot-high { background: var(--pot-high-bg); color: var(--pot-high-text); margin-top: 5px; display: block; margin-left: 0; text-align: center;}
+.tag.pot-low { background: var(--pot-low-bg); color: var(--pot-low-text); margin-top: 5px; display: block; margin-left: 0; text-align: center;}
+.tag.pot-done { background: var(--pot-done-bg); color: var(--pot-done-text); margin-top: 5px; display: block; margin-left: 0; text-align: center;}
+.chance-tag {
+display: inline-block;
+padding: 6px 16px;
+border-radius: 8px;
+font-size: 18px;
+font-weight: bold;
+color: white;
+margin-bottom: 16px;
+}
+.chance-tag.mid-low { background-color: var(--chance-mid-low); }
+/* 表格設計 */
+.lab-table {
+width: 100%;
+border-collapse: collapse;
+margin-bottom: 15px;
+font-size: 14px;
+}
+.lab-table th, .lab-table td {
+padding: 12px;
+text-align: left;
+border-bottom: 1px solid var(--border-color);
+}
+.lab-table th {
+background-color: var(--bg-color);
+color: var(--text-muted);
+font-weight: 600;
+}
+.lab-table tr:hover {
+background-color: #f9fbfd;
+}
+/* 每一項說明區塊 */
+.lab-item-block {
+background: #fafcff;
+border-left: 4px solid var(--secondary-color);
+padding: 16px;
+margin-bottom: 16px;
+border-radius: 0 8px 8px 0;
+}
+.lab-item-block h3 {
+margin-top: 0;
+color: var(--primary-color);
+font-size: 16px;
+}
+.lab-item-block ul {
+margin: 10px 0 0 0;
+padding-left: 20px;
+color: var(--text-main);
+}
+.lab-item-block li {
+margin-bottom: 8px;
+}
+/* 雙欄設計 */
+.two-column-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 20px;
+}
+@media (max-width: 768px) {
+.two-column-grid { grid-template-columns: 1fr; }
+}
+.good-factors-box, .risk-factors-box {
+padding: 16px;
+border-radius: 8px;
+}
+.good-factors-box { background: #f1f8e9; border: 1px solid #c5e1a5; }
+.good-factors-box h3 { color: #33691e; margin-top: 0; }
+.risk-factors-box { background: #fff3e0; border: 1px solid #ffcc80; }
+.risk-factors-box h3 { color: #e65100; margin-top: 0; }
+/* 提示框 */
+.info-box { background: var(--info-bg); color: var(--info-text); padding: 16px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--primary-color); }
+.alert-box { background: var(--abnormal-bg); color: var(--abnormal-text); padding: 16px; border-radius: 8px; border-left: 4px solid var(--chance-low); font-weight: bold; }
+.tip-box { background: #fff8e1; color: #f57f17; padding: 16px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #fbc02d; }
+/* 其他 */
+.report-container ul { padding-left: 20px; }
+.report-container li { margin-bottom: 8px; }
+/* 圖片網格視覺模擬 */
+.image-grid-summary {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+gap: 15px;
+margin-bottom: 20px;
+}
+.grid-item {
+background: #fff;
+padding: 12px;
+border-radius: 8px;
+text-align: center;
+font-size: 14px;
+font-weight: bold;
+color: #444;
+border: 1px solid #ddd;
+box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+.grid-item.frozen {
+background: #f0f7ff;
+border-color: #90caf9;
+}
+.grid-item .embryo-name {
+margin-bottom: 8px;
+}
 </style>
-
 <div class="report-container">
-  <header class="report-header">
-    <h1>🧬 生殖醫學檢驗分析報告：胚胎影像與發育等級判讀</h1>
-    <p class="report-subtitle">視覺解析・等級評估・著床機率預測・後續指引</p>
-  </header>
+<header class="report-header">
+<h1>🧬 生殖醫學檢驗分析報告：胚胎影像與發育等級判讀</h1>
+<p class="report-subtitle">視覺解析・發育潛力預測・著床機率評估・後續指引</p>
+</header>
+<section class="card summary-card">
+<h2>📋 一、個案摘要與胚胎總覽</h2>
+<p>依據您提供的胚胎縮時攝影（Time-lapse）或實驗室觀測紀錄截圖，這是一份針對人工生殖療程中的胚胎發育報告。根據您的說明，此為<strong>借卵療程</strong>（Donor Oocyte）。</p>
+<ul>
+<li><strong>評估對象：</strong> 總計 21 顆胚胎的觀測影像。</li>
+<li><strong>療程背景：</strong> 借卵療程（預期卵子來源較年輕、卵子品質佳）。</li>
+<li><strong>最終冷凍成果：</strong> 共確認 <strong>7 顆</strong>已冷凍囊胚（S1~S7），等級皆為 <strong>4BC</strong>（6顆）與 <strong>5BC</strong>（1顆）。</li>
+<li><strong>發育中胚胎：</strong> 包含 3 顆未定級 Blastocyst、2 顆早期囊胚（EB）、3 顆桑椹胚（Morula/Comp）、以及 6 顆分裂期胚胎。</li>
+</ul>
+<div class="info-box">
+  <strong>臨床脈絡提示：</strong> 圖片下方註記顯示「D1~3 胚胎數量變動，可能因補救性受精」與「D5~7 胚胎數量變動，可能因已被冷凍或發育停滯」。這表示影像中尚未冷凍的胚胎，若是處於 D5-D7 仍停留在早期分裂期，則高機率屬於發育停滯；若已達桑椹胚或早期囊胚，則有極高潛力繼續發育並被冷凍。
+</div>
 
-  <section class="card summary-card">
-    <h2>📋 一、個案摘要與胚胎總覽</h2>
-    <p>依據您提供的胚胎縮時攝影（Time-lapse）或實驗室觀測紀錄截圖，這是一份針對人工生殖療程中的胚胎發育報告。根據您的說明，此為<strong>借卵療程</strong>（Donor Oocyte）。</p>
+</section>
+<section class="card highlight-card">
+<h2>🔎 二、影像紀錄解析總表與「囊胚發育潛力」標記</h2>
+<p>以下為您逐一對應影像與文字標籤，並特別標記出<strong>尚未冷凍的胚胎中，哪些具備形成囊胚的高潛力</strong>：</p>
+<div class="image-grid-summary">
+<div class="grid-item"><div class="embryo-name">Morula (桑椹胚)</div><span class="tag pot-high">高潛力 (即將成囊)</span></div>
+<div class="grid-item"><div class="embryo-name">3III (分裂期)</div><span class="tag pot-low">發育停滯風險高</span></div>
+<div class="grid-item"><div class="embryo-name">Morula (桑椹胚)</div><span class="tag pot-high">高潛力 (即將成囊)</span></div>
+<div class="grid-item frozen"><div class="embryo-name">4BC (S2)</div><span class="tag pot-done">已冷凍囊胚</span></div>
+  <div class="grid-item"><div class="embryo-name">7III (分裂期)</div><span class="tag pot-low">發育停滯風險高</span></div>
+  <div class="grid-item"><div class="embryo-name">Blastocyst</div><span class="tag pot-high">極高潛力 (已是囊胚)</span></div>
+  <div class="grid-item"><div class="embryo-name">10II (分裂期)</div><span class="tag pot-low">發育停滯風險高</span></div>
+  <div class="grid-item frozen"><div class="embryo-name">4BC (S6)</div><span class="tag pot-done">已冷凍囊胚</span></div>
+  
+  <div class="grid-item frozen"><div class="embryo-name">5BC (S5)</div><span class="tag pot-done">已冷凍囊胚</span></div>
+  <div class="grid-item frozen"><div class="embryo-name">4BC (S3)</div><span class="tag pot-done">已冷凍囊胚</span></div>
+  <div class="grid-item"><div class="embryo-name">EB (早期囊胚)</div><span class="tag pot-high">極高潛力 (腔體已現)</span></div>
+  <div class="grid-item frozen"><div class="embryo-name">4BC (S7)</div><span class="tag pot-done">已冷凍囊胚</span></div>
+  
+  <div class="grid-item"><div class="embryo-name">Blastocyst</div><span class="tag pot-high">極高潛力 (已是囊胚)</span></div>
+  <div class="grid-item"><div class="embryo-name">5III (分裂期)</div><span class="tag pot-low">發育停滯風險高</span></div>
+  <div class="grid-item frozen"><div class="embryo-name">4BC (S1)</div><span class="tag pot-done">已冷凍囊胚</span></div>
+  <div class="grid-item"><div class="embryo-name">EB (早期囊胚)</div><span class="tag pot-high">極高潛力 (腔體已現)</span></div>
+  
+  <div class="grid-item"><div class="embryo-name">Blastocyst</div><span class="tag pot-high">極高潛力 (已是囊胚)</span></div>
+  <div class="grid-item frozen"><div class="embryo-name">4BC (S4)</div><span class="tag pot-done">已冷凍囊胚</span></div>
+  <div class="grid-item"><div class="embryo-name">Comp (緻密化)</div><span class="tag pot-high">高潛力 (準備成囊)</span></div>
+  <div class="grid-item"><div class="embryo-name">5III (分裂期)</div><span class="tag pot-low">發育停滯風險高</span></div>
+  
+  <div class="grid-item"><div class="embryo-name">5II (分裂期)</div><span class="tag pot-low">發育停滯風險高</span></div>
+</div>
+
+</section>
+<section class="card detailed-lab-card">
+<h2>🔮 三、尚未冷凍胚胎之「囊胚發育潛力」詳細評估</h2>
+<p>除了已經確定冷凍的 7 顆囊胚外，我們透過視覺分析其餘 14 顆胚胎的當前狀態，評估它們繼續發育成可用囊胚的可能性：</p>
+<div class="lab-item-block">
+  <h3>🟢 極高潛力群：Blastocyst (未定級囊胚) 與 EB (早期囊胚) <span class="tag normal">共 5 顆</span></h3>
+  <ul>
+    <li><strong>影像視覺分析：</strong> 圖片中的 3 顆 Blastocyst 已經具有明顯的囊胚腔，只是腔體尚未完全撐大到可以進行 4 或 5 的評級標準；另外 2 顆 EB (Early Blastocyst) 已經開始在細胞團內部聚集液體，形成早期的空腔。</li>
+    <li><strong>發育潛力評估：</strong> <strong>極高。</strong> 這些胚胎已經成功跨越了最困難的「基因體活化」階段，實質上已經是（或半隻腳踏入）囊胚期。實驗室通常只需再多觀察半天到一天，待其擴張到 Grade 3 或 4 即可進行冷凍。</li>
+  </ul>
+</div>
+
+<div class="lab-item-block">
+  <h3>🟡 高潛力群：Morula (桑椹胚) 與 Comp (緻密化桑椹胚) <span class="tag borderline">共 3 顆</span></h3>
+  <ul>
+    <li><strong>影像視覺分析：</strong> 影像中標示 Morula 與 Comp 的胚胎，細胞邊界已經變得模糊且緊密結合在一起（這個過程稱為緻密化 Compaction）。這是細胞準備開始分化為「內細胞團」與「滋養層細胞」的前兆。</li>
+    <li><strong>發育潛力評估：</strong> <strong>高。</strong> 只要細胞在緻密化後能順利向內分泌液體，就能順利轉變為早期囊胚（EB）。在 D4 晚期或 D5 早期處於此階段是完全正常的，有很大的機會在 D5 晚期或 D6 達標並冷凍。</li>
+  </ul>
+</div>
+
+<div class="lab-item-block">
+  <h3>🔴 發育停滯風險群：3III, 5II, 5III, 7III, 10II 等分裂期胚胎 <span class="tag abnormal">共 6 顆</span></h3>
+  <ul>
+    <li><strong>影像視覺分析：</strong> 這些胚胎仍停留在 3 到 10 個獨立細胞的狀態，且帶有 II 或 III 級的細胞碎片（Fragmentation），細胞大小不均勻。</li>
+    <li><strong>發育潛力評估：</strong> <strong>極低（高機率已停滯）。</strong> 如果這張觀測截圖是在 D5 或 D6 拍攝的（因為已經有 4BC 冷凍），那麼這些仍停留在 D2~D3 分裂期階段的胚胎，幾乎可以確定發生了「發育阻滯 (Developmental Arrest)」。它們無法順利啟動後續的基因表達，通常會被實驗室自然淘汰，無法形成囊胚。</li>
+  </ul>
+</div>
+
+</section>
+<section class="card detailed-lab-card">
+<h2>🧾 四、囊胚分級與影像視覺分析說明（A、B、C 等級差異）</h2>
+<p>針對您的提問：<strong>「請說明 ABC、1234 等級差異，並自行使用影像分析不要依賴表面數字」</strong>，以下為您進行詳細的生殖醫學解說：</p>
+<div class="lab-item-block">
+  <h3>1️⃣ 數字代表的意義（1~6）：囊胚擴張程度 <span class="tag info">發育進度</span></h3>
+  <ul>
+    <li><strong>醫學定義：</strong> 數字代表囊胚腔（Blastocoel）擴張的大小與孵化進度。</li>
+    <li><strong>本個案視覺分析：</strong> 從圖片中標示「4BC」的影像可見，胚胎內部充滿液體形成的空腔已經相當明顯，透明帶（外圈圓殼）被撐滿且變薄，確實符合 **Grade 4** 的擴張標準。標示「5BC」的胚胎，在視覺上邊緣有細胞突破透明帶的跡象，符合 **Grade 5**（孵化中）。</li>
+  </ul>
+</div>
+
+<div class="lab-item-block">
+  <h3>2️⃣ 第一個英文字母（A/B/C）：內細胞團（ICM）評分 <span class="tag borderline">未來發育成胎兒的部分</span></h3>
+  <ul>
+    <li><strong>A級：</strong> 細胞數目多，排列緊密成一團飽滿的球體。</li>
+    <li><strong>B級：</strong> 細胞數目較少，排列較鬆散。</li>
+    <li><strong>C級：</strong> 細胞數目極少，幾乎難以辨識緊密的團塊。</li>
+    <li><strong>本個案視覺分析：</strong> 觀察所有 4BC 與 5BC 的影像，可以在囊胚內部找到一團細胞（ICM），但這團細胞在視覺上看起來<strong>不夠厚實、較為扁平或細胞數量略少</strong>。這與頂級的 A 級有明顯落差，因此評為 **B 級** 是非常合理的臨床判斷。</li>
+  </ul>
+</div>
+
+<div class="lab-item-block">
+  <h3>3️⃣ 第二個英文字母（A/B/C）：滋養層細胞（TE）評分 <span class="tag abnormal">未來發育成胎盤的部分</span></h3>
+  <ul>
+    <li><strong>A級：</strong> 細胞數目多，形成連續緊密的上皮層。</li>
+    <li><strong>B級：</strong> 細胞數目較少，上皮層有空隙。</li>
+    <li><strong>C級：</strong> 細胞稀疏，數目很少，看起來十分扁平或大而不規則。</li>
+    <li><strong>本個案視覺分析：</strong> 觀察 4BC 與 5BC 影像的邊緣，負責形成胎盤的滋養層細胞看起來<strong>非常稀疏，細胞與細胞之間間隔大，且細胞較扁、不夠飽滿</strong>。這未能達到 B 級的標準，因此被實驗室評為 **C 級**。這也是這批胚胎最需要關注的弱點。</li>
+  </ul>
+</div>
+
+</section>
+<section class="card evaluation-card">
+<h2>🧠 五、整體評估：借卵療程中，A、B、C等級是精子還是卵子的影響較多？</h2>
+<p>針對您的核心疑問：<strong>「在借卵療程下，胚胎等級多為 BC，這受精子還是卵子的影響較大？」</strong></p>
+<div class="tip-box">
+  <strong>臨床關鍵結論：</strong> 在確認卵子來源健康年輕的前提下，若胚胎在第三天（D3）前發育尚可，但在發展成囊胚（D5/D6）的過程中品質下降（落入 BC 等級）或發生多顆停滯（如圖中的 3III~10II），臨床上<strong>強烈懷疑「男方精子品質」佔了較大的影響因素</strong>。
+</div>
+
+<ul>
+  <li><strong>卵子的影響（主要在 D1~D3）：</strong> 卵子提供了胚胎初期發育所需的所有能量。因為是借卵，理論上有較高的機率品質佳，這也是為什麼這些受精卵能夠順利啟動分裂，且有高達 15 顆以上能跨越 D3 門檻。</li>
+  <li><strong>精子的影響（主要在 D4~D5 以後）：</strong> 胚胎發育到第三天後，會發生<strong>「胚胎基因體活化 (EGA)」</strong>，此時必須開始依賴父方（精子）帶來的基因來主導發育。</li>
+  <li><strong>為何產生 C 級的滋養層 (TE)？：</strong> 如果精子的 <strong>DNA 碎片化指數（DFI）過高</strong>，或者精子帶有染色體微小異常，往往在 D4-D5 嘗試形成囊胚腔與滋養層時，就會導致細胞增殖緩慢、碎片增加，進而造成滋養層細胞稀疏（C級）或胚胎直接發育停滯。</li>
+</ul>
+
+</section>
+<section class="card chance-card">
+<h2>📈 六、囊胚本身的著床機率預估</h2>
+<div class="chance-tag mid-low">單顆著床率：中等偏低</div>
+<p>依據 Gardner 評分系統與全球生殖醫學數據，<strong>4BC 與 5BC 等級的胚胎被歸類為「普通/中下」等級的囊胚</strong>。雖然具有著床潛力，但相較於優質囊胚（如 AA, AB, BA），其著床率確實有明顯落差。</p>
+<div class="two-column-grid">
+  <div class="good-factors-box">
+    <h3>✅ 有利於成功的正面原因</h3>
     <ul>
-      <li><strong>評估對象：</strong> 總計 21 顆胚胎的觀測影像。</li>
-      <li><strong>療程背景：</strong> 借卵療程（預期卵子來源較年輕、卵子品質佳）。</li>
-      <li><strong>最終冷凍成果：</strong> 共確認 <strong>7 顆</strong>已冷凍囊胚（S1~S7），等級皆為 <strong>4BC</strong>（6顆）與 <strong>5BC</strong>（1顆）。</li>
-      <li><strong>其他發育中胚胎：</strong> 包含桑椹胚（Morula, Comp）、早期囊胚（EB）、以及分裂期胚胎（如 3III, 7III, 10II, 5III, 5II 等）。</li>
+      <li><strong>總數量優勢：</strong> 您已擁有 <strong>7 顆</strong> 凍胚，且還有高潛力的 <strong>8 顆</strong> (EB, Blastocyst, Morula) 正在觀察中，<strong>累積懷孕率仍相當可觀</strong>。</li>
+      <li><strong>借卵優勢（年輕卵子）：</strong> 來自年輕卵子的 BC 胚胎，其染色體正常的機率（Euploid rate）通常比高齡自卵的 BC 胚胎高出許多。</li>
+      <li><strong>順利擴張：</strong> 胚胎能達到 4 與 5 的擴張程度，代表其生命力與代謝能力有一定水準。</li>
     </ul>
-    
-    <div class="info-box">
-      <strong>臨床脈絡提示：</strong> 圖片下方註記顯示「D1~3 胚胎數量變動，可能因補救性受精」與「D5~7 胚胎數量變動，可能因已被冷凍或發育停滯」。這表示這些胚胎可能來自不同的受精時間點（包含 ICSI 補救），且發育速度有快有慢。
-    </div>
-  </section>
-
-  <section class="card highlight-card">
-    <h2>🔎 二、影像紀錄解析總表</h2>
-    <p>根據提供的圖片，為您逐一對應影像與文字標籤，並標示其發育狀態：</p>
-    <div class="image-grid-summary">
-      <div class="grid-item">Morula (桑椹胚)</div>
-      <div class="grid-item">3III (分裂期)</div>
-      <div class="grid-item">Morula (桑椹胚)</div>
-      <div class="grid-item frozen">4BC (已冷凍 S2)</div>
-      <div class="grid-item">7III (分裂期)</div>
-      <div class="grid-item">Blastocyst (未定級囊胚)</div>
-      <div class="grid-item">10II (分裂期)</div>
-      <div class="grid-item frozen">4BC (已冷凍 S6)</div>
-      <div class="grid-item frozen">5BC (已冷凍 S5)</div>
-      <div class="grid-item frozen">4BC (已冷凍 S3)</div>
-      <div class="grid-item">EB (早期囊胚)</div>
-      <div class="grid-item frozen">4BC (已冷凍 S7)</div>
-      <div class="grid-item">Blastocyst (未定級囊胚)</div>
-      <div class="grid-item">5III (分裂期)</div>
-      <div class="grid-item frozen">4BC (已冷凍 S1)</div>
-      <div class="grid-item">EB (早期囊胚)</div>
-      <div class="grid-item">Blastocyst (未定級囊胚)</div>
-      <div class="grid-item frozen">4BC (已冷凍 S4)</div>
-      <div class="grid-item">Comp (緻密化桑椹胚)</div>
-      <div class="grid-item">5III (分裂期)</div>
-      <div class="grid-item">5II (分裂期)</div>
-    </div>
-  </section>
-
-  <section class="card detailed-lab-card">
-    <h2>🧾 三、囊胚分級與影像視覺分析說明</h2>
-    <p>針對您的提問：<strong>「請說明 ABC、1234 等級差異，並自行使用影像分析不要依賴表面數字」</strong>，以下為您進行詳細的生殖醫學解說：</p>
-
-    <div class="lab-item-block">
-      <h3>1️⃣ 數字代表的意義（1~6）：囊胚擴張程度 <span class="tag info">發育進度</span></h3>
-      <ul>
-        <li><strong>醫學定義：</strong> 數字代表囊胚腔（Blastocoel）擴張的大小與孵化進度。</li>
-        <li><strong>等級劃分：</strong> 1為早期囊胚（腔體小於一半），2為腔體大於一半，3為完全囊胚，<strong>4為擴張期囊胚（腔體完全撐開、透明帶變薄）</strong>，<strong>5為孵化中囊胚（部分細胞正擠出透明帶）</strong>，6為完全孵化。</li>
-        <li><strong>本個案視覺分析：</strong> 從圖片中標示「4BC」的影像可見，胚胎內部充滿液體形成的空腔已經相當明顯，透明帶（外圈圓殼）被撐滿且變薄，確實符合 **Grade 4** 的擴張標準。標示「5BC」的胚胎，在視覺上邊緣有細胞突破透明帶的跡象，符合 **Grade 5**。</li>
-      </ul>
-    </div>
-
-    <div class="lab-item-block">
-      <h3>2️⃣ 第一個英文字母（A/B/C）：內細胞團（ICM）評分 <span class="tag borderline">未來發育成胎兒的部分</span></h3>
-      <ul>
-        <li><strong>醫學定義：</strong> 評估聚集在囊胚腔一側的細胞團。</li>
-        <li><strong>A級：</strong> 細胞數目多，排列緊密。</li>
-        <li><strong>B級：</strong> 細胞數目較少，排列較鬆散。</li>
-        <li><strong>C級：</strong> 細胞數目極少，幾乎難以辨識緊密的團塊。</li>
-        <li><strong>本個案視覺分析：</strong> 觀察所有 4BC 與 5BC 的影像，可以在囊胚內部找到一團細胞（ICM），但這團細胞在視覺上看起來<strong>不夠厚實、較為扁平或細胞數量略少</strong>。這與頂級的 A 級（通常像一顆緊實飽滿的球體）有明顯落差，因此評為 **B 級** 是非常合理的臨床判斷。</li>
-      </ul>
-    </div>
-
-    <div class="lab-item-block">
-      <h3>3️⃣ 第二個英文字母（A/B/C）：滋養層細胞（TE）評分 <span class="tag abnormal">未來發育成胎盤的部分</span></h3>
-      <ul>
-        <li><strong>醫學定義：</strong> 評估沿著透明帶內壁排列的單層細胞。</li>
-        <li><strong>A級：</strong> 細胞數目多，形成連續緊密的上皮層。</li>
-        <li><strong>B級：</strong> 細胞數目較少，排列較鬆散，上皮層有空隙。</li>
-        <li><strong>C級：</strong> 細胞稀疏，數目很少，看起來十分扁平或大而不規則。</li>
-        <li><strong>本個案視覺分析：</strong> 觀察 4BC 與 5BC 影像的邊緣，負責形成胎盤的滋養層細胞看起來<strong>非常稀疏，細胞與細胞之間間隔大，且細胞較扁、不夠飽滿</strong>。這未能達到 B 級（多個連續細胞）的標準，因此被實驗室評為 **C 級**。這也是這批胚胎最需要關注的弱點。</li>
-      </ul>
-    </div>
-
-    <div class="lab-item-block">
-      <h3>4️⃣ 分裂期胚胎的羅馬數字（I, II, III）：碎片化程度 <span class="tag info">D2-D3的評估</span></h3>
-      <ul>
-        <li><strong>醫學定義：</strong> 像圖片中的「3III」、「7III」、「10II」，前面的數字代表「細胞分裂顆數」，後面的羅馬數字代表「細胞碎片程度與大小均勻度」。</li>
-        <li><strong>本個案視覺分析：</strong> 標示 II 或 III 的胚胎，在視覺上可以明顯看到細胞大小不一（不對稱分裂），且細胞周圍散落著一些無核的細胞質碎片（Fragmentation）。碎片較多會影響胚胎後續發育成囊胚的潛力。</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="card evaluation-card">
-    <h2>🧠 四、整體評估：借卵療程中，A、B、C等級是精子還是卵子的影響較多？</h2>
-    <p>針對您的核心疑問：<strong>「在借卵療程下，胚胎等級多為 BC，這受精子還是卵子的影響較大？」</strong></p>
-    
-    <div class="tip-box">
-      <strong>臨床關鍵結論：</strong> 在確認卵子來源健康年輕的前提下，若胚胎在第三天（D3）前發育尚可，但在發展成囊胚（D5/D6）的過程中品質下降（落入 BC 等級），臨床上<strong>強烈懷疑「男方精子品質」佔了較大的影響因素</strong>。
-    </div>
-
+  </div>
+  <div class="risk-factors-box">
+    <h3>⚠️ 可能降低成功率的風險原因</h3>
     <ul>
-      <li><strong>卵子的影響（主要在 D1~D3）：</strong> 卵子提供了胚胎初期發育所需的所有能量、粒線體與母體 RNA。因為是借卵，理論上卵子品質佳，這也是為什麼這些受精卵能夠啟動分裂，甚至順利走到囊胚期（數量多達 7 顆冷凍）。</li>
-      <li><strong>精子的影響（主要在 D4~D5 以後）：</strong> 胚胎發育到第三天（約 8 細胞期）後，會發生一個關鍵轉折點叫做<strong>「胚胎基因體活化 (Embryonic Genome Activation, EGA)」</strong>。此時，胚胎必須開始依賴父方（精子）與母方（卵子）結合後的新基因來主導發育。</li>
-      <li><strong>為何產生 C 級的滋養層 (TE)？：</strong> 如果精子的 <strong>DNA 碎片化指數（DFI）過高</strong>，或者精子本身帶有染色體微小異常，往往在 D3 之前看不出來，但在 D4-D5 嘗試形成囊胚腔與滋養層時，就會導致細胞增殖緩慢、碎片增加，進而造成滋養層細胞稀疏（C級）或內細胞團不佳（B/C級）。</li>
+      <li><strong>滋養層（TE）C級：</strong> 滋養層未來發育成胎盤，負責與母體著床。C級代表細胞數少，<strong>早期著床失敗或生化妊娠（淺著床後流失）的風險較高</strong>。</li>
+      <li><strong>潛在的精子 DNA 損傷：</strong> 若未針對男方精子做深入篩檢，精子異常可能導致胚胎整體染色體異常率上升。</li>
     </ul>
-  </section>
+  </div>
+</div>
 
-  <section class="card chance-card">
-    <h2>📈 五、囊胚本身的著床機率預估</h2>
-    <div class="chance-tag mid-low">單顆著床率：中等偏低</div>
-    <p>依據 Gardner 評分系統與全球生殖醫學大數據，<strong>4BC 與 5BC 等級的胚胎被歸類為「普通/中下（Fair/Poor）」等級的囊胚</strong>。雖然具有著床潛力，但相較於優質囊胚（AA, AB, BA, BB），其著床率確實有明顯落差。</p>
-    
-    <div class="two-column-grid">
-      <div class="good-factors-box">
-        <h3>✅ 有利於成功的正面原因</h3>
-        <ul>
-          <li><strong>總數量優勢：</strong> 您擁有高達 <strong>7 顆</strong> 凍胚。雖然單顆著床率稍低，但憑藉「次數/數量」，<strong>累積懷孕率（Cumulative Pregnancy Rate）仍然相當可觀</strong>。</li>
-          <li><strong>借卵優勢（年輕卵子）：</strong> 來自年輕卵子的胚胎，即使外觀等級為 BC，其染色體正常的機率（Euploid rate）通常比高齡自卵的 BC 胚胎高出許多。<strong>年輕的 BC 胚胎，著床率會優於高齡的 BC 胚胎。</strong></li>
-          <li><strong>順利擴張：</strong> 胚胎能達到 4 與 5 的擴張程度，代表其生命力與代謝能力有一定水準。</li>
-        </ul>
-      </div>
-      <div class="risk-factors-box">
-        <h3>⚠️ 可能降低成功率的風險原因</h3>
-        <ul>
-          <li><strong>滋養層（TE）C級：</strong> 滋養層未來發育成胎盤，負責與子宮內膜溝通與著床。C級代表細胞數少，<strong>早期著床失敗或生化妊娠（淺著床後流失）的風險較高</strong>。</li>
-          <li><strong>胚胎發展遲緩可能：</strong> 若這些囊胚是 D6 甚至 D7 才發育完成（圖片提及 D5-D7 發育停滯或冷凍），發育較慢的囊胚其著床率亦會打折。</li>
-          <li><strong>潛在的精子 DNA 損傷：</strong> 若未針對男方精子做深入篩檢，男方因素可能導致胚胎整體染色體異常率上升。</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="card research-card">
-    <h2>📚 六、調研資料摘要：生殖醫學對 BC 等級囊胚的共識</h2>
-    <ul>
-      <li><strong>關於 C 級滋養層：</strong> 多篇臨床回顧性研究指出，滋養層（TE）等級對於「著床成功與否」的預測力，甚至略高於內細胞團（ICM）。TE 為 C 級的囊胚，流產率通常較 A/B 級高。</li>
-      <li><strong>是否值得植入？：</strong> 絕對值得。目前生殖醫學界的共識是：<strong>「只要能冷凍的囊胚，就有創造健康寶寶的機會。」</strong> 許多健康活產的嬰兒最初也是來自 BC 或 CB 等級的胚胎，特別是使用年輕卵子時。</li>
-      <li><strong>精子因素介入：</strong> 在卵子極佳的狀態下出現高比例的次級囊胚，國際生殖醫學實務上會建議回溯檢查男方的生活型態、氧化壓力及精子 DNA 碎片。</li>
-    </ul>
-  </section>
-
-  <section class="card plan-card">
-    <h2>🪜 七、後續步驟指引</h2>
-    <ol>
-      <li><strong>評估是否需進行 PGT-A（胚胎著床前染色體篩檢）：</strong> 雖然 BC 等級的胚胎細胞數較少，切片風險較高，但由於有 7 顆，可與醫師討論是否挑選發育較好的幾顆解凍切片，以確認染色體正常與否，避免無效植入。（但 C 級滋養層切片可能傷害胚胎，需由實驗室主任評估）。</li>
-      <li><strong>改變植入策略：</strong> 面對單顆著床率較低的 BC 胚胎，且在法規/醫療指引允許的情況下，醫師可能會建議<strong>一次植入 2 顆</strong>，以提高單次植入的成功機率。</li>
-      <li><strong>優化子宮環境：</strong> 既然胚胎端（種子）的著床能力較弱，就必須確保子宮端（土壤）達到完美狀態。包含：確認無子宮內膜異位、無瘜肉、子宮內膜厚度充足、黃體素濃度達標，甚至考慮進行 ERA（子宮內膜容受性陣列）找出最佳著床窗。</li>
-    </ol>
-  </section>
-
-  <section class="card advice-card">
-    <h2>💡 八、生活與備孕建議 (針對精子提供者與受孕母體)</h2>
-    <ul>
-      <li><strong>男方（精子提供者）：</strong> 若未來還有可能需重新取精受精，強烈建議男方戒菸、戒酒、避免熬夜、補充抗氧化劑（如 Q10、維生素 C/E、鋅、葉酸），以降低精子 DNA 碎片率。</li>
-      <li><strong>女方（準備植入者）：</strong> 
-        <ul>
-          <li>維持 BMI 在正常範圍。</li>
-          <li>規律運動促進骨盆腔血液循環（幫助內膜生長）。</li>
-          <li>進入植入療程時，嚴格遵照醫囑使用雌激素與黃體素，絕對不可漏藥。</li>
-        </ul>
-      </li>
-    </ul>
-  </section>
-
-  <section class="card discussion-card">
-    <h2>🗣️ 九、建議與醫師討論的關鍵問題</h2>
-    <ul>
-      <li>「我們這 7 顆 4BC/5BC 的囊胚，是在第 5 天（D5）還是第 6 天（D6）冷凍的？發育天數會影響著床率嗎？」</li>
-      <li>「以貴院的實驗室標準，BC 等級的胚胎是否適合進行 PGT-A（染色體篩檢）？還是建議直接植入？」</li>
-      <li>「因為是借卵療程，胚胎卻多為 BC 級，醫師認為男方是否需要加驗精子 DNA 碎片化（DFI）？」</li>
-      <li>「針對 BC 等級的胚胎，為了提高成功率，您會建議一次植入兩顆嗎？」</li>
-      <li>「在植入前，是否建議我先做子宮鏡檢查，確保內膜沒有瘜肉或發炎，把『土壤』準備到最好？」</li>
-    </ul>
-  </section>
-
-  <section class="card disclaimer-card">
-    <h2>📌 十、重要聲明</h2>
-    <p>本報告依據您提供的單一圖片進行視覺解讀與醫學邏輯推演。影像可能受拍攝光線、焦距及觀測時間點影響。囊胚分級（Gardner grading）具主觀性，各生殖中心實驗室之評分標準可能略有差異。本分析<strong>無法取代您的主治醫師與胚胎師的專業綜合診斷</strong>，所有醫療決策（包含胚胎淘汰、切片與植入策略）請務必以您的生殖中心醫療團隊之建議為準。</p>
-  </section>
+</section>
+<section class="card research-card">
+<h2>📚 七、調研資料摘要：生殖醫學對 BC 等級囊胚的共識</h2>
+<ul>
+<li><strong>關於 C 級滋養層：</strong> 多篇臨床回顧性研究指出，滋養層（TE）等級對於「著床成功與否」的預測力，甚至略高於內細胞團（ICM）。TE 為 C 級的囊胚，流產率通常略高。</li>
+<li><strong>是否值得植入？：</strong> 絕對值得。目前生殖醫學界的共識是：<strong>「只要能冷凍的囊胚，就有創造健康寶寶的機會。」</strong> 許多健康活產的嬰兒最初也是來自 BC 或 CB 等級的胚胎，特別是使用年輕捐贈卵子時。</li>
+</ul>
+</section>
+<section class="card plan-card">
+<h2>🪜 八、後續步驟指引</h2>
+<ol>
+<li><strong>追蹤剩餘胚胎進度：</strong> 與實驗室確認圖中標示高潛力的 8 顆胚胎（Morula, Comp, EB, Blastocyst）最終是否有成功冷凍，這將進一步增加您的可用籌碼。</li>
+<li><strong>評估是否需進行 PGT-A（著床前染色體篩檢）：</strong> 雖然 BC 等級的胚胎細胞數較少，切片風險較高，但由於數量充足，可與醫師討論是否挑選幾顆解凍切片，以確認染色體正常與否。（需由實驗室主任評估胚胎耐受度）。</li>
+<li><strong>優化子宮環境：</strong> 既然胚胎端著床能力較弱，就必須確保子宮端（土壤）達到完美狀態。包含確認無瘜肉、內膜厚度充足，必要時可考慮 ERA 檢測找出最佳著床窗。</li>
+</ol>
+</section>
+<section class="card discussion-card">
+<h2>🗣️ 九、建議與醫師討論的關鍵問題</h2>
+<ul>
+<li>「報告中尚未冷凍的 EB、Blastocyst 和 Morula，後來有成功擴張並冷凍起來嗎？最終我們總共有幾顆凍胚？」</li>
+<li>「因為是借卵療程，胚胎卻多為 BC 級且有部分停滯在分裂期，醫師認為男方是否需要加驗精子 DNA 碎片化（DFI）？」</li>
+<li>「以貴院的實驗室標準，BC 等級的滋養層細胞較少，是否還適合進行 PGT-A（染色體篩檢）切片？」</li>
+<li>「針對 BC 等級的胚胎，為了提高著床成功率，您會建議一次植入兩顆嗎？」</li>
+</ul>
+</section>
+<section class="card disclaimer-card">
+<h2>📌 十、重要聲明</h2>
+<p>本報告依據您提供的單一圖片進行視覺解讀、等級說明與發育潛力推演。影像可能受拍攝光線、焦距及觀測時間點影響。胚胎發育潛力與囊胚分級具主觀性，各生殖中心實驗室之評分標準可能略有差異。本分析<strong>無法取代您的主治醫師與胚胎師的專業綜合診斷</strong>，所有醫療決策請務必以您的生殖中心醫療團隊之建議為準。</p>
+</section>
 </div>
