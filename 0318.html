@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生殖醫學胚胎分析報告</title>
+<style>
+  :root {
+    --primary-color: #1a4b6d; /* 深藍色 */
+    --secondary-color: #2c7a9c; /* 藍綠色 */
+    --bg-color: #f4f7f9;
+    --card-bg: #ffffff;
+    --text-main: #333333;
+    --text-muted: #666666;
+    --border-color: #e0e6ed;
+    
+    /* 標籤顏色 */
+    --tag-normal: #e3fcef;
+    --tag-normal-text: #0d8246;
+    --tag-borderline: #fff3e0;
+    --tag-borderline-text: #e65100;
+    --tag-abnormal: #ffebee;
+    --tag-abnormal-text: #c62828;
+    --tag-info: #e3f2fd;
+    --tag-info-text: #1565c0;
+    
+    /* 機率標籤顏色 */
+    --chance-high: #2e7d32;
+    --chance-mid-high: #1976d2;
+    --chance-medium: #f57c00;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .report-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: transparent;
+  }
+
+  .report-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  .report-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+  }
+
+  .report-subtitle {
+    margin: 10px 0 0 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+
+  .card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+  }
+
+  .card h2 {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+
+  .lab-table th, .lab-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .lab-table th {
+    background-color: #f8fafc;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .lab-table tbody tr:hover {
+    background-color: #f8fafc;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .tag.normal { background-color: var(--tag-normal); color: var(--tag-normal-text); }
+  .tag.borderline { background-color: var(--tag-borderline); color: var(--tag-borderline-text); }
+  .tag.abnormal { background-color: var(--tag-abnormal); color: var(--tag-abnormal-text); }
+  .tag.info { background-color: var(--tag-info); color: var(--tag-info-text); }
+
+  .lab-item-block {
+    background-color: #fafbfc;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .lab-item-block h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .lab-item-block ul {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--text-main);
+  }
+
+  .lab-item-block li {
+    margin-bottom: 8px;
+  }
+
+  .chance-level {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: var(--tag-info);
+    color: var(--chance-mid-high);
+  }
+
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .good-factors-box, .risk-factors-box {
+    padding: 20px;
+    border-radius: 8px;
+    height: 100%;
+  }
+
+  .good-factors-box {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+  }
+
+  .good-factors-box h3 {
+    color: #166534;
+    margin-top: 0;
+  }
+
+  .risk-factors-box {
+    background-color: #fff1f2;
+    border: 1px solid #fecdd3;
+  }
+
+  .risk-factors-box h3 {
+    color: #9f1239;
+    margin-top: 0;
+  }
+
+  .info-box { background-color: #f0f9ff; border-left: 4px solid #0ea5e9; padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 15px; }
+  .warning-box { background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 15px; }
+  .alert-box { background-color: #fef2f2; border-left: 4px solid #ef4444; padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 15px; }
+
+  ul { line-height: 1.8; }
+  
+  @media (max-width: 768px) {
+    .two-column-grid {
+      grid-template-columns: 1fr;
+    }
+    .lab-table th, .lab-table td {
+      padding: 10px 8px;
+      font-size: 0.9rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>🧬 生殖醫學胚胎分析報告</h1>
+    <p class="report-subtitle">D5/D6 囊胚影像判讀・等級分析・後續指引</p>
+  </header>
+
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要</h2>
+    <div class="info-box">
+      <ul>
+        <li><strong>評估對象：</strong> 受贈卵子之試管嬰兒（IVF）療程患者。</li>
+        <li><strong>資料來源：</strong> 胚胎發育第 5 天（D5）與第 6 天（D6）之影像紀錄與分級標籤。</li>
+        <li><strong>卵子來源：</strong> <strong>年輕捐贈者（受贈卵子）</strong>。這在臨床上具有極重大的正面意義，代表卵子品質佳、染色體異常（非整倍體）機率極低。</li>
+        <li><strong>總結成果：</strong> 成功冷凍保存 <strong>12 顆囊胚</strong>（D5 共 7 顆，D6 共 5 顆）。這是一個非常豐收且具備高度後續植入潛力的結果。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card highlight-card">
+    <h2>🔎 二、胚胎報告重點整理 (Gardner 囊胚評分系統)</h2>
+    <p>在詳細分析前，先為您拆解胚胎分級系統（如：4BC、5AC）的意義：</p>
+    <ul>
+      <li><strong>數字 (1-6)：代表「囊胚擴張與孵化程度」</strong>。數字越大代表發育越成熟。4 代表「完全擴張的囊胚」；5 代表「正在孵化（破殼而出）的囊胚」；6 代表「完全孵化的囊胚」。</li>
+      <li><strong>第一個英文字母 (A/B/C)：代表「內細胞團 (ICM)」的品質</strong>。這是未來發育成<strong>胎兒</strong>的部分。A 為最好（細胞多且緊密），B 為中等，C 為細胞數較少。</li>
+      <li><strong>第二個英文字母 (A/B/C)：代表「滋養層細胞 (TE)」的品質</strong>。這是未來發育成<strong>胎盤</strong>的部分。A 為最好（細胞多且排列整齊），B 為中等，C 為細胞較少且鬆散。</li>
+    </ul>
+
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th>發育天數</th>
+          <th>編號</th>
+          <th>胚胎等級</th>
+          <th>視覺判讀與狀態</th>
+          <th>臨床潛力</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>D5</td>
+          <td>S1, S2, S3, S4, S6, S7</td>
+          <td><strong>4BC</strong> (已冷凍)</td>
+          <td><span class="tag normal">擴張囊胚</span> 視覺可見明顯的囊胚腔，內細胞團(B)可辨識，滋養層細胞(C)較為稀疏。</td>
+          <td><span class="tag info">良好</span> (受贈卵子加持)</td>
+        </tr>
+        <tr>
+          <td>D5</td>
+          <td>S5</td>
+          <td><strong>5BC</strong> (已冷凍)</td>
+          <td><span class="tag normal">孵化中囊胚</span> 視覺呈葫蘆狀，正在突破透明帶，展現良好生命力。</td>
+          <td><span class="tag info">良好</span></td>
+        </tr>
+        <tr>
+          <td>D6</td>
+          <td>S9</td>
+          <td><strong>4AC</strong> (已冷凍)</td>
+          <td><span class="tag normal">擴張囊胚</span> 視覺可見緊密厚實的內細胞團(A)，未來發育為胎兒的潛力極佳。</td>
+          <td><span class="tag info">優良</span></td>
+        </tr>
+        <tr>
+          <td>D6</td>
+          <td>S8, S10, S11, S12</td>
+          <td><strong>5BC</strong> (已冷凍)</td>
+          <td><span class="tag borderline">D6孵化中囊胚</span> 發育稍慢一天但已達孵化階段(5)，外觀可見細胞正脫離透明帶。</td>
+          <td><span class="tag info">良好</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、各類別囊胚的視覺與臨床詳細說明</h2>
+    
+    <div class="lab-item-block">
+      <h3>D5 4BC 系列 (共 6 顆) <span class="tag normal">主力植入梯隊</span></h3>
+      <ul>
+        <li><strong>視覺圖像判讀：</strong> 從圖片可看出這 6 顆（S1, S2, S3, S4, S6, S7）都有明顯撐開的透明圓形空腔（囊胚腔）。中央或側邊有一小團細胞（ICM，等級B），周圍的環狀細胞層（TE，等級C）相對較薄。</li>
+        <li><strong>在生殖評估中的意義：</strong> B 級的內細胞團代表胎兒發育的基本盤穩固；C 級的滋養層代表初期胎盤著床能力可能不是最頂級。整體屬於「中等品質」形態。</li>
+        <li><strong>本個案的可能解讀：</strong> 一般來說 4BC 是可接受的植入選擇。<strong>關鍵在於：這是捐贈卵子。</strong> 年輕卵子形成的 BC 級囊胚，其染色體正常的機率遠高於高齡女性的 AA 級囊胚。因此，這 6 顆 4BC 擁有極高的活產潛力，絕不可視為「不良胚胎」。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>D6 4AC (編號 S9) <span class="tag info">胎兒發育潛力極佳</span></h3>
+      <ul>
+        <li><strong>視覺圖像判讀：</strong> 從圖片中可見，這顆囊胚有一團非常明顯、顏色較深、細胞緊密聚集的內細胞團（A級 ICM）。</li>
+        <li><strong>在生殖評估中的意義：</strong> 第一個字母 A 非常珍貴，代表未來長成胎兒的細胞群非常強壯。雖然延遲到 D6 才達到此標準，且滋養層為 C，但其強大的 ICM 賦予了它很高的評價。</li>
+        <li><strong>本個案的可能解讀：</strong> 這是一顆極具潛力的胚胎。雖然 D6 發育稍慢，且著床端（TE）細胞偏少，但在良好子宮內膜準備下，它發育成健康胎兒的機率很高。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>D5 5BC (S5) 與 D6 5BC 系列 (S8, S10, S11, S12) <span class="tag normal">生命力旺盛的孵化胚胎</span></h3>
+      <ul>
+        <li><strong>視覺圖像判讀：</strong> 圖片中標示為 5BC 的胚胎，視覺上呈現「8」字型或葫蘆狀。這表示胚胎的體積已經大到撐破外層的透明帶（破殼而出）。</li>
+        <li><strong>在生殖評估中的意義：</strong> 數字 5 代表極高的擴張與分裂動能。能夠自行孵化，代表胚胎具備良好的代謝與生長能力。</li>
+        <li><strong>本個案的可能解讀：</strong> D5 就達到 5BC 的胚胎動能極佳。而 D6 達到 5BC 的胚胎，雖然起步較慢，但也展現了堅韌的後發優勢。由於已經處於孵化狀態，植入後的著床速度通常較快。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>其他未冷凍之胚胎 (發育遲緩、碎片過多、停止發育) <span class="tag borderline">自然淘汰機制</span></h3>
+      <p style="margin-top: 10px; color: var(--text-main); font-weight: 500;">除了成功冷凍的 12 顆囊胚外，影像中也記錄了其他未能達到冷凍標準的胚胎。這是試管療程中完全正常的「自然淘汰」過程。根據圖片標示，我們可將其分為以下幾類進行詳細視覺與臨床判讀：</p>
+      <ul>
+        <li><strong>發育遲緩 (如 D5 的 Morula/桑葚胚、Comp/融合中、EB/早期囊胚，及標記 5II, 6II, 7III 等早期分裂胚)：</strong>
+          <ul>
+            <li><strong>視覺判讀：</strong> 在 D5 或 D6 的時間點，標準進度應已形成撐開的「囊胚腔」。但圖片中標示 Morula 或 Comp 的胚胎，細胞僅緊密聚集成團；標示 EB (Early Blastocyst) 的胚胎僅有微小空腔；而標示數字如 5II, 6II, 7III 的胚胎，則仍停留在落後的 5~7 個細胞分裂階段。</li>
+            <li><strong>臨床意義：</strong> 胚胎發育是一場限時賽，嚴重落後標準進度的胚胎，即使植入著床潛力也極低。實驗室不予冷凍，是為了幫您嚴格把關，確保未來植入的都是最具潛力的選手。</li>
+          </ul>
+        </li>
+        <li><strong>細胞碎片過多與品質不良 (如標記 II、III 級碎片，及 D6 的「不良胚胎」)：</strong>
+          <ul>
+            <li><strong>視覺判讀：</strong> 圖片中標示「III」或「不良胚胎」的影像，明顯可見主要細胞周圍散落著許多暗色、不規則的微小顆粒（細胞碎片），或者整體顏色偏暗、細胞大小嚴重不均一。</li>
+            <li><strong>臨床意義：</strong> 細胞在分裂過程中若產生過多碎片，會擠壓正常細胞的生長空間。高碎片率（如第 III 級）通常暗示胚胎內部可能存在染色體異常或代謝問題，屬於不適合植入的淘汰品。</li>
+          </ul>
+        </li>
+        <li><strong>停止發育 (Arrest)：</strong>
+          <ul>
+            <li><strong>視覺判讀：</strong> 在 D6 圖片中標示為「arrest」的胚胎，細胞外觀已明顯退化、萎縮變暗，且完全停止了任何細胞分裂與擴張活動。</li>
+            <li><strong>臨床意義：</strong> 這是胚胎啟動了自身的「凋亡機制」。受精卵在發育第三天（D3）後，會開始依賴自身的基因組運作，若基因有缺陷或動能不足，便會自動停止生長。</li>
+          </ul>
+        </li>
+        <li><strong>本個案的整體解讀：</strong> 在體外培養中，大約只有 40%-60% 的受精卵能成功闖關發育為可用囊胚。您已經成功取得 12 顆優質/中等囊胚，這是一個非常優秀的成績。上述這些發育遲緩或不良的淘汰胚胎，屬於完全正常的實驗室耗損，<strong>絕不會影響您那 12 顆冷凍囊胚的高成功率與品質</strong>。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體評估</h2>
+    <p>綜合以上視覺影像與實驗室數據判讀，本個案的胚胎培養結果<strong>非常成功</strong>。雖然從純形態學（外觀）來看，胚胎大多落在 BC 等級，未見頂級的 AA 或 AB 級，但我們必須引入生殖醫學中最重要的變數：「<strong>卵子年齡</strong>」。</p>
+    <p>醫學實證指出，<strong>年輕捐贈者的卵子，即使發育為形態學上 B 或 C 級的胚胎，其內部染色體正常的比例（Euploidy rate）依然極高。</strong> 染色體正常是活產的根本。您目前擁有多達 12 次的植入籌碼（冷凍胚胎），這是一個非常雄厚的「醫療資本」，容錯率極高。</p>
+  </section>
+
+  <section class="card chance-card">
+    <h2>📈 五、目前試管療程成功機率評估</h2>
+    <div class="chance-level">中等偏高 ～ 偏高 (High Probability)</div>
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面原因</h3>
+        <ul>
+          <li><strong>受贈卵子優勢：</strong> 年輕卵子大幅降低了染色體異常導致的流產或不著床風險。</li>
+          <li><strong>庫存量極豐富：</strong> 12 顆冷凍囊胚提供了極高的累積活產率（Cumulative Live Birth Rate）。即使單次植入未果，仍有充裕的後備胚胎。</li>
+          <li><strong>胚胎生命力：</strong> 有 5 顆胚胎達到等級「5」（孵化中），顯示胚胎本身具備突破透明帶的強大能量。</li>
+        </ul>
+      </div>
+      <div class="risk-factors-box">
+        <h3>⚠️ 可能失敗原因 / 需克服之挑戰</h3>
+        <ul>
+          <li><strong>滋養層細胞(TE)評分為C：</strong> 12 顆中有 11 顆的 TE 評分為 C。這表示未來形成胎盤的細胞數較少，可能會稍微影響初期的著床力。</li>
+          <li><strong>母體子宮環境未知：</strong> 胚胎只是種子，受贈母親的子宮內膜（土壤）是否準備良好、有無免疫排斥或血栓問題，是接下來成功的關鍵。</li>
+          <li><strong>精子因素未知：</strong> 胚胎的發育（特別是D3之後）高度依賴精子基因。若有男性因素，亦可能影響胚胎外觀評級。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card research-card">
+    <h2>📚 六、調研資料摘要與臨床共識</h2>
+    <div class="info-box">
+      <p>根據目前主流生殖醫學共識與臨床實務：</p>
+      <ul>
+        <li><strong>形態學 vs. 遺傳學：</strong> 過去我們極度依賴胚胎外觀（ABC評級）來決定生死。但現代醫學發現，「外表普普」的 BC 級胚胎，若是來自年輕卵子，其染色體正常的機率依然極高。</li>
+        <li><strong>D5 與 D6 的差異：</strong> D5 囊胚的著床率通常略高於 D6 囊胚。但在進行冷凍胚胎植入（FET）的週期中，只要子宮內膜與胚胎日數同步，D6 胚胎同樣具有優異的活產率。</li>
+        <li><strong>C 級滋養層的意義：</strong> TE 評分為 C 的胚胎著床率可能低於 A 或 B，但一旦著床成功，其活產率與後續嬰兒健康狀況與頂級胚胎並無顯著差異。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card plan-card">
+    <h2>🪜 七、步驟指引與下一步計畫</h2>
+    <ol>
+      <li><strong>專注於子宮內膜準備：</strong> 種子已備妥，接下來需透過荷爾蒙替代療法（HRT）或自然週期，將子宮內膜厚度養至 8-10mm 以上，且確保型態呈現黃金三條線。</li>
+      <li><strong>評估子宮環境（若尚未進行）：</strong> 考慮進行子宮鏡檢查，確認子宮腔內無瘜肉、沾黏或中隔，確保著床環境無礙。</li>
+      <li><strong>決定植入順序：</strong> 建議與醫師討論，通常會優先解凍植入 <strong>D5 4BC</strong> 或是 <strong>D6 4AC</strong>。</li>
+      <li><strong>安排植入日期：</strong> 搭配內膜厚度與黃體素投藥時間，安排最佳化植入窗（Window of Implantation）。</li>
+    </ol>
+  </section>
+
+  <section class="card discussion-card">
+    <h2>🗣️ 八、建議與醫師討論的關鍵問題</h2>
+    <div class="tip-box">
+      <p>下次門診時，建議您可以直接向醫師詢問以下問題，以規劃最佳植入策略：</p>
+      <ul>
+        <li>「醫師，這 12 顆囊胚中，您建議第一次植入哪一顆？會優先選 D6 4AC，還是 D5 4BC？」</li>
+        <li>「我們的胚胎滋養層（TE）多為 C 級，這在臨床著床率上大約會打多少折扣？是否需要考慮一次植入兩顆（需衡量多胞胎風險）？」</li>
+        <li>「針對我的子宮內膜，您建議使用自然週期還是吃藥（荷爾蒙替代）來準備？」</li>
+        <li>「在植入前，我是否需要先做子宮鏡檢查？或是抽血驗免疫/血栓相關數值？」</li>
+        <li>「我的胚胎有 5 顆是已經在孵化的狀態（等級5），植入時的技術或黃體素補充時間點會有不同嗎？」</li>
+      </ul>
+    </div>
+  </section>
+  
+  <section class="card advice-card">
+    <h2>💡 九、生活與備孕建議</h2>
+    <ul>
+      <li><strong>放鬆心情：</strong> 您已經跨過試管療程中最艱難的一關（取得優質足量的胚胎）。目前的籌碼非常夠，請放下對於「沒有AA級胚胎」的焦慮。</li>
+      <li><strong>促進骨盆腔血液循環：</strong> 植入前可保持適度有氧運動、瑜珈、泡腳，避免久坐，有助於子宮內膜血流豐富。</li>
+      <li><strong>抗發炎飲食：</strong> 採取地中海飲食，多攝取優質蛋白質、深海魚油、深色蔬菜，減少精緻糖與加工食品，打造抗發炎的母體環境，有利於胚胎著床。</li>
+      <li><strong>按時服用內膜準備藥物：</strong> 未來進入植入週期時，請務必嚴格遵守醫囑服用雌激素與黃體素，切勿自行停藥。</li>
+    </ul>
+  </section>
+
+  <section class="card disclaimer-card">
+    <h2>📌 十、重要聲明</h2>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">本報告係由人工智慧依據您提供的影像標籤與醫學常理進行之輔助分析，目的為協助您理解檢驗內容與準備醫病溝通。本報告<strong>無法取代真實醫師的專業臨床診斷</strong>。胚胎影像判讀具有高度主觀性與專業性，且著床成功與否牽涉母體子宮、免疫、內分泌等多重複雜因素。請務必以您的生殖中心主治醫師最終的判斷與治療建議為準。</p>
+  </section>
+
+</div>
+
+</body>
+</html>
