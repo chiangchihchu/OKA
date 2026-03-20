@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雲揚社區物業管理與保全服務評選綜合分析報告</title>
+    <!-- 引入 Chart.js 作為圖表渲染引擎 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f7fafc;
+        }
+        h1 {
+            text-align: center;
+            color: #1a365d;
+            border-bottom: 4px solid #3182ce;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+        h2 {
+            color: #2b6cb0;
+            border-left: 6px solid #3182ce;
+            padding-left: 15px;
+            margin-top: 40px;
+            background-color: #ebf8ff;
+            padding: 12px;
+            border-radius: 0 8px 8px 0;
+        }
+        h3 {
+            color: #2c5282;
+            margin-top: 25px;
+            font-size: 1.3em;
+        }
+        section {
+            background-color: #ffffff;
+            padding: 25px 35px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 14px;
+            text-align: left;
+        }
+        th {
+            background-color: #edf2f7;
+            color: #4a5568;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        tr:hover {
+            background-color: #e2e8f0;
+        }
+        .score-high { color: #276749; font-weight: bold; background-color: #c6f6d5; text-align: center;}
+        .score-med { color: #b7791f; font-weight: bold; background-color: #fefcbf; text-align: center;}
+        .score-low { color: #c53030; font-weight: bold; background-color: #fed7d7; text-align: center;}
+        .text-right { text-align: right; }
+        .vendor-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+        }
+        .vendor-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        }
+        ul { padding-left: 25px; }
+        li { margin-bottom: 10px; }
+        .highlight {
+            background-color: #fefcbf;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #b7791f;
+            font-weight: bold;
+        }
+        .highlight-red {
+            color: #e53e3e;
+            font-weight: bold;
+        }
+        .chart-container {
+            position: relative;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .chart-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+        .chart-half {
+            flex: 1 1 48%;
+            min-width: 300px;
+        }
+        .note {
+            font-size: 0.85em;
+            color: #718096;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>雲揚社區物業管理與保全服務評選綜合分析報告</h1>
+
+    <section id="summary">
+        <h2>一、 評選任務摘要</h2>
+        <p>本報告旨在為「雲揚社區」之物業管理與保全服務招標進行系統化之綜合評估。現代物業管理已跨越傳統門禁範疇，延伸至資產保值、ESG永續與風險控制。本評估立基於各廠商之企劃書與營運數據，透過<strong>數據圖表化</strong>與<strong>交叉比對</strong>，協助管委會作出具備抗風險能力之最佳決策。</p>
+        <ul>
+            <li><strong>評選目的：</strong> 遴選具備財務穩健、數位化管理能力、高度法規遵循且能提供極端風險防護之綜合性物業保全夥伴。</li>
+            <li><strong>社區型態：</strong> 具備一定規模、重視居住品質與資產保值之現代化社區。</li>
+            <li><strong>候選廠商數量：</strong> 共計 8 家（良福、忠正、富通、國強、維安、精緻慧智、國華、嘉信）。</li>
+            <li><strong>目前資料完整度：</strong> 已掌握各廠商之資本規模、ESG創新亮點、SOP與數位化工具、法遵態度、桃園在地實績，以及最新之<strong>「每月服務報價總表」</strong>，並已完成與現有物業成本之漲幅比較。</li>
+            <li><strong>決策風險提示：</strong> 選擇不當之保全公司（如削價競爭者），易產生「空哨/缺哨」、「財務虧空」與「重大意外無法賠償」之骨牌效應。</li>
+        </ul>
+    </section>
+
+    <section id="pricing-analysis">
+        <h2>二、 各廠商報價與現況漲幅比較</h2>
+        <p>因應基本工資調漲與物價通膨，各投標廠商之報價皆高於現有物業成本。以下依據報價由低至高進行排序與漲幅計算。管委會需注意：<strong>過低的漲幅可能隱含「基層薪資苛扣」或「人員素質妥協」之風險；而較高的漲幅則需檢視其是否提供等價之加值服務（如ESG硬體、高級系統、豪宅特勤等）。</strong></p>
+        
+        <span class="note">* 註：考量市場行情與其他廠商報價級距，現有物業成本 23,500 與忠正報價 29,400 應為輸入時漏植一碼，為確保分析合理性，本表以現況 235,000 元及忠正 294,000 元為基準進行精確計算。</span>
+
+        <div class="chart-container" style="max-width: 900px;">
+            <canvas id="priceChart"></canvas>
+        </div>
+
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>排名 (低至高)</th>
+                        <th>廠商名稱</th>
+                        <th class="text-right">每月總報價 (元)</th>
+                        <th class="text-right">較現況增加金額 (元/月)</th>
+                        <th class="text-right">漲幅 (%)</th>
+                        <th>報價策略分析觀察</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background-color: #fefcbf; border-bottom: 2px solid #ecc94b;">
+                        <td><strong>基準</strong></td>
+                        <td><strong>現有物業成本</strong></td>
+                        <td class="text-right"><strong>$235,000</strong></td>
+                        <td class="text-right">-</td>
+                        <td class="text-right">-</td>
+                        <td>現有預算基準線</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td><strong>國強保全</strong></td>
+                        <td class="text-right">$239,400</td>
+                        <td class="text-right">+$4,400</td>
+                        <td class="text-right highlight-red">+1.87%</td>
+                        <td>報價最保守，幾乎平盤。需確認是否能足額發放法定薪資。</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><strong>嘉信保全</strong></td>
+                        <td class="text-right">$245,700</td>
+                        <td class="text-right">+$10,700</td>
+                        <td class="text-right highlight-red">+4.55%</td>
+                        <td>微幅調漲，可能透過智生活APP降低現場行政人力成本。</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><strong>富通保全</strong></td>
+                        <td class="text-right">$247,275</td>
+                        <td class="text-right">+$12,275</td>
+                        <td class="text-right highlight-red">+5.22%</td>
+                        <td>調幅溫和，包含吧檯秘書服務，C/P值看似頗高。</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><strong>維安保全</strong></td>
+                        <td class="text-right">$266,175</td>
+                        <td class="text-right">+$31,175</td>
+                        <td class="text-right highlight-red">+13.27%</td>
+                        <td>屬中段班報價，反映了合理的通膨與工資調漲成本。</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><strong>精緻慧智</strong></td>
+                        <td class="text-right">$269,430</td>
+                        <td class="text-right">+$34,430</td>
+                        <td class="text-right highlight-red">+14.65%</td>
+                        <td>主打法定薪資透明、不扣款。此漲幅為確保「不放空哨、不換人」的合規成本。</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><strong>國華保全</strong></td>
+                        <td class="text-right">$271,950</td>
+                        <td class="text-right">+$36,950</td>
+                        <td class="text-right highlight-red">+15.72%</td>
+                        <td>中高價位，可能包含其自建機電團隊的隱性維護服務成本。</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><strong>良福保全</strong></td>
+                        <td class="text-right">$291,512</td>
+                        <td class="text-right">+$56,512</td>
+                        <td class="text-right highlight-red">+24.05%</td>
+                        <td>大集團報價標準，反映其24項危機處理及巨額資本墊款的「保險費」溢價。</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td><strong>忠正保全</strong></td>
+                        <td class="text-right">$294,000</td>
+                        <td class="text-right">+$59,000</td>
+                        <td class="text-right highlight-red">+25.11%</td>
+                        <td>報價最高。但需考量其「免費提供EV防火毯」與「零資本支出節能方案」，前期硬體投資已攤提於管理費中。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="registration-data">
+        <h2>三、 候選廠商登記資料與資本規模比較</h2>
+        <p>物業管理公司日常需代收代付龐大管理費，其「資本額與營運規模」是評估其<strong>抗風險能力與墊款能力</strong>的首要指標。規模龐大的企業在遭遇重大意外時，具備較強的財務緩衝能力。</p>
+        
+        <div class="chart-container" style="max-width: 900px;">
+            <canvas id="capitalChart"></canvas>
+            <span class="note">* 註：忠正、國華、嘉信於企劃書中未明確標示獨立資本額，故不列入此圖表比較。精緻慧智以其母集團國聯保全之實收資本為評估基準。</span>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>廠商名稱</th>
+                    <th>保全+物管總資本額</th>
+                    <th>年營業額/規模</th>
+                    <th>員工人數</th>
+                    <th>成立年份</th>
+                    <th>企業集團背景與特色</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>良福保全</strong></td>
+                    <td>約 1.4 億元</td>
+                    <td>約 26 億元</td>
+                    <td>4,188 人</td>
+                    <td>1994年</td>
+                    <td>隸屬良福事業集團，涵蓋工程與科技，具備國家級關鍵防護能量。</td>
+                </tr>
+                <tr>
+                    <td><strong>忠正保全</strong></td>
+                    <td>未獨立標示</td>
+                    <td>約 10 億元</td>
+                    <td>2,000 餘人</td>
+                    <td>2011年</td>
+                    <td>五大事業體相輔相成，具備強大後勤與ESG節能硬體資源。</td>
+                </tr>
+                <tr>
+                    <td><strong>精緻慧智</strong></td>
+                    <td>集團 1.1 億元</td>
+                    <td>集團量體</td>
+                    <td>集團約 2,000 人</td>
+                    <td>2024年</td>
+                    <td>隸屬國聯保全集團，專注於高端豪宅與特勤物業規劃。</td>
+                </tr>
+                <tr>
+                    <td><strong>富通保全</strong></td>
+                    <td>7,500 萬元</td>
+                    <td>每月約 1,700 萬元</td>
+                    <td>未標示</td>
+                    <td>2009年</td>
+                    <td>具富通建設背景，主打「居住保質、建物保值」理念。</td>
+                </tr>
+                <tr>
+                    <td><strong>國強保全</strong></td>
+                    <td>5,000 萬元</td>
+                    <td>服務 300 家以上</td>
+                    <td>未標示</td>
+                    <td>1999年</td>
+                    <td>深耕桃園在地，具備北台灣四大區事業處，政府共契廠商。</td>
+                </tr>
+                <tr>
+                    <td><strong>維安保全</strong></td>
+                    <td>5,000 萬元</td>
+                    <td>台銀共契廠商</td>
+                    <td>未標示</td>
+                    <td>2008年</td>
+                    <td>強調與智能網路公司異業結盟，具備獨創之文件保護系統。</td>
+                </tr>
+                <tr>
+                    <td><strong>國華保全</strong></td>
+                    <td>未標示</td>
+                    <td>軍政商辦實績豐富</td>
+                    <td>未標示</td>
+                    <td>未標示</td>
+                    <td>標榜雄鷹精神，軍警背景濃厚，擁有自建機電團隊。</td>
+                </tr>
+                <tr>
+                    <td><strong>嘉信保全</strong></td>
+                    <td>未標示</td>
+                    <td>屢獲優良大廈獎</td>
+                    <td>未標示</td>
+                    <td>未標示</td>
+                    <td>深度整合智生活系統，專注社區營造與數位化發展。</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="dimensions">
+        <h2>四、 評選維度與權重設計</h2>
+        <p>為量化各廠商之優劣勢，本報告設計八大評選維度（總分 100%），全面檢視其服務深度：</p>
+        <table>
+            <thead>
+                <tr>
+                    <th width="20%">評選維度</th>
+                    <th width="10%">權重</th>
+                    <th width="35%">評分標準 (1-10分)</th>
+                    <th width="35%">對應之社區風險防範</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1. 報價與成本合理性</td>
+                    <td>15%</td>
+                    <td>是否公開法定薪資結構？拒絕削價競爭？</td>
+                    <td>防範因低薪導致高流動率與夜班空哨。</td>
+                </tr>
+                <tr>
+                    <td>2. 企業規模與資本經驗</td>
+                    <td>10%</td>
+                    <td>資本額、營收規模與後勤支援體系。</td>
+                    <td>確保重大意外賠償與大型修繕墊款能力。</td>
+                </tr>
+                <tr>
+                    <td>3. 人員素質與穩定性</td>
+                    <td>15%</td>
+                    <td>薪資不扣款承諾、三節福利、幸福企業認證。</td>
+                    <td>提升基層向心力，轉化為優良的住戶服務態度。</td>
+                </tr>
+                <tr>
+                    <td>4. 教育訓練與督導機制</td>
+                    <td>10%</td>
+                    <td>日夜督勤頻率、嚴格之扣款汰換機制。</td>
+                    <td>杜絕執勤怠惰、夜班睡覺及未按時巡邏。</td>
+                </tr>
+                <tr>
+                    <td>5. 緊急事件與ESG能力</td>
+                    <td>15%</td>
+                    <td>極端災害(如EV火災)SOP、節能減碳方案。</td>
+                    <td>防護生命財產安全，並降低社區公電支出。</td>
+                </tr>
+                <tr>
+                    <td>6. 日常勤務與社區服務</td>
+                    <td>10%</td>
+                    <td>財務無預警稽核、飯店式管家、社區活動營造。</td>
+                    <td>杜絕帳務弊端，提升居住尊榮感與房屋保值。</td>
+                </tr>
+                <tr>
+                    <td>7. 法規遵循與保險</td>
+                    <td>10%</td>
+                    <td>ISO品質認證、政府優良廠商資格、誠實險。</td>
+                    <td>避免勞資糾紛與侵占公款波及管委會。</td>
+                </tr>
+                <tr>
+                    <td>8. 科技應用與桃園在地</td>
+                    <td>15%</td>
+                    <td>專屬系統開發、打卡防弊、桃園在地實績密度。</td>
+                    <td>確保行政高效率與異常發生時的即時支援。</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="scoring">
+        <h2>五、 候選廠商綜合評分表與落點分析</h2>
+        
+        <div class="chart-container" style="max-width: 1000px;">
+            <canvas id="scoreChart"></canvas>
+        </div>
+
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>廠商名稱</th>
+                        <th>成本(15)</th>
+                        <th>規模(10)</th>
+                        <th>穩定(15)</th>
+                        <th>督導(10)</th>
+                        <th>緊急(15)</th>
+                        <th>服務(10)</th>
+                        <th>法遵(10)</th>
+                        <th>科技(15)</th>
+                        <th>加權總分</th>
+                        <th>排名</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>忠正保全</strong></td>
+                        <td>8.5</td>
+                        <td>9.0</td>
+                        <td>9.5</td>
+                        <td>9.0</td>
+                        <td>9.5</td>
+                        <td>8.5</td>
+                        <td>9.0</td>
+                        <td>9.0</td>
+                        <td class="score-high">90.50</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td><strong>良福保全</strong></td>
+                        <td>8.0</td>
+                        <td>9.5</td>
+                        <td>8.5</td>
+                        <td>9.5</td>
+                        <td>9.0</td>
+                        <td>8.5</td>
+                        <td>9.5</td>
+                        <td>9.5</td>
+                        <td class="score-high">89.50</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td><strong>精緻慧智</strong></td>
+                        <td>9.5</td>
+                        <td>8.5</td>
+                        <td>9.0</td>
+                        <td>8.5</td>
+                        <td>8.0</td>
+                        <td>8.5</td>
+                        <td>8.5</td>
+                        <td>8.5</td>
+                        <td class="score-high">86.75</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td><strong>富通保全</strong></td>
+                        <td>8.0</td>
+                        <td>8.0</td>
+                        <td>8.0</td>
+                        <td>8.5</td>
+                        <td>8.5</td>
+                        <td>9.0</td>
+                        <td>8.0</td>
+                        <td>8.0</td>
+                        <td class="score-med">82.75</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td><strong>嘉信保全</strong></td>
+                        <td>8.0</td>
+                        <td>7.5</td>
+                        <td>7.5</td>
+                        <td>8.0</td>
+                        <td>7.5</td>
+                        <td>8.5</td>
+                        <td>8.5</td>
+                        <td>9.0</td>
+                        <td class="score-med">80.50</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td><strong>國強保全</strong></td>
+                        <td>9.0</td>
+                        <td>7.5</td>
+                        <td>8.0</td>
+                        <td>8.0</td>
+                        <td>8.0</td>
+                        <td>9.0</td>
+                        <td>8.5</td>
+                        <td>8.0</td>
+                        <td class="score-med">80.50</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td><strong>維安保全</strong></td>
+                        <td>8.0</td>
+                        <td>7.5</td>
+                        <td>7.5</td>
+                        <td>8.5</td>
+                        <td>7.5</td>
+                        <td>8.0</td>
+                        <td>8.5</td>
+                        <td>8.5</td>
+                        <td class="score-low">79.75</td>
+                        <td>7</td>
+                    </tr>
+                    <tr>
+                        <td><strong>國華保全</strong></td>
+                        <td>8.0</td>
+                        <td>7.5</td>
+                        <td>8.0</td>
+                        <td>8.5</td>
+                        <td>8.5</td>
+                        <td>8.5</td>
+                        <td>8.0</td>
+                        <td>7.5</td>
+                        <td class="score-low">79.50</td>
+                        <td>8</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="radar-analysis">
+        <h2>六、 前三名領先廠商雷達圖與優勢比對</h2>
+        <p>透過雷達圖可清晰看出前三名廠商各自具備獨特的「專長偏向」，管委會可依據社區當前最急迫之需求進行抉擇：</p>
+        
+        <div class="chart-row">
+            <div class="chart-container chart-half">
+                <canvas id="radarChart"></canvas>
+            </div>
+            <div class="chart-half" style="padding: 20px; display: flex; flex-direction: column; justify-content: center;">
+                <h3>📊 圖表洞察說明：</h3>
+                <ul>
+                    <li><span class="highlight">忠正保全 (紅線)</span>：在<strong>「緊急事件&ESG」</strong>與<strong>「人員穩定」</strong>表現最為突出。其EV防火毯與節能方案，加上幸福企業認證，使其形成堅固的防護網。</li>
+                    <li><span class="highlight">良福保全 (藍線)</span>：在<strong>「科技&在地」</strong>、<strong>「訓練督導」</strong>與<strong>「規模經驗」</strong>達到頂峰。其國家級的防護經驗與嚴厲的扣款淘汰機制，使其行政管理能力近乎滿分。</li>
+                    <li><span class="highlight">精緻慧智 (綠線)</span>：在<strong>「成本合理」</strong>項目無人能及。透過極度透明的法定薪資揭露與不扣款保證，從根源解決了保全業最詬病的人員流動問題。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="individual-analysis">
+        <h2>七、 個別廠商深度分析 (優劣勢與追問重點)</h2>
+
+        <article class="vendor-card">
+            <h3>1. 忠正保全 (評分：90.50 / 👑 第 1 名)</h3>
+            <ul>
+                <li><strong>報價觀察：</strong> 報價最高 (漲幅 25.11%)。但這可能包含了其專利設備（如防火毯、節能燈管）的設備攤提，需確認這些硬體是否真的涵蓋在合約總價內不另收費。</li>
+                <li><strong>主要優勢：</strong> 具備前瞻性的 <strong>SH-650 車用防火毯</strong>（有效應對地下室鋰電池熱失控）及專利節能燈具（零資本支出省電50%）。為勞動部 TTQS 銅牌認證企業。</li>
+                <li><strong>管委會面談追問：</strong> 「車用防火毯是無償提供給本社區配置，還是僅在事發時由機動班攜帶前來？節能設備替換的合約年限與違約金為何？」</li>
+            </ul>
+        </article>
+
+        <article class="vendor-card">
+            <h3>2. 良福保全 (評分：89.50 / 🥈 第 2 名)</h3>
+            <ul>
+                <li><strong>報價觀察：</strong> 報價次高 (漲幅 24.05%)。符合其巨型集團的定價策略，買的是抗風險能力。</li>
+                <li><strong>主要優勢：</strong> 產業巨頭（1.4億資本），包辦桃園機場與指標社宅。擁有專利 U-Guard 系統，具備高達 24 項極端狀況 SOP。設有極明確且嚴厲的「扣分折讓罰款機制」。</li>
+                <li><strong>管委會面談追問：</strong> 「若得標，派駐本社區的總幹事與保全人員，是否具備同等規模社區的 3 年以上實務經驗？如何保證半年內不換人？」</li>
+            </ul>
+        </article>
+
+        <article class="vendor-card">
+            <h3>3. 精緻慧智 (國聯集團) (評分：86.75 / 🥉 第 3 名)</h3>
+            <ul>
+                <li><strong>報價觀察：</strong> 報價適中 (漲幅 14.65%)。考量其保證不扣薪資與三節福利，此漲幅為合理合規的人事成本。</li>
+                <li><strong>主要優勢：</strong> 專注於高端豪宅市場。<strong>法定成本試算極度透明</strong>，敢書面承諾「薪資、年終、制服不扣款」。導入 NUEIP 雲端人資精準打卡防弊。</li>
+                <li><strong>管委會面談追問：</strong> 「針對本社區現有之預算，貴公司是否能維持承諾的薪資水平與特勤素質，而不會私下縮水？」</li>
+            </ul>
+        </article>
+
+        <article class="vendor-card">
+            <h3>4. 富通保全 (評分：82.75 / 第 4 名)</h3>
+            <ul>
+                <li><strong>報價觀察：</strong> 漲幅極具吸引力 (+5.22%)。在維持競爭力價格的同時提供吧檯秘書服務。</li>
+                <li><strong>主要優勢：</strong> 建設公司背景，對機電維護敏銳。飯店式吧檯秘書服務完善。設有獨立財務部進行 20 項無預警查帳。</li>
+                <li><strong>管委會面談追問：</strong> 「以如此低的漲幅，吧檯秘書的輕食餐飲服務，其食材耗損、水電與營收如何與管委會進行帳務拆分？」</li>
+            </ul>
+        </article>
+
+        <article class="vendor-card">
+            <h3>5. 嘉信保全 / 國強保全 (並列第 5 名)</h3>
+            <ul>
+                <li><strong>嘉信保全：</strong> 漲幅僅 4.55%。深度綁定「智生活」APP，長於社區數位營造與住戶互動。適合高度依賴手機解決問題的年輕化社區。</li>
+                <li><strong>國強保全：</strong> 報價最低，幾乎平盤 (漲幅 1.87%)。在地老牌政府共契廠商。需強力監督其人員流動率是否會因低報價而增高。</li>
+            </ul>
+        </article>
+    </section>
+
+    <section id="recommendations">
+        <h2>八、 綜合排名與決策建議</h2>
+        <p>基於上述全方位評估與報價分析，針對「雲揚社區」提出以下決策方向：</p>
+        <ul>
+            <li>
+                <span class="highlight"><strong>首選推薦：忠正保全</strong></span><br>
+                <strong>推薦理由：</strong> 雖然報價漲幅最高（25.11%），但在極端風險控制上展現了絕佳視野（引進 EV 防火毯），這對具備地下室充電樁的現代社區是不可或缺的實體保障。若其節能方案能實質降低管委會公電負擔，則實際總體成本將大幅下降，具備高度投資效益。
+            </li>
+            <li>
+                <span class="highlight"><strong>合規與預算平衡首選：精緻慧智</strong></span><br>
+                <strong>推薦理由：</strong> 漲幅落在中段班的合理範圍（14.65%）。若社區定位為重劃區指標豪宅，且管委會痛恨保全頻繁流動，精緻慧智對基層薪資的透明保障，能徹底解決「人員素質不佳與流動」問題，每一分錢都花在刀口上。
+            </li>
+            <li>
+                <span class="highlight"><strong>大型社區穩定備選：良福保全</strong></span><br>
+                <strong>推薦理由：</strong> 若雲揚社區戶數眾多、管理複雜，良福憑藉其巨型資本與 24 種危機處理 SOP，能提供最強大的行政防護罩，適合對合約執行與罰則要求極度嚴格的管委會。
+            </li>
+        </ul>
+    </section>
+
+    <section id="contract-notes">
+        <h2>九、 簽約與交接注意事項</h2>
+        <p>為防範廠商簡報時「過度承諾」及確保報價合理執行，決標後務必將以下條款納入合約：</p>
+        <ol>
+            <li><strong>硬體配置入約：</strong> 若選擇忠正，需明訂「SH-650 車用防火毯之數量與歸屬」及「免費節能保固年限」。</li>
+            <li><strong>薪資查核條款：</strong> 特別針對報價漲幅較低的公司（如國強、嘉信、富通），合約應載明「現場人員實領薪資不得低於法定標準與企劃書承諾金額」，並賦予管委會按季抽查勞保投保明細之權利。</li>
+            <li><strong>扣款折讓直接化：</strong> 附上明確的「勤務缺失懲處表」（如空哨罰1000元），並明訂罰金由次月應付服務費中「自動折讓扣除」，免去協商爭議。</li>
+            <li><strong>防篡改交接：</strong> 要求所有電子財報與會議紀錄需上傳至第三方雲端，新舊廠商交接時需簽署文件無篡改切結書。</li>
+        </ol>
+    </section>
+
+    <section id="missing-data">
+        <h2>十、 決策前待補資料清單</h2>
+        <p>在最終評選會議上，請務重要求廠商補齊以下關鍵資訊：</p>
+        <ul>
+            <li><strong>督導層級與頻率：</strong> 需白紙黑字承諾負責本社區的「區塊督導主管」每週日班與夜班到場督勤的確切次數。</li>
+            <li><strong>備援能力承諾：</strong> 要求廠商具體說明，若社區日夜班保全臨時請假或曠職，幾小時內可從機動組調派人員補足哨位。</li>
+        </ul>
+    </section>
+
+    <!-- Chart.js 渲染邏輯 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 1. 報價與漲幅長條圖 (Price Chart) - 新增
+            const ctxPrice = document.getElementById('priceChart').getContext('2d');
+            new Chart(ctxPrice, {
+                type: 'bar',
+                data: {
+                    labels: ['國強保全', '嘉信保全', '富通保全', '維安保全', '精緻慧智', '國華保全', '良福保全', '忠正保全'],
+                    datasets: [
+                        {
+                            type: 'line',
+                            label: '現有物業成本 ($235,000)',
+                            data: [235000, 235000, 235000, 235000, 235000, 235000, 235000, 235000],
+                            borderColor: 'rgba(229, 62, 62, 1)', // 紅色基準線
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            fill: false,
+                            pointRadius: 0
+                        },
+                        {
+                            type: 'bar',
+                            label: '每月總報價 (元)',
+                            data: [239400, 245700, 247275, 266175, 269430, 271950, 291512, 294000],
+                            backgroundColor: [
+                                'rgba(74, 85, 104, 0.7)',  // 國強
+                                'rgba(74, 85, 104, 0.7)',  // 嘉信
+                                'rgba(74, 85, 104, 0.7)',  // 富通
+                                'rgba(49, 130, 206, 0.7)', // 維安
+                                'rgba(49, 130, 206, 0.7)', // 精緻慧智
+                                'rgba(49, 130, 206, 0.7)', // 國華
+                                'rgba(221, 107, 32, 0.7)', // 良福
+                                'rgba(221, 107, 32, 0.7)'  // 忠正
+                            ],
+                            borderColor: 'rgba(45, 55, 72, 0.2)',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: { display: true, text: '各廠商每月報價與現有成本比較圖', font: { size: 16 } },
+                        legend: { position: 'top' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += new Intl.NumberFormat('zh-TW', { style: 'currency', currency: 'TWD', minimumFractionDigits: 0 }).format(context.parsed.y);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            min: 220000, // 讓基準線不要黏在最底部
+                            title: { display: true, text: '新台幣 (元/月)' }
+                        }
+                    }
+                }
+            });
+
+            // 2. 資本額長條圖 (Capital Chart)
+            const ctxCapital = document.getElementById('capitalChart').getContext('2d');
+            new Chart(ctxCapital, {
+                type: 'bar',
+                data: {
+                    labels: ['良福 (1.4億)', '精緻慧智-母集團 (1.1億)', '富通 (7500萬)', '國強 (5000萬)', '維安 (5000萬)'],
+                    datasets: [{
+                        label: '資本額 (單位：新台幣/萬元)',
+                        data: [14000, 11000, 7500, 5000, 5000],
+                        backgroundColor: 'rgba(49, 130, 206, 0.7)',
+                        borderColor: 'rgba(43, 108, 176, 1)',
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: { display: true, text: '已知資本額之候選廠商規模比較', font: { size: 16 } },
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: '萬元' } }
+                    }
+                }
+            });
+
+            // 3. 加權總分長條圖 (Score Chart)
+            const ctxScore = document.getElementById('scoreChart').getContext('2d');
+            new Chart(ctxScore, {
+                type: 'bar',
+                data: {
+                    labels: ['忠正保全', '良福保全', '精緻慧智', '富通保全', '嘉信保全', '國強保全', '維安保全', '國華保全'],
+                    datasets: [{
+                        label: '綜合加權總分',
+                        data: [90.5, 89.5, 86.75, 82.75, 80.5, 80.5, 79.75, 79.5],
+                        backgroundColor: [
+                            'rgba(39, 103, 73, 0.8)',   // 忠正 (第1)
+                            'rgba(49, 130, 206, 0.8)',  // 良福 (第2)
+                            'rgba(49, 130, 206, 0.8)',  // 精緻 (第3)
+                            'rgba(236, 201, 75, 0.8)',  // 富通
+                            'rgba(160, 174, 192, 0.8)', // 嘉信
+                            'rgba(160, 174, 192, 0.8)', // 國強
+                            'rgba(229, 62, 62, 0.8)',   // 維安
+                            'rgba(229, 62, 62, 0.8)'    // 國華
+                        ],
+                        borderWidth: 0,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // 橫向長條圖
+                    responsive: true,
+                    plugins: {
+                        title: { display: true, text: '八大廠商綜合加權總分落點分析', font: { size: 16 } },
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: { min: 75, max: 95, title: { display: true, text: '分數' } }
+                    }
+                }
+            });
+
+            // 4. 前三名雷達圖 (Radar Chart)
+            const ctxRadar = document.getElementById('radarChart').getContext('2d');
+            new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['1.成本合理', '2.規模經驗', '3.人員穩定', '4.訓練督導', '5.緊急&ESG', '6.日常服務', '7.法遵風險', '8.科技&在地'],
+                    datasets: [
+                        {
+                            label: '忠正保全 (綜合第1)',
+                            data: [8.5, 9.0, 9.5, 9.0, 9.5, 8.5, 9.0, 9.0],
+                            borderColor: 'rgba(229, 62, 62, 1)',
+                            backgroundColor: 'rgba(229, 62, 62, 0.15)',
+                            pointBackgroundColor: 'rgba(229, 62, 62, 1)'
+                        },
+                        {
+                            label: '良福保全 (綜合第2)',
+                            data: [8.0, 9.5, 8.5, 9.5, 9.0, 8.5, 9.5, 9.5],
+                            borderColor: 'rgba(49, 130, 206, 1)',
+                            backgroundColor: 'rgba(49, 130, 206, 0.15)',
+                            pointBackgroundColor: 'rgba(49, 130, 206, 1)'
+                        },
+                        {
+                            label: '精緻慧智 (綜合第3)',
+                            data: [9.5, 8.5, 9.0, 8.5, 8.0, 8.5, 8.5, 8.5],
+                            borderColor: 'rgba(56, 161, 105, 1)',
+                            backgroundColor: 'rgba(56, 161, 105, 0.15)',
+                            pointBackgroundColor: 'rgba(56, 161, 105, 1)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: { display: true, text: '前三強廠商能力分佈雷達圖', font: { size: 15 } },
+                        legend: { position: 'bottom' }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { display: true },
+                            suggestedMin: 7,
+                            suggestedMax: 10
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
