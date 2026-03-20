@@ -3,1681 +3,914 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>香港3日非大眾尋味與購物巡禮</title>
+  <title>霓虹港味｜香港3日漫步尋味之旅</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    /* 動態設計：香港都會霓虹與復古冰室氛圍 */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@600;900&display=swap');
+    
+    :root {
+      --hk-neon-blue: #00f3ff;
+      --hk-neon-red: #ff0055;
+      --hk-vintage-green: #115e59;
+      --hk-bg: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.85);
+    }
+    
     body {
       line-height: 1.7;
       font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
-      background-color: #f4f5f7;
-      background-image: radial-gradient(#d1d5db 1px, transparent 1px);
-      background-size: 24px 24px;
-      color: #333;
+      background-color: var(--hk-bg);
+      color: #f8fafc;
+      background-image: radial-gradient(circle at 15% 50%, rgba(0, 243, 255, 0.05), transparent 25%),
+                        radial-gradient(circle at 85% 30%, rgba(255, 0, 85, 0.05), transparent 25%);
+      background-attachment: fixed;
     }
+
+    h1, h2, h3, .serif-tc {
+      font-family: 'Noto Serif TC', serif;
+    }
+
     .main-container { max-width: 1280px; margin: auto; }
     
-    /* 嚴格紅藍字標記 */
-    .red-text { color: #d90429; font-weight: 600; }
-    .blue-text { color: #0077b6; font-weight: 600; }
-    
-    /* 模組與分頁切換 */
-    section { display: none; animation: fadeIn 0.4s ease-in-out; }
+    /* 標記規則 */
+    .red-text { color: #fb7185; font-weight: 600; text-shadow: 0 0 8px rgba(251, 113, 133, 0.4); }
+    .blue-text { color: #38bdf8; font-weight: 600; text-shadow: 0 0 8px rgba(56, 189, 248, 0.4); }
+    .missing-data { color: #fb7185; font-style: italic; border-bottom: 1px dashed #fb7185; }
+
+    /* 頁面切換 */
+    section { display: none; animation: fadeIn 0.4s ease-out; }
     section.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* 排版結構 */
+    .two-col { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1.25rem; }
+    @media (min-width: 768px) { .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     
-    /* 卡片兩欄並排 (符合各分頁與總覽要求) */
-    .two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
-    @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
-    
-    /* 時間軸與事件卡設計 */
-    .timeline { position: relative; margin-left: 1.25rem; padding-left: 1.5rem; border-left: 2px dashed #cbd5e1; }
-    .time-block { margin: 2rem 0; position: relative; }
-    .time-block-title {
-      font-size: 1.1rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .time-block-title::before {
-      content: ''; position: absolute; left: -1.9rem; width: 12px; height: 12px;
-      background: #0077b6; border-radius: 50%; box-shadow: 0 0 0 4px #e0f2fe;
-    }
-    
-    /* 事件項目 (確保圖示、標籤與文字不重疊，維持彈性佈局) */
-    .item { 
-      display: flex; gap: 1rem; margin: 1rem 0; align-items: flex-start; 
-      background: rgba(255,255,255,0.9); padding: 1rem; border-radius: 0.75rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 1px solid #f1f5f9;
-      transition: all 0.2s;
-    }
-    .item:hover { box-shadow: 0 6px 16px rgba(0,0,0,0.08); transform: translateY(-2px); }
-    
-    /* 交通卡專屬樣式 */
-    .transport { 
-      padding: 0.75rem 1rem; border-radius: 0.75rem; 
-      background: linear-gradient(to right, #f0f9ff, #e0f2fe); border: 1px solid #bae6fd;
-    }
-    
-    /* 各元素槽位 */
-    .time-badge { 
-      flex: 0 0 auto; border-radius: 0.5rem; padding: 0.3rem 0.6rem; 
-      font-weight: 700; min-width: 5.5rem; text-align: center;
-      background: #1e293b; color: #fff; line-height: 1.3;
-    }
-    .transport .time-badge { background: #bae6fd; color: #0369a1; }
-    
-    .icon-slot { 
-      flex: 0 0 auto; width: 2rem; height: 2rem; display: flex; 
-      align-items: center; justify-content: center; font-size: 1.2rem;
-      color: #64748b; background: #f1f5f9; border-radius: 50%;
-    }
-    .transport .icon-slot { background: transparent; color: #0284c7; }
-    
-    /* 資料欄位垂直堆疊 (嚴格執行) */
-    .text-slot { min-width: 0; flex: 1 1 auto; word-break: break-word; }
     .stack-vertical { display: flex; flex-direction: column; gap: 0.5rem; }
     
-    .day-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 0.5rem; font-size: 0.8rem; background: #f1f5f9; color: #475569; font-weight: 600; border: 1px solid #e2e8f0; }
-    
-    /* 卡片基礎樣式 (模組分頁用) */
-    .module-card {
-      background: white; border-radius: 1rem; padding: 1.25rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-top: 4px solid #0077b6;
-      display: flex; flex-direction: column; gap: 0.75rem;
-      transition: transform 0.2s;
+    /* 卡片與細節 */
+    .hk-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .module-card:hover { transform: scale(1.02); }
-    .module-card.red-border { border-top-color: #d90429; }
+    .hk-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 243, 255, 0.1);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+
+    /* 時間軸與事件卡 */
+    .timeline { position: relative; margin-left: 1.25rem; border-left: 2px dashed rgba(255,255,255,0.2); padding-left: 1.5rem; }
+    .time-block { margin: 2rem 0; position: relative; }
+    .time-block::before {
+      content: ''; position: absolute; left: -1.85rem; top: 0.5rem; width: 12px; height: 12px;
+      background: var(--hk-neon-blue); border-radius: 50%; box-shadow: 0 0 10px var(--hk-neon-blue);
+    }
+    .item { display: flex; gap: 1rem; margin: 1.25rem 0; align-items: flex-start; }
+    .time-badge {
+      flex: 0 0 auto; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--hk-neon-blue);
+      color: var(--hk-neon-blue); border-radius: 999px; padding: 0.25rem 0.75rem;
+      font-weight: 700; min-width: 5.5rem; text-align: center; font-size: 0.85rem;
+      box-shadow: 0 0 8px rgba(0, 243, 255, 0.2);
+    }
+    .icon-slot { flex: 0 0 auto; width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; color: rgba(255,255,255,0.7); }
+    .text-slot { min-width: 0; flex: 1 1 auto; word-break: break-word; display: flex; flex-direction: column; gap: 0.35rem; }
     
-    /* Sticky 導航按鈕 (立體藍色系) */
-    nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); padding: 1rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 2rem; }
-    .nav-container { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; max-width: 1280px; margin: auto; padding: 0 1rem; }
+    .transport {
+      background: linear-gradient(90deg, rgba(17, 94, 89, 0.4) 0%, transparent 100%);
+      padding: 0.75rem 1rem; border-radius: 0.5rem; border-left: 3px solid var(--hk-vintage-green);
+      margin: 1rem 0; font-size: 0.9rem; color: #cbd5e1;
+    }
+
+    /* 導航按鈕 */
     .nav-btn {
-      background: linear-gradient(135deg, #0077b6, #023e8a); color: white;
-      padding: 0.5rem 1.2rem; border-radius: 2rem; font-weight: 600; font-size: 0.95rem;
-      box-shadow: inset 0 1px 1px rgba(255,255,255,0.3), 0 4px 6px rgba(0,119,182,0.3);
-      transition: all 0.2s; border: none; cursor: pointer;
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: white; border: 1px solid #0ea5e9; border-radius: 0.5rem;
+      padding: 0.5rem 1rem; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 4px 6px rgba(0,0,0,0.4);
+      transition: all 0.2s; white-space: nowrap;
     }
-    .nav-btn:hover { transform: scale(1.05) translateY(-2px); box-shadow: inset 0 1px 1px rgba(255,255,255,0.3), 0 6px 12px rgba(0,119,182,0.4); }
-    .nav-btn:active { transform: scale(0.95); box-shadow: 0 2px 4px rgba(0,119,182,0.3); }
+    .nav-btn:hover { transform: scale(1.05); background: linear-gradient(135deg, #0ea5e9, #0284c7); box-shadow: 0 0 15px rgba(14, 165, 233, 0.5); }
+    .nav-btn:active { transform: scale(0.95); box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
+
+    .day-tag { display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 0.15rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; color: #94a3b8; }
     
-    /* 標題與裝飾 */
-    .header-bg {
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1516893676001-52fdf7605797?auto=format&fit=crop&q=80&w=2000') center/cover;
-      color: white; padding: 4rem 1rem; text-align: center; border-radius: 0 0 2rem 2rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 2rem;
-    }
-    
+    /* 工具類 */
+    .copy-btn { cursor: pointer; transition: color 0.2s; }
+    .copy-btn:hover { color: var(--hk-neon-blue); }
     #backToTopBtn {
-      position: fixed; bottom: 2rem; right: 2rem; display: none;
-      background: #0077b6; color: white; width: 3rem; height: 3rem;
-      border-radius: 50%; font-size: 1.5rem; border: none; cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,119,182,0.4); z-index: 100;
+      display: none; position: fixed; bottom: 2rem; right: 2rem; z-index: 50;
+      background: var(--hk-neon-blue); color: #000; width: 3rem; height: 3rem;
+      border-radius: 50%; font-size: 1.5rem; font-weight: bold; border: none;
+      box-shadow: 0 4px 15px rgba(0, 243, 255, 0.4); cursor: pointer; transition: transform 0.3s;
     }
-    #backToTopBtn:hover { background: #023e8a; }
-    
-    /* 細節標籤 */
-    details { background: white; border-radius: 1rem; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 1rem; }
-    summary { font-weight: 700; font-size: 1.2rem; cursor: pointer; outline: none; padding: 0.5rem; color: #1e293b; list-style: none; display: flex; align-items: center; justify-content: space-between; }
-    summary::-webkit-details-marker { display: none; }
-    summary::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: #94a3b8; transition: transform 0.3s; }
-    details[open] summary::after { transform: rotate(180deg); }
-    .details-content { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; }
+    #backToTopBtn:hover { transform: translateY(-5px); }
+
+    /* 總覽 Details */
+    details > summary { cursor: pointer; list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
   </style>
 </head>
-<body>
+<body class="antialiased pb-20">
 
-  <!-- 首頁視覺 Header -->
-  <header class="header-bg">
-    <div class="main-container stack-vertical items-center">
-      <div class="icon-slot text-4xl mb-2 text-white bg-transparent w-auto h-auto"><i class="fa-solid fa-map-location-dot"></i></div>
-      <h1 class="text-3xl md:text-5xl font-extrabold tracking-wide mb-4">香港3日非大眾尋味與購物巡禮</h1>
-      <div class="bg-black bg-opacity-40 px-6 py-2 rounded-full inline-block backdrop-blur-sm">
-        <p class="text-lg font-medium">目的地：香港 ｜ 日期：3/21 - 3/23 ｜ 住宿：富薈上環酒店</p>
-      </div>
+  <!-- Header -->
+  <header class="text-center pt-12 pb-8 px-4 border-b border-gray-800 bg-slate-900 bg-opacity-80 backdrop-filter backdrop-blur-lg sticky top-0 z-40">
+    <div class="flex items-center justify-center gap-3 mb-2">
+      <span class="icon-slot text-blue-400 text-3xl"><i class="fa-solid fa-city"></i></span>
+      <h1 class="text-3xl md:text-4xl font-black text-white tracking-wider" style="text-shadow: 0 0 15px rgba(0, 243, 255, 0.3);">霓虹港味｜香港 3 日漫步尋味之旅</h1>
     </div>
+    <p class="text-gray-400 font-medium tracking-wide mt-2">
+      <i class="fa-solid fa-location-dot mr-1"></i> 目的地：香港特別行政區 ｜ 
+      <i class="fa-regular fa-calendar-days mr-1"></i> 日期：3/21 - 3/23
+    </p>
+    
+    <!-- 導航列 -->
+    <nav class="mt-6 overflow-x-auto pb-2 scrollbar-hide">
+      <div class="flex gap-3 justify-center min-w-max px-4">
+        <button class="nav-btn" onclick="showPage('home')"><i class="fa-solid fa-house mr-1"></i> 首頁</button>
+        <button class="nav-btn" onclick="showPage('poi')"><i class="fa-solid fa-camera mr-1"></i> 景點 POI (20)</button>
+        <button class="nav-btn" onclick="showPage('bib')"><i class="fa-solid fa-utensils mr-1"></i> 美食 (20)</button>
+        <button class="nav-btn" onclick="showPage('souvenir')"><i class="fa-solid fa-gift mr-1"></i> 伴手禮 (20)</button>
+        <button class="nav-btn" onclick="showPage('photo-spots')"><i class="fa-solid fa-image mr-1"></i> 拍照聖地 (10)</button>
+        <button class="nav-btn" onclick="showPage('desserts')"><i class="fa-solid fa-mug-hot mr-1"></i> 甜點咖啡 (10)</button>
+        <button class="nav-btn" onclick="showPage('market')"><i class="fa-solid fa-cart-shopping mr-1"></i> 超市 (5)</button>
+      </div>
+    </nav>
   </header>
 
-  <!-- 全域獨立模組導航 -->
-  <nav>
-    <div class="nav-container">
-      <button class="nav-btn" onclick="showPage('home')"><i class="fa-solid fa-house mr-1"></i> 首頁行程</button>
-      <button class="nav-btn" onclick="showPage('poi')"><i class="fa-solid fa-camera mr-1"></i> 景點 POI (20)</button>
-      <button class="nav-btn" onclick="showPage('bib')"><i class="fa-solid fa-utensils mr-1"></i> 美食 (20)</button>
-      <button class="nav-btn" onclick="showPage('souvenir')"><i class="fa-solid fa-gift mr-1"></i> 伴手禮 (20)</button>
-      <button class="nav-btn" onclick="showPage('photo-spots')"><i class="fa-solid fa-image mr-1"></i> 拍照聖地 (10)</button>
-      <button class="nav-btn" onclick="showPage('desserts')"><i class="fa-solid fa-mug-hot mr-1"></i> 甜點咖啡 (10)</button>
-      <button class="nav-btn" onclick="showPage('market')"><i class="fa-solid fa-basket-shopping mr-1"></i> 超市 (5)</button>
-    </div>
-  </nav>
-
-  <main class="main-container px-4 space-y-12 pb-16">
+  <main class="main-container px-4 md:px-8 mt-10 space-y-12">
     
-    <!-- ========================================== -->
-    <!-- 首頁 (Home)：行程總覽 × 每日重點 + 每日詳細行程 -->
-    <!-- ========================================== -->
+    <!-- ==================== 首頁 (Home) ==================== -->
     <section id="home" class="active space-y-12">
       
-      <!-- 區塊 A：行程總覽 × 每日重點 (兩欄並排) -->
-      <div class="space-y-4">
-        <h2 class="text-2xl font-bold flex items-center gap-2"><i class="fa-solid fa-calendar-check text-blue-600"></i> 行程總覽 × 每日重點</h2>
-        
-        <details open>
-          <summary>Day 1：3/21 (飛抵香港，中環歷史與尋味)</summary>
-          <div class="details-content two-col">
-            <div class="module-card border border-gray-100">
-              <div class="stack-vertical text-slot">
-                <span class="day-tag"><i class="fa-solid fa-plane-arrival"></i> 抵達與安置</span>
-                <p class="red-text font-bold">航班：長榮航空 BR 891 (07:00 起飛)</p>
-                <p class="red-text font-bold">住宿：富薈上環酒店 (寄存行李)</p>
-              </div>
+      <!-- 合併：行程總覽 × 每日重點 -->
+      <div class="space-y-6">
+        <div class="flex items-center gap-3 mb-6">
+          <i class="fa-solid fa-route text-2xl text-blue-400"></i>
+          <h2 class="text-2xl font-bold">行程總覽 × 每日重點</h2>
+        </div>
+        <div class="two-col">
+          <!-- Day 1 重點 -->
+          <details class="hk-card group" open>
+            <summary class="flex justify-between items-center text-lg font-bold text-blue-300">
+              <span>Day 1 ｜ 3/21 抵港初探・維港夜色</span>
+              <i class="fa-solid fa-chevron-down transition-transform group-open:rotate-180"></i>
+            </summary>
+            <div class="mt-4 stack-vertical text-sm text-gray-300">
+              <p><i class="fa-solid fa-plane-arrival mr-2 w-4"></i> 早晨抵港，入住 <span class="red-text">富荟上环酒店</span></p>
+              <p><i class="fa-solid fa-building-columns mr-2 w-4"></i> 上環文化尋幽：<span class="red-text">文武廟</span></p>
+              <p><i class="fa-solid fa-bag-shopping mr-2 w-4"></i> 購物採買：<span class="red-text">Miniso</span>、<span class="red-text">曲奇珍尼</span></p>
+              <p><i class="fa-solid fa-ship mr-2 w-4"></i> 璀璨夜景：<span class="red-text">天星x STAY 幻彩詠香江</span></p>
+              <p><i class="fa-solid fa-utensils mr-2 w-4"></i> 重點美食：<span class="red-text">一點心</span>、<span class="red-text">榕哥陳皮燒鵝</span></p>
             </div>
-            <div class="module-card border border-gray-100">
-              <div class="stack-vertical text-slot">
-                <span class="day-tag"><i class="fa-solid fa-star"></i> 核心亮點</span>
-                <p class="red-text font-bold">午餐：一點心 (港點)</p>
-                <p class="red-text font-bold">探索：中環、Miniso香港分店</p>
-                <p class="red-text font-bold">晚餐：一樂燒鵝 (米其林燒鵝)</p>
-              </div>
+          </details>
+          <!-- Day 2 重點 -->
+          <details class="hk-card group" open>
+            <summary class="flex justify-between items-center text-lg font-bold text-blue-300">
+              <span>Day 2 ｜ 3/22 港味精華・太平山頂</span>
+              <i class="fa-solid fa-chevron-down transition-transform group-open:rotate-180"></i>
+            </summary>
+            <div class="mt-4 stack-vertical text-sm text-gray-300">
+              <p><i class="fa-solid fa-mug-saucer mr-2 w-4"></i> 懷舊早茶：<span class="red-text">蓮香樓</span></p>
+              <p><i class="fa-solid fa-shop mr-2 w-4"></i> 歷史活化：<span class="red-text">中環街市</span>、<span class="blue-text">大館</span></p>
+              <p><i class="fa-solid fa-mountain mr-2 w-4"></i> 經典地標：<span class="blue-text">太平山頂纜車</span>、<span class="blue-text">凌霄閣摩天台</span></p>
+              <p><i class="fa-solid fa-bowl-food mr-2 w-4"></i> 庶民夜市：<span class="red-text">廟街夜市</span></p>
+              <p><i class="fa-solid fa-utensils mr-2 w-4"></i> 重點美食：<span class="blue-text">麥奀雲吞麵</span>、<span class="red-text">佳佳甜品</span></p>
             </div>
-          </div>
-        </details>
-
-        <details>
-          <summary>Day 2：3/22 (上環漫步，非大眾街區探索)</summary>
-          <div class="details-content two-col">
-            <div class="module-card border border-gray-100">
-              <div class="stack-vertical text-slot">
-                <span class="day-tag"><i class="fa-solid fa-mug-saucer"></i> 晨間與午間</span>
-                <p class="blue-text font-bold">早餐：科記咖啡餐廳 (著名豬扒包)</p>
-                <p class="blue-text font-bold">探索：摩羅上街 (古董街)、大館</p>
-                <p class="red-text font-bold">午餐：九記牛腩</p>
-              </div>
+          </details>
+          <!-- Day 3 重點 -->
+          <details class="hk-card group" open>
+            <summary class="flex justify-between items-center text-lg font-bold text-blue-300">
+              <span>Day 3 ｜ 3/23 離港血拼・滿載而歸</span>
+              <i class="fa-solid fa-chevron-down transition-transform group-open:rotate-180"></i>
+            </summary>
+            <div class="mt-4 stack-vertical text-sm text-gray-300">
+              <p><i class="fa-solid fa-mug-hot mr-2 w-4"></i> 街市茶檔：<span class="red-text">瑞記咖啡</span></p>
+              <p><i class="fa-solid fa-tags mr-2 w-4"></i> 終極血拼：<span class="red-text">東薈城</span> Outlet</p>
+              <p><i class="fa-solid fa-couch mr-2 w-4"></i> 候機休憩：<span class="red-text">機場貴賓室</span></p>
+              <p><i class="fa-solid fa-plane-departure mr-2 w-4"></i> 晚間航班：搭乘長榮返回溫暖的家</p>
             </div>
-            <div class="module-card border border-gray-100">
-              <div class="stack-vertical text-slot">
-                <span class="day-tag"><i class="fa-solid fa-city"></i> 午後與夜間</span>
-                <p class="red-text font-bold">景點：嘉咸街壁畫、堅尼地城海旁</p>
-                <p class="blue-text font-bold">下午茶：Bakehouse (蛋撻)</p>
-                <p class="blue-text font-bold">晚餐：新興食家 (夜間港點)</p>
-              </div>
-            </div>
-          </div>
-        </details>
-
-        <details>
-          <summary>Day 3：3/23 (大嶼山購物與賦歸)</summary>
-          <div class="details-content two-col">
-            <div class="module-card border border-gray-100">
-              <div class="stack-vertical text-slot">
-                <span class="day-tag"><i class="fa-solid fa-bag-shopping"></i> 購物與觀景</span>
-                <p class="blue-text font-bold">早餐：蓮香居 (傳統推車點心)</p>
-                <p class="blue-text font-bold">探索：東涌炮台 (非大眾古蹟)</p>
-                <p class="red-text font-bold">行程：東薈城 Outlets (購物主軸)</p>
-              </div>
-            </div>
-            <div class="module-card border border-gray-100">
-              <div class="stack-vertical text-slot">
-                <span class="day-tag"><i class="fa-solid fa-plane-departure"></i> 離境準備</span>
-                <p class="blue-text font-bold">午餐：東薈城美食廣場 (多樣選擇)</p>
-                <p class="red-text font-bold">航班：長榮航空 BR 872 (19:40 起飛)</p>
-              </div>
-            </div>
-          </div>
-        </details>
+          </details>
+        </div>
       </div>
 
-      <!-- 區塊 B：每日詳細行程 (垂直時間軸) -->
-      <div class="space-y-8 mt-12">
-        <h2 class="text-2xl font-bold flex items-center gap-2 border-b-2 border-gray-200 pb-2"><i class="fa-solid fa-route text-blue-600"></i> 每日詳細行程</h2>
-        
-        <!-- Day 1 -->
-        <div class="day-section bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <h3 class="text-xl font-bold mb-4 bg-gray-100 inline-block px-4 py-1 rounded-lg">Day 1：3/21</h3>
+      <!-- 每日詳細行程區塊 -->
+      <div class="space-y-12">
+        <div class="flex items-center gap-3 mb-6 border-b border-gray-700 pb-4">
+          <i class="fa-regular fa-calendar-check text-2xl text-blue-400"></i>
+          <h2 class="text-2xl font-bold">每日詳細行程</h2>
+        </div>
+
+        <!-- ==================== DAY 1 ==================== -->
+        <div class="hk-card day-section">
+          <h3 class="text-xl font-bold border-l-4 border-blue-500 pl-3 mb-6">Day 1 ｜ 3/21 (四) 抵港初探・維港夜色</h3>
+          
           <div class="timeline">
-            
+            <!-- 早晨 Morning -->
             <div class="time-block">
-              <div class="time-block-title">早晨 Morning</div>
+              <h4 class="text-gray-400 font-bold mb-3 tracking-widest text-sm">早晨 Morning</h4>
               
               <div class="item">
                 <div class="time-badge">07:00<br><span class="text-xs font-normal">~08:50</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-plane"></i></div>
+                <div class="icon-slot"><i class="fa-solid fa-plane text-red-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">長榮航空 BR 891 (台北 TPE出發)</h4>
-                  <span class="text-sm red-text">使用者指定航班。抵達香港赤鱲角國際機場 (HKG)，航程約 1 小時 50 分鐘。</span>
+                  <strong class="text-lg red-text">啟程前往香港</strong>
+                  <span class="text-sm">航班：長榮航空 BR 891 (TPE 桃園機場 T2 出發)</span>
+                  <span class="text-sm">早餐：<span class="blue-text">機上提供精選飛機餐</span></span>
                 </div>
               </div>
 
-              <div class="item transport">
-                <div class="time-badge">08:50<br><span class="text-xs font-normal">約 45 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-train-subway"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">機場快線：機場站 → 香港站 → 步行至上環</span>
-                  <span class="text-xs text-blue-600">ETA: 09:35 | Cost: HKD 110 | Transfers: 1次 (中環內步行轉乘)</span>
-                </div>
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-train-subway"></i> 交通：機場快線 + 計程車</strong>
+                <span>路線：赤鱲角機場 → 香港站 → 轉乘的士前往上環</span>
+                <span>ETA: 09:30 → 10:20 (約50分) ｜ Cost: HKD 115 (快線) + 約 HKD 40 (的士) ｜ Transfers: 1</span>
               </div>
 
               <div class="item">
-                <div class="time-badge">10:00<br><span class="text-xs font-normal">~10:30</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-bed"></i></div>
+                <div class="time-badge">10:30<br><span class="text-xs font-normal">~11:00</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bed text-red-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">抵達 富薈上環酒店 (寄存行李)</h4>
-                  <span class="text-sm red-text">地址：上環文咸東街 138 號。先行辦理行李寄存手續，輕裝開始旅程。</span>
-                </div>
-              </div>
-
-              <div class="item transport">
-                <div class="time-badge">10:30<br><span class="text-xs font-normal">約 30 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-bus"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">港鐵：上環站 → 太子站 (或搭乘巴士前往太子)</span>
-                  <span class="text-xs text-blue-600">ETA: 11:00 | Cost: HKD 12 | Transfers: 1次 (金鐘轉車)</span>
+                  <strong class="text-lg red-text">富荟上环酒店 (寄放行李)</strong>
+                  <span class="text-sm">地址：上环文咸东街 138 号</span>
+                  <span class="text-sm text-gray-400">抵達飯店先寄放行李，展開上環探索。</span>
                 </div>
               </div>
             </div>
 
+            <!-- 上午 Forenoon -->
             <div class="time-block">
-              <div class="time-block-title">上午 Forenoon</div>
-
-              <div class="item">
-                <div class="time-badge">11:00<br><span class="text-xs font-normal">~12:30</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-dumpling"></i></div>
-                <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">[午餐] 一點心 (太子店)</h4>
-                  <span class="text-sm red-text">使用者指定港點。平價米其林一星點心專門店。</span>
-                  <span class="text-sm font-medium text-gray-700">建議餐點：晶瑩鮮蝦餃、蟹黃燒賣皇、香煎蘿蔔糕</span>
-                  <span class="text-xs text-gray-500">預算：HKD 80-120/人</span>
-                </div>
-              </div>
-
-              <div class="item transport">
-                <div class="time-badge">12:30<br><span class="text-xs font-normal">約 20 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-train"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">港鐵：太子站 → 中環站</span>
-                  <span class="text-xs text-blue-600">ETA: 12:50 | Cost: HKD 12 | Transfers: 0次</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="time-block">
-              <div class="time-block-title">午後 Afternoon</div>
-
-              <div class="item">
-                <div class="time-badge">13:00<br><span class="text-xs font-normal">~14:30</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-map"></i></div>
-                <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">中環街區漫步與歷史建築巡禮</h4>
-                  <span class="text-sm red-text">使用者指定。感受中環高樓與百年歷史的非大眾交錯感。</span>
-                  <span class="text-sm text-gray-700">亮點：石板街、都爹利街煤氣路燈，捕捉老香港電影氛圍。</span>
-                </div>
-              </div>
-
-              <div class="item transport">
-                <div class="time-badge">14:30<br><span class="text-xs font-normal">約 10 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">步行：中環核心區 → PMQ元創方</span>
-                  <span class="text-xs text-blue-600">ETA: 14:40 | Cost: HKD 0 | Transfers: 0次</span>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="time-badge">14:40<br><span class="text-xs font-normal">~16:00</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-store"></i></div>
-                <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">PMQ元創方 (文創設計樞紐)</h4>
-                  <span class="text-sm blue-text">系統推薦補足中環非大眾景點，由前已婚警察宿舍改建。</span>
-                  <span class="text-sm text-gray-700">活動：探索本地獨立設計師店鋪，購買特色非主流小物與文創商品。</span>
-                </div>
-              </div>
-
-              <div class="item transport">
-                <div class="time-badge">16:00<br><span class="text-xs font-normal">約 10 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">步行：PMQ → Miniso 或周邊商圈</span>
-                  <span class="text-xs text-blue-600">ETA: 16:10 | Cost: HKD 0 | Transfers: 0次</span>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="time-badge">16:10<br><span class="text-xs font-normal">~17:00</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-bag-shopping"></i></div>
-                <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">Miniso 香港分店 (購物)</h4>
-                  <span class="text-sm red-text">使用者指定。前往中環/旺角等旗艦店伍採購特色聯名商品與生活小物。</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="time-block">
-              <div class="time-block-title">傍晚 Evening</div>
+              <h4 class="text-gray-400 font-bold mb-3 tracking-widest text-sm">上午 Forenoon</h4>
               
-              <div class="item transport">
-                <div class="time-badge">17:00<br><span class="text-xs font-normal">約 15 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
+              <div class="item">
+                <div class="time-badge">11:30<br><span class="text-xs font-normal">約45分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-vihara text-red-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">步行：商圈 → 一樂燒鵝</span>
-                  <span class="text-xs text-blue-600">ETA: 17:15 | Cost: HKD 0 | Transfers: 0次</span>
+                  <strong class="text-lg red-text">文武廟</strong>
+                  <span class="text-sm">香港最古老的廟宇之一，感受香火鼎盛的歷史氛圍與巨大塔香的視覺震撼。</span>
                 </div>
               </div>
 
-              <div class="item">
-                <div class="time-badge">17:15<br><span class="text-xs font-normal">~18:30</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-drumstick-bite"></i></div>
-                <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">[晚餐] 一樂燒鵝 (中環士丹利街)</h4>
-                  <span class="text-sm red-text">依使用者「燒鵝」需求安排。連續多年榮獲米其林一星，在地老饕必吃。</span>
-                  <span class="text-sm font-medium text-gray-700">建議餐點：脆皮馳名燒鵝脾（腿）瀨粉、蜜汁叉燒</span>
-                  <span class="text-xs text-gray-500">預算：HKD 80-150/人</span>
-                </div>
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-person-walking"></i> 交通：步行</strong>
+                <span>路線：文武廟 → 威靈頓街</span>
+                <span>ETA: 12:15 → 12:30 (約15分) ｜ Cost: 免費 ｜ Transfers: 0</span>
               </div>
             </div>
 
+            <!-- 午後 Afternoon -->
             <div class="time-block">
-              <div class="time-block-title">夜間 Night</div>
-
-              <div class="item transport">
-                <div class="time-badge">18:30<br><span class="text-xs font-normal">約 15 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
+              <h4 class="text-gray-400 font-bold mb-3 tracking-widest text-sm">午後 Afternoon</h4>
+              
+              <div class="item">
+                <div class="time-badge">12:30<br><span class="text-xs font-normal">約90分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils text-red-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">步行：一樂燒鵝 → 中環街市</span>
-                  <span class="text-xs text-blue-600">ETA: 18:45 | Cost: HKD 0 | Transfers: 0次</span>
+                  <strong class="text-lg red-text">一點心 中環 (午餐)</strong>
+                  <span class="text-sm">建議餐點：蟹黃燒賣、鮮蝦腐皮捲、薄皮蝦餃</span>
+                  <span class="text-sm text-yellow-500"><i class="fa-solid fa-coins"></i> 預算：HKD 80-120/人</span>
+                </div>
+              </div>
+
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-person-walking"></i> 交通：步行</strong>
+                <span>路線：一點心 → 無限極廣場</span>
+                <span>ETA: 14:00 → 14:10 (約10分) ｜ Cost: 免費</span>
+              </div>
+
+              <div class="item">
+                <div class="time-badge">14:15<br><span class="text-xs font-normal">約45分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-store text-red-400"></i></div>
+                <div class="text-slot stack-vertical">
+                  <strong class="text-lg red-text">Miniso香港分店</strong>
+                  <span class="text-sm">地址：上環德輔道中199號無限極廣場地下G01鋪</span>
+                  <span class="text-sm text-gray-400">輕鬆採買生活小物與聯名商品。</span>
                 </div>
               </div>
 
               <div class="item">
-                <div class="time-badge">18:45<br><span class="text-xs font-normal">~20:00</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-shop"></i></div>
+                <div class="time-badge">15:15<br><span class="text-xs font-normal">約30分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-cookie-bite text-red-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">中環街市 Central Market</h4>
-                  <span class="text-sm blue-text">系統推薦。將歷史悠久的三級歷史建築街市活化，內部有許多復古小店與文創品牌。</span>
-                  <span class="text-sm text-gray-700">活動：拍攝經典水磨石大樓梯，逛逛特色伴手禮與手作店。</span>
+                  <strong class="text-lg red-text">曲奇珍尼上環店 (伴手禮)</strong>
+                  <span class="text-sm">採買超人氣聰明小熊奶油曲奇餅乾，建議購買四味奶油曲奇。</span>
                 </div>
               </div>
 
-              <div class="item transport">
-                <div class="time-badge">20:00<br><span class="text-xs font-normal">約 10 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-train"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">叮叮車/步行：中環 → 上環酒店</span>
-                  <span class="text-xs text-blue-600">ETA: 20:10 | Cost: HKD 3 | Transfers: 0次</span>
-                </div>
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-train-subway"></i> 交通：港鐵荃灣線</strong>
+                <span>路線：中環站 → 尖沙咀站</span>
+                <span>ETA: 16:00 → 16:20 (約20分) ｜ Cost: HKD 10.5 ｜ Transfers: 0</span>
               </div>
 
               <div class="item">
-                <div class="time-badge">20:10<br><span class="text-xs font-normal">~20:30</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-hotel"></i></div>
+                <div class="time-badge">16:30<br><span class="text-xs font-normal">約60分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bag-shopping text-red-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">返回 富薈上環酒店 (正式辦理入住)</h4>
-                  <span class="text-sm red-text">結束第一天行程，辦理房卡並休息。</span>
+                  <strong class="text-lg red-text">JellyCat 尖沙咀海港城連卡佛</strong>
+                  <span class="text-sm">地址：尖沙咀廣東道 3 號</span>
+                  <span class="text-sm text-gray-400">朝聖超人氣絨毛娃娃，海港城內順便逛街。</span>
                 </div>
               </div>
             </div>
-            <!-- Day 1 合計 10 項事件卡，滿足完整日規定 -->
+
+            <!-- 傍晚 Evening -->
+            <div class="time-block">
+              <h4 class="text-gray-400 font-bold mb-3 tracking-widest text-sm">傍晚 Evening</h4>
+              
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-person-walking"></i> 交通：步行前往天星碼頭</strong>
+                <span>路線：海港城 → 尖沙咀天星碼頭</span>
+                <span>ETA: 19:15 → 19:30 (約15分) ｜ 需提前抵達換票</span>
+              </div>
+
+              <div class="item">
+                <div class="time-badge">19:45<br><span class="text-xs font-normal">~20:30</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-ship text-red-400"></i></div>
+                <div class="text-slot stack-vertical">
+                  <strong class="text-lg red-text">天星x STAY【幻彩詠香江套】票</strong>
+                  <span class="text-sm">含一杯雞尾酒，在專屬遊輪上觀賞維多利亞港雷射燈光秀。</span>
+                  <span class="text-sm text-yellow-500">已訂位：成人 2 x HK$252.00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 夜間 Night -->
+            <div class="time-block">
+              <h4 class="text-gray-400 font-bold mb-3 tracking-widest text-sm">夜間 Night</h4>
+              
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-taxi"></i> 交通：天星小輪 + 步行</strong>
+                <span>路線：尖沙咀碼頭 → 中環碼頭 → 榕哥燒鵝</span>
+                <span>ETA: 20:30 → 21:00 (約30分) ｜ Cost: HKD 5</span>
+              </div>
+
+              <div class="item">
+                <div class="time-badge">21:00<br><span class="text-xs font-normal">約60分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils text-red-400"></i></div>
+                <div class="text-slot stack-vertical">
+                  <strong class="text-lg red-text">榕哥陳皮燒鵝 (晚餐)</strong>
+                  <span class="text-sm">建議餐點：招牌陳皮燒鵝瀨粉、脆皮燒肉</span>
+                  <span class="text-sm text-yellow-500"><i class="fa-solid fa-coins"></i> 預算：HKD 100-150/人</span>
+                </div>
+              </div>
+              
+              <div class="hk-card mt-6 border border-gray-600 bg-gray-800">
+                <strong class="text-blue-300"><i class="fa-solid fa-circle-info"></i> 行程備註 (資料不足原因)</strong>
+                <p class="text-sm mt-1">因首日包含跨國飛行與機場轉乘，壓縮了白天的可用時段，考量體力與跨島(上環至尖沙咀)交通，本日事件卡總數未滿10項，安排以輕鬆尋訪與預訂行程為主，夜間返回飯店休息。</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Day 2 -->
-        <div class="day-section bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <h3 class="text-xl font-bold mb-4 bg-gray-100 inline-block px-4 py-1 rounded-lg">Day 2：3/22</h3>
+        <!-- ==================== DAY 2 ==================== -->
+        <div class="hk-card day-section">
+          <h3 class="text-xl font-bold border-l-4 border-blue-500 pl-3 mb-6">Day 2 ｜ 3/22 (五) 港味精華・太平山頂</h3>
+          
           <div class="timeline">
-            
+            <!-- 早晨 Morning -->
             <div class="time-block">
-              <div class="time-block-title">早晨 Morning</div>
+              <h4 class="text-gray-400 font-bold mb-3 tracking-widest text-sm">早晨 Morning</h4>
+              
+              <div class="item">
+                <div class="time-badge">08:30<br><span class="text-xs font-normal">約90分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-mug-saucer text-red-400"></i></div>
+                <div class="text-slot stack-vertical">
+                  <strong class="text-lg red-text">蓮香樓 (早餐)</strong>
+                  <span class="text-sm">建議餐點：豬潤燒賣、蓮蓉包、千層糕、傳統水滾茶</span>
+                  <span class="text-sm text-yellow-500"><i class="fa-solid fa-coins"></i> 預算：HKD 80-120/人</span>
+                </div>
+              </div>
+
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-person-walking"></i> 交通：步行</strong>
+                <span>路線：蓮香樓 → 中環街市</span>
+                <span>ETA: 10:00 → 10:10 (約10分) ｜ Cost: 免費</span>
+              </div>
+            </div>
+
+            <!-- 上午 Forenoon -->
+            <div class="time-block">
+              <h4 class="text-gray-400 font-bold mb-3 tracking-widest text-sm">上午 Forenoon</h4>
+              
+              <div class="item">
+                <div class="time-badge">10:10<br><span class="text-xs font-normal">約70分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-shop text-red-400"></i></div>
+                <div class="text-slot stack-vertical">
+                  <strong class="text-lg red-text">中環街市</strong>
+                  <span class="text-sm">開放時間：10:00~22:00，全部免費參觀。體驗活化後的文創空間與百年階梯。</span>
+                </div>
+              </div>
+
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-person-walking"></i> 交通：經半山手扶梯步行</strong>
+                <span>路線：中環街市 → 大館</span>
+                <span>ETA: 11:20 → 11:30 (約10分)</span>
+              </div>
 
               <div class="item">
-                <div class="time-badge">08:30<br><span class="text-xs font-normal">~09:30</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-mug-hot"></i></div>
+                <div class="time-badge">11:30<br><span class="text-xs font-normal">約90分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-building-columns text-blue-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">[早餐] 科記咖啡餐廳</h4>
-                  <span class="text-sm blue-text">系統推薦。上環在地隱藏版老字號茶餐廳，非遊客大眾店。</span>
-                  <span class="text-sm font-medium text-gray-700">建議餐點：馳名金牌豬扒包、沙爹牛肉麵、香濃凍奶茶</span>
-                  <span class="text-xs text-gray-500">預算：HKD 50-80/人</span>
-                </div>
-              </div>
-
-              <div class="item transport">
-                <div class="time-badge">09:30<br><span class="text-xs font-normal">約 10 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">步行：科記 → 摩羅上街</span>
-                  <span class="text-xs text-blue-600">ETA: 09:40 | Cost: HKD 0 | Transfers: 0次</span>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="time-badge">09:40<br><span class="text-xs font-normal">~11:00</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-vihara"></i></div>
-                <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">摩羅上街 (古董街/貓街) 尋寶</h4>
-                  <span class="text-sm blue-text">系統推薦。感受濃厚的舊香港氣息，小攤販售各式古董、玉器與舊海報，極具非大眾尋寶樂趣。</span>
-                </div>
-              </div>
-
-              <div class="item transport">
-                <div class="time-badge">11:00<br><span class="text-xs font-normal">約 15 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">步行：摩羅上街 → 歌賦街 (九記牛腩)</span>
-                  <span class="text-xs text-blue-600">ETA: 11:15 | Cost: HKD 0 | Transfers: 0次</span>
+                  <strong class="text-lg blue-text">大館 Tai Kwun</strong>
+                  <span class="text-sm">前中區警署建築群，絕美紅磚建築，適合拍照與感受歷史氛圍。</span>
                 </div>
               </div>
             </div>
 
+            <!-- 午後 Afternoon -->
             <div class="time-block">
-              <div class="time-block-title">上午 Forenoon</div>
+              <h4 class="text-gray-400 font-bold mb-3 tracking-widest text-sm">午後 Afternoon</h4>
+              
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-person-walking"></i> 交通：步行</strong>
+                <span>路線：大館 → 威靈頓街</span>
+                <span>ETA: 13:00 → 13:10 (約10分)</span>
+              </div>
 
               <div class="item">
-                <div class="time-badge">11:15<br><span class="text-xs font-normal">~12:30</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-bowl-food"></i></div>
+                <div class="time-badge">13:10<br><span class="text-xs font-normal">約60分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils text-blue-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">[午餐] 九記牛腩</h4>
-                  <span class="text-sm red-text">使用者指定重點美食。排隊名店，建議提早抵達避開最高峰。</span>
-                  <span class="text-sm font-medium text-gray-700">建議餐點：上湯牛腩粗麵、咖哩牛筋腩伊麵、凍檸茶</span>
-                  <span class="text-xs text-gray-500">預算：HKD 70-100/人</span>
+                  <strong class="text-lg blue-text">麥奀雲吞麵世家 (午餐)</strong>
+                  <span class="text-sm">建議餐點：世家雲吞麵、牛筋腩撈麵</span>
+                  <span class="text-sm text-yellow-500"><i class="fa-solid fa-coins"></i> 預算：HKD 50-80/人</span>
+                </div>
+              </div>
+
+              <div class="item">
+                <div class="time-badge">14:15<br><span class="text-xs font-normal">約45分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-stairs text-blue-400"></i></div>
+                <div class="text-slot stack-vertical">
+                  <strong class="text-lg blue-text">搭乘中環半山手扶梯</strong>
+                  <span class="text-sm">世界最長的戶外有蓋電扶梯，經典電影《重慶森林》拍攝場景。</span>
+                </div>
+              </div>
+
+              <div class="item">
+                <div class="time-badge">15:00<br><span class="text-xs font-normal">約30分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-camera text-blue-400"></i></div>
+                <div class="text-slot stack-vertical">
+                  <strong class="text-lg blue-text">嘉咸街壁畫</strong>
+                  <span class="text-sm">描繪老香港九龍寨城風貌的知名打卡牆，色彩斑斕。</span>
+                </div>
+              </div>
+
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-taxi"></i> 交通：計程車或巴士前往花園道纜車總站</strong>
+                <span>路線：中環半山 → 山頂纜車總站</span>
+                <span>ETA: 15:30 → 15:50 (約20分) ｜ Cost: 約 HKD 30</span>
+              </div>
+
+              <div class="item">
+                <div class="time-badge">16:00<br><span class="text-xs font-normal">約60分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-train-tram text-blue-400"></i></div>
+                <div class="text-slot stack-vertical">
+                  <strong class="text-lg blue-text">太平山頂纜車</strong>
+                  <span class="text-sm">搭乘第六代綠色復古車廂，沿著陡峭山坡攀升，俯瞰維港。</span>
                 </div>
               </div>
             </div>
 
+            <!-- 傍晚 Evening -->
             <div class="time-block">
-              <div class="time-block-title">午後 Afternoon</div>
-
-              <div class="item transport">
-                <div class="time-badge">12:30<br><span class="text-xs font-normal">約 10 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">步行：歌賦街 → 大館</span>
-                  <span class="text-xs text-blue-600">ETA: 12:40 | Cost: HKD 0 | Transfers: 0次</span>
-                </div>
-              </div>
-
+              <h4 class="text-gray-400 font-bold mb-3 tracking-widest text-sm">傍晚 Evening</h4>
+              
               <div class="item">
-                <div class="time-badge">12:40<br><span class="text-xs font-normal">~14:30</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-building-columns"></i></div>
+                <div class="time-badge">17:00<br><span class="text-xs font-normal">約90分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-mountain-sun text-blue-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">大館 Tai Kwun (古蹟與藝術館)</h4>
-                  <span class="text-sm blue-text">系統推薦。前中區警署建築群活化，欣賞壯麗的紅磚建築與當代藝術展覽，兼具拍照與文化深度。</span>
+                  <strong class="text-lg blue-text">凌霄閣摩天台428</strong>
+                  <span class="text-sm">香港最高360度觀景台，從白天一路觀賞至華燈初上的百萬夜景。</span>
                 </div>
               </div>
 
-              <div class="item transport">
-                <div class="time-badge">14:30<br><span class="text-xs font-normal">約 5 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">步行：大館 → 嘉咸街</span>
-                  <span class="text-xs text-blue-600">ETA: 14:35 | Cost: HKD 0 | Transfers: 0次</span>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="time-badge">14:35<br><span class="text-xs font-normal">~15:00</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-camera-retro"></i></div>
-                <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">嘉咸街壁畫 (拍照聖地)</h4>
-                  <span class="text-sm blue-text">系統推薦。描繪老香港建築風貌的經典壁畫，順路捕捉香港特有街頭藝術。</span>
-                </div>
-              </div>
-
-              <div class="item transport">
-                <div class="time-badge">15:00<br><span class="text-xs font-normal">約 10 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">步行：嘉咸街 → Bakehouse (中環店)</span>
-                  <span class="text-xs text-blue-600">ETA: 15:10 | Cost: HKD 0 | Transfers: 0次</span>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="time-badge">15:10<br><span class="text-xs font-normal">~15:40</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-cookie-bite"></i></div>
-                <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">Bakehouse 中環店 (下午茶點心)</h4>
-                  <span class="text-sm blue-text">系統推薦。香港目前最火紅的烘焙店，酸種蛋撻外酥內嫩，不可錯過。</span>
-                  <span class="text-xs text-gray-500">預算：HKD 30-50/人</span>
-                </div>
-              </div>
-
-              <div class="item transport">
-                <div class="time-badge">15:40<br><span class="text-xs font-normal">約 20 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-train"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">港鐵：中環站 → 堅尼地城站 (港島線盡頭)</span>
-                  <span class="text-xs text-blue-600">ETA: 16:00 | Cost: HKD 6 | Transfers: 0次</span>
-                </div>
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-bus"></i> 交通：15號巴士或纜車下山 + 港鐵</strong>
+                <span>路線：山頂 → 中環站 → 佐敦站</span>
+                <span>ETA: 18:30 → 19:30 (約60分) ｜ Transfers: 1</span>
               </div>
             </div>
 
+            <!-- 夜間 Night -->
             <div class="time-block">
-              <div class="time-block-title">傍晚 Evening</div>
-
+              <h4 class="text-gray-400 font-bold mb-3 tracking-widest text-sm">夜間 Night</h4>
+              
               <div class="item">
-                <div class="time-badge">16:00<br><span class="text-xs font-normal">~18:00</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-water"></i></div>
+                <div class="time-badge">19:30<br><span class="text-xs font-normal">約45分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bowl-rice text-red-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">堅尼地城海旁漫步與打卡</h4>
-                  <span class="text-sm blue-text">系統推薦。非大眾的避世景點，可在海旁吹風看日落，並在著名的堅尼地城路牌或海濱長廊拍照，享受悠閒氛圍。</span>
+                  <strong class="text-lg red-text">佳佳甜品</strong>
+                  <span class="text-sm">米其林推薦中式糖水。建議餐點：芝麻糊、寧波薑汁湯圓</span>
+                  <span class="text-sm text-yellow-500"><i class="fa-solid fa-coins"></i> 預算：HKD 30-50/人</span>
                 </div>
               </div>
 
-              <div class="item transport">
-                <div class="time-badge">18:00<br><span class="text-xs font-normal">約 10 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">步行：海濱 → 新興食家</span>
-                  <span class="text-xs text-blue-600">ETA: 18:10 | Cost: HKD 0 | Transfers: 0次</span>
-                </div>
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-person-walking"></i> 交通：步行</strong>
+                <span>路線：佐敦白加士街 → 廟街</span>
+                <span>ETA: 20:15 → 20:25 (約10分)</span>
               </div>
 
               <div class="item">
-                <div class="time-badge">18:10<br><span class="text-xs font-normal">~19:30</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-utensils"></i></div>
+                <div class="time-badge">20:30<br><span class="text-xs font-normal">約90分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-tent text-red-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">[晚餐] 新興食家 (夜間港點)</h4>
-                  <span class="text-sm blue-text">系統推薦。呼應港點需求，這是一家營業至深夜的老字號點心店，陳奕迅等明星愛店，極具在地草根風味。</span>
-                  <span class="text-sm font-medium text-gray-700">建議餐點：流沙包(必點)、鵪鶉蛋燒賣、炸鮮奶</span>
-                  <span class="text-xs text-gray-500">預算：HKD 70-120/人</span>
+                  <strong class="text-lg red-text">廟街夜市 (晚餐)</strong>
+                  <span class="text-sm">體驗香港道地夜市文化。<br>推薦晚餐：<span class="blue-text">興記煲仔飯 (臘味排骨煲仔飯、煎蠔餅)</span></span>
+                  <span class="text-sm text-yellow-500"><i class="fa-solid fa-coins"></i> 預算：HKD 80-150/人</span>
                 </div>
               </div>
             </div>
-
-            <div class="time-block">
-              <div class="time-block-title">夜間 Night</div>
-
-              <div class="item transport">
-                <div class="time-badge">19:30<br><span class="text-xs font-normal">約 5 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">步行：新興食家 → 惠康超市</span>
-                  <span class="text-xs text-blue-600">ETA: 19:35 | Cost: HKD 0 | Transfers: 0次</span>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="time-badge">19:35<br><span class="text-xs font-normal">~20:20</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-cart-shopping"></i></div>
-                <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">惠康超市 堅尼地城店 (採買伴手禮)</h4>
-                  <span class="text-sm blue-text">系統推薦。採買大排檔奶茶、出前一丁港版限定口味、熱浪薯片等在地生活化伴手禮。</span>
-                </div>
-              </div>
-
-              <div class="item transport">
-                <div class="time-badge">20:20<br><span class="text-xs font-normal">約 20 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-train"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">港鐵/叮叮車：堅尼地城 → 上環</span>
-                  <span class="text-xs text-blue-600">ETA: 20:40 | Cost: HKD 5 | Transfers: 0次</span>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="time-badge">20:40<br><span class="text-xs font-normal">~21:00</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-hotel"></i></div>
-                <div class="text-slot stack-vertical">
-                  <h4 class="font-bold text-gray-700">返回 富薈上環酒店</h4>
-                  <span class="text-sm text-gray-600">結束充實的第二天行程，整理今日戰利品。</span>
-                </div>
-              </div>
-            </div>
-            <!-- Day 2 合計 10 項事件卡，滿足完整日規定 -->
           </div>
         </div>
 
-        <!-- Day 3 -->
-        <div class="day-section bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-          <h3 class="text-xl font-bold mb-4 bg-gray-100 inline-block px-4 py-1 rounded-lg">Day 3：3/23</h3>
+        <!-- ==================== DAY 3 ==================== -->
+        <div class="hk-card day-section">
+          <h3 class="text-xl font-bold border-l-4 border-blue-500 pl-3 mb-6">Day 3 ｜ 3/23 (六) 離港血拼・滿載而歸</h3>
+          
           <div class="timeline">
-            
+            <!-- 早晨 Morning -->
             <div class="time-block">
-              <div class="time-block-title">早晨 Morning</div>
-
+              <h4 class="text-gray-400 font-bold mb-3 tracking-widest text-sm">早晨 Morning</h4>
+              
               <div class="item">
-                <div class="time-badge">08:30<br><span class="text-xs font-normal">~09:30</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-mug-hot"></i></div>
+                <div class="time-badge">08:30<br><span class="text-xs font-normal">約60分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-mug-hot text-red-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">[早餐] 蓮香居 (傳統推車點心)</h4>
-                  <span class="text-sm blue-text">系統推薦。位於上環，體驗即將失傳的舊式點心推車文化與茶盅品茗，極具復古情懷。</span>
-                  <span class="text-sm font-medium text-gray-700">建議餐點：豬潤燒賣、鵪鶉蛋燒賣、馬拉糕</span>
-                  <span class="text-xs text-gray-500">預算：HKD 80-120/人</span>
+                  <strong class="text-lg red-text">瑞記咖啡 (早餐)</strong>
+                  <span class="text-sm">隱身在上環市政大廈熟食中心的老字號茶檔。</span>
+                  <span class="text-sm">建議餐點：樽仔冰鎮奶茶、蛋牛包、西多士</span>
+                  <span class="text-sm text-yellow-500"><i class="fa-solid fa-coins"></i> 預算：HKD 40-60/人</span>
                 </div>
               </div>
 
-              <div class="item transport">
-                <div class="time-badge">09:30<br><span class="text-xs font-normal">約 15 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">步行：蓮香居 → 酒店辦理退房</span>
-                  <span class="text-xs text-blue-600">ETA: 09:45 | Cost: HKD 0 | Transfers: 0次</span>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="time-badge">09:45<br><span class="text-xs font-normal">~10:15</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-key"></i></div>
-                <div class="text-slot stack-vertical">
-                  <h4 class="font-bold text-gray-700">富薈上環酒店 退房與出發</h4>
-                  <span class="text-sm text-gray-600">攜帶行李前往東涌，可將行李寄放於東薈城寄物櫃。</span>
-                </div>
-              </div>
-
-              <div class="item transport">
-                <div class="time-badge">10:15<br><span class="text-xs font-normal">約 45 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-train-subway"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">港鐵：上環站 → 中環站/香港站轉乘 → 東涌站</span>
-                  <span class="text-xs text-blue-600">ETA: 11:00 | Cost: HKD 25 | Transfers: 1次</span>
-                </div>
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-person-walking"></i> 交通：步行</strong>
+                <span>路線：市政大廈 → 酒店</span>
+                <span>ETA: 09:30 → 09:40 (約10分)</span>
               </div>
             </div>
 
+            <!-- 上午 Forenoon -->
             <div class="time-block">
-              <div class="time-block-title">上午 Forenoon</div>
-
+              <h4 class="text-gray-400 font-bold mb-3 tracking-widest text-sm">上午 Forenoon</h4>
+              
               <div class="item">
-                <div class="time-badge">11:00<br><span class="text-xs font-normal">~12:00</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-monument"></i></div>
+                <div class="time-badge">09:40<br><span class="text-xs font-normal">約50分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-suitcase text-red-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">東涌炮台 (非大眾古蹟)</h4>
-                  <span class="text-sm blue-text">系統推薦。在購物前，先前往東薈城附近的法定古蹟走走，感受清代海防歷史，避開大量人潮。</span>
+                  <strong class="text-lg red-text">富荟上环酒店 (退房)</strong>
+                  <span class="text-sm">整理行李，辦理 Check-out，準備前往東涌。</span>
                 </div>
+              </div>
+
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-train-subway"></i> 交通：港鐵東涌線</strong>
+                <span>路線：香港站 → 東涌站</span>
+                <span>ETA: 10:30 → 11:20 (約50分) ｜ Cost: HKD 23.6 ｜ 需將行李寄放於東薈城置物櫃</span>
               </div>
             </div>
 
+            <!-- 午後 Afternoon -->
             <div class="time-block">
-              <div class="time-block-title">午後 Afternoon</div>
-
-              <div class="item transport">
-                <div class="time-badge">12:00<br><span class="text-xs font-normal">約 15 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">步行/巴士：東涌炮台 → 東薈城</span>
-                  <span class="text-xs text-blue-600">ETA: 12:15 | Cost: HKD 0-5 | Transfers: 0次</span>
-                </div>
-              </div>
-
+              <h4 class="text-gray-400 font-bold mb-3 tracking-widest text-sm">午後 Afternoon</h4>
+              
               <div class="item">
-                <div class="time-badge">12:15<br><span class="text-xs font-normal">~13:30</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-bowl-rice"></i></div>
+                <div class="time-badge">11:30<br><span class="text-xs font-normal">約4小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-tags text-red-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <h4 class="font-bold blue-text">[午餐] 東薈城美食廣場 (Food Republic)</h4>
-                  <span class="text-sm blue-text">系統推薦。為方便接續購物，直接於商場內用餐，涵蓋燒臘、粉麵等多種港式與亞洲選擇。</span>
-                  <span class="text-sm font-medium text-gray-700">建議餐點：三寶飯或星洲海南雞飯</span>
-                  <span class="text-xs text-gray-500">預算：HKD 60-90/人</span>
+                  <strong class="text-lg red-text">東薈城名店倉 Citygate Outlets (含午餐)</strong>
+                  <span class="text-sm">全港最大 Outlet，離港前最後採買免稅精品與服飾。</span>
+                  <span class="text-sm">午餐建議：<span class="blue-text">商場內食代館 Food Opera (各式亞洲美食)</span></span>
+                  <span class="text-sm text-yellow-500"><i class="fa-solid fa-coins"></i> 預算：HKD 80-120/人</span>
                 </div>
               </div>
 
-              <div class="item">
-                <div class="time-badge">13:30<br><span class="text-xs font-normal">~17:00</span></div>
-                <div class="icon-slot text-red-600"><i class="fa-solid fa-bag-shopping"></i></div>
-                <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">東薈城名店倉 (Citygate Outlets) 購物</h4>
-                  <span class="text-sm red-text">使用者指定重點。全港最大折扣商場，涵蓋國際服飾、運動品牌與精品，滿足購物主軸。</span>
-                </div>
-              </div>
-
-              <div class="item transport">
-                <div class="time-badge">17:00<br><span class="text-xs font-normal">約 15 分</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-bus"></i></div>
-                <div class="text-slot stack-vertical">
-                  <span class="text-sm font-bold text-blue-800">S1 巴士：東涌站巴士總站 → 赤鱲角國際機場</span>
-                  <span class="text-xs text-blue-600">ETA: 17:15 | Cost: HKD 3.5 | Transfers: 0次</span>
-                </div>
+              <div class="transport stack-vertical">
+                <strong><i class="fa-solid fa-bus"></i> 交通：S1 穿梭巴士</strong>
+                <span>路線：東涌站 → 香港國際機場</span>
+                <span>ETA: 15:30 → 15:45 (約15分) ｜ Cost: HKD 3.5</span>
               </div>
             </div>
 
+            <!-- 傍晚 Evening -->
             <div class="time-block">
-              <div class="time-block-title">傍晚 Evening</div>
+              <h4 class="text-gray-400 font-bold mb-3 tracking-widest text-sm">傍晚 Evening</h4>
+              
+              <div class="item">
+                <div class="time-badge">16:00<br><span class="text-xs font-normal">約150分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-couch text-red-400"></i></div>
+                <div class="text-slot stack-vertical">
+                  <strong class="text-lg red-text">機場貴賓室 (晚餐/休憩)</strong>
+                  <span class="text-sm">辦理登機手續後，進入貴賓室享用晚餐並休息洗漱。</span>
+                  <span class="text-sm">建議餐點：貴賓室內現煮魚蛋粉或熱食。</span>
+                </div>
+              </div>
 
               <div class="item">
-                <div class="time-badge">17:30<br><span class="text-xs font-normal">~19:40</span></div>
-                <div class="icon-slot"><i class="fa-solid fa-plane-departure"></i></div>
+                <div class="time-badge">19:40<br><span class="text-xs font-normal">起飛</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-plane-departure text-red-400"></i></div>
                 <div class="text-slot stack-vertical">
-                  <h4 class="font-bold red-text">長榮航空 BR 872 (HKG出發)</h4>
-                  <span class="text-sm red-text">使用者指定航班。17:30 辦理登機，19:40 起飛返回溫暖的家。機型: BOEING 787-10，訂位艙等代碼: W。</span>
+                  <strong class="text-lg red-text">滿載而歸</strong>
+                  <span class="text-sm">航班：長榮航空 BR 872 (HKG 19:40 起飛) ｜ 艙等 W ｜ 機型 787-10</span>
                 </div>
               </div>
-
-              <!-- 備註卡：不足10項說明 -->
-              <div class="item bg-blue-50 border border-blue-200 mt-4">
-                <div class="icon-slot text-blue-500"><i class="fa-solid fa-circle-info"></i></div>
-                <div class="text-slot stack-vertical">
-                  <h4 class="font-bold blue-text">行程編排說明</h4>
-                  <span class="text-sm blue-text">資料不足原因備註：今日為離境日，因航班時間（19:40）及機場安檢與路程限制，時段不足安排 10 項完整行程，已依可用時段推估至最後可完成之機場報到與搭機行程。</span>
-                </div>
+              
+              <div class="hk-card mt-6 border border-gray-600 bg-gray-800">
+                <strong class="text-blue-300"><i class="fa-solid fa-circle-info"></i> 行程備註 (資料不足原因)</strong>
+                <p class="text-sm mt-1">本日為晚班機離境日，下午需預留充足時間至機場與貴賓室休息。考量大型行李移動，集中於東薈城一站式解決購物與午餐，故行程未滿 10 項，以確保轉場從容不迫。</p>
               </div>
-
             </div>
           </div>
         </div>
-
       </div>
 
-      <!-- 區塊 C/D：風險評估 與 建議×注意合併區塊 -->
-      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 mt-12 space-y-8">
-        <div>
-          <h2 class="text-xl font-bold flex items-center gap-2 mb-3"><i class="fa-solid fa-shield-halved text-green-600"></i> 旅遊風險評估</h2>
-          <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg stack-vertical">
-            <span class="font-bold text-green-800">風險等級：低</span>
-            <span class="text-sm text-green-700">說明：香港治安良好，交通極度發達。唯一需注意的是防範扒手（尤其在人多擁擠的旺角或中環），以及留意自身行李與證件安全。春季氣候多變，偶有陣雨，請備妥雨具。</span>
-          </div>
+      <!-- 底部區塊：風險與建議 -->
+      <div class="space-y-6 pt-8 border-t border-gray-700">
+        <div class="hk-card border-l-4 border-green-500">
+          <h3 class="text-lg font-bold mb-2 flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-green-400"></i> 旅遊風險評估：低
+          </h3>
+          <p class="text-sm text-gray-300">香港市區治安良好，交通網絡極為發達，醫療體系完善。僅需注意人多擁擠處的財物保管，以及搭乘手扶梯或地鐵時遵守靠右站立/緊握扶手等基本安全規範即可。</p>
         </div>
 
-        <div>
-          <h2 class="text-xl font-bold flex items-center gap-2 mb-3"><i class="fa-solid fa-lightbulb text-yellow-500"></i> 建議 × 注意 (Top 10)</h2>
-          <ul class="space-y-2 text-sm text-gray-700 pl-2">
-            <li><i class="fa-solid fa-check text-green-500 mr-2"></i><b>交通支付：</b>強烈建議抵達即購買並加值八達通卡，搭車、超市、小店皆可使用，省去找零麻煩。</li>
-            <li><i class="fa-solid fa-check text-green-500 mr-2"></i><b>機場快線優惠：</b>若同行人數達 2-4 人，可於人工櫃台購買「機場快線團體票」，比單人買便宜許多。</li>
-            <li><i class="fa-solid fa-check text-green-500 mr-2"></i><b>茶餐廳文化：</b>茶餐廳用餐節奏極快，點餐與結帳請迅速；入座時送上的第一杯熱水通常是用來「洗餐具」的，不可飲用。</li>
-            <li><i class="fa-solid fa-check text-green-500 mr-2"></i><b>在地禮儀：</b>搭乘手扶梯時請遵守「左行右立」（但港鐵近期宣導兩側皆站），不過實際上多數市民仍會讓出左側。</li>
-            <li><i class="fa-solid fa-check text-green-500 mr-2"></i><b>行前預約：</b>如九記牛腩或一樂燒鵝等名店，無法預約且需併桌（搭檯），請保持彈性心態並預留排隊時間。</li>
-            <li><i class="fa-solid fa-triangle-exclamation text-red-500 mr-2"></i><b>自備購物袋：</b>香港全面實施塑膠袋收費（至少 HKD 1），請務必隨身攜帶環保購物袋。</li>
-            <li><i class="fa-solid fa-triangle-exclamation text-red-500 mr-2"></i><b>氣候與穿搭：</b>3月香港已轉暖但室內冷氣極強（如同雪櫃），務必隨身攜帶薄外套以免室內外溫差感冒。</li>
-            <li><i class="fa-solid fa-triangle-exclamation text-red-500 mr-2"></i><b>插座轉接：</b>香港使用英式三腳插座（220V），請務必攜帶轉接頭，多數現代手機/筆電充電器已支援國際電壓。</li>
-            <li><i class="fa-solid fa-triangle-exclamation text-red-500 mr-2"></i><b>找零規則：</b>許多小店或計程車不收 1000 元面額港幣，請盡量換取 100 或 500 面額的紙鈔備用。</li>
-            <li><i class="fa-solid fa-triangle-exclamation text-red-500 mr-2"></i><b>東薈城置物：</b>東薈城 B2/B3 設有投幣式/八達通置物櫃，但假日常常客滿，建議一早抵達即先寄放行李再開始逛。</li>
+        <div class="hk-card">
+          <h3 class="text-lg font-bold mb-4 flex items-center gap-2 text-blue-300">
+            <i class="fa-solid fa-lightbulb"></i> 建議 × 注意事項
+          </h3>
+          <ul class="list-disc pl-5 space-y-2 text-sm text-gray-300">
+            <li><strong>八達通卡必備：</strong> 在香港搭乘地鐵、巴士、叮叮車或於便利商店購物，一張八達通卡能解決 90% 的支付需求，建議抵港即購買或綁定 Apple Pay。</li>
+            <li><strong>插座轉接頭：</strong> 香港使用英規三腳方型插座 (220V)，請務必攜帶轉接頭，以免電子設備無法充電。</li>
+            <li><strong>茶餐廳文化：</strong> 入座時店家通常會提供一杯熱水或熱茶，這是用來「洗餐具」的，請勿直接飲用；點餐節奏通常較快，建議看好菜單再舉手。</li>
+            <li><strong>計程車(的士)規則：</strong> 紅色市區的士隨處可見，但行李放後車廂通常需額外加收費用(約 HKD 6/件)，過海隧道亦有附加費。</li>
+            <li><strong>冷氣極強：</strong> 香港商場、地鐵與室內空間冷氣普遍開得非常強，即使夏季也建議隨身攜帶一件薄外套。</li>
+            <li><strong>步行強度大：</strong> 香港地形多坡道且地鐵站內換乘步行距離長，請穿著極為舒適且耐走的運動鞋。</li>
+            <li><strong>餐廳併桌是常態：</strong> 在茶餐廳或熱門小吃店，與陌生人併桌非常普遍，請抱持開放心態體驗在地文化。</li>
+            <li><strong>自備購物袋：</strong> 香港實施嚴格的塑膠袋收費政策，多數店家不免費提供，隨身攜帶環保袋可省下不少零錢。</li>
+            <li><strong>幻彩詠香江提早報到：</strong> 您已預訂天星小輪套票，請務必依憑證指示提早至指定碼頭換票，逾時船隻不候。</li>
+            <li><strong>機場預留時間：</strong> 香港國際機場極大，從安檢到登機門可能需要步行加搭乘接駁電車(至少20-30分鐘)，請確保起飛前 2 小時抵達機場。</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- ========================================== -->
-    <!-- 各模組分頁 (嚴格要求：介紹100字、兩欄並排) -->
-    <!-- ========================================== -->
-
-    <!-- POI 景點 (20) -->
+    <!-- ==================== POI 景點 (20) ==================== -->
     <section id="poi" class="space-y-6">
-      <h2 class="text-2xl font-bold flex items-center gap-2 mb-6 border-b pb-2"><i class="fa-solid fa-camera text-blue-600"></i> 景點 POI (20筆)</h2>
-      <div class="two-col">
-        <!-- 採用迴圈思維建立 20 筆，部分標為紅字 -->
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">1. 中環街區 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">中環是香港的心臟地帶，不僅有高聳入雲的現代摩天大樓，更隱藏著無數充滿歷史韻味的街巷與百年建築。這裡匯聚了全球頂級的商業機構，同時也保留了如石板街等殖民時期的獨特風貌。漫步其中，你可以深刻感受到東西方文化在此碰撞與交融的奇妙氛圍，是體驗香港都會魅力的絕佳起點。</p>
-            <span class="text-sm text-blue-800">亮點：石板街、都爹利街、摩天大廈群 | 門票：免費</span>
-            <span class="day-tag">Day 1</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">2. Miniso香港分店 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">名創優品在香港設有多家大型分店，以販售充滿設計感且價格親民的生活雜貨、文具、美妝工具與家居用品聞名。香港分店不定期會推出與知名IP聯名的地區限定商品，如三麗鷗、漫威或迪士尼系列。店內明亮寬敞，商品陳列整齊，非常適合喜愛挖寶的旅客在此消磨時間，輕鬆購買實用的平價好物。</p>
-            <span class="text-sm text-blue-800">亮點：平價生活雜貨、IP聯名商品 | 門票：免費</span>
-            <span class="day-tag">Day 1</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">3. 東薈城名店倉 (Citygate) <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">全港最大型的Outlet商場，緊鄰東涌港鐵站及機場，是離境前進行最後衝刺血拼的完美地點。商場內雲集了超過150個國際知名品牌，涵蓋高端精品、運動服飾與美妝保養，常年提供3至7折的誘人優惠。寬敞的購物環境與豐富的餐飲選擇，讓你在候機前能盡情享受購物樂趣，滿載而歸。</p>
-            <span class="text-sm text-blue-800">亮點：全年折扣優惠、國際名牌 | 門票：免費</span>
-            <span class="day-tag">Day 3</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">4. PMQ 元創方 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">由前已婚警察宿舍活化改建而成的文創地標，保留了典型的現代主義建築特色。如今這裡成為香港本土設計師與藝術家的孕育地，進駐了眾多獨立品牌工作室、特色小店與設計廊。漫步於迴廊間，不僅能欣賞到獨特的建築美學，還能發掘充滿原創精神的手工藝品與服飾，是文青不可錯過的非大眾聚落。</p>
-            <span class="text-sm text-blue-800">亮點：本地設計師品牌、歷史建築活化 | 門票：免費</span>
-            <span class="day-tag">Day 1</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">5. 大館 Tai Kwun <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">前中區警署建築群，經過精心修復活化後，轉變為國際級的古蹟與藝術館。這裡完美融合了維多利亞時期的紅磚建築與現代極簡風格的美術館設施。遊客可以參觀昔日的牢房與法庭，感受濃厚的歷史氛圍，同時欣賞當代藝術展覽。中庭廣場經常舉辦各類文化活動，是一個充滿活力的歷史文化交匯點。</p>
-            <span class="text-sm text-blue-800">亮點：百年紅磚建築、當代藝術展覽 | 門票：免費 (展覽可能收費)</span>
-            <span class="day-tag">Day 2</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">6. 摩羅上街 (古董街) <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">隱藏在上環的特色老街，以售賣各式古董、玉器、舊字畫及二手雜貨聞名，又被稱為「貓街」。這裡的小攤檔與店鋪密密麻麻，擺滿了毛澤東襟章、舊式鐘錶、李小龍海報等充滿歲月痕跡的物件。對於喜愛復古風情與懷舊小物的旅客來說，這裡是一個可以盡情尋寶、感受老香港獨特魅力的絕佳地點。</p>
-            <span class="text-sm text-blue-800">亮點：舊海報、古董玉器尋寶 | 門票：免費</span>
-            <span class="day-tag">Day 2</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">7. 堅尼地城海旁 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">位於港島線的最西端，這片海旁長廊擁有遠離繁囂的寧靜氛圍。沿著海堤漫步，可以無死角地欣賞維多利亞港西面的壯闊海景與夕陽西下的迷人景致。周邊開設了許多充滿格調的咖啡館與小酒館，吸引了許多喜愛慢步調的年輕人。這裡的日落美景被譽為香港最浪漫的非大眾打卡點之一。</p>
-            <span class="text-sm text-blue-800">亮點：絕美日落、海濱慢活氛圍 | 門票：免費</span>
-            <span class="day-tag">Day 2</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">8. 中環街市 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">擁有超過80年歷史的三級歷史建築，歷經活化後以「Playground for All」的全新面貌重現。建築保留了標誌性的水磨石大樓梯與包浩斯風格的簡約線條。內部不僅有多家販售香港特色文創商品與本土小吃的店鋪，還設有寬敞的公共休憩空間。這是一個將歷史保育與現代都會生活完美結合的文化新地標。</p>
-            <span class="text-sm text-blue-800">亮點：水磨石樓梯、文創小店群 | 門票：免費</span>
-            <span class="day-tag">Day 1</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">9. 東涌炮台 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">位於大嶼山東涌的一座清代軍事堡壘，被列為香港法定古蹟。這座由花崗岩砌成的炮台，曾是防禦海盜與外敵的重要防線，至今仍保留著古老的城牆、大炮與營房遺跡。這裡環境清幽，綠意盎然，與不遠處繁華的東薈城形成強烈對比。非常適合對歷史感興趣的旅客，在此感受百年滄桑與寧靜氛圍。</p>
-            <span class="text-sm text-blue-800">亮點：清代海防遺跡、寧靜古蹟 | 門票：免費</span>
-            <span class="day-tag">Day 3</span>
-          </div>
-        </article>
-        <!-- 以下 11 筆為系統生成湊滿 20 筆 -->
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">10. 藍屋建築群</h3>
-            <p class="text-sm text-gray-700">位於灣仔的藍屋建築群是香港少數僅存的唐樓建築群之一，外觀漆以醒目的藍色而得名。這裡不僅保留了上世紀初的木製樓梯與露台設計，更透過「留屋留人」的保育方式，真實展現了老香港的基層生活面貌。一樓設有香港故事館，展示了豐富的民間歷史文物，是深入了解本土社區文化與歷史的絕佳窗口。</p>
-            <span class="text-sm text-blue-800">亮點：彩色唐樓、香港故事館 | 門票：免費</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">11. 西九文化區 M+</h3>
-            <p class="text-sm text-gray-700">亞洲首間全球性當代視覺文化博物館，建築本身即是一件宏偉的藝術品。館內藏品涵蓋了20及21世紀的視覺藝術、設計、建築與動態影像，展現了亞洲乃至全球的藝術創新力量。除了豐富的展覽，博物館的戶外觀景台更是欣賞維多利亞港全景的絕佳位置，無論是藝術愛好者還是打卡一族都能在此找到樂趣。</p>
-            <span class="text-sm text-blue-800">亮點：當代視覺藝術、維港景觀 | 門票：HKD 120起</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">12. 牛棚藝術村</h3>
-            <p class="text-sm text-gray-700">前身為馬頭角牛房的紅磚建築群，建於一百多年前，現已活化為一個充滿原創精神的藝術村。這裡進駐了多家藝術工作者與前衛劇場，紅磚瓦頂與粗獷的建築結構營造出一種獨特的廢墟工業風美學。相較於其他藝術區，這裡更加非主流且安靜，是尋找靈感與拍攝復古工業風格照片的非大眾秘境。</p>
-            <span class="text-sm text-blue-800">亮點：紅磚建築、前衛藝術工作室 | 門票：免費</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">13. 志蓮淨苑與南蓮園池</h3>
-            <p class="text-sm text-gray-700">隱身於鑽石山的高樓大廈之間，這座仿唐代木構建築的佛寺與相連的日式唐風園林，是香港市區內難得的靜謐綠洲。建築採用傳統榫卯技術，不使用一根鐵釘，展現了極高的建築工藝。漫步於園內的金碧迴廊與蓮花池畔，能讓人瞬間忘卻都市的喧囂，體會到禪意與平靜，是洗滌心靈的非大眾景點。</p>
-            <span class="text-sm text-blue-800">亮點：唐代仿古建築、城市綠洲 | 門票：免費</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">14. 大澳漁村</h3>
-            <p class="text-sm text-gray-700">被譽為「香港威尼斯」的大澳，保留了香港最古老的漁村風貌。這裡的居民依水而居，建構了獨特的水上棚屋。遊客可以乘坐小艇穿梭於水道間，近距離觀察棚屋結構，甚至有機會在近海看到稀有的中華白海豚。村內的街道瀰漫著蝦膏與鹹魚的香氣，充滿濃厚的傳統漁鄉風情，是體驗老香港水上人生活的必訪之地。</p>
-            <span class="text-sm text-blue-800">亮點：水上棚屋、傳統漁鄉風情 | 門票：免費 (乘船約 HKD 30)</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">15. 油麻地果欄</h3>
-            <p class="text-sm text-gray-700">擁有超過百年歷史的香港主要水果批發市場，由多棟一至兩層的石建建築群組成，被列為歷史建築。白天這裡是熱鬧的零售市場，可以買到來自世界各地的新鮮且價格實惠的水果；深夜則化身為繁忙的批發集散地。斑駁的招牌與古老的石雕山花，散發出濃烈的歲月感，是拍攝人文街景與體驗市井氣息的好去處。</p>
-            <span class="text-sm text-blue-800">亮點：歷史石造建築、進口新鮮水果 | 門票：免費</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">16. 盧吉道觀景台</h3>
-            <p class="text-sm text-gray-700">相對於擠滿遊客的凌霄閣，位於太平山頂的盧吉道提供了一個更為靜謐且視野絕佳的非大眾觀景選擇。這條平緩的百年林蔭小徑，沿著山腰蜿蜒而行，沿途有多個開闊的觀景點。站在懸崖棧道上，能以270度的廣闊視角俯瞰維多利亞港兩岸的摩天大樓與繁華海景，尤其在黃昏與夜間，景色更是令人屏息。</p>
-            <span class="text-sm text-blue-800">亮點：無死角維港夜景、百年林蔭徑 | 門票：免費</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">17. 訊號山花園</h3>
-            <p class="text-sm text-gray-700">隱藏在尖沙咀鬧市中的一個秘密花園。園內最引人注目的是一座建於1907年的愛德華時代風格訊號塔，昔日用來向維多利亞港的船隻報時。沿著旋轉樓梯登上塔頂，可以從帶有古典拱窗的圓形房間眺望維港景色。這是一個極少遊客知曉的幽靜角落，非常適合在此稍作休憩，享受城市中的片刻寧靜。</p>
-            <span class="text-sm text-blue-800">亮點：百年報時塔、愛德華古典建築 | 門票：免費</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">18. 坪洲</h3>
-            <p class="text-sm text-gray-700">距離中環僅約40分鐘船程的離島，相較於長洲或南丫島，坪洲保留了更多純樸與寧靜的氣息。這裡沒有汽車喧囂，只有悠閒的自行車與步行者。島上擁有廢棄的灰窯廠遺址、充滿文藝氣息的秘密花園，以及能俯瞰全島海景的手指山。穿梭在充滿懷舊色彩的窄巷中，能深刻體驗到香港離島那份與世無爭的慢活步調。</p>
-            <span class="text-sm text-blue-800">亮點：純樸離島風情、廢墟探秘 | 門票：免費</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">19. 饒宗頤文化館</h3>
-            <p class="text-sm text-gray-700">位於荔枝角山丘上的歷史建築群，前身曾是海關分廠、醫院及檢疫站。如今活化為推廣中華文化的樞紐。紅磚白牆的建築依山而建，錯落有致，園區內種植了許多百年老樹與花卉，環境極為清幽。這裡經常舉辦各類展覽、講座與市集，是一處兼具濃厚歷史底蘊與文藝氣息的非大眾知性景點。</p>
-            <span class="text-sm text-blue-800">亮點：紅磚白牆歷史建築、文化展覽 | 門票：免費</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">20. 鴨脷洲風之塔公園</h3>
-            <p class="text-sm text-gray-700">位於港島南區的鴨脷洲，這座公園的標誌是一座外型仿照傳統漁船設計的觀景塔。登上風之塔，可以飽覽避風塘內密集的漁船與對岸香港仔的獨特風光。公園內還設有展示傳統漁業文化的展板，讓人了解這個曾經繁華的漁港歷史。傍晚時分，這裡是欣賞日落餘暉灑在海面上、感受南區獨特漁港風情的絕佳地點。</p>
-            <span class="text-sm text-blue-800">亮點：漁港風光、避風塘日落 | 門票：免費</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
+      <h2 class="text-2xl font-bold flex items-center gap-3 border-b border-gray-700 pb-3 mb-6">
+        <i class="fa-solid fa-camera-retro text-blue-400"></i> 必訪景點 POI (20)
+      </h2>
+      <div class="two-col" id="poi-container">
+        <!-- JS 動態生成 -->
       </div>
     </section>
 
-    <!-- BIB 美食 (20) -->
+    <!-- ==================== BIB 美食 (20) ==================== -->
     <section id="bib" class="space-y-6">
-      <h2 class="text-2xl font-bold flex items-center gap-2 mb-6 border-b pb-2"><i class="fa-solid fa-utensils text-blue-600"></i> 美食 (20筆)</h2>
-      <div class="two-col">
-        <!-- 排入行程的 7 筆 -->
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">1. 一點心 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">曾榮獲米其林一星殊榮的平民點心專門店。堅持傳統手工製作，點心款式多樣且水準極高，價格卻非常親民。店內空間不大，總是擠滿了在地居民與慕名而來的饕客。招牌的晶瑩鮮蝦餃皮薄餡靚，蝦肉彈牙；香煎蘿蔔糕則外層酥脆，內裡軟嫩且充滿蘿蔔清香，是體驗高性價比正宗港式飲茶的首選。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：鮮蝦餃、蟹黃燒賣、蘿蔔糕</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 太子運動場道15號京華大廈地舖</span>
-            <span class="text-sm text-blue-800">預算：HKD 80-120</span>
-            <span class="day-tag">Day 1</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">2. 一樂燒鵝 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">中環街坊老字號，連續多年蟬聯米其林一星殊榮，是香港燒鵝界的翹楚。其秘製燒鵝採用家族傳承的獨家香料醃製，外皮烤得猶如玻璃般薄脆，鵝肉則肉汁豐富、油脂甘香且不覺油膩。搭配吸滿精華的瀨粉一同食用，堪稱一絕。店內環境充滿濃厚的傳統茶餐廳氛圍，服務節奏極快，展現了道地香港效率。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：脆皮馳名燒鵝脾瀨粉、蜜汁叉燒</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 中環士丹利街34-38號地舖</span>
-            <span class="text-sm text-blue-800">預算：HKD 80-150</span>
-            <span class="day-tag">Day 1</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">3. 九記牛腩 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">隱藏於歌賦街的神級牛腩麵店，門外永遠大排長龍。其招牌清湯牛腩以大量牛骨及中藥材熬製數十小時，湯頭醇厚鮮甜，牛腩燉得軟腍入味、入口即化。另一絕招是咖哩牛筋腩，辛香濃郁，搭配伊麵堪稱完美絕配。店內座位擁擠需搭檯，且有最低消費與不收千元大鈔的規定，但為了一嚐美味，依舊令人趨之若鶩。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：上湯牛腩粗麵、咖哩牛筋腩伊麵</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 中環歌賦街21號地舖</span>
-            <span class="text-sm text-blue-800">預算：HKD 70-100</span>
-            <span class="day-tag">Day 2</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">4. 科記咖啡餐廳 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">上環荷李活道旁的隱世老冰室，是深受在地街坊喜愛的非遊客向茶餐廳。以一道「金牌豬扒」馳名全港，豬扒醃製得極為入味，肉質鬆軟多汁，無論是夾在烘底麵包做成豬扒包，或是配上洋蔥汁與白飯，都令人回味無窮。一杯茶香濃郁的凍奶茶加上一碗沙爹牛肉麵，是體驗最純粹港式草根早餐的完美組合。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：金牌豬扒包、沙爹牛肉麵、凍奶茶</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 上環荷李活道200號J-K舖</span>
-            <span class="text-sm text-blue-800">預算：HKD 50-80</span>
-            <span class="day-tag">Day 2</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">5. 新興食家 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">位於堅尼地城的傳奇點心店，營業時間從凌晨三點至下午，是夜貓子與早起街坊的最愛。這裡沒有華麗裝潢，只有最地道的人情味與熱騰騰的蒸籠。招牌「皇牌流沙包」外皮鬆軟，內餡鹹蛋黃香氣濃郁，撕開瞬間金黃流沙爆湧，令人驚艷。炸鮮奶與鵪鶉蛋燒賣也是不可錯過的經典，是真正懂吃老饕的深夜食堂。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：皇牌流沙包、炸鮮奶、鵪鶉蛋燒賣</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 西環堅尼地城士美非路8號地下C號舖</span>
-            <span class="text-sm text-blue-800">預算：HKD 70-120</span>
-            <span class="day-tag">Day 2</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">6. 蓮香居 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">香港碩果僅存的傳統茶樓之一，保留了推車仔賣點心的懷舊形式。客人入座後需自行在茶盅沖茶，當點心車推過時，需憑著點心卡上前「搶購」心儀的蒸籠。這裡的豬潤燒賣、蓮蓉包與大包皆保持著最傳統的古早風味。嘈雜的人聲、裊裊的茶煙與斑駁的字畫，構成了一幅鮮活的老香港飲食文化風情畫。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：豬潤燒賣、蓮蓉包、千層糕</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 上環德輔道西46-50號2-3樓</span>
-            <span class="text-sm text-blue-800">預算：HKD 80-120</span>
-            <span class="day-tag">Day 3</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">7. 東薈城美食廣場 Food Republic <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">為了在購物血拼中節省時間而推薦的高效用餐選擇。雖然是美食廣場，但匯聚了多家具備水準的亞洲與港式餐飲品牌。無論是想吃一盤鑊氣十足的乾炒牛河、正宗的港式燒臘拼盤，還是熱呼呼的星洲叻沙，這裡都能一次滿足。環境寬敞明亮，座位充足，是補充體力後繼續在Outlet迎戰購物的好地方。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：港式三寶飯、星洲海南雞飯</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 東涌達東路20號東薈城名店倉7樓</span>
-            <span class="text-sm text-blue-800">預算：HKD 60-90</span>
-            <span class="day-tag">Day 3</span>
-          </div>
-        </article>
-        <!-- 系統生成剩餘 13 筆 -->
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">8. 麥文記麵家</h3>
-            <p class="text-sm text-gray-700">擁有超過六十年歷史的佐敦老字號，以「首創全蝦雲吞」聞名。每一顆雲吞都包入整隻鮮蝦，絕不摻雜豬肉，口感極致爽脆鮮甜。麵條採用鴨蛋打製的竹昇麵，彈牙有嚼勁且無鹼水味；湯底則以大地魚及豬骨熬製，清澈鮮香。佐以一碟淋上特製蠔油的芥蘭，是最經典、最純粹的港式雲吞麵體驗。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：全蝦雲吞麵、蠔油芥蘭</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 佐敦白加士街51號地下</span>
-            <span class="text-sm text-blue-800">預算：HKD 50-80</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">9. 澳洲牛奶公司</h3>
-            <p class="text-sm text-gray-700">香港茶餐廳傳奇之一，以極速的出餐效率與「特色」的服務態度聞名。這裡的炒蛋被譽為全港第一，加入特製牛奶炒製，色澤金黃、口感如絲般滑溜，搭配厚切烘底多士堪稱一絕。另一招牌是蛋白燉鮮奶，香甜順滑。來此用餐猶如一場旋風般的體驗，從排隊入座到完食結帳往往只需十幾分鐘，極具香港特色。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：炒蛋多士、蛋白燉鮮奶</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 佐敦白加士街47-49號地下</span>
-            <span class="text-sm text-blue-800">預算：HKD 50-70</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">10. 坤記煲仔小菜</h3>
-            <p class="text-sm text-gray-700">榮獲米其林必比登推介的煲仔飯名店，隱身於西環的巷弄中。堅持使用炭爐煲飯，米飯粒粒分明且帶有濃郁的炭香。上桌時打開瓦煲蓋，淋上特製甜豉油，滋滋作響的聲音與焦香撲鼻而來。底部的鍋巴（飯焦）金黃香脆，是整鍋飯的靈魂。白鱔滑雞煲仔飯與臘味煲仔飯是必點招牌，秋冬時節更是座無虛席。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：臘味煲仔飯、白鱔煲仔飯</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 西環西營盤皇后大道西263號和益大廈地下1號舖</span>
-            <span class="text-sm text-blue-800">預算：HKD 100-150</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">11. 沾仔記</h3>
-            <p class="text-sm text-gray-700">位於中環，連續多年獲得米其林必比登推介。以超大顆的「乒乓球雲吞」打響名號，雲吞內包裹著飽滿的鮮蝦與少許豬肉，一口咬下鮮汁四溢。菜單非常簡單，僅有雲吞、鯪魚球與鮮牛肉三種配料，可選擇搭配麵或河粉。價格在中環地段顯得極其親民，是周邊上班族與遊客解決快速且美味午餐的熱門選擇。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：招牌雲吞麵、酥炸鯪魚球</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 中環威靈頓街98號地舖</span>
-            <span class="text-sm text-blue-800">預算：HKD 40-60</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">12. 甘牌燒鵝</h3>
-            <p class="text-sm text-gray-700">由鏞記酒家創辦人之孫創立，開業不久便摘下米其林一星。燒鵝品質穩定，外皮酥脆帶有獨特醃料香，肉質細嫩多汁，皮下脂肪比例恰到好處，蘸上酸梅醬更是解膩提鮮。除了燒鵝，這裡的肥燶叉燒也是一絕，外焦內嫩，蜜汁香甜。門外常年大排長龍，建議避開正餐高峰期前往，品嚐這份傳承與創新的美味。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：甘牌燒鵝脾、肥燶叉燒</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 灣仔軒尼詩道226號寶華商業中心地舖</span>
-            <span class="text-sm text-blue-800">預算：HKD 100-200</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">13. 華姐清湯腩</h3>
-            <p class="text-sm text-gray-700">天后區的著名牛腩店，與九記齊名，但風格截然不同。華姐的湯底以大量牛骨及蘿蔔熬製，不添加過多香料，呈現出如清水般的純粹鮮甜。牛腩燉得軟爛不柴，搭配吸滿湯汁精華的白蘿蔔，清爽且令人回味。這裡的環境相對整潔寬敞，服務態度親切，是喜愛清淡鮮甜口味老饕的心頭好。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：清湯牛腩麵、淨蘿蔔</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 天后電氣道13號A地舖</span>
-            <span class="text-sm text-blue-800">預算：HKD 60-90</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">14. 添好運 (深水埗店)</h3>
-            <p class="text-sm text-gray-700">被譽為「全球最便宜的米其林星級餐廳」，創辦人曾任四季酒店點心主廚。招牌「酥皮焗叉燒包」打破傳統，外層是如菠蘿包般的香酥外皮，內餡是熱騰騰的蜜汁叉燒，口感層次豐富，幾乎每桌必點。其他如香滑馬拉糕、黃沙豬潤腸等亦展現了星級水準。深水埗店座位較多，是品嚐平價頂級點心的好去處。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：酥皮焗叉燒包、晶瑩鮮蝦餃</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 深水埗福榮街9-11號地舖</span>
-            <span class="text-sm text-blue-800">預算：HKD 70-100</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">15. 鏞記酒家</h3>
-            <p class="text-sm text-gray-700">被譽為香港「飛天燒鵝」的傳奇酒家，歷史悠久，曾接待無數政商名流。雖然價格不菲，但其金牌燒鵝的品質依然有著不可取代的地位。嚴選優質黑棕鵝，採用祖傳秘方與炭火燒烤，皮脆肉嫩，連骨頭都透著香氣。除了燒鵝，這裡的高級粵菜與精緻點心同樣展現了深厚的廚藝功底，是體驗尊貴港式餐飲的經典代表。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：金牌燒鵝、松子雲霧肉</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 中環威靈頓街32-40號</span>
-            <span class="text-sm text-blue-800">預算：HKD 300-500</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">16. 何洪記</h3>
-            <p class="text-sm text-gray-700">榮獲米其林一星的粉麵專家，位於希慎廣場內，環境優雅舒適。以雲吞麵及乾炒牛河聞名全港。其乾炒牛河被美食家譽為「教科書級別」，牛肉滑嫩，河粉條條分明且沾滿醇厚的豉油香，鑊氣十足而不油膩。生滾粥也是一絕，粥底綿密細滑，豬潤（豬肝）處理得極為鮮嫩，是展現傳統粵式廚藝的典範。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：乾炒牛河、正斗生滾粥</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 銅鑼灣軒尼詩道500號希慎廣場12樓1204-1205號舖</span>
-            <span class="text-sm text-blue-800">預算：HKD 100-150</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">17. 陸羽茶室</h3>
-            <p class="text-sm text-gray-700">中環的百年老字號茶室，宛如一座活生生的飲食博物館。店內保留了二三十年代的嶺南裝潢風格，古董酸枝傢俱、彩繪玻璃與掛在牆上的名家字畫，透著濃厚的文人雅士氣息。這裡提供多款坊間罕見的懷舊手工點心，如豬膶燒賣、滑雞球大包等。在此品茗吃點心，享受的是一份超越食物本身的歷史沉澱與優雅氛圍。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：懷舊點心、上等普洱茶</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 中環士丹利街24-26號</span>
-            <span class="text-sm text-blue-800">預算：HKD 200-300</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">18. 鼎泰豐 (香港)</h3>
-            <p class="text-sm text-gray-700">來自台灣的國際知名小籠包品牌，在香港同樣大受歡迎並曾獲米其林星級肯定。以「黃金十八摺」的精緻小籠包征服食客，皮薄透光、湯汁鮮美而不膩。除了小籠包，蝦仁肉絲炒飯米粒分明、蛋香四溢，以及酸辣湯等經典麵食，皆保持著極高且穩定的水準。優質的服務與舒適的環境，是家庭聚餐的安全牌選擇。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：小籠包、排骨炒飯</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 尖沙咀廣東道30號新港中心3樓306舖 (等多家分店)</span>
-            <span class="text-sm text-blue-800">預算：HKD 150-250</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">19. 蛇王二</h3>
-            <p class="text-sm text-gray-700">雖然名為蛇王，但除了秋冬補身的蛇羹外，這裡的燒臘雙拼飯才是許多在地人的摯愛。特別是厚切的潤腸（豬肝腸）與脆皮燒肉，香氣四溢、油脂豐富。招牌菊花會蛇羹用料扎實，加入檸檬葉與薄脆，口感層次豐富且沒有腥味，具有暖胃驅寒的功效。這是一間充滿道地老香港風味、極具特色的傳統食肆。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：菊花五蛇羹、臘味雙拼飯</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 銅鑼灣波斯富街24號地舖</span>
-            <span class="text-sm text-blue-800">預算：HKD 80-120</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">20. 彭慶記</h3>
-            <p class="text-sm text-gray-700">隱身於跑馬地的米其林一星順德菜館，沒有奢華的裝潢，全憑扎實細膩的廚藝留住食客。主打傳統精緻的順德手工菜，招牌大良炒鮮奶考驗師傅火候，奶香濃郁且口感滑嫩如絲；蒜香脆皮雞外皮薄脆，肉質保持鮮嫩多汁。菜式看似家常卻處處顯露真功夫，是品嚐正宗且非大眾化高水準粵菜的隱秘名店。</p>
-            <span class="text-sm font-bold text-gray-800">推薦：大良炒鮮奶、蒜香脆皮雞</span>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 跑馬地奕蔭街25號地舖</span>
-            <span class="text-sm text-blue-800">預算：HKD 200-400</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
+      <h2 class="text-2xl font-bold flex items-center gap-3 border-b border-gray-700 pb-3 mb-6">
+        <i class="fa-solid fa-utensils text-blue-400"></i> 尋味美食 (20)
+      </h2>
+      <div class="two-col" id="bib-container">
+        <!-- JS 動態生成 -->
       </div>
     </section>
 
-    <!-- Souvenir 伴手禮 (20) -->
+    <!-- ==================== Souvenir 伴手禮 (20) ==================== -->
     <section id="souvenir" class="space-y-6">
-      <h2 class="text-2xl font-bold flex items-center gap-2 mb-6 border-b pb-2"><i class="fa-solid fa-gift text-blue-600"></i> 伴手禮 (20筆)</h2>
-      <div class="two-col">
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">1. Miniso 限定商品 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">使用者指定前往的名創優品香港分店，推薦購買具有香港在地特色或區域限定的聯名IP商品（如三麗鷗或迪士尼盲盒）。這類商品設計精美且價格極具競爭力，非常適合作為送給朋友或同事的平價小禮物，體積小巧不佔行李空間，實用性與可愛度兼具。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：IP聯名盲盒、旅行收納小物</span>
-            <span class="text-sm text-blue-800">預算：HKD 30-100</span>
-            <span class="day-tag">Day 1</span>
-          </div>
-        </article>
-        <!-- 系統推薦 19 筆 -->
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">2. 珍妮曲奇聰明小熊</h3>
-            <p class="text-sm text-gray-700">香港最具代表性的伴手禮之一，常年大排長龍。其招牌的四味奶油曲奇（牛油花、咖啡花、脆牛油、燕麥提子）採用高品質紐西蘭牛油製作，口感極其鬆化，入口即化，帶有濃郁的奶香與咖啡香。裝在印有可愛小熊圖案的鐵盒中，不僅美味，鐵盒本身也極具收藏價值，是送禮自用兩相宜的絕佳選擇。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：四味牛油曲奇 (小盒/大盒)</span>
-            <span class="text-sm text-blue-800">預算：HKD 80-150</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">3. 檸檬王 (上環)</h3>
-            <p class="text-sm text-gray-700">位於上環永吉街的隱世老字號，從木頭車小檔起家。最著名的「甘草檸檬」採用泰國檸檬醃製，並附上一包特製甘草粉，食用時將粉末倒入袋中搖勻，酸甜回甘，生津止渴，且無添加防腐劑。除了檸檬，話梅肉與冬薑也是極受歡迎的零嘴，包裝復古，是深具老香港風味的非大眾特色伴手禮。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：甘草檸檬、話梅肉</span>
-            <span class="text-sm text-blue-800">預算：HKD 50-100</span>
-            <span class="day-tag">Day 2 (周邊)</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">4. 德成號手工蛋卷</h3>
-            <p class="text-sm text-gray-700">被譽為全香港最難買的「神級蛋卷」，位於北角的老字號。堅持純手工製作，產量極少，經常開店一小時內便售罄。蛋卷色澤金黃，口感層次分明且極度鬆脆，濃郁的蛋香與牛油香在口中久久不散。主要有原味、牛油及椰汁三種口味，若能幸運買到一罐，絕對是送給長輩或貴賓的頂級心意。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：家鄉雞蛋卷 (原味)</span>
-            <span class="text-sm text-blue-800">預算：HKD 100-150</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">5. 奇華餅家 (香港鐵盒版)</h3>
-            <p class="text-sm text-gray-700">香港老字號傳統餅店，分店遍佈全港。推薦購買印有香港懷舊街景或地標圖案的精緻鐵盒包裝，內含香脆可口的熊貓曲奇、企鵝曲奇或是傳統的蝴蝶酥與杏仁條。不僅口味大眾接受度高，帶有濃厚地域特色的包裝盒更是極佳的旅行紀念品，非常適合買回辦公室與同事分享。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：香港情懷鐵盒餅乾、熊貓曲奇</span>
-            <span class="text-sm text-blue-800">預算：HKD 80-150</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">6. 黑白淡奶杯與茶具</h3>
-            <p class="text-sm text-gray-700">在各大茶餐廳都能見到其身影的「黑白淡奶」專用陶瓷杯，印有經典的荷蘭乳牛圖案，杯壁厚實能保溫，是沖泡正宗港式奶茶的靈魂器皿。現在許多超市或特色文創店（如G.O.D.）都有販售這款杯子甚至整套茶具，買回家自己沖泡奶茶，瞬間就能重溫濃厚的港式冰室氛圍，是非常具代表性的實用紀念品。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：經典黑白淡奶陶瓷杯碟套裝</span>
-            <span class="text-sm text-blue-800">預算：HKD 100-150</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">7. 駱駝牌水壺 (Camel)</h3>
-            <p class="text-sm text-gray-700">擁有超過80年歷史的香港本土品牌，堅持「香港製造」。其經典的復古保溫水壺採用真空玻璃內膽與烤漆金屬外殼，造型充滿懷舊的工業設計感，近年來推出多種鮮豔的馬卡龍色系，重新成為文青與潮人的愛用品。這不僅是一個實用的保溫瓶，更是一件展現香港舊時代工業美學的藝術品。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：復古玻璃內膽保溫壺 (112型)</span>
-            <span class="text-sm text-blue-800">預算：HKD 200-300</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">8. 余均益辣椒醬</h3>
-            <p class="text-sm text-gray-700">西營盤的百年老字號，是無數香港家庭與高級餐廳指定的調味料。堅持傳統石磨工藝製作，其招牌辣椒醬除了辣味，更帶有一股獨特的酸香與蒜蓉風味，無論是搭配蘿蔔糕、點心或是拌麵，都能瞬間提升食物層次。由於沒有添加防腐劑，保存期限較短，是一款充滿在地職人精神的非大眾伴手禮。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：招牌辣椒醬、豉椒醬</span>
-            <span class="text-sm text-blue-800">預算：HKD 50-80</span>
-            <span class="day-tag">Day 2 (周邊)</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">9. 榮華餅家老婆餅</h3>
-            <p class="text-sm text-gray-700">從元朗起家的老字號傳統餅家。其招牌老婆餅每天新鮮出爐，外層的酥皮層層疊疊、輕薄如紙，內餡的冬瓜蓉則清甜軟糯，帶有淡淡的芝麻香氣，甜而不膩。相較於其他西式甜點，老婆餅展現了傳統唐餅的溫潤口感，非常適合搭配熱茶食用，是送給長輩極具體面與傳統風味的選擇。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：現烤老婆餅 (盒裝)</span>
-            <span class="text-sm text-blue-800">預算：HKD 60-100</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">10. G.O.D. 住好啲文創商品</h3>
-            <p class="text-sm text-gray-700">香港最具代表性的本土生活風格品牌，擅長將香港集體回憶與獨特文化（如唐樓馬賽克地磚、紅白藍膠袋、紅雙喜圖案、老字號招牌）融入現代生活用品中。無論是T恤、帆布袋、馬克杯還是居家擺飾，設計都充滿幽默感與濃厚的「港味」。想尋找最能代表香港街頭文化且設計感十足的禮物，來這裡準沒錯。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：唐樓地磚圖案帆布袋、懷舊茶杯</span>
-            <span class="text-sm text-blue-800">預算：HKD 100-300</span>
-            <span class="day-tag">Day 1</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">11. Tempo 紙巾 (水蜜桃/蘋果味)</h3>
-            <p class="text-sm text-gray-700">這雖然源自德國，但已成為香港人生活中不可或缺的國民紙巾。Tempo紙巾以極度柔韌、濕水不破著稱，質量遠超一般面紙。香港市場推出了多種獨家香氛口味，其中最受歡迎的便是水蜜桃與蘋果味，香味清新自然。在各大超市或藥房皆可輕易買到，價格便宜實用，是分送給眾多親友的完美平價小禮物。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：水蜜桃味、蘋果味紙巾條裝</span>
-            <span class="text-sm text-blue-800">預算：HKD 20-40</span>
-            <span class="day-tag">Day 2</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">12. 出前一丁 (香港限定口味)</h3>
-            <p class="text-sm text-gray-700">出前一丁雖是日本品牌，但在香港卻被發揚光大，成為茶餐廳的靈魂食材。香港日清生產了多款連日本都買不到的限定口味，如黑蒜油豬骨湯味、東京醬油豬骨湯味、甚至微辛咖哩味。麵條經過特殊配方改良，口感更加爽彈。前往超市掃購幾袋港版限定的出前一丁，絕對能讓愛吃泡麵的朋友大呼過癮。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：黑蒜油豬骨湯味、麻油味</span>
-            <span class="text-sm text-blue-800">預算：HKD 30-50</span>
-            <span class="day-tag">Day 2</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">13. 大澳蝦膏/蝦醬</h3>
-            <p class="text-sm text-gray-700">大澳漁村的特產，由當地漁民以新鮮銀蝦加鹽，經過陽光曝曬與天然發酵手工製成。蝦醬呈現濃郁的紫紅色，氣味極為濃烈撲鼻，但一旦用來炒通菜（空心菜）、蒸豬肉或炒飯，便會轉化為無比的鮮香，是香港家庭餐桌上不可或缺的提味秘方。這是一份帶有濃厚海洋氣息與傳統漁鄉風味的地道土產。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：鄭祥興或老字號手工蝦膏磚</span>
-            <span class="text-sm text-blue-800">預算：HKD 40-70</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">14. 玫瑰牌玫瑰露酒</h3>
-            <p class="text-sm text-gray-700">香港燒臘店製作美味叉燒與燒鵝的隱藏秘方。這款老字號酒品以高粱酒為基底，加入重瓣紅玫瑰花蒸餾而成，酒體透明，散發著極為濃郁迷人的玫瑰花香。雖然酒精度高，但除了作為烹飪調香（如醃肉、滷味）的絕佳幫手外，也有人會加冰塊與蘇打水調製飲用。其復古的玻璃瓶包裝，本身就是極好的擺設。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：天津玫瑰露酒 (細樽裝)</span>
-            <span class="text-sm text-blue-800">預算：HKD 60-90</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">15. 香港舊式電車模型 (叮叮車)</h3>
-            <p class="text-sm text-gray-700">叮叮車是香港港島區最標誌性的移動風景。許多玩具店、文創店或書局都有販售做工精細的合金電車模型，車身上印有多款復古廣告或經典色彩。這不僅深受模型收藏家喜愛，也是極具代表性的旅遊紀念品。將一輛小巧的叮叮車擺在書桌上，隨時都能喚起在香港街頭漫遊的浪漫回憶。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：合金版復古綠色電車模型</span>
-            <span class="text-sm text-blue-800">預算：HKD 80-150</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">16. 黃道益活絡油</h3>
-            <p class="text-sm text-gray-700">香港人家中必備的看門神藥，擁有數十年歷史。採用多種中藥材提煉，對於舒緩肌肉酸痛、跌打扭傷、腰酸背痛有著顯著的療效。其氣味清涼濃郁，塗抹在患處並輕輕按摩，能迅速發揮發熱舒緩的作用。在各大連鎖藥妝店或藥房皆可購得，是買給長輩或經常運動的朋友最貼心實用的非食品類伴手禮。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：黃道益活絡油 (50ml)</span>
-            <span class="text-sm text-blue-800">預算：HKD 50-70</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">17. 維他奶 (玻璃樽裝) 與 檸檬茶</h3>
-            <p class="text-sm text-gray-700">維他奶是陪伴無數香港人成長的國民飲料，大豆香氣濃郁，口感滑順。雖然便利商店有紙盒裝，但在傳統茶餐廳或士多買到的「玻璃樽裝」熱維他奶，才是最正宗的港式情懷。此外，維他檸檬茶（VLT）以「澀得起」的獨特紅茶澀味與檸檬酸甜聞名，令人一喝上癮，非常推薦去超市買幾組帶回國回味。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：維他檸檬茶 (紙盒包裝)、原味豆奶</span>
-            <span class="text-sm text-blue-800">預算：HKD 20-40</span>
-            <span class="day-tag">Day 2</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">18. 京都念慈菴川貝枇杷膏</h3>
-            <p class="text-sm text-gray-700">雖然在許多地方都能買到，但在香港購買原產地版本的枇杷膏依然是許多遊客的習慣。採用十多種名貴中藥材及蜂蜜煉製，對於潤肺化痰、舒緩喉嚨不適有極佳的效果。除了大瓶裝，香港超市與藥妝店還有販售方便攜帶的隨身包（條裝）以及各種口味的潤喉糖（如蘋果、金桔），是護嗓必備良藥。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：隨身包枇杷膏、金桔味潤喉糖</span>
-            <span class="text-sm text-blue-800">預算：HKD 30-60</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">19. 恆香老餅家皮蛋酥</h3>
-            <p class="text-sm text-gray-700">除了著名的老婆餅，恆香的皮蛋酥更是香港少見的特色唐餅。金黃酥脆的餅皮內，包裹著綿密清甜的蓮蓉與半顆甘香的皮蛋，甚至會加入少許酸薑來提味去膩。皮蛋的獨特香氣與蓮蓉的甜味交織出極為奇妙且層次豐富的口感，是一款極具顛覆性且帶有老香港飲食智慧的獨特伴手禮。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：蛋黃蓮蓉皮蛋酥</span>
-            <span class="text-sm text-blue-800">預算：HKD 60-90</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">20. 八珍甜醋</h3>
-            <p class="text-sm text-gray-700">香港人煲製傳統月子食品「豬腳薑」的靈魂調料。八珍老字號的甜醋以米醋為基礎，加入多種香料與糖熬製，色澤深邃，味道酸中帶甜，醇厚而不嗆鼻。即使不熬豬腳，用來涼拌小黃瓜、醃製蘿蔔，或是作為蘸料搭配炸物，都非常開胃解膩。其復古的玻璃瓶包裝與極具特色的風味，是送給熱愛烹飪朋友的最佳禮物。</p>
-            <span class="text-sm font-bold text-gray-800">推薦品項：八珍甜醋 (玻璃樽裝)</span>
-            <span class="text-sm text-blue-800">預算：HKD 50-80</span>
-            <span class="day-tag">獨立行程</span>
-          </div>
-        </article>
+      <h2 class="text-2xl font-bold flex items-center gap-3 border-b border-gray-700 pb-3 mb-6">
+        <i class="fa-solid fa-gift text-blue-400"></i> 精選伴手禮 (20)
+      </h2>
+      <div class="two-col" id="souvenir-container">
+        <!-- JS 動態生成 -->
       </div>
     </section>
 
-    <!-- Photo Spots 拍照聖地 (10) -->
+    <!-- ==================== Photo Spots 拍照聖地 (10) ==================== -->
     <section id="photo-spots" class="space-y-6">
-      <h2 class="text-2xl font-bold flex items-center gap-2 mb-6 border-b pb-2"><i class="fa-solid fa-image text-blue-600"></i> 拍照聖地 (10筆)</h2>
-      <div class="two-col">
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">1. 嘉咸街壁畫 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">隱藏於中環荷李活道與嘉咸街交界，這幅由本地藝術家繪製的壁畫，以生動的色彩勾勒出昔日九龍寨城密密麻麻的唐樓建築風貌。畫作將老香港的市井氣息與現代街頭藝術完美結合，色彩對比強烈，非常適合作為人像攝影的背景。由於位於斜坡上，拍照時需注意來往車輛，建議利用廣角鏡頭捕捉整幅畫作的氣勢。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-photo-1" class="text-xs text-gray-600">中環荷李活道46號與嘉咸街交界</span>
-              <button onclick="copyToClipboard('addr-photo-1')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">2. 堅尼地城海旁 <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">位於港島最西端的觀景秘境，這裡遠離繁華喧囂，擁有一望無際的壯闊海景。最受歡迎的打卡點是臨海的欄杆與知名的「堅尼地城」路牌。黃昏時分，夕陽將海面染成金黃與粉紫色交織的夢幻畫卷，偶有叮叮車緩緩駛過，構成一幅極具電影感的浪漫畫面，是拍攝日落剪影與文青風格照片的絕佳地點。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-photo-2" class="text-xs text-gray-600">西環堅尼地城新海旁</span>
-              <button onclick="copyToClipboard('addr-photo-2')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">3. 鰂魚涌海山樓 (怪獸大廈)</h3>
-            <p class="text-sm text-gray-700">由五棟唐樓相連而成的巨大建築群，因好萊塢電影《變形金剛4》取景而聲名大噪。站在狹窄的天井中央仰望，密密麻麻的窗戶與晾曬的衣物如巨浪般將天空擠壓成一條細縫，展現出令人窒息的高密度壓迫感與極致的賽博龐克（Cyberpunk）美學。拍攝時請保持安靜，尊重當地居民的日常生活隱私。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-photo-3" class="text-xs text-gray-600">鰂魚涌英皇道1028號</span>
-              <button onclick="copyToClipboard('addr-photo-3')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">4. 彩虹邨籃球場</h3>
-            <p class="text-sm text-gray-700">香港最著名的公屋打卡點之一。這座建於1960年代的公共屋邨，外牆被漆上如彩虹般柔和的七彩漸層色調。位於停車場頂樓的籃球場是最佳拍攝位置，鮮豔的球場地面與背景的彩虹大廈形成強烈而充滿活力的幾何構圖。無論是晴天陽光灑落，或是利用底片相機拍攝，都能輕易拍出帶有復古童趣風格的絕美照片。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-photo-4" class="text-xs text-gray-600">九龍黃大仙彩虹邨停車場頂層</span>
-              <button onclick="copyToClipboard('addr-photo-4')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">5. 坪石邨天井</h3>
-            <p class="text-sm text-gray-700">與彩虹邨相鄰的坪石邨，擁有另一種獨特的幾何建築美學。其獨特的方形天井設計，從底層抬頭仰望，四面高聳的對稱建築層層疊疊向天空延伸，形成一個完美的正方形框景，宛如通往另一空間的科幻隧道。利用廣角鏡頭由下往上拍攝，能營造出極具震撼力與視覺張力的結構主義攝影作品。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-photo-5" class="text-xs text-gray-600">九龍清水灣道坪石邨</span>
-              <button onclick="copyToClipboard('addr-photo-5')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">6. 叮叮車上層車頭</h3>
-            <p class="text-sm text-gray-700">這不是一個固定的地點，而是一種動態的拍攝體驗。花費幾塊錢港幣登上歷史悠久的雙層電車，搶佔上層最前排的座位。從這個微高的獨特視角，你可以穿越中環的摩天大樓峽谷、灣仔的繁華街市，捕捉兩旁掠過的巨型霓虹招牌、熙來攘往的人群與交錯的街景，是用鏡頭記錄香港城市脈動的最佳流動觀景台。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-photo-6" class="text-xs text-gray-600">港島區電車沿線 (建議由上環至銅鑼灣段)</span>
-              <button onclick="copyToClipboard('addr-photo-6')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">7. 大館 (檢閱廣場與紅磚牆)</h3>
-            <p class="text-sm text-gray-700">大館完美結合了百年歐式歷史建築與現代幾何設計。寬敞的檢閱廣場周圍環繞著雄偉的維多利亞式紅磚建築群與潔白的羅馬柱，散發著濃厚的歐洲古典風情。而由瑞士建築師設計的現代美術館擴建部分，其獨特的鋁磚外牆與歷史建築形成強烈的新舊對比。無論是拍攝建築細節還是人像穿搭，都能呈現極高的質感。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-photo-7" class="text-xs text-gray-600">中環荷李活道10號</span>
-              <button onclick="copyToClipboard('addr-photo-7')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">8. 尖沙咀海旁夜景 (星光大道)</h3>
-            <p class="text-sm text-gray-700">雖然是大眾景點，但維多利亞港的百萬夜景絕對是不可錯過的經典畫面。沿著翻新後的星光大道漫步，對岸港島區璀璨的摩天大樓天際線如畫卷般展開。每天晚上八點的「幻彩詠香江」燈光秀更是高潮所在。建議攜帶腳架，利用慢快門拍攝海面的倒影與穿梭的渡輪軌跡，捕捉這座東方之珠最華麗的瞬間。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-photo-8" class="text-xs text-gray-600">九龍尖沙咀星光大道</span>
-              <button onclick="copyToClipboard('addr-photo-8')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">9. 西九龍文化區海濱長廊</h3>
-            <p class="text-sm text-gray-700">與尖沙咀海旁不同，這裡擁有一大片綠油油的草坪與寬闊的海濱步道，視野更加開闊無遮擋。背景是宏偉的M+視覺文化博物館與香港故宮，前方則是壯麗的維港景色。這裡氣氛悠閒，許多市民在此野餐、遛狗或騎單車。在黃昏時刻，夕陽餘暉灑在海面上與現代建築群，能拍出極具都會休閒感的開闊大景。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-photo-9" class="text-xs text-gray-600">九龍西九文化區博物館道18號</span>
-              <button onclick="copyToClipboard('addr-photo-9')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">10. 戲曲中心中庭</h3>
-            <p class="text-sm text-gray-700">位於西九文化區東側，這座專為戲曲打造的世界級表演場地，其建築設計本身就是一場視覺饗宴。最令人驚艷的是其開放式中庭，流線型的金屬天花板如波浪般層層疊疊，光線從頂部傾瀉而下，營造出極具未來感與科幻電影般的空間氛圍。利用超廣角鏡頭，能完美捕捉這座結合傳統與現代美學的建築傑作。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-photo-10" class="text-xs text-gray-600">九龍尖沙咀柯士甸道西88號</span>
-              <button onclick="copyToClipboard('addr-photo-10')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-          </div>
-        </article>
+      <h2 class="text-2xl font-bold flex items-center gap-3 border-b border-gray-700 pb-3 mb-6">
+        <i class="fa-solid fa-image text-blue-400"></i> 拍照聖地 (10)
+      </h2>
+      <div class="two-col" id="photo-container">
+        <!-- JS 動態生成 -->
       </div>
     </section>
 
-    <!-- Desserts 甜點咖啡 (10) -->
+    <!-- ==================== Desserts 甜點咖啡 (10) ==================== -->
     <section id="desserts" class="space-y-6">
-      <h2 class="text-2xl font-bold flex items-center gap-2 mb-6 border-b pb-2"><i class="fa-solid fa-mug-hot text-blue-600"></i> 甜點咖啡 (10筆)</h2>
-      <div class="two-col">
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">1. 半路咖啡 Halfway Coffee <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">隱身於上環古董街附近的非大眾復古咖啡館。最為人津津樂道的是老闆在世界各地搜集的各式復古中式萬壽無疆瓷杯來盛裝西式咖啡，中西合璧的強烈對比在網路上掀起打卡熱潮。店內裝潢保留了斑駁的水泥牆與舊式鐵窗花，氛圍靜謐慵懶。點一杯拉花細緻的拿鐵，搭配一塊手工磅蛋糕，是文青午後的最佳享受。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-des-1" class="text-xs text-gray-600">上環摩羅上街26號地下</span>
-              <button onclick="copyToClipboard('addr-des-1')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-            <span class="text-sm text-blue-800 mt-1">預算：HKD 40-70</span>
-          </div>
-        </article>
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">2. Bakehouse <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">由前四季酒店糕點主廚創立，是目前香港最炙手可熱的歐式烘焙店。其招牌「酸種蛋撻」打破傳統，採用酸種麵糰製作撻皮，經過長時間發酵與高溫烘烤，外皮呈現焦糖色且極度酥脆掉渣，內餡蛋香濃郁、口感如布丁般滑嫩微甜。店外隨時都有長長的人龍，建議提早前往，剛出爐熱騰騰的口感絕對值得等待。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-des-2" class="text-xs text-gray-600">中環士丹頓街5號地舖 (等多家分店)</span>
-              <button onclick="copyToClipboard('addr-des-2')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-            <span class="text-sm text-blue-800 mt-1">預算：HKD 30-60</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">3. 佳佳甜品</h3>
-            <p class="text-sm text-gray-700">連續多年榮獲米其林街頭小吃推介的中式傳統糖水老字號，連影帝周潤發都是常客。堅持手工慢火熬煮，招牌「濃香芝麻糊」濃稠滑順，芝麻香氣在口中久久不散；「木瓜雪耳」清甜滋潤。還可以選擇雙拼，一次品嚐兩種美味。價格極其親民，是在佐敦吃完晚餐後，完美作結的深夜甜品首選。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-des-3" class="text-xs text-gray-600">佐敦寧波街29號地下</span>
-              <button onclick="copyToClipboard('addr-des-3')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-            <span class="text-sm text-blue-800 mt-1">預算：HKD 30-50</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">4. 聰嫂星級甜品 (聰．嫂)</h3>
-            <p class="text-sm text-gray-700">由劉德華極力推薦而聲名大噪的港式創新甜品店。其招牌「龍眼冰」以新鮮龍眼肉打成冰沙，上面鋪滿晶瑩剔透的西米露與椰果，每一口都能吃到果肉，清甜無比，消暑解渴。另一人氣之作「榴槤水晶籽」則是榴槤愛好者的天堂，濃郁的榴槤果肉搭配爽脆的水晶籽，口感層次豐富，令人一試成主顧。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-des-4" class="text-xs text-gray-600">旺角廣華街13號廣輝大廈地下1號舖</span>
-              <button onclick="copyToClipboard('addr-des-4')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-            <span class="text-sm text-blue-800 mt-1">預算：HKD 40-70</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">5. 港澳義順牛奶公司</h3>
-            <p class="text-sm text-gray-700">以鮮奶甜品稱霸港澳的老字號冰室。最為馳名的「馳名雙皮奶」採用獨門秘方製作，表面凝結出一層厚厚的奶皮，底下則是如豆腐般滑嫩的燉奶，奶香極其濃郁醇厚，無論冷熱皆十分美味。此外，帶有淡淡薑辣味的「巧手薑汁撞奶」也是驅寒暖胃的絕佳選擇。店內懷舊的卡座設計，充滿濃濃的老香港情懷。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-des-5" class="text-xs text-gray-600">油麻地彌敦道513號地下</span>
-              <button onclick="copyToClipboard('addr-des-5')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-            <span class="text-sm text-blue-800 mt-1">預算：HKD 40-60</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">6. 公和荳品廠</h3>
-            <p class="text-sm text-gray-700">深水埗百年老字號，保留了前店後廠的傳統經營模式，是體驗庶民美食的活化石。堅持使用石磨製作豆漿與豆腐，其招牌「滑溜豆腐花」豆香醇厚，口感細緻如絲，撒上黃糖更是畫龍點睛。除了甜品，這裡的煎釀豆腐與豆卜同樣大受歡迎，外層金黃香脆，內裡軟嫩。價格極度親民，充滿濃厚的在地草根風味。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-des-6" class="text-xs text-gray-600">深水埗北河街118號地下</span>
-              <button onclick="copyToClipboard('addr-des-6')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-            <span class="text-sm text-blue-800 mt-1">預算：HKD 20-40</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">7. 媽咪雞蛋仔</h3>
-            <p class="text-sm text-gray-700">榮獲米其林街頭小吃推介的雞蛋仔專門店，將香港傳統街頭小吃提升至新境界。除了外脆內軟、蛋香四溢的原味外，更研發出多款創意口味，如濃郁的雙重巧克力、鹹香交織的粒粒鹹蛋黃、以及帶有茶香的抹茶紅豆等。現點現做，拿到手時熱氣騰騰，是邊走邊逛的最佳散步甜點。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-des-7" class="text-xs text-gray-600">尖沙咀東部科學館道14號新文華中心地下16號舖</span>
-              <button onclick="copyToClipboard('addr-des-7')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-            <span class="text-sm text-blue-800 mt-1">預算：HKD 30-50</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">8. 坤記糕品專家</h3>
-            <p class="text-sm text-gray-700">同樣隱身深水埗的米其林推介傳統中式糕點老店。堅持以古法手工製作各類傳統糕點，最著名的「缽仔糕」有黃糖與白糖兩種，口感煙韌彈牙，內裡佈滿綿密的紅豆，甜度適中不膩口。此外，香滑的芝麻糕、層次分明的九層糕以及鬆軟的白糖糕也是熱賣商品。這是一份即將失傳的古早味，承載著老香港的甜蜜回憶。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-des-8" class="text-xs text-gray-600">深水埗福華街115-117號北河商場地下10號舖</span>
-              <button onclick="copyToClipboard('addr-des-8')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-            <span class="text-sm text-blue-800 mt-1">預算：HKD 20-40</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">9. 泰昌餅家</h3>
-            <p class="text-sm text-gray-700">因前港督彭定康鍾愛而聲名大噪的傳統餅店，其「曲奇皮蛋撻」堪稱香港一絕。不同於酥皮蛋撻的層次感，泰昌的曲奇皮帶有濃郁的牛油香氣，口感如同餅乾般鬆脆，搭配黃澄澄、滑嫩如布丁且蛋香十足的內餡，交織出完美的味覺平衡。除了蛋撻，沙翁（一種外層裹滿糖霜的炸甜甜圈）也是不可錯過的經典美味。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-des-9" class="text-xs text-gray-600">中環擺花街35號地下</span>
-              <button onclick="copyToClipboard('addr-des-9')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-            <span class="text-sm text-blue-800 mt-1">預算：HKD 20-40</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">10. Vission Bakery</h3>
-            <p class="text-sm text-gray-700">中環SOHO區近期極具人氣的精品法式烘焙店。這裡的酥皮麵包（Viennoiserie）水準極高，外觀精緻如藝術品。招牌的抹茶麻糬可頌，切開後層次分明的酥皮包裹著濃郁微苦的抹茶卡士達與軟糯牽絲的麻糬，口感令人驚艷。各式填滿豐富內餡的丹麥酥與泡芙也是供不應求。適合買一份精緻甜點，在中環的階梯上悠閒品嚐。</p>
-            <div class="bg-gray-50 p-2 rounded flex justify-between items-center border">
-              <span id="addr-des-10" class="text-xs text-gray-600">中環士丹頓街7號地下</span>
-              <button onclick="copyToClipboard('addr-des-10')" class="text-blue-600 text-xs px-2 py-1 bg-blue-100 rounded hover:bg-blue-200">複製</button>
-            </div>
-            <span class="text-sm text-blue-800 mt-1">預算：HKD 40-80</span>
-          </div>
-        </article>
+      <h2 class="text-2xl font-bold flex items-center gap-3 border-b border-gray-700 pb-3 mb-6">
+        <i class="fa-solid fa-mug-hot text-blue-400"></i> 甜點咖啡 (10)
+      </h2>
+      <div class="two-col" id="dessert-container">
+        <!-- JS 動態生成 -->
       </div>
     </section>
 
-    <!-- Market 超市 (5) -->
+    <!-- ==================== Market 超市 (5) ==================== -->
     <section id="market" class="space-y-6">
-      <h2 class="text-2xl font-bold flex items-center gap-2 mb-6 border-b pb-2"><i class="fa-solid fa-basket-shopping text-blue-600"></i> 超市清單 (5筆)</h2>
-      <div class="two-col">
-        <article class="module-card red-border">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg red-text">1. 惠康超級市場 (堅尼地城店) <span class="red-text font-bold text-sm ml-2">[已排入行程]</span></h3>
-            <p class="text-sm text-gray-700">香港兩大連鎖超市龍頭之一，深入社區。這家位於堅尼地城的分店空間適中，是體驗在地居民日常採買的絕佳場所。這裡非常適合大量掃購平價的香港特色零食與飲品，如出前一丁港版限定口味（黑蒜油、麻油等）、大排檔星級奶茶粉、熱浪薯片、維他檸檬茶以及各種港式罐頭（如午餐肉、豆豉鯪魚），是採買伴手禮的高CP值選擇。</p>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 西環堅尼地城卑路乍街116-122號一樓</span>
-            <span class="text-sm text-blue-800"><i class="fa-regular fa-clock"></i> 營業時間：07:30 - 23:00</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">2. 百佳超級市場 (上環店)</h3>
-            <p class="text-sm text-gray-700">與惠康齊名的另一大連鎖超市巨頭，商品種類繁多且經常推出組合優惠。上環店鄰近酒店區，方便遊客隨時補給。除了常見的港式零食與飲品外，這裡的生鮮區也值得一逛，可以買到新鮮的水果或即食沙拉。自家品牌「佳之選」的商品價格極度實惠，若想尋找平價實用的生活用品或大量派發的小零食，來這裡準沒錯。</p>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 上環皇后大道中270-276號中央大廈地下</span>
-            <span class="text-sm text-blue-800"><i class="fa-regular fa-clock"></i> 營業時間：08:00 - 22:30</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">3. city'super (中環 IFC店)</h3>
-            <p class="text-sm text-gray-700">定位於高端精品市場的大型生活超市，位於交通樞紐國際金融中心商場內。這裡匯聚了來自世界各地（特別是日本與歐洲）的頂級生鮮食材、稀有調味料、進口零食與高級酒水。如果你對飲食有著極高要求，或是想尋找包裝精美、市面上罕見的異國美食作為高級伴手禮，city'super 絕對能滿足你的品味。同時這裡也附設優質的熟食區。</p>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 中環港景街1號國際金融中心商場1樓1041-1049號舖</span>
-            <span class="text-sm text-blue-800"><i class="fa-regular fa-clock"></i> 營業時間：10:00 - 22:00</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">4. Don Don Donki (中環店)</h3>
-            <p class="text-sm text-gray-700">來自日本的知名驚安殿堂，在香港引發了巨大的購物熱潮。中環店24小時營業，是夜貓子在蘭桂坊狂歡後或深夜睡不著時的最佳去處。店內播放著洗腦的神曲，貨架上塞滿了琳瑯滿目的日本零食、美妝藥妝、生活雜貨以及新鮮的日本產水果與刺身便當。雖然不是買香港本土特產的地方，但其極具娛樂性的購物體驗仍吸引大量人潮。</p>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 中環皇后大道中100號100QRC地下及地庫</span>
-            <span class="text-sm text-blue-800"><i class="fa-regular fa-clock"></i> 營業時間：24小時營業</span>
-          </div>
-        </article>
-        <article class="module-card">
-          <div class="stack-vertical">
-            <h3 class="font-bold text-lg text-gray-800">5. Marks & Spencer Food (中環)</h3>
-            <p class="text-sm text-gray-700">英國老牌百貨馬莎的食品專門店，展現了香港深刻的英治時期歷史痕跡。這裡提供一系列高品質的英式食品，從經典的英式紅茶、奶油酥餅、果醬，到各種口味獨特的洋芋片與冷凍食品應有盡有。包裝設計充滿優雅的英倫風情。對於喜歡歐美零食或是想體驗香港中西文化交融特質的遊客來說，來這裡採買一些英式甜點是非常特別的選擇。</p>
-            <span class="text-sm text-gray-600"><i class="fa-solid fa-location-dot"></i> 中環皇后大道中22-28號中匯大廈地庫至一樓</span>
-            <span class="text-sm text-red-600 font-bold"><i class="fa-regular fa-clock"></i> 營業時間：具體時間未知 (通常約為 08:00-21:00)</span>
-          </div>
-        </article>
+      <h2 class="text-2xl font-bold flex items-center gap-3 border-b border-gray-700 pb-3 mb-6">
+        <i class="fa-solid fa-cart-shopping text-blue-400"></i> 在地超市清單 (5)
+      </h2>
+      <div class="two-col" id="market-container">
+        <!-- JS 動態生成 -->
       </div>
     </section>
 
   </main>
 
-  <!-- 返回頂部按鈕 -->
-  <button id="backToTopBtn"><i class="fa-solid fa-chevron-up"></i></button>
+  <button id="backToTopBtn" title="回到頂部"><i class="fa-solid fa-arrow-up"></i></button>
 
-  <!-- 頁尾 -->
-  <footer class="bg-gray-800 text-gray-300 py-8 text-center text-sm">
-    <div class="main-container space-y-2 px-4">
-      <p>圖例說明：<span class="text-red-400 font-bold">紅字</span>＝使用者指定／已排入行程主體 ｜ <span class="text-blue-400 font-bold">藍字</span>＝系統推薦補足 ｜ <span class="bg-gray-700 px-2 py-1 rounded">Day Tag</span> = 建議關聯日或獨立行程</p>
-      <p class="text-gray-500 mt-4 border-t border-gray-700 pt-4">離線可用版 ｜ 視覺風格：Neon Heritage (香港都會與復古交融) ｜ 版本 v1.8.0-blueFX</p>
-    </div>
+  <footer class="mt-16 text-center text-sm text-gray-500 py-6 border-t border-gray-800 bg-slate-900 bg-opacity-80">
+    <p class="mb-2">圖例：<span class="red-text">紅字</span>＝使用者指定／已排入行程 ｜ <span class="blue-text">藍字</span>＝系統推薦</p>
+    <p>離線可用版 ｜ 版本 v1.8.0-blueFX ｜ 霓虹港味特製版</p>
   </footer>
 
   <script>
-    // 嚴格：單一分頁顯示邏輯
+    // 資料結構：以 JS 渲染龐大數量的模組以保持 HTML 結構乾淨，同時確保數量與內容嚴格達標。
+    const data = {
+      poi: [
+        { name: "文武廟", intro: "位於上環荷李活道，是香港最古老、最具代表性的廟宇之一。廟內供奉文帝與武帝，天花板掛滿了巨大的塔香，香煙繚繞中透著陽光，充滿神秘與神聖的歷史氛圍，更是攝影愛好者捕捉光影與傳統信仰文化的絕佳去處。", highlight: "巨型塔香 / 免費", day: "Day 1", isUsed: true },
+        { name: "中環街市", intro: "歷經活化翻新的三級歷史建築，保留了經典的包浩斯風格與百年水磨石階梯。如今轉型為文創、餐飲與在地品牌的聚集地，內部空間明亮且充滿設計感，不僅是購物休憩的好去處，更是感受香港新舊交融魅力的核心地標。", highlight: "文創聚落 / 免費", day: "Day 2", isUsed: true },
+        { name: "大館", intro: "前中區警署、中央裁判司署及域多利監獄的建築群，經過精心修復，成為香港世界級的古蹟與藝術館。紅磚牆與現代設計交織，庭院內常有藝術裝置與展覽。走在狹窄的監獄走廊，彷彿穿越時空，是深度探索香港司法歷史的必訪之地。", highlight: "古蹟藝術 / 免費", day: "Day 2", isUsed: true },
+        { name: "半山手扶梯", intro: "全球最長的戶外有蓋電扶梯系統，全長逾800公尺。不僅是半山居民通勤的重要工具，更是電影《重慶森林》中王菲窺視梁朝偉的經典場景。沿途經過蘇豪區、蘭桂坊與各式特色小店，是輕鬆穿梭中環陡坡的最佳方式。", highlight: "電影場景 / 免費", day: "Day 2", isUsed: true },
+        { name: "太平山頂纜車", intro: "擁有超過百年歷史的亞洲最早纜車系統，近期換上第六代復古綠色車廂。沿著極度陡峭的山坡攀升，兩旁的摩天大樓彷彿傾斜，視覺體驗極為奇特。抵達山頂後，可俯瞰維多利亞港的無敵海景與繁華城市天際線。", highlight: "傾斜視角 / 需購票", day: "Day 2", isUsed: true },
+        { name: "凌霄閣摩天台428", intro: "位於太平山頂海拔428公尺處，是全港最高的360度觀景台。在此可將維多利亞港、九龍半島甚至離島的壯麗景致盡收眼底。強烈建議在傍晚時分造訪，一次飽覽白天、日落與著名的百萬璀璨夜景，震撼人心。", highlight: "百萬夜景 / 需購票", day: "Day 2", isUsed: true },
+        { name: "廟街夜市", intro: "九龍區最具代表性的庶民夜市，被譽為香港的「平民夜總會」。兩旁攤商林立，販售各式廉價商品、仿古玩與服飾。最吸引人的是街邊的特色大牌檔與煲仔飯，霓虹燈牌交織出濃厚的港產片氛圍，充滿煙火氣。", highlight: "庶民文化 / 免費", day: "Day 2", isUsed: true },
+        { name: "香港迪士尼樂園", intro: "擁有獨家「魔雪奇緣世界」與「灰熊山谷」的奇妙王國。園區雖小但精緻，遊行與夜間城堡煙火秀（星夢光影之旅）水準極高。適合親子同遊或尋找童心的旅客，建議提前下載官方APP掌握遊樂設施等候時間。", highlight: "冰雪奇緣 / 需購票", day: "獨立行程", isUsed: false },
+        { name: "昂坪360纜車", intro: "連接東涌與大嶼山昂坪的壯觀纜車路線。乘坐水晶車廂，腳下透明玻璃可俯瞰大嶼山碧綠的山巒與南中國海的壯闊景色。終點為昂坪市集與宏偉的天壇大佛，是遠離都市喧囂、感受寧靜佛教文化的絕佳一日遊選擇。", highlight: "水晶車廂 / 需購票", day: "獨立行程", isUsed: false },
+        { name: "維多利亞港", intro: "分隔香港島與九龍半島的天然深水港，是香港之所以成為東方之珠的靈魂。無論是漫步在尖沙咀海濱長廊，或搭乘擁有百年歷史的天星小輪橫渡，都能感受到這座國際大都會的繁華與活力。夜間的雷射燈光秀更是不可錯過。", highlight: "必訪海景 / 免費", day: "Day 1", isUsed: false },
+        { name: "星光大道", intro: "位於尖沙咀海濱，經過重新設計翻新後更顯現代感。沿途鑲嵌著香港電影圈傑出人士的巨星掌印與銅像（如李小龍、梅艷芳）。一邊吹著海風，一邊欣賞對岸港島區的壯麗摩天大樓群，是初訪香港旅客的必打卡聖地。", highlight: "巨星掌印 / 免費", day: "Day 1", isUsed: false },
+        { name: "西九文化區 (M+博物館)", intro: "香港新興的世界級藝術文化樞紐。M+是亞洲首間全球性當代視覺文化博物館，建築外觀的巨型LED幕牆成為維港新地標。館內展出豐富的當代藝術、設計與建築藏品，戶外的大型草地更是野餐與觀賞日落的絕佳地點。", highlight: "當代藝術 / 需購票", day: "獨立行程", isUsed: false },
+        { name: "香港故宮文化博物館", intro: "同樣位於西九文化區，建築設計揉合了傳統中國空間韻味與現代美學。館內展示來自北京故宮博物院的珍貴文物，許多更是首次在香港展出。豐富的多媒體互動展覽讓歷史變得生動，是了解中國文化藝術的全新殿堂。", highlight: "國寶展覽 / 需購票", day: "獨立行程", isUsed: false },
+        { name: "黃大仙祠", intro: "香港最著名的廟宇之一，以「有求必應」聞名。建築展現了中國傳統儒、釋、道三教融合的特色。殿宇金碧輝煌，香火極為鼎盛。許多市民與遊客特地來此求籤問卜，體驗搖籤筒的傳統習俗，感受濃厚的在地信仰力量。", highlight: "求籤祈福 / 免費", day: "獨立行程", isUsed: false },
+        { name: "蘭桂坊", intro: "香港夜生活的代名詞，位於中環的L型狹窄斜坡上。這裡聚集了上百家酒吧、俱樂部與餐廳，一到夜晚便擠滿了來自世界各地的外籍人士與白領階級。每逢萬聖節或跨年等節慶，更是狂歡的中心，氣氛極度熱烈。", highlight: "夜生活 / 依消費", day: "Day 2 近", isUsed: false },
+        { name: "尖沙咀鐘樓", intro: "全名為前九廣鐵路鐘樓，以紅磚及花崗岩建造，高達44公尺。這座優雅的古蹟見證了香港作為交通樞紐的歷史，如今矗立在天星碼頭旁，與現代化的文化中心形成強烈對比，是約會碰面與合影留念的經典地標。", highlight: "百年古蹟 / 免費", day: "Day 1 近", isUsed: false },
+        { name: "海洋公園", intro: "結合海洋館、動物園與機動遊戲的本土大型主題樂園。依山傍海的地理位置讓它獨具特色，搭乘越野車或海景纜車穿梭於兩大景區間本身就是一種享受。除了刺激的雲霄飛車，也能近距離觀賞熊貓與豐富的海洋生態。", highlight: "動物樂園 / 需購票", day: "獨立行程", isUsed: false },
+        { name: "赤柱市集", intro: "位於港島南區充滿異國風情的小鎮。赤柱市集內迷宮般的小巷佈滿販售工藝品、服飾與紀念品的攤位。逛累了可以走到美利樓與海濱長廊，找間露天酒吧或餐廳坐下，享受海風與充滿歐洲風情的悠閒午後時光。", highlight: "異國風情 / 免費", day: "獨立行程", isUsed: false },
+        { name: "淺水灣", intro: "香港最高級的住宅區之一，擁有呈半月形的優美沙灘。沙質細緻、海水清澈，是夏日戲水消暑的好去處。沙灘旁的鎮海樓公園矗立著巨大的天后與觀音神像，融合了東方信仰與西方海灘度假氛圍，景色獨特迷人。", highlight: "海灘度假 / 免費", day: "獨立行程", isUsed: false },
+        { name: "摩羅上街 (古董街)", intro: "位於上環的特色街道，又稱貓街 (Cat Street)。這裡聚集了眾多古董店與跳蚤市場攤位，販售各式舊海報、玉器、陶瓷、毛語錄、舊手錶等充滿歲月痕跡的物件。在此尋寶猶如翻閱香港的歷史相簿，趣味盎然。", highlight: "古董尋寶 / 免費", day: "Day 3 近", isUsed: false }
+      ],
+      bib: [
+        { name: "一點心 中環", intro: "曾榮獲米其林一星的平價點心專門店，以物美價廉、現點現做聞名。中環店環境整潔，服務有效率。必點的蟹黃燒賣肉質扎實彈牙，鮮蝦腐皮捲炸得金黃酥脆而不油膩，薄皮蝦餃更是晶瑩剔透，是品嚐道地港點的首選。", dish: "蟹黃燒賣、鮮蝦腐皮捲", address: "中環威靈頓街17-19號香港工商大廈地舖", budget: "HKD 80-120", day: "Day 1", isUsed: true },
+        { name: "榕哥陳皮燒鵝", intro: "近年迅速竄紅的燒味新星，主打將新會老陳皮融入燒鵝製作中。燒鵝皮脆肉嫩，脂肪比例恰到好處，咀嚼間散發出淡淡的陳皮幽香，解膩且層次豐富。搭配吸滿精華的瀨粉或米飯，絕對是令人回味無窮的港式晚餐。", dish: "招牌陳皮燒鵝瀨粉、脆皮燒肉", address: "多間分店 (行程於中環/尖沙咀視情況安排)", budget: "HKD 100-150", day: "Day 1", isUsed: true },
+        { name: "蓮香樓", intro: "承載香港百年飲茶文化的活化石。保留了傳統的推車仔點心與茶盅沖茶體驗。環境吵雜擁擠，需要眼明手快地搶點心、與陌生人併桌。豬潤燒賣與蓮蓉包是經典，這裡吃的不僅是味道，更是那份無可取代的老香港情懷。", dish: "豬潤燒賣、蓮蓉包、千層糕", address: "中環威靈頓街160-164號", budget: "HKD 80-120", day: "Day 2", isUsed: true },
+        { name: "瑞記咖啡", intro: "隱身在上環市政大廈熟食中心內的傳奇茶檔，超過六十年歷史。沒有華麗裝潢，只有歲月痕跡。招牌的「樽仔冰鎮奶茶」將奶茶裝在玻璃樽內冰鎮，茶味濃郁不被冰塊稀釋。配上現煎的蛋牛包或西多士，是完美的港式早餐。", dish: "樽仔冰鎮奶茶、蛋牛包", address: "上環市政大廈2樓17號舖", budget: "HKD 40-60", day: "Day 3", isUsed: true },
+        { name: "麥奀雲吞麵世家", intro: "傳承廣州西關風味的雲吞麵名店。其雲吞以「散尾」造型著稱，一口大小，內餡鮮蝦彈牙爽口。麵條使用鴨蛋打製的全蛋竹昇麵，口感極具韌性且無鹼水味。湯頭以大地魚及蝦子熬製，鮮甜無比，份量雖小卻精緻。", dish: "世家雲吞麵、牛筋腩", address: "中環威靈頓街77號地舖", budget: "HKD 50-80", day: "Day 2", isUsed: true },
+        { name: "興記煲仔飯", intro: "廟街夜市最具代表性的美食地標。以傳統炭爐烹煮的煲仔飯，上桌時米飯滋滋作響，淋上特製甜豉油，鍋底的焦香飯焦(鍋巴)是靈魂所在。搭配一份酥脆的煎蠔餅與瀨尿蝦，坐在街邊感受廟街的喧囂，風味絕佳。", dish: "臘味排骨煲仔飯、煎蠔餅", address: "油麻地廟街15號", budget: "HKD 80-150", day: "Day 2", isUsed: true },
+        { name: "添好運點心專門店", intro: "被譽為「全球最便宜米其林星級餐廳」的點心名店。由前高級酒店主廚創立，主打即叫即蒸。其招牌「酥皮焗叉燒包」外皮如菠蘿麵包般酥脆甜蜜，內餡叉燒醬汁濃郁，兩者完美結合。蘿蔔糕與腸粉亦維持極高水準。", dish: "酥皮焗叉燒包、香滑馬拉糕", address: "深水埗福榮街9-11號地舖 (多分店)", budget: "HKD 70-100", day: "獨立行程", isUsed: false },
+        { name: "九記牛腩", intro: "中環超人氣排隊名店，以獨門配方的清湯牛腩聞名全港。牛腩燉煮得軟腍入味，入口即化；清湯看似清淡，實則匯聚了牛骨與數十種中藥材的濃郁精華。喜歡重口味的饕客必試「咖哩牛筋腩伊麵」，香辣刺激，令人上癮。", dish: "清湯牛腩麵、咖哩牛筋腩伊麵", address: "中環歌賦街21號地舖", budget: "HKD 60-90", day: "Day 2 近", isUsed: false },
+        { name: "澳洲牛奶公司", intro: "以極高效率與「特色服務態度」聞名的佐敦傳奇冰室。店員點餐送餐如旋風般快速。必吃招牌「炒嫩蛋」，色澤金黃、口感如絲綢般滑順，搭配厚切牛油多士與一碗香濃的蛋白燉鮮奶，是無數人抵港後的第一頓早午餐。", dish: "炒蛋多士、蛋白燉鮮奶", address: "佐敦白加士街47-49號地下", budget: "HKD 50-70", day: "獨立行程", isUsed: false },
+        { name: "華嫂冰室", intro: "眾多香港明星（如余文樂）大力推薦的超人氣冰室。其獨創的「招牌菠蘿包」在酥脆的波蘿包內夾入厚切牛油、新鮮番茄與煎蛋，口感層次豐富。另一名物「番茄豬扒雞翼通粉」，湯頭濃郁酸甜，非常開胃。", dish: "招牌冰花奶茶、豬排菠蘿包", address: "尖沙咀棉登徑8號地下G7-G8號舖", budget: "HKD 60-90", day: "Day 1 近", isUsed: false },
+        { name: "甘牌燒鵝", intro: "傳承自知名鏞記酒家後代創立，連續多年獲得米其林一星肯定。燒鵝堅持傳統烤製工法，外皮油亮酥脆，肉質細嫩多汁，皮下脂肪化為迷人的香氣。除了燒鵝，其蜜汁排骨與化皮乳豬同樣令人驚艷，是品味高級燒味的平價選擇。", dish: "甘牌燒鵝、蜜汁排骨", address: "灣仔軒尼詩道226號寶華商業中心地舖", budget: "HKD 100-200", day: "獨立行程", isUsed: false },
+        { name: "蘭芳園", intro: "香港「絲襪奶茶」的創始店，位於中環結志街的鐵皮大牌檔充滿歷史感。創辦人使用特製白布袋過濾茶渣，使奶茶口感極度細滑，茶香與奶香比例完美。配上一個傳統的蔥油雞扒撈丁或西多士，是經典的港式下午茶組合。", dish: "絲襪奶茶、蔥油雞扒撈丁", address: "中環結志街2號地舖", budget: "HKD 50-80", day: "Day 2 近", isUsed: false },
+        { name: "媽咪雞蛋仔", intro: "連續多年獲米其林街頭小吃推薦。將香港傳統街頭小吃雞蛋仔發揚光大，研發出多種創新口味。外層烤得極致酥脆，內裡呈現半空心的麻糬般Q彈口感。特別推薦「伯爵茶」或「雙重起司」口味，香氣濃郁，邊走邊吃最適合。", dish: "伯爵茶雞蛋仔、肉鬆雞蛋仔", address: "尖沙咀東部科學館道14號新文華中心 (多分店)", budget: "HKD 30-50", day: "Day 1 近", isUsed: false },
+        { name: "肥姐小食店", intro: "旺角街頭永遠大排長龍的冷滷味霸主。販售港式特色「滷水墨魚」、「大生腸」與「火雞腎」等內臟小吃。食材處理得極為乾淨無腥味，口感爽脆。精髓在於淋上特製的甜醬與芥末醬，辛辣嗆鼻與微甜交織，極度惹味。", dish: "大皇牌套餐 (墨魚+生腸+火雞腎)", address: "旺角登打士街55號4A舖", budget: "HKD 30-50", day: "獨立行程", isUsed: false },
+        { name: "金華冰廳", intro: "號稱擁有全香港最好吃的「得獎菠蘿油」。菠蘿包的酥皮極厚且酥脆無比，剛出爐的熱氣融化了夾在中間的厚切冰冷牛油，一口咬下，冰火交融的口感與濃郁的奶油香氣在口中爆發。配上一杯濃郁的熱奶茶，堪稱絕配。", dish: "得獎菠蘿油、特濃奶茶", address: "太子弼街47號地舖", budget: "HKD 40-60", day: "獨立行程", isUsed: false },
+        { name: "泰昌餅家", intro: "因為前港督彭定康熱愛而聲名大噪的老字號餅家。其招牌「曲奇皮蛋撻」有別於常見的酥皮，外層如餅乾般充滿濃郁的牛油香且口感鬆脆，內餡蛋液金黃滑嫩，蛋香四溢。剛出爐時熱騰騰的滋味最令人難以抗拒。", dish: "皇牌蛋撻、沙翁", address: "中環擺花街35號地下", budget: "HKD 10-20", day: "Day 2 近", isUsed: false },
+        { name: "坤記糕品專家", intro: "深水埗米其林推薦的傳統中式糕點老店。堅持以古法手工製作，招牌「白糖糕」發酵得宜，口感鬆軟帶有微酸的酒香，清甜不膩。「紅豆糕」與「芝麻糕」則用料扎實，層次分明。是品嚐老香港古早味的珍貴小店。", dish: "白糖糕、芝麻糕、紅豆糕", address: "深水埗福華街115-117號北河商場地下10號舖", budget: "HKD 15-30", day: "獨立行程", isUsed: false },
+        { name: "沾仔記", intro: "曾連續多年獲得米其林必比登推薦，與斜對面的九記牛腩同為中環排隊名店。其最大特色是那如乒乓球般巨大的「招牌雲吞」，內餡塞滿了新鮮大蝦，爽脆彈牙。另有鮮鯪魚球與牛肉可選，價格親民，CP值極高。", dish: "招牌雲吞麵、鮮鯪魚球", address: "中環威靈頓街98號地舖", budget: "HKD 40-60", day: "Day 2 近", isUsed: false },
+        { name: "新興食家", intro: "位於堅尼地城的凌晨營業點心店，深受大學生與夜貓子喜愛，連明星陳奕迅都是常客。店面雖然簡陋，但點心皆是新鮮手作。招牌「流沙包」內餡金黃澎湃，鹹蛋黃香氣濃郁；「鵪鶉蛋燒賣」更是現今少見的懷舊美味。", dish: "皇牌流沙包、鵪鶉蛋燒賣", address: "西環堅尼地城士美非路8號地下C號舖", budget: "HKD 60-90", day: "獨立行程", isUsed: false },
+        { name: "妹記生滾粥品", intro: "隱身在旺角花園街市政大廈內的知名粥檔。以猛火生滾粥聞名，粥底綿滑如絲，米粒完全化開。招牌「及第粥」內含豬肝、豬腸與肉丸，食材新鮮處理得當，毫無腥味。配上一根剛炸好的酥脆油條，暖胃又滿足。", dish: "及第粥、魚片肉丸粥", address: "旺角花園街市政大廈4樓熟食中心11-12舖", budget: "HKD 40-60", day: "獨立行程", isUsed: false }
+      ],
+      souvenir: [
+        { name: "曲奇珍尼 (Jenny Bakery)", intro: "代購界永遠的神話，香港最知名的排隊伴手禮。以印有可愛泰迪熊圖案的鐵盒包裝聞名。其奶油曲奇餅乾質地極度鬆化，入口即化，牛油香氣濃郁得化不開。強烈推薦四味奶油曲奇，包含原味與咖啡口味，絕對讓人一口接一口。", item: "四味奶油曲奇(小/大盒)", budget: "HKD 80-150", day: "Day 1", isUsed: true },
+        { name: "JellyCat 連卡佛專櫃", intro: "來自英國的高端絨毛玩具品牌，近年在年輕族群中掀起狂熱。其設計充滿幽默感與治癒力，無論是經典的邦尼兔、雲朵，還是各種擬人化的食物與盆栽造型，觸感極度柔軟親膚。在海港城專櫃款式齊全，是送禮或自用的療癒首選。", item: "經典邦尼兔、造型玩偶", budget: "HKD 200-500", day: "Day 1", isUsed: true },
+        { name: "Miniso 香港分店", intro: "全球知名的生活好物專賣店。香港分店除了提供高CP值的日常居家用品、文具與盲盒玩具外，最大亮點是經常推出與各大知名IP（如迪士尼、三麗鷗、漫威）的聯名商品。價格親民且設計可愛，適合採買小件禮物分送親友。", item: "聯名IP盲盒、生活實用小物", budget: "HKD 50-150", day: "Day 1", isUsed: true },
+        { name: "德成號蛋捲", intro: "號稱全港最難買的手工蛋捲，沒有之一。位於北角的這間老字號，堅持以傳統古法手工製作，每日產量極有限。蛋捲層次極其豐富，口感酥脆無比，散發出單純濃郁的雞蛋與奶油香氣。通常需提前數月預訂或清晨排隊才能買到。", item: "家鄉雞蛋捲、鮮牛油蛋捲", budget: "HKD 120-200", day: "獨立行程", isUsed: false },
+        { name: "檸檬王 (上環)", intro: "從推車檔起家的上環傳奇蜜餞店。其招牌「甘草檸檬」精選優質泰國檸檬，加入祖傳甘草粉秘方醃製。口感軟糯，酸甜適中，甘草的獨特香氣不僅解膩，更具有潤喉生津的功效。包裝復古有質感，是極具香港在地特色的伴手禮。", item: "甘草檸檬、話梅肉", budget: "HKD 50-80", day: "Day 1 近", isUsed: false },
+        { name: "帝苑酒店蝴蝶酥", intro: "被許多甜點控譽為全香港最好吃的蝴蝶酥。由五星級帝苑酒店附屬的餅店製作，選用頂級紐西蘭小麥粉與法國牛油。烘焙火候完美，外層焦糖色澤誘人，口感極度酥脆且層次分明，甜而不膩。精緻的鐵盒包裝非常適合送給重要貴賓。", item: "原味蝴蝶酥、宇治抹茶蝴蝶酥", budget: "HKD 200-300", day: "獨立行程", isUsed: false },
+        { name: "鉅記餅家", intro: "雖然發跡於澳門，但在香港也廣受歡迎且分店眾多。以杏仁餅與肉乾聞名。招牌「原粒杏仁餅」採用古法炭燒，口感酥鬆，咬下去能吃到完整的杏仁顆粒，堅果香氣十足。厚切豬肉乾則肉汁豐富，口味偏甜，非常涮嘴。", item: "原粒杏仁餅、厚切蜜汁豬肉乾", budget: "HKD 100-200", day: "獨立行程", isUsed: false },
+        { name: "榮華餅家", intro: "香港家喻戶曉的傳統中式餅店，歷史悠久。以首創的「白蓮蓉月餅」享譽全球，其蓮蓉內餡細滑清香，鹹蛋黃油潤飽滿。除了節慶糕點，平日最熱銷的是其傳統老婆餅與豬肉鬆蛋卷，包裝充滿濃厚的懷舊風味，是長輩最愛。", item: "老婆餅、傳統臘腸", budget: "HKD 80-150", day: "獨立行程", isUsed: false },
+        { name: "奇華餅家", intro: "分店遍佈全港與機場的知名連鎖餅店，品質穩定。除了傳統的嫁喜禮餅，近年推出的「香港特色系列」包裝非常吸睛。其中以熊貓造型的曲奇餅乾最受觀光客歡迎；其「沙其馬」口感鬆軟且蛋香濃郁，也是不可錯過的平價美味。", item: "熊貓曲奇、黑糖沙其馬", budget: "HKD 60-120", day: "Day 3 (機場)", isUsed: false },
+        { name: "黃道益活絡油", intro: "香港家庭必備的居家良藥，深受長輩喜愛。由中醫世家研製，內含多種天然中藥材精華。對於舒緩肌肉痠痛、關節風濕痛、跌打扭傷有顯著的發熱舒緩效果。幾乎在所有連鎖藥妝店與免稅店都能買到，是實用性極高的保健伴手禮。", item: "黃道益活絡油 (認明正版防偽)", budget: "HKD 50-70", day: "藥妝店皆有", isUsed: false },
+        { name: "法國雙飛人藥水", intro: "這款源自法國的透明藥水在香港極為普及。成分主要是薄荷與酒精，神奇之處在於它標榜「可內服外用」。外用可塗抹於蚊蟲叮咬處止癢、提神醒腦；內服據稱可滴入水中緩解腸胃不適或暈車。一瓶多用，是許多港人包包裡的常備品。", item: "雙飛人藥水", budget: "HKD 40-60", day: "藥妝店皆有", isUsed: false },
+        { name: "保心安油", intro: "超過百年歷史的香港本土老牌藥油。成分包含薄荷油、肉桂油等，氣味相對溫和不刺鼻。主要功效為驅風鎮痛、通竅消腫。對於舒緩輕微的頭暈頭痛、胸腹脹悶或蚊蟲咬傷相當有效。復古的小巧玻璃瓶包裝，攜帶方便。", item: "保心安油、保心安膏", budget: "HKD 30-50", day: "藥妝店皆有", isUsed: false },
+        { name: "陸羽茶包", intro: "想將香港茶樓裡的道地茶香帶回家，陸羽茶包是最佳選擇。這個老字號品牌推出了多款傳統中式茶包，包括普洱、鐵觀音、壽眉等。其茶葉品質穩定，沖泡方便。包裝設計保留了傳統的中國風元素，非常適合送給愛喝茶的朋友。", item: "普洱茶包、鐵觀音茶包", budget: "HKD 20-40", day: "超市皆有", isUsed: false },
+        { name: "大排檔 星級版奶茶", intro: "無法帶走茶餐廳的現沖奶茶，就買這款即溶包解饞。大排檔品牌推出的「星級版」三合一奶茶，特別提升了茶香與奶味的比例，沖泡出來的味道相當接近道地的港式絲襪奶茶，口感濃郁順滑。另有鴛鴦奶茶口味可供選擇。", item: "星級版港式奶茶 (盒裝)", budget: "HKD 30-50", day: "超市皆有", isUsed: false },
+        { name: "恆香老餅家", intro: "源自元朗的老字號餅家，被公認為香港老婆餅的始祖。其招牌「老婆餅」堅持每日新鮮烘焙，外層酥皮層層疊疊，極其鬆脆；內餡的冬瓜蓉則軟糯清甜，毫不黏牙。剛出爐時微溫的口感堪稱一絕，絕對值得特地前往購買。", item: "傳統老婆餅、皮蛋酥", budget: "HKD 60-100", day: "獨立行程", isUsed: false },
+        { name: "鯉魚門紹香園", intro: "擁有半世紀歷史的核桃與果仁專賣店。創辦人研發出將核桃結合多種健康食材的獨家秘方。其招牌「琥珀核桃」外層包裹著薄薄的焦糖與芝麻，口感酥脆，核桃本身毫無苦澀味。堅果類產品豐富多樣，是健康無負擔的送禮佳品。", item: "琥珀核桃、各類堅果", budget: "HKD 80-120", day: "獨立行程", isUsed: false },
+        { name: "余仁生 (中藥保健品)", intro: "亞洲知名的百年中藥保健品牌。在香港各大商場皆有分店。其產品以高品質的天然中藥材製成，深受養生族群信賴。最暢銷的「保嬰丹」是許多家庭育兒的常備藥；高品質的燕窩、冬蟲夏草與燉湯湯包也是孝敬長輩的頂級伴手禮。", item: "保嬰丹、養生燉湯包", budget: "HKD 100-500+", day: "獨立行程", isUsed: false },
+        { name: "東海堂 (Arome)", intro: "充滿日式風情的香港連鎖高級西餅店。如果剛好在草莓或栗子季造訪香港，絕對不能錯過他們家採用日本直送食材製作的精緻蛋糕。對於伴手禮而言，其包裝精美的日式蛋卷、曲奇禮盒與抹茶系列糕點，不僅好吃且極具質感。", item: "精緻曲奇禮盒、日式蛋卷", budget: "HKD 80-150", day: "多間分店", isUsed: false },
+        { name: "么鳳 話梅王", intro: "香港最著名的頂級涼果(蜜餞)專賣店。這裡的蜜餞種類繁多，品質極佳但價格也相對不菲。其鎮店之寶「頂級話梅王」據說每顆話梅的製作過程極為繁複，鹹酸甜的比例完美平衡，含在口中生津止渴，餘韻悠長，是老饕的最愛。", item: "頂級話梅王、陳皮梅", budget: "HKD 100-300", day: "Day 2 近", isUsed: false },
+        { name: "舊街場白咖啡", intro: "雖然品牌來自馬來西亞，但這款即溶白咖啡在香港超市極度暢銷，也是許多人遊港必買的飲品。採用獨特的低溫烘焙技術，去除了一般咖啡的高溫焦苦與酸澀味。沖泡後香氣濃郁四溢，口感絲滑柔順，非常適合作為下午茶飲品。", item: "經典原味三合一白咖啡", budget: "HKD 35-50", day: "超市皆有", isUsed: false }
+      ],
+      photo: [
+        { name: "嘉咸街壁畫", intro: "中環最著名的街頭藝術打卡點。這幅長型壁畫以色彩斑斕的筆觸，生動描繪了老香港九龍寨城昔日密密麻麻的建築風貌。站在斜坡上與這幅充滿歷史感與視覺衝擊的畫作合影，能瞬間拍出極具文青風格的港味美照。", address: "中環嘉咸街與荷李活道交界", isUsed: true },
+        { name: "維港 幻彩詠香江", intro: "被列入金氏世界紀錄的全球最大型燈光音樂匯演。每天晚上八點，維多利亞港兩岸超過四十棟摩天大樓會發射雷射燈光，配合交響樂舞動。無論是在天星小輪上或尖沙咀海濱長廊，都是捕捉香港國際大都會璀璨夜景的絕佳機位。", address: "維多利亞港 (可於尖沙咀海濱或船上觀賞)", isUsed: true },
+        { name: "堅尼地城海旁", intro: "近年爆紅的日系網美打卡勝地。從堅尼地城地鐵站出來步行至海旁，可以拍到叮叮車緩緩駛過海邊的浪漫畫面。尤其在日落時分，夕陽將海面與天空染成金黃色，配上海旁的欄杆與路牌，營造出宛如日本鎌倉般的青春電影感。", address: "西環堅尼地城新海旁", isUsed: false },
+        { name: "鰂魚涌怪獸大廈", intro: "電影《變形金剛4》的著名取景地。由五棟相連的大廈組成了一個巨大的「ㄇ」字型密集建築群。站在天井中央仰望，狹窄的天空與密密麻麻、充滿生活痕跡的窗戶與冷氣機形成極具壓迫感的強烈對比，是展現香港高密度都市景觀的極致代表。", address: "鰂魚涌英皇道1046號 (海山樓)", isUsed: false },
+        { name: "彩虹邨", intro: "香港最早期興建的公共屋邨之一。其建築外牆漆上了整齊的彩虹七色漸層，前方還有一個色彩鮮豔的籃球場。幾何線條與粉柔色彩交織，無論怎麼拍都充滿活力與童趣，是Instagram上極度知名的香港屋邨攝影代表。", address: "九龍黃大仙彩虹邨", isUsed: false },
+        { name: "樂華南邨 (時光隧道)", intro: "隱藏在公共屋邨停車場天台的幾何攝影秘境。這裡有多幅中間帶有圓形開口的淺藍色水泥牆，層層疊疊排列。當陽光穿透圓孔，會形成強烈的光影效果，彷彿一條通往未知的時光隧道，極簡且具未來感，深受攝影愛好者喜愛。", address: "九龍觀塘市中心振華道70號", isUsed: false },
+        { name: "西環泳棚", intro: "香港市區僅存的六七十年代公眾泳棚。一條狹長簡陋的木橋從陡峭的岸邊延伸至波濤洶湧的大海中。站在木橋盡頭，以無邊際的蔚藍大海與遠處的島嶼為背景，聽著海浪拍打礁石的聲音，能拍出帶有幾分孤寂與壯闊的氛圍大片。", address: "西環域多利道400號", isUsed: false },
+        { name: "石澳健康院", intro: "周星馳經典喜劇電影《喜劇之王》中最著名的取景地。那棵經典的樹與海邊的圍牆，是星爺對張柏芝說出「我養你啊」的浪漫場景。石澳村本身也充滿歐洲小鎮的悠閒風情，色彩繽紛的平房與寧靜的海灘，是遠離都市喧囂的拍照好去處。", address: "香港島南區石澳村", isUsed: false },
+        { name: "昂船洲大橋", intro: "全球最長的斜拉橋之一，橫跨藍巴勒海峽。要拍出壯闊的大橋全景，建議前往青衣的觀景點。巨大的橋塔與優美的鋼纜線條在陽光下閃耀，若逢黃昏，巨大的貨櫃輪從橋下緩緩駛過，畫面極具工業風與現代工程的震撼美感。", address: "青衣南橋或青沙公路觀景處", isUsed: false },
+        { name: "盧吉道觀景台", intro: "位於太平山頂的一條平緩環山百年步道。有別於凌霄閣的擁擠，盧吉道提供了一個更自然、視角更廣闊的觀景平台。這裡沒有玻璃阻擋，可以毫無保留地將維港的日與夜、摩天大樓的叢林與遠處的山巒一次收進相機鏡頭裡。", address: "太平山頂盧吉道", isUsed: false }
+      ],
+      dessert: [
+        { name: "佳佳甜品", intro: "連續多年榮獲米其林街頭小吃推薦的佐敦老字號。專注於傳統中式糖水，品質始終如一。招牌「寧波薑汁湯圓」皮薄餡多，黑芝麻內餡香濃流沙，薑汁湯底辛辣暖胃。其「芝麻糊」與「核桃露」更是磨得極致細滑，毫不死甜。", address: "佐敦寧波街29號地舖", budget: "HKD 30-50", isUsed: true },
+        { name: "聰嫂星級甜品", intro: "曾由劉德華親筆題字推薦而聲名大噪的港式創新甜品店。其最具代表性的招牌是「龍眼椰果冰」，將新鮮龍眼肉打成冰沙，每一口都能吃到清甜的果肉與Q彈的椰果，口感極度清爽解暑。各式鮮果西米露與豆腐花也維持著高水準。", address: "銅鑼灣耀華街11號地舖", budget: "HKD 40-60", isUsed: false },
+        { name: "滿記甜品", intro: "發跡於西貢的連鎖甜品巨頭，分店遍佈全港各大商場，品質穩定且環境舒適。以「楊枝甘露」最為經典，芒果的甜、柚子的酸與西米露的口感完美融合。另一創新招牌「榴槤班戟」，薄餅皮內包覆著濃郁的榴槤鮮奶油，是榴槤控的摯愛。", address: "全港多間分店", budget: "HKD 40-70", isUsed: false },
+        { name: "港澳義順牛奶公司", intro: "以獨門「雙皮奶」絕技聞名的傳統甜品店。招牌「馳名雙皮奶」選用高脂牛奶製作，表面凝結出一層厚厚的奶皮，底下則是如豆腐般滑嫩的燉奶，奶香極度濃郁且溫潤。無論是熱食暖胃或冷食消暑，都是令人難以抗拒的美味。", address: "銅鑼灣駱克道506號地下", budget: "HKD 40-60", isUsed: false },
+        { name: "Bakehouse", intro: "由前香港四季酒店糕點總廚創立的超人氣麵包咖啡店。每天門口總是大排長龍。其靈魂招牌「酸種蛋撻」(Sourdough Egg Tart) 顛覆傳統，塔皮使用酸種麵團製作，極度酥脆且帶有微酸麥香，內餡焦糖蛋液滑嫩濃郁，絕對值得排隊品嚐。", address: "中環士丹頓街5號地下 (多分店)", budget: "HKD 30-80", isUsed: false },
+        { name: "半路咖啡 (Halfway Coffee)", intro: "隱身在上環古董街附近的特色文青咖啡館。最大的亮點是將西方拉花咖啡盛裝在充滿東方復古風情的「萬壽無疆」中式瓷杯中，中西合璧的視覺衝擊感極強。咖啡豆自家烘焙，品質優良，坐在充滿懷舊物件的店內，氣氛悠閒愜意。", address: "上環東街12號地舖", budget: "HKD 40-80", isUsed: false },
+        { name: "% Arabica (堅尼地城店)", intro: "來自京都的極簡風知名咖啡品牌。位於堅尼地城的這間分店擁有絕佳的兩層樓海景。全白色的極簡裝潢搭配大面積玻璃窗，讓顧客能一邊品嚐香濃順滑的拿鐵（西班牙拿鐵尤為推薦），一邊欣賞西環海傍的日落美景，是絕佳的放鬆點。", address: "西環堅尼地城爹核士街1號", budget: "HKD 45-70", isUsed: false },
+        { name: "太平館餐廳", intro: "香港歷史最悠久的「豉油西餐」代表。除了招牌瑞士雞翼，這裡隱藏著一道震撼視覺的甜點：「巨型梳乎厘」。這款現烤舒芙蕾體積如小山般巨大，外層烤得金黃微焦，內部則如雲朵般輕盈濕潤，充滿濃郁的蛋香，適合多人共享。", address: "中環士丹利街60號地下", budget: "HKD 150-200", isUsed: false },
+        { name: "發記甜品", intro: "以真材實料與創新口味在競爭激烈的甜品市場中站穩腳步。除了經典的楊枝甘露，其「焗芒果酥皮卷」是一絕，熱騰騰的酥皮包裹著冷爽的新鮮芒果塊。而對於喜愛重口味的人，濃郁香甜的「榴槤飄香」更是不可錯過的深夜放縱首選。", address: "旺角豉油街27號地下", budget: "HKD 40-60", isUsed: false },
+        { name: "坤記糖水", intro: "深水埗區街坊最愛的平民糖水舖，經常營業至深夜。沒有華麗包裝，只有最扎實的傳統手藝。招牌「桑寄生蓮子蛋茶」具有滋補養顏功效，茶湯清甜回甘；「喳咋」則熬煮了多種豆類與芋頭，口感豐富有層次，是體驗在地生活感的好去處。", address: "深水埗福華街115-117號北河商場", budget: "HKD 25-40", isUsed: false }
+      ],
+      market: [
+        { name: "惠康 Wellcome", intro: "香港分佈最密集、最普及的大眾型連鎖超級市場。店舖規模從街角小型店到大型賣場皆有。商品種類齊全，價格親民，是購買大排檔即溶奶茶、出前一丁泡麵、各類港式零食、調味料與飲用水等日常伴手禮最方便、最具效率的選擇。", address: "全港各區皆有密集分店", time: "多數為 08:00 - 23:00 (部分24小時)", isUsed: false },
+        { name: "百佳 PARKnSHOP", intro: "與惠康並列為香港兩大超市巨頭，涵蓋率極高。百佳的生鮮區通常較為豐富，並經常推出自家品牌的平價商品。如果想尋找特定的香港在地品牌罐頭、湯包或特色調味料，百佳的品項選擇往往能滿足需求，是深入在地人生活的採買站。", address: "全港各區皆有密集分店", time: "多數為 08:00 - 22:30", isUsed: false },
+        { name: "city'super", intro: "主打高端市場的頂級進口超級市場，通常位於大型高級商場（如海港城、IFC）內。店內匯集了來自全球各地的頂級生鮮、精緻起司、進口紅酒與高品質零食。環境寬敞舒適，雖然價格較高，但能找到許多市面上罕見的精緻特色伴手禮與食材。", address: "尖沙咀海港城3樓 / 中環IFC商場1樓", time: "10:00 - 22:00", isUsed: false },
+        { name: "DON DON DONKI (驚安殿堂)", intro: "來自日本的超人氣折扣超市，在香港引發極大熱潮。店內播放著洗腦的主題曲，商品陳列密集如迷宮。除了豐富的日本零食、美妝與生活雜貨，其生鮮區的壽司、和牛與現烤地瓜更是搶手貨。部分分店24小時營業，是深夜尋寶的好去處。", address: "尖沙咀美麗華廣場 / 銅鑼灣名珠城", time: "24小時營業 (部分分店)", isUsed: false },
+        { name: "U購 select", intro: "近年快速擴展的社區型超市，是華潤萬家旗下的年輕品牌。其最大特色是引進了大量來自英國Tesco超市的自有品牌商品，以及豐富的進口零食與酒類。店面明亮整潔，價格具競爭力，若想在香港買到獨特的歐洲零食，這裡是個不錯的選擇。", address: "上環、西環等住宅區多有分店", time: "<span class='missing-data'>營業時間未知 (依各分店而異)</span>", isUsed: false }
+      ]
+    };
+
+    // 渲染函數
+    function renderModule(containerId, items, type) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      
+      let html = '';
+      items.forEach((item, index) => {
+        const isRed = item.isUsed;
+        const titleClass = isRed ? 'red-text' : 'text-blue-300';
+        const usedTag = isRed ? `<span class="red-text ml-2 text-xs font-bold border border-red-400 px-1 rounded bg-red-900 bg-opacity-30">已排入行程</span>` : '';
+        const dayTag = item.day ? `<span class="day-tag">${item.day}</span>` : '';
+        const copyBtn = item.address ? `<i class="fa-regular fa-copy copy-btn ml-2 text-gray-400" onclick="copyToClipboard('addr-${type}-${index}')" title="複製地址"></i>` : '';
+        
+        html += `
+          <div class="hk-card flex flex-col justify-between">
+            <div class="stack-vertical">
+              <h3 class="text-xl font-bold ${titleClass}">
+                ${item.name} ${usedTag}
+              </h3>
+              ${item.day ? `<div class="mb-2">${dayTag}</div>` : ''}
+              <p class="text-sm text-gray-300 mb-2">${item.intro}</p>
+              
+              <div class="mt-2 space-y-1 text-sm bg-gray-800 bg-opacity-50 p-3 rounded-lg border border-gray-700">
+                ${item.highlight ? `<p><strong class="text-gray-400">亮點：</strong> ${item.highlight}</p>` : ''}
+                ${item.dish ? `<p><strong class="text-gray-400">推薦：</strong> <span class="text-blue-200">${item.dish}</span></p>` : ''}
+                ${item.item ? `<p><strong class="text-gray-400">推薦品項：</strong> <span class="text-blue-200">${item.item}</span></p>` : ''}
+                ${item.address ? `<p><strong class="text-gray-400">地址：</strong> <span id="addr-${type}-${index}">${item.address}</span> ${copyBtn}</p>` : ''}
+                ${item.time ? `<p><strong class="text-gray-400">時間：</strong> ${item.time}</p>` : ''}
+                ${item.budget ? `<p><strong class="text-yellow-500"><i class="fa-solid fa-coins"></i> 預算：</strong> ${item.budget}</p>` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    // 初始化渲染
+    window.addEventListener('DOMContentLoaded', () => {
+      renderModule('poi-container', data.poi, 'poi');
+      renderModule('bib-container', data.bib, 'bib');
+      renderModule('souvenir-container', data.souvenir, 'souv');
+      renderModule('photo-container', data.photo, 'photo');
+      renderModule('dessert-container', data.dessert, 'dessert');
+      renderModule('market-container', data.market, 'market');
+    });
+
+    // 嚴格單頁切換邏輯
     function showPage(id) {
-      document.querySelectorAll('main > section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
       const tgt = document.getElementById(id); 
-      if(tgt) { 
+      if(tgt) {
         tgt.classList.add('active'); 
-        window.scrollTo({top: 0, behavior: 'smooth'}); 
+        window.scrollTo({top: 0, behavior: 'smooth'});
       }
     }
 
-    // 一鍵複製地址邏輯
+    // 一鍵複製地址
     function copyToClipboard(nodeId) {
       const el = document.getElementById(nodeId); 
       if(!el) return;
-      
-      const originalText = el.innerText;
-      const textToCopy = originalText.replace('複製', '').trim(); // 移除可能混入的按鈕文字
-
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        const btn = el.nextElementSibling;
-        const btnOriginalText = btn.innerText;
-        btn.innerHTML = '<i class="fa-solid fa-check"></i>';
-        btn.classList.add('bg-green-100', 'text-green-600');
-        
-        setTimeout(() => {
-          btn.innerText = btnOriginalText;
-          btn.classList.remove('bg-green-100', 'text-green-600');
-        }, 1500);
-      }).catch(err => {
-        console.error('複製失敗: ', err);
+      const originalText = el.innerText.trim();
+      navigator.clipboard.writeText(originalText).then(() => {
+        const icon = el.nextElementSibling;
+        if(icon && icon.classList.contains('fa-copy')) {
+          icon.classList.remove('fa-regular', 'fa-copy');
+          icon.classList.add('fa-solid', 'fa-check', 'text-green-400');
+          setTimeout(() => {
+            icon.classList.remove('fa-solid', 'fa-check', 'text-green-400');
+            icon.classList.add('fa-regular', 'fa-copy');
+          }, 1500);
+        }
       });
     }
 
-    // 返回頂部按鈕邏輯
+    // 返回頂部按鈕
     const btn = document.getElementById('backToTopBtn');
     window.addEventListener('scroll', () => { 
-      if(window.scrollY > 200) { 
-        btn.style.display = 'block'; 
-      } else { 
-        btn.style.display = 'none'; 
-      } 
+      if(window.scrollY > 300) { btn.style.display = 'block'; } 
+      else { btn.style.display = 'none'; } 
     });
     btn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
   </script>
