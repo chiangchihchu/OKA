@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雲揚社區 - 115年度物業保全報價分析報告</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .sort-icon::after {
+            content: '↕';
+            margin-left: 4px;
+            color: #9ca3af;
+            font-size: 0.8em;
+        }
+        th.asc .sort-icon::after { content: '↑'; color: #3b82f6; }
+        th.desc .sort-icon::after { content: '↓'; color: #3b82f6; }
+    </style>
+</head>
+<body class="text-gray-800 p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto space-y-8">
+        
+        <!-- Header -->
+        <header class="bg-white rounded-2xl shadow-sm p-6 md:p-10 border-t-4 border-blue-600">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">雲揚社區物業保全報價分析報告</h1>
+            <p class="text-gray-500 text-lg">比較 8 間廠商報價，基準為目前年度每月費用 <span class="font-bold text-blue-600">NT$ 235,000</span></p>
+        </header>
+
+        <!-- Table Section -->
+        <section class="bg-white rounded-2xl shadow-sm overflow-hidden">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-gray-800">廠商報價總覽</h2>
+                <p class="text-sm text-gray-500 hidden md:block">* 點擊欄位標題可進行排序</p>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse" id="quoteTable">
+                    <thead>
+                        <tr class="bg-gray-50 text-gray-600 text-sm uppercase tracking-wider">
+                            <th class="p-4 cursor-pointer hover:bg-gray-100 transition" onclick="sortTable(0, 'string')">廠商名稱 <span class="sort-icon"></span></th>
+                            <th class="p-4 cursor-pointer hover:bg-gray-100 transition" onclick="sortTable(1, 'number')">社區經理/總幹事 <span class="sort-icon"></span></th>
+                            <th class="p-4 cursor-pointer hover:bg-gray-100 transition" onclick="sortTable(2, 'number')">保全/駐衛警 (通常3人) <span class="sort-icon"></span></th>
+                            <th class="p-4 cursor-pointer hover:bg-gray-100 transition" onclick="sortTable(3, 'number')">清潔人員 <span class="sort-icon"></span></th>
+                            <th class="p-4 cursor-pointer hover:bg-gray-100 transition" onclick="sortTable(4, 'number')">未稅總計 <span class="sort-icon"></span></th>
+                            <th class="p-4 cursor-pointer hover:bg-gray-100 transition bg-blue-50 font-bold" onclick="sortTable(5, 'number')">含稅總計 <span class="sort-icon"></span></th>
+                            <th class="p-4 cursor-pointer hover:bg-gray-100 transition" onclick="sortTable(6, 'number')">較現狀增加 <span class="sort-icon"></span></th>
+                            <th class="p-4 cursor-pointer hover:bg-gray-100 transition" onclick="sortTable(7, 'number')">漲幅 % <span class="sort-icon"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 text-sm md:text-base">
+                        <!-- Row 1: 國強 -->
+                        <tr class="hover:bg-blue-50 transition">
+                            <td class="p-4 font-medium text-gray-900">國強保全</td>
+                            <td class="p-4" data-value="60000">$60,000</td>
+                            <td class="p-4" data-value="141000">$141,000 <span class="text-xs text-gray-500 block">(47,000/人)</span></td>
+                            <td class="p-4" data-value="27000">$27,000</td>
+                            <td class="p-4" data-value="228000">$228,000</td>
+                            <td class="p-4 font-bold text-gray-900 bg-blue-50/50" data-value="239400">$239,400</td>
+                            <td class="p-4 text-orange-600" data-value="4400">+$4,400</td>
+                            <td class="p-4 font-bold text-green-600" data-value="1.87">1.87%</td>
+                        </tr>
+                        <!-- Row 2: 嘉信 -->
+                        <tr class="hover:bg-blue-50 transition">
+                            <td class="p-4 font-medium text-gray-900">嘉信保全</td>
+                            <td class="p-4" data-value="64000">$64,000</td>
+                            <td class="p-4" data-value="144000">$144,000 <span class="text-xs text-gray-500 block">(48,000/人)</span></td>
+                            <td class="p-4" data-value="26000">$26,000</td>
+                            <td class="p-4" data-value="234000">$234,000</td>
+                            <td class="p-4 font-bold text-gray-900 bg-blue-50/50" data-value="245700">$245,700</td>
+                            <td class="p-4 text-orange-600" data-value="10700">+$10,700</td>
+                            <td class="p-4 font-bold text-green-600" data-value="4.55">4.55%</td>
+                        </tr>
+                        <!-- Row 3: 富通 -->
+                        <tr class="hover:bg-blue-50 transition">
+                            <td class="p-4 font-medium text-gray-900">富通保全</td>
+                            <td class="p-4" data-value="62000">$62,000</td>
+                            <td class="p-4" data-value="150000">$150,000 <span class="text-xs text-gray-500 block">(50,000/人)</span></td>
+                            <td class="p-4" data-value="23500">$23,500 <span class="text-xs text-gray-500 block">(半天4H)</span></td>
+                            <td class="p-4" data-value="235500">$235,500</td>
+                            <td class="p-4 font-bold text-gray-900 bg-blue-50/50" data-value="247275">$247,275</td>
+                            <td class="p-4 text-orange-600" data-value="12275">+$12,275</td>
+                            <td class="p-4 font-bold text-green-500" data-value="5.22">5.22%</td>
+                        </tr>
+                        <!-- Row 4: 維安 -->
+                        <tr class="hover:bg-blue-50 transition">
+                            <td class="p-4 font-medium text-gray-900">維安保全</td>
+                            <td class="p-4" data-value="67000">$67,000</td>
+                            <td class="p-4" data-value="160500">$160,500 <span class="text-xs text-gray-500 block">(53,500/人)</span></td>
+                            <td class="p-4" data-value="26000">$26,000 <span class="text-xs text-gray-500 block">(半天4H)</span></td>
+                            <td class="p-4" data-value="253500">$253,500</td>
+                            <td class="p-4 font-bold text-gray-900 bg-blue-50/50" data-value="266175">$266,175</td>
+                            <td class="p-4 text-orange-600" data-value="31175">+$31,175</td>
+                            <td class="p-4 font-bold text-yellow-600" data-value="13.27">13.27%</td>
+                        </tr>
+                        <!-- Row 5: 精緻慧智 -->
+                        <tr class="hover:bg-blue-50 transition">
+                            <td class="p-4 font-medium text-gray-900">精緻慧智</td>
+                            <td class="p-4" data-value="65000">$65,000</td>
+                            <td class="p-4" data-value="165600">$165,600 <span class="text-xs text-gray-500 block">(55,200/人)</span></td>
+                            <td class="p-4" data-value="26000">$26,000 <span class="text-xs text-gray-500 block">(半天4H)</span></td>
+                            <td class="p-4" data-value="256600">$256,600</td>
+                            <td class="p-4 font-bold text-gray-900 bg-blue-50/50" data-value="269430">$269,430</td>
+                            <td class="p-4 text-orange-600" data-value="34430">+$34,430</td>
+                            <td class="p-4 font-bold text-yellow-600" data-value="14.65">14.65%</td>
+                        </tr>
+                        <!-- Row 6: 國泰 -->
+                        <tr class="hover:bg-blue-50 transition">
+                            <td class="p-4 font-medium text-gray-900">國泰物業</td>
+                            <td class="p-4" data-value="68000">$68,000</td>
+                            <td class="p-4" data-value="159000">$159,000 <span class="text-xs text-gray-500 block">(53,000/人)</span></td>
+                            <td class="p-4" data-value="32000">$32,000 <span class="text-xs text-gray-500 block">(半天4H)</span></td>
+                            <td class="p-4" data-value="259000">$259,000</td>
+                            <td class="p-4 font-bold text-gray-900 bg-blue-50/50" data-value="271950">$271,950</td>
+                            <td class="p-4 text-orange-600" data-value="36950">+$36,950</td>
+                            <td class="p-4 font-bold text-orange-500" data-value="15.72">15.72%</td>
+                        </tr>
+                        <!-- Row 7: 良福 -->
+                        <tr class="hover:bg-blue-50 transition">
+                            <td class="p-4 font-medium text-gray-900">良福保全</td>
+                            <td class="p-4" data-value="73000">$73,000</td>
+                            <td class="p-4" data-value="168630">$168,630 <span class="text-xs text-gray-500 block">(時薪231計)</span></td>
+                            <td class="p-4" data-value="36000">$36,000 <span class="text-xs text-gray-500 block">(半天4H)</span></td>
+                            <td class="p-4" data-value="277630">$277,630</td>
+                            <td class="p-4 font-bold text-gray-900 bg-blue-50/50" data-value="291512">$291,512</td>
+                            <td class="p-4 text-red-600 font-medium" data-value="56512">+$56,512</td>
+                            <td class="p-4 font-bold text-red-600" data-value="24.05">24.05%</td>
+                        </tr>
+                        <!-- Row 8: 忠正 -->
+                        <tr class="hover:bg-blue-50 transition">
+                            <td class="p-4 font-medium text-gray-900">忠正保全</td>
+                            <td class="p-4" data-value="70000">$70,000</td>
+                            <td class="p-4" data-value="165000">$165,000 <span class="text-xs text-gray-500 block">(55,000/人)</span></td>
+                            <td class="p-4" data-value="45000">$45,000 <span class="text-xs text-gray-500 block">(全天8H)</span></td>
+                            <td class="p-4" data-value="280000">$280,000</td>
+                            <td class="p-4 font-bold text-gray-900 bg-blue-50/50" data-value="294000">$294,000</td>
+                            <td class="p-4 text-red-600 font-medium" data-value="59000">+$59,000</td>
+                            <td class="p-4 font-bold text-red-600" data-value="25.11">25.11%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Analysis Section -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Card 1 -->
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border-l-4 border-indigo-500">
+                <div class="flex items-center gap-3 mb-4">
+                    <svg class="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    <h3 class="text-xl font-bold text-gray-800">整體趨勢與漲幅分析</h3>
+                </div>
+                <div class="space-y-4 text-gray-600 leading-relaxed">
+                    <p>受基本工資連年調漲與保全業缺工影響，所有廠商報價均高於現有水準（$235,000），漲幅分佈極廣，介於 <strong class="text-gray-800">1.87% ~ 25.11%</strong> 之間。</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><span class="font-bold text-green-600">低漲幅群 (5%以內)：</span>國強、嘉信、富通。<br>每月增加成本在 $12,000 以內，對社區財務衝擊最小。</li>
+                        <li><span class="font-bold text-yellow-600">中漲幅群 (13~16%)：</span>維安、精緻慧智、國泰。<br>符合目前市場調漲的合理範圍，反映了真實的法遵人事成本。</li>
+                        <li><span class="font-bold text-red-600">高漲幅群 (24%以上)：</span>良福、忠正。<br>大幅超出預算，主要在於經理與清潔人員的單價遠高於同業。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border-l-4 border-blue-500">
+                <div class="flex items-center gap-3 mb-4">
+                    <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    <h3 class="text-xl font-bold text-gray-800">各職務單價差異剖析</h3>
+                </div>
+                <div class="space-y-4 text-gray-600 leading-relaxed">
+                    <ul class="space-y-3">
+                        <li>
+                            <strong class="text-gray-800 block">👨‍💼 社區經理/總幹事：</strong>
+                            報價落在 <span class="font-medium">$60,000(國強) ~ $73,000(良福)</span>。多數落在 6.4萬~6.8萬 區間。良福與忠正(7萬)定價偏高。
+                        </li>
+                        <li>
+                            <strong class="text-gray-800 block">👮 保全/駐衛警 (推估3人輪班)：</strong>
+                            單人成本從 <span class="font-medium">$47,000(國強) 到 $55,200(精緻慧智)</span> 不等。若保全單價低於 5萬 (如國強、嘉信)，需特別注意其排班是否符合勞基法 (288小時上限)，以免社區承擔連帶責任。目前市場行情單人約在 5.3萬~5.5萬 較為合理。
+                        </li>
+                        <li>
+                            <strong class="text-gray-800 block">🧹 清潔人員 (以每日4小時為主)：</strong>
+                            差異最大。大多數報價在 <span class="font-medium">$23,500(富通) ~ $32,000(國泰)</span>。忠正報價達 $45,000，原因是其明確規劃為「全天(8H)」服務，與其他多數廠商的半天(4H)規劃不同。若社區只需半天清潔，可請其重新報價。
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Card 3 (Full width) -->
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border-t-4 border-teal-500 md:col-span-2">
+                <div class="flex items-center gap-3 mb-4">
+                    <svg class="w-6 h-6 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h3 class="text-xl font-bold text-gray-800">管委會決策建議</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-600 mt-4">
+                    <div class="bg-teal-50 p-4 rounded-xl">
+                        <span class="font-bold text-teal-800 block mb-2">1. 統一服務規格基準</span>
+                        <p class="text-sm">部分報價單的基礎規格不同（例如忠正清潔為全天8H，其他多為半天4H），比價時應要求所有廠商統一以「經理8H、保全24H(3人)、清潔半天4H」的基準重新確認數字，才能立足於公平基準比較。</p>
+                    </div>
+                    <div class="bg-teal-50 p-4 rounded-xl">
+                        <span class="font-bold text-teal-800 block mb-2">2. 注意低價陷阱與法規</span>
+                        <p class="text-sm">國強 ($239,400) 與 嘉信 ($245,700) 雖然便宜，但保全單人費用不足 5萬。管委會面談時務必請廠商出示「薪資結構與排班表」，確認無違反勞基法超時或低於基本時薪的狀況。</p>
+                    </div>
+                    <div class="bg-teal-50 p-4 rounded-xl">
+                        <span class="font-bold text-teal-800 block mb-2">3. 議價策略 (推薦名單)</span>
+                        <p class="text-sm">建議可將 <strong class="text-gray-800">富通、維安、國泰、精緻慧智</strong> 列為首波面談名單。可利用富通的低報價 ($24.7萬) 作為籌碼，與國泰或精緻慧智洽談將總價壓在 $26萬 內。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="text-center text-sm text-gray-400 pb-8">
+            <p>※ 備註：計算基準為現有費用 235,000 元整。各項數字四捨五入可能產生微小誤差，請以實際合約為準。</p>
+        </footer>
+
+    </div>
+
+    <!-- JavaScript for Table Sorting -->
+    <script>
+        let currentSort = { column: 5, direction: 'asc' }; // 預設以含稅總價升冪排序
+
+        function sortTable(columnIndex, type) {
+            const table = document.getElementById("quoteTable");
+            const tbody = table.querySelector("tbody");
+            const rows = Array.from(tbody.querySelectorAll("tr"));
+            const ths = table.querySelectorAll("th");
+
+            // 決定排序方向
+            let isAsc = currentSort.column === columnIndex ? currentSort.direction !== 'asc' : true;
+            
+            // 更新狀態與 UI
+            currentSort = { column: columnIndex, direction: isAsc ? 'asc' : 'desc' };
+            ths.forEach(th => th.classList.remove('asc', 'desc'));
+            ths[columnIndex].classList.add(isAsc ? 'asc' : 'desc');
+
+            // 排序邏輯
+            rows.sort((a, b) => {
+                let cellA = a.children[columnIndex];
+                let cellB = b.children[columnIndex];
+                let valA, valB;
+
+                if (type === 'number') {
+                    // 優先抓取 data-value 屬性
+                    valA = parseFloat(cellA.getAttribute('data-value') || cellA.innerText.replace(/[^0-9.-]+/g,""));
+                    valB = parseFloat(cellB.getAttribute('data-value') || cellB.innerText.replace(/[^0-9.-]+/g,""));
+                } else {
+                    valA = cellA.innerText;
+                    valB = cellB.innerText;
+                }
+
+                if (valA < valB) return isAsc ? -1 : 1;
+                if (valA > valB) return isAsc ? 1 : -1;
+                return 0;
+            });
+
+            // 重新插入 DOM
+            rows.forEach(row => tbody.appendChild(row));
+        }
+
+        // 初始化排序 (依含稅總價)
+        document.addEventListener('DOMContentLoaded', () => {
+            sortTable(5, 'number');
+        });
+    </script>
+</body>
+</html>
+
+
