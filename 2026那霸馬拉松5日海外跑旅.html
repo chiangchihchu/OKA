@@ -3,1230 +3,1144 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2026 那霸馬拉松 5 日海外跑旅</title>
+  <title>2026沖繩那霸馬拉松5日跑旅</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <style>
-    :root {
-      --blue-50: #EFF6FF; --blue-100: #DBEAFE; --blue-200: #BFDBFE; --blue-300: #93C5FD;
-      --blue-400: #60A5FA; --blue-500: #3B82F6; --blue-600: #2563EB; --blue-700: #1D4ED8;
-      --blue-800: #1E40AF; --ink: #0F172A; --muted: #64748B; --bg: #F1F5F9;
-      --card: #FFFFFF; --danger: #dc2626; --recommend: #0284c7;
+    /* 視覺風格：沖繩海洋風、馬拉松活力、乾淨層次 */
+    body {
+      line-height: 1.7;
+      font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+      background-color: #f0f8ff;
+      background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%230077b6" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+      color: #1e293b;
     }
-    body { background: var(--bg); color: var(--ink); line-height: 1.7; font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif; }
-    .main-container { max-width: 1280px; margin: auto; }
+    .main-container { max-width: 1280px; margin: auto; padding-bottom: 4rem; }
+    .red-text { color: #d90429; font-weight: 700; }
+    .blue-text { color: #0077b6; font-weight: 700; }
     
-    /* Card Styles */
-    .card {
-      background: var(--card); border-radius: 1rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      border: 1px solid #e5e7eb; transition: transform 0.2s, box-shadow 0.2s;
-      display: flex; flex-direction: column; /* Force vertical stacking inside card */
-      padding: 1.5rem;
-    }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
-    
-    /* Typography & Colors */
-    .red-text { color: var(--danger); font-weight: 700; }
-    .blue-text { color: var(--recommend); font-weight: 600; }
-    .section-title { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; }
-    .section-title .icon-slot {
-      width: 2.5rem; height: 2.5rem; background: var(--blue-100); color: var(--blue-700);
-      border-radius: 0.75rem; display: flex; align-items: center; justify-content: center;
-      font-size: 1.25rem; box-shadow: inset 0 1px 0 #fff;
-    }
-    
-    /* Navigation */
-    .nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border-bottom: 1px solid #e2e8f0; }
-    .nav-btn {
-      background: linear-gradient(180deg, var(--blue-400), var(--blue-600)); color: #fff;
-      padding: 0.6rem 1rem; border-radius: 0.75rem; font-weight: 600; font-size: 0.9rem;
-      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2), inset 0 1px 0 rgba(255,255,255,0.3);
-      transition: all 0.2s ease; text-align: center; white-space: nowrap;
-    }
-    .nav-btn:hover { transform: scale(1.05); box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3); }
-    .nav-btn:active { transform: translateY(1px); }
-    
-    /* Layout Logic */
-    section { display: none; animation: fadeIn 0.4s ease; }
+    /* 分頁切換 */
+    section { display: none; animation: fadeIn 0.4s ease-in-out; }
     section.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     
-    .two-col { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1.5rem; }
-    @media (min-width: 768px) { .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    /* 兩欄排版 */
+    .two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+    @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
     
-    /* Timeline & Itinerary */
-    .timeline { position: relative; padding-left: 1.5rem; border-left: 2px solid var(--blue-200); margin-left: 0.5rem; }
-    .day-header { display: flex; align-items: center; justify-content: space-between; background: var(--blue-50); padding: 1rem; border-radius: 0.75rem; margin-bottom: 1rem; border-left: 5px solid var(--blue-600); }
+    /* 卡片與欄位垂直堆疊 */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 119, 182, 0.08);
+      border: 1px solid rgba(0, 119, 182, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .glass-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 119, 182, 0.15); }
+    .stack-vertical { display: flex; flex-direction: column; gap: 0.4rem; }
     
-    .item { display: flex; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-start; position: relative; }
-    .item::before { content: ''; position: absolute; left: -1.95rem; top: 0.5rem; width: 0.9rem; height: 0.9rem; background: #fff; border: 2px solid var(--blue-500); border-radius: 50%; z-index: 10; }
-    
+    /* 時間軸與事件卡 */
+    .timeline { position: relative; margin-left: 1.5rem; border-left: 2px dashed #90e0ef; padding-left: 1.5rem; padding-bottom: 1rem; }
+    .timeline::before { content: ''; position: absolute; left: -0.45rem; top: 0; width: 0.8rem; height: 0.8rem; background: #0077b6; border-radius: 50%; box-shadow: 0 0 0 3px #caf0f8; }
+    .time-block { margin: 2rem 0; }
+    .time-block-title { font-size: 1.1rem; font-weight: 700; color: #00b4d8; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .item {
+      display: flex; gap: 1rem; margin: 1.25rem 0; align-items: flex-start;
+      background: #ffffff; padding: 1rem; border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
     .time-badge {
-      flex: 0 0 auto; background: var(--blue-100); color: var(--blue-800);
-      border-radius: 0.5rem; padding: 0.35rem 0.6rem; font-weight: 700; font-size: 0.85rem;
-      min-width: 5.5rem; text-align: center; display: flex; flex-direction: column; justify-content: center;
+      flex: 0 0 auto; background: linear-gradient(135deg, #e0fbfc, #caf0f8); color: #0077b6;
+      border-radius: 0.5rem; padding: 0.4rem 0.6rem; font-weight: 700; font-size: 0.9rem;
+      min-width: 5.5rem; text-align: center; border: 1px solid #90e0ef; box-shadow: inset 0 1px 2px rgba(255,255,255,0.8);
     }
-    .time-badge span.end-time { font-size: 0.75rem; font-weight: 400; opacity: 0.8; margin-top: 2px; }
+    .icon-slot { flex: 0 0 auto; width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center; background: #f8fafc; border-radius: 50%; color: #023e8a; font-size: 1.1rem; }
+    .text-slot { min-width: 0; flex: 1 1 auto; word-break: break-word; display: flex; flex-direction: column; gap: 0.4rem; }
     
-    .content-col { flex: 1; display: flex; flex-direction: column; gap: 0.25rem; }
-    
-    /* Transport Card */
-    .transport-card {
-      background: #eff6ff; border: 1px dashed var(--blue-400); border-radius: 0.75rem;
-      padding: 0.75rem 1rem; margin: 1rem 0; display: flex; flex-direction: column; gap: 0.25rem;
-      position: relative;
+    /* 交通卡 */
+    .transport {
+      display: flex; gap: 1rem; align-items: center; margin: 0.5rem 0 0.5rem 1rem;
+      padding: 0.6rem 1rem; border-radius: 0.6rem; background: #f8fafc; border: 1px dashed #cbd5e1;
     }
-    .transport-card::before { content: 'TRANS'; position: absolute; right: 10px; top: 5px; font-size: 0.6rem; color: var(--blue-400); font-weight: 900; letter-spacing: 1px; }
+    .transport .time-badge { background: #f1f5f9; color: #475569; border-color: #e2e8f0; }
+    .transport .icon-slot { background: transparent; color: #64748b; font-size: 1rem; width: 1.5rem; height: 1.5rem; }
     
-    /* Tags */
-    .day-tag { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 99px; background: var(--blue-100); color: var(--blue-800); font-size: 0.75rem; font-weight: 600; margin-top: 0.5rem; width: fit-content; }
-    .tag-independent { background: #f3f4f6; color: #4b5563; }
-    .tag-scheduled { background: #fee2e2; color: #b91c1c; } /* Red background for scheduled items in module view */
-
-    /* Scroll Top */
+    /* 標籤與按鈕 */
+    .day-tag { display: inline-block; padding: 0.2rem 0.6rem; background: #0077b6; color: white; border-radius: 0.4rem; font-size: 0.75rem; font-weight: 600; }
+    .nav-btn {
+      background: linear-gradient(145deg, #0096c7, #0077b6); color: white; border: none; padding: 0.6rem 1.2rem;
+      border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 6px rgba(0, 119, 182, 0.2);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1); display: inline-flex; align-items: center; gap: 0.4rem;
+    }
+    .nav-btn:hover { transform: scale(1.05); box-shadow: 0 6px 12px rgba(0, 119, 182, 0.3); }
+    .nav-btn:active { transform: scale(0.95); box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+    
+    /* 複製地址按鈕 */
+    .copy-btn { cursor: pointer; color: #0077b6; background: #e0fbfc; padding: 0.2rem 0.5rem; border-radius: 0.3rem; font-size: 0.8rem; border: 1px solid #90e0ef; }
+    .copy-btn:hover { background: #caf0f8; }
+    
     #backToTopBtn {
-      position: fixed; bottom: 2rem; right: 2rem; background: var(--blue-600); color: white;
-      width: 3rem; height: 3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4); cursor: pointer; transition: all 0.3s; opacity: 0; pointer-events: none; z-index: 99;
+      position: fixed; bottom: 2rem; right: 2rem; display: none; width: 3rem; height: 3rem;
+      background: #d90429; color: white; border: none; border-radius: 50%; font-size: 1.2rem;
+      box-shadow: 0 4px 10px rgba(217, 4, 41, 0.3); cursor: pointer; z-index: 50; transition: transform 0.2s;
     }
-    #backToTopBtn.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-    #backToTopBtn:hover { transform: translateY(-3px); background: var(--blue-700); }
+    #backToTopBtn:hover { transform: scale(1.1); }
+    
+    details > summary { cursor: pointer; list-style: none; font-weight: 700; color: #023e8a; }
+    details > summary::-webkit-details-marker { display: none; }
+    details[open] > summary { color: #0077b6; border-bottom: 1px solid #caf0f8; padding-bottom: 0.5rem; margin-bottom: 0.5rem; }
   </style>
 </head>
 <body>
 
   <!-- Header -->
-  <header class="text-center py-10 text-white shadow-xl relative overflow-hidden" style="background: linear-gradient(135deg, #1E40AF, #3B82F6);">
-    <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-    <div class="relative z-10">
-      <div class="flex items-center justify-center gap-3 mb-2">
-        <span class="text-3xl"><i class="fa-solid fa-person-running"></i></span>
-        <h1 class="text-3xl md:text-4xl font-extrabold tracking-wider">2026 那霸馬拉松 5 日海外跑旅</h1>
+  <header class="bg-white shadow-sm border-b border-blue-100 py-6 mb-8 relative overflow-hidden">
+    <div class="absolute top-0 right-0 opacity-10 text-9xl text-blue-500 pointer-events-none transform translate-x-4 -translate-y-4"><i class="fa-solid fa-person-running"></i></div>
+    <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+      <div class="flex justify-center items-center gap-3 mb-2">
+        <span class="icon-slot bg-blue-100 text-blue-600 rounded-full w-12 h-12 text-xl shadow-inner"><i class="fa-solid fa-medal"></i></span>
+        <h1 class="text-3xl font-extrabold text-blue-900 tracking-wide">2026沖繩那霸馬拉松5日跑旅</h1>
       </div>
-      <p class="text-lg opacity-90 font-medium">桃園市雙連長跑海外跑旅站 ｜ 沖繩那霸</p>
-      <p class="text-sm mt-2 opacity-80 bg-white/20 inline-block px-4 py-1 rounded-full">2026/12/05 (六) — 2026/12/09 (三)</p>
+      <p class="text-gray-600 font-medium">目的地：日本 沖繩縣 那霸市 ｜ 日期：<span class="red-text">12/5(六) - 12/9(三)</span></p>
+      <p class="text-sm text-gray-500 mt-1">主辦群組：<span class="red-text">桃園市雙連長跑海外跑旅站</span></p>
     </div>
   </header>
 
   <!-- Navigation -->
-  <nav class="nav">
-    <div class="main-container px-4 py-3">
-      <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-2 overflow-x-auto pb-1 hide-scrollbar">
-        <button class="nav-btn" onclick="showPage('home')"><i class="fa-solid fa-house mr-1"></i> 首頁</button>
-        <button class="nav-btn" onclick="showPage('poi')"><i class="fa-solid fa-map-location-dot mr-1"></i> 景點 (20)</button>
-        <button class="nav-btn" onclick="showPage('bib')"><i class="fa-solid fa-utensils mr-1"></i> 美食 (20)</button>
-        <button class="nav-btn" onclick="showPage('souvenir')"><i class="fa-solid fa-gift mr-1"></i> 伴手禮 (20)</button>
-        <button class="nav-btn" onclick="showPage('photo-spots')"><i class="fa-solid fa-camera mr-1"></i> 拍照 (10)</button>
-        <button class="nav-btn" onclick="showPage('desserts')"><i class="fa-solid fa-cookie-bite mr-1"></i> 甜點 (10)</button>
-        <button class="nav-btn" onclick="showPage('market')"><i class="fa-solid fa-basket-shopping mr-1"></i> 超市 (5)</button>
-      </div>
+  <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md shadow-md py-3 mb-10 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-center gap-3">
+      <button class="nav-btn" onclick="showPage('home')"><i class="fa-solid fa-house"></i> 首頁</button>
+      <button class="nav-btn" onclick="showPage('poi')"><i class="fa-solid fa-map-location-dot"></i> 景點 POI (20)</button>
+      <button class="nav-btn" onclick="showPage('bib')"><i class="fa-solid fa-utensils"></i> 美食 (20)</button>
+      <button class="nav-btn" onclick="showPage('souvenir')"><i class="fa-solid fa-bag-shopping"></i> 伴手禮 (20)</button>
+      <button class="nav-btn" onclick="showPage('photo-spots')"><i class="fa-solid fa-camera-retro"></i> 拍照聖地 (10)</button>
+      <button class="nav-btn" onclick="showPage('desserts')"><i class="fa-solid fa-ice-cream"></i> 甜點咖啡 (10)</button>
+      <button class="nav-btn" onclick="showPage('market')"><i class="fa-solid fa-cart-shopping"></i> 超市 (5)</button>
     </div>
   </nav>
 
-  <main class="main-container px-4 py-8 space-y-12">
-
-    <!-- HOME SECTION -->
-    <section id="home" class="active">
+  <!-- Main Content -->
+  <main class="main-container px-4">
+    
+    <!-- ============================================== -->
+    <!-- 首頁 (HOME) -->
+    <!-- ============================================== -->
+    <section id="home" class="active stack-vertical gap-10">
       
-      <!-- Overview & Highlights -->
-      <div class="mb-10">
-        <div class="section-title">
-          <div class="icon-slot"><i class="fa-regular fa-calendar-check"></i></div>
-          <h2 class="text-2xl font-bold text-gray-800">行程總覽 × 每日重點</h2>
-        </div>
-        
-        <div class="two-col">
-          <!-- Day 1 Card -->
-          <div class="card">
-            <h3 class="text-xl font-bold text-blue-800 mb-2">Day 1 ｜ 12/05 (六)</h3>
-            <p class="text-gray-600 text-sm mb-4">移動日・報到・備戰</p>
-            <ul class="space-y-2 text-sm">
-              <li class="flex items-start gap-2"><i class="fa-solid fa-plane-arrival text-blue-500 mt-1"></i> <span>抵達沖繩 (BR112)</span></li>
-              <li class="flex items-start gap-2"><i class="fa-solid fa-ticket text-red-500 mt-1"></i> <span class="red-text">馬拉松報到 (奧武山公園)</span></li>
-              <li class="flex items-start gap-2"><i class="fa-solid fa-hotel text-red-500 mt-1"></i> <span class="red-text">入住 Almont Hotel Omoromachi</span></li>
-              <li class="flex items-start gap-2"><i class="fa-solid fa-bowl-food text-blue-500 mt-1"></i> <span>肝醣超補晚餐</span></li>
-            </ul>
-          </div>
-
-          <!-- Day 2 Card -->
-          <div class="card">
-            <h3 class="text-xl font-bold text-blue-800 mb-2">Day 2 ｜ 12/06 (日)</h3>
-            <p class="text-gray-600 text-sm mb-4">賽事日・慶功宴</p>
-            <ul class="space-y-2 text-sm">
-              <li class="flex items-start gap-2"><i class="fa-solid fa-person-running text-red-600 mt-1"></i> <span class="red-text font-bold text-lg">2026 NAHA MARATHON</span></li>
-              <li class="flex items-start gap-2"><i class="fa-solid fa-medal text-yellow-500 mt-1"></i> <span>完賽目標達成</span></li>
-              <li class="flex items-start gap-2"><i class="fa-solid fa-fire text-red-500 mt-1"></i> <span class="red-text">燒肉慶功宴 (Yakiniku)</span></li>
-            </ul>
-          </div>
-
-          <!-- Day 3 Card -->
-          <div class="card">
-            <h3 class="text-xl font-bold text-blue-800 mb-2">Day 3 ｜ 12/07 (一)</h3>
-            <p class="text-gray-600 text-sm mb-4">恢復日・那霸市區漫遊</p>
-            <ul class="space-y-2 text-sm">
-              <li class="flex items-start gap-2"><i class="fa-solid fa-bed text-blue-500 mt-1"></i> <span>睡到自然醒 & 早午餐</span></li>
-              <li class="flex items-start gap-2"><i class="fa-solid fa-shop text-red-500 mt-1"></i> <span class="red-text">國際通散策 & 牧志市場</span></li>
-              <li class="flex items-start gap-2"><i class="fa-solid fa-mug-hot text-red-500 mt-1"></i> <span class="red-text">壺屋通陶藝街 & 下午茶</span></li>
-            </ul>
-          </div>
-
-          <!-- Day 4 Card -->
-          <div class="card">
-            <h3 class="text-xl font-bold text-blue-800 mb-2">Day 4 ｜ 12/08 (二)</h3>
-            <p class="text-gray-600 text-sm mb-4">中部巡禮・異國風情</p>
-            <ul class="space-y-2 text-sm">
-              <li class="flex items-start gap-2"><i class="fa-solid fa-bus text-blue-500 mt-1"></i> <span>前往美國村 (American Village)</span></li>
-              <li class="flex items-start gap-2"><i class="fa-solid fa-umbrella-beach text-red-500 mt-1"></i> <span class="red-text">北谷海濱散步 & 購物</span></li>
-              <li class="flex items-start gap-2"><i class="fa-solid fa-sun text-blue-500 mt-1"></i> <span>日落海灘夕陽</span></li>
-            </ul>
-          </div>
-          
-           <!-- Day 5 Card -->
-           <div class="card">
-            <h3 class="text-xl font-bold text-blue-800 mb-2">Day 5 ｜ 12/09 (三)</h3>
-            <p class="text-gray-600 text-sm mb-4">最後採買・返程</p>
-            <ul class="space-y-2 text-sm">
-              <li class="flex items-start gap-2"><i class="fa-solid fa-bag-shopping text-red-500 mt-1"></i> <span class="red-text">DFS 免稅店 & 新都心</span></li>
-              <li class="flex items-start gap-2"><i class="fa-solid fa-plane-departure text-blue-500 mt-1"></i> <span>瀨長島海景 & 機場 (BR185)</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Detailed Daily Itinerary -->
+      <!-- 區塊 A：行程總覽 × 每日重點 -->
       <div>
-        <div class="section-title">
-          <div class="icon-slot"><i class="fa-solid fa-list-ol"></i></div>
-          <h2 class="text-2xl font-bold text-gray-800">每日詳細行程</h2>
+        <h2 class="text-2xl font-bold text-blue-900 border-l-4 border-blue-500 pl-3 mb-6 flex items-center gap-2">
+          <i class="fa-solid fa-calendar-days text-blue-500"></i> 行程總覽 × 每日重點
+        </h2>
+        <div class="two-col">
+          <!-- Day 1 -->
+          <details class="glass-card" open>
+            <summary class="text-lg"><i class="fa-solid fa-plane-arrival mr-2"></i>Day 1 (12/5) 抵達與賽前備戰</summary>
+            <div class="stack-vertical text-gray-700 text-sm">
+              <p>重點摘要：清晨搭乘班機抵達沖繩，前往 <span class="red-text">Almont Hotel Naha Omoromachi</span> 寄放行李。下午至沖繩縣立武道館完成 <span class="red-text">賽事前一天報到</span>，傍晚於國際通品嚐在地美食並感受祭典氛圍。</p>
+              <span class="day-tag w-max mt-1">重點區域：那霸市區</span>
+            </div>
+          </details>
+          <!-- Day 2 -->
+          <details class="glass-card" open>
+            <summary class="text-lg"><i class="fa-solid fa-person-running mr-2"></i>Day 2 (12/6) 決戰那霸馬拉松</summary>
+            <div class="stack-vertical text-gray-700 text-sm">
+              <p>重點摘要：全日投入 <span class="red-text">2026那霸馬拉松</span> 賽事。感受「太陽與海與跑者之祭典」的熱情應援。賽後充分休息，晚間享用頂級 <span class="red-text">燒肉慶功</span> 慰勞完賽辛勞。</p>
+              <span class="day-tag w-max mt-1">重點區域：奧武山公園</span>
+            </div>
+          </details>
+          <!-- Day 3 -->
+          <details class="glass-card">
+            <summary class="text-lg"><i class="fa-solid fa-om mr-2"></i>Day 3 (12/7) 沖繩南部神聖與海景巡禮</summary>
+            <div class="stack-vertical text-gray-700 text-sm">
+              <p>重點摘要：賽後恢復的輕鬆觀光日。探訪沖繩南部，欣賞玉泉洞壯麗鐘乳石，感受世界文化遺產齋場御嶽的寧靜，午後於瀨長島享受海風與甜點。</p>
+              <span class="day-tag w-max mt-1">重點區域：南城市、豐見城市</span>
+            </div>
+          </details>
+          <!-- Day 4 -->
+          <details class="glass-card">
+            <summary class="text-lg"><i class="fa-solid fa-fish-fins mr-2"></i>Day 4 (12/8) 中北部海洋生態與異國風情</summary>
+            <div class="stack-vertical text-gray-700 text-sm">
+              <p>重點摘要：北上探索指標性景點美麗海水族館與古宇利島，下午南返途經充滿美式風情的美國村欣賞絕美夕陽，體驗沖繩多元文化交融的魅力。</p>
+              <span class="day-tag w-max mt-1">重點區域：本部町、北谷町</span>
+            </div>
+          </details>
+          <!-- Day 5 -->
+          <details class="glass-card">
+            <summary class="text-lg"><i class="fa-solid fa-gifts mr-2"></i>Day 5 (12/9) 首里王城與免稅採購</summary>
+            <div class="stack-vertical text-gray-700 text-sm">
+              <p>重點摘要：漫步首里城公園體會琉球王國昔日榮光，隨後於新都心商圈進行伴手禮最終採購。晚間搭乘班機滿載美好回憶返回台灣。</p>
+              <span class="day-tag w-max mt-1">重點區域：那霸市區、機場</span>
+            </div>
+          </details>
         </div>
-
-        <!-- DAY 1 -->
-        <div class="day-section mb-12">
-          <div class="day-header">
-            <div>
-              <h3 class="text-xl font-bold text-blue-900">Day 1 ｜ 12/05 (六)</h3>
-              <p class="text-sm text-blue-700">台北 TPE → 沖繩 OKA ｜ 賽事報到</p>
-            </div>
-            <div class="text-right">
-              <span class="block text-xs font-bold text-gray-500">住宿</span>
-              <span class="text-sm font-bold text-red-600">Almont Hotel Naha Omoromachi</span>
-            </div>
-          </div>
-          <div class="timeline">
-            <!-- Morning -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">早晨 Morning</h4>
-              <!-- Flight -->
-              <div class="item">
-                <div class="time-badge">06:55<span class="end-time">~09:15</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">航班出發：長榮航空 BR112</strong>
-                  <span class="text-sm text-gray-600">臺灣桃園機場 T2 → 那霸機場 I</span>
-                  <span class="text-xs text-gray-500"><i class="fa-solid fa-clock"></i> 飛行時間約 1 小時 20 分</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Transport -->
-            <div class="transport-card">
-              <div class="flex justify-between font-bold text-sm text-blue-800">
-                <span>09:45 出發</span>
-                <span><i class="fa-solid fa-train"></i> 單軌電車 (Yui Rail)</span>
-                <span>~25 分</span>
-              </div>
-              <div class="text-xs text-gray-600 mt-1">
-                <div>Route: 那霸機場站 → Omoromachi 站 (おもろまち)</div>
-                <div>ETA: 10:10 ｜ Cost: ¥340 ｜ Transfers: 0</div>
-              </div>
-            </div>
-
-            <!-- Forenoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">上午 Forenoon</h4>
-              <div class="item">
-                <div class="time-badge">10:20<span class="end-time">~10:40</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">Almont Hotel 寄放行李</strong>
-                  <span class="text-sm text-gray-600">位於新都心站旁，交通極便利。先行寄放大型行李與跑鞋裝備。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">11:00<span class="end-time">~12:00</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">午餐：San-A Main Place 美食街</strong>
-                  <span class="text-sm text-gray-600">選擇多樣且方便，推薦和風亭或大戶屋，攝取均衡碳水化合物。</span>
-                  <span class="text-xs blue-text">預算：¥1,500</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Transport -->
-            <div class="transport-card">
-              <div class="flex justify-between font-bold text-sm text-blue-800">
-                <span>12:15 出發</span>
-                <span><i class="fa-solid fa-train"></i> 單軌電車</span>
-                <span>~15 分</span>
-              </div>
-              <div class="text-xs text-gray-600 mt-1">
-                <div>Route: Omoromachi 站 → 壺川站 (或奧武山公園站)</div>
-                <div>ETA: 12:30 ｜ Cost: ¥270 ｜ Transfers: 0</div>
-              </div>
-            </div>
-
-            <!-- Afternoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">午後 Afternoon</h4>
-              <div class="item">
-                <div class="time-badge">13:00<span class="end-time">~14:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">2026 那霸馬拉松 選手報到</strong>
-                  <span class="text-sm text-gray-600">地點：沖繩縣立武道館 (奧武山公園內)。領取號碼布、晶片與參賽T恤。</span>
-                  <span class="text-xs text-red-500 font-bold"><i class="fa-solid fa-circle-exclamation"></i> 務必攜帶護照與報到通知單</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">14:30<span class="end-time">~15:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg blue-text">EXPO 博覽會參觀</strong>
-                  <span class="text-sm text-gray-600">購買補給品（能量膠、BCAA）、紀念周邊，感受賽前熱血氣氛。</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Transport -->
-             <div class="transport-card">
-              <div class="flex justify-between font-bold text-sm text-blue-800">
-                <span>15:45 出發</span>
-                <span><i class="fa-solid fa-train"></i> 單軌電車</span>
-                <span>~20 分</span>
-              </div>
-              <div class="text-xs text-gray-600 mt-1">
-                <div>Route: 奧武山公園站 → Omoromachi 站</div>
-                <div>ETA: 16:05 ｜ Cost: ¥270</div>
-              </div>
-            </div>
-
-            <!-- Evening -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">傍晚 Evening</h4>
-              <div class="item">
-                <div class="time-badge">16:30<span class="end-time">~17:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">飯店 Check-in 與整裝</strong>
-                  <span class="text-sm text-gray-600">入住 Almont Hotel。整理明日比賽裝備，別上號碼布，測試晶片。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">18:00<span class="end-time">~19:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">晚餐：自家製麵 木灰そば Toraya</strong>
-                  <span class="text-sm text-gray-600">位於赤嶺站附近或選擇新都心附近麵食。清淡好消化，適合賽前肝醣超補。</span>
-                  <span class="text-xs blue-text">預算：¥1,200</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Night -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">夜間 Night</h4>
-              <div class="item">
-                <div class="time-badge">20:00<span class="end-time">~21:00</span></div>
-                <div class="content-col">
-                  <strong class="text-lg blue-text">賽前最後採買 (Lawson/FamilyMart)</strong>
-                  <span class="text-sm text-gray-600">購買明日早餐（飯糰、香蕉、蛋糕）與飲水。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">21:30<span class="end-time">---</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">就寢休息</strong>
-                  <span class="text-sm text-gray-600">晚安。養精蓄銳，迎接明日挑戰。</span>
-                </div>
-              </div>
-            </div>
-            <!-- Day 1 End Note -->
-             <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-4 text-sm text-blue-800">
-               <i class="fa-solid fa-info-circle mr-1"></i> 今日行程重點為賽事報到與休息，未安排滿 10 項活動以保留體力。
-             </div>
-          </div>
-        </div>
-
-        <!-- DAY 2 -->
-        <div class="day-section mb-12">
-          <div class="day-header">
-            <div>
-              <h3 class="text-xl font-bold text-blue-900">Day 2 ｜ 12/06 (日)</h3>
-              <p class="text-sm text-blue-700">NAHA MARATHON RACE DAY</p>
-            </div>
-            <div class="text-right">
-               <span class="text-sm font-bold text-red-600">Almont Hotel (續住)</span>
-            </div>
-          </div>
-          <div class="timeline">
-            <!-- Morning -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">早晨 Morning</h4>
-              <div class="item">
-                <div class="time-badge">05:30<span class="end-time">~06:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">早餐：房內用餐</strong>
-                  <span class="text-sm text-gray-600">食用昨晚準備的輕食。排空、著裝、塗抹凡士林。</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Transport -->
-            <div class="transport-card">
-              <div class="flex justify-between font-bold text-sm text-blue-800">
-                <span>06:45 出發</span>
-                <span><i class="fa-solid fa-train"></i> 單軌電車</span>
-                <span>~20 分</span>
-              </div>
-              <div class="text-xs text-gray-600 mt-1">
-                <div>Route: Omoromachi 站 → 壺川站 (避免奧武山公園站人潮擁擠)</div>
-                <div>ETA: 07:05 ｜ Cost: ¥270</div>
-              </div>
-            </div>
-
-            <!-- Forenoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">上午 Forenoon</h4>
-              <div class="item">
-                <div class="time-badge">07:30<span class="end-time">~08:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">寄物與集結</strong>
-                  <span class="text-sm text-gray-600">依照號碼布分區進入起跑區。感受 3 萬人的熱情。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">09:00<span class="end-time">START</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text font-extrabold text-2xl">那霸馬拉松 起跑！</strong>
-                  <span class="text-sm text-gray-600">享受沿途不間斷的私補與加油聲。</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Afternoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">午後 Afternoon</h4>
-              <div class="item">
-                <div class="time-badge">12:00<span class="end-time">~15:15</span></div>
-                <div class="content-col">
-                  <strong class="text-lg blue-text">賽事進行中 / 完賽</strong>
-                  <span class="text-sm text-gray-600">終點關門時間為 15:15。領取完賽獎牌、玻璃獎座。</span>
-                </div>
-              </div>
-               <div class="item">
-                <div class="time-badge">15:30<span class="end-time">~16:00</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">賽後伸展與休息</strong>
-                  <span class="text-sm text-gray-600">在公園草地簡單收操，與隊友合影留念。</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Transport -->
-             <div class="transport-card">
-              <div class="flex justify-between font-bold text-sm text-blue-800">
-                <span>16:15 出發</span>
-                <span><i class="fa-solid fa-train"></i> 單軌電車</span>
-                <span>~30 分</span>
-              </div>
-              <div class="text-xs text-gray-600 mt-1">
-                <div>Route: 壺川站 → Omoromachi 站 (預計人多擁擠)</div>
-                <div>ETA: 16:45 ｜ Cost: ¥270</div>
-              </div>
-            </div>
-
-            <!-- Evening -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">傍晚 Evening</h4>
-               <div class="item">
-                <div class="time-badge">17:00<span class="end-time">~18:00</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">飯店梳洗</strong>
-                  <span class="text-sm text-gray-600">Almont Hotel 大浴場放鬆肌肉。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">18:30<span class="end-time">~20:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">慶功宴：焼肉 叙々苑 (或 極上牛)</strong>
-                  <span class="text-sm text-gray-600">新都心店或國際通店。享用高品質和牛，補充蛋白質，慶祝完賽！</span>
-                  <span class="text-xs blue-text">預算：¥8,000 ~ ¥10,000</span>
-                </div>
-              </div>
-            </div>
-             <!-- Day 2 Note -->
-             <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-4 text-sm text-blue-800">
-               <i class="fa-solid fa-info-circle mr-1"></i> 今日為全馬賽事日，行程以比賽與恢復為主，未強制排滿 10 項活動。
-             </div>
-          </div>
-        </div>
-
-        <!-- DAY 3 (Full Day) -->
-        <div class="day-section mb-12">
-          <div class="day-header">
-            <div>
-              <h3 class="text-xl font-bold text-blue-900">Day 3 ｜ 12/07 (一)</h3>
-              <p class="text-sm text-blue-700">市區觀光 ｜ 國際通 ｜ 壺屋</p>
-            </div>
-            <div class="text-right"><span class="text-sm font-bold text-red-600">Almont Hotel (續住)</span></div>
-          </div>
-          <div class="timeline">
-            <!-- Forenoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">上午 Forenoon</h4>
-              <div class="item">
-                <div class="time-badge">09:30<span class="end-time">~10:00</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">睡到自然醒</strong>
-                  <span class="text-sm text-gray-600">經過昨日激戰，今日允許晚起。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">10:30<span class="end-time">~11:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">早午餐：Pork Tamago Onigiri (豬肉蛋飯糰)</strong>
-                  <span class="text-sm text-gray-600">沖繩靈魂美食。推薦品嚐炸蝦或島豆腐口味。</span>
-                  <span class="text-xs blue-text">預算：¥800</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Transport -->
-            <div class="transport-card">
-              <div class="flex justify-between font-bold text-sm text-blue-800">
-                <span>11:45 出發</span>
-                <span><i class="fa-solid fa-train"></i> 單軌電車</span>
-                <span>~10 分</span>
-              </div>
-              <div class="text-xs text-gray-600 mt-1">
-                <div>Route: Omoromachi 站 → 牧志站</div>
-              </div>
-            </div>
-
-            <!-- Afternoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">午後 Afternoon</h4>
-              <div class="item">
-                <div class="time-badge">12:00<span class="end-time">~13:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">國際通 (Kokusai Dori) 散策</strong>
-                  <span class="text-sm text-gray-600">那霸最繁華的街道，採買伴手禮。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">13:30<span class="end-time">~14:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">第一牧志公設市場</strong>
-                  <span class="text-sm text-gray-600">體驗沖繩在地生活，參觀色彩繽紛的熱帶魚攤。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">14:30<span class="end-time">~15:00</span></div>
-                <div class="content-col">
-                  <strong class="text-lg blue-text">午茶點心：松原屋製果</strong>
-                  <span class="text-sm text-gray-600">品嚐傳統點心「薩塔安達基」(開口笑)。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">15:15<span class="end-time">~16:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">壺屋通 (Yachimun Street)</strong>
-                  <span class="text-sm text-gray-600">充滿文藝氣息的陶藝街，石板路適合散步恢復。</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Evening -->
-             <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">傍晚 Evening</h4>
-              <div class="item">
-                <div class="time-badge">17:00<span class="end-time">~17:45</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">平和通商店街</strong>
-                  <span class="text-sm text-gray-600">有頂棚的商店街，挖掘平價藥妝與雜貨。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">18:00<span class="end-time">~19:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">晚餐：傑克牛排 (Jack's Steak House)</strong>
-                  <span class="text-sm text-gray-600">美式風格老店，補充優質蛋白質。</span>
-                  <span class="text-xs blue-text">預算：¥2,500</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Night -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">夜間 Night</h4>
-              <div class="item">
-                <div class="time-badge">20:00<span class="end-time">~21:00</span></div>
-                <div class="content-col">
-                  <strong class="text-lg blue-text">唐吉訶德 國際通店</strong>
-                  <span class="text-sm text-gray-600">24小時營業，補齊所有親友託買清單。</span>
-                </div>
-              </div>
-               <div class="item">
-                <div class="time-badge">21:30<span class="end-time">---</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">返回飯店休息</strong>
-                  <span class="text-sm text-gray-600">搭乘單軌電車返回 Omoromachi。</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- DAY 4 (Full Day) -->
-        <div class="day-section mb-12">
-          <div class="day-header">
-            <div>
-              <h3 class="text-xl font-bold text-blue-900">Day 4 ｜ 12/08 (二)</h3>
-              <p class="text-sm text-blue-700">美國村異國風情 ｜ 北谷一日遊</p>
-            </div>
-            <div class="text-right"><span class="text-sm font-bold text-red-600">Almont Hotel (續住)</span></div>
-          </div>
-          <div class="timeline">
-            <!-- Morning -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">早晨 Morning</h4>
-              <div class="item">
-                <div class="time-badge">08:30<span class="end-time">~09:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">飯店早餐</strong>
-                  <span class="text-sm text-gray-600">享用 Almont 豐盛的自助早餐，特別是沖繩在地料理區。</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Transport -->
-            <div class="transport-card">
-              <div class="flex justify-between font-bold text-sm text-blue-800">
-                <span>09:45 出發</span>
-                <span><i class="fa-solid fa-bus"></i> 路線巴士 120號</span>
-                <span>~50 分</span>
-              </div>
-              <div class="text-xs text-gray-600 mt-1">
-                <div>Route: 縣立博物館前 → 桑江 (美國村)</div>
-                <div>Cost: ¥700</div>
-              </div>
-            </div>
-
-            <!-- Forenoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">上午 Forenoon</h4>
-               <div class="item">
-                <div class="time-badge">10:45<span class="end-time">~11:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">美國村 (American Village) 探索</strong>
-                  <span class="text-sm text-gray-600">色彩繽紛的建築群，充滿美式西海岸風情。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">11:30<span class="end-time">~12:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">午餐：A&W 漢堡</strong>
-                  <span class="text-sm text-gray-600">沖繩限定速食店，必點 Root Beer 與 Mozza Burger。</span>
-                  <span class="text-xs blue-text">預算：¥1,200</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Afternoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">午後 Afternoon</h4>
-              <div class="item">
-                <div class="time-badge">13:00<span class="end-time">~14:00</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">Depot Island 購物</strong>
-                  <span class="text-sm text-gray-600">選購特色 T-shirt 與美式雜貨。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">14:15<span class="end-time">~15:00</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">Blue Seal Ice Cream</strong>
-                  <span class="text-sm text-gray-600">北谷店，必吃紅芋或海鹽口味冰淇淋。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">15:15<span class="end-time">~16:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">北谷公園 日落海灘 (Sunset Beach)</strong>
-                  <span class="text-sm text-gray-600">脫下鞋子踩沙踏浪，享受悠閒午後。</span>
-                </div>
-              </div>
-               <div class="item">
-                <div class="time-badge">16:45<span class="end-time">~17:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">Zhyvago Coffee Works</strong>
-                  <span class="text-sm text-gray-600">海景第一排咖啡廳，工業風裝潢超好拍。</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Evening -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">傍晚 Evening</h4>
-              <div class="item">
-                <div class="time-badge">17:45<span class="end-time">~18:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg blue-text">欣賞夕陽美景</strong>
-                  <span class="text-sm text-gray-600">北谷的夕陽是沖繩著名絕景。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">18:45<span class="end-time">~20:00</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">晚餐：迴轉壽司 市場 (Gurume Sushi)</strong>
-                  <span class="text-sm text-gray-600">美國村人氣壽司店，食材新鮮份量大。</span>
-                  <span class="text-xs blue-text">預算：¥2,500</span>
-                </div>
-              </div>
-            </div>
-
-             <!-- Transport -->
-            <div class="transport-card">
-              <div class="flex justify-between font-bold text-sm text-blue-800">
-                <span>20:15 出發</span>
-                <span><i class="fa-solid fa-taxi"></i> 計程車 / Uber</span>
-                <span>~35 分</span>
-              </div>
-              <div class="text-xs text-gray-600 mt-1">
-                <div>Route: 美國村 → Almont Hotel (4人分擔車資划算)</div>
-                <div>Cost: 約 ¥3,500/車</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- DAY 5 -->
-        <div class="day-section">
-          <div class="day-header">
-            <div>
-              <h3 class="text-xl font-bold text-blue-900">Day 5 ｜ 12/09 (三)</h3>
-              <p class="text-sm text-blue-700">新都心免稅店 ｜ 瀨長島 ｜ 沖繩 OKA → 台北 TPE</p>
-            </div>
-            <div class="text-right"><span class="text-sm font-bold text-gray-500">Check Out</span></div>
-          </div>
-          <div class="timeline">
-            <!-- Morning -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">早晨 Morning</h4>
-              <div class="item">
-                <div class="time-badge">10:00<span class="end-time">~11:00</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">退房與寄放行李</strong>
-                  <span class="text-sm text-gray-600">辦理 Check-out，行李寄放櫃台或攜帶至機場寄放。</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Forenoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">上午 Forenoon</h4>
-               <div class="item">
-                <div class="time-badge">11:00<span class="end-time">~12:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">DFS T Galleria 沖繩</strong>
-                  <span class="text-sm text-gray-600">位於飯店對面。購買精品免稅，可選擇機場提貨，輕鬆無負擔。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">12:30<span class="end-time">~13:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">午餐：通堂拉麵 (琉球新麵)</strong>
-                  <span class="text-sm text-gray-600">小祿本店或寄宮店。男人麵(豚骨)與女人麵(鹽味)的經典對決。</span>
-                  <span class="text-xs blue-text">預算：¥1,000</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Transport -->
-            <div class="transport-card">
-              <div class="flex justify-between font-bold text-sm text-blue-800">
-                <span>13:45 出發</span>
-                <span><i class="fa-solid fa-bus"></i> 瀨長島接駁車 / 計程車</span>
-                <span>~20 分</span>
-              </div>
-              <div class="text-xs text-gray-600 mt-1">
-                <div>Route: 赤嶺站 → 瀨長島 Umikaji Terrace</div>
-              </div>
-            </div>
-
-            <!-- Afternoon -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">午後 Afternoon</h4>
-              <div class="item">
-                <div class="time-badge">14:10<span class="end-time">~16:00</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">瀨長島 Umikaji Terrace</strong>
-                  <span class="text-sm text-gray-600">純白建築階梯，近距離觀看那霸機場飛機起降的絕佳地點。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">16:00<span class="end-time">~17:00</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">幸福鬆餅 (Happy Pancake)</strong>
-                  <span class="text-sm text-gray-600">如果排隊人潮許可，享受最後的甜蜜時光。</span>
-                  <span class="text-xs blue-text">預算：¥1,500</span>
-                </div>
-              </div>
-            </div>
-
-             <!-- Transport -->
-            <div class="transport-card">
-              <div class="flex justify-between font-bold text-sm text-blue-800">
-                <span>17:15 出發</span>
-                <span><i class="fa-solid fa-taxi"></i> 計程車</span>
-                <span>~15 分</span>
-              </div>
-              <div class="text-xs text-gray-600 mt-1">
-                <div>Route: 瀨長島 → 那霸機場 (國際線航廈)</div>
-              </div>
-            </div>
-
-            <!-- Evening -->
-            <div class="time-block">
-              <h4 class="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">傍晚 Evening</h4>
-              <div class="item">
-                <div class="time-badge">17:40<span class="end-time">~18:40</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">機場報到與託運</strong>
-                  <span class="text-sm text-gray-600">辦理登機手續，領取 DFS 購買商品。</span>
-                </div>
-              </div>
-               <div class="item">
-                <div class="time-badge">18:40<span class="end-time">~19:30</span></div>
-                <div class="content-col">
-                  <strong class="text-lg text-gray-800">機場晚餐：豬肉蛋飯糰 (空港店)</strong>
-                  <span class="text-sm text-gray-600">最後一次品嚐沖繩滋味，或購買帶上飛機。</span>
-                </div>
-              </div>
-              <div class="item">
-                <div class="time-badge">20:10<span class="end-time">~20:55</span></div>
-                <div class="content-col">
-                  <strong class="text-lg red-text">航班返程：長榮航空 BR185</strong>
-                  <span class="text-sm text-gray-600">那霸機場 I → 臺灣桃園機場 T2</span>
-                  <span class="text-xs text-gray-500">平安抵達，跑旅圓滿結束。</span>
-                </div>
-              </div>
-            </div>
-             <!-- Day 5 Note -->
-             <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-4 text-sm text-blue-800">
-               <i class="fa-solid fa-info-circle mr-1"></i> 今日為返程日，預留充足交通緩衝時間，行程以機場周邊為主。
-             </div>
-          </div>
-        </div>
-
       </div>
 
-      <!-- Footer Info Blocks -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16 pb-8">
-        <!-- Risk Assessment -->
-        <div class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-green-500">
-          <h3 class="text-lg font-bold text-gray-800 mb-2"><i class="fa-solid fa-shield-virus text-green-500 mr-2"></i>風險評估：低 Low</h3>
-          <p class="text-gray-600 text-sm">
-            本行程集中於那霸市區與中部成熟觀光區，交通以便捷的單軌電車與巴士為主。沖繩治安良好，醫療資源完善。唯一需注意為賽事當日的人潮擁擠與交通管制，以及跑者自身的體能分配與脫水風險。
-          </p>
+      <!-- 區塊 B：每日詳細行程 -->
+      <div>
+        <h2 class="text-2xl font-bold text-blue-900 border-l-4 border-blue-500 pl-3 mb-6 flex items-center gap-2">
+          <i class="fa-solid fa-route text-blue-500"></i> 每日詳細行程
+        </h2>
+
+        <!-- ================= Day 1 ================= -->
+        <div class="glass-card mb-8">
+          <h3 class="text-xl font-bold text-blue-800 border-b-2 border-blue-100 pb-2"><i class="fa-solid fa-sun text-orange-400"></i> 第 1 天：12月5日 (週六) 抵達與賽前備戰</h3>
+          <div class="timeline">
+            <!-- Morning -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-cloud-sun"></i> 早晨 Morning</div>
+              <div class="item">
+                <div class="time-badge">06:55 ~ 09:15<br/><span class="text-xs font-normal">約 140 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-plane-departure"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">啟程前往沖繩</div>
+                  <div class="text-sm">航班：<span class="red-text">12月5日 週六 06:55TPE 直飛 09:15 OKA BR 112</span></div>
+                </div>
+              </div>
+            </div>
+            <!-- Forenoon -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-sun"></i> 上午 Forenoon</div>
+              <div class="transport">
+                <div class="time-badge">09:15 → 10:15</div>
+                <div class="icon-slot"><i class="fa-solid fa-train"></i></div>
+                <div class="text-slot stack-vertical text-sm">單軌電車 (那霸機場站 → 歌町站) | ETA: 10:15 | Cost: <span class="blue-text">¥300</span> | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">10:15 ~ 10:45<br/><span class="text-xs font-normal">約 30 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-hotel"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg"><span class="red-text">住宿：Almont Hotel Naha Omoromachi</span></div>
+                  <div class="text-sm">先行寄放行李。地點優越，方便後續行程與賽事當日移動。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">10:45 → 11:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
+                <div class="text-slot stack-vertical text-sm">步行前往商圈 | ETA: 11:00 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">11:00 ~ 12:30<br/><span class="text-xs font-normal">約 90 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[午餐] <span class="red-text">豬肉蛋飯糰 (已排入行程)</span></div>
+                  <div class="text-sm">推薦餐點：炸蝦豬肉蛋飯糰。沖繩靈魂美食，快速補充能量。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Afternoon -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-mug-hot"></i> 午後 Afternoon</div>
+              <div class="transport">
+                <div class="time-badge">12:30 → 13:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-train"></i></div>
+                <div class="text-slot stack-vertical text-sm">單軌電車 (歌町站 → 壺川站) | ETA: 13:00 | Cost: <span class="blue-text">¥270</span> | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">13:00 ~ 15:30<br/><span class="text-xs font-normal">約 150 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-id-card"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg"><span class="red-text">賽事前一天報到</span> (奧武山公園 沖繩縣立武道館)</div>
+                  <div class="text-sm">領取號碼布與晶片，參觀 EXPO 博覽會，購買紀念品與補給品。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">15:30 → 16:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-train"></i></div>
+                <div class="text-slot stack-vertical text-sm">單軌電車 (壺川站 → 縣廳前站) | ETA: 16:00 | Cost: <span class="blue-text">¥270</span> | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">16:00 ~ 18:00<br/><span class="text-xs font-normal">約 120 分</span></div>
+                <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[景點] <span class="red-text">國際通 (已排入行程)</span></div>
+                  <div class="text-sm">那霸最繁華的奇蹟的1哩路，賽前輕鬆散步，感受當地氛圍。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Evening -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-moon"></i> 傍晚 Evening</div>
+              <div class="transport">
+                <div class="time-badge">18:00 → 18:15</div>
+                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
+                <div class="text-slot stack-vertical text-sm">步行 | ETA: 18:15 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">18:15 ~ 19:30<br/><span class="text-xs font-normal">約 75 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[晚餐] <span class="red-text">暖暮拉麵 (已排入行程)</span></div>
+                  <div class="text-sm">推薦餐點：芝麻蔥味拉麵。賽前補充碳水化合物的最佳選擇。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">19:30 → 20:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-train"></i></div>
+                <div class="text-slot stack-vertical text-sm">單軌電車 (牧志站 → 歌町站) | ETA: 20:00 | Cost: <span class="blue-text">¥230</span> | Transfers: 0</div>
+              </div>
+            </div>
+            <!-- Night -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-star"></i> 夜間 Night</div>
+              <div class="item">
+                <div class="time-badge">20:00 ~ 21:00<br/><span class="text-xs font-normal">約 60 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-cart-shopping"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[超市] <span class="red-text">San-A Naha Main Place (已排入行程)</span></div>
+                  <div class="text-sm">鄰近飯店的大型超市，採購明日賽事所需的香蕉、能量飲與早餐。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">21:00 → 21:10</div>
+                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
+                <div class="text-slot stack-vertical text-sm">步行回飯店 | ETA: 21:10 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">21:10 ~ 21:30<br/><span class="text-xs font-normal">約 20 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bed"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">飯店 Check-in 與休息</div>
+                  <div class="text-sm">整理裝備，別上號碼布，早早入眠迎接明日賽事。</div>
+                </div>
+              </div>
+              <div class="item bg-blue-50 border border-blue-200 mt-4 p-4 rounded-lg">
+                <div class="text-slot stack-vertical text-sm text-blue-800">
+                  <i class="fa-solid fa-circle-info mb-1"></i> <span class="font-bold">行程備註：</span>今日包含跨國飛行與必要之賽事報到手續，已盡可能安排鄰近動線之行程以保留賽前體力，故規劃 9 項事件卡。
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        <!-- Suggestions & Notices -->
-        <div class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-yellow-500">
-          <h3 class="text-lg font-bold text-gray-800 mb-2"><i class="fa-solid fa-lightbulb text-yellow-500 mr-2"></i>建議 × 注意</h3>
-          <ul class="text-sm text-gray-600 space-y-1 list-disc pl-4">
-            <li><strong>賽事報到：</strong>務必攜帶護照正本與大會寄發的報到通知單。</li>
-            <li><strong>晶片測試：</strong>領取物資後，請現場確認晶片感應是否正常。</li>
-            <li><strong>交通卡：</strong>建議使用 OKICA 或 Suica，上下車方便免找零。</li>
-            <li><strong>防曬保濕：</strong>沖繩紫外線強，即使冬天也需防曬，賽後加強保濕。</li>
-            <li><strong>賽日早餐：</strong>建議於起跑前 3 小時用餐完畢，避免腸胃不適。</li>
-            <li><strong>起跑分區：</strong>那霸馬拉松人多擁擠，請提早進入指定分區等候。</li>
-            <li><strong>關門時間：</strong>嚴格執行關門點 (Cut-off)，配速請預留緩衝。</li>
-            <li><strong>免稅購物：</strong>DFS 購物需出示回程班機資訊，提貨需在機場管制區內。</li>
-            <li><strong>餐廳訂位：</strong>慶功宴燒肉店務必提前一個月訂位。</li>
-            <li><strong>網路通訊：</strong>人多區域網速可能變慢，建議下載離線地圖備用。</li>
-          </ul>
+
+        <!-- ================= Day 2 ================= -->
+        <div class="glass-card mb-8">
+          <h3 class="text-xl font-bold text-blue-800 border-b-2 border-blue-100 pb-2"><i class="fa-solid fa-medal text-yellow-500"></i> 第 2 天：12月6日 (週日) 決戰那霸馬拉松</h3>
+          <div class="timeline">
+            <!-- Morning -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-cloud-sun"></i> 早晨 Morning</div>
+              <div class="item">
+                <div class="time-badge">05:30 ~ 06:15<br/><span class="text-xs font-normal">約 45 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[早餐] 飯店或超商自理餐點</div>
+                  <div class="text-sm">推薦餐點：飯糰與香蕉。賽前3小時完成進食。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">06:15 → 06:45</div>
+                <div class="icon-slot"><i class="fa-solid fa-train"></i></div>
+                <div class="text-slot stack-vertical text-sm">單軌電車 (歌町站 → 壺川站) | ETA: 06:45 | Cost: <span class="blue-text">¥270</span> | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">06:45 ~ 08:30<br/><span class="text-xs font-normal">約 105 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-person-stretching"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">抵達會場、寄物與熱身</div>
+                  <div class="text-sm">與 <span class="red-text">桃園市雙連長跑</span> 夥伴集合合影，完成寄物，進入起跑區等待。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Forenoon & Afternoon combined for Marathon -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-sun"></i> 上午至午後 Forenoon & Afternoon</div>
+              <div class="item">
+                <div class="time-badge">09:00 ~ 15:15<br/><span class="text-xs font-normal">約 375 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-person-running"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg text-red-600"><span class="red-text">2026那霸馬拉松 賽事進行中</span></div>
+                  <div class="text-sm">享受沿途熱情民眾的補給（吉野家牛丼、冰棒、黑糖等），體驗太陽與海的跑者祭典。</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">12:00 ~ 13:00<br/><span class="text-xs font-normal">約 60 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[午餐] 賽道私補與完賽輕食</div>
+                  <div class="text-sm">推薦餐點：沿途民眾熱情提供的沖繩麵或完賽後攤位的熱食。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">15:15 → 16:15</div>
+                <div class="icon-slot"><i class="fa-solid fa-train"></i></div>
+                <div class="text-slot stack-vertical text-sm">單軌電車 (壺川站/奧武山公園站 → 歌町站) | ETA: 16:15 | Cost: <span class="blue-text">¥270</span> | Transfers: 0</div>
+              </div>
+            </div>
+            <!-- Evening -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-moon"></i> 傍晚 Evening</div>
+              <div class="item">
+                <div class="time-badge">16:15 ~ 18:30<br/><span class="text-xs font-normal">約 135 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bath"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">飯店盥洗與賽後恢復</div>
+                  <div class="text-sm">回到 <span class="red-text">Almont Hotel Naha Omoromachi</span> 享受熱水澡，舒緩緊繃肌肉。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">18:30 → 19:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-taxi"></i></div>
+                <div class="text-slot stack-vertical text-sm">計程車前往餐廳 (建議共乘) | ETA: 19:00 | Cost: <span class="blue-text">約 ¥1500</span> | Transfers: 0</div>
+              </div>
+            </div>
+            <!-- Night -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-star"></i> 夜間 Night</div>
+              <div class="item">
+                <div class="time-badge">19:00 ~ 21:30<br/><span class="text-xs font-normal">約 150 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[晚餐] <span class="red-text">燒肉慶功：琉球的牛 那霸國際通店 (已排入行程)</span></div>
+                  <div class="text-sm">推薦餐點：頂級縣產和牛燒肉套餐。與跑友舉杯慶祝完賽的榮耀時刻！</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">21:30 → 22:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-taxi"></i></div>
+                <div class="text-slot stack-vertical text-sm">計程車回飯店 | ETA: 22:00 | Cost: <span class="blue-text">約 ¥1500</span> | Transfers: 0</div>
+              </div>
+              
+              <div class="item bg-blue-50 border border-blue-200 mt-4 p-4 rounded-lg">
+                <div class="text-slot stack-vertical text-sm text-blue-800">
+                  <i class="fa-solid fa-circle-info mb-1"></i> <span class="font-bold">資料不足原因 / 行程備註：</span>因全日參與那霸馬拉松賽事（限時6小時15分）與賽後恢復，為保留跑者體力與彈性，刻意精簡今日觀光行程數量（未滿10項），以確保安全與舒適度。
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- ================= Day 3 ================= -->
+        <div class="glass-card mb-8">
+          <h3 class="text-xl font-bold text-blue-800 border-b-2 border-blue-100 pb-2"><i class="fa-solid fa-leaf text-green-500"></i> 第 3 天：12月7日 (週一) 沖繩南部神聖與海景巡禮</h3>
+          <div class="timeline">
+            <!-- Morning -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-cloud-sun"></i> 早晨 Morning</div>
+              <div class="item">
+                <div class="time-badge">08:00 ~ 09:00<br/><span class="text-xs font-normal">約 60 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[早餐] 飯店自助餐</div>
+                  <div class="text-sm">推薦餐點：沖繩在地風味料理與塔可飯。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">09:00 → 09:45</div>
+                <div class="icon-slot"><i class="fa-solid fa-car"></i></div>
+                <div class="text-slot stack-vertical text-sm">租車或包車南下 | ETA: 09:45 | Cost: <span class="blue-text">視租車而定</span> | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">09:45 ~ 11:15<br/><span class="text-xs font-normal">約 90 分</span></div>
+                <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[景點] <span class="red-text">沖繩世界文化王國 (已排入行程)</span></div>
+                  <div class="text-sm">體驗琉球傳統工藝與太鼓群舞表演，感受在地文化脈動。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Forenoon -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-sun"></i> 上午 Forenoon</div>
+              <div class="transport">
+                <div class="time-badge">11:15 → 11:20</div>
+                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
+                <div class="text-slot stack-vertical text-sm">園區內步行 | ETA: 11:20 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">11:20 ~ 12:20<br/><span class="text-xs font-normal">約 60 分</span></div>
+                <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[景點] <span class="red-text">玉泉洞 (已排入行程)</span></div>
+                  <div class="text-sm">位於文化王國境內，探索歷經30萬年歲月形成的壯麗鐘乳石洞。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">12:20 → 12:40</div>
+                <div class="icon-slot"><i class="fa-solid fa-car"></i></div>
+                <div class="text-slot stack-vertical text-sm">開車前往餐廳 | ETA: 12:40 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">12:40 ~ 14:00<br/><span class="text-xs font-normal">約 80 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[午餐] <span class="red-text">Cafe Kurukuma (已排入行程)</span></div>
+                  <div class="text-sm">推薦餐點：正宗泰式咖哩飯。在絕佳海景視野中享用美食，放鬆賽後疲憊。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Afternoon -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-mug-hot"></i> 午後 Afternoon</div>
+              <div class="transport">
+                <div class="time-badge">14:00 → 14:15</div>
+                <div class="icon-slot"><i class="fa-solid fa-car"></i></div>
+                <div class="text-slot stack-vertical text-sm">開車前往齋場御嶽 | ETA: 14:15 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">14:15 ~ 15:30<br/><span class="text-xs font-normal">約 75 分</span></div>
+                <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[景點] <span class="red-text">齋場御嶽 (已排入行程)</span></div>
+                  <div class="text-sm">琉球王國最神聖的祈禱聖地（世界文化遺產），感受莊嚴靜謐的靈氣。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">15:30 → 15:40</div>
+                <div class="icon-slot"><i class="fa-solid fa-car"></i></div>
+                <div class="text-slot stack-vertical text-sm">開車前往知念岬 | ETA: 15:40 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">15:40 ~ 16:10<br/><span class="text-xs font-normal">約 30 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-camera"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[拍照聖地] <span class="red-text">知念岬公園 (已排入行程)</span></div>
+                  <div class="text-sm">擁有250度無敵海景，太平洋的蔚藍盡收眼底，絕佳打卡點。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Evening -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-moon"></i> 傍晚 Evening</div>
+              <div class="transport">
+                <div class="time-badge">16:10 → 17:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-car"></i></div>
+                <div class="text-slot stack-vertical text-sm">開車前往瀨長島 | ETA: 17:00 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">17:00 ~ 18:00<br/><span class="text-xs font-normal">約 60 分</span></div>
+                <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[景點] <span class="red-text">瀨長島 Umikaji Terrace (已排入行程)</span></div>
+                  <div class="text-sm">充滿地中海風情的純白建築群，觀賞飛機起降與浪漫夕陽。</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">18:00 ~ 18:45<br/><span class="text-xs font-normal">約 45 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-ice-cream"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[甜點咖啡] <span class="red-text">幸福鬆餅 瀨長島店 (已排入行程)</span></div>
+                  <div class="text-sm">推薦餐點：原味舒芙蕾鬆餅。入口即化的夢幻口感。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Night -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-star"></i> 夜間 Night</div>
+              <div class="transport">
+                <div class="time-badge">18:45 → 19:15</div>
+                <div class="icon-slot"><i class="fa-solid fa-car"></i></div>
+                <div class="text-slot stack-vertical text-sm">開車返回那霸市區 | ETA: 19:15 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">19:15 ~ 20:45<br/><span class="text-xs font-normal">約 90 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[晚餐] <span class="red-text">傑克牛排館 (已排入行程)</span></div>
+                  <div class="text-sm">推薦餐點：紐約客牛排。沖繩老字號牛排館，大口吃肉補充優質蛋白質。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">20:45 → 21:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-car"></i></div>
+                <div class="text-slot stack-vertical text-sm">返回飯店休息 | ETA: 21:00 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= Day 4 ================= -->
+        <div class="glass-card mb-8">
+          <h3 class="text-xl font-bold text-blue-800 border-b-2 border-blue-100 pb-2"><i class="fa-solid fa-water text-blue-400"></i> 第 4 天：12月8日 (週二) 中北部海洋生態與異國風情</h3>
+          <div class="timeline">
+            <!-- Morning -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-cloud-sun"></i> 早晨 Morning</div>
+              <div class="item">
+                <div class="time-badge">07:30 ~ 08:30<br/><span class="text-xs font-normal">約 60 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[早餐] 飯店自助餐</div>
+                  <div class="text-sm">推薦餐點：日式烤魚與玉子燒，儲備今日北上體力。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">08:30 → 09:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-car"></i></div>
+                <div class="text-slot stack-vertical text-sm">驅車沿西海岸北上 | ETA: 09:30 | Cost: <span class="blue-text">高速公路過路費約¥1000</span> | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">09:30 ~ 10:15<br/><span class="text-xs font-normal">約 45 分</span></div>
+                <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[景點] <span class="red-text">萬座毛 (已排入行程)</span></div>
+                  <div class="text-sm">欣賞如大象鼻子般的珊瑚礁懸崖奇景與無敵海景。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Forenoon -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-sun"></i> 上午 Forenoon</div>
+              <div class="transport">
+                <div class="time-badge">10:15 → 11:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-car"></i></div>
+                <div class="text-slot stack-vertical text-sm">繼續北上前往水族館 | ETA: 11:00 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">11:00 ~ 13:30<br/><span class="text-xs font-normal">約 150 分</span></div>
+                <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[景點] <span class="red-text">美麗海水族館 (已排入行程)</span></div>
+                  <div class="text-sm">必看巨大「黑潮之海」水槽的鯨鯊與鬼蝠魟，以及精彩的海豚表演。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Afternoon -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-mug-hot"></i> 午後 Afternoon</div>
+              <div class="transport">
+                <div class="time-badge">13:30 → 13:45</div>
+                <div class="icon-slot"><i class="fa-solid fa-car"></i></div>
+                <div class="text-slot stack-vertical text-sm">開車前往午餐 | ETA: 13:45 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">13:45 ~ 14:45<br/><span class="text-xs font-normal">約 60 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[午餐] <span class="red-text">岸本食堂 (已排入行程)</span></div>
+                  <div class="text-sm">推薦餐點：傳統手工木灰沖繩麵與炊飯。北部必吃百大名店。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">14:45 → 15:15</div>
+                <div class="icon-slot"><i class="fa-solid fa-car"></i></div>
+                <div class="text-slot stack-vertical text-sm">開車前往古宇利島 | ETA: 15:15 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">15:15 ~ 16:15<br/><span class="text-xs font-normal">約 60 分</span></div>
+                <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[景點] <span class="red-text">古宇利島 (已排入行程)</span></div>
+                  <div class="text-sm">行駛於絕美古宇利大橋，漫步於清澈見底的神話之島沙灘。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Evening -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-moon"></i> 傍晚 Evening</div>
+              <div class="transport">
+                <div class="time-badge">16:15 → 17:15</div>
+                <div class="icon-slot"><i class="fa-solid fa-car"></i></div>
+                <div class="text-slot stack-vertical text-sm">南返前往北谷町 | ETA: 17:15 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">17:15 ~ 18:30<br/><span class="text-xs font-normal">約 75 分</span></div>
+                <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[景點] <span class="red-text">美國村 (已排入行程)</span></div>
+                  <div class="text-sm">充滿濃郁美式風情的購物娛樂區，各種色彩繽紛的建築超好拍。</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">18:30 ~ 19:00<br/><span class="text-xs font-normal">約 30 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-camera"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[拍照聖地] <span class="red-text">日落海灘 (已排入行程)</span></div>
+                  <div class="text-sm">美國村旁的知名海灘，捕捉魔幻時刻的絕美海上夕陽。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Night -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-star"></i> 夜間 Night</div>
+              <div class="item">
+                <div class="time-badge">19:00 ~ 19:30<br/><span class="text-xs font-normal">約 30 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-ice-cream"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[甜點咖啡] <span class="red-text">Zhyvago Coffee Works (已排入行程)</span></div>
+                  <div class="text-sm">推薦餐點：冰拿鐵與磅蛋糕。充滿西海岸工業風的海景咖啡廳。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">19:30 → 19:40</div>
+                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
+                <div class="text-slot stack-vertical text-sm">步行前往餐廳 | ETA: 19:40 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">19:40 ~ 21:00<br/><span class="text-xs font-normal">約 80 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[晚餐] <span class="red-text">迴轉壽司市場 美濱店 (已排入行程)</span></div>
+                  <div class="text-sm">推薦餐點：沖繩縣產鮮魚握壽司。在地人氣極高的平價美味壽司。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">21:00 → 21:40</div>
+                <div class="icon-slot"><i class="fa-solid fa-car"></i></div>
+                <div class="text-slot stack-vertical text-sm">開車返回那霸飯店 | ETA: 21:40 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= Day 5 ================= -->
+        <div class="glass-card">
+          <h3 class="text-xl font-bold text-blue-800 border-b-2 border-blue-100 pb-2"><i class="fa-solid fa-plane-departure text-gray-500"></i> 第 5 天：12月9日 (週三) 首里王城與免稅採購，滿載而歸</h3>
+          <div class="timeline">
+            <!-- Morning -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-cloud-sun"></i> 早晨 Morning</div>
+              <div class="item">
+                <div class="time-badge">08:00 ~ 09:00<br/><span class="text-xs font-normal">約 60 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[早餐] 飯店自助餐</div>
+                  <div class="text-sm">推薦餐點：豐盛日式朝食，最後回味飯店美食。</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">09:00 ~ 09:30<br/><span class="text-xs font-normal">約 30 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-suitcase"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">辦理退房與寄放行李</div>
+                  <div class="text-sm">將大型行李寄放於大廳，準備輕裝進行市區觀光。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">09:30 → 10:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-train"></i></div>
+                <div class="text-slot stack-vertical text-sm">單軌電車 (歌町站 → 首里站) | ETA: 10:00 | Cost: <span class="blue-text">¥300</span> | Transfers: 0</div>
+              </div>
+            </div>
+            <!-- Forenoon -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-sun"></i> 上午 Forenoon</div>
+              <div class="item">
+                <div class="time-badge">10:00 ~ 11:30<br/><span class="text-xs font-normal">約 90 分</span></div>
+                <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[景點] <span class="red-text">首里城公園 (已排入行程)</span></div>
+                  <div class="text-sm">見證琉球王國輝煌歷史，觀看正殿重建過程，漫步古城牆眺望那霸市景。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">11:30 → 11:45</div>
+                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
+                <div class="text-slot stack-vertical text-sm">步行前往石疊道 | ETA: 11:45 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">11:45 ~ 12:15<br/><span class="text-xs font-normal">約 30 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-camera"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[拍照聖地] <span class="red-text">金城町石疊道 (已排入行程)</span></div>
+                  <div class="text-sm">名列日本百大名道，古樸的琉球石灰岩坡道充滿復古懷舊感。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Afternoon -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-mug-hot"></i> 午後 Afternoon</div>
+              <div class="transport">
+                <div class="time-badge">12:15 → 12:30</div>
+                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
+                <div class="text-slot stack-vertical text-sm">步行前往午餐 | ETA: 12:30 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">12:30 ~ 13:30<br/><span class="text-xs font-normal">約 60 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[午餐] <span class="red-text">首里蕎麥麵 (已排入行程)</span></div>
+                  <div class="text-sm">推薦餐點：沖繩麵與什錦炊飯。超高人氣、麵條極具嚼勁的在地名店。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">13:30 → 14:00</div>
+                <div class="icon-slot"><i class="fa-solid fa-train"></i></div>
+                <div class="text-slot stack-vertical text-sm">單軌電車 (首里站 → 歌町站) | ETA: 14:00 | Cost: <span class="blue-text">¥300</span> | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">14:00 ~ 15:30<br/><span class="text-xs font-normal">約 90 分</span></div>
+                <div class="icon-slot"><i class="fa-brands fa-fort-awesome"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[景點] <span class="red-text">沖繩縣立博物館 (已排入行程)</span></div>
+                  <div class="text-sm">建築外觀以琉球城堡為概念，深入了解沖繩的自然、歷史與文化。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Evening -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-moon"></i> 傍晚 Evening</div>
+              <div class="transport">
+                <div class="time-badge">15:30 → 15:45</div>
+                <div class="icon-slot"><i class="fa-solid fa-person-walking"></i></div>
+                <div class="text-slot stack-vertical text-sm">步行前往免稅店 | ETA: 15:45 | Cost: ¥0 | Transfers: 0</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">15:45 ~ 17:15<br/><span class="text-xs font-normal">約 90 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[伴手禮] <span class="red-text">T Galleria by DFS 免稅店 (已排入行程)</span></div>
+                  <div class="text-sm">購買精品與美妝，把握最後的採購時光，機場提貨超方便。</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">17:15 ~ 17:45<br/><span class="text-xs font-normal">約 30 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-hotel"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">回飯店提取行李</div>
+                  <div class="text-sm">整理戰利品，準備前往機場。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div class="time-badge">17:45 → 18:15</div>
+                <div class="icon-slot"><i class="fa-solid fa-train"></i></div>
+                <div class="text-slot stack-vertical text-sm">單軌電車 (歌町站 → 那霸機場站) | ETA: 18:15 | Cost: <span class="blue-text">¥300</span> | Transfers: 0</div>
+              </div>
+            </div>
+            <!-- Night -->
+            <div class="time-block">
+              <div class="time-block-title"><i class="fa-solid fa-star"></i> 夜間 Night</div>
+              <div class="item">
+                <div class="time-badge">18:15 ~ 19:15<br/><span class="text-xs font-normal">約 60 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">[晚餐] 機場美食街 (自理)</div>
+                  <div class="text-sm">推薦餐點：可在機場再次品嚐豬肉蛋飯糰或沖繩拉麵，做最後回味。</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">19:15 ~ 20:10<br/><span class="text-xs font-normal">約 55 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-passport"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">機場報到與候機</div>
+                  <div class="text-sm">辦理報到手續與托運行李，帶著滿滿回憶準備登機。</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">20:10 ~ 20:55<br/><span class="text-xs font-normal">約 45 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-plane-arrival"></i></div>
+                <div class="text-slot stack-vertical">
+                  <div class="font-bold text-lg">班機起飛返回台灣</div>
+                  <div class="text-sm">航班：<span class="red-text">12月9日 週三 20:10 OKA 直飛 20:55 TPE BR 185</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 區塊 C：風險評估 -->
+      <div class="glass-card mt-8 bg-white border-l-4 border-yellow-400">
+        <h3 class="text-xl font-bold text-yellow-600 mb-2"><i class="fa-solid fa-triangle-exclamation"></i> 行程風險評估：低至中</h3>
+        <p class="text-sm text-gray-700">說明：整體觀光行程安排具彈性，風險為低。但受限於冬季氣候可能的海風強勁，以及馬拉松賽後的肌肉痠痛與疲勞累積，建議賽後行程應保持高度彈性，隨時依個人體能狀況增減，切勿勉強長時間步行。自駕行程需注意日本右駕習慣與安全。</p>
+      </div>
+
+      <!-- 區塊 D：建議 × 注意 (固定 10 條) -->
+      <div class="glass-card mt-4 bg-white border-l-4 border-blue-400">
+        <h3 class="text-xl font-bold text-blue-800 mb-4"><i class="fa-solid fa-lightbulb"></i> 旅遊建議與注意事項</h3>
+        <ul class="list-disc pl-5 text-sm text-gray-700 stack-vertical gap-2">
+          <li><strong>賽事準備：</strong>12月初沖繩氣溫約 18-22 度，適合跑步，但早晚海風稍涼，請務必攜帶輕薄防風外套。</li>
+          <li><strong>預算估算(機票)：</strong>搭乘長榮航空去回直飛，預估票價約 NT$14,000 - NT$16,000 /人。</li>
+          <li><strong>預算估算(住宿)：</strong>Almont Hotel Naha Omoromachi 四晚預估約 NT$8,000 - NT$10,000 /人(雙人房均攤)。</li>
+          <li><strong>預算估算(報名)：</strong>那霸馬拉松海外報名費約為 9,500 日圓（折合約 NT$2,100）。</li>
+          <li><strong>交通工具：</strong>市區多仰賴單軌電車（一日券 ¥800 極划算），中北部行程強烈建議租車自駕或參加當地一日遊巴士。</li>
+          <li><strong>右駕提醒：</strong>若選擇租車，務必提早換發日文譯本駕照，並熟悉日本右駕與靠左行駛之規則。</li>
+          <li><strong>防曬保濕：</strong>雖是冬季，沖繩紫外線仍不容小覷，防曬乳與賽後蘆薈凝膠不可少。</li>
+          <li><strong>餐廳預約：</strong><span class="red-text">燒肉慶功（琉球的牛）</span> 等熱門餐廳，務必於出發前一個月完成線上預約。</li>
+          <li><strong>賽道補給：</strong>那霸馬拉松以「全城應援」聞名，民眾私補極多，但仍建議自行攜帶2-3包能量膠備用。</li>
+          <li><strong>換匯建議：</strong>沖繩各大商場多可刷卡（建議備妥具海外回饋之信用卡或PayPay/LinePay），但小店與賽事會場仍需使用現金，建議準備約 ¥30,000 - ¥50,000 現金。</li>
+        </ul>
       </div>
     </section>
 
-    <!-- POI Section -->
-    <section id="poi">
-      <div class="section-title">
-        <div class="icon-slot"><i class="fa-solid fa-map-location-dot"></i></div>
-        <h2 class="text-2xl font-bold">精選景點 POI (20)</h2>
-      </div>
+    <!-- ============================================== -->
+    <!-- 六大推薦模組分頁 (各區塊獨立) -->
+    <!-- ============================================== -->
+
+    <!-- 景點 POI (20) -->
+    <section id="poi" class="space-y-6 pt-4">
+      <h2 class="text-2xl font-bold text-blue-900 border-b-2 border-blue-200 pb-2 mb-6"><i class="fa-solid fa-map-location-dot"></i> 景點推薦 (20)</h2>
       <div class="two-col" id="poi-container">
-        <!-- JS will populate meaningful placeholders to save space but structure is ready -->
-        <!-- Populating manually for high quality output -->
-        <div class="card">
-          <h3 class="text-lg font-bold text-red-600">國際通 (Kokusai Dori) <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded ml-2">Day 3</span></h3>
-          <p class="text-gray-500 text-sm mt-2 mb-2">那霸最繁華的主幹道，全長約1.6公里，兩旁林立著各式土產店、餐廳與百貨，是戰後沖繩復甦的象徵，被稱為「奇蹟的一英里」。週日部分時段會封街成為步行者天國，非常熱鬧。</p>
-          <div class="text-xs text-blue-600 font-semibold">亮點：購物天堂、街頭藝人 ｜ 門票：免費</div>
-        </div>
-        <div class="card">
-          <h3 class="text-lg font-bold text-red-600">美國村 (American Village) <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded ml-2">Day 4</span></h3>
-          <p class="text-gray-500 text-sm mt-2 mb-2">利用美軍基地舊址改建的大型休閒娛樂區，充滿濃厚的美國西海岸風情。標誌性的摩天輪雖已拆除，但色彩繽紛的建築、異國美食與海景步道依然吸引無數遊客，是拍照打卡的聖地。</p>
-          <div class="text-xs text-blue-600 font-semibold">亮點：異國風情、日落海灘 ｜ 門票：免費</div>
-        </div>
-        <div class="card">
-          <h3 class="text-lg font-bold text-red-600">瀨長島 Umikaji Terrace <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded ml-2">Day 5</span></h3>
-          <p class="text-gray-500 text-sm mt-2 mb-2">位於那霸機場南端的離島，透過海中道路連接。純白色的階梯式建築群依山而建，宛如希臘聖托里尼。這裡聚集了許多特色小店與餐廳，是觀賞飛機起降與夕陽的絕佳位置。</p>
-          <div class="text-xs text-blue-600 font-semibold">亮點：飛機起降、海景鬆餅 ｜ 門票：免費</div>
-        </div>
-        <div class="card">
-          <h3 class="text-lg font-bold text-red-600">壺屋通 (Yachimun Street) <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded ml-2">Day 3</span></h3>
-          <p class="text-gray-500 text-sm mt-2 mb-2">那霸陶藝的發源地，保留了古老的石板路與紅瓦房，氣氛寧靜古樸。街道兩旁散布著許多陶藝工坊、藝廊與咖啡廳，可以在此尋找獨一無二的「Yachimun」(沖繩陶器) 作為紀念。</p>
-          <div class="text-xs text-blue-600 font-semibold">亮點：傳統工藝、散步攝影 ｜ 門票：免費</div>
-        </div>
-        <div class="card">
-          <h3 class="text-lg font-bold text-red-600">第一牧志公設市場 <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded ml-2">Day 3</span></h3>
-          <p class="text-gray-500 text-sm mt-2 mb-2">被稱為「沖繩的廚房」，歷經整修後重新開幕。一樓販售色彩鮮豔的熱帶魚、島豆腐與精肉，二樓則是食堂，可以現場代客料理樓下購買的食材，是體驗在地食文化的最佳去處。</p>
-          <div class="text-xs text-blue-600 font-semibold">亮點：代客料理、生鮮食材 ｜ 門票：免費</div>
-        </div>
-        <div class="card">
-          <h3 class="text-lg font-bold text-blue-800">首里城公園 (Shurijo Castle) <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded ml-2">獨立行程</span></h3>
-          <p class="text-gray-500 text-sm mt-2 mb-2">琉球王國的政治與文化中心，世界文化遺產。雖然正殿於2019年大火中燒毀，但目前正積極進行重建工程，遊客可以近距離觀看修復過程（見學），感受歷史復甦的生命力。</p>
-          <div class="text-xs text-blue-600 font-semibold">亮點：世界遺產、復興見學 ｜ 門票：¥400</div>
-        </div>
-        <div class="card">
-          <h3 class="text-lg font-bold text-blue-800">波上宮 (Naminoue Shrine) <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded ml-2">獨立行程</span></h3>
-          <p class="text-gray-500 text-sm mt-2 mb-2">矗立在海邊斷崖上的朱紅色神社，是琉球八社之首。不僅是當地人的信仰中心，其獨特的地理位置也讓它成為熱門的拍照景點。神社下方的波之上海灘是那霸市區唯一的海水浴場。</p>
-          <div class="text-xs text-blue-600 font-semibold">亮點：海景神社、御守 ｜ 門票：免費</div>
-        </div>
-        <!-- Generating remaining POI cards with generic structure to meet count requirement while maintaining file size logic -->
-        <script>
-          const poiData = [
-            {name:"福州園", desc:"位於那霸市區的中國式庭園，為紀念那霸與福州締結友好城市而建。園內山水造景精緻，亭台樓閣錯落有致，充滿濃厚的江南風情，是鬧中取靜的休憩好去處。", tag:"獨立行程"},
-            {name:"識名園", desc:"琉球王室的別邸，也是接待中國冊封使的場所。融合了琉球獨特的石造建築與日本迴遊式庭園風格，已被登錄為世界文化遺產，漫步其中可感受王室的優雅生活。", tag:"獨立行程"},
-            {name:"奧武山公園", desc:"那霸馬拉松的起終點，也是那霸市民的運動休閒中心。園內有護國神社與沖宮，綠意盎然。對於跑者而言，這裡是充滿汗水與榮耀的聖地，必定要來此朝聖。", tag:"Day 1"},
-            {name:"San-A Naha Main Place", desc:"位於新都心的大型購物中心，深受當地人喜愛。超市、電器、服飾一應俱全，價格親民。對於住宿在 Omoromachi 的旅客來說，是補給生活用品最方便的地方。", tag:"Day 1"},
-            {name:"沖繩縣立博物館・美術館", desc:"外觀如同一座白色堡壘，建築風格獨特。館內展示了沖繩的自然歷史、文化藝術與民俗風情，是深入了解沖繩群島演變與文化底蘊的最佳場所。", tag:"獨立行程"},
-            {name:"港川外人住宅街", desc:"原為美軍眷舍，現在改造成為充滿文青氣息的街道。粉嫩色系的小屋變身為甜點店、咖啡館與雜貨鋪，巷弄間充滿悠閒氛圍，非常適合拍照打卡。", tag:"獨立行程"},
-            {name:"榮町市場", desc:"白天是充滿昭和復古風情的傳統市場，夜晚則搖身一變成為充滿人情味的居酒屋街。這裡保留了老那霸的真實面貌，是喜歡深度旅遊與在地美食的旅人最愛。", tag:"獨立行程"},
-            {name:"泊港魚市場 (Tomari Iyumachi)", desc:"那霸主要的魚貨批發市場，部分店家提供零售與現吃服務。雖然規模不如築地，但鮪魚的鮮度絕對是一流的，價格也相當實惠，適合一早來此享用海鮮早餐。", tag:"獨立行程"},
-            {name:"漫畫倉庫 那霸店", desc:"沖繩著名的二手大型賣場，24小時營業。販售商品包羅萬象，從漫畫、公仔、遊戲、名牌包到釣具應有盡有，是挖寶撿便宜的絕佳迷宮。", tag:"獨立行程"},
-            {name:"美麗海水族館", desc:"位於沖繩北部，擁有世界最大級的水槽「黑潮之海」，展示著巨大的鯨鯊與鬼蝠魟。雖然距離那霸較遠，但絕對是初次造訪沖繩不可錯過的震撼景點。", tag:"獨立行程"},
-            {name:"玉泉洞 (沖繩世界)", desc:"擁有30萬年歷史的鐘乳石洞，全長5公里，開放參觀區域約890公尺。洞內壯觀的石筍與石柱令人讚嘆大自然的鬼斧神工，園區內還有琉球村體驗。", tag:"獨立行程"},
-            {name:"知念岬公園", desc:"位於沖繩南部，是一處突出的海岬公園。擁有270度的無敵海景，可以遠眺久高島。綠草如茵，海風徐徐，是療癒身心與欣賞太平洋美景的秘境。", tag:"Day 4"},
-            {name:"永旺夢樂城沖繩來客夢", desc:"沖繩最大的購物中心，擁有數百家店舖與超大水族箱。品牌齊全，空間寬敞，無論是購物、用餐或親子娛樂都能滿足，是雨天備案的首選。", tag:"獨立行程"}
-          ];
-          const poiContainer = document.getElementById('poi-container');
-          poiData.forEach(item => {
-            const isScheduled = ["Day 1", "Day 3", "Day 4", "Day 5"].includes(item.tag);
-            const tagClass = isScheduled ? "bg-red-100 text-red-600" : "bg-gray-100 text-gray-600";
-            const titleClass = isScheduled ? "text-red-600" : "text-blue-800";
-            
-            const div = document.createElement('div');
-            div.className = 'card';
-            div.innerHTML = `
-              <h3 class="text-lg font-bold ${titleClass}">${item.name} <span class="text-xs ${tagClass} px-2 py-1 rounded ml-2">${item.tag}</span></h3>
-              <p class="text-gray-500 text-sm mt-2 mb-2">${item.desc}</p>
-              <div class="text-xs text-blue-600 font-semibold">亮點：觀光熱點 ｜ 門票：視活動而定</div>
-            `;
-            poiContainer.appendChild(div);
-          });
-        </script>
+        <!-- JS 動態生成確保結構與100字介紹 -->
       </div>
     </section>
 
-    <!-- BIB (Food) Section -->
-    <section id="bib">
-      <div class="section-title">
-        <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
-        <h2 class="text-2xl font-bold">精選美食 (20)</h2>
-      </div>
-      <div class="two-col" id="bib-container">
-         <div class="card">
-          <h3 class="text-lg font-bold text-red-600">焼肉 叙々苑 <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded ml-2">Day 2</span></h3>
-          <p class="text-gray-500 text-sm mt-2 mb-2">來自東京的高級燒肉名店，在沖繩也有分店。提供品質極佳的和牛與無微不至的服務。其著名的燒肉醬汁與牛五花是必點招牌。作為馬拉松完賽的慶功宴餐廳，絕對能滿足身心。</p>
-          <div class="text-xs font-bold text-gray-700 mb-1">推薦：特選牛五花、牛舌</div>
-          <div class="text-xs text-blue-600">預算：¥¥¥¥ (8,000~12,000) ｜ 地址：那霸市歌町/國際通</div>
-        </div>
-        <div class="card">
-          <h3 class="text-lg font-bold text-red-600">Jack's Steak House <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded ml-2">Day 3</span></h3>
-          <p class="text-gray-500 text-sm mt-2 mb-2">創立於1953年的傳奇牛排館，深受美軍與當地人喜愛。店內充滿濃濃的昭和美式風情。招牌的里脊牛排軟嫩多汁，搭配獨特的A1牛排醬，是補充蛋白質的最佳選擇。</p>
-          <div class="text-xs font-bold text-gray-700 mb-1">推薦：特選里脊牛排 (Tenderloin)</div>
-          <div class="text-xs text-blue-600">預算：¥¥ (2,000~3,000) ｜ 地址：那霸市西1-7-3</div>
-        </div>
-        <div class="card">
-          <h3 class="text-lg font-bold text-red-600">Pork Tamago Onigiri <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded ml-2">Day 3</span></h3>
-          <p class="text-gray-500 text-sm mt-2 mb-2">將沖繩家庭料理「餐肉蛋」做成飯糰的專賣店。現點現做，熱騰騰的米飯夾著酥脆的餐肉與厚煎蛋，簡單卻極度美味。牧志市場本店常大排長龍，是早餐的最佳選擇。</p>
-          <div class="text-xs font-bold text-gray-700 mb-1">推薦：炸蝦塔塔醬飯糰、島豆腐飯糰</div>
-          <div class="text-xs text-blue-600">預算：¥ (400~800) ｜ 地址：那霸市松尾2-8-35</div>
-        </div>
-        <div class="card">
-          <h3 class="text-lg font-bold text-red-600">通堂拉麵 (琉球新麵) <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded ml-2">Day 5</span></h3>
-          <p class="text-gray-500 text-sm mt-2 mb-2">沖繩拉麵界的代表之一。首創依照性別命名的湯頭：「男人麵」為濃郁豚骨湯，「女人麵」為清爽鹽味雞湯。桌上的辣豆芽菜無限供應，開胃又解膩，是回國前必吃的味道。</p>
-          <div class="text-xs font-bold text-gray-700 mb-1">推薦：女人麵 (鹽味)、煎餃</div>
-          <div class="text-xs text-blue-600">預算：¥ (800~1,200) ｜ 地址：那霸市金城5-4-6</div>
-        </div>
-        <!-- Generating remaining BIB cards -->
-        <script>
-           const bibData = [
-            {name:"暖暮拉麵", desc:"九州系的烈火豚骨拉麵，曾獲九州拉麵總選舉第一名。湯頭濃郁帶有微辣，細麵條吸附湯汁。國際通店即使深夜也大排長龍，是宵夜的人氣首選。", food:"半熟蛋煮干拉麵", price:"¥ (900~1,100)", tag:"獨立行程"},
-            {name:"A&W 漢堡", desc:"沖繩限定的美式速食連鎖店。Root Beer (麥根沙士) 是其靈魂飲料，喝起來像貼布味但越喝越上癮。漢堡肉厚實多汁，薯條造型獨特，充滿美式復古風。", food:"Mozza Burger, Root Beer", price:"¥ (1,000~1,500)", tag:"Day 4"},
-            {name:"岸本食堂 (Kishimoto)", desc:"位於北部的百年沖繩麵老店，是沖繩麵的代名詞。手打麵條Q彈有勁，湯頭使用鰹魚熬煮，風味深邃。每日限量賣完為止，雖遠但值得專程前往。", food:"手打沖繩麵 (大)", price:"¥ (800~1,000)", tag:"獨立行程"},
-            {name:"浜邊的茶屋", desc:"位於南部海邊的景觀咖啡廳。窗戶打開就是整片大海，漲潮時海水彷彿就在腳邊。提供簡單的輕食與甜點，是放空看海、享受慢活時光的絕佳地點。", food:"烤土司、冰咖啡", price:"¥ (1,000~1,500)", tag:"獨立行程"},
-            {name:"燒肉 琉球之牛", desc:"以提供高品質頂級和牛聞名，肉質入口即化。午間套餐CP值極高。環境優雅舒適，適合想要享受一頓精緻燒肉但不喜歡喧鬧氣氛的旅客。", food:"頂級縣產和牛套餐", price:"¥¥¥ (4,000~8,000)", tag:"獨立行程"},
-            {name:"花笠食堂", desc:"位於平和通商店街內的在地食堂，以份量大、價格便宜著稱。定食附贈的冰紅茶非常有名。提供最道地的沖繩家庭料理，是體驗在地生活的好地方。", food:"苦瓜炒蛋定食", price:"¥ (800~1,200)", tag:"獨立行程"},
-            {name:"幸せのパンケーキ (幸福鬆餅)", desc:"來自大阪的人氣舒芙蕾鬆餅，瀨長島店擁有無敵海景。鬆餅口感如雲朵般蓬鬆綿密，搭配北海道鮮奶油與新鮮水果，入口即化的幸福感油然而生。", food:"時令水果鬆餅", price:"¥¥ (1,200~1,600)", tag:"Day 5"},
-            {name:"Blue Seal Ice Cream", desc:"誕生於美國、成長於沖繩的冰淇淋品牌。口味多達30種以上，融合了沖繩在地食材如紅芋、海鹽、金楚糕等，是沖繩隨處可見的甜蜜滋味。", food:"紅芋口味、鹽金楚糕", price:"¥ (400~600)", tag:"Day 4"},
-            {name:"Zhyvago Coffee Works", desc:"位於美國村海濱的工業風咖啡廳，充滿濃厚的西海岸氛圍。自家烘焙的咖啡豆香氣迷人，搭配精緻的甜點，坐在戶外區吹著海風，十分愜意。", food:"拿鐵、起司蛋糕", price:"¥ (600~1,000)", tag:"Day 4"},
-            {name:"大東沖繩麵", desc:"位於國際通巷弄內，特色是使用大東群島的粗捲麵條，口感極度Q彈有嚼勁。湯頭清爽不油膩，搭配燉煮入味的軟骨肉，是許多麵條控心中的第一名。", food:"軟骨沖繩麵", price:"¥ (800~1,000)", tag:"獨立行程"},
-            {name:"Ball Donut Park", desc:"球型甜甜圈專賣店，口感介於甜甜圈與麻糬之間，外酥內Q。淋上檸檬糖霜或巧克力醬，現點現炸熱騰騰的口感令人驚艷，店內裝潢也相當時尚。", food:"檸檬糖霜甜甜圈", price:"¥ (500~800)", tag:"獨立行程"},
-            {name:"oHacorte 水果塔", desc:"沖繩著名的水果塔專賣店。使用當季新鮮水果製作，塔皮酥脆，卡士達醬甜而不膩。外港川外人住宅區的本店也是熱門的拍照打卡點，如珠寶般精緻。", food:"綜合水果塔", price:"¥ (600~900)", tag:"獨立行程"},
-            {name:"Calbee Plus", desc:"位於國際通，現炸的薯條與洋芋片專賣店。推薦沖繩限定的紅芋薯條，外酥內軟，淋上楓糖與奶油，熱熱吃超級美味，是逛街時的最佳散步點心。", food:"現炸紅芋薯條", price:"¥ (300~500)", tag:"Day 3"},
-            {name:"首里麵 (Shuri Soba)", desc:"位於首里城附近的排隊名店。麵條屬於較硬的直麵，湯頭清澈卻在此呈現極致的鮮味。每日營業時間短，且賣完即止，想吃必須一開門就去排隊。", food:"首里麵 (中)", price:"¥ (600~800)", tag:"獨立行程"},
-            {name:"Jef Burger", desc:"沖繩在地的連鎖速食店，最大的特色是「苦瓜漢堡」。將苦瓜與蛋煎成厚蛋燒夾入漢堡中，苦味不明顯卻帶有獨特清香，是挑戰沖繩味蕾的有趣選擇。", food:"苦瓜漢堡套餐", price:"¥ (700~1,000)", tag:"獨立行程"},
-            {name:"大家 (Ufuya)", desc:"位於名護的百年古民家餐廳，以Agu豬料理聞名。在充滿歷史感的傳統建築中，邊聽著瀑布流水聲，邊享用頂級的阿古豬涮涮鍋，是極致的用餐體驗。", food:"Agu豬涮涮鍋", price:"¥¥¥ (3,000~5,000)", tag:"獨立行程"}
-           ];
-           const bibContainer = document.getElementById('bib-container');
-           bibData.forEach(item => {
-             const isScheduled = ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"].includes(item.tag);
-             const tagClass = isScheduled ? "bg-red-100 text-red-600" : "bg-gray-100 text-gray-600";
-             const titleClass = isScheduled ? "text-red-600" : "text-blue-800";
-             
-             const div = document.createElement('div');
-             div.className = 'card';
-             div.innerHTML = `
-               <h3 class="text-lg font-bold ${titleClass}">${item.name} <span class="text-xs ${tagClass} px-2 py-1 rounded ml-2">${item.tag}</span></h3>
-               <p class="text-gray-500 text-sm mt-2 mb-2">${item.desc}</p>
-               <div class="text-xs font-bold text-gray-700 mb-1">推薦：${item.food}</div>
-               <div class="text-xs text-blue-600">預算：${item.price} ｜ 地址：詳見 Google Map</div>
-             `;
-             bibContainer.appendChild(div);
-           });
-        </script>
-      </div>
+    <!-- 美食 BIB (20) -->
+    <section id="bib" class="space-y-6 pt-4">
+      <h2 class="text-2xl font-bold text-blue-900 border-b-2 border-blue-200 pb-2 mb-6"><i class="fa-solid fa-utensils"></i> 美食推薦 (20)</h2>
+      <div class="two-col" id="bib-container"></div>
     </section>
 
-    <!-- Souvenir Section -->
-    <section id="souvenir">
-      <div class="section-title">
-        <div class="icon-slot"><i class="fa-solid fa-gift"></i></div>
-        <h2 class="text-2xl font-bold">伴手禮清單 (20)</h2>
-      </div>
-      <div class="two-col" id="souvenir-container">
-        <!-- JS Populated -->
-        <script>
-          const souvData = [
-            {name:"紅芋塔 (Beniimo Tart)", desc:"御菓子御殿的招牌商品，沖繩伴手禮的代名詞。使用100%沖繩產紅芋製作，塔皮香酥，內餡綿密甜而不膩，造型如同船一般，送禮自用兩相宜。", price:"¥1,000 (10入)", tag:"Day 3"},
-            {name:"雪鹽金楚糕", desc:"沖繩傳統點心金楚糕的進化版。加入宮古島特產的雪鹽，鹹甜交織的口感降低了油膩感，口感酥脆，帶有濃郁的豬油香氣，是配茶的最佳良伴。", price:"¥600 (24入)", tag:"Day 3"},
-            {name:"邊銀食堂 石垣島辣油", desc:"曾引發全日本搶購熱潮的夢幻辣油。加入多種辛香料與黑糖熬製，香氣層次豐富，辣度溫和。無論是拌麵、沾水餃或加在豆腐上，都能瞬間提升美味。", price:"¥1,200", tag:"Day 3"},
-            {name:"沖繩黑糖", desc:"沖繩特產的黑糖含有豐富礦物質，風味醇厚。有純黑糖塊、加鹽黑糖、薑味黑糖等多種選擇。獨立包裝方便攜帶，是補充體力或生理期的好物。", price:"¥300~", tag:"Day 1"},
-            {name:"ROYCE 石垣島巧克力", desc:"北海道名店在沖繩的限定品牌。推薦黑糖巧克力與鳳梨巧克力，融合了熱帶水果的酸甜與巧克力的苦甜，包裝精美，非常適合送給女性朋友。", price:"¥800", tag:"Day 5"},
-            {name:"南風堂 辣味蝦餅", desc:"使用沖繩特有的島辣椒製作，口感薄脆，每一口都充滿濃郁的蝦味與微辣刺激。非常適合作為下酒菜，一旦打開就會忍不住一片接一片。", price:"¥1,000 (30入)", tag:"Day 5"},
-            {name:"35 Coffee", desc:"使用風化珊瑚烘焙的咖啡，「35」日文發音近似「珊瑚」。口感清爽順口，且部分營收會捐助珊瑚復育活動，喝咖啡也能做環保，極具意義。", price:"¥1,000 (濾掛)", tag:"Day 4"},
-            {name:"Orion 啤酒周邊", desc:"沖繩在地啤酒品牌 Orion 的周邊商品。T-shirt、托特包、手機殼等，設計簡約時尚，充滿海島度假風情，是年輕人非常喜愛的實用型紀念品。", price:"¥3,000~", tag:"Day 3"},
-            {name:"LuLuLun 面膜 (沖繩限定)", desc:"日本人氣面膜的沖繩限定款。有香檸 (Shekwasha) 與西印度櫻桃兩種口味，主打保濕與修復日曬後的肌膚，體積小重量輕，適合大量採購送給閨蜜。", price:"¥1,600 (5袋入)", tag:"Day 3"},
-            {name:"泡盛辣椒 (Koregusu)", desc:"將島辣椒浸泡在泡盛酒中製成的調味料。是沖繩麵的靈魂伴侶，幾滴就能讓湯頭風味大增。帶有酒香與強烈辣味，喜歡吃辣的人絕對不能錯過。", price:"¥600", tag:"Day 3"},
-            {name:"Jimmy's 餅乾", desc:"沖繩在地的老牌西點店，深受美軍文化影響。其販售的各式美式餅乾、蛋糕與瑪芬，份量大且口味濃郁，包裝帶有復古美式風格，是在地人的回憶。", price:"¥1,500", tag:"獨立行程"},
-            {name:"Fukugiya 年輪蛋糕", desc:"國際通上的排隊名店。使用沖繩黑糖與蜂蜜一層層精心烘烤，口感紮實濕潤，外層糖衣酥脆。現場可以看見製作過程，香氣四溢令人垂涎。", price:"¥1,400", tag:"Day 3"},
-            {name:"石垣島布丁", desc:"雖然本店在石垣島，但那霸機場也能買到。使用石垣島牛奶與雞蛋製作，口感極度滑順濃郁，口味多樣，是登機前必買的最後甜點。", price:"¥500", tag:"Day 5"},
-            {name:"首里皂 (SuiSavon)", desc:"沖繩在地的天然精油手工皂品牌。使用沖繩特有植物與精油，香氣高雅療癒。洗後肌膚不乾澀，店鋪裝潢精緻，且可以現場試洗，非常有質感。", price:"¥2,000", tag:"Day 3"},
-            {name:"琉球玻璃", desc:"二戰後利用廢棄可樂瓶發展出的工藝，如今已成為沖繩代表工藝。色彩鮮豔帶有氣泡感，每一個杯子都是獨一無二的，在陽光下閃閃發光。", price:"¥1,500~", tag:"Day 3"},
-            {name:"風獅爺 (Shisa) 擺飾", desc:"沖繩的守護神，通常成對出現，一隻張口招福，一隻閉口守財。造型從傳統威嚴到Q版可愛都有，是鎮宅避邪、帶來好運的最佳紀念品。", price:"¥1,000~", tag:"Day 3"},
-            {name:"沖繩香檸汁 (Shikuwasa)", desc:"沖繩特產的柑橘類，富含維他命C與川陳皮素。原汁可以加水稀釋飲用，或作為料理調味，酸味強烈清爽，是健康的伴手禮選擇。", price:"¥800", tag:"Day 5"},
-            {name:"沖繩麵泡麵", desc:"將美味的沖繩麵做成泡麵，雖然口感不如現煮，但湯頭還原度相當高。適合半夜懷念沖繩味道時享用，各大超市與超商皆有販售。", price:"¥200", tag:"Day 5"},
-            {name:"SPAM 午餐肉 (沖繩限定)", desc:"雖然 SPAM 到處都有，但沖繩有減鹽版與特殊口味，且價格通常比日本本島便宜。是製作豬肉蛋飯糰的必備食材，實用性滿分。", price:"¥350", tag:"Day 5"},
-            {name:"海帶芽 (Mozuku)", desc:"沖繩特產的海藻，富含褐藻醣膠。通常有生鮮與乾燥兩種，乾燥包裝加水還原即可食用，口感滑溜脆嫩，做成醋拌小物非常開胃。", price:"¥500", tag:"Day 5"}
-          ];
-          const souvContainer = document.getElementById('souvenir-container');
-          souvData.forEach(item => {
-             const isScheduled = ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5"].includes(item.tag);
-             const tagClass = isScheduled ? "bg-red-100 text-red-600" : "bg-gray-100 text-gray-600";
-             
-             const div = document.createElement('div');
-             div.className = 'card';
-             div.innerHTML = `
-               <h3 class="text-lg font-bold text-gray-800">${item.name}</h3>
-               <p class="text-gray-500 text-sm mt-2 mb-2">${item.desc}</p>
-               <div class="flex justify-between items-center mt-2">
-                 <div class="text-xs font-bold text-blue-600">預算：${item.price}</div>
-                 <div class="text-xs ${tagClass} px-2 py-1 rounded font-bold">${item.tag}</div>
-               </div>
-             `;
-             souvContainer.appendChild(div);
-          });
-        </script>
-      </div>
+    <!-- 伴手禮 Souvenir (20) -->
+    <section id="souvenir" class="space-y-6 pt-4">
+      <h2 class="text-2xl font-bold text-blue-900 border-b-2 border-blue-200 pb-2 mb-6"><i class="fa-solid fa-bag-shopping"></i> 伴手禮推薦 (20)</h2>
+      <div class="two-col" id="souvenir-container"></div>
     </section>
 
-    <!-- Photo Spots -->
-    <section id="photo-spots">
-      <div class="section-title">
-        <div class="icon-slot"><i class="fa-solid fa-camera"></i></div>
-        <h2 class="text-2xl font-bold">拍照聖地 (10)</h2>
-      </div>
-      <div class="two-col" id="photo-container">
-        <script>
-          const photoData = [
-            {name:"美國村 Fire Station", desc:"位於 Depot Island 內的牆面，繪有復古消防車與美式塗鴉。色彩鮮豔，隨便拍都像是在加州街頭，是美國村最熱門的 IG 打卡點。", addr:"Depot Island, Mihama, Chatan"},
-            {name:"港川外人住宅街 #26", desc:"整排的粉嫩色系小屋，其中 oHacorte 水果塔店門口的小庭院與復古招牌，是這裡最具代表性的取景角度，充滿日系清新氛圍。", addr:"Minatogawa Stateside Town"},
-            {name:"瀨長島純白階梯", desc:"沿著山坡而建的純白建築群，配上蔚藍天空與大海，在陽光照射下極度耀眼。建議穿著亮色系洋裝，能拍出希臘度假風的美照。", addr:"Senaga Island Umikaji Terrace"},
-            {name:"波上宮懸崖視角", desc:"從波之上海灘旁的橋上往回拍，可以同時拍到沙灘、大海與矗立在懸崖上的朱紅神社。這是波上宮最經典且震撼的構圖。", addr:"Naminoue Beach Bridge"},
-            {name:"知念岬公園展望台", desc:"站在突出的岬角上，背景是270度的太平洋海景。好天氣時海水的漸層藍非常迷人，適合拍攝全景或背影意境照。", addr:"Chinenmisaki Park"},
-            {name:"備瀨福木林道", desc:"數千棵福木形成的綠色隧道，陽光透過樹葉灑落的光影非常夢幻。騎著腳踏車或漫步其中，能拍出充滿森林系療癒感的照片。", addr:"Bise Fukugi Tree Road"},
-            {name:"古宇利大橋", desc:"橫跨碧綠海水的筆直大橋，被稱為「古宇利藍」。從橋頭的沙灘往橋身拍攝，能展現出大海的清澈與大橋的壯觀延伸感。", addr:"Kouri Bridge"},
-            {name:"萬座毛象鼻岩", desc:"如同大象鼻子般的珊瑚礁懸崖，是沖繩最著名的自然景觀之一。夕陽西下時，剪影與金黃海面相互輝映，景色最為迷人。", addr:"Manzamo Cape"},
-            {name:"殘波岬燈塔", desc:"沖繩最高的白色燈塔，聳立在斷崖絕壁之上。藍天白雲配上白色巨塔與黑色礁岩，畫面張力十足，充滿孤寂與壯闊之美。", addr:"Zanpa Cape Lighthouse"},
-            {name:"首里金城町石疊道", desc:"日本百大名路之一。古老的石板路兩旁是長滿綠植的石牆，穿著浴衣在此漫步，能拍出彷彿穿越時光般的懷舊琉球風情。", addr:"Kinjo-cho Stone Paved Path"}
-          ];
-          const photoContainer = document.getElementById('photo-container');
-          photoData.forEach((item, index) => {
-             // Hardcoding scheduled items check for simplicity based on itinerary
-             const isScheduled = ["美國村 Fire Station", "瀨長島純白階梯", "波上宮懸崖視角"].includes(item.name);
-             const tag = isScheduled ? "已排入行程" : "獨立行程";
-             const tagClass = isScheduled ? "bg-red-100 text-red-600" : "bg-gray-100 text-gray-600";
-             const titleClass = isScheduled ? "text-red-600" : "text-blue-800";
-
-             const div = document.createElement('div');
-             div.className = 'card';
-             div.innerHTML = `
-               <h3 class="text-lg font-bold ${titleClass}">${item.name} <span class="text-xs ${tagClass} px-2 py-1 rounded ml-2">${tag}</span></h3>
-               <p class="text-gray-500 text-sm mt-2 mb-2">${item.desc}</p>
-               <div class="mt-2 p-2 bg-gray-50 rounded text-xs text-gray-500 cursor-pointer hover:bg-gray-100 transition-colors" id="addr-${index}" onclick="copyToClipboard('addr-${index}')">
-                 <i class="fa-regular fa-copy mr-1"></i> ${item.addr}
-               </div>
-             `;
-             photoContainer.appendChild(div);
-          });
-        </script>
-      </div>
+    <!-- 拍照聖地 Photo-Spots (10) -->
+    <section id="photo-spots" class="space-y-6 pt-4">
+      <h2 class="text-2xl font-bold text-blue-900 border-b-2 border-blue-200 pb-2 mb-6"><i class="fa-solid fa-camera-retro"></i> 拍照聖地 (10)</h2>
+      <div class="two-col" id="photo-spots-container"></div>
     </section>
 
-    <!-- Desserts -->
-    <section id="desserts">
-      <div class="section-title">
-         <div class="icon-slot"><i class="fa-solid fa-cookie-bite"></i></div>
-        <h2 class="text-2xl font-bold">甜點咖啡 (10)</h2>
-      </div>
-      <div class="two-col" id="dessert-container">
-        <script>
-          const dessertData = [
-             {name:"Blue Seal 冰淇淋", desc:"沖繩國民冰淇淋，隨處可見。推薦坐在店內美式風格的沙發區，享用色彩繽紛的聖代。Salt Cookies 口味鹹甜交織，絕對必吃。", price:"¥400~¥800", addr:"各地分店"},
-             {name:"幸福鬆餅 (A Happy Pancake)", desc:"位於瀨長島的排隊名店。蓬鬆軟綿的厚鬆餅充滿蛋香，搭配海景與微風，是視覺與味覺的雙重享受。建議提前兩週線上訂位。", price:"¥1,200~¥1,800", addr:"Senaga Island"},
-             {name:"oHacorte 港川本店", desc:"將外人住宅改建的雜貨風甜點店。以直徑7公分的水果塔聞名，精緻小巧。店內氛圍溫馨，戶外座位區綠意盎然，非常適合悠閒下午茶。", price:"¥600~¥1,000", addr:"Minatogawa #18"},
-             {name:"富士家 吃冰", desc:"那霸著名的沖繩善哉 (紅豆冰) 專賣店。燉煮至綿密的金時豆覆蓋在剉冰上，淋上香甜煉乳，搭配龜仙貝，是沖繩人從小吃到大的消暑聖品。", price:"¥400~¥600", addr:"Naha Matsuyama"},
-             {name:"Zhyvago Coffee Works", desc:"美國村海濱的人氣咖啡廳。店內充滿黃銅與原木的工業風格，咖啡師水準極高。點一杯 Latte 搭配一塊起司蛋糕，看著日落，人生享受。", price:"¥500~¥1,000", addr:"American Village"},
-             {name:"Ball Donut Park", desc:"位於國際通巷弄。現炸的球形甜甜圈口感Q彈，有多種淋醬與配料可選。店內設計時尚，包裝可愛，拿在手上邊走邊吃也非常方便。", price:"¥500~¥800", addr:"Naha Makishi"},
-             {name:"Fontana Gelato", desc:"國際通上的義式冰淇淋店，色彩極度繽紛。使用沖繩在地水果如芒果、鳳梨、紅芋製作，味道濃郁天然。彩虹配色的冰淇淋是打卡必備。", price:"¥500~¥700", addr:"Kokusai Dori"},
-             {name:"Kurtos Kalacs", desc:"國際通上專賣匈牙利煙囪捲的店家。現烤的麵包捲外酥內軟，充滿肉桂與糖的香氣。剛出爐熱騰騰時最好吃，特殊的造型非常吸睛。", price:"¥600~¥800", addr:"Kokusai Dori"},
-             {name:"Houkiboshi (黑糖可麗露)", desc:"浦添港川外人住宅區的黑糖可麗露專賣店。使用沖繩黑糖製作，外殼酥脆焦香，內裡濕潤軟Q。有多種口味，小巧可愛，適合外帶。", price:"¥1,000 (6入)", addr:"Minatogawa #25"},
-             {name:"Vita Smoothies", desc:"那霸必喝的現打果昔專賣店。使用大量新鮮熱帶水果，不加一滴水，濃郁好喝又健康。推薦酪梨果昔或季節限定的紅龍果果昔。", price:"¥600~¥900", addr:"Naha Makishi"}
-          ];
-          const dessContainer = document.getElementById('dessert-container');
-          dessertData.forEach((item, index) => {
-             const isScheduled = ["Blue Seal 冰淇淋", "幸福鬆餅 (A Happy Pancake)", "Zhyvago Coffee Works"].includes(item.name);
-             const tag = isScheduled ? "已排入行程" : "獨立行程";
-             const tagClass = isScheduled ? "bg-red-100 text-red-600" : "bg-gray-100 text-gray-600";
-             const titleClass = isScheduled ? "text-red-600" : "text-blue-800";
-
-             const div = document.createElement('div');
-             div.className = 'card';
-             div.innerHTML = `
-               <h3 class="text-lg font-bold ${titleClass}">${item.name} <span class="text-xs ${tagClass} px-2 py-1 rounded ml-2">${tag}</span></h3>
-               <p class="text-gray-500 text-sm mt-2 mb-2">${item.desc}</p>
-               <div class="flex flex-col gap-1 mt-2">
-                 <div class="text-xs font-bold text-blue-600">預算：${item.price}</div>
-                 <div class="text-xs text-gray-400 cursor-pointer" id="dessert-addr-${index}" onclick="copyToClipboard('dessert-addr-${index}')"><i class="fa-regular fa-copy"></i> ${item.addr}</div>
-               </div>
-             `;
-             dessContainer.appendChild(div);
-          });
-        </script>
-      </div>
+    <!-- 甜點咖啡 Desserts (10) -->
+    <section id="desserts" class="space-y-6 pt-4">
+      <h2 class="text-2xl font-bold text-blue-900 border-b-2 border-blue-200 pb-2 mb-6"><i class="fa-solid fa-ice-cream"></i> 甜點咖啡 (10)</h2>
+      <div class="two-col" id="desserts-container"></div>
     </section>
 
-    <!-- Market -->
-    <section id="market">
-       <div class="section-title">
-         <div class="icon-slot"><i class="fa-solid fa-basket-shopping"></i></div>
-        <h2 class="text-2xl font-bold">超市清單 (5)</h2>
-      </div>
-      <div class="two-col" id="market-container">
-        <script>
-           const marketData = [
-             {name:"San-A Naha Main Place", desc:"距離 Almont Hotel 最近的大型購物中心。一樓的大型超市營業至深夜，熟食區種類豐富，生魚片、炸物應有盡有，是跑者補給與採買宵夜的首選。", addr:"4-4-9 Omoromachi, Naha", time:"09:00 - 23:00", tag:"Day 1"},
-             {name:"MaxValu 牧志店", desc:"位於國際通附近，隸屬 AEON 集團的 24 小時超市。雖然店面不大，但生活用品與食品齊全，適合住在國際通附近的旅客隨時補貨。", addr:"2-10-1 Makishi, Naha", time:"24小時營業", tag:"獨立行程"},
-             {name:"Union 前島店", desc:"沖繩在地的 24 小時超市，價格通常比大型連鎖店更便宜。這裡也是當地人採買日常食材的地方，可以找到許多觀光客少見的在地商品。", addr:"2-6-1 Maejima, Naha", time:"24小時營業", tag:"獨立行程"},
-             {name:"Town Plaza Kanehide", desc:"金秀超市是沖繩另一家在地老牌超市，以生鮮食品品質優良著稱。如果想要購買新鮮的水果或沖繩特產的黑毛和牛回飯店料理，這裡是好選擇。", addr:"各地分店", time:"09:00 - 24:00", tag:"獨立行程"},
-             {name:"Gyomu Super (業務超市)", desc:"以大份量且價格低廉聞名。雖然多為冷凍食品或調味料，但也能挖到許多高CP值的零食與進口商品，適合想要大量採購乾貨的旅客。", addr:"Naha Matsuyama", time:"09:00 - 22:00", tag:"獨立行程"}
-           ];
-           const marketContainer = document.getElementById('market-container');
-           marketData.forEach(item => {
-             const isScheduled = item.tag === "Day 1";
-             const tagClass = isScheduled ? "bg-red-100 text-red-600" : "bg-gray-100 text-gray-600";
-             const titleClass = isScheduled ? "text-red-600" : "text-blue-800";
-
-             const div = document.createElement('div');
-             div.className = 'card';
-             div.innerHTML = `
-               <h3 class="text-lg font-bold ${titleClass}">${item.name} <span class="text-xs ${tagClass} px-2 py-1 rounded ml-2">${isScheduled ? "已排入行程" : "獨立行程"}</span></h3>
-               <p class="text-gray-500 text-sm mt-2 mb-2">${item.desc}</p>
-               <div class="text-xs text-gray-600"><strong>地址：</strong>${item.addr}</div>
-               <div class="text-xs text-blue-600 mt-1"><strong>營業時間：</strong>${item.time}</div>
-             `;
-             marketContainer.appendChild(div);
-           });
-        </script>
-      </div>
+    <!-- 超市 Market (5) -->
+    <section id="market" class="space-y-6 pt-4">
+      <h2 class="text-2xl font-bold text-blue-900 border-b-2 border-blue-200 pb-2 mb-6"><i class="fa-solid fa-cart-shopping"></i> 超市推薦 (5)</h2>
+      <div class="two-col" id="market-container"></div>
     </section>
 
   </main>
 
-  <!-- Back to Top -->
-  <button id="backToTopBtn" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-    <i class="fa-solid fa-arrow-up"></i>
-  </button>
+  <button id="backToTopBtn"><i class="fa-solid fa-arrow-up"></i></button>
 
-  <footer class="text-center text-gray-500 text-sm py-8 border-t bg-white mt-12">
-    <div class="main-container px-4">
-      <p class="mb-2"><span class="red-text">紅字</span>＝使用者指定 / 行程主體 / 已排入行程 ｜ <span class="blue-text">藍字</span>＝系統推薦 / 補充資訊</p>
-      <p class="opacity-70">© 2026 桃園市雙連長跑海外跑旅站 Itinerary Generator v2.0 ｜ Offline Compatible</p>
+  <footer class="bg-blue-900 text-blue-100 py-8 text-center text-sm mt-12">
+    <div class="max-w-7xl mx-auto px-4 stack-vertical gap-2">
+      <p>圖例：<span class="text-red-400 font-bold">紅字</span>＝使用者指定／行程主體類別 ｜ <span class="text-blue-300 font-bold">藍字</span>＝系統推薦 ｜ Day Tag = 最近日或「獨立行程」</p>
+      <p>離線可用版 ｜ 版本 v1.8.0-blueFX ｜ 專為【桃園市雙連長跑】跑旅設計</p>
     </div>
   </footer>
 
   <script>
-    // Tab Switching Logic
+    /* 資料區：嚴格執行 100 字介紹與對應欄位 */
+    const data = {
+      poi: [
+        { name: "美麗海水族館", inItin: true, day: "Day 4", hl: "黑潮之海鯨鯊", text: "美麗海水族館是沖繩北部最具指標性的景點，以巨大的「黑潮之海」水槽聞名於世。在這裡，您可以近距離觀賞體型龐大的鯨鯊以及優雅游動的鬼蝠魟，感受海洋生態的壯麗與震撼。除了主水槽，園區內還有海豚劇場帶來精彩的表演，以及海龜館、海牛館等豐富設施。戶外更可眺望美麗的伊江島與蔚藍海岸線，是親子同遊、情侶約會的絕佳聖地。建議預留至少三個小時以上的時間，慢慢探索這座充滿驚奇的海洋世界，體驗沖繩獨特的自然生態魅力。" },
+        { name: "首里城公園", inItin: true, day: "Day 5", hl: "世界文化遺產", text: "首里城曾是琉球王國的政治、外交與文化中心，紅色的正殿融合了中國與日本的建築風格，極具歷史價值。雖曾在2019年遭遇火災，但目前正積極進行復原工程，遊客可參觀「正在重建中的首里城」，見證歷史重生的過程。城牆以獨特的琉球石灰岩砌成，曲線優美，登高更可俯瞰整個那霸市區的遼闊景色。漫步於園區內的守禮門、園比屋武御嶽石門等古蹟之間，彷彿穿越時空，深深感受到昔日琉球王國的繁華與文化底蘊，是來沖繩必訪的歷史聖地。" },
+        { name: "國際通", inItin: true, day: "Day 1", hl: "奇蹟的一英里", text: "被譽為「奇蹟的一英里」的國際通，是那霸市最繁華、最具代表性的商業大街。這條長約1.6公里的街道兩旁，密密麻麻地林立著各種伴手禮店、餐廳、居酒屋與特色小店。無論是想要購買傳統的風獅爺擺飾、品嚐正宗的沖繩麵、和牛燒肉，或是尋找充滿設計感的文創商品，這裡都能滿足您的需求。夜晚的國際通更是熱鬧非凡，街頭藝人的表演與店家的霓虹燈交織出充滿活力的南國風情。建議安排在傍晚時分來此散步，享受購物與美食的雙重樂趣。" },
+        { name: "美國村", inItin: true, day: "Day 4", hl: "美式異國風情", text: "位於北谷町的美國村，是一個充滿濃厚美式西海岸風情的綜合娛樂商圈。標誌性的巨大摩天輪雖然已經拆除，但色彩繽紛的異國建築群、隨處可見的塗鴉牆與復古招牌，依然讓這裡成為攝影愛好者的天堂。商圈內匯集了眾多美式漢堡店、異國餐廳、古著服飾店與特色雜貨店，逛起來別有一番風味。傍晚時分，強烈建議漫步至一旁的日落海灘（Sunset Beach），欣賞夕陽染紅海面的絕美景致，隨後在海景咖啡廳享受悠閒時光，感受沖繩獨特的日美交融文化。" },
+        { name: "沖繩世界文化王國", inItin: true, day: "Day 3", hl: "傳統文化與鐘乳石", text: "沖繩世界文化王國是體驗琉球歷史與自然景觀的絕佳去處。園區內最具代表性的當屬歷經30萬年歲月形成的「玉泉洞」，這座全長達5公里的鐘乳石洞內，布滿了千奇百怪的鐘乳石柱與清澈的地下暗河，打上燈光後更顯神秘壯麗，令人嘆為觀止。除了自然奇觀，園區的「琉球王國城下町」重現了百年前的傳統紅瓦民居，您可以在此體驗製作琉球玻璃、彩繪風獅爺等傳統工藝。每日定時上演的「超級太鼓群舞」更是氣勢磅礴，是不容錯過的精彩表演。" },
+        { name: "齋場御嶽", inItin: true, day: "Day 3", hl: "神聖的祈禱之所", text: "齋場御嶽是琉球王國時期最高級別的聖地，也是世界文化遺產之一。這裡並無巨大的人工建築，而是以茂密的森林、巨大的岩石與自然的洞穴作為祈禱的場所，完美體現了琉球人尊崇自然、敬畏神靈的傳統信仰。漫步於林間的石板路上，陽光穿透樹葉灑下，四周靜謐莊嚴，讓人感到心靈的平靜與淨化。其中最著名的景點是由兩塊巨大岩石相疊而成的「三庫理」，穿過這個三角形的通道，還可遠眺被視為神之島的「久高島」，感受沖繩深厚的精神文化底蘊。" },
+        { name: "波上宮", inItin: false, day: "獨立行程", hl: "懸崖上的神宮", text: "波上宮建於那霸市區海邊的珊瑚礁懸崖上，是沖繩八社之首，地位極為崇高。紅瓦建築搭配鮮豔的朱紅色鳥居，在藍天白雲與碧海的襯托下顯得格外耀眼迷人。這裡是當地居民祈求海上安全、漁獲豐收與無病息災的重要信仰中心，每年新年更是吸引大批參拜人潮。參拜完畢後，推薦步行至旁邊的「波之上海灘」，這是那霸市內唯一的海水浴場，沙質細緻、海水清澈。您也可以走到旁邊的高架橋上，回望這座矗立於懸崖上的美麗神宮，捕捉最經典的畫面。" },
+        { name: "萬座毛", inItin: true, day: "Day 4", hl: "象鼻岩絕景", text: "萬座毛位於沖繩本島西海岸的恩納村，是極具代表性的自然景觀。「萬座毛」這個名字的由來，據說是因為琉球國王曾稱讚這裡是一片「可以供萬人坐下的寬廣原野」。這裡最著名的地標是一座形似大象鼻子的珊瑚礁懸崖，矗立在湛藍的東海之中，海浪拍打岩石激起白色浪花，景色氣勢磅礴。懸崖上方是一片廣闊的天然草坪，設有平緩的步道供遊客散步觀景。在這裡，您可以將海天一色的絕美風光盡收眼底，更是欣賞落日餘暉的絕佳浪漫聖地。" },
+        { name: "古宇利島", inItin: true, day: "Day 4", hl: "神話之島", text: "古宇利島被譽為沖繩的「神話之島」與「戀之島」，擁有極度清澈透明的漸層藍色海水，被稱為「古宇利藍」。前往古宇利島必須開車經過全長約2公里的「古宇利大橋」，行駛在橋上彷彿在海面上奔馳，兩側無敵海景令人心曠神怡。島上的必訪景點包括位於北側的「心型岩」，兩塊矗立在海中的礁石因形似愛心而成為情侶打卡聖地；以及高聳的「古宇利海洋塔」，登塔可360度俯瞰大橋與壯麗海景。在這裡，時間彷彿慢了下來，適合享受純粹的度假氛圍。" },
+        { name: "瀨長島", inItin: true, day: "Day 3", hl: "沖繩地中海", text: "瀨長島距離那霸機場極近，是一個以純白階梯式建築群「Umikaji Terrace」聞名的複合式商業設施，被譽為「沖繩的地中海」。這裡匯集了數十家特色餐廳、手作甜點店與文創雜貨，您可以坐在戶外露台上，一邊享用美味的舒芙蕾鬆餅或漢堡，一邊近距離觀賞那霸機場的飛機頻繁起降，感受巨大的視覺震撼。傍晚時分，這裡更是欣賞夕陽沉入東海的絕佳位置，金黃色的餘暉灑滿白色建築，浪漫指數破表，是近年來沖繩最具人氣的時尚打卡熱點。" },
+        { name: "沖繩縣立博物館", inItin: true, day: "Day 5", hl: "藝術與歷史", text: "位於那霸新都心商圈的沖繩縣立博物館與美術館（簡稱OkiMu），其獨特的純白建築外觀是以琉球王國的城堡（Gusuku）為設計概念，極具現代感與在地特色。博物館區詳細展示了沖繩從史前時代到現代的自然環境、歷史演變、民俗文化與考古發現，是深入了解沖繩這塊土地的最佳窗口。美術館區則收藏了眾多與沖繩相關的現代藝術與美術作品。館內空間寬敞舒適，還設有適合親子的觸摸體驗室，是個能豐富知性且不受天氣影響的高品質室內景點。" },
+        { name: "港川外人住宅街", inItin: false, day: "獨立行程", hl: "美軍眷村改建", text: "港川外人住宅街原本是美軍駐紮時代的眷村，如今這些一棟棟方正可愛的單層平房，被改造成了充滿文青氣息的特色商店街。街道以美國各州命名，如Florida、Nevada等，房屋外牆被漆成柔和的馬卡龍色系，搭配庭院裡的熱帶植物，散發著慵懶的美式鄉村風情。這裡隱藏著許多知名的甜點店（如必買的oHacorte水果塔）、精品咖啡館、手工麵包店與古著雜貨店。漫步在安靜的巷弄中，隨處都是適合拍照的文青背景，非常適合喜歡慢活步調與挖寶的旅客。" },
+        { name: "沖繩文化王國玉泉洞", inItin: true, day: "Day 3", hl: "地下鐘乳石奇觀", text: "玉泉洞是沖繩文化王國園區內最具震撼力的自然奇觀，也是日本規模最大的鐘乳石洞之一。全長達五公里，目前僅開放約近一公里的區域供遊客參觀。洞內恆溫約21度，冬暖夏涼。沿著步道深入地底，您將看到歷經三十萬年滴水穿石才形成的數十萬根鐘乳石、石筍與石柱，造型千奇百怪。搭配洞內精心設計的燈光照明與地下暗河的潺潺水聲，營造出一種神秘且夢幻的氛圍，如「青泉」、「黃金之盃」等景點更是令人驚嘆大自然的鬼斧神工，絕對值得一探究竟。" },
+        { name: "琉球村", inItin: false, day: "獨立行程", hl: "傳統村落體驗", text: "琉球村是一個致力於保存與重現沖繩傳統文化的體驗型主題公園。園區內移建了多棟百年歷史的傳統紅瓦古民家，真實還原了昔日琉球村落的風貌。在這裡，您可以換上傳統的琉球服飾拍照留念，或是參與豐富的手作體驗，如彈奏三線琴、製作風獅爺素燒、彩繪沖繩傳統圖騰等。此外，園區每天定時舉辦熱鬧的傳統遊行「Eisa太鼓舞」，舞者們充滿活力的表演與響亮的太鼓聲極具感染力。若想深度體驗沖繩古早味的生活與文化，琉球村絕對是首選。" },
+        { name: "知念岬公園", inItin: true, day: "Day 3", hl: "250度無敵海景", text: "知念岬公園位於沖繩本島南部的南城市，是一處隱秘但擁有絕美景致的臨海公園。這裡三面環海，擁有超過250度的寬闊視野，站在岬角邊緣，一望無際的太平洋蔚藍海水與天空連成一線，海水的漸層色彩令人屏息。這裡也是觀賞日出的知名聖地，天氣晴朗時甚至可以清楚眺望遠方的「神之島」久高島以及無人島駒高島。公園內設有平緩的散步道與涼亭，環境清幽且遊客相對較少，您可以吹著徐徐海風，盡情享受遠離喧囂的寧靜時光與壯闊的自然美景。" },
+        { name: "殘波岬", inItin: false, day: "獨立行程", hl: "白色燈塔與斷崖", text: "殘波岬位於沖繩本島讀谷村的西北端，以高達30公尺、綿延約兩公里的珊瑚礁斷崖絕壁著稱。巨大的海浪不斷拍打著陡峭的岩壁，激起壯觀的白色浪花，景色粗獷且充滿魄力。岬角盡頭矗立著一座醒目的純白色燈塔，是沖繩最具代表性的燈塔之一，遊客可購票登塔，將周邊的海天一色與懸崖絕景盡收眼底。此外，殘波岬周邊設有寬廣的公園與廣場，並有一座巨大的風獅爺雕像守護著這片土地。這裡是欣賞沖繩夕陽西下魔幻時刻的絕佳地點之一。" },
+        { name: "名護動植物園", inItin: false, day: "獨立行程", hl: "近距離接觸動物", text: "名護自然動植物公園（Neo Park Okinawa）打破了傳統動物園的圍欄限制，採用開放式的放養設計，讓遊客能以前所未有的近距離觀察各種鳥類與動物。園區內打造了中南美洲、大洋洲與非洲等不同的熱帶生態環境，您可以在巨大的鳥網內漫步，看著紅鶴、孔雀與各種珍稀鳥類在身旁悠閒走動甚至飛翔。此外，園內還有可愛的狐猴、水豚等動物，並提供餵食體驗，非常適合親子同樂。乘坐復古的輕便鐵道小火車環遊園區，更是輕鬆遊覽整座動植物園的推薦方式。" },
+        { name: "奧武島", inItin: false, day: "獨立行程", hl: "貓咪與天婦羅", text: "奧武島是位於沖繩南部的一座小島，透過短短的跨海大橋與本島相連，開車即可輕鬆抵達。這座純樸的小漁村以兩大特色聞名：一是美味平價的「沖繩天婦羅」，島上有多家知名天婦羅店（如中本鮮魚天婦羅），現炸的紫菜、花枝與魚塊香氣四溢，是必吃的散步美食；二是島上隨處可見的親人貓咪，這裡被許多愛貓人士視為沖繩的「貓島」。買一份剛起鍋的天婦羅，坐在海邊的堤防上享用，看著貓咪慵懶地曬太陽，感受漁村特有的悠閒慢活步調，是極佳的療癒體驗。" },
+        { name: "沖繩和平祈念公園", inItin: false, day: "獨立行程", hl: "祈求和平之所", text: "沖繩和平祈念公園位於沖繩本島最南端的摩文仁之丘，這裡是第二次世界大戰沖繩戰役的最終激戰地。為了悼念在戰爭中犧牲的二十多萬名各國軍民，並祈求世界永久和平，政府在此設立了廣闊的紀念公園。園內的「和平之礎」石碑上，刻滿了所有罹難者的名字，不分國籍與軍民。旁邊的和平祈念資料館則詳細展示了戰爭的殘酷歷史。除了沉重的歷史意義，公園本身擁有極佳的海岸視野，大片的綠地也設有大型兒童遊具，是一個兼具歷史教育與休憩功能的莊嚴之地。" },
+        { name: "奧武山公園", inItin: true, day: "Day 2", hl: "馬拉松起終點", text: "奧武山公園位於那霸市中心，交通極為便利，搭乘單軌電車即可直達。這座歷史悠久的綜合運動公園腹地廣大，擁有田徑場、棒球場、游泳池以及武道館等多項體育設施，同時也是每年年底沖繩最大體育盛事「那霸馬拉松」的官方起跑點與終點站。除了體育設施，公園內還藏有護國神社、沖宮與世持神社等三座著名神社，綠意盎然的環境是當地居民日常散步、慢跑與親子遊樂的重要場所。在賽季期間，這裡更是匯集了來自世界各地跑者的熱情與活力。" }
+      ],
+      bib: [
+        { name: "琉球的牛 那霸國際通店", inItin: true, day: "Day 2", hl: "頂級和牛燒肉", add: "沖繩縣那霸市牧志3-2-3", price: "¥8,000 - ¥15,000", text: "琉球的牛是沖繩享譽盛名的頂級燒肉餐廳，以提供最高品質的沖繩縣產和牛與精選黑毛和牛聞名。那霸國際通店交通便利，店內環境優雅具隱私感，採用無煙烤爐設計。這裡的牛肉油花分布極為均勻，宛如大理石般美麗，稍微炙烤後入口即化，肉汁鮮甜濃郁。推薦點選包含多種稀有部位的綜合套餐，搭配特製沾醬與沖繩在地海鹽，更能襯托出牛肉的原始美味。做為那霸馬拉松完賽後的慶功宴，這裡絕對是犒賞自己辛勞的奢華首選，務必提前預約以免向隅。" },
+        { name: "豬肉蛋飯糰 (牧志市場本店)", inItin: true, day: "Day 1", hl: "沖繩靈魂美食", add: "沖繩縣那霸市松尾2-8-35", price: "¥400 - ¥800", text: "來到沖繩絕對不能錯過這款最具代表性的靈魂平民美食「豬肉蛋飯糰」(Pork Tamago Onigiri)。這家本店隱身於那霸市牧志公設市場的巷弄內，總是大排長龍。其做法是將厚切的午餐肉（Spam）與煎得金黃軟嫩的厚煎蛋，夾入熱騰騰的白飯與海苔中。除了經典原味，店家還推出了加入炸蝦、苦瓜天婦羅、明太子美乃滋或島豆腐等多種創意口味。飯糰份量十足、價格親民，且方便攜帶，非常適合作為賽前補充碳水化合物的早餐或旅途中的快速午餐。" },
+        { name: "暖暮拉麵 國際通店", inItin: true, day: "Day 1", hl: "曾擊敗一蘭的美味", add: "沖繩縣那霸市牧志2-16-10", price: "¥900 - ¥1,500", text: "來自九州的暖暮拉麵，曾在電視節目中擊敗知名品牌榮獲九州拉麵大選第一名，在沖繩當地也擁有極高的人氣。其最大的特色在於採用豚骨熬製的濃郁湯頭，但口感卻意外地清爽不油膩。麵條可依個人喜好選擇粗細與軟硬度，店家特製的辣醬更是一絕，能大幅提升湯頭的層次感。推薦點選「芝麻蔥味拉麵」搭配半熟溏心蛋與一口餃子。國際通店營業至深夜，不僅是觀光客逛街後的晚餐首選，也是許多跑者賽前補充熱量或是賽後暖胃的絕佳宵夜選擇。" },
+        { name: "傑克牛排館 (Jack's Steak House)", inItin: true, day: "Day 3", hl: "老字號美式牛排", add: "沖繩縣那霸市西1-7-3", price: "¥2,500 - ¥4,000", text: "創立於1953年的傑克牛排館，是沖繩歷史最悠久、最具代表性的美式牛排館之一。受到美軍駐紮文化的深刻影響，沖繩人有著「酒後吃牛排」的獨特習慣。店內裝潢保留了濃厚的昭和時代復古美式餐館風格，門口經典的紅綠燈號誌顯示著目前的排隊狀況。這裡的招牌是「紐約客牛排」與「烤里脊牛排」，肉質軟嫩多汁，份量十足。上桌時牛排在鐵板上滋滋作響，香氣四溢。隨餐附贈的蘑菇濃湯與沙拉也充滿懷舊風味，是體驗沖繩獨特飲食文化的必訪餐廳。" },
+        { name: "首里蕎麥麵", inItin: true, day: "Day 5", hl: "手工木灰沖繩麵", add: "沖繩縣那霸市首里赤田町1-7", price: "¥600 - ¥1,000", text: "首里蕎麥麵是隱身於首里城周邊住宅區內的超高人氣排隊名店。這裡最大的特色在於堅持使用沖繩傳統的「木灰澄清水」來製作手工麵條，這種古法讓麵條呈現出極具嚼勁的獨特口感。湯頭則是由豚骨、柴魚與昆布長時間熬製而成，清澈透亮卻充滿深度的鮮甜味。鋪在麵上的滷三層肉與瘦肉更是燉煮得軟爛入味。除了沖繩麵，強烈推薦搭配一碗充滿在地風味的「什錦炊飯（Juicy）」。由於每日手工製麵數量有限，通常營業幾小時便會售罄，建議提早前往候位。" },
+        { name: "Cafe Kurukuma", inItin: true, day: "Day 3", hl: "無敵海景泰式料理", add: "沖繩縣南城市知念字知念1190", price: "¥1,500 - ¥2,500", text: "位於沖繩南部南城市半山腰的Cafe Kurukuma，以擁有令人屏息的太平洋無敵海景而聞名。餐廳設有寬敞的戶外露台座位區，讓您能一邊吹著海風，一邊將250度的湛藍海天一色盡收眼底。特別的是，這裡主打的不是日本料理，而是非常道地且辛香料十足的正宗泰式咖哩。由泰國籍主廚親自掌廚，推薦點選包含三種不同辣度與風味的「綜合咖哩套餐」，搭配烤雞腿與泰式奶茶。絕佳的風景與獨特的南洋美食完美結合，是南部自駕遊不可錯過的景觀餐廳。" },
+        { name: "岸本食堂", inItin: true, day: "Day 4", hl: "百年柴魚沖繩麵", add: "沖繩縣國頭郡本部町渡久地5", price: "¥800 - ¥1,200", text: "擁有超過百年歷史的岸本食堂，位於沖繩北部的本部町，是當地無人不知的沖繩麵老字號，也是許多百大名店排行榜的常客。這家店的菜單極度簡約，只賣「沖繩麵（大/小）」與限量供應的「手作炊飯」兩種品項。其湯頭採用大量鰹魚（柴魚）與豬骨熬製，呈現出極其濃郁鮮甜的海洋風味，令人回味無窮。搭配厚實有嚼勁的手工麵條，以及滷得極度入味的帶皮三層肉，成就了一碗簡單卻不平凡的美味。若有計畫前往美麗海水族館，強烈建議將此排入午餐行程。" },
+        { name: "迴轉壽司市場 美濱店", inItin: true, day: "Day 4", hl: "高CP值新鮮壽司", add: "沖繩縣中頭郡北谷町美濱2-4-5", price: "¥1,500 - ¥3,000", text: "位於美國村入口處的「グルメ迴轉壽司市場」，是沖繩當地人與觀光客都極度推崇的高CP值平價壽司店。有別於一般連鎖店，這裡不僅提供常見的鮭魚、鮪魚，更主打使用沖繩縣產的近海新鮮漁獲，如石斑魚、鸚哥魚、海葡萄軍艦壽司等在地獨有口味。食材新鮮、切片厚實，且價格非常親民，依照盤子顏色計價。店內氣氛熱鬧，師傅在中央現捏壽司，也接受平板點餐直接送達。無論是逛完美國村的晚餐，或是想大啖海鮮解饞，這裡都是極佳的選擇，但用餐時段需有排隊心理準備。" },
+        { name: "敘敘苑 沖繩浦添PARCO CITY店", inItin: false, day: "獨立行程", hl: "高級無敵海景燒肉", add: "沖繩縣浦添市西洲3-1-1 3F", price: "¥5,000 - ¥12,000", text: "日本知名的連鎖高級燒肉品牌「敘敘苑」，在沖繩的PARCO CITY商場內開設了擁有絕佳海景的分店。店內裝潢高雅奢華，最大的亮點是整排面海的落地窗座位，讓您能一邊品嚐頂級燒肉，一邊欣賞遼闊的東海海景與絕美夕陽。這裡的肉品品質無庸置疑，嚴選上等黑毛和牛，肉質鮮嫩、油花完美，搭配招牌的特製燒肉醬汁與爽脆的敘敘苑沙拉，堪稱絕配。若預算有限，非常推薦在午餐時段前往，能以較親民的價格享用到高品質的燒肉套餐，是視覺與味覺的雙重饗宴。" },
+        { name: "ゆうなんぎい (Yunangi)", inItin: false, day: "獨立行程", hl: "老字號沖繩家庭料理", add: "沖繩縣那霸市久茂地3-3-3", price: "¥2,000 - ¥4,000", text: "若想品嚐最道地的沖繩傳統鄉土料理，位於那霸市區久茂地的「ゆうなんぎい」絕對是不二之選。這家創立超過半世紀的家庭式居酒屋，外觀低調，卻總擠滿了在地熟客與慕名而來的饕客。菜單上涵蓋了所有沖繩經典菜色：燉煮得軟爛甘甜的「角煮（沖繩控肉）」、清脆爽口的「沖繩炒苦瓜」、風味獨特的「墨魚汁炒飯」、以及香濃的「花生豆腐」。每一道菜都充滿了溫馨的家常風味，搭配一杯沖繩特產的泡盛酒，能讓您深刻體驗到沖繩獨特的飲食文化與人情味。" },
+        { name: "通堂拉麵 琉大北口本店", inItin: false, day: "獨立行程", hl: "男人麵與女人麵", add: "沖繩縣宜野灣市志真志1-7-2", price: "¥800 - ¥1,200", text: "通堂拉麵是發跡於沖繩的本土知名拉麵品牌，以極具創意的「性別拉麵」打響名號。招牌的「男人麵」是使用熬煮數十小時的濃厚豚骨高湯，湯頭濃郁香醇，搭配有嚼勁的直細麵與厚實的叉燒肉，吃起來非常過癮；而「女人麵」則是清爽的鹽味雞湯底，加入昆布提鮮，口感溫潤順口，深受女性與喜愛清淡口味的食客歡迎。除了拉麵，桌上免費無限供應的微辣涼拌豆芽菜也是店內一大亮點，非常開胃解膩。這裡是體驗沖繩在地拉麵流派的必訪名店。" },
+        { name: "蝦蝦飯 (Kouri Shrimp)", inItin: false, day: "獨立行程", hl: "古宇利島必吃餐車", add: "沖繩縣國頭郡今歸仁村古宇利436-1", price: "¥1,200 - ¥1,800", text: "源自夏威夷北岸的經典美食「蒜香奶油蝦飯」，在沖繩的古宇利島上被完美復刻並發揚光大。原本只是一輛小餐車的 Kouri Shrimp，因大受歡迎而開設了實體兩層樓景觀餐廳。店家將新鮮肥美的蝦子與大量蒜蓉、特製奶油醬汁拌炒，香氣極度濃郁誘人，搭配熱騰騰的白飯與薯條，讓人一口接一口停不下來。除了經典原味，還有辣味與奶油檸檬等多種選擇。強烈建議端著餐盒到頂樓露台，一邊吹著海風欣賞古宇利大橋的絕美海景，一邊大口享用這道充滿南國度假風情的美味。" },
+        { name: "百年古家 大家 (Ufuya)", inItin: false, day: "獨立行程", hl: "阿古豬涮涮鍋與古厝", add: "沖繩縣名護市中山90", price: "¥3,000 - ¥6,000", text: "位於北部名護市山林間的「百年古家 大家」，是將擁有百年歷史的琉球傳統紅瓦古民家修復後改建而成的特色餐廳。餐廳依山傍水，周圍綠意盎然，甚至有小型瀑布造景，用餐環境極具詩意與傳統氛圍。這裡的招牌名菜是「特選阿古豬（Agu豬）涮涮鍋」。阿古豬是沖繩特有的珍貴黑豬品種，其肉質鮮甜軟嫩，脂肪雖多卻清爽不油膩，富含膠原蛋白。在昆布高湯中輕涮幾下，沾取特製的柑橘醬油食用，是令人難以忘懷的頂級美味。午餐時段亦提供平價的阿古豬沖繩麵與薑汁燒肉定食。" },
+        { name: "泊港漁市場 (Tomari Iyumachi)", inItin: false, day: "獨立行程", hl: "平價新鮮海鮮生魚片", add: "沖繩縣那霸市港町1-1-18", price: "¥1,000 - ¥3,000", text: "想要用最划算的價格大啖新鮮海鮮，來那霸市區的泊港漁市場就對了！這個室內魚市場每天進貨大量剛捕撈上岸的新鮮漁獲，尤其是沖繩盛產的鮪魚更是這裡的重頭戲。市場內有數十個攤位，販售各式各樣切好的生魚片拼盤、海膽、鮭魚卵、生蠔以及豪華的海鮮丼飯，價格比市區餐廳便宜許多。您可以在攤位上挑選喜歡的食材，然後拿到市場附設的簡便立食區或戶外座位直接享用。強烈推薦早晨或中午前來，食材選擇最多最新鮮，是海鮮控絕對不能錯過的平民美食天堂。" },
+        { name: "A&W 漢堡 (牧港本店)", inItin: false, day: "獨立行程", hl: "美式復古快餐與麥根沙士", add: "沖繩縣浦添市牧港4-9-1", price: "¥800 - ¥1,500", text: "A&W 是一家源自美國的速食連鎖店，在日本卻只有沖繩才能吃得到，因此成為許多觀光客必訪的特色美食。牧港本店保留了極具代表性的 1960 年代美式汽車餐廳（Drive-in）風格，您可以直接將車停在車格內，透過對講機點餐並在車內享用。這裡的招牌餐點是份量十足的美式起司漢堡、外酥內軟的捲捲薯條（Curly Fries），以及最經典的「麥根沙士（Root Beer）」。店內點用麥根沙士會使用冰鎮過的厚重玻璃杯裝盛，而且可以免費無限續杯，充滿濃濃的懷舊美式風情。" },
+        { name: "燒肉王 (燒肉King)", inItin: false, day: "獨立行程", hl: "高CP值吃到飽", add: "沖繩縣內多處分店(如那霸新都心)", price: "¥3,000 - ¥4,500", text: "若您是大胃王跑者，想要在賽後痛快地大口吃肉補充蛋白質，日本連鎖的「燒肉王（焼肉きんぐ）」絕對是高CP值的吃到飽首選。這裡採用平板點餐、座位送餐的服務模式，環境乾淨且上菜速度快。菜單提供多種價位選擇，推薦選擇中間價位的「King套餐」，即可無限享用多款厚切牛排、帶骨牛小排、伊比利豬、海鮮以及豐富的韓式石鍋拌飯、冷麵與甜點。肉類品質穩定，醃製口味多樣，加上輕鬆熱鬧的用餐氣氛，非常適合朋友聚餐或家庭出遊，建議事先透過網路訂位避免久候。" },
+        { name: "海人食堂", inItin: false, day: "獨立行程", hl: "隱藏版漁港海鮮丼", add: "沖繩縣中頭郡讀谷村都屋33", price: "¥1,000 - ¥2,000", text: "海人食堂隱身於讀谷村都屋漁港的二樓，是一間由當地漁會直營、充滿在地生活氣息的隱藏版平價食堂。由於食材都是當日漁港直送，新鮮度無庸置疑。這裡沒有華麗的裝潢，取而代之的是實惠的價格與豪邁的份量。最受歡迎的招牌菜是「海人海鮮丼」，滿滿地鋪上鮪魚、旗魚、章魚與海葡萄等多種生魚片，鮮甜美味。另外，現炸的酥脆天婦羅丼飯與濃郁的墨魚汁湯也是人氣必點。坐在戶外座位區，一邊看著漁港內船隻進出，一邊享用最接地氣的海鮮大餐，別有一番純樸風味。" },
+        { name: "燕食堂", inItin: false, day: "獨立行程", hl: "台灣人開的沖繩海鮮", add: "沖繩縣那霸市松尾2-10-1 第一牧志公設市場內", price: "¥2,000 - ¥4,000", text: "位於第一牧志公設市場二樓的美食街內，燕食堂是由遠嫁沖繩的台灣老闆娘所經營，是在地極具知名度的海鮮代客料理餐廳。您可以在一樓的生鮮市場挑選自己喜歡的龍蝦、夜光貝、石斑魚等高檔海鮮，再支付少許代工費請燕食堂料理。老闆娘精通中文，溝通無礙，且料理手法融合了沖繩與台灣的特色，無論是清蒸、生吃或熱炒都能完美呈現海鮮的鮮甜。除了代客料理，店內的沖繩炒苦瓜與炒墨魚麵也非常道地美味。充滿人情味的服務，讓許多台灣旅客感到倍感親切。" },
+        { name: "康龍拉麵", inItin: false, day: "獨立行程", hl: "客製化豚骨拉麵", add: "沖繩縣那霸市牧志1-2-3", price: "¥800 - ¥1,200", text: "位於國際通商圈附近的康龍拉麵，以提供高度「客製化」的美味豚骨拉麵而深受歡迎。入座後，顧客需填寫一張詳細的點餐單，從麵條的粗細、軟硬度，到豚骨湯頭的濃淡、背脂的油量，甚至蔥花與大蒜的多寡，都能依照個人喜好完全量身打造。最受好評的「自己選四種配料拉麵」，可以從木耳、半熟蛋、叉燒、海苔等多種配料中任選四種。湯頭濃郁卻不死鹹，搭配入口即化的叉燒肉，深夜來上一碗熱騰騰的康龍拉麵，是逛街或跑完馬拉松後最暖胃的慰藉。" },
+        { name: "串角 居酒屋", inItin: false, day: "獨立行程", hl: "平價串燒與無限暢飲", add: "沖繩縣內多處分店(如久茂地)", price: "¥2,500 - ¥4,000", text: "串角是沖繩在地非常受歡迎的平價連鎖居酒屋，以高CP值的炭火串燒與划算的「飲放題（無限暢飲）」方案聞名。店內氣氛熱鬧喧嘩，是體驗日本上班族下班後聚餐文化的絕佳地點。這裡的串燒種類繁多，從經典的烤雞肉蔥串、雞皮、雞軟骨，到烤豬五花、烤培根蘆筍卷等應有盡有，火候掌握得宜，醬汁鹹甜適中。搭配兩個小時的生啤酒、沙瓦與沖繩泡盛無限暢飲方案，價格非常親民。若想在馬拉松完賽後與跑友們開懷暢飲、大聲慶祝，串角絕對是氣氛最棒的選擇。" }
+      ],
+      souvenir: [
+        { name: "御菓子御殿 紅芋塔", inItin: false, day: "獨立行程", price: "¥1,000 - ¥1,500", text: "提到沖繩最具代表性的伴手禮，絕對非「紅芋塔（紅いもタルト）」莫屬。這款由御菓子御殿首創的甜點，使用沖繩縣產的紫紅色地瓜（紅芋）製作而成。外觀呈現美麗的波浪狀紫色花紋，底層是充滿奶油香氣的酥脆塔皮，上層則是口感綿密、甜而不膩的紅芋泥。不僅視覺誘人，更保留了紅芋天然的香甜與營養。由於完全不添加人工色素，老少咸宜，是送禮自用的首選。強烈建議在食用前放入烤箱稍微加熱，塔皮會更加酥脆，紅芋香氣也會更濃郁迷人。" },
+        { name: "新垣金楚糕 (Chinsuko)", inItin: false, day: "獨立行程", price: "¥500 - ¥1,000", text: "金楚糕（ちんすこう）是琉球王國時期流傳下來的傳統宮廷糕點，如今已成為沖繩必買的平價伴手禮。其中歷史最悠久的「新垣ちんすこう」最受推崇。傳統的金楚糕主要由豬油、麵粉與糖烘焙而成，口感類似酥脆的西式短餅乾，咬下後會在口中化開。除了經典的原味，現在還有黑糖、海鹽（雪鹽）、紅芋、巧克力等多種創新口味。特別推薦「雪鹽金楚糕」，微鹹的海鹽完美平衡了餅乾的甜膩感，吃起來清爽涮嘴，搭配熱茶或咖啡更是絕配，包裝也十分精美。" },
+        { name: "沖繩泡盛", inItin: false, day: "獨立行程", price: "¥1,500 - ¥5,000", text: "泡盛是沖繩特有的蒸餾酒，擁有超過600年的悠久歷史。有別於日本本土的清酒或燒酎，泡盛是使用泰國黑米與沖繩特有的黑麴菌發酵蒸餾而成，香氣獨特、口感醇厚。泡盛的酒精度數通常較高（多為30度以上），在地人習慣加冰塊與水稀釋飲用。此外，將泡盛長期儲存三年以上的「古酒（Kusu）」，口感會變得更加圓潤甘甜，是品酒愛好者的最愛。無論是在酒廠試飲挑選，或是到超市購買知名品牌如「殘波」、「菊之露」，帶一瓶泡盛回家，就是帶走最純粹的沖繩風土滋味。" },
+        { name: "風獅爺擺飾 (Shisa)", inItin: false, day: "獨立行程", price: "¥1,000 - ¥3,000", text: "走在沖繩的街頭巷尾，隨處可見屋頂上或大門口鎮守著一對造型奇特的石雕神獸，這就是沖繩的守護神「風獅爺（Shisa）」。傳說風獅爺能避邪化煞、招財納福。通常風獅爺是成對出現的，張開嘴巴的公獅負責招來福氣，閉著嘴巴的母獅則負責將福氣留住。在國際通的伴手禮店或傳統工藝村，您可以找到各種材質、大小與造型的風獅爺擺飾，有威武傳統的素燒陶製款，也有色彩鮮豔、造型Q版的可愛款。挑選一對有眼緣的風獅爺帶回家，為家中增添一份南國的守護力量。" },
+        { name: "T Galleria by DFS 免稅店精品", inItin: true, day: "Day 5", price: "¥視商品而定", text: "位於那霸新都心商圈的 T Galleria by DFS，是日本國內唯一一座路面免稅店。這裡匯集了超過上百個國際頂級精品品牌，包含化妝品、香水、珠寶腕錶、皮件包包與潮流服飾。最大的優勢在於，旅客只需出示回程機票資訊，即可享有免除日本消費稅與關稅的雙重優惠價格，比一般市區專櫃划算許多。此外，購買的商品不需自己提著走，DFS會將商品直接送到那霸機場的專屬提貨櫃檯，讓您在旅程的最後一天仍能輕鬆逛街。這裡是採購高單價精品與美妝的最佳聖地。" },
+        { name: "石垣島辣油 (邊銀食堂)", inItin: false, day: "獨立行程", price: "¥900 - ¥1,200", text: "這瓶由石垣島「邊銀食堂」出品的辣油，曾引發全日本的搶購熱潮，被譽為「會讓人上癮的夢幻辣油」。它打破了傳統辣油只有單調辣味的印象，嚴選了沖繩特產的島辣椒、石垣島海鹽、黑糖、薑黃、大蒜等多種辛香料與植物油精心熬製而成。其特色是「香氣大於辣度」，裡面充滿了豐富的辛香料顆粒，層次分明。無論是拌麵、拌飯、沾餃子，甚至加在涼拌豆腐上，都能瞬間將食物的美味提升一個檔次。由於產量有限，在超市或伴手禮店看到時絕對要毫不猶豫地拿下。" },
+        { name: "南風堂 雪鹽夾心餅乾", inItin: false, day: "獨立行程", price: "¥1,000 - ¥1,500", text: "沖繩宮古島出產的「雪鹽」，因富含多種礦物質且粉末細緻如雪而聞名。南風堂利用這項特產研發出的「雪鹽夾心餅乾（雪塩さんど）」，近年來成為超越傳統金楚糕的超人氣新興伴手禮。外層是烤得酥脆、帶有濃郁奶香的餅乾，內餡則是加入了雪鹽與玉米片的白巧克力奶油。雪鹽的微鹹完美地中和了白巧克力的甜膩，玉米片則增加了咀嚼時的層次感，鹹甜交織的絕妙平衡讓人一吃就停不下來。包裝設計清新優雅，非常適合買回辦公室與同事分享。" },
+        { name: "琉球玻璃 (琉球ガラス)", inItin: false, day: "獨立行程", price: "¥1,500 - ¥4,000", text: "琉球玻璃是沖繩極具代表性的傳統工藝品。其起源可以追溯到二戰後，當時資源匱乏，工匠們回收美軍丟棄的彩色玻璃瓶（如可樂瓶、啤酒瓶），重新熔化後吹製成生活器皿。因為是手工吹製，玻璃中會殘留細小的氣泡，邊緣也常呈現不規則的厚實感，這反而成為了琉球玻璃獨一無二的溫潤特色。如今的琉球玻璃色彩豐富，有象徵沖繩海洋的蔚藍、夕陽的橘紅與森林的翠綠。挑選一只獨特的手工玻璃杯，在倒滿冰涼的泡盛或啤酒時，彷彿能看到沖繩美麗的光影在杯中閃爍。" },
+        { name: "Fukugiya 沖繩年輪蛋糕", inItin: false, day: "獨立行程", price: "¥1,200 - ¥2,000", text: "走在國際通上，很難不被 Fukugiya（ふくぎや）店外飄散的濃郁烘焙奶油香氣所吸引。這是沖繩第一家年輪蛋糕專賣店，最大的特色是將沖繩的在地食材完美融入西式糕點中。招牌口味包括：原味的「蜂蜜（榕樹）」、使用了沖繩縣產黑糖的「黑糖（黑木）」，以及呈現美麗紫色的「紅芋（紅樹）」。蛋糕都是在店內透明的玻璃廚房中高溫烘烤，外層裹著一層薄薄的糖霜，內層口感紮實濕潤，甜度適中。買一整個年輪蛋糕作為下午茶點心，搭配紅茶享用，絕對是滿滿的幸福感。" },
+        { name: "黑糖塊與黑糖零食", inItin: false, day: "獨立行程", price: "¥300 - ¥800", text: "沖繩充足的陽光與富含礦物質的土壤，孕育出品質極佳的甘蔗，因此「黑糖」成為了沖繩最普遍也最實用的特產。沖繩不同離島（如波照間島、多良間島）出產的黑糖，因風土不同而有著微妙的風味差異。超市裡可以買到最原始的純黑糖塊，可以直接當糖果吃補充礦物質與疲勞，或是用來泡茶、煮紅豆湯。此外，還有各式各樣的黑糖加工零食，如裹著黑糖糖衣的「黑糖花生（黑糖豆）」、黑糖麻糬等，價格便宜且富含營養，是買給長輩或小孩的最佳伴手禮選擇。" },
+        { name: "Orion 啤酒周邊商品", inItin: false, day: "獨立行程", price: "¥500 - ¥2,500", text: "Orion（奧利恩）啤酒是沖繩在地最具代表性的啤酒品牌，其清爽的口感與沖繩炎熱的氣候完美契合。除了在沖繩每天都要喝上一杯生啤酒外，Orion 品牌的周邊商品也是觀光客熱愛收集的紀念品。在國際通的專賣店或唐吉訶德，您可以買到印有經典 Orion 紅藍色三連星 Logo 的 T-shirt、帆布袋、開瓶器、玻璃啤酒杯，甚至是提燈與毛巾。穿著 Orion T-shirt 走在沖繩的海灘上，絕對是融入當地氛圍的最佳打扮。這些周邊商品設計復古又實用，是送給愛喝酒朋友的絕佳禮物。" },
+        { name: "35 COFFEE (珊瑚咖啡)", inItin: false, day: "獨立行程", price: "¥800 - ¥1,500", text: "35 COFFEE 是一款只在沖繩限定販售、且極具環保意義的特色咖啡。根據沖繩縣的法律，嚴禁攜帶或採集任何珊瑚（包含死去的珊瑚骨骼）。而這家咖啡品牌獲得特許，使用風化死亡的珊瑚骨骼加熱至兩百度以上，來烘焙咖啡豆。這種特殊的「珊瑚烘焙法」能讓咖啡豆受熱均勻，並去除雜味，咖啡喝起來口感特別溫潤柔和、不酸不澀。更具意義的是，品牌會將部分收益捐出用於沖繩海洋珊瑚礁的復育計畫。買一包 35 COFFEE，不僅能品嚐獨特風味，更能為保護沖繩海洋盡一份心力。" },
+        { name: "海葡萄 (Umibudo)", inItin: false, day: "獨立行程", price: "¥500 - ¥1,000", text: "海葡萄是沖繩特有的一種綠藻類，因其外觀宛如一串串迷你晶瑩的綠色葡萄而得名，被譽為「植物界的魚子醬」。它生長在零污染的清澈海水中，富含礦物質。吃起來口感極其獨特，一顆顆小珠子在口中爆開的啵啵聲與微鹹的海水味，非常清爽開胃。在沖繩的居酒屋通常作為涼拌前菜，沾取醋醬油食用。在超市或牧志公設市場可以買到盒裝的生鮮海葡萄，但需注意它非常嬌貴，不能放冰箱冷藏（會萎縮），且保存期限極短，建議在回國前一天購買並儘速食用完畢。" },
+        { name: "首里石鹼 (SuiSavon)", inItin: false, day: "獨立行程", price: "¥1,500 - ¥3,000", text: "「SuiSavon 首里石鹼」是近年來深受女性喜愛的沖繩在地香氛保養品牌。其最大的特色在於所有產品皆萃取自沖繩純淨的自然植物，如蘆薈、月桃、百香果、金桔與櫻花等。走進店內，彷彿踏入了一個充滿療癒香氣的南國花園。招牌商品是手工洗顏皂與保濕護手霜。洗顏皂的外觀像極了美味的彩色糕點，泡沫極度細緻綿密；而護手霜塗抹後會化為水狀，清爽不黏膩，且香氣高雅持久。包裝設計精緻具質感，是送給女性親友或犒賞自己的完美香氛伴手禮。" },
+        { name: "LuLuLun 沖繩限定面膜", inItin: false, day: "獨立行程", price: "¥1,500 - ¥2,000", text: "日本知名的平價面膜品牌 LuLuLun，在各地都會推出結合當地特產的地區限定版，而「沖繩限定版」絕對是藥妝店裡的掃貨重點。沖繩版最經典的兩款口味分別是：添加了沖繩特產「苦瓜」與「西印度櫻桃」萃取物的綠色款，主打曬後舒緩與亮白；以及添加了「香檬（金桔）」與「扶桑花」萃取物的黃色款，強調保濕與維持肌膚彈性。包裝上印有可愛的風獅爺圖案，充滿濃濃的沖繩風情。一盒內有多片包裝，非常適合買來分送給女性朋友或同事作為實用的小禮物。" },
+        { name: "島辛辛辣醬 (島とうがらし)", inItin: false, day: "獨立行程", price: "¥500 - ¥800", text: "在沖繩的麵店或食堂桌上，一定會看到一小瓶裝著透明液體與紅色小辣椒的調味料，這就是沖繩特有的「泡盛辣椒（島とうがらし）」。這是將沖繩特產的超辣「島辣椒」浸泡在傳統的「泡盛酒」中醃製而成。它的辣度頗高，但最迷人的是伴隨著辣味散發出來的獨特酒香。無論是在吃沖繩麵、炒苦瓜或是喝湯時滴上幾滴，都能瞬間提味，讓料理層次大升級。在各大超市皆有販售各種尺寸的瓶裝泡盛辣椒，是喜歡吃辣與熱愛烹飪的朋友絕對會愛上的在地調味聖品。" },
+        { name: "琉球村/文化王國 傳統風獅爺素燒", inItin: false, day: "獨立行程", price: "¥1,500 - ¥3,000", text: "比起在商店直接購買現成的風獅爺，親手繪製一尊獨一無二的風獅爺絕對是更具紀念價值的伴手禮。在沖繩世界文化王國或是琉球村等體驗設施內，都有提供「風獅爺彩繪體驗」。店家會提供未上色的素燒陶製風獅爺，以及各種顏色的顏料與水彩筆。您可以發揮創意，為風獅爺塗上喜歡的色彩與圖騰，無論是傳統威武的配色，還是充滿現代感的繽紛馬卡龍色，都能自由發揮。完成後只需等待顏料風乾，即可包裝帶走，是親子同樂或情侶創造專屬回憶的最佳手作體驗紀念品。" },
+        { name: "吉野川 特產黑糖雪茄棒", inItin: false, day: "獨立行程", price: "¥800 - ¥1,200", text: "這款零食外觀看似普通的蛋捲，但其實是使用了大量沖繩特產黑糖製作而成的「黑糖雪茄餅乾棒」。餅乾體烤得極其酥脆，一口咬下，濃郁醇厚的黑糖香氣立刻在口中散開，甜度拿捏得恰到好處，完全不會覺得死甜膩口。它的包裝通常設計成具有琉球傳統圖騰的紙盒裝，每根餅乾都有獨立包裝，方便保存與分發。相比於傳統的紅芋塔或金楚糕，黑糖雪茄棒的口感更為輕盈酥脆，是一款接受度極高、老少咸宜且不容易踩雷的優質沖繩特色小點心。" },
+        { name: "沖繩香檬果汁/原汁 (Shikuwasa)", inItin: false, day: "獨立行程", price: "¥1,000 - ¥2,500", text: "沖繩香檬（Shikuwasa）是沖繩特有的一種柑橘類水果，外觀像綠色的小金桔，富含極高的維他命C與川陳皮素，是沖繩人長壽的健康秘訣之一。它的酸味強烈但帶有清新的獨特香氣。在超市或伴手禮店可以買到100%的香檬原汁。在地人通常會將原汁加入冰水與蜂蜜調製成消暑的健康果汁，或是滴入泡盛酒與碳酸水中製作沙瓦，甚至用來取代檸檬汁作為生魚片或烤魚的調味料。帶一瓶香檬原汁回家，隨時都能調製一杯充滿沖繩夏日陽光氣息的健康飲品。" },
+        { name: "星巴克 沖繩限定馬克杯", inItin: false, day: "獨立行程", price: "¥2,000 - ¥2,500", text: "對於有收集星巴克城市杯習慣的旅客來說，「沖繩限定版」絕對是不可錯過的夢幻逸品。沖繩版城市杯的設計充滿了濃厚的南國風情，杯身上通常繪有沖繩最具代表性的圖騰，例如：熱情的扶桑花、威武的風獅爺、傳統的琉球舞蹈、甚至是碧海藍天與三線琴等元素。配色多以鮮豔的黃色、藍色與紅色為主，視覺效果極為搶眼。除了經典的馬克杯，隨行杯與保溫瓶也是熱門的搶購目標。在機場或國際通的星巴克門市皆有販售，是實用又極具紀念價值的品牌伴手禮。" }
+      ],
+      photoSpots: [
+        { name: "瀨長島 Umikaji Terrace", inItin: true, day: "Day 3", add: "沖繩縣豐見城市瀨長174-6", text: "被譽為「沖繩小希臘」的瀨長島，依山傍海建構了一層層純白色的建築群。在藍天白雲的襯托下，隨手一拍都充滿了濃郁的地中海度假風情。除了純白建築，這裡最獨特的取景點是可以將低空飛過的客機與大海同時捕捉入鏡。傍晚時分，夕陽將白色建築染成金黃色，更是浪漫無比的絕佳攝影時刻。" },
+        { name: "美國村 日落海灘", inItin: true, day: "Day 4", add: "沖繩縣中頭郡北谷町美濱2", text: "美國村本身就是一個巨大的戶外攝影棚，色彩繽紛的異國建築與街頭塗鴉讓人快門停不下來。而緊鄰商圈的「日落海灘」，更是沖繩著名的賞夕陽聖地。當金黃色的夕陽緩緩沉入東海，海面波光粼粼，搭配沙灘上的情侶剪影或遠處的防波堤，能拍出極具戲劇張力與浪漫氛圍的絕美逆光照片。" },
+        { name: "知念岬公園", inItin: true, day: "Day 3", add: "沖繩縣南城市知念久手堅523", text: "知念岬公園位於沖繩本島東南部，擁有超過250度的寬闊視野。站在岬角的觀景台上，沒有任何人工建築的遮蔽，一望無際的太平洋蔚藍海水與天空連成一線，海水的漸層色彩令人屏息。這裡除了是拍出無敵海景大片的聖地，天氣晴朗時還能將遠方的「神之島」久高島一同捕捉入鏡，展現沖繩壯闊的自然之美。" },
+        { name: "金城町石疊道", inItin: true, day: "Day 5", add: "沖繩縣那霸市首里金城町", text: "這條名列日本百大名道的古老坡道，位於首里城附近。道路以琉球石灰岩鋪設而成，兩側保留了傳統的沖繩紅瓦民居與古老的石牆，並點綴著翠綠的榕樹與鮮豔的扶桑花。這裡沒有市區的喧囂，充滿了濃厚的歷史沉澱與復古懷舊氛圍。穿上傳統服飾或簡約夏裝在此漫步回眸，能拍出極具文青氣息與電影感的高質感照片。" },
+        { name: "古宇利大橋", inItin: false, day: "獨立行程", add: "沖繩縣國頭郡今歸仁村古宇利", text: "連接沖繩本島與古宇利島的「古宇利大橋」，全長約2公里，是沖繩最長的跨海大橋。大橋兩側的海水被稱為「古宇利藍」，清澈透明且呈現迷人的漸層翠綠色。最佳的拍攝點在大橋兩端的觀景台或橋下的沙灘，可以將筆直延伸入海的壯觀橋身與漸層海色完美結合，拍出彷彿通往海之盡頭的夢幻公路大片。" },
+        { name: "萬座毛", inItin: true, day: "Day 4", add: "沖繩縣國頭郡恩納村恩納2870-1", text: "萬座毛是沖繩西海岸最具標誌性的自然奇觀。那座形似大象鼻子的巨大珊瑚礁懸崖，矗立在湛藍的東海之中，海浪拍打岩石激起白色浪花，氣勢磅礴。沿著觀景步道，您可以找到最佳的角度將整座象鼻岩與後方的無敵海景框入鏡頭。無論是早晨的順光湛藍，或是傍晚夕陽西下的魔幻逆光，都能拍出令人驚豔的風景明信片等級照片。" },
+        { name: "美麗海水族館 黑潮之海", inItin: true, day: "Day 4", add: "沖繩縣國頭郡本部町石川424", text: "雖然是室內景點，但美麗海水族館內的巨大水槽「黑潮之海」絕對是必拍的震撼畫面。站在巨大的壓克力玻璃前，看著體型龐大的鯨鯊與優雅的鬼蝠魟從頭頂游過，彷彿置身於深海之中。最佳的拍攝技巧是利用水槽散發出的幽藍色光線，將人物拍攝成剪影，與水槽內巨大的海洋生物形成強烈的對比，畫面充滿神秘與震撼感。" },
+        { name: "波上宮", inItin: false, day: "獨立行程", add: "沖繩縣那霸市若狹1-25-11", text: "矗立於珊瑚礁懸崖上的波上宮，朱紅色的建築與藍天碧海形成鮮明對比。最經典的拍攝角度並非在神宮內部，而是步行至神宮旁的高架道路（波之上海灘旁）上回望。從這個角度可以清楚地拍下整座波上宮傲立於懸崖之上的壯麗全貌，下方則是清澈見底的海水與沙灘，完美捕捉了沖繩信仰與自然結合的獨特風貌。" },
+        { name: "殘波岬白色燈塔", inItin: false, day: "獨立行程", add: "沖繩縣中頭郡讀谷村宇座1922", text: "殘波岬以綿延兩公里的陡峭珊瑚礁斷崖著稱，海浪拍打岩壁激起巨大浪花，充滿粗獷的自然力量。而矗立在岬角盡頭的純白色燈塔，更是畫龍點睛的絕佳拍攝主題。在湛藍天空與深藍海水的背景下，白色的燈塔顯得格外醒目純潔。這裡也是沖繩著名的夕陽景點，當夕陽將雲彩染成紫紅色，燈塔的剪影更是美不勝收。" },
+        { name: "備瀨一線天 (備瀬のワルミ)", inItin: false, day: "獨立行程", add: "沖繩縣國頭郡本部町備瀨", text: "隱藏在美麗海水族館附近的備瀨一線天，是一個相對神秘的自然秘境（需注意潮汐與當地開放狀況）。兩旁高聳的叢林峭壁形成了一個狹窄的通道，盡頭則是湛藍的海洋與白沙灘。從通道內往海的方向拍攝，兩側暗色的岩壁形成了天然的畫框，將盡頭明亮的藍天白雲與海水框住，形成視覺衝擊力極強的神秘探險風格照片。" }
+      ],
+      desserts: [
+        { name: "幸福鬆餅 瀨長島店", inItin: true, day: "Day 3", add: "沖繩縣豐見城市瀨長174-6 Umikaji Terrace 32號", price: "¥1,000 - ¥1,500", text: "來自日本本土的超人氣排隊名店「幸福鬆餅（幸せのパンケーキ）」，在沖繩瀨長島的分店擁有無可匹敵的無敵海景。這裡主打現點現做的厚燒舒芙蕾鬆餅，堅持不使用泡打粉，僅靠蛋白霜打發，創造出宛如雲朵般「入口即化」的極致蓬鬆軟嫩口感。經典的原味鬆餅搭配來自紐西蘭的高級麥盧卡蜂蜜與發酵奶油，香氣濃郁卻不甜膩。坐在戶外露台座位，一邊吹著海風欣賞碧海藍天，一邊品嚐這份夢幻甜點，絕對是名符其實的幸福時刻。" },
+        { name: "Blue Seal 冰淇淋 (國際通店)", inItin: false, day: "獨立行程", add: "沖繩縣那霸市牧志1-2-32", price: "¥400 - ¥800", text: "「生於美國，長於沖繩」的 Blue Seal 是沖繩最具代表性的冰淇淋品牌，招牌標語隨處可見。其冰淇淋口感介於美式的濃郁與日式的清爽之間。強烈推薦品嚐結合沖繩在地特產的限定口味，例如：呈現美麗紫色的「沖繩紅芋」、微苦回甘的「沖繩特產鹽金楚糕」、清新的「香檬（Shiquwasa）」，以及獨特的「甘蔗」口味。在炎熱的沖繩街頭或跑完步後，來一球色彩繽紛、清涼消暑的 Blue Seal 冰淇淋，是體驗沖繩文化的必備儀式。" },
+        { name: "Zhyvago Coffee Works", inItin: true, day: "Day 4", add: "沖繩縣中頭郡北谷町美濱9-46 海濱大樓1F", price: "¥600 - ¥1,200", text: "位於美國村海岸邊的 Zhyvago Coffee Works，是一間充滿濃厚美國西海岸工業風的精品咖啡館。店內裝潢採用大量復古木材、紅磚與金屬元素，加上店員的時尚穿搭，讓人彷彿置身加州。這裡提供高品質的自家烘焙咖啡，從義式濃縮到手沖單品皆具水準。除了咖啡，店內的手工甜點如厚實的磅蛋糕、巧克力布朗尼也備受好評。最棒的是買一杯冰拿鐵，坐在店外正對大海的座位上，欣賞美國村著名的絕美夕陽，享受極致的Chill時光。" },
+        { name: "oHacorte 水果塔 (港川店)", inItin: false, day: "獨立行程", add: "沖繩縣浦添市港川2-17-1", price: "¥800 - ¥1,500", text: "oHacorte 隱身於充滿文青氣息的港川外人住宅街內，由一棟美軍舊宿舍改建而成，被譽為沖繩最好吃的水果塔專賣店。這裡的水果塔宛如珠寶般精緻，店家嚴選當季最新鮮、最頂級的水果（如日本水蜜桃、麝香葡萄、草莓等）鋪滿塔皮。其塔皮烤得極其酥脆且帶有濃郁奶油香，搭配甜度適中的卡士達醬與鮮甜多汁的水果，口感層次豐富，完美平衡了酸甜滋味。店內環境充滿日式鄉村風的溫馨感，是女孩們下午茶的夢幻首選。" },
+        { name: "千日 (千日ぜんざい)", inItin: false, day: "獨立行程", add: "沖繩縣那霸市久米1-7-14", price: "¥500 - ¥800", text: "沖繩的「善哉（Zenzai）」與日本本土的熱紅豆湯不同，是指在挫冰上鋪滿蜜紅豆與白玉湯圓的傳統消暑甜品。而位於那霸市區的「千日」更是沖繩善哉的老字號名店，充滿了昭和時代的懷舊氛圍。這裡的冰品堆得像座小山一樣高，冰晶刨得極其細緻綿密，入口即化。底層隱藏著熬煮得軟爛甘甜的沖繩金時豆（大紅豆）與Q彈有嚼勁的白玉湯圓。除了傳統口味，淋上鮮豔粉紅色草莓糖漿的「冰水」也是當地學生的最愛，份量十足又透心涼。" },
+        { name: "富士家 泊本店 (善哉)", inItin: false, day: "獨立行程", add: "沖繩縣那霸市泊2-10-9", price: "¥500 - ¥800", text: "富士家是另一間在沖繩極具代表性的傳統冰品店，不僅在地人喜愛，連許多日本藝人也經常造訪。這裡最大的特色是將裝著碎冰的復古玻璃杯，以及裝有蜜紅豆與湯圓的小碗「分開上桌」，讓客人可以依照自己的喜好將料加入冰中，或是用冰配著料吃，保持湯圓的Q彈口感。富士家的紅豆熬煮得非常透徹入味，甜度適中不膩口，還會附上一片鹹味仙貝讓客人轉換口味。店內裝潢復古溫馨，非常適合在炎熱的午後前往消暑休憩。" },
+        { name: "Ball Donut Park", inItin: false, day: "獨立行程", add: "沖繩縣那霸市牧志1-1-39", price: "¥600 - ¥1,000", text: "位於國際通巷弄內的 Ball Donut Park，是一間充滿文青設計感的創意炸甜甜圈球專賣店。有別於傳統的圓環狀甜甜圈，這裡將麵團做成一口大小的圓球狀，現點現炸，外皮酥脆微焦，內裡卻像麻糬般Q彈軟糯。口味選擇非常豐富，從最經典的檸檬糖霜、肉桂糖粉，到淋上巧克力醬、焦糖海鹽，甚至搭配生火腿的鹹味選擇都有。點一份熱騰騰的甜甜圈球，搭配一杯店內的現壓檸檬氣泡水，清爽解膩，是逛街時最棒的散步甜點。" },
+        { name: "步 沖繩沙翁 (沙翁/開口笑)", inItin: false, day: "獨立行程", add: "沖繩縣那霸市松尾2-10-1 第一牧志公設市場2F", price: "¥100 - ¥500", text: "沙翁（Sata Andagi）又稱開口笑，是沖繩最具代表性的傳統炸麵糰點心。「步（あゆみ）」隱身於牧志公設市場二樓，被許多在地人譽為沖繩最好吃的沙翁專賣店。這裡的沙翁堅持每天手工新鮮現炸，外皮炸得金黃酥脆，甚至帶點硬度，但咬開後內層卻像蛋糕般鬆軟綿密，散發著濃郁的雞蛋與麵粉香氣，且不會有油耗味。即使冷掉也依然美味。由於每天限量製作，常常在中午前就會被搶購一空，想品嚐這款樸實無華卻令人回味無窮的古早味，務必早起前往。" },
+        { name: "Kame Andagi", inItin: false, day: "獨立行程", add: "沖繩縣豐見城市瀨長174-6 Umikaji Terrace 8號", price: "¥400 - ¥800", text: "傳統的沙翁通常只有原味或黑糖味，但在瀨長島 Umikaji Terrace 內的 Kame Andagi，則賦予了這項傳統點心全新的生命。他們將酥脆的沙翁對半切開，中間夾入各種口味的 Blue Seal 冰淇淋（如紅芋、香草、抹茶等），或是擠滿濃郁的紫薯泥與鮮奶油。熱騰騰的現炸沙翁與冰涼的冰淇淋在口中交織出「冰火五重天」的絕妙口感，視覺上也極具吸引力，非常適合打卡拍照。拿著這份創意甜點，坐在瀨長島的純白階梯上欣賞海景，是視覺與味覺的雙重享受。" },
+        { name: "PUZO Cheese Cake Cellar", inItin: false, day: "獨立行程", add: "沖繩縣那霸市泊1-20-14", price: "¥1,500 - ¥2,500", text: "PUZO 是沖繩在地非常知名的起司蛋糕專賣店，曾榮獲多項日本甜點大獎。他們嚴選世界各地的高品質起司，製作出各種不同風味與口感的起司蛋糕。招牌商品「曼哈頓戀人起司蛋糕」口感極其濃郁綿密，起司香氣在口中久久不散；另一款「三層起司塔」則結合了酥脆塔皮與軟滑的起司內餡，層次豐富。如果無法帶一整個蛋糕回國，店內也有販售切片蛋糕與常溫的起司餅乾。喜愛濃厚起司風味的甜點控，絕對不能錯過這家在地私房名店。" }
+      ],
+      market: [
+        { name: "San-A Naha Main Place", inItin: true, day: "Day 1", add: "沖繩縣那霸市歌町4-4-9", text: "位於那霸新都心商圈的大型購物中心，一樓設有面積廣大的生鮮超市。這裡是當地居民日常採買的重心，商品種類極為齊全，從沖繩在地新鮮蔬果、高品質的黑毛和牛與海鮮生魚片，到琳瑯滿目的零食、泡麵與調味料應有盡有。便當與熟食區的選擇也十分豐富，甚至到了晚間會有半價折扣，非常划算。由於距離 Almont Hotel Naha Omoromachi 飯店極近，強烈推薦在抵達首日晚上前往，採購馬拉松賽前所需的香蕉、飲水與補給品。", hours: "09:00 - 23:00" },
+        { name: "MaxValu 牧志店", inItin: false, day: "獨立行程", add: "沖繩縣那霸市牧志2-10-1", text: "MaxValu 是日本永旺（AEON）集團旗下的連鎖超市，這間牧志店的最大優勢在於它位於繁華的國際通周邊，且為「24小時營業」。無論是逛街逛到多晚，或是半夜肚子餓想買宵夜，這裡都是絕佳的選擇。超市內設有豐富的伴手禮專區，紅芋塔、金楚糕、沖繩麵泡麵等熱門商品一應俱全，且價格通常比國際通上的土產店更為實惠。此外，這裡的熟食區與炸物區也深受觀光客喜愛，是回飯店前補給零食與啤酒的必訪站。", hours: "24 小時營業" },
+        { name: "唐吉訶德 國際通店", inItin: false, day: "獨立行程", add: "沖繩縣那霸市松尾2-8-19", text: "雖然唐吉訶德嚴格來說是驚安殿堂（綜合折扣店），但它地下一樓的食品超市區絕對是觀光客掃貨的重鎮。位於國際通正中央，這棟多樓層的商場營業至深夜，匯集了全日本與沖繩在地的各種零食、糖果、名產、酒類與藥妝。這裡的商品陳列雖然擁擠但充滿尋寶的樂趣，且經常有令人驚喜的特價促銷。如果想一次買齊所有沖繩特色伴手禮（如各品牌泡盛、抹茶零食、期間限定糖果），且享有免稅服務，這裡絕對是效率最高的選擇。", hours: "09:00 - 02:00" },
+        { name: "AEON 那霸店", inItin: false, day: "獨立行程", add: "沖繩縣那霸市金城5-10-2", text: "位於單軌電車「小祿站」旁，出站即可由空橋直達，交通極為便利。這是一座結合了大型超市、服飾店、藥妝店與美食街的綜合型購物中心。其超市區域非常廣闊，生鮮食品品質極佳。最受觀光客喜愛的是這裡的免稅服務相當完善，且超市內經常舉辦各地物產展。在一樓買完超市食品與藥妝後，可以直接在同樓層的服務台辦理退稅手續。如果您住在小祿站周邊，或是回國前想進行最後一次大規模的超市採買，這裡絕對是最佳去處。", hours: "10:00 - 23:00 (超市 07:00 開始)" },
+        { name: "Union 宇地泊店", inItin: false, day: "獨立行程", add: "沖繩縣宜野灣市宇地泊751", text: "Union 是沖繩在地極具代表性的本土連鎖超市，其口號是「因為有Union所以沒問題！」。相比於全國性的大型連鎖超市，Union 更具沖繩當地的庶民生活氣息。這裡的價格非常親民，且會販售許多沖繩獨有的特色食材，例如：新鮮的海葡萄、島豆腐、各式各樣的沖繩黑糖、以及在地主婦愛用的調味料。雖然沒有華麗的裝潢與免稅服務，但如果您想深入體驗沖繩在地人的生活日常，買到最接地氣、最便宜的沖繩平民美食與食材，24小時營業的 Union 絕對值得一逛。", hours: "24 小時營業" }
+      ]
+    };
+
+    function renderCards() {
+      // 景點 POI
+      const poiHtml = data.poi.map(item => `
+        <div class="glass-card">
+          <div class="text-xl font-bold text-blue-800 ${item.inItin ? 'red-text' : ''}">${item.name} ${item.inItin ? '<span class="text-sm font-normal text-red-500">(已排入行程)</span>' : ''}</div>
+          <div class="day-tag w-max ${item.day === '獨立行程' ? 'bg-gray-500' : 'bg-blue-600'}"><i class="fa-solid fa-calendar-day"></i> ${item.day}</div>
+          <div class="stack-vertical mt-2">
+            <div class="text-sm text-gray-700"><strong>亮點：</strong>${item.hl}</div>
+            <div class="text-sm text-gray-600 mt-1">${item.text}</div>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('poi-container').innerHTML = poiHtml;
+
+      // 美食 BIB
+      const bibHtml = data.bib.map(item => `
+        <div class="glass-card">
+          <div class="text-xl font-bold text-blue-800 ${item.inItin ? 'red-text' : ''}">${item.name} ${item.inItin ? '<span class="text-sm font-normal text-red-500">(已排入行程)</span>' : ''}</div>
+          <div class="day-tag w-max ${item.day === '獨立行程' ? 'bg-gray-500' : 'bg-orange-500'}"><i class="fa-solid fa-calendar-day"></i> ${item.day}</div>
+          <div class="stack-vertical mt-2">
+            <div class="text-sm text-gray-700"><strong>推薦/亮點：</strong>${item.hl}</div>
+            <div class="text-sm text-gray-700"><strong>預算：</strong>${item.price}</div>
+            <div class="text-sm text-gray-700 flex items-center justify-between">
+              <span><strong>地址：</strong><span id="bib-${item.name}">${item.add}</span></span>
+              <button class="copy-btn" onclick="copyToClipboard('bib-${item.name}', this)"><i class="fa-regular fa-copy"></i> 複製</button>
+            </div>
+            <div class="text-sm text-gray-600 mt-1 border-t border-gray-100 pt-2">${item.text}</div>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('bib-container').innerHTML = bibHtml;
+
+      // 伴手禮
+      const souvHtml = data.souvenir.map((item, idx) => `
+        <div class="glass-card">
+          <div class="text-xl font-bold text-blue-800 ${item.inItin ? 'red-text' : ''}">${item.name} ${item.inItin ? '<span class="text-sm font-normal text-red-500">(已排入行程)</span>' : ''}</div>
+          <div class="stack-vertical mt-2">
+            <div class="text-sm text-gray-700"><strong>預算：</strong>${item.price}</div>
+            <div class="text-sm text-gray-700"><strong>關聯日：</strong>${item.day}</div>
+            <div class="text-sm text-gray-600 mt-1 border-t border-gray-100 pt-2">${item.text}</div>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('souvenir-container').innerHTML = souvHtml;
+
+      // 拍照聖地
+      const photoHtml = data.photoSpots.map((item, idx) => `
+        <div class="glass-card">
+          <div class="text-xl font-bold text-blue-800 ${item.inItin ? 'red-text' : ''}">${item.name} ${item.inItin ? '<span class="text-sm font-normal text-red-500">(已排入行程)</span>' : ''}</div>
+          <div class="stack-vertical mt-2">
+            <div class="text-sm text-gray-700 flex items-center justify-between">
+              <span><strong>地址：</strong><span id="photo-${idx}">${item.add}</span></span>
+              <button class="copy-btn" onclick="copyToClipboard('photo-${idx}', this)"><i class="fa-regular fa-copy"></i> 複製</button>
+            </div>
+            <div class="text-sm text-gray-600 mt-1 border-t border-gray-100 pt-2">${item.text}</div>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('photo-spots-container').innerHTML = photoHtml;
+
+      // 甜點
+      const dessertHtml = data.desserts.map((item, idx) => `
+        <div class="glass-card">
+          <div class="text-xl font-bold text-blue-800 ${item.inItin ? 'red-text' : ''}">${item.name} ${item.inItin ? '<span class="text-sm font-normal text-red-500">(已排入行程)</span>' : ''}</div>
+          <div class="stack-vertical mt-2">
+            <div class="text-sm text-gray-700"><strong>預算：</strong>${item.price}</div>
+            <div class="text-sm text-gray-700 flex items-center justify-between">
+              <span><strong>地址：</strong><span id="des-${idx}">${item.add}</span></span>
+              <button class="copy-btn" onclick="copyToClipboard('des-${idx}', this)"><i class="fa-regular fa-copy"></i> 複製</button>
+            </div>
+            <div class="text-sm text-gray-600 mt-1 border-t border-gray-100 pt-2">${item.text}</div>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('desserts-container').innerHTML = dessertHtml;
+
+      // 超市
+      const marketHtml = data.market.map((item, idx) => `
+        <div class="glass-card">
+          <div class="text-xl font-bold text-blue-800 ${item.inItin ? 'red-text' : ''}">${item.name} ${item.inItin ? '<span class="text-sm font-normal text-red-500">(已排入行程)</span>' : ''}</div>
+          <div class="stack-vertical mt-2">
+            <div class="text-sm text-gray-700 ${item.hours.includes('未知') ? 'text-red-500' : ''}"><strong>營業時間：</strong>${item.hours}</div>
+            <div class="text-sm text-gray-700 flex items-center justify-between">
+              <span><strong>地址：</strong><span id="mar-${idx}">${item.add}</span></span>
+              <button class="copy-btn" onclick="copyToClipboard('mar-${idx}', this)"><i class="fa-regular fa-copy"></i> 複製</button>
+            </div>
+            <div class="text-sm text-gray-600 mt-1 border-t border-gray-100 pt-2">${item.text}</div>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('market-container').innerHTML = marketHtml;
+    }
+
+    /* 互動控制 */
     function showPage(id) {
-      document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
-      const target = document.getElementById(id);
-      if (target) {
-        target.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.querySelectorAll('main > section').forEach(s => s.classList.remove('active'));
+      const tgt = document.getElementById(id); 
+      if(tgt) { 
+        tgt.classList.add('active'); 
+        window.scrollTo({top: 0, behavior: 'smooth'}); 
       }
     }
 
-    // Copy to Clipboard
-    function copyToClipboard(elementId) {
-      const el = document.getElementById(elementId);
-      if (!el) return;
-      const text = el.innerText.trim();
-      navigator.clipboard.writeText(text).then(() => {
-        const originalHTML = el.innerHTML;
-        el.innerHTML = `<i class="fa-solid fa-check text-green-500"></i> 已複製`;
+    function copyToClipboard(nodeId, btnEl) {
+      const el = document.getElementById(nodeId); 
+      if(!el) return;
+      navigator.clipboard.writeText(el.innerText.trim()).then(() => {
+        const originalHtml = btnEl.innerHTML;
+        btnEl.innerHTML = '<i class="fa-solid fa-check"></i> 已複製';
+        btnEl.style.backgroundColor = '#d1fae5';
+        btnEl.style.color = '#047857';
         setTimeout(() => {
-          el.innerHTML = originalHTML;
+          btnEl.innerHTML = originalHtml;
+          btnEl.style.backgroundColor = '';
+          btnEl.style.color = '';
         }, 1500);
       });
     }
 
-    // Scroll Observer
     const backToTopBtn = document.getElementById('backToTopBtn');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        backToTopBtn.classList.add('visible');
-      } else {
-        backToTopBtn.classList.remove('visible');
-      }
+    window.addEventListener('scroll', () => { 
+      if(window.scrollY > 300) { backToTopBtn.style.display = 'block'; } 
+      else { backToTopBtn.style.display = 'none'; } 
     });
+    backToTopBtn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+    // Init
+    window.onload = renderCards;
   </script>
 </body>
 </html>
