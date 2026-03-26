@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三大雲端供應商 LLM 模型與架構分析 (2026版)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        aws: '#FF9900',
+                        gcp: '#4285F4',
+                        azure: '#0078D4',
+                        primary: '#111827',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        .tab-btn { transition: all 0.2s ease-in-out; }
+        .tab-active-aws { border-bottom: 3px solid #FF9900; color: #FF9900; font-weight: 600; }
+        .tab-active-gcp { border-bottom: 3px solid #4285F4; color: #4285F4; font-weight: 600; }
+        .tab-active-azure { border-bottom: 3px solid #0078D4; color: #0078D4; font-weight: 600; }
+        .tab-active-vs { border-bottom: 3px solid #6B7280; color: #374151; font-weight: 600; }
+        .tab-inactive { color: #6B7280; font-weight: 400; border-bottom: 3px solid transparent; }
+        .tab-inactive:hover { color: #374151; background-color: #F3F4F6; }
+        
+        /* Custom scrollbar */
+        .table-container::-webkit-scrollbar { height: 8px; width: 8px; }
+        .table-container::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .table-container::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        .table-container::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+
+        .badge { padding: 0.25rem 0.5rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }
+        .badge-green { background-color: #DEF7EC; color: #03543F; border: 1px solid #84E1BC; }
+        .badge-blue { background-color: #E1EFFE; color: #1E429F; border: 1px solid #A4CAFE; }
+        .badge-purple { background-color: #E5EDFF; color: #4F46E5; border: 1px solid #C7D2FE; }
+        .badge-gray { background-color: #F3F4F6; color: #4B5563; border: 1px solid #D1D5DB; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen text-gray-800">
+
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 tracking-tight">
+                <i class="fas fa-server text-gray-700 mr-2"></i>三大雲端供應商 LLM 模型生態系分析
+            </h1>
+            <p class="text-gray-600 max-w-4xl mx-auto text-lg">
+                統整 <strong>AWS Bedrock</strong>、<strong>Google Cloud Vertex AI</strong> 與 <strong>Azure AI / Foundry</strong> 的生成式 AI 模型矩陣。<br>
+                包含 2026 最新模型清單、多模態與推理能力標註，以及跨平台差異比較。
+            </p>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="border-b border-gray-200 mb-8 bg-white rounded-t-xl shadow-sm px-4 pt-2 flex overflow-x-auto table-container">
+            <nav class="flex space-x-2 md:space-x-8 min-w-max" aria-label="Tabs">
+                <button onclick="switchTab('aws')" id="tab-aws" class="tab-btn tab-inactive py-4 px-4 text-base md:text-lg flex items-center rounded-t-lg">
+                    <i class="fab fa-aws text-aws mr-2 text-xl"></i> AWS Bedrock
+                </button>
+                <button onclick="switchTab('azure')" id="tab-azure" class="tab-btn tab-active-azure py-4 px-4 text-base md:text-lg flex items-center rounded-t-lg">
+                    <i class="fab fa-microsoft text-azure mr-2 text-xl"></i> Azure AI Foundry
+                </button>
+                <button onclick="switchTab('gcp')" id="tab-gcp" class="tab-btn tab-inactive py-4 px-4 text-base md:text-lg flex items-center rounded-t-lg">
+                    <i class="fab fa-google text-gcp mr-2 text-xl"></i> GCP Vertex AI
+                </button>
+                <button onclick="switchTab('vs')" id="tab-vs" class="tab-btn tab-inactive py-4 px-4 text-base md:text-lg flex items-center rounded-t-lg">
+                    <i class="fas fa-exchange-alt text-gray-500 mr-2 text-xl"></i> 跨平台差異分析
+                </button>
+                <button onclick="switchTab('price')" id="tab-price" class="tab-btn tab-inactive py-4 px-4 text-base md:text-lg flex items-center rounded-t-lg">
+                    <i class="fas fa-money-bill-wave text-green-600 mr-2 text-xl"></i> 共有模型價格分析
+                </button>
+            </nav>
+        </div>
+
+        <!-- Content Area -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-2 md:p-6 overflow-hidden">
+            
+            <!-- Azure Tab Content (Default Active for this update) -->
+            <div id="content-azure" class="block">
+                <div class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+                            <i class="fab fa-microsoft text-azure mr-2"></i> Azure OpenAI & Foundry Models
+                        </h2>
+                        <p class="text-gray-500 mt-1">分為 Azure 直接販售的 OpenAI/特選模型，以及 Partners & Community 的第三方模型。</p>
+                    </div>
+                    <div class="flex gap-2 text-sm">
+                        <span class="badge badge-purple"><i class="fas fa-brain mr-1"></i> 支援推理 (Reasoning)</span>
+                        <span class="badge badge-blue"><i class="fas fa-icons mr-1"></i> 多模態 (Multimodal)</span>
+                    </div>
+                </div>
+
+                <div class="table-container overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">供應商 / 系列</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">模型名稱</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">類別與適合用途</th>
+                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">多模態</th>
+                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">推理能力</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">API / 部署建議</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <!-- Azure OpenAI -->
+                            <tr class="bg-blue-50/30 hover:bg-blue-50/50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900" rowspan="4">OpenAI<br><span class="text-xs font-normal text-gray-500">Azure 原生支援</span></td>
+                                <td class="px-6 py-4 text-sm font-medium text-azure">gpt-5 / gpt-5.4 / gpt-4o</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">通用旗艦<br><span class="text-xs text-gray-400">通用聊天、Agent、RAG、複雜任務</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">✅</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">❌</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">Azure OpenAI API (標準部署)</td>
+                            </tr>
+                            <tr class="bg-blue-50/30 hover:bg-blue-50/50 transition-colors">
+                                <td class="px-6 py-4 text-sm font-medium text-azure">o3 / o4-mini / gpt-5.1-chat</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">強推理型<br><span class="text-xs text-gray-400">邏輯推理、數學、Deep Research</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">❌</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">✅</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">Azure OpenAI API</td>
+                            </tr>
+                            <tr class="bg-blue-50/30 hover:bg-blue-50/50 transition-colors">
+                                <td class="px-6 py-4 text-sm font-medium text-azure">gpt-5-codex / gpt-5.3-codex</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">程式碼生成<br><span class="text-xs text-gray-400">Copilot 核心、代碼重構與優化</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">❌</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">❌</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">Azure OpenAI API</td>
+                            </tr>
+                            <tr class="bg-blue-50/30 hover:bg-blue-50/50 transition-colors">
+                                <td class="px-6 py-4 text-sm font-medium text-azure">gpt-realtime-1.5 / sora-2</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">語音與影音生成<br><span class="text-xs text-gray-400">即時雙向語音互動、高品質影片生成</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">✅</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">❌</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">Azure OpenAI 專屬端點</td>
+                            </tr>
+
+                            <!-- DeepSeek -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900" rowspan="2">DeepSeek</td>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">DeepSeek-R1 / R1-0528</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">強推理型開源<br><span class="text-xs text-gray-400">極致邏輯推理、性價比高</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">❌</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">✅</td>
+                                <td class="px-6 py-4 text-sm text-gray-600" rowspan="2">Models as a Service (MaaS)<br><span class="text-xs text-gray-400">Serverless API</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">DeepSeek-V3.2 / V3.1</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">通用開源<br><span class="text-xs text-gray-400">一般文字生成與程式碼輔助</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">❌</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">❌</td>
+                            </tr>
+
+                            <!-- Meta -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">Meta</td>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">Llama-4-Maverick / 3.3-70B</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">開源企業級<br><span class="text-xs text-gray-400">企業微調、低延遲 RAG 應用</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">視版本</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">❌</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">MaaS / 專用虛擬機器部署</td>
+                            </tr>
+
+                            <!-- xAI -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900" rowspan="2">xAI</td>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">grok-4-fast-reasoning / grok-3</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">推理型與通用<br><span class="text-xs text-gray-400">快速邏輯推理、即時資訊處理</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">❌</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">✅</td>
+                                <td class="px-6 py-4 text-sm text-gray-600" rowspan="2">Azure Marketplace 部署<br><span class="text-xs text-red-500">*需註冊/Limited Access</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">grok-code-fast-1</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">專用程式碼<br><span class="text-xs text-gray-400">極速程式碼生成</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">❌</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">❌</td>
+                            </tr>
+
+                            <!-- Mistral & Cohere -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">Mistral / Cohere</td>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">Mistral-Large-3 / Cohere-command-a</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">歐洲系/企業檢索<br><span class="text-xs text-gray-400">多語系、高安全性文檔處理、Rerank</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">❌</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">❌</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">MaaS API</td>
+                            </tr>
+                            
+                            <!-- Others -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">影像/其他</td>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900">FLUX.2-pro / Kimi-K2-Thinking</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">專項能力<br><span class="text-xs text-gray-400">高品質生圖 (FLUX)、長文本推理 (Kimi)</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">✅ (FLUX)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">✅ (Kimi)</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">Marketplace / MaaS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                    <h4 class="text-sm font-bold text-yellow-800"><i class="fas fa-exclamation-triangle mr-2"></i>Azure 部署重要限制提醒：</h4>
+                    <p class="text-sm text-yellow-700 mt-1">您最終能部署哪些模型取決於：1. 您的 Azure 區域 (Region) 2. 訂閱類型 3. 是否需申請 Limited Access 4. Marketplace 權限。請務必使用 <code>Models List API</code> 查詢您帳號的實際可用清單。</p>
+                </div>
+            </div>
+
+            <!-- AWS Tab Content -->
+            <div id="content-aws" class="hidden">
+                <div class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+                            <i class="fab fa-aws text-aws mr-2"></i> Amazon Bedrock (102 款模型)
+                        </h2>
+                        <p class="text-gray-500 mt-1">匯集 17 家供應商，支援傳統 InvokeModel 與新一代 OpenAI-compatible (bedrock-mantle) 雙軌端點。</p>
+                    </div>
+                    <div class="flex gap-2 text-sm flex-wrap justify-end md:justify-start">
+                        <span class="badge badge-green"><i class="fas fa-check-circle mr-1"></i> 支援 Mantle (OpenAI 相容)</span>
+                        <span class="badge badge-purple"><i class="fas fa-brain mr-1"></i> 推理型</span>
+                        <span class="badge badge-blue"><i class="fas fa-icons mr-1"></i> 多模態</span>
+                    </div>
+                </div>
+
+                <div class="table-container overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">供應商 / 系列</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">主要模型清單 (最新版本)</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">適合場景與工程選型</th>
+                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Mantle 支援</th>
+                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">特殊能力</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <!-- Amazon 自家模型 -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">Amazon (自家)</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">
+                                    <strong>Nova:</strong> Pro, Premier, Lite, Micro, 2 Lite<br>
+                                    <strong>生成/多模態:</strong> Nova Canvas (圖), Reel (影), Sonic / 2 Sonic (音)<br>
+                                    <strong>檢索:</strong> Titan Text/Embeddings, Amazon Rerank 1.0
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-600">低延遲/輕量 (Micro/Lite)、語音即時互動 (Sonic)、圖片/影片生成 (Canvas/Reel)、檢索與 Rerank</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm"><span class="text-red-500">❌</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">✅ 圖/影/音</td>
+                            </tr>
+                            
+                            <!-- Anthropic -->
+                            <tr class="bg-orange-50/20 hover:bg-orange-50/50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">Anthropic<br><span class="text-xs font-normal text-gray-500">Bedrock 主力</span></td>
+                                <td class="px-6 py-4 text-sm text-gray-900">
+                                    <strong>Sonnet:</strong> 4.6, 4.5, 4<br>
+                                    <strong>Opus:</strong> 4.6, 4.5, 4.1<br>
+                                    <strong>Haiku:</strong> 4.5, 3.5, 3
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-600">企業聊天、Agent 核心、文件問答 (Sonnet/Haiku)<br>強推理複雜任務 (Opus)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm"><span class="text-red-500">❌</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">✅ 推理</td>
+                            </tr>
+
+                            <!-- Meta -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">Meta</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">
+                                    <strong>Llama 4:</strong> Maverick 17B, Scout 17B<br>
+                                    <strong>Llama 3.3/3.2:</strong> 70B (3.3), 1B~90B (3.2)<br>
+                                    <strong>Llama 3.1:</strong> 8B, 70B, 405B
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-600">開源系譜首選、自建企業 Agent/RAG、成本彈性</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm"><span class="text-red-500">❌</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">-</td>
+                            </tr>
+
+                            <!-- 非美系主力 (DeepSeek, Mistral, Moonshot etc.) -->
+                            <tr class="bg-green-50/20 hover:bg-green-50/50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">非美系主力<br><span class="text-xs font-normal text-gray-500">全球開源新銳</span></td>
+                                <td class="px-6 py-4 text-sm text-gray-900">
+                                    <strong>DeepSeek:</strong> R1, V3.2, V3.1<br>
+                                    <strong>Moonshot (Kimi):</strong> K2 Thinking, K2.5<br>
+                                    <strong>Qwen:</strong> Qwen3 (32B~235B), Coder 480B, VL<br>
+                                    <strong>Mistral:</strong> Large 3, Devstral, Pixtral<br>
+                                    <strong>MiniMax / Z.AI:</strong> M2.1, GLM 4.7
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-600">新一波極致強推理 (DeepSeek-R1, Kimi K2 Thinking)<br>強效程式碼 (Qwen3 Coder)、多語系通用 (Mistral)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm"><span class="text-green-600 font-bold"><i class="fas fa-check"></i> 大部分支援</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">✅ 推理/視覺</td>
+                            </tr>
+
+                            <!-- 其他供應商 -->
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">其他生態供應商</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">
+                                    <strong>Cohere:</strong> Command R/R+, Embed v4, Rerank 3.5<br>
+                                    <strong>Google:</strong> Gemma 3 (4B/12B/27B)<br>
+                                    <strong>OpenAI 相容:</strong> gpt-oss-20b/120b<br>
+                                    <strong>視覺與檢索:</strong> Stable Image 系列, TwelveLabs Marengo, Nemotron
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-600">強大檢索/Embedding (Cohere, TwelveLabs)<br>特定開源輕量化 (Gemma 3) 或生圖 (Stability AI)</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm"><span class="text-gray-600">部分支援<br><span class="text-xs">(Gemma 3, gpt-oss 支援)</span></span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h4 class="text-sm font-bold text-gray-800"><i class="fas fa-code mr-2"></i>AWS API 呼叫端點與選型指南：</h4>
+                    <p class="text-sm text-gray-700 mt-2">
+                        AWS 目前提供兩組推論端點，選型時需特別注意您的程式碼框架相容性：<br>
+                        1. <strong>傳統端點 (bedrock-runtime)</strong>：支援 <code>InvokeModel</code>, <code>Converse</code>，涵蓋 Claude、Llama、Titan、Nova 等大部分傳統主力模型。<br>
+                        2. <strong>相容端點 (bedrock-mantle)</strong>：支援 OpenAI 風格的 <code>Chat Completions API</code>。非常適合用來串接 DeepSeek、Gemma 3、MiniMax、Mistral Large 3、Kimi、Qwen3 等新引進的開源/非美系模型，讓現有程式碼無縫遷移。
+                    </p>
+                </div>
+            </div>
+
+            <!-- GCP Tab Content -->
+            <div id="content-gcp" class="hidden">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+                        <i class="fab fa-google text-gcp mr-2"></i> Google Cloud Vertex AI
+                    </h2>
+                    <p class="text-gray-500 mt-1">以 Gemini 原生模型為主戰力，輔以 Model Garden 豐富的開源生態系。</p>
+                </div>
+                <div class="table-container overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">供應商</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">主力模型</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">核心優勢與場景</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">計費與部署</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">Google (原生)</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">Gemini 3 Pro / Flash<br>Gemini 2.5 系列<br>Imagen 4</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">超長原生上下文 (百萬級 Context Window)、原生多模態深度融合</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">Vertex AI API (依 Token 計費)</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">Google (開源)</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">Gemma 3 (4B, 12B, 27B)</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">輕量級端側/邊緣運算部署、高性價比</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">GKE / Vertex Endpoint</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">Anthropic (第三方)</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">Claude 3.5 / 4.x 系列</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">提供與 AWS 相同的 Anthropic 體驗，方便 GCP 用戶調用</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">Model Garden API</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">Meta (第三方)</td>
+                                <td class="px-6 py-4 text-sm text-gray-900">Llama 3.3 / Llama 4</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">透過 MaaS 提供開源大模型選項</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">Model Garden (MaaS)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Comparison Tab Content -->
+            <div id="content-vs" class="hidden">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+                        <i class="fas fa-balance-scale text-gray-600 mr-2"></i> 主流第三方模型：跨雲可用性對比
+                    </h2>
+                    <p class="text-gray-500 mt-1">若您希望系統不被單一雲端綁架 (Multi-Cloud)，以下是三大平台共有或獨佔的關鍵模型分析。</p>
+                </div>
+                
+                <div class="table-container overflow-x-auto rounded-lg border border-gray-200">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-800 text-white">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">模型生態系</th>
+                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider bg-aws/20 border-l border-gray-600">AWS Bedrock</th>
+                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider bg-azure/20 border-l border-gray-600">Azure AI</th>
+                                <th scope="col" class="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider bg-gcp/20 border-l border-gray-600">GCP Vertex AI</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider border-l border-gray-600">平台差異說明</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">OpenAI (GPT/o系列)</td>
+                                <td class="px-6 py-4 text-center text-sm">❌</td>
+                                <td class="px-6 py-4 text-center text-sm font-bold text-azure">✅ 獨家原生</td>
+                                <td class="px-6 py-4 text-center text-sm">❌</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">微軟獨家協議，企業級 OpenAI 唯一選擇。</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">Google (Gemini系列)</td>
+                                <td class="px-6 py-4 text-center text-sm">❌</td>
+                                <td class="px-6 py-4 text-center text-sm">❌</td>
+                                <td class="px-6 py-4 text-center text-sm font-bold text-gcp">✅ 獨家原生</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">Google 自有生態系，超長上下文唯一解。</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">Anthropic (Claude)</td>
+                                <td class="px-6 py-4 text-center text-sm font-bold text-aws">✅ 深度合作</td>
+                                <td class="px-6 py-4 text-center text-sm">✅ (Marketplace)</td>
+                                <td class="px-6 py-4 text-center text-sm text-gray-700">✅</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">AWS 將其視為一線主力，更新最快；Azure 需透過市集。</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">DeepSeek (V3/R1)</td>
+                                <td class="px-6 py-4 text-center text-sm text-gray-700">✅</td>
+                                <td class="px-6 py-4 text-center text-sm text-gray-700">✅</td>
+                                <td class="px-6 py-4 text-center text-sm text-gray-700">✅</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">2026 年新寵，三大平台均積極導入 MaaS API。</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">Meta (Llama 3/4)</td>
+                                <td class="px-6 py-4 text-center text-sm text-gray-700">✅</td>
+                                <td class="px-6 py-4 text-center text-sm text-gray-700">✅</td>
+                                <td class="px-6 py-4 text-center text-sm text-gray-700">✅</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">開源標準，全平台皆通，計費略有差異。</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">Mistral AI</td>
+                                <td class="px-6 py-4 text-center text-sm text-gray-700">✅</td>
+                                <td class="px-6 py-4 text-center text-sm font-bold text-azure">✅ 深度合作</td>
+                                <td class="px-6 py-4 text-center text-sm text-gray-700">✅</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">微軟有投資 Mistral，Azure 上的整合度通常較高。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Pricing Tab Content (New) -->
+            <div id="content-price" class="hidden">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+                        <i class="fas fa-search-dollar text-green-600 mr-2"></i> 跨雲端共有 LLM 價格對比與分析
+                    </h2>
+                    <p class="text-gray-500 mt-1">
+                        以下列出三大平台皆有提供的 4 款指標性模型。註：同款模型在不同平台的基礎 Token 報價已高度趨同，以下採市場標準預估價 (USD / 每百萬 Token)。
+                    </p>
+                </div>
+                
+                <div class="table-container overflow-x-auto rounded-lg border border-gray-200 mb-8">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">跨平台共有模型</th>
+                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">輸入價格<br>(Input / 1M Tokens)</th>
+                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">輸出價格<br>(Output / 1M Tokens)</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">平台部署與計費差異備註</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <!-- Llama 3.3 -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
+                                    Meta Llama 3.3 70B Instruct<br>
+                                    <span class="text-xs font-normal text-gray-500">通用開源指標</span>
+                                </td>
+                                <td class="px-6 py-4 text-right text-sm font-medium text-gray-900">~$0.72</td>
+                                <td class="px-6 py-4 text-right text-sm font-medium text-gray-900">~$0.72</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">
+                                    <ul class="list-disc pl-4 space-y-1">
+                                        <li><strong>AWS / GCP</strong>: 作為原生 Serverless API 提供，隨插即用。</li>
+                                        <li><strong>Azure</strong>: 透過 Models as a Service (MaaS) 計費。</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            
+                            <!-- Mistral Large 3 -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
+                                    Mistral Large 3<br>
+                                    <span class="text-xs font-normal text-gray-500">歐洲系多語旗艦</span>
+                                </td>
+                                <td class="px-6 py-4 text-right text-sm font-medium text-gray-900">~$2.00</td>
+                                <td class="px-6 py-4 text-right text-sm font-medium text-gray-900">~$6.00</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">
+                                    <ul class="list-disc pl-4 space-y-1">
+                                        <li><strong>全平台一致</strong>: 三家雲端皆嚴格對齊 Mistral 官方 API 定價。</li>
+                                        <li>微軟因戰略投資，在 Azure 上的 VNet 整合與企業合約支援最為滑順。</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- Claude 3.5 Sonnet -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
+                                    Anthropic Claude 3.5 Sonnet<br>
+                                    <span class="text-xs font-normal text-gray-500">企業級閉源前段班</span>
+                                </td>
+                                <td class="px-6 py-4 text-right text-sm font-medium text-gray-900">$3.00</td>
+                                <td class="px-6 py-4 text-right text-sm font-medium text-gray-900">$15.00</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">
+                                    <ul class="list-disc pl-4 space-y-1">
+                                        <li><strong>AWS / GCP</strong>: 深度原生整合，直接依附於雲端帳單，無須額外採購程序。</li>
+                                        <li><strong>Azure</strong>: 需透過 Azure Marketplace 訂閱第三方 SaaS 方案，可能不適用於部分企業的基礎設施點數 (Commitment) 折抵。</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- DeepSeek V3 / R1 -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
+                                    DeepSeek-V3 / R1<br>
+                                    <span class="text-xs font-normal text-gray-500">極致性價比與強推理</span>
+                                </td>
+                                <td class="px-6 py-4 text-right text-sm font-medium text-green-600">~$0.14 - $0.55</td>
+                                <td class="px-6 py-4 text-right text-sm font-medium text-green-600">~$0.28 - $2.19</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">
+                                    <ul class="list-disc pl-4 space-y-1">
+                                        <li><strong>價格破壞者</strong>: 各平台報價皆極低，取決於模型版本 (V3 或 R1 蒸餾版)。</li>
+                                        <li>三大平台皆緊急擴充 MaaS 端點支援，價格極度競爭。</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Analysis Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-blue-50 rounded-xl p-5 border border-blue-100">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-compress-arrows-alt text-blue-600 text-xl mr-2"></i>
+                            <h3 class="font-bold text-blue-900">1. 報價高度趨同 (Convergence)</h3>
+                        </div>
+                        <p class="text-sm text-blue-800 leading-relaxed">
+                            在 PAYG (按量計費) 的 Serverless 模式下，三大平台對於同款模型（如 Llama 3.3 或 Mistral）的 API 報價幾乎是一模一樣的，不存在利用單純 API 價差來套利的空間。供應商間比拼的已非「表定單價」，而是「誰能先上架最新模型」。
+                        </p>
+                    </div>
+
+                    <div class="bg-red-50 rounded-xl p-5 border border-red-100">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-eye-slash text-red-600 text-xl mr-2"></i>
+                            <h3 class="font-bold text-red-900">2. 隱性成本陷阱 (Hidden Costs)</h3>
+                        </div>
+                        <p class="text-sm text-red-800 leading-relaxed">
+                            跨雲端比較時，真正的價差在於**網路傳輸費**與**吞吐量保障 (PT)**。<br>
+                            如果您的應用在 AWS，卻去呼叫 Azure 的第三方模型 API，跨區與跨網的 Data Transfer Out (DTO) 費用可能會吃掉所有利潤。強烈建議「應用在哪個雲，就用那個雲的 LLM」。
+                        </p>
+                    </div>
+
+                    <div class="bg-purple-50 rounded-xl p-5 border border-purple-100">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-file-signature text-purple-600 text-xl mr-2"></i>
+                            <h3 class="font-bold text-purple-900">3. 企業採購與消耗承諾</h3>
+                        </div>
+                        <p class="text-sm text-purple-800 leading-relaxed">
+                            選擇模型的重點在於您的**雲端消耗承諾 (EDP/MACC)**。<br>
+                            例如：AWS 的 Claude 費用可以直接折抵 AWS 企業合約額度；但如果在 Azure 上透過 Marketplace 購買 Claude，通常**無法**計入微軟的 MACC (Microsoft Azure Consumption Commitment) 額度中。
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            // Hide all contents
+            document.getElementById('content-aws').style.display = 'none';
+            document.getElementById('content-gcp').style.display = 'none';
+            document.getElementById('content-azure').style.display = 'none';
+            document.getElementById('content-vs').style.display = 'none';
+            document.getElementById('content-price').style.display = 'none';
+
+            // Reset all tab classes
+            const tabs = ['tab-aws', 'tab-gcp', 'tab-azure', 'tab-vs', 'tab-price'];
+            tabs.forEach(id => {
+                const el = document.getElementById(id);
+                el.className = 'tab-btn tab-inactive py-4 px-4 text-base md:text-lg flex items-center rounded-t-lg';
+            });
+
+            // Show selected content and set active class
+            document.getElementById('content-' + tabId).style.display = 'block';
+            
+            const activeEl = document.getElementById('tab-' + tabId);
+            if(tabId === 'aws') activeEl.className = 'tab-btn tab-active-aws py-4 px-4 text-base md:text-lg flex items-center rounded-t-lg bg-white shadow-sm';
+            if(tabId === 'gcp') activeEl.className = 'tab-btn tab-active-gcp py-4 px-4 text-base md:text-lg flex items-center rounded-t-lg bg-white shadow-sm';
+            if(tabId === 'azure') activeEl.className = 'tab-btn tab-active-azure py-4 px-4 text-base md:text-lg flex items-center rounded-t-lg bg-white shadow-sm';
+            if(tabId === 'vs') activeEl.className = 'tab-btn tab-active-vs py-4 px-4 text-base md:text-lg flex items-center rounded-t-lg bg-white shadow-sm';
+            if(tabId === 'price') activeEl.className = 'tab-btn border-bottom: 3px solid #16A34A; color: #16A34A; font-weight: 600; py-4 px-4 text-base md:text-lg flex items-center rounded-t-lg bg-white shadow-sm';
+        }
+    </script>
+</body>
+</html>
