@@ -1,0 +1,417 @@
+<style>
+:root {
+--primary-color: #0b5c73;
+--secondary-color: #1a8b9d;
+--bg-color: #f4f7f8;
+--card-bg: #ffffff;
+--text-main: #2c3e50;
+--text-light: #596a7b;
+--border-color: #e1e8ed;
+--normal-bg: #e3fcef;
+--normal-text: #0a7944;
+--borderline-bg: #fff3cd;
+--borderline-text: #856404;
+--abnormal-bg: #fdecea;
+--abnormal-text: #c62828;
+--insufficient-bg: #e2e3e5;
+--insufficient-text: #383d41;
+--info-bg: #e8f4fd;
+--tip-bg: #fff8e1;
+--success-bg: #e8f5e9;
+--caution-bg: #ffebee;
+}
+ * {
+   box-sizing: border-box;
+   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+   }
+body {
+background-color: var(--bg-color);
+color: var(--text-main);
+line-height: 1.6;
+margin: 0;
+padding: 20px;
+}
+.report-container {
+max-width: 900px;
+margin: 0 auto;
+background-color: transparent;
+}
+.report-header {
+text-align: center;
+margin-bottom: 30px;
+}
+.report-header h1 {
+color: var(--primary-color);
+font-size: 28px;
+margin-bottom: 8px;
+}
+.report-subtitle {
+color: var(--text-light);
+font-size: 16px;
+margin-top: 0;
+}
+.card {
+background: var(--card-bg);
+border-radius: 12px;
+padding: 24px;
+margin-bottom: 24px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+border: 1px solid var(--border-color);
+}
+.card h2 {
+color: var(--primary-color);
+font-size: 20px;
+margin-top: 0;
+margin-bottom: 20px;
+border-bottom: 2px solid var(--border-color);
+padding-bottom: 10px;
+display: flex;
+align-items: center;
+gap: 8px;
+}
+.card h3 {
+color: var(--secondary-color);
+font-size: 18px;
+margin-top: 16px;
+margin-bottom: 12px;
+}
+/* Table Styles */
+.lab-table {
+width: 100%;
+border-collapse: collapse;
+margin-bottom: 16px;
+}
+.lab-table th, .lab-table td {
+padding: 12px;
+text-align: left;
+border-bottom: 1px solid var(--border-color);
+}
+.lab-table th {
+background-color: var(--info-bg);
+color: var(--primary-color);
+font-weight: 600;
+}
+.lab-table tr:hover {
+background-color: #f9fbfa;
+}
+/* Tags */
+.tag {
+display: inline-block;
+padding: 4px 10px;
+border-radius: 20px;
+font-size: 14px;
+font-weight: bold;
+white-space: nowrap;
+}
+.tag.normal { background: var(--normal-bg); color: var(--normal-text); }
+.tag.borderline { background: var(--borderline-bg); color: var(--borderline-text); }
+.tag.abnormal { background: var(--abnormal-bg); color: var(--abnormal-text); }
+.tag.insufficient { background: var(--insufficient-bg); color: var(--insufficient-text); }
+.chance-tag {
+display: inline-block;
+padding: 6px 14px;
+border-radius: 6px;
+font-size: 18px;
+font-weight: bold;
+color: white;
+margin-bottom: 16px;
+}
+.chance-tag.mid-high { background-color: #2e7d32; }
+/* Info Boxes */
+.info-box, .warning-box, .alert-box, .tip-box, .success-box, .caution-box {
+padding: 16px;
+border-radius: 8px;
+margin-bottom: 16px;
+border-left: 5px solid;
+}
+.info-box { background: var(--info-bg); border-color: #2196f3; }
+.warning-box { background: var(--borderline-bg); border-color: #ff9800; }
+.alert-box { background: var(--abnormal-bg); border-color: #f44336; }
+.tip-box { background: var(--tip-bg); border-color: #ffc107; }
+.success-box { background: var(--success-bg); border-color: #4caf50; }
+.caution-box { background: var(--caution-bg); border-color: #e53935; }
+/* Grid Layouts */
+.two-column-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 20px;
+}
+.lab-item-block {
+background: #fafafa;
+border: 1px solid var(--border-color);
+border-radius: 8px;
+padding: 20px;
+margin-bottom: 16px;
+}
+.lab-item-block ul {
+padding-left: 20px;
+margin-bottom: 0;
+}
+.lab-item-block li {
+margin-bottom: 8px;
+}
+ul.check-list {
+list-style-type: none;
+padding-left: 0;
+}
+ul.check-list li {
+position: relative;
+padding-left: 28px;
+margin-bottom: 10px;
+}
+ul.check-list li::before {
+content: "✓";
+position: absolute;
+left: 0;
+color: var(--normal-text);
+font-weight: bold;
+}
+@media (max-width: 768px) {
+.two-column-grid {
+grid-template-columns: 1fr;
+}
+.lab-table {
+display: block;
+overflow-x: auto;
+}
+}
+</style>
+<div class="report-container">
+<header class="report-header">
+<h1>🧬 生殖醫學檢驗與療程分析報告</h1>
+<p class="report-subtitle">專業判讀・重點整理・後續指引</p>
+</header>
+<section class="card summary-card">
+<h2>📋 一、個案摘要</h2>
+<div class="info-box">
+<ul style="margin: 0; padding-left: 20px;">
+<li><strong>評估對象：</strong>備孕女性</li>
+<li><strong>目前療程階段：</strong>準備進行 ERA（子宮內膜容受性陣列）採樣、子宮鏡與輸卵管攝影檢查（Mock Cycle 模擬週期）</li>
+<li><strong>關鍵日期：</strong>
+<ul>
+<li>黃體素啟動日：4月1日 11:30 AM</li>
+<li>手術/採檢日：4月6日 11:30 AM（11:00 AM 報到）</li>
+</ul>
+</li>
+<li><strong>主訴與現狀：</strong>內膜厚度達標（8mm），黃體素尚未提早升高（<1），白血球檢查正常。即將進入黃體期轉換以預備內膜採樣。</li>
+</ul>
+</div>
+</section>
+<section class="card highlight-card">
+<h2>🔎 二、檢驗報告重點整理</h2>
+<table class="lab-table">
+<thead>
+<tr>
+<th>項目</th>
+<th>結果</th>
+<th>單位</th>
+<th>時間點</th>
+<th>狀態</th>
+<th>簡要判讀</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>子宮內膜厚度</td>
+<td>8.0</td>
+<td>mm</td>
+<td>黃體啟動前 (本次門診)</td>
+<td><span class="tag normal">達標正常</span></td>
+<td>內膜厚度足夠，無需額外增強雌激素藥物。</td>
+</tr>
+<tr>
+<td>黃體素 (Progesterone)</td>
+<td>< 1.0</td>
+<td>ng/mL (推估)</td>
+<td>黃體啟動前 (本次門診)</td>
+<td><span class="tag normal">達標正常</span></td>
+<td>未出現提早黃體化現象，適合進行精準黃體啟動。</td>
+</tr>
+<tr>
+<td>白血球 (WBC)</td>
+<td>正常</td>
+<td>-</td>
+<td>本次門診</td>
+<td><span class="tag normal">正常</span></td>
+<td>無感染跡象，可順利進行後續療程用藥。</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="card detailed-lab-card">
+<h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+<div class="lab-item-block">
+  <h3>子宮內膜厚度：8.0 mm <span class="tag normal">達標正常</span></h3>
+  <ul>
+    <li><strong>這個數字代表什麼：</strong>透過超音波量測子宮腔內膜的總厚度。</li>
+    <li><strong>在生殖評估中的意義：</strong>內膜是胚胎著床的土壤，厚度充足代表對雌激素（如益斯得）反應良好，為著床（或 ERA 模擬採樣）提供良好的物理環境。</li>
+    <li><strong>若偏高常見代表：</strong>過度增生或可能伴隨內膜病變。</li>
+    <li><strong>若偏低常見代表：</strong>內膜過薄（通常小於 7mm），可能影響胚胎著床率，需額外補充雌激素或使用輔助藥物。</li>
+    <li><strong>本個案的可能解讀：</strong>厚度來到 8mm 非常理想，已跨越臨床一般要求的 7-8mm 門檻，因此醫師判定不需再增加雌激素藥物，可準備進入下一階段。</li>
+    <li><strong>建議合併判讀項目：</strong>黃體素數值（確認是否提早黃體化）。</li>
+  </ul>
+</div>
+
+<div class="lab-item-block">
+  <h3>黃體素 (Progesterone)：< 1.0 <span class="tag normal">達標正常</span></h3>
+  <ul>
+    <li><strong>這個數字代表什麼：</strong>卵巢分泌的荷爾蒙，主要功能是讓增生期的子宮內膜轉化為分泌期，準備迎接胚胎。</li>
+    <li><strong>在生殖評估中的意義：</strong>在非自然週期的冷凍胚胎植入（或 ERA 模擬週期）中，我們希望在人為介入（塞劑/口服）前，體內自發性的黃體素越低越好，以確保「著床窗（Window of Implantation）」能由醫師精準控制。</li>
+    <li><strong>若偏高常見代表：</strong>提早排卵或提早黃體化，著床窗的開啟時間已經不可考，通常會導致該週期取消植入或採樣。</li>
+    <li><strong>若偏低常見代表：</strong>符合濾泡期/增生期的預期表現。</li>
+    <li><strong>本個案的可能解讀：</strong>數值小於 1 代表體內尚未啟動黃體化，這是一個絕佳的信號，表示 4月1日 11:30 AM 的人為投藥，將成為著床窗計算的精準「零起點（Hour 0）」。</li>
+  </ul>
+</div>
+
+<div class="lab-item-block">
+  <h3>白血球 (WBC)：正常 <span class="tag normal">正常</span></h3>
+  <ul>
+    <li><strong>這個數字代表什麼：</strong>血液中白血球的總量，是免疫系統對抗感染的重要指標。</li>
+    <li><strong>在生殖評估中的意義：</strong>確認體內無急性發炎或感染，確保子宮腔檢查與內膜採樣的安全性。另外在有使用免疫調節藥物（如奎寧、阿斯匹靈）的個案中，常規血液監測也是必要的。</li>
+    <li><strong>本個案的可能解讀：</strong>身體狀態穩定，目前的免疫相關用藥可以繼續維持。</li>
+  </ul>
+</div>
+
+</section>
+<section class="card evaluation-card">
+<h2>🧠 四、整體評估</h2>
+<p>目前個案正處於<strong>非自然週期準備進行 ERA 檢測與子宮環境大檢修</strong>的關鍵階段。整體評估如下：</p>
+<ul>
+<li><strong>內膜準備狀態極佳：</strong> 雌激素（益斯得）發揮了很好的作用，內膜順利達標，且黃體素安靜沒有偷跑，創造了完美的 ERA 測試條件。</li>
+<li><strong>一站式診斷策略明確：</strong> 4月6日預計同時進行 ERA、子宮鏡與輸卵管攝影。這種做法能最大化利用一次麻醉與門診時間。值得注意的是，醫療團隊已經設定了很好的防呆機制：<strong>若子宮鏡發現息肉並切除，將停止輸卵管攝影</strong>，這是為了避免息肉碎片隨著顯影劑被沖入並阻塞輸卵管，展現了高度專業的臨床考量。</li>
+<li><strong>用藥配合度將決定成敗：</strong> 本階段最核心的任務是 <strong>4月1日 11:30 AM 的黃體素（大白球＋小白球）精準啟動</strong>。ERA 的 120 小時著床窗計算，完全仰賴這個時間點的準確度。</li>
+</ul>
+</section>
+<section class="card chance-card">
+<h2>📈 五、目前療程準備成功機率評估</h2>
+<div class="chance-tag mid-high">中等偏高</div>
+<p style="font-size: 14px; color: var(--text-light);">* 此評估針對「本次順利完成 ERA 採樣並取得有效數據，及未來植入環境整備」的預期成功率。</p>
+<div class="two-column-grid">
+  <div class="success-box">
+    <h3>✅ 正面原因</h3>
+    <ul class="check-list">
+      <li><strong>內膜反應良好：</strong> 輕鬆達到 8mm 且無需額外加藥，顯示子宮內膜對藥物敏感度佳。</li>
+      <li><strong>精準的荷爾蒙控制：</strong> 黃體素小於 1，著床窗時間起算將會非常精確。</li>
+      <li><strong>全面的環境排雷：</strong> 結合子宮鏡與輸卵管攝影，將有助於在正式植入前排除任何干擾著床的物理性障礙（如息肉或水腫）。</li>
+    </ul>
+  </div>
+  <div class="caution-box">
+    <h3>⚠️ 可能變數與失敗原因</h3>
+    <ul>
+      <li><strong>ERA 檢體不足或時間偏移：</strong> 約 20% 人群的著床窗不在 120 小時，可能需要進行第二次採樣（二採）；另有 2% 機率因檢體量不足無法產生報告。</li>
+      <li><strong>突發的子宮腔病灶：</strong> 若子宮鏡發現較大息肉，需進行切除，將導致輸卵管攝影延後，並可能需要額外時間讓內膜修復。</li>
+      <li><strong>用藥時間誤差：</strong> 若未嚴格遵守黃體啟動時間（容錯率極低），將直接導致 ERA 報告失準。</li>
+    </ul>
+  </div>
+</div>
+
+</section>
+<section class="card research-card">
+<h2>📚 七、調研資料摘要</h2>
+<div class="info-box">
+<ul style="margin:0;">
+<li><strong>ERA (子宮內膜容受性陣列)：</strong> 利用次世代定序技術分析與著床相關的 240 多個基因表現。臨床統計約有 70-80% 的女性在黃體素浸潤 120 小時後為最佳著床窗，但有約 20-30% 的人需要提前或延後。此檢查能顯著提升反覆著床失敗患者的成功率。</li>
+<li><strong>子宮鏡檢查 (Hysteroscopy)：</strong> 是評估子宮腔環境的黃金標準。能直接目視子宮內膜是否有息肉、沾黏或發炎，若有小型息肉常可一併處理。</li>
+<li><strong>免疫/抗凝血用藥 (Aspirin/Plaquenil)：</strong> 常見於自體免疫相關不孕或反覆流產的備孕女性，有助於改善子宮血流與調節局部免疫反應，協助胚胎順利著床。</li>
+</ul>
+</div>
+</section>
+<section class="card plan-card">
+<h2>🪜 八、步驟指引與精準用藥時刻表</h2>
+<p>本次療程用藥極為複雜，請嚴格按照以下時間表執行：</p>
+<table class="lab-table">
+  <thead>
+    <tr>
+      <th>日期</th>
+      <th>時間</th>
+      <th>動作與用藥細節</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>每日維持</strong></td>
+      <td>三餐飯後</td>
+      <td>💊 <strong>益斯得 (Estrade)：</strong> 每次 2 顆 (吃到植入當天/醫師指示停藥)</td>
+    </tr>
+    <tr>
+      <td><strong>每日維持</strong></td>
+      <td>早、晚</td>
+      <td>💊 <strong>奎寧 (Plaquenil) & 安斯品/愛視品：</strong> 各 1 顆</td>
+    </tr>
+    <tr>
+      <td><strong>每日維持</strong></td>
+      <td>每日 1 次</td>
+      <td>💊 <strong>伯基 (Bokey)：</strong> 每日 1 顆 (注意：僅吃到 4月5日，4月6日停藥)</td>
+    </tr>
+    <tr>
+      <td style="background:#fff3cd;"><strong>4月1日 (三)</strong></td>
+      <td style="background:#fff3cd; color:#c62828;"><strong>11:30 AM<br>(極度重要)</strong></td>
+      <td style="background:#fff3cd;">🚨 <strong>【黃體啟動】</strong><br>1. 塞入 1 顆 <strong>大白球 (Crinone)</strong> 至陰道約 1-2 指節深<br>2. 口服 2 顆 <strong>小白球 (Utrogestan)</strong></td>
+    </tr>
+    <tr>
+      <td><strong>4月1日 後續</strong></td>
+      <td>依序吃藥</td>
+      <td>💊 <strong>小白球：</strong> 今日後續吃藥時間為 15:00、19:00、23:00 (每次 2 顆)</td>
+    </tr>
+    <tr>
+      <td><strong>4月2日至5日</strong></td>
+      <td>每天 4 次</td>
+      <td>💊 <strong>小白球：</strong> 抓 11:30、15:00、19:00、23:00 (大原則：間隔約 4-6 小時，絕不可超過 10 小時未吃)</td>
+    </tr>
+    <tr>
+      <td><strong>4月5日 (日)</strong></td>
+      <td>睡前</td>
+      <td>🚫 <strong>開始禁食：</strong> 術前需空腹 8 小時 (水與食物皆不可)，建議凌晨 3:00 後完全禁食禁水。停吃伯基。</td>
+    </tr>
+    <tr>
+      <td><strong>4月6日 (一)</strong></td>
+      <td>08:00 AM</td>
+      <td>💊 <strong>術前用藥：</strong> 吞服最後 2 顆小白球 + 預備用藥，請以「最少量的水」吞服即可。</td>
+    </tr>
+    <tr>
+      <td><strong>4月6日 (一)</strong></td>
+      <td>11:00 AM</td>
+      <td>🏥 <strong>報到：</strong> 至診所二樓櫃台報到，準備進行取樣與檢查。</td>
+    </tr>
+  </tbody>
+</table>
+
+</section>
+<section class="card advice-card">
+<h2>💡 九、生活與準備建議</h2>
+<ul>
+<li><strong>設置手機鬧鐘：</strong> 尤其是 4月1日 11:30 AM 的「黃體啟動」，強烈建議設置 11:20 與 11:25 兩個鬧鐘，避免因忙碌錯過。後續的小白球也請一併設定鬧鐘。</li>
+<li><strong>確認用藥名稱：</strong> 醫師提及「安斯品/愛視品」與「伯基」，兩者在臨床上常同指阿斯匹靈 (Aspirin)，請確認手邊藥袋標示，避免重複服用或漏服免疫藥物。</li>
+<li><strong>術前空腹準備：</strong> 4月6日因有子宮鏡（可能涉及麻醉切除息肉），空腹 8 小時是避免麻醉中嘔吐引發吸入性肺炎的關鍵，請務必嚴格遵守。</li>
+<li><strong>當天行程安排：</strong> 4月6日檢查流程約需 3-4 小時，且若有麻醉，術後可能會有暈眩感，建議當天請假休息，並盡量有家屬陪同或避免自行騎車/開車。</li>
+</ul>
+</section>
+<section class="card discussion-card">
+<h2>🗣️ 十、建議與醫師討論的關鍵問題</h2>
+<div class="tip-box">
+<ul style="margin:0;">
+<li>🙋‍♀️ <strong>關於藥物：</strong>「護理師有提到『伯基』和『安斯品/愛視品』，請問這兩個是一樣的成分嗎？我擔心吃錯劑量，能幫我確認藥袋嗎？」</li>
+<li>🙋‍♀️ <strong>關於 ERA 結果：</strong>「如果 ERA 報告出來，發現我的著床窗偏離太多（屬於那 20%），接下來的植入時間會如何調整？一定要進行二採嗎？」</li>
+<li>🙋‍♀️ <strong>關於子宮鏡：</strong>「如果 4/6 當天發現息肉並切除了，這樣會影響到下一次正式植入的時間嗎？需要休息幾週讓內膜恢復嗎？」</li>
+<li>🙋‍♀️ <strong>關於輸卵管攝影：</strong>「如果因為處理息肉而取消當天的輸卵管攝影，這個檢查會安排在什麼時候補做呢？」</li>
+</ul>
+</div>
+</section>
+<section class="card alert-card">
+<h2>🚨 十一、警示訊號</h2>
+<div class="alert-box">
+<p style="margin-top:0;">在準備期間，若出現以下症狀，請立即聯絡生殖中心或前往急診：</p>
+<ul style="margin-bottom:0;">
+<li><strong>藥物過敏反應：</strong> 由於有服用奎寧等藥物，若出現嚴重皮疹、呼吸困難、臉部腫脹等現象。</li>
+<li><strong>異常出血或劇烈腹痛：</strong> 在 4/6 檢查前，若出現非預期的鮮血大量流出或難以忍受的骨盆腔疼痛。</li>
+<li><strong>陰道嚴重搔癢或不正常分泌物：</strong> 塞入大白球後，若出現黃綠色分泌物伴隨惡臭或嚴重搔癢，可能為感染，需提前告知醫師評估是否影響採樣。</li>
+</ul>
+</div>
+</section>
+<section class="card disclaimer-card">
+<h2>📌 十二、重要聲明</h2>
+<p style="font-size: 13px; color: var(--text-light); margin: 0;">
+本報告由 AI 輔助生成，僅基於您提供的片段資訊進行生殖醫學邏輯之摘要與推論。<strong>這不是正式的醫療診斷、處方或療效保證</strong>。成功機率之評估僅為依據現有條件之臨床定性推估。所有藥物劑量、檢查排程與醫療決策，<strong>必須絕對以您主治醫師的最終醫囑為準</strong>。若對藥物名稱（如阿斯匹靈類藥物重疊性）有任何疑慮，請務必在服藥前致電衛教室確認。
+</p>
+</section>
+</div>
