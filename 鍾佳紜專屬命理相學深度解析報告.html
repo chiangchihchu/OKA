@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鍾佳紜 - 專屬命理相學深度解析報告</title>
+    <style>
+        :root {
+            --primary-dark: #2c1a16;
+            --primary-red: #8b1d1d;
+            --gold: #cfa968;
+            --bg-color: #f7f4ed;
+            --card-bg: #ffffff;
+            --border-color: #e3d9c6;
+            --text-main: #333333;
+            --text-muted: #666666;
+        }
+
+        body {
+            font-family: "Noto Serif TC", "PMingLiU", "MingLiU", serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='#e3d9c6' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        header::before, header::after {
+            content: "❖";
+            color: var(--primary-red);
+            font-size: 24px;
+            position: absolute;
+            top: 20px;
+        }
+        header::before { left: 30px; }
+        header::after { right: 30px; }
+
+        h1 {
+            color: var(--primary-red);
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            color: var(--gold);
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        section {
+            background: var(--card-bg);
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            font-size: 1.8em;
+            border-left: 6px solid var(--primary-red);
+            padding-left: 15px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        h3 {
+            color: var(--primary-red);
+            font-size: 1.4em;
+            margin-top: 30px;
+            border-bottom: 1px dashed var(--gold);
+            padding-bottom: 8px;
+        }
+
+        h4 {
+            color: var(--primary-dark);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .info-table th, .info-table td {
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .info-table th {
+            background-color: #faf8f5;
+            color: var(--primary-dark);
+            width: 20%;
+        }
+
+        .bazi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .pillar {
+            background: #faf8f5;
+            border: 1px solid var(--gold);
+            padding: 20px;
+            border-radius: 6px;
+        }
+
+        .pillar-title {
+            font-size: 0.9em;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .gan-zhi {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--primary-dark);
+            letter-spacing: 5px;
+        }
+
+        .wuxing {
+            font-size: 0.9em;
+            color: var(--primary-red);
+            margin-top: 10px;
+        }
+
+        .highlight-box {
+            background-color: #fdfaf4;
+            border-left: 4px solid var(--gold);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .alert-box {
+            background-color: #fff5f5;
+            border: 1px solid #ffcccc;
+            border-left: 4px solid var(--primary-red);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .zwds-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .palace-card {
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 6px;
+            background: #fff;
+        }
+
+        .palace-card.empty-center {
+            grid-column: 2 / 4;
+            grid-row: 2 / 4;
+            border: none;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .palace-title {
+            font-weight: bold;
+            color: var(--primary-red);
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .svg-container {
+            text-align: center;
+            margin: 40px 0;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .svg-container figcaption {
+            margin-top: 15px;
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+            padding-left: 30px;
+            border-left: 2px solid var(--gold);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -37px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-red);
+            border: 2px solid #fff;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--gold);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .bazi-grid { grid-template-columns: repeat(2, 1fr); }
+            .zwds-grid { grid-template-columns: repeat(2, 1fr); }
+            .palace-card.empty-center { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>淵海星平・專屬命理相學深度解析報告</h1>
+        <div class="subtitle">致 鍾佳紜 女士</div>
+        <p style="margin-top: 15px; color: var(--text-muted);">
+            結合八字四柱、紫微斗數、傳統手相學之全方位趨吉避凶指南
+        </p>
+    </header>
+
+    <section>
+        <h2>一、 命理基本資料總覽</h2>
+        <table class="info-table">
+            <tr>
+                <th>姓名</th>
+                <td>鍾佳紜</td>
+                <th>性別</th>
+                <td>女</td>
+            </tr>
+            <tr>
+                <th>公曆生日</th>
+                <td>1978年09月11日 04:00 (星期一)</td>
+                <th>農曆生日</th>
+                <td>戊午年 八月初九日 寅時</td>
+            </tr>
+            <tr>
+                <th>生肖</th>
+                <td>馬</td>
+                <th>關注焦點</th>
+                <td>夫妻、子女、事業（含三年內子嗣解析）</td>
+            </tr>
+            <tr>
+                <th>提供資料</th>
+                <td colspan="3">出生年月日時（八字）、右手掌紋清晰照片。<br><em>*未提供臉部五官照片，故臉相分析區塊自然略過。</em></td>
+            </tr>
+        </table>
+        <div class="highlight-box">
+            <strong>命理老師開場語：</strong><br>
+            佳紜妳好，妳提供的生辰八字與手相照片皆非常清晰。排盤顯示妳出生於寅時。妳的命格帶著陽光般的熱情與極強的務實理財能力。針對妳特別關心的「事業發展、夫妻相處以及未來三年的孕育機會」，我將結合八字與手紋，為妳進行客觀且深入的剖析。
+        </div>
+    </section>
+
+    <section>
+        <h2>二、 八字命盤與格局總覽</h2>
+        <div class="bazi-grid">
+            <div class="pillar">
+                <div class="pillar-title">年柱 (早年/根基)</div>
+                <div class="gan-zhi">戊午</div>
+                <div class="wuxing">土 火 (食神 / 劫財)</div>
+            </div>
+            <div class="pillar">
+                <div class="pillar-title">月柱 (青年/事業)</div>
+                <div class="gan-zhi">辛酉</div>
+                <div class="wuxing">金 金 (正財 / 正財)</div>
+            </div>
+            <div class="pillar">
+                <div class="pillar-title">日柱 (自己/配偶)</div>
+                <div class="gan-zhi">丙子</div>
+                <div class="wuxing">火 水 (日主 / 正官)</div>
+            </div>
+            <div class="pillar">
+                <div class="pillar-title">時柱 (晚年/子女)</div>
+                <div class="gan-zhi">庚寅</div>
+                <div class="wuxing">金 木 (偏財 / 偏印)</div>
+            </div>
+        </div>
+
+        <h3>本命格局與個性特質</h3>
+        <p>妳的日主為<strong>「丙火」</strong>，生於秋季酉月（金旺之時）。丙火代表太陽，個性通常光明磊落、熱情且具有奉獻精神。生於秋天，火勢稍退，但妳的年支有「午火」作為根基，時支有「寅木」生火，因此妳是一個外表看似隨和實務，內心卻非常有主見與毅力的人。</p>
+        <p><strong>五行平衡與十神表現：</strong>命盤中「金（財星）」的力量最為純粹且強大（辛酉月、庚時），屬於<strong>「正財格」</strong>。且日主丙火與月幹辛金產生了「丙辛合（日主合財）」。這代表妳一生與「金錢、理財、實務管理」非常有緣，為人務實，不喜歡虛無縹緲的承諾，注重實質的安全感。</p>
+        
+        <h3>命格優勢與需留意之處</h3>
+        <ul>
+            <li><strong>優勢：</strong>財星極旺且為正財，代表妳擁有絕佳的理財觀念與管理能力，收入多來自於穩紮穩打的事業或專業。為人重信用，說到做到。</li>
+            <li><strong>需留意：</strong>命盤中出現了<strong>「子午沖」</strong>（日支子水與年支午火相沖）。日支代表夫妻宮，這暗示了妳在感情與婚姻中，容易面臨距離上的考驗、或是雙方脾氣硬碰硬的狀況。火與水的衝突，也代表妳內心常有理智（水）與衝動（火）的拉扯。</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>三、 核心提問深度解析：事業、夫妻、子女 (含孕育時機)</h2>
+        
+        <h3>💼 事業發展 (財星與印星分析)</h3>
+        <p>妳的事業心很強，且非常務實。命盤「丙辛合財」，代表妳對事業的追求是為了獲得穩定的生活品質。時幹透出「庚金」偏財，意味著妳除了本業之外，在中晚年非常有機會透過投資、理財或副業獲取額外收入。<br>
+        <strong>命理建議：</strong>妳非常適合從事金融、財務管理、行政統籌，或是需要精細計算與組織的行業。事業上妳是別人的貴人，做事牢靠。未來事業發展看好，無需過度擔憂，只需穩健前行。</p>
+
+        <h3>❤️ 夫妻感情 (日支與夫妻宮分析)</h3>
+        <p>日支「子水」為妳的夫妻宮，十神為「正官」（代表丈夫）。子水是一顆清澈、聰明且帶有桃花特質的星，這顯示妳的另一半通常外表端正、有自己的專業。然而，命盤中的「子午沖」是一大隱患。<br>
+        <strong>命理建議與備孕期互動：</strong>今年（2026）的「子午沖」正逢妳們進行重大的人工受孕計畫。這個「沖」會直接應驗在「為了求子而產生的奔波、壓力與醫療介入」。丈夫（子水）在這個過程中承受著無形的心理壓力，可能表現得比較沈默或不知所措。強烈建議在療程中，將丈夫視為「最強的後勤隊友」，多肯定他的陪伴，避免因為醫療過程的焦慮而引發言語衝突。夫妻同心，是撐過這段水火交戰期的關鍵。</p>
+
+        <div class="highlight-box" style="background-color: #fff9f0; border-left-color: #f44336; margin-top: 30px;">
+            <h4 style="color: #f44336; margin-top: 0;">👶 特別解析：人工受孕（捐卵）、子女數量與今年成功率</h4>
+            <p>得知妳預備在今年使用<strong>捐贈卵子進行人工受孕</strong>，老師必須說：<strong>這是一個非常符合命理、且極具智慧的決定！</strong></p>
+            <p><strong>1. 子女數量預測：</strong><br>
+            在妳的命格中，「食神」（戊土）代表子女，出現於年幹（戊）與時支（寅中藏戊）。這顯示妳命中本具備 <strong>1至2位</strong> 子女的深厚緣分。透過現代醫療輔助，若植入順利，非常有機會一次成功（甚至有雙胞胎的機率，完美呼應命中多點出現的子女星）。以妳的命盤與母體負荷考量，擁有 1至2 個孩子是最為圓滿且穩定的狀態。</p>
+
+            <p><strong>2. 今年 (2026丙午年) 受孕機會：【極高！醫療介入完美化解沖煞】</strong><br>
+            <ul>
+                <li style="margin-bottom: 10px;"><strong>化沖為用：</strong>2026年的「子午沖」原本對自然懷孕的子宮（子水）來說是極大風險。但妳選擇了人工受孕與捐卵，這將「破壞性」的沖煞，完美轉化為「醫療行為的血光（打針、取精、植入）」以及「外來力量的介入」。等於妳主動應驗並化解了這個「沖」，大大降低了後續的風險！</li>
+                <li style="margin-bottom: 10px;"><strong>子女宮強烈合動：</strong>今年的「午」火，與妳時柱子女宮的「寅」木，形成<strong>「寅午半合」</strong>。這代表子女宮被強而有力地啟動了！使用捐贈卵子在命理上屬於借用強大的「印星（木）/貴人」資源來生扶子女星（土），完美彌補了年齡上的限制。</li>
+                <li><strong>最佳植入時機：</strong>上半年火氣極旺（沖動期），適合進行前期的身體調養、配對與醫療準備。真正的<strong>黃金植入期與穩定期，落在今年的「下半年（立秋後，約國曆8月之後）」</strong>。下半年金水進氣，能大幅穩定妳的子宮環境，讓胚胎順利著床、安穩發育。</li>
+            </ul>
+            <p style="margin-top: 15px; font-weight: bold; color: var(--primary-dark);">
+                💡 老師總結：今年的受孕機會非常高！妳的決定順應了天時（流年合動子女宮）與地利（現代醫療化解沖煞）。請以最放鬆的心情迎接，把焦慮交給醫療團隊，妳只需要負責保持心情愉悅與身體溫暖。
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <h2>四、 掌紋相學觀察與研究</h2>
+        <div class="highlight-box">
+            <strong>掌相研究總述：</strong>根據您提供的右手掌紋照片，您的掌肉豐厚、掌型方正，屬於「土金型」手。這種手相的人重實際、肯吃苦，擁有極佳的生活韌性。
+        </div>
+        
+        <h4>1. 生命線 (地紋) 與 金星丘</h4>
+        <p><strong>觀察：</strong>大拇指下方的金星丘非常飽滿厚實，生命線弧度廣闊。但在生命線中下段，有一些細微的島紋或雜紋交錯。<br>
+        <strong>解析：</strong>飽滿的金星丘代表妳的生命力強，對家庭有很深的責任感與熱愛。中下段的雜紋，呼應了八字中的「子水（婦科/泌尿）」受到沖剋的現象。這提醒妳，進入中年後，必須特別注意婦科保養與腸胃消化，切勿過度勞累。</p>
+
+        <h4>2. 智慧線 (人紋)</h4>
+        <p><strong>觀察：</strong>智慧線起端與生命線相連，隨後平穩向下延伸，線條清晰。<br>
+        <strong>解析：</strong>這代表妳做事謹慎，思慮周全，不會輕易冒險（呼應正財格）。妳非常注重邏輯與實際的結果，這讓妳在事業與理財上能避開許多大坑。</p>
+
+        <h4>3. 感情線 (天紋)</h4>
+        <p><strong>觀察：</strong>感情線深刻，尾端微微上揚，停留在中指與食指下方。<br>
+        <strong>解析：</strong>這顯示妳對感情的態度專一且傳統。中指下方代表責任感，妳會為了維護家庭付出很多。但線條較直，表示有時表達愛意的方式比較「務實」（例如用買東西、幫忙做事來表達），較少浪漫的甜言蜜語。適度增加一點感性的交流，有助於夫妻關係。</p>
+
+        <h4>4. 事業線 (玉柱紋)</h4>
+        <p><strong>觀察：</strong>事業線從手掌底部升起，穩穩地穿過智慧線。<br>
+        <strong>解析：</strong>證明了妳一生不缺工作機會，且多是靠自己一步一腳印努力得來。中晚年的財運依然穩固。</p>
+    </section>
+
+    <section>
+        <h2>五、 命理與相學交叉研究判讀</h2>
+        <p>綜合妳的「八字命盤」與「右手掌紋」，我們得出以下高度一致的結論：</p>
+        <ol>
+            <li><strong>極強的務實理財特質：</strong>八字的「正財格+丙辛合」與手相的「土金型方掌+清晰智慧線」完美吻合。妳是一個可以信任、懂得持家的女性，財富累積靠的是智慧與紀律。</li>
+            <li><strong>婚姻中的壓力點：</strong>八字的「子午沖」顯示配偶宮不穩；手相感情線較直，顯示個性較為剛直。這兩者都指出，婚姻的考驗在於「溝通的柔軟度」。妳需要學會「示弱」，不要什麼事都自己扛或強勢主導。</li>
+            <li><strong>健康與孕育提醒：</strong>八字中水火相沖，手相生命線中下段有干擾紋。兩者共同指向：若要備孕，母體的調養（特別是氣血、婦科）是第一要務。</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>六、 紫微斗數十二宮位詳解 (結構性解析)</h2>
+        <p style="color: var(--text-muted); font-size: 0.9em;">*註：依據妳的出生年月日時（寅時）排盤推演，以下為十二宮位對妳人生各面向的深層影響。</p>
+        
+        <div class="zwds-grid">
+            <div class="palace-card">
+                <div class="palace-title">命宮</div>
+                <p><strong>主題：</strong>個人性格與人生主軸。<br><strong>解析：</strong>命宮主星帶有剛毅與理財特質。妳為人正直，有責任感，外表隨和但內心有自己的底線。<br><strong>建議：</strong>學會適度放鬆，不要讓完美主義成為自己的枷鎖。</p>
+            </div>
+            <div class="palace-card">
+                <div class="palace-title">兄弟宮</div>
+                <p><strong>主題：</strong>平輩、手足與合夥人。<br><strong>解析：</strong>與手足或閨蜜的感情不錯，能在實質上互相幫助。合夥方面偏向保守。<br><strong>建議：</strong>財務合夥仍需明算帳，避免因人情而破財。</p>
+            </div>
+            <div class="palace-card">
+                <div class="palace-title">夫妻宮</div>
+                <p><strong>主題：</strong>婚姻感情狀態。<br><strong>解析：</strong>呼應八字子午沖，夫妻宮內有變動之星。代表另一半可能有時常出差的性質，或雙方聚少離多。<br><strong>建議：</strong>「小別勝新婚」是妳們婚姻的保鮮劑。給彼此獨立的空間，感情反而更長久。</p>
+            </div>
+            <div class="palace-card">
+                <div class="palace-title">子女宮</div>
+                <p><strong>主題：</strong>子女緣分與晚輩互動。<br><strong>解析：</strong>對子女的教育非常重視，甚至會有點操心過度。子女星雖有，但得來不易。<br><strong>建議：</strong>順其自然，若有子女，請用「鼓勵」代替「擔憂」，給他們更多自信。</p>
+            </div>
+            
+            <div class="palace-card">
+                <div class="palace-title">財帛宮</div>
+                <p><strong>主題：</strong>理財方式與收入。<br><strong>解析：</strong>財星高照！理財能力極佳，善於儲蓄與穩健投資，是一生衣食無虞的格局。<br><strong>建議：</strong>維持目前的穩健作風，房地產或大型穩健基金是好選擇。</p>
+            </div>
+            <div class="palace-card empty-center">
+                <h3 style="margin: 0; color: var(--gold); border: none;">紫微十二宮</h3>
+                <p style="font-size: 0.8em; color: var(--text-muted);">運勢輪轉，福禍相依</p>
+            </div>
+            <div class="palace-card">
+                <div class="palace-title">疾厄宮</div>
+                <p><strong>主題：</strong>身體健康與潛在隱患。<br><strong>解析：</strong>需特別留意婦科、泌尿系統以及心血管的問題（水火交戰）。<br><strong>建議：</strong>備孕期間需由專業醫師評估體質，平時避免過度熬夜與生冷食物。</p>
+            </div>
+
+            <div class="palace-card">
+                <div class="palace-title">遷移宮</div>
+                <p><strong>主題：</strong>外出運勢與社交形象。<br><strong>解析：</strong>在外的人緣不錯，給人一種可以信賴、大方的感覺。<br><strong>建議：</strong>多向外發展或旅遊，離開原地能幫助妳轉換心情，化解內心焦慮。</p>
+            </div>
+            <div class="palace-card">
+                <div class="palace-title">奴僕宮 (交友)</div>
+                <p><strong>主題：</strong>部屬與一般人際。<br><strong>解析：</strong>對待朋友大方，但也容易因為過於直率而得罪人而不自知。<br><strong>建議：</strong>在給予他人建議時，稍微包裝一下語氣，人際關係會更圓融。</p>
+            </div>
+            <div class="palace-card">
+                <div class="palace-title">官祿宮</div>
+                <p><strong>主題：</strong>事業發展與職場表現。<br><strong>解析：</strong>工作態度嚴謹，能獲得長官信任。適合在有制度的環境中穩定晉升。<br><strong>建議：</strong>事業上不宜頻繁跳槽，累積年資與信用是妳最大的資產。</p>
+            </div>
+            <div class="palace-card">
+                <div class="palace-title">田宅宮</div>
+                <p><strong>主題：</strong>家運與不動產。<br><strong>解析：</strong>非常有機會透過自身努力購置不動產。家是妳最重視的堡壘。<br><strong>建議：</strong>居家環境保持溫馨、明亮，避免過多陰暗潮濕的角落。</p>
+            </div>
+
+            <div class="palace-card">
+                <div class="palace-title">福德宮</div>
+                <p><strong>主題：</strong>內心狀態與精神享受。<br><strong>解析：</strong>內心常有一股隱形的壓力，喜歡將事情規劃到最完美，導致容易精神緊繃。<br><strong>建議：</strong>學習放下掌控慾。培養瑜珈、聽音樂等靜態興趣，學會「放空」。</p>
+            </div>
+            <div class="palace-card">
+                <div class="palace-title">父母宮</div>
+                <p><strong>主題：</strong>長輩緣分與長官互動。<br><strong>解析：</strong>早年受父母照顧，但也可能感受到家教的嚴格。<br><strong>建議：</strong>與長輩保持孝而不順的智慧，有自己的家庭後，需建立界線。</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>七、 大運與 2026 (丙午) 流年運勢深度剖析</h2>
+        <p>妳目前的大運走在「丁卯」，木火相生，屬於資源豐富但也容易操心的階段。今年 <strong>2026 丙午年</strong>，是與妳本命產生劇烈化學反應的一年（子午沖、寅午合）。<br>
+        <strong>整年總論：</strong>這是一個「大動盪、大轉折」的年份。火勢極強，沖動了妳的夫妻宮與潛在的子女宮。這意味著今年的生活重心將完全圍繞在「家庭、感情、孕育與健康」上。事業反而是相對穩定、不需要妳過度操心的部分。</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <h4><span class="tag">上半年</span> (立春至大暑，約 2月 - 8月) - 烈火烹油，醫療準備與情緒調適</h4>
+                <p><strong>運勢特點：</strong>火氣最旺的階段，子午沖的能量達到最高點。</p>
+                <ul>
+                    <li><strong>事業與財運：</strong>事業穩定但妳可能無心戀戰。財運上主要為生殖療程的醫療支出，這是歡喜破財，也是必要投資。</li>
+                    <li><strong>感情：</strong>雙方都為了療程緊繃。丈夫可能因為不懂如何表達而顯得被動，請主動告訴他妳需要的支持（例如：擁抱、幫忙準備營養品）。忌諱在此時「翻舊帳」。</li>
+                    <li><strong>健康與孕育：</strong>這段時間為「動象」，最適合進行試管療程的前置作業（配對、子宮內膜調養、各項檢查）。這時期的身體負擔與打針壓力較大，需多休息。</li>
+                    <li><strong>化解與調整：</strong>上半年適合「準備與忍耐」。把身體交給醫生，把心情交給自己。多聽輕音樂，避免參與別人的煩惱事。</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <h4><span class="tag">下半年</span> (立秋至大寒，約 8月 - 翌年 1月) - 金水進氣，最佳植入與著床穩定期</h4>
+                <p><strong>運勢特點：</strong>秋季進入妳的用神（金水）季節，火氣退去，理智回歸，子宮（子水）環境趨於涼爽穩定。</p>
+                <ul>
+                    <li><strong>事業與財運：</strong>若成功懷孕，此時可考慮向工作單位申請調整職務或減少壓力，以安胎為重。</li>
+                    <li><strong>感情：</strong>療程的壓力釋放，夫妻感情升溫，共同期待新生命的喜悅。</li>
+                    <li><strong>健康與孕育：</strong>這是<strong>最適合植入與安胎的黃金期</strong>！金水之氣能潤澤子宮，極大提升著床成功率。若在上半年已植入，此時胎象將漸趨平穩。</li>
+                    <li><strong>化解與調整：</strong>下半年適合「靜養與期待」。減少不必要的社交，專注於母體的營養補充與心情放鬆。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>八、 命理圖像解析區</h2>
+        <p>以下為您繪製專屬的命理視覺圖，幫助您更直觀地理解運勢結構。</p>
+
+        <!-- 圖一：八字五行生剋圖 -->
+        <div class="svg-container">
+            <h4>圖一：本命五行結構與核心互動圖</h4>
+            <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="200" cy="150" r="100" fill="none" stroke="#e3d9c6" stroke-width="2" stroke-dasharray="5,5"/>
+                
+                <!-- 五行節點 -->
+                <g transform="translate(200, 150)">
+                    <!-- 火 (日主) -->
+                    <circle cx="0" cy="-100" r="28" fill="#ffe6e6" stroke="#f44336" stroke-width="3"/>
+                    <text x="0" y="-95" text-anchor="middle" font-family="serif" font-weight="bold" fill="#333">火</text>
+                    <text x="0" y="-135" text-anchor="middle" font-family="serif" font-size="12" fill="#f44336">日主(丙/午)</text>
+                    
+                    <!-- 金 (財) -->
+                    <circle cx="95" cy="-30" r="28" fill="#f4f4f4" stroke="#cfa968" stroke-width="3"/>
+                    <text x="95" y="-25" text-anchor="middle" font-family="serif" font-weight="bold" fill="#333">金</text>
+                    <text x="145" y="-30" text-anchor="middle" font-family="serif" font-size="12" fill="#cfa968">極旺(財星合)</text>
+
+                    <!-- 水 (官) -->
+                    <circle cx="58" cy="80" r="25" fill="#e6f2ff" stroke="#4a90e2" stroke-width="3"/>
+                    <text x="58" y="85" text-anchor="middle" font-family="serif" font-weight="bold" fill="#333">水</text>
+                    <text x="90" y="115" text-anchor="middle" font-family="serif" font-size="12" fill="#4a90e2">夫宮(子)</text>
+
+                    <!-- 木 (印) -->
+                    <circle cx="-58" cy="80" r="25" fill="#e6ffe6" stroke="#4caf50" stroke-width="3"/>
+                    <text x="-58" y="85" text-anchor="middle" font-family="serif" font-weight="bold" fill="#333">木</text>
+
+                    <!-- 土 (食傷/子女) -->
+                    <circle cx="-95" cy="-30" r="25" fill="#fffbe6" stroke="#ff9800" stroke-width="3"/>
+                    <text x="-95" y="-25" text-anchor="middle" font-family="serif" font-weight="bold" fill="#333">土</text>
+                    <text x="-140" y="-30" text-anchor="middle" font-family="serif" font-size="12" fill="#ff9800">子女(戊)</text>
+                    
+                    <!-- 核心連線 -->
+                    <!-- 丙辛合 -->
+                    <path d="M25,-90 L75,-45" stroke="#cfa968" stroke-width="3" stroke-dasharray="4,2"/>
+                    <text x="60" y="-75" font-family="serif" font-size="10" fill="#cfa968" transform="rotate(30, 60, -75)">丙辛合財</text>
+
+                    <!-- 子午沖 -->
+                    <path d="M10,-75 L45,60" stroke="#f44336" stroke-width="3" stroke-dasharray="4,2"/>
+                    <text x="35" y="-5" font-family="serif" font-size="10" fill="#f44336" transform="rotate(70, 35, -5)">子午相沖</text>
+                </g>
+            </svg>
+            <figcaption>解析：命局兩大核心：「丙辛合」顯示極佳的理財能力與穩定追求；「子午沖」則顯示夫妻宮與內心狀態容易有水火激盪的波動。</figcaption>
+        </div>
+
+        <!-- 圖二：掌紋主線解析圖 -->
+        <div class="svg-container">
+            <h4>圖二：手相主紋路與流年對應觀察圖</h4>
+            <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- 手掌輪廓示意 -->
+                <path d="M 120 280 C 100 200, 80 150, 100 80 C 110 50, 130 50, 140 80 C 145 100, 150 120, 150 120 C 150 120, 160 30, 180 20 C 200 10, 210 30, 210 60 C 210 90, 210 110, 210 110 C 210 110, 220 20, 240 15 C 260 10, 270 30, 270 60 C 270 90, 270 120, 270 120 C 270 120, 290 50, 310 50 C 330 50, 330 80, 320 110 C 310 160, 300 200, 280 280 Z" fill="none" stroke="#e3d9c6" stroke-width="4"/>
+                
+                <!-- 生命線與金星丘 -->
+                <path d="M 150 130 C 150 180, 180 240, 160 280" fill="none" stroke="#4caf50" stroke-width="3"/>
+                <circle cx="135" cy="220" r="15" fill="#ff9800" fill-opacity="0.2"/>
+                <text x="80" y="225" font-family="serif" font-size="12" fill="#ff9800">金星丘飽滿</text>
+
+                <!-- 智慧線 -->
+                <path d="M 150 130 C 200 150, 250 160, 300 180" fill="none" stroke="#4a90e2" stroke-width="3"/>
+                <text x="290" y="170" font-family="serif" font-size="12" fill="#4a90e2">務實智慧線</text>
+
+                <!-- 感情線 -->
+                <path d="M 170 80 C 220 100, 270 110, 320 120" fill="none" stroke="#f44336" stroke-width="3"/>
+                <text x="280" y="90" font-family="serif" font-size="12" fill="#f44336">專一感情線</text>
+
+                <!-- 婦科/健康提醒區 (生命線下段) -->
+                <circle cx="170" cy="250" r="12" fill="none" stroke="#f44336" stroke-width="2" stroke-dasharray="2,2"/>
+                <text x="190" y="255" font-family="serif" font-size="10" fill="#f44336">留意健康與孕育調養</text>
+            </svg>
+            <figcaption>解析：方正手型與飽滿金星丘顯示良好底子。感情與智慧線皆平穩，惟生命線下段需注意婦科與體力透支。</figcaption>
+        </div>
+
+        <!-- 圖三：2026 丙午流年上下半年對比圖 -->
+        <div class="svg-container">
+            <h4>圖三：2026 (丙午) 流年「壓力與收穫」走勢圖</h4>
+            <svg width="600" height="250" viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg">
+                <!-- 座標軸 -->
+                <line x1="50" y1="200" x2="550" y2="200" stroke="#ccc" stroke-width="2"/>
+                <line x1="50" y1="50" x2="50" y2="200" stroke="#ccc" stroke-width="2"/>
+                
+                <!-- 標籤 -->
+                <text x="150" y="225" font-family="serif" text-anchor="middle" fill="#333">上半年 (火旺/沖動期)</text>
+                <text x="450" y="225" font-family="serif" text-anchor="middle" fill="#333">下半年 (金水/平穩期)</text>
+                
+                <!-- 波動/壓力指數 (紅線) -->
+                <path d="M 50 150 Q 150 30, 300 120 T 550 180" fill="none" stroke="#f44336" stroke-width="3"/>
+                <circle cx="150" cy="65" r="5" fill="#f44336"/>
+                <circle cx="450" cy="162" r="5" fill="#f44336"/>
+                <text x="60" y="140" font-family="serif" fill="#f44336" font-size="12">身心波動/壓力</text>
+
+                <!-- 順遂/孕育穩定期 (藍線) -->
+                <path d="M 50 180 Q 150 180, 300 130 T 550 80" fill="none" stroke="#4a90e2" stroke-width="3"/>
+                <circle cx="150" cy="180" r="5" fill="#4a90e2"/>
+                <circle cx="450" cy="95" r="5" fill="#4a90e2"/>
+                <text x="480" y="70" font-family="serif" fill="#4a90e2" font-size="12">穩定與舒適度</text>
+                
+                <!-- 中線分隔 -->
+                <line x1="300" y1="50" x2="300" y2="200" stroke="#e3d9c6" stroke-width="2" stroke-dasharray="5,5"/>
+            </svg>
+            <figcaption>解析：上半年火氣沖天，情緒與身體壓力來到高點，遇事需緩；下半年進入金水氣場，身心逐漸恢復平靜，較利於調養與收穫。</figcaption>
+        </div>
+    </section>
+
+    <section>
+        <h2>九、 專屬化解方法與行動建議</h2>
+        
+        <div class="alert-box">
+            <h4>⚠️ 當前需要化解的重點 (夫妻溝通與孕產風險)</h4>
+            <p>妳的命格帶有「火」的急躁與「金」的固執。今年流年極度放大這些特質，同時強烈撞擊妳的夫妻宮與子女星。最大的風險在於「因為溝通不良引發情緒起伏，進而影響身體與備孕狀態」。</p>
+        </div>
+
+        <h3>生活與情緒上的修正建議：</h3>
+        <ul>
+            <li><strong>夫妻溝通 (化解子午沖)：</strong>當意見不合時，請記住「不要在氣頭上做決定或說狠話」。人工受孕過程繁瑣，丈夫（子水）在今年受沖，代表他也在承受隱性壓力。把對方當成戰友，多說「我們一起」，少說「你應該」。</li>
+            <li><strong>生育策略 (化解年齡與流年風險)：</strong>妳選擇使用捐贈卵子，是命理上「借力使力、化劫為恩」的最高指導原則！這讓今年的受孕成功率大幅躍升。建議將最關鍵的「植入」或「安胎」重心放在今年的下半年（秋季以後），天氣轉涼，金水相生，最利於妳的子宮環境。</li>
+            <li><strong>情緒釋放：</strong>妳習慣把責任扛在肩上（正財特質）。學會向丈夫示弱，表達妳的疲憊與擔憂，而不是用指責的方式要求他配合。</li>
+        </ul>
+
+        <h3>2026 流年專屬化解法：</h3>
+        <ul>
+            <li><strong>上半年注意與化解：</strong><br>
+                <em>風險：</em>療程引發的身體不適、情緒暴躁、夫妻嚴重口角。<br>
+                <em>化解：</em>居家布置可多增加「藍色、黑色」或「水」的元素（如水景、水族箱）放在客廳北方。避免在正南與正北方向動土敲打。這段期間凡事以「慢」為原則，多喝溫水，放寬心胸。
+            </li>
+            <li><strong>下半年注意與化解：</strong><br>
+                <em>風險：</em>懷孕初期的焦慮感、安胎期的氣血虛弱。<br>
+                <em>化解：</em>此時火氣已退，最適合進補與安胎。可以多補充優質蛋白質（五行屬水）。心態上要全然相信寶寶與醫療團隊，保持愉悅是最好的安胎藥。
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>十、 增運與趨吉避凶總結</h2>
+        
+        <h3>長期養運方式：</h3>
+        <p>妳的八字火旺且財旺，最需要<strong>「水」</strong>來調和（水能克火、潤土），也需要<strong>「木」</strong>來生養妳的靈性。
+        <br><strong>顏色建議：</strong>日常穿搭或配件，多選擇深藍色、黑色（水）來穩定情緒；或綠色系（木）來增加包容力與健康運。
+        <br><strong>開運飾品：</strong>可佩戴黑曜石、海藍寶等水屬性水晶，有助於平穩內心焦躁與促進夫妻和諧。</p>
+
+        <div class="highlight-box">
+            <h4>命理老師結語：</h4>
+            <p>佳紜，妳是一位非常有能力、肯負責任且財運極佳的女性。妳人生的大部分領域（特別是事業與金錢）都在妳的掌控之中，運行得非常好。</p>
+            <p>唯獨「感情與子女」是需要用「柔軟」來經營的課題。未來三年是妳迎接新生命的重要窗口，命理顯示有緣分，但流年的波動與年齡的客觀事實，需要妳用「現代醫學」搭配「平穩的心情」來度過。今年（2026）請務必放慢腳步，照顧好自己，對先生多一點包容。將急躁轉化為按部就班的醫療計畫，妳一定能迎來圓滿的結果。祝福妳心想事成，闔家平安！</p>
+        </div>
+    </section>
+
+</div>
+
+</body>
+</html>
