@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>八字合婚與流年運勢批註 - 傳統命理報告</title>
+    <style>
+        :root {
+            --bg-main: #F9F6F0; /* 宣紙白 */
+            --bg-card: #FFFFFF;
+            --text-main: #2C2621; /* 墨黑 */
+            --text-muted: #5C544D;
+            --accent-red: #8B2323; /* 硃砂紅 */
+            --accent-gold: #B8860B; /* 暗金 */
+            --border-light: #D5C8B5;
+            --border-heavy: #A6927A;
+            
+            /* 五行顏色 */
+            --element-wood: #4A7C59;
+            --element-fire: #C14A4A;
+            --element-earth: #A67B5B;
+            --element-metal: #D4AF37;
+            --element-water: #3E5F8A;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Noto Serif TC', 'PMingLiU', 'MingLiU', serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background-image: 
+                radial-gradient(var(--border-light) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* 標題與首頁區 */
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            border-bottom: 3px double var(--border-heavy);
+            margin-bottom: 2rem;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px 10px 0 0;
+        }
+
+        .title-seal {
+            display: inline-block;
+            background-color: var(--accent-red);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.9rem;
+            border-radius: 2px;
+            margin-bottom: 1rem;
+            writing-mode: vertical-lr;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            color: var(--accent-red);
+            font-size: 2.5rem;
+            margin: 0.5rem 0;
+            font-weight: normal;
+            letter-spacing: 5px;
+        }
+
+        h2 {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            border-left: 4px solid var(--accent-red);
+            padding-left: 10px;
+        }
+
+        h3 {
+            color: var(--text-main);
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        /* 區塊樣式 */
+        section {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            position: relative;
+        }
+
+        section::before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 1px solid rgba(166, 146, 122, 0.2);
+            pointer-events: none;
+        }
+
+        /* 表格樣式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 1rem;
+        }
+
+        th {
+            background-color: rgba(184, 134, 11, 0.1);
+            color: var(--accent-red);
+            font-weight: normal;
+        }
+
+        .bazi-char {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.2rem;
+        }
+
+        .bazi-element {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border-light);
+            padding: 0 4px;
+            border-radius: 3px;
+        }
+
+        /* 提示框與醒目標籤 */
+        .highlight-box {
+            background-color: rgba(139, 35, 35, 0.05);
+            border-left: 4px solid var(--accent-red);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: var(--bg-main);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 圖表區塊 */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .charts-grid .full-width {
+                grid-column: 1 / -1;
+            }
+        }
+
+        figure {
+            margin: 0;
+            padding: 1rem;
+            background: var(--bg-main);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        figcaption {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            border-top: 1px dashed var(--border-light);
+            padding-top: 0.5rem;
+            text-align: left;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            section { padding: 1.5rem 1rem; }
+            th, td { padding: 0.5rem; }
+            .bazi-char { font-size: 1.2rem; }
+        }
+
+        .missing-data {
+            color: #888;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 1. 報告首頁區 -->
+    <header>
+        <div class="title-seal">專業批註</div>
+        <h1>傳統命理與合婚流年報告</h1>
+        <div class="subtitle">天道酬勤・順勢而為・趨吉避凶</div>
+        <p style="margin-top: 1.5rem; color: var(--text-muted);">
+            本報告依據兩位福主提供之生辰八字，運用傳統子平八字與五行生剋之理，<br>
+            針對「雙方命理契合度」、「丙午年（2026）流年運勢」及「子女緣分」進行專業解析。
+        </p>
+    </header>
+
+    <!-- 2. 基本資料區 -->
+    <section id="basic-info">
+        <h2>壹、 福主基本資料摘要</h2>
+        <p>依據您所提供的資訊，為您整理命盤基本參數。未提供之精確時分，將依常理推段，於有限範圍內進行最嚴謹之分析。</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+            <div style="border: 1px solid var(--border-light); padding: 1rem; border-radius: 5px;">
+                <h3 style="margin-top: 0; color: var(--accent-red);">女方：王萍</h3>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li><strong>生肖：</strong>馬 (戊午年)</li>
+                    <li><strong>農曆：</strong>七月初四 晚上8點</li>
+                    <li><strong>換算時辰：</strong>戌時</li>
+                    <li><strong>目前流年歲數：</strong>48歲 (以2026年計)</li>
+                </ul>
+            </div>
+            <div style="border: 1px solid var(--border-light); padding: 1rem; border-radius: 5px;">
+                <h3 style="margin-top: 0; color: var(--accent-red);">男方：江支初</h3>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li><strong>生肖：</strong>蛇 (丁巳年)</li>
+                    <li><strong>農曆：</strong>二月廿六 晚上12點</li>
+                    <li><strong>提供四柱：</strong>丁巳年 甲辰月 辛丑日</li>
+                    <li><strong>換算時辰：</strong>子時 (依日交替推算)</li>
+                    <li><strong>目前流年歲數：</strong>49歲 (以2026年計)</li>
+                </ul>
+            </div>
+        </div>
+        <p class="missing-data">※ 註：男方出生於晚上12點（子時），為日柱交界點。本報告依據您提供的「辛丑日」作為本命日主進行解析；部分精確度可能因真太陽時誤差而有些微浮動，但不影響宏觀大運與格局走勢。</p>
+    </section>
+
+    <!-- 3. 八字命盤總覽區 -->
+    <section id="bazi-overview">
+        <h2>貳、 八字命盤結構總覽</h2>
+        <p>八字由年月日時的「天干」與「地支」組成，代表先天的氣場分布。日柱天干（日主）代表您自己。</p>
+        
+        <h3>女命 (王萍) 四柱排盤推演</h3>
+        <table>
+            <tr>
+                <th>時柱 (晚年/子女)</th>
+                <th>日柱 (自己/配偶)</th>
+                <th>月柱 (事業/父母)</th>
+                <th>年柱 (根基/祖業)</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="bazi-char">戊</div>
+                    <span class="bazi-element" style="color:var(--element-earth);">土</span>
+                </td>
+                <td>
+                    <div class="bazi-char">庚</div>
+                    <span class="bazi-element" style="color:var(--element-metal);">金</span>
+                </td>
+                <td>
+                    <div class="bazi-char">丙</div>
+                    <span class="bazi-element" style="color:var(--element-fire);">火</span>
+                </td>
+                <td>
+                    <div class="bazi-char">戊</div>
+                    <span class="bazi-element" style="color:var(--element-earth);">土</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="bazi-char">戌</div>
+                    <span class="bazi-element" style="color:var(--element-earth);">土</span>
+                </td>
+                <td>
+                    <div class="bazi-char">戌</div>
+                    <span class="bazi-element" style="color:var(--element-earth);">土</span>
+                </td>
+                <td>
+                    <div class="bazi-char">申</div>
+                    <span class="bazi-element" style="color:var(--element-metal);">金</span>
+                </td>
+                <td>
+                    <div class="bazi-char">午</div>
+                    <span class="bazi-element" style="color:var(--element-fire);">火</span>
+                </td>
+            </tr>
+        </table>
+        <p><strong>五行摘要：</strong>日主【庚金】。生於初秋申月，金氣剛銳。命局中有戊土（偏印）生身，但火（丙、午）勢依然強大。屬於「殺印相生」但略帶燥熱的格局，喜用水來調候降溫，忌火過旺。</p>
+
+        <h3>男命 (江支初) 四柱排盤推演</h3>
+        <table>
+            <tr>
+                <th>時柱 (晚年/子女)</th>
+                <th>日柱 (自己/配偶)</th>
+                <th>月柱 (事業/父母)</th>
+                <th>年柱 (根基/祖業)</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="bazi-char">戊</div>
+                    <span class="bazi-element" style="color:var(--element-earth);">土</span>
+                </td>
+                <td>
+                    <div class="bazi-char">辛</div>
+                    <span class="bazi-element" style="color:var(--element-metal);">金</span>
+                </td>
+                <td>
+                    <div class="bazi-char">甲</div>
+                    <span class="bazi-element" style="color:var(--element-wood);">木</span>
+                </td>
+                <td>
+                    <div class="bazi-char">丁</div>
+                    <span class="bazi-element" style="color:var(--element-fire);">火</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="bazi-char">子</div>
+                    <span class="bazi-element" style="color:var(--element-water);">水</span>
+                </td>
+                <td>
+                    <div class="bazi-char">丑</div>
+                    <span class="bazi-element" style="color:var(--element-earth);">土</span>
+                </td>
+                <td>
+                    <div class="bazi-char">辰</div>
+                    <span class="bazi-element" style="color:var(--element-earth);">土</span>
+                </td>
+                <td>
+                    <div class="bazi-char">巳</div>
+                    <span class="bazi-element" style="color:var(--element-fire);">火</span>
+                </td>
+            </tr>
+        </table>
+        <p><strong>五行摘要：</strong>日主【辛金】。生於辰月（暮春），土旺生金。辛金如首飾之金，秀氣溫潤。年月丁巳火旺，好在日支有「丑土」生身且為濕土，時柱有「子水」潤局，格局有救，喜水洗淘，忌火過烈。</p>
+    </section>
+
+    <!-- 4. 詳細命理解析區 -->
+    <section id="detailed-analysis">
+        <h2>參、 命格特質與合婚解析</h2>
+        
+        <h3>1. 本命格局與個性特質</h3>
+        <p><strong>女方（王萍）：</strong>日主庚金，帶有陽剛、果決、講義氣的特質。由於年柱與時柱皆有「偏印（戊土）」透出，讓您在直率中多了一分穩重與耐心。命局中「七殺」（丙火）力量仍強，代表您有責任感，做事俐落，有時容易給自己較大的心理壓力，屬刀子嘴豆腐心的類型。</p>
+        <p><strong>男方（江支初）：</strong>日主辛金，為人較為細膩、重感情，心思縝密。命帶「七殺」（丁火）與「正財」（甲木），代表在事業上有企圖心，且對財務有規劃。日坐「偏印」（丑土），內心世界豐富，有時會有固執或需要獨處空間的一面。</p>
+
+        <h3>2. 雙方命理合婚點評</h3>
+        <div class="highlight-box">
+            <strong>【氣場互動】：火金交戰，需以「包容與冷靜」為潤滑劑</strong><br>
+            <p>兩位的日主皆為「金」（女方庚金、男方辛金），代表兩人在價值觀與生活步調上有相似之處，能互相理解彼此的堅持。然而，雙方八字中的「火」氣都相當旺盛。</p>
+            <p>在十神中，火是金的「官殺」（代表壓力、管束）。這意味著兩人在相處時，容易不自覺地想要「主導」或「說服」對方。好的時候充滿熱情與動力，但遇到摩擦時則容易急躁、互不相讓。</p>
+            <p><strong>相處建議：</strong>遇事切忌硬碰硬。雙方都需要在溝通時多一點「水」的柔軟（例如：先冷靜五分鐘再說話、用柔和的語氣表達關心），才能化解火氣，達到長久和諧。</p>
+        </div>
+    </section>
+
+    <!-- 5. 大運與流年區 -->
+    <section id="yearly-fortune">
+        <h2>肆、 2026 丙午年 流年運勢分析</h2>
+        
+        <h3>女命：七殺流年，高壓與變動</h3>
+        <p>2026年為「丙午年」。對於女方而言，流年天干「丙」為您的「七殺」，地支「午」又為旺火。這是一段極具挑戰性且生活節奏變快的時期。</p>
+        <ul>
+            <li><strong>重點提醒：</strong>「七殺」代表外來的壓力與責任。今年可能會面臨環境變動、工作任務增加，或是家中有較多瑣事需要您一肩扛起。</li>
+            <li><strong>健康方面：</strong>火勢極旺剋金，需特別留意心血管、高血壓、偏頭痛及睡眠品質。今年忌諱過度操勞，必須學會適度放權。</li>
+            <li><strong>心態調整：</strong>容易對周遭事物感到煩躁，建議將生活重心轉向自我休養，遇事以靜制動，不宜做出衝動的重大決定。</li>
+        </ul>
+
+        <h3>男命：官殺混雜，壓力與機遇並存</h3>
+        <p>對於男方（辛金日主）而言，2026丙午年同樣是「正官」與「七殺」極旺的年份。流年天干「丙」與您的日主「辛」形成「丙辛合」（正官合身）。</p>
+        <ul>
+            <li><strong>事業與財運：</strong>今年會有很強的事業心，或者面臨主管、環境給予的重大任務。有晉升、接手新項目的契機，但也伴隨著極大的疲勞感。</li>
+            <li><strong>情緒壓力：</strong>火旺剋身，容易感到喘不過氣。需注意適時放鬆，不要把所有責任都往身上攬，家庭將是您最好的避風港。</li>
+        </ul>
+    </section>
+
+    <!-- 子女問題特別解析 -->
+    <section id="children-analysis">
+        <h2>伍、 關於「今年能否有子女」之解析</h2>
+        <div class="highlight-box" style="border-left-color: var(--element-wood); background-color: rgba(74, 124, 89, 0.05);">
+            <p><strong>命理老師的專業建議與提醒：</strong></p>
+            <p>命理學中，男命以「正官、七殺」（五行屬火）看子女緣，女命以「食神、傷官」（五行屬水）看子女緣。</p>
+            <p>在2026丙午年中，火土甚旺，從男方八字徵兆來看，代表子女的「火」星確實處於極度活躍期，這表示今年家庭中有孕育新生命的氣場與契機。同時，女方地支逢午火，也有一定的感應。</p>
+            <p><strong>客觀現狀與求子建議：</strong></p>
+            <p>女方目前為48歲，在現代醫學上屬於高齡產婦階段。雖然命局有孕育的契機，但自然受孕的機率客觀上較低。若兩位非常渴望擁有子女，請務必把握以下原則：</p>
+            <ol>
+                <li><strong>積極尋求醫學輔助：</strong>建議及早尋求專業生殖醫學（如試管嬰兒）的諮詢與協助，配合醫學療程來提升成功率，不可純靠自然等待。</li>
+                <li><strong>母體健康第一：</strong>今年流年火氣過燥，對女方的體能消耗極大。若進行備孕，必須加倍注意安胎與調養，以女方身心健康為絕對優先。</li>
+                <li><strong>轉化子女緣分：</strong>若求子過程過於辛苦或有其他考量，在命理上，飼養寵物（毛小孩）或認養、資助弱勢兒童，同樣能有效承接並圓滿這份「食傷與官殺」的子女緣分，為家中帶來歡笑與生機。</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- 6. 命理圖像解析區 -->
+    <section id="svg-charts">
+        <h2>陸、 命理氣場圖像化解析</h2>
+        <p>以下圖表為您直觀呈現雙方命盤的五行能量與流年趨勢，幫助您更好地理解命運的起伏與結構。</p>
+        
+        <div class="charts-grid">
+            <!-- 圖像一：五行能量對比圖 -->
+            <figure>
+                <svg viewBox="0 0 400 300" width="100%" height="100%">
+                    <rect width="400" height="300" fill="transparent"/>
+                    <!-- 背景格線 -->
+                    <line x1="50" y1="50" x2="50" y2="250" stroke="#ddd" stroke-width="1"/>
+                    <line x1="50" y1="250" x2="350" y2="250" stroke="#ddd" stroke-width="1"/>
+                    
+                    <!-- 標籤 -->
+                    <text x="75" y="270" font-size="14" fill="#5C544D">木</text>
+                    <text x="135" y="270" font-size="14" fill="#5C544D">火</text>
+                    <text x="195" y="270" font-size="14" fill="#5C544D">土</text>
+                    <text x="255" y="270" font-size="14" fill="#5C544D">金</text>
+                    <text x="315" y="270" font-size="14" fill="#5C544D">水</text>
+
+                    <text x="10" y="150" font-size="12" fill="#5C544D" transform="rotate(-90 20,150)">能量強度</text>
+
+                    <!-- 女方長條圖 (紅) -->
+                    <rect x="65" y="230" width="15" height="20" fill="#8B2323" opacity="0.8"/>
+                    <rect x="125" y="110" width="15" height="140" fill="#8B2323" opacity="0.8"/> <!-- 火旺 -->
+                    <rect x="185" y="110" width="15" height="140" fill="#8B2323" opacity="0.8"/> <!-- 土也旺 -->
+                    <rect x="245" y="120" width="15" height="130" fill="#8B2323" opacity="0.8"/>
+                    <rect x="305" y="240" width="15" height="10" fill="#8B2323" opacity="0.8"/> <!-- 水弱 -->
+
+                    <!-- 男方長條圖 (金) -->
+                    <rect x="85" y="180" width="15" height="70" fill="#B8860B" opacity="0.8"/>
+                    <rect x="145" y="110" width="15" height="140" fill="#B8860B" opacity="0.8"/> <!-- 火也旺 -->
+                    <rect x="205" y="140" width="15" height="110" fill="#B8860B" opacity="0.8"/>
+                    <rect x="265" y="170" width="15" height="80" fill="#B8860B" opacity="0.8"/>
+                    <rect x="325" y="190" width="15" height="60" fill="#B8860B" opacity="0.8"/>
+
+                    <!-- 圖例 -->
+                    <rect x="260" y="20" width="15" height="15" fill="#8B2323"/>
+                    <text x="280" y="32" font-size="12" fill="#333">女方能量</text>
+                    <rect x="260" y="45" width="15" height="15" fill="#B8860B"/>
+                    <text x="280" y="57" font-size="12" fill="#333">男方能量</text>
+                </svg>
+                <figcaption><strong>圖一：五行能量對比圖</strong><br>可見雙方「火」的能量皆特別突出，代表兩人都具有熱情、急躁的一面。女方有「土」來緩衝，男方各元素相對較勻，但整體仍偏燥熱。生活中極需多補充「水」氣（如水岸散步、藍色調環境）來中和。</figcaption>
+            </figure>
+
+            <!-- 圖像二：2026流年運勢起伏圖 -->
+            <figure>
+                <svg viewBox="0 0 400 300" width="100%" height="100%">
+                    <rect width="400" height="300" fill="#faf9f5" rx="5"/>
+                    <line x1="40" y1="250" x2="360" y2="250" stroke="#ccc" stroke-width="2"/>
+                    
+                    <text x="60" y="270" font-size="12" fill="#666">春 (木旺)</text>
+                    <text x="140" y="270" font-size="12" fill="#666">夏 (火極旺)</text>
+                    <text x="230" y="270" font-size="12" fill="#666">秋 (金旺)</text>
+                    <text x="310" y="270" font-size="12" fill="#666">冬 (水旺)</text>
+
+                    <!-- 安全線 -->
+                    <line x1="40" y1="150" x2="360" y2="150" stroke="#A6927A" stroke-dasharray="5,5"/>
+                    <text x="10" y="155" font-size="12" fill="#A6927A">平穩</text>
+
+                    <!-- 女方折線 (紅) - 夏天壓力大 -->
+                    <path d="M 70 140 Q 150 40 240 180 T 330 130" fill="none" stroke="#8B2323" stroke-width="3"/>
+                    
+                    <!-- 男方折線 (金) -->
+                    <path d="M 70 120 Q 150 70 240 140 T 330 100" fill="none" stroke="#B8860B" stroke-width="3"/>
+
+                    <circle cx="150" cy="88" r="5" fill="#8B2323"/> <!-- 女方夏日低谷/高壓點 -->
+                    <text x="135" y="75" font-size="12" fill="#8B2323">七殺高壓期</text>
+
+                    <rect x="280" y="20" width="15" height="15" fill="#8B2323"/>
+                    <text x="300" y="32" font-size="12">女方運勢</text>
+                    <rect x="280" y="45" width="15" height="15" fill="#B8860B"/>
+                    <text x="300" y="57" font-size="12">男方運勢</text>
+                </svg>
+                <figcaption><strong>圖二：2026 丙午流年運勢起伏圖</strong><br>本年夏季（農曆四至六月）火氣最盛，是雙方情緒壓力、健康挑戰最大的時期。入秋後金水進氣，運勢與情緒皆逐漸平穩回升。夏季宜保守養生，秋冬宜按步就班規劃。</figcaption>
+            </figure>
+
+            <!-- 圖像三：命理相處結構示意圖 -->
+            <figure class="full-width">
+                <svg viewBox="0 0 800 250" width="100%" height="100%">
+                    <rect width="800" height="250" fill="transparent"/>
+                    
+                    <!-- 女方區塊 -->
+                    <circle cx="200" cy="125" r="70" fill="#fcf0f0" stroke="#8B2323" stroke-width="2"/>
+                    <text x="200" y="110" font-size="20" fill="#8B2323" text-anchor="middle" font-weight="bold">庚金 (女)</text>
+                    <text x="200" y="140" font-size="14" fill="#666" text-anchor="middle">俐落直率 / 重責</text>
+                    <text x="200" y="165" font-size="12" fill="#8B2323" text-anchor="middle">帶戊午印殺</text>
+
+                    <!-- 男方區塊 -->
+                    <circle cx="600" cy="125" r="70" fill="#f5f5dc" stroke="#B8860B" stroke-width="2"/>
+                    <text x="600" y="110" font-size="20" fill="#B8860B" text-anchor="middle" font-weight="bold">辛金 (男)</text>
+                    <text x="600" y="140" font-size="14" fill="#666" text-anchor="middle">細膩溫潤 / 堅持</text>
+                    <text x="600" y="165" font-size="12" fill="#B8860B" text-anchor="middle">帶丁巳七殺</text>
+
+                    <!-- 互動箭頭與說明 -->
+                    <path d="M 280 100 Q 400 50 520 100" fill="none" stroke="#C14A4A" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="400" y="70" font-size="14" fill="#C14A4A" text-anchor="middle">火旺易生摩擦 (官殺克身)</text>
+
+                    <path d="M 520 150 Q 400 200 280 150" fill="none" stroke="#3E5F8A" stroke-width="2" marker-end="url(#arrowhead-blue)"/>
+                    <text x="400" y="195" font-size="14" fill="#3E5F8A" text-anchor="middle">需以「水」化解 (包容/冷靜/溝通)</text>
+
+                    <!-- 箭頭定義 -->
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#C14A4A" />
+                        </marker>
+                        <marker id="arrowhead-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#3E5F8A" />
+                        </marker>
+                    </defs>
+                </svg>
+                <figcaption><strong>圖三：雙方命格互動與化解機制圖</strong><br>庚金與辛金本是同類（比劫），有如兄妹兄弟般的理解。但雙方命盤中的「火（七殺）」都偏強，容易讓彼此感受到無形的壓力。加入「水（食傷，代表智慧、包容、幽默感）」能有效克制火氣，是維繫感情的關鍵。</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- 7. 化解方法區 -->
+    <section id="remedies">
+        <h2>柒、 當前難題與化解之道</h2>
+        <p>針對今年「七殺高壓」以及雙方「火氣過旺」的格局，提供以下生活化的化解方法：</p>
+        
+        <div style="background-color: #fff; border: 1px solid var(--border-light); padding: 1.5rem; border-radius: 5px; margin-bottom: 1rem;">
+            <h3 style="margin-top: 0; color: var(--accent-red);">1. 化解女方「七殺流年」之高壓</h3>
+            <ul>
+                <li><strong>健康管理（首要）：</strong>今年事業與生活節奏快，務必安排健康檢查，尤其是心血管與婦科。若有備孕計畫，更需提前進行身體調養。</li>
+                <li><strong>以退為進：</strong>今年容易遇到環境變動，建議放慢腳步，不宜做出衝動的重大決策（如裸辭、大舉投資），應以穩守現有成果為主。</li>
+                <li><strong>主動紓壓：</strong>透過瑜伽、冥想或定期接觸大自然（尤其是水邊）來釋放無形的心理壓力。</li>
+            </ul>
+        </div>
+
+        <div style="background-color: #fff; border: 1px solid var(--border-light); padding: 1.5rem; border-radius: 5px;">
+            <h3 style="margin-top: 0; color: var(--accent-gold);">2. 化解雙方「火金交戰」的溝通摩擦</h3>
+            <ul>
+                <li><strong>空間降溫：</strong>居家環境避免過多紅色、紫色或尖銳造型的裝飾。可多擺放魚缸、流水盆景，或使用藍色、黑色、灰色的抱枕與床單，以「水」調候。</li>
+                <li><strong>情緒暫停鍵：</strong>兩人約定一個「安全詞」或默契。當感覺到氣氛不對、怒火上升時，其中一方先離開現場倒杯水，等待15分鐘後再溝通，切忌在氣頭上做決定。</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 8. 增運與趨吉避凶建議區 -->
+    <section id="advice">
+        <h2>捌、 增進運勢與趨吉避凶建議</h2>
+        <p>命運不是定數，而是可以透過日常行為調整的氣場。以下為兩位整理近期的行動指南：</p>
+        
+        <table>
+            <tr>
+                <th style="width: 20%;">時間維度</th>
+                <th style="width: 40%;">宜（主動出擊 / 適合做）</th>
+                <th style="width: 40%;">忌（保守防禦 / 避免做）</th>
+            </tr>
+            <tr>
+                <td><strong>短期 (今年夏季)</strong><br><span style="font-size:0.85em; color:var(--text-muted);">農曆四至六月</span></td>
+                <td>
+                    <span class="tag">靜心休養</span>
+                    <span class="tag">備孕諮詢</span><br>
+                    男方宜穩紮穩打處理公務；女方宜多休息、調養身體。
+                </td>
+                <td>
+                    <span class="tag">重大投資</span>
+                    <span class="tag">激烈爭吵</span><br>
+                    避免做大筆金錢借貸；忌在高溫環境下過度勞動。
+                </td>
+            </tr>
+            <tr>
+                <td><strong>中期 (今年秋冬)</strong><br><span style="font-size:0.85em; color:var(--text-muted);">農曆七至十二月</span></td>
+                <td>
+                    <span class="tag">短途旅遊</span>
+                    <span class="tag">整理財務</span><br>
+                    可安排去北方或海邊、湖邊旅遊（補水氣），放鬆身心。
+                </td>
+                <td>
+                    <span class="tag">固執己見</span><br>
+                    運勢回升，但仍需避免因小事鑽牛角尖。
+                </td>
+            </tr>
+            <tr>
+                <td><strong>長期 (未來三年)</strong></td>
+                <td>
+                    <span class="tag">養生保健</span>
+                    <span class="tag">順其自然</span><br>
+                    培養共同的溫和興趣，若子女緣至則喜，若無則轉移重心生活。
+                </td>
+                <td>
+                    <span class="tag">過度操勞</span><br>
+                    避免給予雙方過高的生活或生育壓力，應轉求精神層面的契合。
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- 9. 總結區 -->
+    <section style="background-color: rgba(184, 134, 11, 0.05); border-color: var(--accent-gold);">
+        <h2 style="color: var(--accent-red); margin-top: 0;">玖、 命理師總結</h2>
+        <p>王女士與江先生，兩位的緣分建立在對彼此「金」質堅韌特性的認同上，在靈魂的重量上是互相理解與平等的。</p>
+        <p>2026丙午年，對於整個家庭而言，是一個<strong>「考驗耐心與承擔責任」</strong>的關卡。女方正處於人生承先啟後的48歲成熟期，今年外務與壓力較重，一切應以「平安、健康、平靜」為最高原則；男方則需在事業壓力中，擔任家中情緒的穩定力量。</p>
+        <p>關於子女的期盼，在接近知天命的年紀，若渴望新生命，請積極把握現代醫學的協助，並在身體能負荷的前提下努力。命理不僅是預測，更是指引我們順應天道，無論最終結果如何，將愛心轉化為對彼此的包容，或對世間萬物的照顧，同樣能圓滿命盤中的能量，為家庭帶來福報與喜悅。</p>
+        <p style="text-align: right; margin-top: 2rem; font-weight: bold; color: var(--accent-red);">
+            —— 順天應人，福隨心至。祝兩位福主 平安順心。
+        </p>
+    </section>
+
+</div>
+
+</body>
+</html>
