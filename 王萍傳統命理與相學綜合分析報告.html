@@ -3,670 +3,696 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>王萍女士 - 傳統命理與相學綜合分析報告</title>
+    <title>王萍專屬命理與相學綜合分析報告</title>
     <style>
         :root {
-            --bg-color: #fcfaf5;
-            --paper-color: #ffffff;
-            --text-main: #2b2b2b;
-            --text-muted: #5e5e5e;
-            --accent-red: #8c2121;
-            --accent-gold: #b8860b;
-            --border-color: #dcd3b6;
-            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            --bg-color: #f7f4ed;
+            --text-main: #332b26;
+            --text-muted: #665b54;
+            --primary-color: #8b2626; /* 深紅 */
+            --secondary-color: #4a3b32; /* 深褐 */
+            --accent-gold: #b38b4d; /* 雅金 */
+            --border-color: #d1c7b8;
+            --card-bg: #ffffff;
+            --wood: #4d7a5b;
+            --fire: #b54a4a;
+            --earth: #a67c46;
+            --metal: #bd9b59;
+            --water: #466b8c;
         }
 
         body {
-            font-family: 'Noto Serif TC', 'PMingLiU', 'MingLiU', serif;
+            font-family: "Noto Serif TC", "PMingLiU", "MingLiU", serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.8;
             margin: 0;
             padding: 0;
-            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v100H0z" fill="%23fcfaf5"/><path d="M0 50h100M50 0v100" stroke="%23f5eedc" stroke-width="0.5"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v100H0z" fill="%23f7f4ed"/><path d="M0 0l100 100M100 0L0 100" stroke="%23f0ebe1" stroke-width="0.5"/></svg>');
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 20px;
         }
 
-        header.report-header {
+        header {
             text-align: center;
-            border-bottom: 2px solid var(--accent-gold);
-            padding-bottom: 30px;
+            padding: 60px 20px;
+            border-bottom: 2px solid var(--primary-color);
             margin-bottom: 40px;
+            background: linear-gradient(to bottom, #f2ecd9, var(--bg-color));
             position: relative;
         }
 
-        header.report-header::after {
-            content: "✦";
-            color: var(--accent-red);
+        header::before, header::after {
+            content: '❁';
+            color: var(--accent-gold);
             font-size: 24px;
             position: absolute;
-            bottom: -18px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: -15px;
             background: var(--bg-color);
             padding: 0 10px;
         }
+        header::before { left: 20%; }
+        header::after { right: 20%; }
 
         h1 {
-            color: var(--accent-red);
-            font-size: 2.5em;
+            font-size: 2.2em;
+            color: var(--primary-color);
             margin-bottom: 10px;
             letter-spacing: 2px;
-            font-weight: 600;
-        }
-
-        .subtitle {
-            color: var(--accent-gold);
-            font-size: 1.2em;
-            letter-spacing: 5px;
-        }
-
-        section {
-            background: var(--paper-color);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 40px;
-            margin-bottom: 40px;
-            box-shadow: var(--card-shadow);
-            position: relative;
-        }
-
-        section::before {
-            content: "";
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            border: 1px solid rgba(184, 134, 11, 0.2);
-            pointer-events: none;
-            border-radius: 4px;
         }
 
         h2 {
-            color: var(--accent-red);
-            font-size: 1.8em;
-            border-left: 4px solid var(--accent-gold);
+            font-size: 1.6em;
+            color: var(--secondary-color);
+            border-left: 5px solid var(--primary-color);
             padding-left: 15px;
-            margin-top: 0;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
         }
 
         h3 {
-            color: var(--text-main);
             font-size: 1.3em;
+            color: var(--primary-color);
             margin-top: 30px;
-            margin-bottom: 15px;
-            border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 20px;
         }
 
-        .info-card {
-            background: #fffbfa;
-            border: 1px solid var(--border-color);
-            padding: 15px;
-            border-radius: 6px;
-            text-align: center;
-        }
-
-        .info-card .label {
-            color: var(--text-muted);
-            font-size: 0.9em;
-            margin-bottom: 5px;
-        }
-
-        .info-card .value {
-            color: var(--accent-red);
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-
-        .notice {
-            background-color: #fdf6f6;
-            border-left: 4px solid var(--accent-red);
+        .card {
+            background: var(--bg-color);
             padding: 15px 20px;
-            margin: 20px 0;
-            color: var(--text-main);
-            font-size: 0.95em;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-gold);
         }
 
         .highlight-box {
-            background-color: #fdfaf2;
-            border: 1px solid var(--accent-gold);
+            background-color: #fdfaf5;
+            border: 1px dashed var(--accent-gold);
             padding: 20px;
-            border-radius: 6px;
+            border-radius: 8px;
             margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .alert-box {
+            background-color: #fff6f6;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.95em;
         }
 
         .palace-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
         }
 
         .palace-card {
-            border: 1px solid var(--border-color);
+            background: #fff;
+            border: 1px solid #e8e2d5;
             padding: 20px;
             border-radius: 8px;
-            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
         }
-
-        .palace-card h4 {
-            color: var(--accent-red);
-            margin-top: 0;
+        .palace-card:hover { transform: translateY(-3px); }
+        .palace-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1em;
             margin-bottom: 10px;
-            font-size: 1.2em;
-            display: flex;
-            justify-content: space-between;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 5px;
         }
 
-        .palace-card .tag {
-            font-size: 0.75em;
-            background: var(--accent-gold);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-weight: normal;
-        }
-
-        .bazi-table {
+        table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-            text-align: center;
-            font-size: 1.2em;
         }
-
-        .bazi-table th, .bazi-table td {
+        th, td {
             border: 1px solid var(--border-color);
-            padding: 15px;
+            padding: 12px;
+            text-align: center;
         }
-
-        .bazi-table th {
-            background-color: #f8f5eb;
-            color: var(--accent-red);
-            font-weight: normal;
-        }
-
-        .bazi-table .element-earth { color: #8b5a2b; font-weight: bold; }
-        .bazi-table .element-metal { color: #a9a9a9; font-weight: bold; }
-        .bazi-table .element-fire { color: #cd3333; font-weight: bold; }
-        .bazi-table .element-wood { color: #2e8b57; font-weight: bold; }
-        .bazi-table .element-water { color: #4682b4; font-weight: bold; }
-
-        .image-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
+        th {
+            background-color: var(--bg-color);
+            color: var(--secondary-color);
         }
 
         .svg-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            background: #faf8f5;
             border: 1px solid var(--border-color);
-            background: #fff;
-            padding: 20px;
             border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            padding: 20px;
+            box-sizing: border-box;
         }
-
-        .svg-container svg {
-            max-width: 100%;
-            height: auto;
-        }
-
+        
         .svg-caption {
-            margin-top: 15px;
+            text-align: center;
             font-size: 0.9em;
             color: var(--text-muted);
-            border-top: 1px solid #eee;
-            padding-top: 10px;
+            margin-top: 10px;
         }
 
-        ul {
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
-
-        .term {
-            font-weight: bold;
-            color: var(--accent-red);
+        .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            margin-right: 5px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
         }
 
         @media (max-width: 768px) {
-            section {
-                padding: 20px;
-            }
-            h1 {
-                font-size: 2em;
-            }
+            .info-grid { grid-template-columns: 1fr; }
         }
+
+        /* Elements Colors */
+        .el-wood { color: var(--wood); font-weight: bold; }
+        .el-fire { color: var(--fire); font-weight: bold; }
+        .el-earth { color: var(--earth); font-weight: bold; }
+        .el-metal { color: var(--metal); font-weight: bold; }
+        .el-water { color: var(--water); font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header class="report-header">
-        <h1>知命造運・傳統命理與相學綜合分析報告</h1>
-        <div class="subtitle">八字四柱 ｜ 紫微斗數 ｜ 掌紋相學 ｜ 趨吉避凶</div>
-        <p style="margin-top: 20px; color: var(--text-muted);">本報告基於傳統東方命理學說，結合八字、紫微斗數及相學進行多維度交叉分析，旨在提供人生趨勢之參考與心性調整之建議。</p>
+    <header>
+        <h1>王萍專屬命理與相學綜合分析報告</h1>
+        <div class="subtitle">天干地支隱玄機・掌紋星宿見真章</div>
+        <p>為您量身打造的傳統命理、紫微斗數與相學深度解析<br>重點聚焦：<strong>夫妻感情、子女緣分、事業發展</strong></p>
     </header>
 
-    <!-- 2. 基本資料區 -->
+    <!-- 基本資料區 -->
     <section>
-        <h2>一、 命主基本資料與分析範疇</h2>
+        <h2>一、 命盤基本資料摘要</h2>
         <div class="info-grid">
-            <div class="info-card">
-                <div class="label">姓名</div>
-                <div class="value">王萍 女士</div>
+            <div class="card">
+                <strong>姓名：</strong> 王萍<br>
+                <strong>性別：</strong> 女 (坤造)<br>
+                <strong>出生資料：</strong> 戊午馬年 農曆七月初四 晚上8點 (戌時)
             </div>
-            <div class="info-card">
-                <div class="label">出生年份</div>
-                <div class="value">戊午馬年 (1978)</div>
-            </div>
-            <div class="info-card">
-                <div class="label">出生日期 (農曆)</div>
-                <div class="value">七月初四</div>
-            </div>
-            <div class="info-card">
-                <div class="label">出生時辰</div>
-                <div class="value">晚上 8 點 (戌時)</div>
+            <div class="card">
+                <strong>關注焦點：</strong> 夫妻感情、子女、事業<br>
+                <strong>提供素材：</strong> 出生時間、右手掌紋照片<br>
+                <strong>未提供素材：</strong> 臉部五官照片
             </div>
         </div>
-
-        <div class="notice">
-            <strong>【分析資料確認】</strong><br>
-            ✔️ <strong>已提供：</strong> 完整的出生年、月、日、時，可進行精確的八字四柱與紫微斗數排盤。<br>
-            ✔️ <strong>已提供：</strong> 右手掌紋照片，可進行掌紋主線與手型分析。<br>
-            ⚠️ <strong>未提供：</strong> 臉部五官與氣色照片。因此，本報告將<strong>略過臉相細部判讀</strong>，專注於八字、紫微與掌相的深度解析。
+        <div class="alert-box">
+            <strong>老師提要：</strong> 萍女士您好，根據您提供的生辰八字與右手掌紋照片，我將為您進行深度的交叉比對分析。由於未提供臉部照片，本報告將略過臉相五官的細部判讀，完全聚焦於您的生辰八字、紫微斗數架構以及掌紋所呈現的生命軌跡。命理為趨吉避凶之工具，請以平靜、開放的心態作為人生規劃的參考。
         </div>
     </section>
 
-    <!-- 3. 八字命盤總覽區 -->
+    <!-- 八字命盤總覽區 -->
     <section>
-        <h2>二、 八字命盤總覽與五行結構</h2>
-        <p>八字（四柱推命）是透過出生時間轉換為天干地支，藉由五行的生剋制化來觀察一個人先天的能量分佈與個性基調。</p>
+        <h2>二、 八字命盤與五行結構總覽</h2>
+        <p>根據您的生辰，排出四柱八字如下。這代表了您先天的性格基調與五行能量分佈。</p>
         
-        <table class="bazi-table">
+        <table>
             <tr>
                 <th>四柱</th>
                 <th>年柱 (祖上/早年)</th>
                 <th>月柱 (父母/青年)</th>
-                <th>日柱 (本命/中年)</th>
+                <th>日柱 (自己/中年)</th>
                 <th>時柱 (子女/晚年)</th>
             </tr>
             <tr>
-                <th>天干</th>
-                <td class="element-earth">戊 (陽土)</td>
-                <td class="element-earth">己 (陰土)</td>
-                <td class="element-metal">庚 (陽金)</td>
-                <td class="element-fire">丙 (陽火)</td>
+                <td><strong>天干</strong></td>
+                <td class="el-earth">戊 (正印)</td>
+                <td class="el-metal">庚 (劫財)</td>
+                <td class="el-metal"><strong>辛 (日主)</strong></td>
+                <td class="el-earth">戊 (正印)</td>
             </tr>
             <tr>
-                <th>地支</th>
-                <td class="element-fire">午 (陽火)</td>
-                <td class="element-earth">未 (陰土)</td>
-                <td class="element-earth">戌 (陽土)</td>
-                <td class="element-earth">戌 (陽土)</td>
+                <td><strong>地支</strong></td>
+                <td class="el-fire">午 (七殺)</td>
+                <td class="el-metal">申 (劫財)</td>
+                <td class="el-earth">丑 (偏印)</td>
+                <td class="el-earth">戌 (正印)</td>
             </tr>
         </table>
 
         <div class="highlight-box">
-            <strong>【本命重點摘要】</strong><br>
-            王萍女士的日主（代表自己）為<span class="term">「庚金」</span>，象徵著堅毅、果斷、重義氣的礦石之金。從整個命盤來看，生於農曆七月初（立秋交接之際，依曆法仍在己未土月），地支包含了未、戌、戌三個土，年干又透出戊土。<br><br>
-            <strong>命格特徵：</strong> 此為典型的<span class="term">「印星極旺」</span>（土生金，土為印星）的格局。五行中「土」的力量極大，形成「土重金埋」的潛在現象。這代表您天生極具包容力、責任感重、思想豐富（甚至容易想太多），但有時會因為過於保守或外界壓力，而讓自己的光芒與才華被掩蓋。
+            日主「辛金」，生於初秋申月。命局特徵：土氣極旺，金得土生。<br>
+            格局傾向：正印格。五行喜「水」來淘洗辛金，喜「木」來疏通厚土。
         </div>
-    </section>
 
-    <!-- 5. 詳細命理解析區 -->
-    <section>
-        <h2>三、 八字詳細命理解析</h2>
-        
-        <h3>1. 本命格局與個性特質</h3>
-        <p>庚金日主本性剛強、講求效率，但因為命盤中「土（印星）」過於厚重，將庚金原本銳利的性格包覆起來。因此，您在外人眼中往往是個<strong>穩重、可靠、脾氣溫和且包容力極強</strong>的人。您做事踏實，不喜歡投機取巧，是家庭與工作團隊中安定的力量。</p>
-        
-        <h3>2. 五行平衡與喜忌方向</h3>
-        <p>您的八字五行極度偏向「土」與「火」（火生土，更加旺土）。<br>
-        <span class="term">【忌神】</span>：最忌諱再多加「土」與「火」，這會讓您感到沉悶、固執、壓力大或有志難伸。<br>
-        <span class="term">【用神】</span>：最需要的是<span class="term">「木」</span>（木能疏通厚土）與<span class="term">「水」</span>（水能洗滌庚金，使其發光）。這意味著，您的人生需要主動去「學習新事物（木）」、「多活動與表達（水）」，才能破除停滯感，展現真正的才華。</p>
+        <h3>本命格局與個性特質</h3>
+        <p>您的日主為<span class="el-metal">「辛金」</span>，辛金代表的是精緻的首飾之金，個性上通常細膩、注重質感，有著外柔內剛的特質。然而，您的命盤中<span class="el-earth">「土」</span>的力量非常雄厚（戊、丑、戌皆為土），在八字學中稱為「土多金埋」。</p>
+        <p>這意味著您天性善良、包容力強、非常照顧人（印星旺的特質），但有時會因為顧慮太多、責任心太重，反而掩蓋了自己原有的光芒與才華。您習慣默默付出，但內心深處其實渴望被理解與看見。</p>
 
-        <h3>3. 十神表現與人生面向</h3>
+        <h3>重點面向分析（對應您的提問）</h3>
         <ul>
-            <li><strong>印星過旺（思想與貴人）：</strong> 思考縝密，防備心較重。長輩緣不錯，但也容易受到傳統觀念或家族責任的束縛。</li>
-            <li><strong>七殺透出（時干丙火）：</strong> 丙火代表七殺，意味著您內心具有一定的事業企圖心與原則，做事有自我要求，但也容易給自己無形的壓力。</li>
-            <li><strong>缺乏食傷與財星（水、木較弱）：</strong> 表現上比較不擅長花言巧語，賺錢多靠正當努力積累（正財），而非投機橫財。有時在感情或人際溝通上，會顯得多做少說，默默付出而不易被察覺。</li>
+            <li><strong>事業（官殺星）：</strong> 年支見「午火」為七殺（代表事業與名氣）。火生土，土再生金，您在工作上極具韌性與抗壓性。但因為印星（土）太重，容易變成「做得多，功勞卻容易被忽視」的體質。需要主動爭取表現機會。</li>
+            <li><strong>夫妻（夫星）：</strong> 同樣以「火」為夫星。夫星在年柱，代表您可能較早有感情經歷，或是伴侶年紀較長/思想較成熟。但厚土容易洩去火的能量，這表示在婚姻感情中，您往往是付出包容較多的一方，伴侶有時會顯得較為依賴或溝通上有時略顯沉悶。</li>
+            <li><strong>子女（食傷星）：</strong> 女命以「水」為子女星。您的八字原局水氣較弱，大多藏在地支之中。這代表您對子女極其用心，甚至容易過度保護。在求子或與子女互動的過程中，需要多一點順其自然，不要給自己過大的壓力。</li>
         </ul>
     </section>
 
-    <!-- 4 & 7. 紫微斗數總覽與12宮位詳解區 -->
+    <!-- 命理圖像解析區 (八字五行圖) -->
     <section>
-        <h2>四、 紫微斗數命盤與十二宮位解析</h2>
-        <p>紫微斗數透過十二個宮位，詳盡展示了人生各個面向的資源與挑戰。綜合您的八字結構，為您進行紫微十二宮的命勢推演。</p>
+        <h2>三、 命理圖像解析：本命五行與八字結構</h2>
+        <div class="svg-container" style="flex-direction: column; align-items: center;">
+            <svg width="600" height="300" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- 背景 -->
+                <rect width="600" height="300" fill="#fdfaf5" rx="10"/>
+                <text x="300" y="30" font-family="Noto Serif TC" font-size="18" fill="#4a3b32" text-anchor="middle" font-weight="bold">王萍：四柱八字與五行強弱圖</text>
+                
+                <!-- 年柱 -->
+                <g transform="translate(100, 60)">
+                    <rect x="0" y="0" width="80" height="80" fill="#a67c46" rx="5" opacity="0.8"/>
+                    <text x="40" y="30" font-family="Noto Serif TC" font-size="16" fill="#fff" text-anchor="middle">年天干</text>
+                    <text x="40" y="60" font-family="Noto Serif TC" font-size="28" fill="#fff" text-anchor="middle" font-weight="bold">戊 (土)</text>
+                    
+                    <rect x="0" y="90" width="80" height="80" fill="#b54a4a" rx="5" opacity="0.8"/>
+                    <text x="40" y="120" font-family="Noto Serif TC" font-size="16" fill="#fff" text-anchor="middle">年地支</text>
+                    <text x="40" y="150" font-family="Noto Serif TC" font-size="28" fill="#fff" text-anchor="middle" font-weight="bold">午 (火)</text>
+                </g>
+
+                <!-- 月柱 -->
+                <g transform="translate(200, 60)">
+                    <rect x="0" y="0" width="80" height="80" fill="#bd9b59" rx="5" opacity="0.8"/>
+                    <text x="40" y="30" font-family="Noto Serif TC" font-size="16" fill="#fff" text-anchor="middle">月天干</text>
+                    <text x="40" y="60" font-family="Noto Serif TC" font-size="28" fill="#fff" text-anchor="middle" font-weight="bold">庚 (金)</text>
+                    
+                    <rect x="0" y="90" width="80" height="80" fill="#bd9b59" rx="5" opacity="0.8"/>
+                    <text x="40" y="120" font-family="Noto Serif TC" font-size="16" fill="#fff" text-anchor="middle">月地支</text>
+                    <text x="40" y="150" font-family="Noto Serif TC" font-size="28" fill="#fff" text-anchor="middle" font-weight="bold">申 (金)</text>
+                </g>
+
+                <!-- 日柱 -->
+                <g transform="translate(300, 60)">
+                    <rect x="0" y="0" width="80" height="80" fill="#bd9b59" stroke="#8b2626" stroke-width="3" rx="5" opacity="0.9"/>
+                    <text x="40" y="30" font-family="Noto Serif TC" font-size="16" fill="#fff" text-anchor="middle">日主</text>
+                    <text x="40" y="60" font-family="Noto Serif TC" font-size="28" fill="#fff" text-anchor="middle" font-weight="bold">辛 (金)</text>
+                    
+                    <rect x="0" y="90" width="80" height="80" fill="#a67c46" rx="5" opacity="0.8"/>
+                    <text x="40" y="120" font-family="Noto Serif TC" font-size="16" fill="#fff" text-anchor="middle">日地支</text>
+                    <text x="40" y="150" font-family="Noto Serif TC" font-size="28" fill="#fff" text-anchor="middle" font-weight="bold">丑 (土)</text>
+                </g>
+
+                <!-- 時柱 -->
+                <g transform="translate(400, 60)">
+                    <rect x="0" y="0" width="80" height="80" fill="#a67c46" rx="5" opacity="0.8"/>
+                    <text x="40" y="30" font-family="Noto Serif TC" font-size="16" fill="#fff" text-anchor="middle">時天干</text>
+                    <text x="40" y="60" font-family="Noto Serif TC" font-size="28" fill="#fff" text-anchor="middle" font-weight="bold">戊 (土)</text>
+                    
+                    <rect x="0" y="90" width="80" height="80" fill="#a67c46" rx="5" opacity="0.8"/>
+                    <text x="40" y="120" font-family="Noto Serif TC" font-size="16" fill="#fff" text-anchor="middle">時地支</text>
+                    <text x="40" y="150" font-family="Noto Serif TC" font-size="28" fill="#fff" text-anchor="middle" font-weight="bold">戌 (土)</text>
+                </g>
+
+                <!-- 說明 -->
+                <text x="300" y="270" font-family="Noto Serif TC" font-size="14" fill="#665b54" text-anchor="middle">土（棕色）力量極旺，包覆著代表您的金（金色）。急需水（流動）與木（生機）來平衡。</text>
+            </svg>
+            <div class="svg-caption">圖一：四柱八字五行結構圖。可以看出「土」的能量非常強勢。</div>
+        </div>
+    </section>
+
+    <!-- 掌紋分析區 -->
+    <section>
+        <h2>四、 掌紋分析與交叉研究</h2>
+        <p>依據您提供的右手掌紋照片（右手通常代表後天發展與當下狀態），我們進行以下重點觀察，並與您的八字命盤進行交叉印證。</p>
+        
+        <div class="svg-container" style="flex-direction: column; align-items: center;">
+            <svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                <!-- 背景 -->
+                <rect width="400" height="400" fill="#fdfaf5" rx="10"/>
+                
+                <!-- 手掌輪廓示意 (簡化版 SVG) -->
+                <path d="M120 350 C100 280, 80 200, 100 150 C110 130, 140 140, 150 160 C160 120, 180 90, 200 90 C220 90, 230 110, 230 140 C240 100, 260 80, 280 90 C300 100, 300 130, 290 160 C320 140, 340 160, 320 200 C300 250, 310 280, 300 350 Z" fill="#f2dbcb" stroke="#d1bfae" stroke-width="2"/>
+                <path d="M100 250 C70 230, 50 190, 60 160 C70 140, 90 160, 100 180 Z" fill="#f2dbcb" stroke="#d1bfae" stroke-width="2"/> <!-- 拇指 -->
+
+                <!-- 生命線 (綠) -->
+                <path d="M140 180 C160 220, 160 280, 130 330" fill="none" stroke="#4d7a5b" stroke-width="3" stroke-dasharray="4"/>
+                <text x="140" y="345" font-family="Noto Serif TC" font-size="12" fill="#4d7a5b">生命線(土星根基)</text>
+
+                <!-- 智慧線 (藍) -->
+                <path d="M140 190 C180 200, 240 220, 280 250" fill="none" stroke="#466b8c" stroke-width="3"/>
+                <text x="285" y="260" font-family="Noto Serif TC" font-size="12" fill="#466b8c">智慧線(思維)</text>
+
+                <!-- 感情線 (紅) -->
+                <path d="M140 230 C190 220, 250 180, 300 160" fill="none" stroke="#b54a4a" stroke-width="3"/>
+                <text x="305" y="155" font-family="Noto Serif TC" font-size="12" fill="#b54a4a">感情線(婚姻/人際)</text>
+                
+                <!-- 感情線上的干擾 (島紋示意) -->
+                <ellipse cx="220" cy="198" rx="6" ry="3" fill="none" stroke="#b54a4a" stroke-width="1.5" transform="rotate(-20 220 198)"/>
+
+                <!-- 事業線 (金) -->
+                <path d="M210 330 C220 280, 220 220, 210 160" fill="none" stroke="#b38b4d" stroke-width="3"/>
+                <text x="215" y="345" font-family="Noto Serif TC" font-size="12" fill="#b38b4d">事業線(責任)</text>
+
+            </svg>
+            <div class="svg-caption">圖二：掌紋主線特徵解析示意圖（依據照片特徵繪製）</div>
+        </div>
+
+        <h3>1. 掌型與八字呼應（土型手）</h3>
+        <p>從照片中觀察，您的手掌肉質厚實、掌形略偏方正，屬於相學中的「土型手」。這與您八字中「土旺」的特徵完美呼應！這代表您為人踏實、吃苦耐勞，家庭觀念極重，是撐起一個家背後的重要支柱。</p>
+
+        <h3>2. 感情線（對應夫妻宮）</h3>
+        <p>您的感情線整體清晰，但在中段（約莫食指與中指下方）略有起伏或細小干擾紋（島紋現象）。交叉比對您的八字「厚土洩火（夫星）」，這表示在婚姻或長期的親密關係中，您常感到溝通上的阻力，或是另一半的狀態讓您操心。這並非代表緣分斷裂，而是提醒您：<strong>在感情中要學會「卸下重擔」，不要把所有家事與責任都往自己身上攬。</strong></p>
+
+        <h3>3. 智慧線與事業線（對應事業與子女）</h3>
+        <p>您的智慧線平穩向下延伸，事業線從掌根穩穩向上穿過智慧線。這表示您做事極有條理，事業多半是靠自己一步一腳印建立起來的（八字正印格的穩健）。手掌下方的金星丘（大拇指根部）飽滿，代表對子女有極大的愛心與包容力，但也容易因為過度擔憂子女而耗費自身心神（呼應八字缺水，水為食傷子女星，代表對子女的事容易感到焦慮）。</p>
+    </section>
+
+    <!-- 紫微斗數12宮位詳解區 -->
+    <section>
+        <h2>五、 紫微斗數 12 宮位詳解 (依傳統方位排盤)</h2>
+        <p>以您的生辰推演紫微斗數命盤架構，我們將 12 宮位依照傳統的地支方位（子在下、午在上、卯在東、酉在西）排盤呈現。重點將放在您關心的夫妻、子女與事業宮位。</p>
+        
+        <div class="svg-container" style="flex-direction: column; align-items: center;">
+            <svg width="600" height="600" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 600px; height: auto;">
+                <!-- 背景 -->
+                <rect width="600" height="600" fill="#f2ecd9" rx="8"/>
+                
+                <!-- Row 1 (Top) -->
+                <rect x="4" y="4" width="145" height="145" fill="#ffffff" rx="4"/>
+                <text x="77" y="70" font-family="Noto Serif TC" font-size="20" fill="#4a3b32" text-anchor="middle" font-weight="bold">疾厄宮</text>
+                <text x="139" y="139" font-family="Noto Serif TC" font-size="18" fill="#665b54" text-anchor="end">巳</text>
+
+                <rect x="153" y="4" width="145" height="145" fill="#ffffff" rx="4"/>
+                <text x="226" y="70" font-family="Noto Serif TC" font-size="20" fill="#4a3b32" text-anchor="middle" font-weight="bold">財帛宮</text>
+                <text x="288" y="139" font-family="Noto Serif TC" font-size="18" fill="#665b54" text-anchor="end">午</text>
+
+                <rect x="302" y="4" width="145" height="145" fill="#fdfaf5" rx="4" stroke="#8b2626" stroke-width="2"/>
+                <text x="375" y="70" font-family="Noto Serif TC" font-size="20" fill="#8b2626" text-anchor="middle" font-weight="bold">子女宮</text>
+                <text x="437" y="139" font-family="Noto Serif TC" font-size="18" fill="#665b54" text-anchor="end">未</text>
+
+                <rect x="451" y="4" width="145" height="145" fill="#fdfaf5" rx="4" stroke="#8b2626" stroke-width="2"/>
+                <text x="524" y="70" font-family="Noto Serif TC" font-size="20" fill="#8b2626" text-anchor="middle" font-weight="bold">夫妻宮</text>
+                <text x="586" y="139" font-family="Noto Serif TC" font-size="18" fill="#665b54" text-anchor="end">申</text>
+
+                <!-- Row 2 -->
+                <rect x="4" y="153" width="145" height="145" fill="#ffffff" rx="4"/>
+                <text x="77" y="219" font-family="Noto Serif TC" font-size="20" fill="#4a3b32" text-anchor="middle" font-weight="bold">遷移宮</text>
+                <text x="139" y="288" font-family="Noto Serif TC" font-size="18" fill="#665b54" text-anchor="end">辰</text>
+
+                <rect x="451" y="153" width="145" height="145" fill="#ffffff" rx="4"/>
+                <text x="524" y="219" font-family="Noto Serif TC" font-size="20" fill="#4a3b32" text-anchor="middle" font-weight="bold">兄弟宮</text>
+                <text x="586" y="288" font-family="Noto Serif TC" font-size="18" fill="#665b54" text-anchor="end">酉</text>
+
+                <!-- Row 3 -->
+                <rect x="4" y="302" width="145" height="145" fill="#ffffff" rx="4"/>
+                <text x="77" y="368" font-family="Noto Serif TC" font-size="20" fill="#4a3b32" text-anchor="middle" font-weight="bold">奴僕宮</text>
+                <text x="139" y="437" font-family="Noto Serif TC" font-size="18" fill="#665b54" text-anchor="end">卯</text>
+
+                <rect x="451" y="302" width="145" height="145" fill="#fff6f6" rx="4" stroke="#8b2626" stroke-width="3"/>
+                <text x="524" y="368" font-family="Noto Serif TC" font-size="20" fill="#8b2626" text-anchor="middle" font-weight="bold">命宮</text>
+                <text x="586" y="437" font-family="Noto Serif TC" font-size="18" fill="#665b54" text-anchor="end">戌</text>
+
+                <!-- Row 4 (Bottom) -->
+                <rect x="4" y="451" width="145" height="145" fill="#fdfaf5" rx="4" stroke="#8b2626" stroke-width="2"/>
+                <text x="77" y="517" font-family="Noto Serif TC" font-size="20" fill="#8b2626" text-anchor="middle" font-weight="bold">官祿宮</text>
+                <text x="139" y="586" font-family="Noto Serif TC" font-size="18" fill="#665b54" text-anchor="end">寅</text>
+
+                <rect x="153" y="451" width="145" height="145" fill="#ffffff" rx="4"/>
+                <text x="226" y="517" font-family="Noto Serif TC" font-size="20" fill="#4a3b32" text-anchor="middle" font-weight="bold">田宅宮</text>
+                <text x="288" y="586" font-family="Noto Serif TC" font-size="18" fill="#665b54" text-anchor="end">丑</text>
+
+                <rect x="302" y="451" width="145" height="145" fill="#ffffff" rx="4"/>
+                <text x="375" y="517" font-family="Noto Serif TC" font-size="20" fill="#4a3b32" text-anchor="middle" font-weight="bold">福德宮</text>
+                <text x="437" y="586" font-family="Noto Serif TC" font-size="18" fill="#665b54" text-anchor="end">子</text>
+
+                <rect x="451" y="451" width="145" height="145" fill="#ffffff" rx="4"/>
+                <text x="524" y="517" font-family="Noto Serif TC" font-size="20" fill="#4a3b32" text-anchor="middle" font-weight="bold">父母宮</text>
+                <text x="586" y="586" font-family="Noto Serif TC" font-size="18" fill="#665b54" text-anchor="end">亥</text>
+
+                <!-- 中間資訊區 -->
+                <rect x="153" y="153" width="294" height="294" fill="#fdfaf5" rx="6"/>
+                <text x="300" y="240" font-family="Noto Serif TC" font-size="24" fill="#8b2626" text-anchor="middle" font-weight="bold">紫微斗數 12 宮位</text>
+                <text x="300" y="275" font-family="Noto Serif TC" font-size="16" fill="#4a3b32" text-anchor="middle">依傳統地支方位排盤</text>
+                <path d="M 200 300 L 400 300" stroke="#d1c7b8" stroke-width="1" stroke-dasharray="4"/>
+                <text x="300" y="335" font-family="Noto Serif TC" font-size="16" fill="#4a3b32" text-anchor="middle">姓名：王萍 (坤造)</text>
+                <text x="300" y="365" font-family="Noto Serif TC" font-size="16" fill="#4a3b32" text-anchor="middle">命宮落於：戌</text>
+            </svg>
+            <div class="svg-caption">圖三：紫微斗數 12 宮位傳統方位排盤圖（紅框為重點關注宮位）</div>
+        </div>
 
         <div class="palace-grid">
             <div class="palace-card">
-                <h4>命宮 <span class="tag">個人核心</span></h4>
-                <p><strong>解析：</strong> 命宮星曜沉穩，呼應您八字中厚土的特質。性格端莊持重，有著不屈不撓的毅力。凡事喜歡親力親為，不輕易依賴他人。<br>
-                <strong>建議：</strong> 學習放權，不要把所有責任都往自己身上攬，適度展現脆弱反而能拉近人際距離。</p>
+                <div class="palace-title">1. 命宮 (自我核心)</div>
+                <p><strong>解析：</strong> 命宮星曜沉穩，展現出外表溫和、內心堅毅的特質。您是個願意承擔責任的人。</p>
+                <p><strong>建議：</strong> 練習將注意力放回自己身上，學會拒絕不合理的要求，保留喘息空間。</p>
             </div>
             
             <div class="palace-card">
-                <h4>兄弟宮 <span class="tag">平輩/合夥</span></h4>
-                <p><strong>解析：</strong> 與手足或知心朋友關係穩定，但彼此獨立。您通常是照顧人的一方。<br>
-                <strong>建議：</strong> 在合夥事業上需親兄弟明算帳，因您容易出於人情而吃虧。</p>
+                <div class="palace-title">2. 兄弟宮 (平輩/交友)</div>
+                <p><strong>解析：</strong> 平輩或知心好友不多，但一旦深交便是長久的緣分。人際關係上走重質不重量的路線。</p>
+                <p><strong>建議：</strong> 遇到困難時，不妨多向信任的老友傾訴，不要什麼都自己扛。</p>
+            </div>
+
+            <div class="palace-card" style="border: 2px solid var(--primary-color); background-color: #fffafaf5;">
+                <div class="palace-title">3. 夫妻宮 (感情婚姻) <span class="tag">重點關注</span></div>
+                <p><strong>解析：</strong> 夫妻宮顯示感情具備穩定度，但容易缺乏浪漫與激情。加上八字土旺，雙方容易陷入「柴米油鹽」的枯燥循環，偶爾會有溝通頻率對不上的無力感。</p>
+                <p><strong>建議：</strong> 創造兩人獨處的「水」性時光（如去海邊散步、泡溫泉），有助於軟化彼此固執的態度，增加溝通的流動性。</p>
+            </div>
+
+            <div class="palace-card" style="border: 2px solid var(--primary-color); background-color: #fffafaf5;">
+                <div class="palace-title">4. 子女宮 (晚輩/生育) <span class="tag">重點關注</span></div>
+                <p><strong>解析：</strong> 對待子女極度用心，有時會有過度操心的傾向。星象顯示子女會有自己的主見，甚至有時顯得較為叛逆或獨立。</p>
+                <p><strong>建議：</strong> 「兒孫自有兒孫福」。學會放手是您最大的功課，用「陪伴」取代「干涉」，親子關係會更加和諧。</p>
             </div>
 
             <div class="palace-card">
-                <h4>夫妻宮 <span class="tag">感情/婚姻</span></h4>
-                <p><strong>解析：</strong> 感情上追求穩定與安全感。由於您性格較為內斂含蓄（印旺），在婚姻中多是默默付出的類型，但容易將不滿悶在心裡。<br>
-                <strong>建議：</strong> 婚姻需要「水」的流動，也就是溝通。試著把內心的想法溫和地表達出來，避免冷戰。</p>
+                <div class="palace-title">5. 財帛宮 (理財觀念)</div>
+                <p><strong>解析：</strong> 屬於穩健蓄財的類型。不喜歡高風險投資，多半靠努力工作累積財富（正財運強）。</p>
+                <p><strong>建議：</strong> 保持定存或穩定的理財計畫即可，切勿聽信他人進行高槓桿的投機操作。</p>
             </div>
 
             <div class="palace-card">
-                <h4>子女宮 <span class="tag">晚輩/傳承</span></h4>
-                <p><strong>解析：</strong> 對待子女極有責任心，但管教可能偏向傳統或嚴格。為孩子操心較多。<br>
-                <strong>建議：</strong> 給予晚輩更多自主空間，兒孫自有兒孫福。</p>
+                <div class="palace-title">6. 疾厄宮 (健康體質)</div>
+                <p><strong>解析：</strong> 八字土旺，需特別留意腸胃系統、消化不良，以及長期勞累導致的肩頸僵硬（金被埋）。</p>
+                <p><strong>建議：</strong> 飲食宜清淡，多吃綠色蔬菜（木），並保持規律的運動習慣來疏通氣血。</p>
             </div>
 
             <div class="palace-card">
-                <h4>財帛宮 <span class="tag">理財/收入</span></h4>
-                <p><strong>解析：</strong> 屬於「正財」格局。進財穩定，多為薪水或長期經營所得。不適合高風險的短期炒作。<br>
-                <strong>建議：</strong> 以購置不動產、長期定存或穩健型基金為主要理財方式，能守得住財富。</p>
+                <div class="palace-title">7. 遷移宮 (外在展現/外出)</div>
+                <p><strong>解析：</strong> 出外有貴人相助，在外展現的形象通常比在家人面前更加開朗、有活力。</p>
+                <p><strong>建議：</strong> 感覺鬱悶時，多安排短途旅行（走動屬木/水），能有效轉換氣場。</p>
             </div>
 
             <div class="palace-card">
-                <h4>疾厄宮 <span class="tag">健康/體質</span></h4>
-                <p><strong>解析：</strong> 土旺盛而水弱，需特別留意消化系統（腸胃、脾臟）以及腎臟、泌尿系統的水分代謝。<br>
-                <strong>建議：</strong> 飲食宜清淡，多喝水，避免久坐不動。適度的流汗運動對您極佳。</p>
+                <div class="palace-title">8. 奴僕宮 (下屬/泛泛之交)</div>
+                <p><strong>解析：</strong> 在職場上容易遇到需要您收尾或指導的同事，您常扮演「大姊姊」或「保姆」的角色。</p>
+                <p><strong>建議：</strong> 建立好工作界線，不要無條件幫人擦屁股，以免累壞自己。</p>
+            </div>
+
+            <div class="palace-card" style="border: 2px solid var(--primary-color); background-color: #fffafaf5;">
+                <div class="palace-title">9. 官祿宮 (事業工作) <span class="tag">重點關注</span></div>
+                <p><strong>解析：</strong> 官祿宮星勢強穩，代表事業心重，做事盡責。但因命盤結構，升遷往往比別人辛苦，屬於「大器晚成」或「實力派」路線。</p>
+                <p><strong>建議：</strong> 適時展現自己的成果，不要總是默默做事。今年是展現自我的好時機，請勇敢發聲。</p>
             </div>
 
             <div class="palace-card">
-                <h4>遷移宮 <span class="tag">外出/社交</span></h4>
-                <p><strong>解析：</strong> 外出發展能帶動運勢。您的命中需要「動（水）」來化解「靜（土）」的沉悶。<br>
-                <strong>建議：</strong> 多安排旅遊，或在工作上爭取出差、外派機會，會有意想不到的貴人與轉機。</p>
+                <div class="palace-title">10. 田宅宮 (家宅/不動產)</div>
+                <p><strong>解析：</strong> 對家庭的歸屬感極強，喜歡把家裡整理得井井有條。有累積不動產的運勢潛力。</p>
+                <p><strong>建議：</strong> 家裡保持通風明亮（引入木火之氣），可以提升整個家庭的運勢。</p>
             </div>
 
             <div class="palace-card">
-                <h4>奴僕宮 <span class="tag">部屬/大眾</span></h4>
-                <p><strong>解析：</strong> 朋友不多但重質量，多為長久之交。對於下屬或晚輩能給予實質的庇護。<br>
-                <strong>建議：</strong> 保持適度距離，避免過度干涉他人私事而徒增煩惱。</p>
+                <div class="palace-title">11. 福德宮 (精神狀態/晚年)</div>
+                <p><strong>解析：</strong> 表面看似平靜，實則內心常有隱憂，容易為家人、經濟、未來擔憂，精神壓力不小。</p>
+                <p><strong>建議：</strong> 培養與工作、家庭無關的個人興趣（如種花、畫畫、瑜伽），作為釋放壓力的出口。</p>
             </div>
 
             <div class="palace-card">
-                <h4>官祿宮 <span class="tag">事業/職涯</span></h4>
-                <p><strong>解析：</strong> 事業心潛藏於內，做事極具耐心。適合從事行政、財務、教育、傳統產業或需長期積累專業的工作。<br>
-                <strong>建議：</strong> 工作上不要默默無聞，適時展現您的成果（金需要洗刷才能發亮），爭取應得的職位。</p>
-            </div>
-
-            <div class="palace-card">
-                <h4>田宅宮 <span class="tag">房產/家庭</span></h4>
-                <p><strong>解析：</strong> 命盤土極旺，與房產土地有著極深的不解之緣。擁有屬於自己的房子能給您最大的安定感。<br>
-                <strong>建議：</strong> 有餘錢優先考慮投資實體房地產，這是您聚寶盆的所在。</p>
-            </div>
-
-            <div class="palace-card">
-                <h4>福德宮 <span class="tag">精神/內心</span></h4>
-                <p><strong>解析：</strong> 內心世界豐富，但也容易因為想得太多、思慮過重而導致精神疲勞。<br>
-                <strong>建議：</strong> 培養與工作無關的休閒嗜好（如種花草、藝術），讓大腦適度放空。</p>
-            </div>
-
-            <div class="palace-card">
-                <h4>父母宮 <span class="tag">長輩/上司</span></h4>
-                <p><strong>解析：</strong> 受父母長輩影響深遠，傳統道德觀念重。長輩是您的靠山，但也可能是無形的壓力來源。<br>
-                <strong>建議：</strong> 孝順之餘，也要保有獨立判斷的空間，設立健康的心理界線。</p>
+                <div class="palace-title">12. 父母宮 (長輩/上司)</div>
+                <p><strong>解析：</strong> 與長輩緣分深厚，但也容易受到傳統觀念的束縛。在上司面前表現得十分順從。</p>
+                <p><strong>建議：</strong> 尊重長輩之餘，也要保有自己的底線，不需要盲從所有的指令。</p>
             </div>
         </div>
     </section>
 
-    <!-- 6. 大運與流年區 -->
+    <!-- 專屬子嗣緣分區 -->
     <section>
-        <h2>五、 大運走勢與今年 (2026 丙午年) 流年運勢</h2>
-        <p>命運如推車，八字是車體，大運流年則是行經的路面。針對您當前的運勢，我們進行深入解析：</p>
+        <h2>六、 專屬子嗣緣分與三年內孕育解析</h2>
+        <p>針對您特別關心的「有幾個小孩」以及「三年內是否有子嗣」的問題，綜合八字五行與紫微斗數流年進行深度剖析：</p>
         
-        <h3>大運走勢分析 (中年階段)</h3>
-        <p>您目前正處於中年階段的大運。這段時期的主軸是<strong>「累積與轉型」</strong>。過去的辛勞開始看見實質的成果，但在心態上會經歷一次反思：是否要繼續背負這麼多責任？這是一個從「為別人活」轉向「為自己活」的關鍵十年。</p>
-
-        <div class="highlight-box">
-            <h3 style="margin-top: 0; color: var(--accent-red);">2026 丙午年 (火馬年) 流年總運：【火炎土燥，重擔考驗】</h3>
-            <p>2026 年為「丙午」年，天干地支皆為純粹的「火」能量。對日主「庚金」的您來說，火是「官殺（壓力、責任、主管）」，而火又會大幅生旺您命局中原本就極多的「土（印星）」。</p>
-            <p><strong>年度核心現象：</strong> 今年的壓力感會比較明顯，容易出現「事情做不完」、「長輩或主管要求多」的狀況。同時，流年「午」與您本命年柱的「午」形成<span class="term">「午午自刑」</span>，這代表今年容易有「自己跟自己過不去」、「想太多而內耗」的心理壓力。</p>
+        <div class="highlight-box" style="text-align: left; padding-left: 30px;">
+            <h3 style="margin-top: 0; color: var(--primary-color);">1. 命中子嗣數量分析：約 1 至 2 個</h3>
+            <p>在八字命理中，女命（辛金日主）以「水」代表食神、傷官（也就是子女星）。您的命局「土」的能量極強，天干地支不見明水，僅在日柱地支「丑」土中暗藏了一點「癸水」。</p>
+            <p>這代表您命中預設的子女數量約為 <strong>1 至 2 個</strong>。因為「土旺剋水（印星剋食傷）」，且子女星隱藏，求子路上相對較為辛勞或緣分來得較晚。但正因為得來不易，您對孩子會投注極大的心血，屬於「重質不重量」的精緻教養格局。</p>
         </div>
 
-        <h3>今年 (2026) 各面向運勢與注意事項</h3>
-        <ul>
-            <li><strong>【事業與工作】迎難而上，注意過勞：</strong> 今年七殺星（丙火）透出，職場上可能會接下燙手山芋或面臨嚴格的考核。能力會被看見，但代價是極度耗神。<strong>注意：</strong>避免成為職場上的「濫好人」，要學會衡量自身極限，勇敢婉拒不合理的工作量。</li>
-            <li><strong>【財運與投資】保守為宜，防範破耗：</strong> 流年火土過旺，判斷力容易因為心急或焦慮而失準。今年絕對不宜進行高風險投資、合夥或隨意借貸。<strong>注意：</strong>可能會因為長輩健康、家庭修繕或房地產相關事宜而有較大筆的剛性支出，建議預留預備金。</li>
-            <li><strong>【健康與身心】火土偏燥，留意心血管與腸胃：</strong> 這是今年最需要關注的環節。「午午自刑」加上火土燥熱，容易引發睡眠障礙、心悸、血壓波動，以及胃食道逆流、消化不良等土系疾病。<strong>注意：</strong>情緒起伏大時要深呼吸，切勿過度熬夜透支體力。</li>
-            <li><strong>【感情與人際】避免悶燒，適時溝通：</strong> 壓力大的情況下，您容易把氣悶在心裡，或對親近的伴侶、家人產生不耐煩（自刑效應）。<strong>注意：</strong>不要期待別人能「猜」到您的辛苦，請用溫和的語氣直接表達您的需求與疲憊。</li>
-        </ul>
-
-        <h3>2026 專屬流年化解與開運法</h3>
-        <p>面對火炎土燥的流年，化解的核心在於<span class="term">「補水降溫」</span>與<span class="term">「補木疏土」</span>：</p>
-        <ul>
-            <li><strong>環境化解法 (補水)：</strong> 多親近「水」。週末可安排到海邊、湖邊、溪邊散步，或去游泳。在家中北方可放置水氧機或流水盆景，幫助居家氣場降溫，平靜心神。</li>
-            <li><strong>行動化解法 (補木)：</strong> 「木」能剋土，打破停滯。木代表學習與活動。今年非常適合報名一堂無壓力的興趣課程（如花藝、木作、園藝），透過學習新事物來轉移壓力。多去有大樹的森林公園健行吸收芬多精。</li>
-            <li><strong>心態化解法 (破自刑)：</strong> 「午午自刑」的解藥是「放過自己」。學會降低標準，接受「不完美」。當發現自己又在鑽牛角尖、生悶氣時，立刻離開現場，喝杯冷水，強制轉移注意力。</li>
-            <li><strong>健康保養法：</strong> 飲食必須清淡，多吃深綠色蔬菜（屬木）與黑色食物（如黑芝麻、黑木耳，屬水），減少辛辣與油炸燥熱食物。維持規律的作息是今年最重要的護身符。</li>
-        </ul>
-    </section>
-
-    <!-- 8. 掌紋分析區 -->
-    <section>
-        <h2>六、 右手掌紋分析研究</h2>
-        <p>手相是腦部神經與生理狀態的末梢反映。根據您提供的右手（通常代表後天發展與當前狀態）照片，進行以下專業判讀：</p>
-        
-        <div class="highlight-box">
-            <strong>【整體手型觀察】</strong><br>
-            您的手掌厚實、肉多，手掌偏向方形，手指長度勻稱。在相學中，這屬於典型的<span class="term">「土型手」</span>或「金土交融手」。<br>
-            <strong>命理對應：</strong> 這與您八字中「土旺生金」的特質達到完美的**高度吻合**。代表您為人極度務實、有耐心、能吃苦耐勞，是實踐家而非空想家。
+        <div class="highlight-box" style="text-align: left; padding-left: 30px;">
+            <h3 style="margin-top: 0; color: var(--primary-color);">2. 三年內孕育時機點：2027年（丁未年）最強烈</h3>
+            <p>檢視接下來三年的流年軌跡（2026丙午、2027丁未、2028戊申），<strong>最強烈的子嗣引動點落在 2027 丁未年</strong>。</p>
+            <ul>
+                <li><strong>八字引動：</strong> 2027年的地支「未」與您本命日支的「丑」，形成「丑未相沖」。在命理上這稱為「沖開子庫」，會將隱藏在丑土中的子女星（癸水）強力激發出來。</li>
+                <li><strong>紫微引動：</strong> 對照您的紫微斗數排盤（如上圖），您的「本命子女宮」正巧落在「未」宮！當 2027 流年走到「未」，就是本命子女宮被直接啟動、星象能量最強的時刻。</li>
+            </ul>
+            <p>因此，從 <strong>2026 年下半年開始備孕，至 2027 年</strong>，是您近三年內孕育子嗣、添丁成功率最高的黃金期。</p>
         </div>
 
-        <h3>掌紋主線解析</h3>
-        <ul>
-            <li><strong>生命線：</strong> 您的生命線起點清晰，弧度寬廣且包圍著金星丘（大拇指下方）。這顯示您天生具有良好的體力基底與生命力。但在中下段有略微減弱或分岔的跡象，提醒您在中晚年時期需注意保養，不可因年輕時耐操而過度透支體力。</li>
-            <li><strong>智慧線：</strong> 智慧線與生命線起端相連，隨後平穩向下延伸。這代表您個性謹慎，凡事三思而後行（印旺特質）。智慧線長度適中，顯示您有著良好的常識與務實的判斷力，不易好高騖遠。</li>
-            <li><strong>感情線：</strong> 感情線深長，向上彎曲朝向食指與中指之間。這是一條充滿人情味的感情線。但值得注意的是，線上有些許鎖鏈狀或小島紋的痕跡。這表示您在情感上較為敏感，容易把事情悶在心裡，有時會為了照顧家人而委屈自己的情緒。</li>
-            <li><strong>事業線（命運線）：</strong> 掌中隱約可見事業線自下方直直往上走，這代表您的事業與生活多是靠自己一步一腳印建立起來的，屬於「自立自強」的類型，少有天上掉下來的僥倖。</li>
-        </ul>
+        <div class="alert-box">
+            <strong>🧑‍⚕️ 老師的特別提醒與建議：</strong><br>
+            結合實際情況，您現年約 48 歲，在生理學上屬於高齡備孕階段。八字土旺代表氣血較容易鬱結、子宮環境偏寒（因缺水）。<br>
+            強烈建議：切勿僅靠自然受孕機率，必須<strong>「醫學為主、命理為輔」</strong>。請把握 2026-2027 這段星象引動的強烈契機，積極借助現代生殖醫學（如生殖中心諮詢、試管嬰兒療程）並搭配中醫調理子宮環境（補水、疏肝理氣）。順應天時加上醫學助力，便能大幅提升得子機率。
+        </div>
     </section>
 
-    <!-- 9. 臉相分析區 (未提供資料) -->
-    <!-- 根據要求自然略過 -->
-    <section style="display: none;">
-        <!-- 此區塊因無照片而隱藏，若有資料則顯示 -->
-    </section>
-
-    <!-- 10. 命理交叉研究區 -->
+    <!-- 大運與流年區 -->
     <section>
-        <h2>七、 八字、紫微與掌相之綜合交叉研究</h2>
-        <p>將您的多項命理資訊合併比對，我們發現了高度的一致性，這些是您生命中最核心的課題：</p>
-        
-        <ul>
-            <li><strong>【性格的一致性：厚重與包容】</strong><br>
-            八字的「土重金埋」、紫微命宮的沉穩星曜，加上掌相的「厚實土型手」，三個系統共同指向您是一個極具耐力、責任感強且務實的人。您是周遭人的依靠，但這也意味著您容易成為「扛最多責任」的那個人。</li>
-            <li><strong>【情感的一致性：內斂與付出】</strong><br>
-            八字缺少食傷（不善表達）、紫微夫妻宮顯示需要溝通，而掌紋感情線上的鎖鏈紋路，皆顯示您在感情中「做的比說的多」，且容易因為過度體貼或擔憂他人，而造成內心的情緒糾結（福德宮的思慮重）。</li>
-            <li><strong>【事業的一致性：穩健積累】</strong><br>
-            八字正印旺、紫微官祿/財帛主穩定，加上手相筆直的事業線，共同說明您的財富與地位來自於「時間與經驗的累積」。投機取巧絕對不適合您，堅守本業、持續深耕是您的致富王道。</li>
-        </ul>
-    </section>
+        <h2>七、 大運與今年 (丙午流年) 運勢解析</h2>
+        <p>命理講究「命」與「運」的配合。目前您所處的大運，正是一個考驗耐心與累積實力的階段。而今年的流年（丙午年），對您而言是一個極為關鍵的轉折年。</p>
 
-    <!-- 11. 命理圖像解析區 -->
-    <section>
-        <h2>八、 命理與相學視覺化解析圖</h2>
-        <p>以下透過圖解方式，為您直觀呈現命盤結構與掌紋特徵。</p>
+        <div class="svg-container" style="flex-direction: column; align-items: center;">
+            <svg width="600" height="250" viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg">
+                <!-- 背景與格線 -->
+                <rect width="600" height="250" fill="#fdfaf5" rx="10"/>
+                <line x1="50" y1="200" x2="550" y2="200" stroke="#d1c7b8" stroke-width="2"/> <!-- X軸 -->
+                <line x1="50" y1="50" x2="50" y2="200" stroke="#d1c7b8" stroke-width="2"/>  <!-- Y軸 -->
+                
+                <!-- 月份標籤 -->
+                <text x="100" y="220" font-family="Noto Serif TC" font-size="12" fill="#665b54" text-anchor="middle">1月</text>
+                <text x="200" y="220" font-family="Noto Serif TC" font-size="12" fill="#665b54" text-anchor="middle">4月</text>
+                <text x="300" y="220" font-family="Noto Serif TC" font-size="12" fill="#665b54" text-anchor="middle">7月</text>
+                <text x="400" y="220" font-family="Noto Serif TC" font-size="12" fill="#665b54" text-anchor="middle">10月</text>
+                <text x="500" y="220" font-family="Noto Serif TC" font-size="12" fill="#665b54" text-anchor="middle">12月</text>
 
-        <div class="image-gallery">
-            <!-- 圖一：八字五行結構圖 -->
-            <div class="svg-container">
-                <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                    <!-- 背景圓 -->
-                    <circle cx="200" cy="200" r="180" fill="#fdfaf2" stroke="#dcd3b6" stroke-width="2"/>
-                    <text x="200" y="50" font-family="serif" font-size="20" fill="#8c2121" text-anchor="middle" font-weight="bold">本命五行結構圖</text>
-                    
-                    <!-- 土元素 (強大) -->
-                    <circle cx="200" cy="220" r="120" fill="rgba(139, 90, 43, 0.2)" stroke="#8b5a2b" stroke-width="2" stroke-dasharray="5,5"/>
-                    <text x="200" y="160" font-family="serif" font-size="24" fill="#8b5a2b" text-anchor="middle" font-weight="bold">土 (印星 - 極旺)</text>
-                    <text x="200" y="185" font-family="serif" font-size="14" fill="#5e5e5e" text-anchor="middle">戊、己、未、戌(x2)</text>
-                    
-                    <!-- 金元素 (被包圍) -->
-                    <circle cx="200" cy="250" r="50" fill="rgba(169, 169, 169, 0.3)" stroke="#777" stroke-width="2"/>
-                    <text x="200" y="245" font-family="serif" font-size="20" fill="#333" text-anchor="middle" font-weight="bold">庚金</text>
-                    <text x="200" y="265" font-family="serif" font-size="12" fill="#333" text-anchor="middle">(日主)</text>
-                    
-                    <!-- 箭頭說明 -->
-                    <path d="M 120 220 Q 80 200 120 160" fill="none" stroke="#8b5a2b" stroke-width="2" marker-end="url(#arrow)"/>
-                    <text x="70" y="180" font-family="serif" font-size="14" fill="#8c2121" text-anchor="middle">土多金埋</text>
+                <!-- 上下半年分隔線 -->
+                <line x1="300" y1="50" x2="300" y2="200" stroke="#b38b4d" stroke-width="1" stroke-dasharray="5"/>
+                <text x="175" y="40" font-family="Noto Serif TC" font-size="14" fill="#b54a4a" text-anchor="middle" font-weight="bold">上半年 (木火旺)</text>
+                <text x="425" y="40" font-family="Noto Serif TC" font-size="14" fill="#466b8c" text-anchor="middle" font-weight="bold">下半年 (金水旺)</text>
 
-                    <defs>
-                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b5a2b" />
-                        </marker>
-                    </defs>
-                </svg>
-                <div class="svg-caption">圖一：顯示日主「庚金」被強大的「土」能量重重包圍，代表保護力強，但也需突破舒適圈。</div>
+                <!-- 運勢線條 (事業) -->
+                <path d="M50 150 Q 150 80, 300 100 T 500 120" fill="none" stroke="#b54a4a" stroke-width="3"/>
+                <!-- 運勢線條 (感情) -->
+                <path d="M50 120 Q 150 180, 300 140 T 500 90" fill="none" stroke="#466b8c" stroke-width="3"/>
+
+                <!-- 圖例 -->
+                <line x1="420" y1="230" x2="440" y2="230" stroke="#b54a4a" stroke-width="3"/>
+                <text x="445" y="235" font-family="Noto Serif TC" font-size="12" fill="#332b26">事業運勢</text>
+                <line x1="500" y1="230" x2="520" y2="230" stroke="#466b8c" stroke-width="3"/>
+                <text x="525" y="235" font-family="Noto Serif TC" font-size="12" fill="#332b26">感情平順度</text>
+            </svg>
+            <div class="svg-caption">圖四：今年上半年與下半年運勢起伏對比圖</div>
+        </div>
+
+        <h3>本年度流年總論：丙午年 (火旺之年)</h3>
+        <p>今年是「丙午」年，對於辛金日主的您來說，丙火是您的「正官」（代表事業地位、丈夫），而丙與您的日主辛會產生「丙辛合」。這是一個<strong>在事業上容易被看見、被賦予重任，在感情上與伴侶連結加深</strong>的年份。然而，火生土旺，也會帶來無形的壓力與疲憊感。</p>
+
+        <div class="info-grid">
+            <div class="card">
+                <h4 style="color: var(--fire); margin-top: 0;">今年上半年 (春夏季：主動推進、頂住壓力)</h4>
+                <p><strong>事業財運：</strong> 上半年木火相生，官殺能量極強。您會接到新的任務或責任，工作異常忙碌。這是展現能力的好機會，宜<strong>主動推進</strong>，不要退縮，但要注意防範小人眼紅。</p>
+                <p><strong>感情人際：</strong> 夫妻互動頻繁，但因為火氣大，兩人容易因為「管教子女」或「家務分工」產生摩擦。需要注意說話的語氣，避免急躁。</p>
+                <p><strong>健康節奏：</strong> 壓力集中在心血管與睡眠品質，極易感到疲勞。適當攝取水分，避免過度熬夜。</p>
             </div>
-
-            <!-- 圖二：紫微斗數重點宮位圖 -->
-            <div class="svg-container">
-                <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="10" y="10" width="380" height="380" fill="#fff" stroke="#b8860b" stroke-width="3"/>
-                    <!-- 九宮格線 -->
-                    <line x1="136" y1="10" x2="136" y2="390" stroke="#dcd3b6" stroke-width="1"/>
-                    <line x1="262" y1="10" x2="262" y2="390" stroke="#dcd3b6" stroke-width="1"/>
-                    <line x1="10" y1="136" x2="390" y2="136" stroke="#dcd3b6" stroke-width="1"/>
-                    <line x1="10" y1="262" x2="390" y2="262" stroke="#dcd3b6" stroke-width="1"/>
-                    
-                    <!-- 中間大字 -->
-                    <rect x="137" y="137" width="124" height="124" fill="#fdfaf2"/>
-                    <text x="200" y="200" font-family="serif" font-size="22" fill="#8c2121" text-anchor="middle" font-weight="bold">命盤核心</text>
-                    <text x="200" y="225" font-family="serif" font-size="14" fill="#b8860b" text-anchor="middle">穩紮穩打</text>
-
-                    <!-- 宮位重點標示 (示意部分宮位) -->
-                    <!-- 命宮 -->
-                    <rect x="263" y="263" width="126" height="126" fill="rgba(140, 33, 33, 0.1)"/>
-                    <text x="326" y="310" font-family="serif" font-size="18" fill="#8c2121" text-anchor="middle" font-weight="bold">命宮</text>
-                    <text x="326" y="335" font-family="serif" font-size="14" fill="#333" text-anchor="middle">堅毅持重</text>
-
-                    <!-- 財帛宮 -->
-                    <text x="326" y="60" font-family="serif" font-size="18" fill="#5e5e5e" text-anchor="middle" font-weight="bold">財帛宮</text>
-                    <text x="326" y="85" font-family="serif" font-size="14" fill="#5e5e5e" text-anchor="middle">正財穩定</text>
-
-                    <!-- 官祿宮 -->
-                    <text x="73" y="310" font-family="serif" font-size="18" fill="#5e5e5e" text-anchor="middle" font-weight="bold">官祿宮</text>
-                    <text x="73" y="335" font-family="serif" font-size="14" fill="#5e5e5e" text-anchor="middle">長期累積</text>
-
-                    <!-- 田宅宮 -->
-                    <rect x="73" y="11" width="126" height="125" fill="rgba(184, 134, 11, 0.1)"/>
-                    <text x="136" y="60" font-family="serif" font-size="18" fill="#b8860b" text-anchor="middle" font-weight="bold">田宅宮</text>
-                    <text x="136" y="85" font-family="serif" font-size="14" fill="#333" text-anchor="middle">房產有緣</text>
-                </svg>
-                <div class="svg-caption">圖二：紫微三方四正結構圖。顯示命宮、財帛、官祿皆指向「穩定積累」，而田宅宮更是您資源的聚寶盆。</div>
-            </div>
-
-            <!-- 圖三：右手掌紋分析圖 -->
-            <div class="svg-container">
-                <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="400" fill="#fff" />
-                    <!-- 手掌輪廓 (簡化示意) -->
-                    <path d="M 120 380 C 100 280, 80 200, 100 150 C 110 120, 130 130, 140 160 C 150 110, 170 100, 190 120 C 200 100, 230 90, 240 130 C 250 110, 280 120, 280 160 C 310 200, 320 250, 310 380 Z" fill="#faeedd" stroke="#d2b48c" stroke-width="3"/>
-                    <path d="M 100 150 C 70 180, 50 250, 100 320" fill="none" stroke="#d2b48c" stroke-width="3"/> <!-- 大拇指輪廓補充 -->
-
-                    <!-- 生命線 (紅色) -->
-                    <path d="M 140 180 C 150 220, 140 300, 100 350" fill="none" stroke="#cd3333" stroke-width="4" stroke-linecap="round"/>
-                    <text x="60" y="300" font-family="serif" font-size="14" fill="#cd3333" font-weight="bold">生命線</text>
-                    <line x1="90" y1="295" x2="115" y2="310" stroke="#cd3333" stroke-width="1" stroke-dasharray="3,3"/>
-
-                    <!-- 智慧線 (藍色) -->
-                    <path d="M 140 185 C 180 210, 230 220, 270 250" fill="none" stroke="#4682b4" stroke-width="4" stroke-linecap="round"/>
-                    <text x="280" y="260" font-family="serif" font-size="14" fill="#4682b4" font-weight="bold">智慧線</text>
-                    
-                    <!-- 感情線 (綠色，帶有小島紋示意) -->
-                    <path d="M 160 160 C 200 170, 240 170, 290 180" fill="none" stroke="#2e8b57" stroke-width="3" stroke-linecap="round"/>
-                    <circle cx="230" cy="172" r="3" fill="none" stroke="#2e8b57" stroke-width="1.5"/>
-                    <circle cx="245" cy="174" r="3" fill="none" stroke="#2e8b57" stroke-width="1.5"/>
-                    <text x="300" y="180" font-family="serif" font-size="14" fill="#2e8b57" font-weight="bold">感情線</text>
-
-                    <!-- 事業線 (黃金色) -->
-                    <path d="M 210 380 C 215 300, 205 250, 220 180" fill="none" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
-                    <text x="220" y="360" font-family="serif" font-size="14" fill="#b8860b" font-weight="bold">事業線</text>
-
-                </svg>
-                <div class="svg-caption">圖三：右手指針紋路解析。厚實的手掌(土型)、平穩的智慧線與自立的事業線，呼應了您務實踏實的人生觀。感情線上的細紋提醒需釋放情緒壓力。</div>
+            
+            <div class="card">
+                <h4 style="color: var(--water); margin-top: 0;">今年下半年 (秋冬季：沉澱收穫、修復關係)</h4>
+                <p><strong>事業財運：</strong> 進入秋季後，金水進氣，開始幫您「降溫」與「淘洗」。上半年的辛苦將在下半年化為實質的認可或財富回報。此階段宜<strong>保守觀察、穩紮穩打</strong>。</p>
+                <p><strong>感情人際：</strong> 感情中的火藥味消退，溝通變得順暢。這段時間非常適合與伴侶安排家庭旅遊，修復上半年的緊繃關係；與子女的互動也會因為您的心態放鬆而好轉。</p>
+                <p><strong>健康節奏：</strong> 身心壓力大幅減輕，可以開始進補或安排全身健康檢查，好好修整蓄勢。</p>
             </div>
         </div>
     </section>
 
-    <!-- 12. 化解方法區 -->
+    <!-- 化解方法區 -->
     <section>
-        <h2>九、 命局痛點與具體化解方法</h2>
-        <p>命盤中「土重金埋」且「缺乏水木疏通」，容易造成您有時感到人生卡關、情緒無處發洩。以下提供實用的化解之道：</p>
+        <h2>八、 專屬化解方法與行動建議</h2>
+        <p>命理的價值在於「知命而造命」。針對您八字土旺缺水、夫妻溝通阻滯、以及流年帶來的壓力，提供以下具體的生活化解法：</p>
 
-        <div class="highlight-box">
-            <h4 style="color: var(--accent-red); margin-top: 0;">1. 抒發情緒，拒絕「悶燒」 (補水法)</h4>
-            <p><strong>痛點：</strong> 遇到不公或委屈時，習慣自己吞下去，久了影響身心。<br>
-            <strong>化解：</strong> 五行中的「水」代表溝通與流動。請刻意練習「說出感受」。即使是寫日記、找信任的朋友傾訴，甚至只是去海邊、湖邊走走，看著流動的水，都能有效化解您內心的淤塞感。</p>
+        <div class="highlight-box" style="text-align: left; padding-left: 30px;">
+            <h3 style="margin-top: 0;">🛡️ 重點化解方向</h3>
+            <ul>
+                <li><strong>五行補水法（化解土旺與壓力）：</strong> 水代表智慧與流動。建議您在居家北面擺放流水盆景或加濕器；日常穿著可多搭配藍色、黑色系的配件；多喝溫水，少吃燥熱的根莖類食物（土性）。</li>
+                <li><strong>夫妻宮化解法（降低溝通阻力）：</strong> 掌紋與八字皆顯示溝通易有滯礙。請練習「停頓三秒」再回話。當伴侶表達意見時，先點頭表示聽到，不要急著反駁或攬責任。臥室內避免放置過多陶瓷或方形物品（土），改放金屬框或圓形的時鐘/裝飾。</li>
+                <li><strong>子女宮化解法（減輕焦慮）：</strong> 不要把子女的課題當作自己的課題。可以為子女祈福，但行動上要「放手」。建議您可以將重心轉移一部分到自己的事業或興趣上。</li>
+            </ul>
         </div>
 
-        <div class="highlight-box">
-            <h4 style="color: var(--accent-red); margin-top: 0;">2. 破除固執，擁抱變動 (補木法)</h4>
-            <p><strong>痛點：</strong> 習慣在舒適圈或既定模式裡運作，害怕突如其來的改變。<br>
-            <strong>化解：</strong> 「木」能破土。木代表學習、成長與新事物。建議您每年學習一項全新的技能或興趣（例如插花、木工、閱讀新領域的書），主動為生活帶來「微小的變動」，這能有效破除命盤中厚土帶來的停滯感。</p>
-        </div>
+        <h3>📅 今年流年分段化解與提醒</h3>
+        <table>
+            <tr>
+                <th style="width: 20%;">時間點</th>
+                <th style="width: 40%;">容易出現的風險 / 應避開的行為</th>
+                <th style="width: 40%;">建議化解與調整心態</th>
+            </tr>
+            <tr>
+                <td><strong>上半年</strong><br>(春、夏)</td>
+                <td>工作過勞、攬下不屬於自己的責任。<br>伴侶間因為小事發脾氣，互不相讓。<br>對子女的成績或表現過度干涉。</td>
+                <td><strong>行動：</strong>在辦公桌左手邊放一杯水（每日更換）。<br><strong>心態：</strong>接受「不完美」，允許伴侶和孩子用他們自己的步調做事。有火氣時，先離開現場喝杯涼水。</td>
+            </tr>
+            <tr>
+                <td><strong>下半年</strong><br>(秋、冬)</td>
+                <td>因上半年疲勞未解，出現報復性消費。<br>心態鬆懈導致工作細節出錯。</td>
+                <td><strong>行動：</strong>安排與家人的溫泉之旅或近水的地方散心。<br><strong>心態：</strong>將專注力轉向「感恩」與「收穫」。與伴侶進行深度且平和的對話，規劃未來的財務。</td>
+            </tr>
+        </table>
+    </section>
 
-        <div class="highlight-box">
-            <h4 style="color: var(--accent-red); margin-top: 0;">3. 放下過度責任感 (心態調整)</h4>
-            <p><strong>痛點：</strong> 印旺之人容易把別人的問題當成自己的問題，把自己搞得很累。<br>
-            <strong>化解：</strong> 練習「課題分離」。在幫忙家人或同事前，先問自己：「這是我的責任，還是他的？」學會溫和而堅定地說「不」，是您後半生最重要的修行。</p>
+    <!-- 增運與趨吉避凶建議區 -->
+    <section>
+        <h2>九、 增運與趨吉避凶策略總結</h2>
+        <p>結合您的命格特質與當前運勢，為您整理未來的行動指南：</p>
+
+        <div class="info-grid">
+            <div class="card">
+                <h4 style="color: var(--wood); margin-top: 0;">🌱 短期可做的事 (1-3個月內)</h4>
+                <ul>
+                    <li><strong>事業：</strong> 整理工作清單，把「非必要」的事項委託出去，練習說「不」。</li>
+                    <li><strong>感情：</strong> 主動邀請伴侶看一場電影或吃頓飯，不要談論家事，只談彼此的感受。</li>
+                    <li><strong>環境：</strong> 清理家中雜物，特別是舊紙箱、破舊陶瓷（化解過多的土氣）。</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h4 style="color: var(--primary-color); margin-top: 0;">🌿 中長期養運方向 (1-3年內)</h4>
+                <ul>
+                    <li><strong>學習流動：</strong> 學習一項與「水」或「木」有關的技能（如游泳、花藝、茶道），能有效軟化您堅硬的八字結構。</li>
+                    <li><strong>財務配置：</strong> 保持穩健理財，可投資實體資產或穩健型基金，忌短線炒作。</li>
+                    <li><strong>身心健康：</strong> 培養規律的伸展運動（瑜珈或太極），舒緩因責任帶來的筋骨緊繃。</li>
+                </ul>
+            </div>
         </div>
     </section>
 
-    <!-- 13. 增運與趨吉避凶建議區 -->
-    <section>
-        <h2>十、 增進運勢與趨吉避凶建議</h2>
-        
-        <h3>【日常開運佈局】</h3>
-        <ul>
-            <li><strong>幸運顏色：</strong> <span style="color: #4682b4; font-weight: bold;">深藍色、黑色 (水)</span>，以及 <span style="color: #2e8b57; font-weight: bold;">綠色、青色 (木)</span>。多穿戴這些顏色的衣物或配件，能增強您的活力與財運。</li>
-            <li><strong>避免顏色：</strong> 盡量減少大面積的咖啡色、黃色 (土) 或大紅色 (火)，以免增加沉悶與煩躁感。</li>
-            <li><strong>居家環境：</strong> 家中宜保持通風明亮。可以在客廳東方或東南方擺放闊葉綠色植物（補木），或在北方放置流水盆景（補水），有助於活絡家中的氣場。</li>
-        </ul>
-
-        <h3>【行動與時機策略】</h3>
-        <ul>
-            <li><strong>短期行動：</strong> 若近期感到壓力大，安排一趟向北或向東的旅行，尤其是靠近森林或湖泊的地方，能快速補充您匱乏的五行能量。</li>
-            <li><strong>事業決策：</strong> 遇到需要競爭、爭取的機會時，不要退縮。庚金本是利器，不該永遠藏在土裡。該展現專業時，大膽出擊。</li>
-            <li><strong>投資理財：</strong> 絕對避開短期高風險炒作。專注於房地產、儲蓄險或大型穩健股。您的財庫深厚，只要慢慢存，晚年必定豐足。</li>
-        </ul>
-    </section>
-
-    <!-- 14. 總結區 -->
-    <section>
-        <h2>十一、 命理老師總結語</h2>
-        <p>王萍女士，從您的八字、紫微斗數到掌紋相學，都清晰地描繪出一位<strong>「腳踏實地、堅毅可靠」</strong>的女性形象。您就像一塊蘊藏在深山厚土中的真金，或許過程需要比別人更多的耐心與琢磨，但質地絕對是經得起時間考驗的。</p>
-        
-        <p>命運不是定數，而是了解自我特質的說明書。您天生具備極強的防禦力與穩定度，現在需要加強的是<strong>「主動出擊的勇氣」與「適度放鬆的智慧」</strong>。不要被過多的責任壓垮，多愛自己一點，讓生命之水流動起來，您的未來將如同洗淨的黃金般，閃耀出溫潤而耀眼的光芒。</p>
-        
-        <p style="text-align: right; margin-top: 30px; font-weight: bold; color: var(--accent-red);">
-            祝福您 平安順心，福慧雙修<br>
-            <span style="font-size: 0.8em; color: var(--text-muted); font-weight: normal;">(本報告為趨勢參考，人生最終的決定權仍掌握在您的手中)</span>
+    <!-- 總結區 -->
+    <section style="background-color: var(--primary-color); color: #fff; border: none; text-align: center;">
+        <h2 style="color: #fff; border-left: none; margin-top: 0;">結語：千金難買心頭寬</h2>
+        <p style="font-size: 1.1em; max-width: 700px; margin: 0 auto;">
+            萍女士，您的命格充滿了堅韌與包容，是典型的賢妻良母與職場中堅力量。
+            土生金，您是一塊經過歲月打磨的璞玉。<br><br>
+            今年丙午年，雖然火土相逼帶來壓力，但只要學會<strong>「用水的智慧去流動，取代用土的固執去硬扛」</strong>，
+            您在夫妻關係、親子互動與事業上，必定能迎來更加圓融與豐收的下半場人生。<br><br>
+            願您順心如意，平安喜樂。
         </p>
     </section>
 
