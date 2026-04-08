@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>曼谷4日潑水節與美食血拚之旅</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    :root {
+      /* 泰國風情色系 Thai Tropical & Songkran Palette */
+      --thai-gold: #d4af37;
+      --thai-gold-light: #fef08a;
+      --thai-sapphire: #0f4c81;
+      --songkran-cyan: #00b4d8;
+      --songkran-blue: #0077b6;
+      --songkran-water: #caf0f8;
+      --thai-emerald: #2a9d8f;
+      --spicy-red: #e63946;
+      --spicy-red-light: #ffe4e6;
+      --elephant-gray: #f8f9fa;
+      
+      --ink: #1e293b;
+      --card: #FFFFFF;
+      --danger: var(--spicy-red);
+      --recommend: var(--songkran-blue);
+    }
+    
+    body {
+      background-color: var(--elephant-gray);
+      /* 泰式大象與水花圖騰隱約背景 */
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5C32.8 5 35 7.2 35 10C35 12.8 32.8 15 30 15C27.2 15 25 12.8 25 10C25 7.2 27.2 5 30 5ZM30 55C27.2 55 25 52.8 25 50C25 47.2 27.2 45 30 45C32.8 45 35 47.2 35 50C35 52.8 32.8 55 30 55ZM5 30C5 27.2 7.2 25 10 25C12.8 25 15 27.2 15 30C15 32.8 12.8 35 10 35C7.2 35 5 32.8 5 30ZM55 30C55 32.8 52.8 35 50 35C47.2 35 45 32.8 45 30C45 27.2 47.2 25 50 25C52.8 25 55 27.2 55 30Z' fill='%2300b4d8' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+      color: var(--ink);
+      line-height: 1.7;
+      font-family: 'Noto Sans TC', system-ui, -apple-system;
+    }
+    
+    .main-container { max-width: 1280px; margin: auto; padding-bottom: 4rem; }
+    
+    .card {
+      background: var(--card);
+      border-radius: 1rem;
+      box-shadow: 0 8px 24px rgba(0, 119, 182, 0.06);
+      border: 1px solid #e2e8f0;
+      border-top: 4px solid var(--songkran-cyan);
+      transition: transform .2s, box-shadow .2s;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::after {
+      content: "\f043"; /* fa-droplet */
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute; bottom: -10px; right: 10px; font-size: 4rem;
+      color: var(--songkran-cyan); opacity: 0.05; pointer-events: none;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 16px 32px rgba(0, 119, 182, 0.12); border-color: var(--songkran-blue); }
+    
+    .section-title { display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem; font-size: 1.5rem; font-weight: 700; color: var(--thai-sapphire); }
+    .section-title .icon-slot { width: 2.2rem; height: 2.2rem; background: var(--thai-gold-light); color: var(--thai-gold); border-radius: .6rem; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 1px 0 #fff; font-size: 1.2rem; }
+    
+    .red-text { color: var(--danger); font-weight: 600; }
+    .blue-text { color: var(--recommend); font-weight: 600; }
+    
+    .nav { position: sticky; top: 0; z-index: 50; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); box-shadow: 0 4px 16px rgba(0, 119, 182, 0.1); border-bottom: 2px solid var(--songkran-water); }
+    .nav-btn {
+      background: linear-gradient(135deg, var(--songkran-cyan), var(--songkran-blue));
+      color: #fff; padding: .7rem 1rem; border-radius: 1rem;
+      box-shadow: inset 1px 1px 0 rgba(255,255,255,.3), 0 6px 12px rgba(0, 119, 182, 0.2);
+      transition: transform .15s, box-shadow .15s, background .2s;
+      font-weight: bold; font-size: 0.9rem; text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+    }
+    .nav-btn:hover { transform: scale(1.05); background: linear-gradient(135deg, var(--songkran-blue), var(--thai-sapphire)); }
+    .nav-btn:active { transform: translateY(1px); }
+    
+    section { display: none; } section.active { display: block; animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .two-col { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1.5rem; }
+    @media (min-width: 768px) { .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    
+    .timeline { position: relative; margin-left: 1.25rem; padding-bottom: 1rem; }
+    .timeline:before { content: ""; position: absolute; left: .4rem; top: 0; bottom: 0; width: 4px; background: linear-gradient(to bottom, var(--songkran-cyan), var(--songkran-water)); border-radius: 4px; }
+    .time-block { margin: 2.5rem 0; }
+    .time-block h4 { color: var(--thai-sapphire); font-weight: 800; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; font-size: 1.2rem; }
+    
+    .item {
+      display: flex; gap: 1.25rem; margin: 1.25rem 0; align-items: flex-start; position: relative;
+      background: #fff; padding: 1.5rem; border-radius: 0.75rem;
+      box-shadow: 0 4px 12px rgba(0, 119, 182, 0.05); border: 1px solid var(--songkran-water);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .item:hover { border-color: var(--songkran-cyan); background: #fafeff; }
+    .time-badge {
+      flex: 0 0 auto; background: var(--songkran-water); color: var(--thai-sapphire); border-radius: .5rem; padding: .5rem .75rem;
+      font-weight: 800; min-width: 5.5rem; text-align: center; font-size: 1rem; display: flex; flex-direction: column;
+      border: 1px solid var(--songkran-cyan); box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .time-badge span.duration { font-size: 0.75rem; color: var(--songkran-blue); font-weight: 600; margin-top: 4px; }
+    .icon-slot { flex: 0 0 auto; width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; color: #fff; background: var(--thai-gold); border-radius: .6rem; font-size: 1.2rem; box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3); }
+    .text-slot { min-width: 0; flex: 1 1 auto; word-break: break-word; display: flex; flex-direction: column; gap: .5rem; }
+    .text-slot h5 { font-size: 1.15rem; font-weight: 800; margin: 0; color: var(--ink); line-height: 1.4; }
+    
+    .transport {
+      background: var(--songkran-water); border-left: 4px solid var(--songkran-blue); padding: 1rem 1.25rem;
+      border-radius: 0 0.5rem 0.5rem 0; margin: 0.5rem 0 0.5rem 1.75rem; font-size: 0.95rem;
+      display: flex; flex-direction: column; gap: 0.35rem; color: var(--thai-sapphire);
+      font-weight: 500;
+    }
+    
+    .stack-vertical { display: flex; flex-direction: column; gap: .5rem; }
+    
+    .day-tag { display: inline-block; padding: .2rem .6rem; border-radius: .6rem; background: var(--thai-gold-light); color: #854d0e; font-size: .8rem; font-weight: 700; width: fit-content; border: 1px solid #fde047; }
+    .tag-red { background: var(--spicy-red-light); color: var(--spicy-red); border-color: #fecdd3; }
+    
+    #backToTopBtn { background: var(--thai-gold); width: 3.5rem; height: 3.5rem; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; transition: all 0.2s; color: #fff; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4); border: 2px solid #fff; }
+    #backToTopBtn:hover { background: #b8860b; transform: translateY(-4px) scale(1.05); }
+    
+    .copy-btn { background: var(--songkran-water); color: var(--songkran-blue); border: 1px solid var(--songkran-cyan); border-radius: 0.4rem; padding: 0.25rem 0.75rem; font-size: 0.85rem; cursor: pointer; width: fit-content; transition: all 0.2s; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+    .copy-btn:hover { background: var(--songkran-blue); color: #fff; }
+    
+    .day-header {
+      background: linear-gradient(135deg, var(--thai-sapphire), var(--songkran-blue)); color: white;
+      padding: 1.5rem; border-radius: 1rem; font-size: 1.35rem; font-weight: 800;
+      margin-top: 4rem; margin-bottom: 2rem; box-shadow: 0 8px 24px rgba(0, 119, 182, 0.25);
+      position: relative; overflow: hidden; display: flex; align-items: center; gap: 0.75rem;
+    }
+    .day-header::after { content: "\f6b0"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; right: -10px; top: -10px; font-size: 5rem; opacity: 0.1; transform: rotate(-15deg); }
+    
+    .thai-pattern {
+      height: 8px; width: 100%;
+      background-image: linear-gradient(45deg, var(--thai-gold) 25%, transparent 25%, transparent 75%, var(--thai-gold) 75%, var(--thai-gold)), linear-gradient(45deg, var(--thai-gold) 25%, transparent 25%, transparent 75%, var(--thai-gold) 75%, var(--thai-gold));
+      background-size: 16px 16px; background-position: 0 0, 8px 8px; opacity: 0.2; border-radius: 4px; margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="text-center py-12 text-white shadow-xl relative overflow-hidden" style="background:linear-gradient(135deg, #0f4c81, #0077b6, #00b4d8)">
+    <div class="absolute inset-0 opacity-20" style="background-image: url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M20 20c-5.523 0-10-4.477-10-10S14.477 0 20 0s10 4.477 10 10-4.477 10-10 10zm0 20c-5.523 0-10-4.477-10-10S14.477 20 20 20s10 4.477 10 10-4.477 10-10 10z\' fill=\'%23ffffff\' fill-opacity=\'1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E');"></div>
+    <div class="relative z-10 section-title justify-center" style="color:white; margin-bottom: 0.5rem;">
+      <span class="icon-slot" style="background:rgba(212, 175, 55, 0.9);color:white;border:2px solid #fff;"><i class="fa-solid fa-water"></i></span>
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-wide" style="text-shadow: 0 4px 8px rgba(0,0,0,0.3);">曼谷4日潑水節與美食血拚之旅</h1>
+    </div>
+    <p class="relative z-10 text-lg opacity-95 mt-4 font-bold tracking-wider" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+      🐘 目的地：泰國 曼谷 ｜ 💦 日期：<span class="text-yellow-300">2026/04/12 - 2026/04/15</span> 🇹🇭
+    </p>
+    <div class="relative z-10 max-w-4xl mx-auto px-6"><div class="thai-pattern"></div></div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="max-w-6xl mx-auto px-4 py-3 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+      <button class="nav-btn" onclick="showPage('home')"><i class="fa-solid fa-house"></i> 首頁</button>
+      <button class="nav-btn" onclick="showPage('poi')"><i class="fa-solid fa-map-location-dot"></i> 景點 POI (20)</button>
+      <button class="nav-btn" onclick="showPage('bib')"><i class="fa-solid fa-utensils"></i> 美食 (20)</button>
+      <button class="nav-btn" onclick="showPage('souvenir')"><i class="fa-solid fa-gift"></i> 伴手禮 (20)</button>
+      <button class="nav-btn" onclick="showPage('photo-spots')"><i class="fa-solid fa-camera-retro"></i> 拍照聖地 (10)</button>
+      <button class="nav-btn" onclick="showPage('desserts')"><i class="fa-solid fa-ice-cream"></i> 甜點咖啡 (10)</button>
+      <button class="nav-btn" onclick="showPage('market')"><i class="fa-solid fa-basket-shopping"></i> 超市 (5)</button>
+    </div>
+  </nav>
+
+  <main class="main-container px-4 space-y-12 mt-10">
+    
+    <!-- ==================== 1. 首頁 (Home) ==================== -->
+    <section id="home" class="active space-y-10">
+      
+      <!-- 行程總覽 × 每日重點 -->
+      <div>
+        <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-calendar-days"></i></span> 行程總覽 × 每日重點 (可收合)</div>
+        <details open class="mb-4 bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+          <summary class="font-bold text-lg text-blue-800 cursor-pointer outline-none">點擊收合 / 展開四日行程摘要</summary>
+          <div class="two-col mt-4">
+            <div class="card">
+              <h3 class="font-bold text-lg text-blue-800 border-b pb-2"><i class="fa-solid fa-plane-arrival mr-1"></i> Day 1：04/12 (日) 抵達與前哨戰 🛬</h3>
+              <div class="stack-vertical text-sm mt-2">
+                <p><span class="red-text">🚗 出發：05:00 出門前往機場，並享用貴賓室早餐。</span></p>
+                <p><span class="red-text">✈️ 航班：08:20 桃園國際機場 (TPE) -> 11:10 曼谷 (BKK)</span></p>
+                <p><span class="red-text">🏨 住宿：Novotel Bangkok On Siam Square Hotel</span></p>
+                <p><span class="red-text">📍 重點：直奔三聘市場採購水槍裝備。</span></p>
+                <p><span class="red-text">📸 傍晚：漫步百年文青老街嵩越路。</span></p>
+                <p><span class="red-text">🍜 晚間：中國城大啖蚵仔煎與粿汁。</span></p>
+              </div>
+            </div>
+            <div class="card" style="border-top-color: var(--songkran-cyan);">
+              <h3 class="font-bold text-lg text-blue-800 border-b pb-2"><i class="fa-solid fa-water mr-1"></i> Day 2：04/13 (一) 米其林漫步與潑水節 💦</h3>
+              <div class="stack-vertical text-sm mt-2">
+                <p><span class="red-text">☕ 早晨：Factory Coffee 喚醒早晨。</span></p>
+                <p><span class="red-text">🛍️ 購物：Big Ｃ買燕窩與伴手禮。</span></p>
+                <p><span class="red-text">🏯 上午：ICONSIAM 暹羅天地 (體驗室內水上市場) + Baan Ice。</span></p>
+                <p><span class="red-text">💦 下午：暹羅廣場潑水戰區。</span></p>
+                <p><span class="red-text">🦞 晚間：喬德夜市大啖海鮮。</span></p>
+              </div>
+            </div>
+            <div class="card" style="border-top-color: var(--thai-gold);">
+              <h3 class="font-bold text-lg text-blue-800 border-b pb-2"><i class="fa-solid fa-city mr-1"></i> Day 3：04/14 (二) 暹羅商圈與高空夜景 🌆</h3>
+              <div class="stack-vertical text-sm mt-2">
+                <p><span class="red-text">☕ 早晨：飯店周邊咖啡廳甦醒。</span></p>
+                <p><span class="red-text">⛩️ 早上：參拜幸運女神。</span></p>
+                <p><span class="red-text">🥩 午餐：11:00 報到 Gaysorn Amarin 的 Copper Beyond。</span></p>
+                <p><span class="red-text">🛍️ 重點：Emsphere血拚。</span></p>
+                <p><span class="red-text">🦀 晚餐：Emsphere 大啖蟹肉炒飯與芒果糯米。</span></p>
+                <p><span class="red-text">💆 晚間：20:00 LET'S RELAX SPA (SIAM SQUARE ONE 165min)。</span></p>
+                <p><span class="red-text">🍹 深夜：曼谷必訪高空酒吧，微醺夜景。</span></p>
+              </div>
+            </div>
+            <div class="card">
+              <h3 class="font-bold text-lg text-blue-800 border-b pb-2"><i class="fa-solid fa-plane-departure mr-1"></i> Day 4：04/15 (三) 最後血拚與賦歸 🛫</h3>
+              <div class="stack-vertical text-sm mt-2">
+                <p><span class="red-text">☕ 早晨：搜尋並安排附近的知名早餐 (邢泰記)。</span></p>
+                <p><span class="red-text">🛍️ 重點：市區最後血拚 (暹羅百麗宮周邊)。</span></p>
+                <p><span class="red-text">✈️ 報到：素萬那普機場退稅與報到。</span></p>
+                <p><span class="red-text">🍽️ 午餐：享受龍騰卡機場貴賓室。</span></p>
+                <p><span class="red-text">🛫 航班：15:20 素萬那普國際機場 (BKK) -> 20:10 桃園國際機場 (TPE)。</span></p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- 每日詳細行程 -->
+      <div>
+        <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-route"></i></span> 每日詳細行程</div>
+
+        <!-- ==================== Day 1 ==================== -->
+        <div class="day-section">
+          <div class="day-header"><i class="fa-solid fa-plane-arrival"></i> Day 1 - 2026/04/12 (日) 抵達與前哨戰</div>
+          <div class="timeline">
+            <!-- Morning -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-cloud-sun text-yellow-500"></i> 早晨 Morning</h4>
+              <div class="item">
+                <div class="time-badge">05:00<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-car-side"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">出發前往 桃園國際機場</h5>
+                  <div class="text-sm">早起帶著期待的心情，出門前往桃園國際機場 Terminal 2，準備展開潑水節之旅。</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">06:00<span class="duration">約 40 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-passport"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">機場報到與行李托運</h5>
+                  <div class="text-sm">辦理長榮航空登機手續並完成出境安檢。</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">06:40<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot" style="background:#e63946;"><i class="fa-solid fa-mug-hot"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">早餐：長榮航空 The Star 貴賓室</h5>
+                  <div class="text-sm">建議餐點：貴賓室豐盛的中西式自助早餐。前往位於出境層 4F 的 EVA Air The Star Lounge 休息，悠閒享用早餐並養足精神。</div>
+                  <div class="text-xs text-gray-500">預算：機票/會籍內含</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">08:20<span class="duration">3h 50m</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-plane"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">長榮航空 BR 211 啟程</h5>
+                  <div class="text-sm">豪華經濟艙。期待曼谷的熱情與美食。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Forenoon -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-sun text-yellow-500"></i> 上午 Forenoon</h4>
+              <div class="item">
+                <div class="time-badge">11:10<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-plane-arrival"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">抵達 素萬那普國際機場 (BKK)</h5>
+                  <div class="text-sm">辦理入境手續、領取行李並購買網卡。</div>
+                </div>
+              </div>
+              <div class="transport stack-vertical">
+                <div><i class="fa-solid fa-train"></i> 交通方式：機場快線 (ARL) 轉 BTS</div>
+                <div>出發時間：12:10 → 抵達時間：12:50</div>
+                <div>ETA: 40m | Cost: THB 45+30 | Transfers: ARL Phaya Thai 轉 BTS Siam</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">13:00<span class="duration">約 30 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-hotel"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">入住/寄放行李：Novotel Bangkok On Siam Square Hotel</h5>
+                  <div class="text-sm">位於暹羅廣場正中心，位置絕佳。先寄放行李以便下午採購。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Afternoon -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-coffee text-amber-600"></i> 午後 Afternoon</h4>
+              <div class="transport stack-vertical">
+                <div><i class="fa-solid fa-taxi"></i> 交通方式：計程車或嘟嘟車</div>
+                <div>出發時間：13:30 → 抵達時間：14:00</div>
+                <div>ETA: 30m | Cost: THB 100-150 | Transfers: 飯店直達中國城邊緣 (三聘市場)</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">14:00<span class="duration">約 2.5 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">景點/購物：三聘市場 (Sampeng Market)</h5>
+                  <div class="text-sm">抵達後直奔三聘市場！潑水節前哨戰裝備採購，在此可以買到超便宜又大容量的水槍、防水袋與護目鏡。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Evening -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-moon text-indigo-500"></i> 傍晚 Evening</h4>
+              <div class="item">
+                <div class="time-badge">16:45<span class="duration">約 1.5 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-camera"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">拍照：嵩越路 (Song Wat Road) 百年老街</h5>
+                  <div class="text-sm">從三聘市場散步過來，這條充滿歷史斑駁感與新興文青咖啡店的老街，是近期曼谷最紅的打卡秘境。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Night -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-star text-indigo-700"></i> 夜間 Night</h4>
+              <div class="item">
+                <div class="time-badge">18:30<span class="duration">約 1.5 小時</span></div>
+                <div class="icon-slot" style="background:#e63946;"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">晚餐：中國城 泰式蚵仔煎與粿汁</h5>
+                  <div class="text-sm">建議餐點：先吃 Nai Mong Hoi Tod 的酥脆蚵仔煎，再配 Nai Ek (陳億) 的胡椒豬雜粿汁！</div>
+                  <div class="text-xs text-gray-500">預算：THB 200 - 400</div>
+                </div>
+              </div>
+              <div class="transport stack-vertical">
+                <div><i class="fa-solid fa-train"></i> 交通方式：MRT 轉 BTS 回飯店</div>
+                <div>出發時間：20:15 → 抵達時間：20:45</div>
+                <div>ETA: 30m | Cost: THB 45 | Transfers: MRT Wat Mangkon 至 BTS Siam</div>
+              </div>
+              <!-- 缺漏說明卡 -->
+              <div class="card mt-6" style="background: #fff1f2; border-left: 4px solid var(--spicy-red);">
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text"><i class="fa-solid fa-circle-info"></i> 資料不足原因備註</h5>
+                  <div class="text-sm text-gray-700">Day 1 為飛行抵達日，上午耗費於交通與安頓，能安排的活動時段僅剩午後至夜間。為儲備隔日潑水節的體力，行程精簡安排採買與中國城晚餐，故不滿 10 項事件。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== Day 2 ==================== -->
+        <div class="day-section">
+          <div class="day-header" style="background: linear-gradient(135deg, #0077b6, #00b4d8);"><i class="fa-solid fa-water"></i> Day 2 - 2026/04/13 (一) 老城區米其林漫步與潑水節</div>
+          <div class="timeline">
+            <!-- Morning -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-cloud-sun text-yellow-500"></i> 早晨 Morning</h4>
+              <!-- 1 -->
+              <div class="item">
+                <div class="time-badge">08:00<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot" style="background:#e63946;"><i class="fa-solid fa-mug-hot"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">早餐：Factory Coffee</h5>
+                  <div class="text-sm">建議餐點：Supreme 招牌特調咖啡搭配現烤可頌。曾獲泰國咖啡冠軍的名店，為激烈的潑水節喚醒活力！</div>
+                  <div class="text-xs text-gray-500">預算：THB 250 - 400</div>
+                </div>
+              </div>
+              <div class="transport stack-vertical">
+                <div><i class="fa-solid fa-train"></i> 交通方式：BTS</div>
+                <div>出發時間：09:00 → 抵達時間：09:15</div>
+                <div>ETA: 15m | Cost: THB 25 | Transfers: Phaya Thai 至 Chit Lom</div>
+              </div>
+              <!-- 2 -->
+              <div class="item">
+                <div class="time-badge">09:15<span class="duration">約 1.5 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-cart-shopping"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">購物：Big C Supercenter Ratchadamri</h5>
+                  <div class="text-sm">趁著人潮尚少，先來這裡掃貨泰國燕窩、手工皂與零食伴手禮。買完可先放回同在市區的飯店。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Forenoon -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-sun text-yellow-500"></i> 上午 Forenoon</h4>
+              <div class="transport stack-vertical">
+                <div><i class="fa-solid fa-ship"></i> 交通方式：BTS 轉 免費接駁船</div>
+                <div>出發時間：10:45 → 抵達時間：11:15</div>
+                <div>ETA: 30m | Cost: THB 47 | Transfers: Siam 至 Saphan Taksin 轉搭接駁船</div>
+              </div>
+              <!-- 3 -->
+              <div class="item">
+                <div class="time-badge">11:15<span class="duration">約 1.5 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-store"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">景點：ICONSIAM 暹羅天地 (室內水上市場)</h5>
+                  <div class="text-sm">泰國最具代表性的豪華商場。一樓的 SOOKSIAM 完美復刻了水上市場風情，免曬太陽就能體驗泰國傳統文化。</div>
+                </div>
+              </div>
+              <!-- 4 -->
+              <div class="item">
+                <div class="time-badge">12:45<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot" style="background:#e63946;"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">午餐：Baan Ice Restaurant (ICONSIAM分店)</h5>
+                  <div class="text-sm">建議餐點：泰南特色炒臭豆、冰沙蟹肉咖哩、酥炸五花肉。精緻的泰國南部料理。</div>
+                  <div class="text-xs text-gray-500">預算：THB 500 - 800</div>
+                </div>
+              </div>
+            </div>
+            <!-- Afternoon -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-coffee text-amber-600"></i> 午後 Afternoon</h4>
+              <div class="transport stack-vertical">
+                <div><i class="fa-solid fa-taxi"></i> 交通方式：計程車或嘟嘟車</div>
+                <div>出發時間：13:30 → 抵達時間：14:00</div>
+                <div>ETA: 30m | Cost: THB 100-150 | Transfers: 飯店直達中國城邊緣 (三聘市場)</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">14:00<span class="duration">約 2.5 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">景點/購物：三聘市場 (Sampeng Market)</h5>
+                  <div class="text-sm">抵達後直奔三聘市場！潑水節前哨戰裝備採購，在此可以買到超便宜又大容量的水槍、防水袋與護目鏡。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Evening -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-moon text-indigo-500"></i> 傍晚 Evening</h4>
+              <div class="transport stack-vertical">
+                <div><i class="fa-solid fa-train"></i> 交通方式：BTS 轉 MRT</div>
+                <div>出發時間：18:15 → 抵達時間：18:45</div>
+                <div>ETA: 30m | Cost: THB 50 | Transfers: Siam(BTS) -> Asok轉MRT -> Phra Ram 9</div>
+              </div>
+              <!-- 7 -->
+              <div class="item">
+                <div class="time-badge">18:45<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot" style="background:#e63946;"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">晚餐：喬德夜市 (Jodd Fairs) 大啖海鮮</h5>
+                  <div class="text-sm">建議餐點：火山排骨、生醃海鮮、海鮮大拼盤。在熱鬧的夜市氣氛中大快朵頤。</div>
+                  <div class="text-xs text-gray-500">預算：THB 400 - 800</div>
+                </div>
+              </div>
+            </div>
+            <!-- Night -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-star text-indigo-700"></i> 夜間 Night</h4>
+              <!-- 8 -->
+              <div class="item">
+                <div class="time-badge">19:45<span class="duration">約 1.5 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-shop"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="blue-text">購物/逛街：喬德夜市 服飾與文創小攤</h5>
+                  <div class="text-sm">吃飽後在夜市內逛逛，這裡除了美食，也有許多質感的泰國特色服飾與手工藝品可以選購。</div>
+                </div>
+              </div>
+              <!-- 9 -->
+              <div class="item">
+                <div class="time-badge">21:15<span class="duration">約 30 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-camera-retro"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">拍照：喬德夜市 城堡夜景</h5>
+                  <div class="text-sm">夜市後方的歐風城堡造景在夜晚點燈後非常夢幻，是絕佳的拍照聖地。</div>
+                </div>
+              </div>
+              <div class="transport stack-vertical">
+                <div><i class="fa-solid fa-train"></i> 交通方式：MRT 轉 BTS</div>
+                <div>出發時間：21:45 → 抵達時間：22:15</div>
+                <div>ETA: 30m | Cost: THB 50 | Transfers: 回到 Siam 站</div>
+              </div>
+              <!-- 10 -->
+              <div class="item">
+                <div class="time-badge">22:15<span class="duration">休息</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bed"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">返回飯店：Novotel Siam Square</h5>
+                  <div class="text-sm">結束瘋狂的潑水節正日，回飯店好好洗去一身水氣。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== Day 3 ==================== -->
+        <div class="day-section">
+          <div class="day-header" style="background: linear-gradient(135deg, #d4af37, #b8860b);"><i class="fa-solid fa-city"></i> Day 3 - 2026/04/14 (二) 暹羅商圈與高空夜景</div>
+          <div class="timeline">
+            <!-- Morning -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-cloud-sun text-yellow-500"></i> 早晨 Morning</h4>
+              <!-- 1 -->
+              <div class="item">
+                <div class="time-badge">08:30<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot" style="background:#e63946;"><i class="fa-solid fa-mug-hot"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">早餐：飯店周邊咖啡廳</h5>
+                  <div class="text-sm">建議餐點：找尋附近的質感咖啡廳 (如 Siam Square 的 % Arabica 或 Roots)，喝杯咖啡搭配輕食麵包，簡單喚醒早晨。</div>
+                  <div class="text-xs text-gray-500">預算：THB 150 - 250</div>
+                </div>
+              </div>
+              <div class="transport stack-vertical">
+                <div><i class="fa-solid fa-person-walking"></i> 交通方式：步行 或 BTS</div>
+                <div>出發時間：09:30 → 抵達時間：09:45</div>
+                <div>ETA: 15m | Cost: Free | Transfers: 沿 Skywalk 前往 Gaysorn 區域</div>
+              </div>
+              <!-- 2 -->
+              <div class="item">
+                <div class="time-badge">09:45<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-vihara"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">景點：幸運女神 (Lakshmi Shrine)</h5>
+                  <div class="text-sm">位於 Gaysorn Village 4樓的戶外露台。掌管財富與幸運，參拜時建議準備粉紅色供品（如蓮花）。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Forenoon -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-sun text-yellow-500"></i> 上午 Forenoon</h4>
+              <!-- 3 -->
+              <div class="item">
+                <div class="time-badge">11:00<span class="duration">約 30 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-clipboard-check"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">排隊報到：Copper Beyond Buffet</h5>
+                  <div class="text-sm">位於 Gaysorn Amarin 內。這家是曼谷目前最難訂、評價極高的奢華自助餐，務必準時 11:00 報到劃位。</div>
+                </div>
+              </div>
+              <!-- 4 -->
+              <div class="item">
+                <div class="time-badge">11:30<span class="duration">約 2 小時</span></div>
+                <div class="icon-slot" style="background:#e63946;"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">午餐：Copper Beyond Buffet (Gaysorn Amarin)</h5>
+                  <div class="text-sm">建議餐點：和牛船麵、松露濃湯可頌、現煎鵝肝與生蠔。挑戰極致美食饗宴！</div>
+                  <div class="text-xs text-gray-500">預算：THB 2,000+ (需預訂)</div>
+                </div>
+              </div>
+            </div>
+            <!-- Afternoon -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-coffee text-amber-600"></i> 午後 Afternoon</h4>
+              <div class="transport stack-vertical">
+                <div><i class="fa-solid fa-train"></i> 交通方式：BTS</div>
+                <div>出發時間：13:45 → 抵達時間：14:00</div>
+                <div>ETA: 15m | Cost: THB 32 | Transfers: Chit Lom 至 Phrom Phong</div>
+              </div>
+              <!-- 5 -->
+              <div class="item">
+                <div class="time-badge">14:00<span class="duration">約 3.5 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">購物/景點：Emsphere 血拚與賽博龐克空橋</h5>
+                  <div class="text-sm">曼谷最新潮的百貨，充滿未來工業感。在此逛泰國設計師品牌，並在連結的空橋拍下充滿賽博龐克風格的打卡照。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Evening -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-moon text-indigo-500"></i> 傍晚 Evening</h4>
+              <!-- 6 -->
+              <div class="item">
+                <div class="time-badge">17:30<span class="duration">約 1.5 小時</span></div>
+                <div class="icon-slot" style="background:#e63946;"><i class="fa-solid fa-bowl-food"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">晚餐：大啖蟹肉炒飯與芒果糯米飯 (Emsphere 美食街)</h5>
+                  <div class="text-sm">建議餐點：尋找 Here Hai 的蟹肉炒飯與 Mae Varee 的芒果糯米飯。將原訂的點心改為晚餐，一次滿足米其林街頭美食慾望。</div>
+                  <div class="text-xs text-gray-500">預算：THB 500 - 800</div>
+                </div>
+              </div>
+              <div class="transport stack-vertical">
+                <div><i class="fa-solid fa-train"></i> 交通方式：BTS 返回 Siam</div>
+                <div>出發時間：19:00 → 抵達時間：19:30</div>
+                <div>ETA: 30m | Cost: THB 32 | Transfers: Phrom Phong 至 Siam</div>
+              </div>
+            </div>
+            <!-- Night -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-star text-indigo-700"></i> 夜間 Night</h4>
+              <!-- 8 -->
+              <div class="item">
+                <div class="time-badge">20:00<span class="duration">165min</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-spa"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">按摩：LET'S RELAX SPA (SIAM SQUARE ONE)</h5>
+                  <div class="text-sm">預約好的 165 分鐘極致水療與泰式按摩，徹底放鬆這幾天走動與潑水戰的疲憊，療程結束還會附上芒果糯米飯。</div>
+                </div>
+              </div>
+              <div class="transport stack-vertical">
+                <div><i class="fa-solid fa-person-walking"></i> 交通方式：步行</div>
+                <div>出發時間：22:50 → 抵達時間：23:00</div>
+                <div>ETA: 10m | Cost: Free | Transfers: 沿連通道前往 Centara Grand 飯店</div>
+              </div>
+              <!-- 9 -->
+              <div class="item">
+                <div class="time-badge">23:00<span class="duration">約 1.5 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-martini-glass"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">夜生活/拍照：Red Sky Bar 高空夜景</h5>
+                  <div class="text-sm">位於 Centara Grand 55樓，擁有招牌的巨大變色拱門與 360 度無死角夜景。點杯調酒，微醺享受曼谷的璀璨夜晚。</div>
+                </div>
+              </div>
+              <!-- 10 -->
+              <div class="item">
+                <div class="time-badge">00:30<span class="duration">休息</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bed"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">返回飯店：Novotel Siam Square</h5>
+                  <div class="text-sm">步行即可快速回到飯店，結束充實而奢華的一天。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== Day 4 ==================== -->
+        <div class="day-section">
+          <div class="day-header" style="background: linear-gradient(135deg, #2a9d8f, #21867a);"><i class="fa-solid fa-plane-departure"></i> Day 4 - 2026/04/15 (三) 最後血拚與賦歸</div>
+          <div class="timeline">
+            <!-- Morning -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-cloud-sun text-yellow-500"></i> 早晨 Morning</h4>
+              <div class="item">
+                <div class="time-badge">08:00<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot" style="background:#e63946;"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">早餐：邢泰記 (Kope Hya Tai Kee) 或 Patonggo Savoey</h5>
+                  <div class="text-sm">建議餐點：如果前一天沒吃邢泰記，今天可安排；或前往中國城外圍吃米其林推薦的「Patonggo Savoey 烤油條配斑斕醬」。</div>
+                  <div class="text-xs text-gray-500">預算：THB 100 - 200</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">09:30<span class="duration">約 2 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bag-shopping"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">重點：Siam 商圈最後血拚</h5>
+                  <div class="text-sm">在 Siam Paragon 或是 Gourmet Market 做最後的伴手禮、藥妝與泰國設計師品牌的補貨。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Forenoon -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-sun text-yellow-500"></i> 上午 Forenoon</h4>
+              <div class="transport stack-vertical">
+                <div><i class="fa-solid fa-taxi"></i> 交通方式：機場快線 或 包車前往機場</div>
+                <div>出發時間：11:30 → 抵達時間：12:30</div>
+                <div>ETA: 1h | Cost: THB 400-500 (計程車) | Transfers: 飯店至 BKK 機場</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">12:30<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-plane-departure"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">機場報到與退稅 (VAT Refund)</h5>
+                  <div class="text-sm">抵達素萬那普國際機場 (BKK)，先蓋退稅章、辦理長榮航空報到手續，再過安檢領取退稅金。</div>
+                </div>
+              </div>
+            </div>
+            <!-- Afternoon -->
+            <div class="time-block">
+              <h4><i class="fa-solid fa-coffee text-amber-600"></i> 午後 Afternoon</h4>
+              <div class="item">
+                <div class="time-badge">13:30<span class="duration">約 1.5 小時</span></div>
+                <div class="icon-slot" style="background:#e63946;"><i class="fa-solid fa-mug-hot"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">午餐：享受機場貴賓室 (龍騰卡 DragonPass)</h5>
+                  <div class="text-sm">持龍騰卡進入貴賓室享用午餐與休息。<b>【龍騰卡 BKK 貴賓室位置】</b>：推薦前往 <b>Miracle First/Business Class Lounge</b> (Concourse A, C, D, F, G 皆有，長榮通常在 F 或 G 登機門附近) 或 <b>The Coral Lounge</b> (Concourse D)。提供豐富熱食、現煮麵食與酒水。</div>
+                  <div class="text-xs text-gray-500">預算：龍騰卡額度內含</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">15:20<span class="duration">3h 50m</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-plane"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">長榮航空 BR 076 賦歸</h5>
+                  <div class="text-sm">帶著滿滿的戰利品與潑水節的歡樂回憶，預計 20:10 抵達台北桃園國際機場 (TPE)。</div>
+                </div>
+              </div>
+              <!-- 缺漏說明卡 -->
+              <div class="card mt-6" style="background: #fff1f2; border-left: 4px solid var(--spicy-red);">
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text"><i class="fa-solid fa-circle-info"></i> 資料不足原因備註</h5>
+                  <div class="text-sm text-gray-700">Day 4 為回程班機日，下午 15:20 起飛的航班意味著中午過後就必須前往機場。因此行程僅推估安排至早上的最後採買與午餐，後續時段無法安排其他觀光行程。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 底部：風險評估與建議注意 -->
+      <div class="two-col mt-10">
+        <div class="card" style="border-top: 4px solid var(--spicy-red);">
+          <div class="section-title"><span class="icon-slot" style="background:#ffe4e6;color:#e63946;"><i class="fa-solid fa-triangle-exclamation"></i></span> 風險評估：高 (潑水節人潮與高溫)</div>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>說明：</strong> 本行程適逢泰國新年「潑水節（宋干節）」，為全球最瘋狂的慶典之一。<strong>風險包含：</strong>市區交通將極度壅塞（嘟嘟車與計程車可能被水攻擊或拒載），建議全依賴捷運 (BTS/MRT)。此外，4月是曼谷最炎熱的月份，體感溫度常逼近40度，熱衰竭與中暑風險高，加上人群擁擠的扒手問題，需特別提高警覺。</p>
+          </div>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--songkran-blue);">
+          <div class="section-title"><span class="icon-slot" style="background:#e0fbfc;color:#0077b6;"><i class="fa-solid fa-lightbulb"></i></span> 建議 × 注意 (Top 10)</div>
+          <ol class="list-decimal list-inside text-sm text-gray-700 space-y-1.5">
+            <li><strong>【穿搭建議】</strong> 潑水節戰袍：速乾材質衣物、深色T恤(避免走光)、防滑防水涼鞋。</li>
+            <li><strong>【穿搭建議】</strong> 參訪廟宇(如幸運女神/四面佛)：必須穿著遮住肩膀與過膝的衣物，不可穿拖鞋。</li>
+            <li><strong>【裝備建議】</strong> 務必在三聘市場購買高品質防水袋掛脖子上，並準備護目鏡防護眼睛。</li>
+            <li>潑水節期間不可向僧侶、孕婦、嬰兒潑水，且不可使用冰水或混合不明粉末的水。</li>
+            <li>搭乘 BTS/MRT 時，若身上全濕可能會被空調冷到感冒，建議帶一條輕便乾毛巾。</li>
+            <li>Copper Beyond 自助餐與 Let's Relax Spa 務必提前1-2個月於線上預約並付款。</li>
+            <li>4月防曬非常重要，即使被水潑濕也容易曬傷，請隨時補充防水型防曬乳。</li>
+            <li>高空酒吧(如Red Sky)有服裝儀容規定(Smart Casual)，男生禁穿短褲無袖拖鞋。</li>
+            <li>路邊攤購買飲料或食物時，盡量選擇冰塊是空心圓管狀的（製冰廠統一製造較衛生）。</li>
+            <li>貴重物品(護照正本)鎖在飯店保險箱，外出僅攜帶影本與當日所需的現金及信用卡。</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== POI 景點 (20) ==================== -->
+    <section id="poi" class="space-y-6">
+      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-map-location-dot"></i></span> 景點推薦 POI (20)</div>
+      <div class="two-col">
+        <!-- 1~20 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">建興酒家 Somboon Seafood (Siam Square)</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國知名度最高的海鮮餐廳，更是「咖哩炒蟹」的創始店。其招牌咖哩炒蟹將蟹膏、咖哩粉與雞蛋完美融合，炒出濃郁滑順、充滿奶香的醬汁，光是這醬汁就能配下三碗白飯。Siam Square One 分店交通方便，環境舒適，是離開泰國前必吃的大餐。</p>
+            <p><strong>推薦餐點：</strong> 咖哩炒蟹、蒜香炸蝦、泰式生蝦</p>
+            <p><strong>地址：</strong> <span id="bib-7">4th Fl., Siam Square One Building, Rama 1 road, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('bib-7')"><i class="fa-regular fa-copy"></i> 複製</button></p>
+            <p><strong>預算：</strong> THB 800 - 1,500</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">紅大哥水門雞飯</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 曼谷水門市場區域的傳奇雞飯，連續獲得米其林必比登推薦。店員統一穿著粉紅色制服為其標誌。海南雞肉質滑嫩不柴，米飯吸滿了雞油與蒜香，配上特製的微辣黑醬油與一碗清甜的冬瓜排骨湯，看似簡單卻有著令人難忘的魔力。</p>
+            <p><strong>推薦餐點：</strong> 招牌海南雞飯、冬瓜排骨湯、沙嗲肉串</p>
+            <p><strong>地址：</strong> <span id="bib-8">Siam Paragon Food Court (分店) 或 962 Phetchaburi Rd (本店)</span> <button class="copy-btn" onclick="copyToClipboard('bib-8')"><i class="fa-regular fa-copy"></i> 複製</button></p>
+            <p><strong>預算：</strong> THB 100 - 200</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Thong Smith 船麵</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 將泰國街頭傳統小吃「船麵」升級為精品級料理的知名連鎖店。特色在於其極度濃郁、以多種香料與中藥材熬煮的深色湯底。顧客可以自選麵條、辣度，並升級加入頂級的澳洲和牛薄片，肉質鮮嫩，湯頭醇厚，環境文青且衛生。</p>
+            <p><strong>推薦餐點：</strong> 澳洲和牛黑湯船麵、炸豬豬皮、泰式奶茶</p>
+            <p><strong>地址：</strong> <span id="bib-9">Siam Paragon G Floor, Rama 1 Rd, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('bib-9')"><i class="fa-regular fa-copy"></i> 複製</button></p>
+            <p><strong>預算：</strong> THB 300 - 500</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Rung Rueang 榮泰豬肉粉</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 隱身在 Phrom Phong 站巷弄內，連續多年獲得米其林推薦的六十年老店。主打泰式豬肉粿條，湯頭分為清湯與酸辣濃湯（冬蔭），配料有滿滿的豬肉片、肉末與魚丸。湯頭鮮甜，肉末充滿蒜香，建議加點炸魚皮泡入湯中，口感極佳。</p>
+            <p><strong>推薦餐點：</strong> 酸辣豬肉粿條 (冬蔭)、清湯肉末米粉、炸魚皮</p>
+            <p><strong>地址：</strong> <span id="bib-10">10/3 Sukhumvit 26 Alley, Khlong Tan, Khlong Toei, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('bib-10')"><i class="fa-regular fa-copy"></i> 複製</button></p>
+            <p><strong>預算：</strong> THB 80 - 150</p>
+          </div>
+        </div>
+        <!-- 11-20 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Jay Fai 痣姐熱炒</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 曼谷唯一榮獲米其林一星的街頭大排檔。戴著護目鏡在炭火前親自掌勺的「痣姐」是曼谷的美食傳奇。招牌「黃金蟹肉蛋捲」外皮酥脆，切開後裡面塞滿了碩大鮮甜的蟹腿肉；雖然價格不菲且排隊動輒數小時，但絕對是此生必嚐的極致熱炒。</p>
+            <p><strong>推薦餐點：</strong> 黃金蟹肉蛋捲 (Crab Omelette)、醉漢麵 (Drunken Noodles)</p>
+            <p><strong>地址：</strong> <span id="bib-11">327 Maha Chai Rd, Samran Rat, Phra Nakhon, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('bib-11')"><i class="fa-regular fa-copy"></i> 複製</button></p>
+            <p><strong>預算：</strong> THB 1,500 - 3,000</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Jeh O Chula 媽媽麵</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 朱拉隆功大學周邊的深夜食堂排隊霸主，米其林推薦名店。招牌是夜間限定的「冬蔭功海鮮媽媽麵鍋」，酸辣夠味的冬蔭濃湯加入泰國國民泡麵(MAMA麵)，鋪滿鮮蝦、花枝、炸酥肉與生雞蛋，視覺浮誇，宵夜吃這鍋超級滿足。</p>
+            <p><strong>推薦餐點：</strong> 冬蔭功海鮮脆皮豬肉媽媽麵鍋、泰式涼拌鮭魚</p>
+            <p><strong>地址：</strong> <span id="bib-12">113 Soi Charat Mueang, Rong Muang, Pathum Wan, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('bib-12')"><i class="fa-regular fa-copy"></i> 複製</button></p>
+            <p><strong>預算：</strong> THB 300 - 600</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Pe Aor 冬蔭功海鮮麵</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 以龍蝦冬蔭功湯麵聞名的巷弄小店。湯頭使用大量蝦頭熬煮，呈現濃郁誘人的橘紅色，酸辣度適中且帶著濃濃的蝦膏鮮甜。最浮誇的「龍蝦五寶麵」直接放上一整隻龍蝦、螃蟹與各式海鮮，視覺與味覺雙重震撼，CP值極高。</p>
+            <p><strong>推薦餐點：</strong> 龍蝦冬蔭功海鮮麵、鮮蝦粉絲煲</p>
+            <p><strong>地址：</strong> <span id="bib-13">68 51 Phetchaburi Rd, Thung Phaya Thai, Ratchathewi, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('bib-13')"><i class="fa-regular fa-copy"></i> 複製</button></p>
+            <p><strong>預算：</strong> THB 200 - 1,500 (視龍蝦大小)</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Kub Kao' Kub Pla 吃飯吃魚</h4>
+          <span class="day-tag">近 Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國知名的連鎖精緻泰式餐廳，名稱意即「吃飯吃魚」，由知名甜點品牌 iberry 創辦人開設。裝潢時尚充滿綠意叢林風，菜單融合了泰國各地的特色料理，口味調整得非常適合外國人，擺盤精緻，是逛百貨公司時不出錯的聚餐好選擇。</p>
+            <p><strong>推薦餐點：</strong> 綠咖哩雞肉、泰式檸檬魚、炸春捲</p>
+            <p><strong>地址：</strong> <span id="bib-14">EmQuartier 6th Floor, Sukhumvit Road, Bangkok (多間分店)</span> <button class="copy-btn" onclick="copyToClipboard('bib-14')"><i class="fa-regular fa-copy"></i> 複製</button></p>
+            <p><strong>預算：</strong> THB 500 - 900</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Krua Apsorn</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 據說是泰國皇室公主也愛訪的平價餐館，同樣是米其林推薦榜上的常客。這裡沒有華麗的裝潢，憑藉的是紮實傳統的料理功夫。招牌「咖哩炒蟹肉」貼心地將蟹肉剝好，滿滿的鮮甜蟹肉配上溫和的咖哩醬；「炸金針菇」酥脆不油膩，也是必點。</p>
+            <p><strong>推薦餐點：</strong> 咖哩炒蟹肉、炸金針菇、泰式烘蛋</p>
+            <p><strong>地址：</strong> <span id="bib-15">169 Dinso Rd, Wat Bowon Niwet, Phra Nakhon, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('bib-15')"><i class="fa-regular fa-copy"></i> 複製</button></p>
+            <p><strong>預算：</strong> THB 300 - 600</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Wattana Panich 郭炎松牛肉湯</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 走進店裡就會被門口那鍋煮了數十年、從未關火的「巨大牛肉老滷鍋」給震撼。這家六十年老店主打中藥燉煮的牛肉湯與羊肉湯，湯頭呈現深褐色，喝起來極其濃郁甘甜，牛肉燉得軟爛入味。是曼谷當地人從小吃到大的熟悉滋味。</p>
+            <p><strong>推薦餐點：</strong> 招牌燉牛肉粿條、沙爹烤肉串</p>
+            <p><strong>地址：</strong> <span id="bib-16">336 338 Ekkamai Rd, Khlong Tan Nuea, Watthana, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('bib-16')"><i class="fa-regular fa-copy"></i> 複製</button></p>
+            <p><strong>預算：</strong> THB 150 - 300</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Som Tam Nua</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 位於 Siam Square 巷弄內的超人氣青木瓜沙拉專賣店。主打泰國東北料理 (Isan Food)，招牌的涼拌青木瓜絲酸辣爽脆，可以選擇加入鹹蛋或烤豬頸肉。另一道必點是他們的炸雞翅，外皮酥脆香料入味，配上糯米飯簡直是絕配。</p>
+            <p><strong>推薦餐點：</strong> 鹹蛋青木瓜沙拉、泰式炸雞翅、烤豬頸肉</p>
+            <p><strong>地址：</strong> <span id="bib-17">392/14 Siam Square Soi 5, Rama 1 Road, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('bib-17')"><i class="fa-regular fa-copy"></i> 複製</button></p>
+            <p><strong>預算：</strong> THB 250 - 450</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Polo Fried Chicken (Soi Polo)</h4>
+          <span class="day-tag">近 Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 靠近倫披尼公園，以「全曼谷最好吃的炸雞」聞名，也是米其林必比登推薦。這裡的炸雞外皮薄脆，肉質鮮嫩多汁，最特別的是上面會鋪滿一層厚厚的炸蒜酥，蒜香濃郁，搭配特製的泰式甜辣醬與青木瓜沙拉，極度開胃且令人吮指回味。</p>
+            <p><strong>推薦餐點：</strong> 蒜酥半雞/全雞、涼拌青木瓜、糯米飯</p>
+            <p><strong>地址：</strong> <span id="bib-18">137/1-3 Soi Polo, Thanon Witthayu, Lumphini, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('bib-18')"><i class="fa-regular fa-copy"></i> 複製</button></p>
+            <p><strong>預算：</strong> THB 200 - 400</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Savoey Thai Restaurant</h4>
+          <span class="day-tag">近 Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 有著四十多年歷史的泰國經典海鮮餐廳。相較於建興酒家，許多在地人更偏愛 Savoey 的口味。招牌同樣是咖哩炒蟹，這裡的咖哩醬汁奶香味更加柔和濃郁；另外他們的鳳梨炒飯裝在半顆鳳梨裡，配料豐富，視覺與味覺都令人滿意。</p>
+            <p><strong>推薦餐點：</strong> 咖哩炒蟹、鳳梨海鮮炒飯、泰式檸檬蒸魚</p>
+            <p><strong>地址：</strong> <span id="bib-19">Mercury Ville 2nd Floor, Phloen Chit Rd, Bangkok (多間分店)</span> <button class="copy-btn" onclick="copyToClipboard('bib-19')"><i class="fa-regular fa-copy"></i> 複製</button></p>
+            <p><strong>預算：</strong> THB 600 - 1,200</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Raan Jay Fai (Savelberg 旁米其林)</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 若不想在街頭苦排 Jay Fai，曼谷近年也有許多 Fine Dining 或精緻泰菜值得一試。例如米其林推薦的 Sra Bua by Kiin Kiin，將傳統泰國菜解構再重組，以分子料理的手法呈現。菜餚上桌常伴隨乾冰與驚喜，是視覺與味覺的華麗冒險。</p>
+            <p><strong>推薦餐點：</strong> 米其林泰式分子料理套餐</p>
+            <p><strong>地址：</strong> <span id="bib-20">Siam Kempinski Hotel, 991/9 Rama 1 Road, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('bib-20')"><i class="fa-regular fa-copy"></i> 複製</button></p>
+            <p><strong>預算：</strong> THB 3,500 - 5,000</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== Souvenir 伴手禮 (20) ==================== -->
+    <section id="souvenir" class="space-y-6">
+      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-gift"></i></span> 伴手禮推薦 (20)</div>
+      <div class="two-col">
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">興太太手工皂 (Madame Heng) <span class="text-sm font-normal ml-2">(已排入行程)</span></h4>
+          <span class="day-tag tag-red">Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國皇室指定的國民手工皂品牌。包裝上有個慈祥的老奶奶頭像。成分天然，富含多種泰國草本植物與薄荷，洗起來帶有清涼感且泡沫細緻，對於背部痘痘與控油有極佳的效果。在 Big C 買大包裝非常划算，是分送長輩親友的實用好物。</p>
+            <p><strong>推薦品項：</strong> 經典草本手工皂 (原味/薄荷) | <strong>預算：</strong> THB 40 - 50 / 塊</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">泰國燕窩 (Big C) <span class="text-sm font-normal ml-2">(已排入行程)</span></h4>
+          <span class="day-tag tag-red">Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國是知名的高品質燕窩產地。在 Big C 或是便利商店就能買到價格親民、包裝精美的瓶裝即食燕窩（如白蘭氏或泰國在地品牌）。口味微甜清爽，富含膠原蛋白，買一盒六入或十二入裝回國孝敬女性長輩，體面又健康。</p>
+            <p><strong>推薦品項：</strong> 白蘭氏即食燕窩禮盒、南洋燕窩 | <strong>預算：</strong> THB 500 - 1,200 / 盒</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">潑水節裝備 (水槍/防水袋) <span class="text-sm font-normal ml-2">(已排入行程)</span></h4>
+          <span class="day-tag tag-red">Day 1</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 既然是為了宋干節而來，裝備當然要在當地買！三聘市場是批發大本營，這裡可以買到各式各樣、火力強大的巨型水槍、背包式水槍，還有能保護手機錢包的可愛造型防水袋與護目鏡。用完帶回台灣，夏天去海邊玩水也非常實用。</p>
+            <p><strong>推薦品項：</strong> 大型背包水槍、透明防水掛頸袋 | <strong>預算：</strong> THB 100 - 300</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">手標泰式茶 (ChaTraMue)</h4>
+          <span class="day-tag">近 Day 4</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國國民茶飲品牌，那標誌性的紅金色鐵罐是泰國茶的代名詞。想把道地的泰式奶茶風味帶回家，買手標茶葉準沒錯。紅色罐裝是原味泰式紅茶，綠色罐裝則是綠奶茶。建議買茶包款式較方便沖泡，加入煉乳與滿滿冰塊，瞬間還原泰國街頭風味。</p>
+            <p><strong>推薦品項：</strong> 紅罐泰式紅茶包、綠罐綠奶茶包 | <strong>預算：</strong> THB 130 - 150 / 罐</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">蛇牌痱子粉 (Snake Brand)</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國天氣炎熱，這款老字號的痱子粉是當地人必備的消暑聖品。鐵罐包裝非常復古，洗完澡後撲在身上，會感受到一陣極度舒爽的冰涼感，能有效保持肌膚乾爽並散發淡淡的草本香氣。有經典玫瑰、薰衣草與海洋等多種味道可選。</p>
+            <p><strong>推薦品項：</strong> 經典玫瑰味冰涼痱子粉 (大罐裝) | <strong>預算：</strong> THB 60 - 100</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">皇家牛奶片</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 由泰國皇室推動的農產計畫商品，早期為了幫助貧童補充營養而生產。這款牛奶片成分天然，奶香極度濃郁且不過甜，吃起來像在吃固體的鮮奶。包裝小巧可愛，有原味（藍字）與巧克力（咖啡字）兩種，是大人小孩都會愛上的健康零嘴。</p>
+            <p><strong>推薦品項：</strong> 原味皇家牛奶片 | <strong>預算：</strong> THB 15 - 20 / 包</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">泰國小老闆海苔</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 席捲全亞洲的泰國零食霸主。有別於日韓海苔的薄片，小老闆海苔採用厚片油炸工法，口感極度酥脆，咬下去有喀滋聲。口味非常多元，除了經典原味與辣味，還有冬蔭功湯味、鹹蛋黃味等。推薦購買捲筒包裝，吃起來更過癮不易碎。</p>
+            <p><strong>推薦品項：</strong> 厚片海苔捲 (辣味/烤魷魚味) | <strong>預算：</strong> THB 50 - 100 / 大包</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">BKK Original 包包</h4>
+          <span class="day-tag">近 Day 4</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國平價本土設計品牌，曾掀起代購狂潮。以色彩繽紛、圖騰多樣的帆布與防潑水材質製成各式拉鍊小包、化妝包與側背包。不僅外觀時尚可愛，價格也極度親民，買來送給女性朋友或閨蜜，實用又不會造成預算負擔。</p>
+            <p><strong>推薦品項：</strong> 經典金鍊側背包、大象圖騰化妝包 | <strong>預算：</strong> THB 200 - 300</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">鼻吸劑 (Poy-Sian 八仙筒)</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國人手一支的提神小法寶。外觀像護唇膏，一頭是可以直接放入鼻孔吸的薄荷精油棒，另一頭是可用來塗抹在太陽穴或蚊蟲叮咬處的精油。在炎熱的曼谷街頭或塞車時，吸一口瞬間提神醒腦、舒緩暈眩，一排六支買來分送同事最適合。</p>
+            <p><strong>推薦品項：</strong> Poy-Sian 八仙薄荷鼻吸劑 (一排裝) | <strong>預算：</strong> THB 120 - 150 / 排</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">臥佛牌青草膏</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國著名的傳統居家良藥。這款翠綠色的藥膏萃取了多種泰國草本植物，帶有濃郁的薄荷草藥香氣。對於舒緩蚊蟲叮咬的紅腫發癢、肌肉痠痛或是輕微的頭暈中暑都有很好的效果。在藥妝店或 Big C 都能買到三罐一組的包裝。</p>
+            <p><strong>推薦品項：</strong> 臥佛牌青草藥膏 (大瓶裝) | <strong>預算：</strong> THB 300 - 450 / 3入組</p>
+          </div>
+        </div>
+        <!-- 11-20 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">芒果乾 / 果乾</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國盛產熱帶水果，其果乾製品品質優良且選擇極多。最受歡迎的莫過於金黃色的芒果乾，口感厚實Ｑ彈，酸甜適中，能吃到天然的芒果香氣。除了芒果，草莓乾、榴槤乾與椰子片也是許多觀光客推車裡必備的熱門零食。</p>
+            <p><strong>推薦品項：</strong> 低糖皇家芒果乾、香脆椰子片 | <strong>預算：</strong> THB 100 - 200 / 包</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Pocky 泰國限定口味</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 固力果在泰國推出了許多當地專屬的限定口味，是超高CP值的伴手禮。最經典的「香蕉巧克力」口味，黃色的包裝上有可愛的猴子圖案；另外還有鹹食口味的 Pretz，如打拋豬、冬蔭功與泰式酸辣口味，非常適合當作下酒菜。</p>
+            <p><strong>推薦品項：</strong> 香蕉巧克力 Pocky、冬蔭功 Pretz | <strong>預算：</strong> THB 15 - 25 / 盒</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">大哥花生豆 (Koh-Kae)</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 罐子上有著戴眼鏡的老闆頭像，是泰國老字號的國民零嘴。飽滿的花生外層包裹著酥脆的調味麵衣，口感極佳，越吃越唰嘴。口味豐富，有椰漿、雞汁、燒烤、芥末與泰式酸辣等。鐵罐包裝便於保存與送禮，是追劇良伴。</p>
+            <p><strong>推薦品項：</strong> 椰漿口味花生豆、芥末口味 | <strong>預算：</strong> THB 60 - 80 / 罐</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Jim Thompson 泰絲製品</h4>
+          <span class="day-tag">近 Day 4</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國最頂級的泰絲品牌，將傳統泰絲工藝推向國際。其產品包含絲巾、領帶、抱枕套與化妝包等，質地滑順柔軟，光澤高雅，圖騰設計融合了泰國叢林大象與現代幾何幾何。雖然單價較高，但絕對是送給長官或重要長輩的尊貴禮物。</p>
+            <p><strong>推薦品項：</strong> 經典大象圖騰泰絲絲巾、零錢包 | <strong>預算：</strong> THB 1,500 - 4,000</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">虎標萬金油 / 痠痛貼布</h4>
+          <span class="day-tag">近 Day 4</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 雖然源自新加坡，但在泰國製造且價格便宜，是許多人來泰國必掃貨的藥品。紅瓶適合舒緩肌肉痠痛，白瓶適合蚊蟲叮咬與頭痛。另外，他們推出的痠痛貼布（分為溫熱型與清涼型）黏性佳且藥效持久，非常適合買給勞動痠痛的長輩。</p>
+            <p><strong>推薦品項：</strong> 虎標溫熱型痠痛貼布、紅色萬金油 | <strong>預算：</strong> THB 60 - 150</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">MAMA 麵 (泰國泡麵)</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國市佔率最高的泡麵品牌，MAMA 甚至成了泰國泡麵的代名詞。麵條細細Ｑ彈，最經典的口味是「冬蔭功（酸辣蝦湯）」與「清湯肉末」。體積小重量輕，買一整箱回台灣，半夜肚子餓時打顆蛋煮來吃，瞬間解泰國的相思之愁。</p>
+            <p><strong>推薦品項：</strong> 冬蔭功酸辣蝦湯麵 (橘色包裝) | <strong>預算：</strong> THB 6 - 10 / 包</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">泰式綠咖哩 / 打拋醬調理包</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 喜歡自己下廚的人絕對不能錯過超市的醬料區。品牌如「藍象(Blue Elephant)」或「Lobo」都有推出包裝精美、調味正宗的泰式咖哩醬包與打拋豬調理粉。只要買回台灣加入雞肉或豬肉拌炒，輕鬆就能神還原泰國餐廳的道地美味。</p>
+            <p><strong>推薦品項：</strong> 藍象綠咖哩醬包、Lobo 打拋豬調理粉 | <strong>預算：</strong> THB 25 - 100 / 包</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">榴槤糖 / 榴槤乾</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國是水果之王「榴槤」的盛產地。對於熱愛榴槤特有香氣的人來說，真空冷凍乾燥的榴槤乾是極品伴手禮，它保留了榴槤的濃郁風味與營養，且口感酥脆像餅乾。若想嘗試初階版，也可以購買濃郁奶香的榴槤牛奶糖分送朋友。</p>
+            <p><strong>推薦品項：</strong> 金枕頭冷凍乾燥榴槤乾 | <strong>預算：</strong> THB 200 - 400 / 包</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">泰國手工大象零錢包</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 在夜市或洽圖洽市集隨處可見的平價手工藝品。以各種鮮豔的棉布拼貼縫製成大象造型的零錢包或鑰匙圈。做工雖然簡單但充滿濃濃的泰國風情，價格通常是買越多越便宜（如五個一百銖），是非常適合大量分送給不熟同事的安全牌禮物。</p>
+            <p><strong>推薦品項：</strong> 布製大象造型零錢包 | <strong>預算：</strong> THB 20 - 50 / 個</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Counterpain 痠痛軟膏</h4>
+          <span class="day-tag">近 Day 4</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 台灣人到泰國藥妝店的必買神藥之一。這款軟膏對於運動後的肌肉痠痛、關節發炎有很好的舒緩效果。分為紅色包裝的「溫熱型」與藍色包裝的「清涼型」，塗抹後稍微按摩，藥效滲透快，是長輩指定代購的熱門伴手禮第一名。</p>
+            <p><strong>推薦品項：</strong> 紅色溫熱型 Counterpain 軟膏 | <strong>預算：</strong> THB 120 - 180 / 大條</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== Photo-spots 拍照聖地 (10) ==================== -->
+    <section id="photo-spots" class="space-y-6">
+      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-camera-retro"></i></span> 拍照聖地 (10)</div>
+      <div class="two-col">
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">嵩越路 老街壁畫 <span class="text-sm font-normal ml-2">(已排入行程)</span></h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 中國城旁的百年老街 Song Wat Road。斑駁的紅磚牆與木造老房之間，隱藏著多幅由當地藝術家繪製的大型街頭壁畫，畫作多半描繪早期華人移民的生活場景。穿著復古風格的服裝，倚靠在壁畫或斑駁木門旁，能拍出極具故事感與王家衛電影風格的復古大片。</p>
+            <p><strong>地址：</strong> <span id="photo-1">Song Wat Rd, Samphanthawong, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('photo-1')">複製</button></p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">ICONSIAM 頂樓觀景台 <span class="text-sm font-normal ml-2">(已排入行程)</span></h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 位於 ICONSIAM 6樓至7樓的空中花園與戶外露台。這裡擁有極佳的無遮蔽視野，可以直接俯瞰壯麗的昭披耶河與對岸的曼谷市區天際線。最佳拍攝時間是傍晚時分，河面染上金黃夕陽，隨後大樓燈火逐漸亮起，華麗的夜景與河景交織，令人讚嘆。</p>
+            <p><strong>地址：</strong> <span id="photo-2">ICONSIAM 6F/7F, Charoen Nakhon Rd, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('photo-2')">複製</button></p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">暹羅廣場 塗鴉牆 <span class="text-sm font-normal ml-2">(已排入行程)</span></h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 暹羅廣場 (Siam Square) 經過翻新後，不僅增加了寬廣的步行區，巷弄間（特別是Soi 1至Soi 3之間）更充滿了色彩大膽的街頭塗鴉與裝置藝術。在潑水節期間，這裡的水花與歡樂人群，搭配背景的鮮豔塗鴉，能捕捉到最動感、充滿年輕活力的曼谷街頭瞬間。</p>
+            <p><strong>地址：</strong> <span id="photo-3">Siam Square Soi 2, Pathum Wan, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('photo-3')">複製</button></p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">Emsphere 賽博龐克空橋 <span class="text-sm font-normal ml-2">(已排入行程)</span></h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 連接 BTS Phrom Phong 站與新商場 Emsphere 的空中連通道。以強烈的紅色霓虹燈管與灰色冷調金屬材質打造，宛如走入科幻電影的賽博龐克場景。夜間點燈後，紅光與周圍大樓的冷光對比強烈，是非常前衛且具未來感的潮流打卡點。</p>
+            <p><strong>地址：</strong> <span id="photo-4">BTS Phrom Phong Station Skywalk to Emsphere</span> <button class="copy-btn" onclick="copyToClipboard('photo-4')">複製</button></p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">喬德夜市 城堡夜景 <span class="text-sm font-normal ml-2">(已排入行程)</span></h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> Jodd Fairs 夜市的後方，矗立著一座充滿歐式童話風格的尖塔城堡造景。周圍環繞著綠樹與復古老爺車。當夜幕低垂、城堡打上溫暖的黃色燈光，前方是一排排白色的夜市帳篷，形成曼谷夜市中最獨特、夢幻的拍照背景。</p>
+            <p><strong>地址：</strong> <span id="photo-5">Rama IX Rd, Huai Khwang, Bangkok (Jodd Fairs)</span> <button class="copy-btn" onclick="copyToClipboard('photo-5')">複製</button></p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">Red Sky Bar 高空夜景 <span class="text-sm font-normal ml-2">(已排入行程)</span></h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 位於 Centara Grand 飯店 55 樓的高空酒吧。最標誌性的地標是其巨大的半圓形拱門，拱門會隨著時間變換七彩燈光。酒吧採環形設計，提供無玻璃阻擋的 360 度曼谷市區璀璨夜景。穿著微正式的服裝，手持調酒站在玻璃帷幕旁，能拍出極致奢華的都會名媛風照。</p>
+            <p><strong>地址：</strong> <span id="photo-6">999, 99 Rama I Rd, Pathum Wan, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('photo-6')">複製</button></p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">大京都大廈 Mahanakhon SkyWalk</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 曼谷最高地標，建築外觀像被抽掉積木的馬賽克大樓。位於 78 樓的 SkyWalk 擁有令人腿軟的「全透明玻璃天空步道」。踏在玻璃上往下看是 300 多公尺深的城市街景，坐或躺在玻璃上拍照，刺激感破表，是來曼谷必挑戰的極限打卡點。</p>
+            <p><strong>地址：</strong> <span id="photo-7">114 Naradhiwas Rajanagarindra Rd, Silom, Bang Rak, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('photo-7')">複製</button></p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">鄭王廟 純白鑲瓷佛塔</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 位於昭披耶河畔的鄭王廟，其純白色的主塔結構對稱，表面鑲嵌著繁複美麗的彩色陶瓷花紋。天氣晴朗時，藍天白雲配上潔白佛塔，畫面極其純淨神聖。近年強烈建議在廟外租借一套華麗的傳統泰國服飾（泰服），在此拍攝充滿異國風情的絕美寫真。</p>
+            <p><strong>地址：</strong> <span id="photo-8">158 Thanon Wang Doem, Wat Arun, Bangkok Yai, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('photo-8')">複製</button></p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">水門寺大佛 Wat Paknam</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 高達 69 公尺（約 20 層樓高）的純銅打坐大佛，是曼谷市區內最巨大的佛像。最經典的拍攝點並非在寺廟內，而是搭乘長尾船遊河時從遠方拍攝，或是從周邊巷弄的特定角度，捕捉大佛巨大金身與周圍低矮民宅、縱橫電線形成的強烈超現實對比感。</p>
+            <p><strong>地址：</strong> <span id="photo-9">300 Ratchamongkhon Prasat Alley, Pak Khlong Phasi Charoen, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('photo-9')">複製</button></p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">星巴克 Reserve Chao Phraya Riverfront</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 位於 ICONSIAM 7樓，是全泰國最大、景觀最美的星巴克臻選烘焙工坊。挑高的空間有著華麗的金銅色天花板設計，最棒的是其寬廣的戶外露台階梯座位區。買杯咖啡坐在階梯上，以無敵的昭披耶河全景與城市天際線為背景，照片質感瞬間提升。</p>
+            <p><strong>地址：</strong> <span id="photo-10">ICONSIAM 7th Floor, Charoen Nakhon Rd, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('photo-10')">複製</button></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== Desserts 甜點咖啡 (10) ==================== -->
+    <section id="desserts" class="space-y-6">
+      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-ice-cream"></i></span> 甜點咖啡 (10)</div>
+      <div class="two-col">
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">Factory Coffee <span class="text-sm font-normal ml-2">(已排入行程)</span></h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 多次拿下泰國咖啡師大賽冠軍的超人氣精品咖啡店。工業風的裝潢配上極具水準的咖啡豆。招牌特調如「Supreme」會由咖啡師在桌邊服務，將濃縮咖啡與特調奶霜完美混合，視覺與味覺都令人驚艷。搭配店內的現烤可頌，是開啟曼谷早晨的最佳選擇。</p>
+            <p><strong>地址：</strong> <span id="des-1">49 Phaya Thai Rd, Thanon Phaya Thai, Ratchathewi, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('des-1')">複製</button></p>
+            <p><strong>預算：</strong> THB 150 - 300</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">After You Dessert Cafe <span class="text-sm font-normal ml-2">(已排入行程)</span></h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國最具代表性的國民甜點店，分店遍佈各大百貨。最著名的是其口感如雲朵般綿密的「日式雪花冰（Kakigori）」。來到泰國必點「泰式奶茶雪花冰」，冰體茶香濃郁，挖開裡面還藏著仙草與吐司塊；另外他們的「蜜糖吐司」外酥內軟，邪惡又美味。</p>
+            <p><strong>地址：</strong> <span id="des-2">Siam Square One, Ground Floor, Rama 1 Rd, Bangkok (多間分店)</span> <button class="copy-btn" onclick="copyToClipboard('des-2')">複製</button></p>
+            <p><strong>預算：</strong> THB 200 - 350</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">Mae Varee 芒果糯米飯 <span class="text-sm font-normal ml-2">(已排入行程)</span></h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 位於 Thong Lo 站旁的傳奇老字號，被許多人評為全曼谷最好吃的芒果糯米飯。嚴選品質極佳、果肉厚實鮮甜的水仙芒果，搭配用椰奶蒸煮得軟糯香甜、帶有斑斕葉香氣的三色糯米。最後淋上濃郁的鹹甜椰漿與酥脆綠豆仁，層次豐富，吃過便難以忘懷。</p>
+            <p><strong>地址：</strong> <span id="des-3">1 Soi Thong Lo, Khlong Tan Nuea, Watthana, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('des-3')">複製</button></p>
+            <p><strong>預算：</strong> THB 150 - 200</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">泰式香蕉煎餅 (Roti)</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 泰國街頭最常見、也最罪惡的平民甜點。將甩得極薄的麵皮在抹著大量奶油的鐵板上煎至金黃酥脆，中間包入新鮮切片的香蕉。起鍋後切塊，豪邁地淋上滿滿的煉乳與巧克力醬。外酥內軟，香甜濃郁，是逛夜市時必買的散步甜食。</p>
+            <p><strong>地址：</strong> <span id="des-4">曼谷各大夜市與路邊攤 (如喬德夜市、洽圖洽)</span> <button class="copy-btn" onclick="copyToClipboard('des-4')">複製</button></p>
+            <p><strong>預算：</strong> THB 40 - 60</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Pang Cha 泰奶刨冰 (米其林推薦)</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 連續多年獲得米其林餐盤推薦的泰茶專賣店（隸屬於 Lukkaithong 餐廳）。招牌是堆得像小山一樣高的「巨無霸泰奶刨冰」。以五種不同茶葉熬煮的泰奶淋在冰上，底部鋪滿軟Ｑ的吐司，周圍點綴著珍珠、杏仁片與脆球。份量極大，適合三到四人共享。</p>
+            <p><strong>地址：</strong> <span id="des-5">Siam Paragon 4th Floor 或 Central World 3rd Floor</span> <button class="copy-btn" onclick="copyToClipboard('des-5')">複製</button></p>
+            <p><strong>預算：</strong> THB 300 - 400</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">洽圖洽 椰子冰淇淋</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 逛炎熱的洽圖洽市集時，最能拯救靈魂的消暑聖品。老闆會將半顆新鮮椰子剖開，刮下嫩滑的椰子果肉作為碗底，上面挖兩大球香濃清爽的椰奶冰淇淋。通常可以免費自選三種配料（如花生、玉米、糯米、亞達子）。吃完冰還能喝到附贈的一小杯清涼椰子水。</p>
+            <p><strong>地址：</strong> <span id="des-6">洽圖洽週末市集內 (Chatuchak Weekend Market)</span> <button class="copy-btn" onclick="copyToClipboard('des-6')">複製</button></p>
+            <p><strong>預算：</strong> THB 50 - 70</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Luka Cafe</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 結合了復古傢俱店與咖啡廳的質感空間。挑高的樓中樓設計，大片玻璃窗引進自然採光，環境非常愜意舒適。提供高品質的手沖咖啡與精緻的西式早午餐、甜點。如果走累了想找個安靜、有品味的地方坐坐，這裡的司康與拿鐵絕對不會讓你失望。</p>
+            <p><strong>地址：</strong> <span id="des-7">64 3 Pan Rd, Silom, Bang Rak, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('des-7')">複製</button></p>
+            <p><strong>預算：</strong> THB 300 - 500</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">The Cassette Coffee Bar</h4>
+          <span class="day-tag">近 Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 位於 Siam Square 巷弄內的超人氣粉紅咖啡廳。從店門口到室內裝潢，全面採用復古的少女粉紅色調，並融入 90 年代卡帶音樂元素。這裡不僅是極佳的網美拍照打卡點，其粉紅色的特調飲品與玫瑰造型蛋糕也頗具水準，非常適合閨蜜下午茶。</p>
+            <p><strong>地址：</strong> <span id="des-8">264/4 Siam Square Soi 3, Pathum Wan, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('des-8')">複製</button></p>
+            <p><strong>預算：</strong> THB 150 - 300</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">曼谷文華東方下午茶 (Authors' Lounge)</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 如果想體驗極致的貴婦行程，曼谷文華東方酒店的 Authors' Lounge 是不二之選。這座充滿殖民時期風格的純白百年建築，環境優雅靜謐。提供正統的英式三層下午茶或融入在地元素的泰式下午茶。伴隨著現場鋼琴演奏，享受尊榮的服務與精緻甜點。</p>
+            <p><strong>地址：</strong> <span id="des-9">48 Oriental Ave, Bang Rak, Bangkok</span> <button class="copy-btn" onclick="copyToClipboard('des-9')">複製</button></p>
+            <p><strong>預算：</strong> THB 1,800 - 2,500</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">泰國麥當勞 (玉米派)</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 雖然是跨國速食連鎖，但泰國麥當勞有著不可錯過的限定美味。門口雙手合十的麥當勞叔叔是必拍地標。而必吃的絕對是「玉米派」，酥脆的熱派皮裡包著濃郁香甜的奶油玉米濃湯餡；此外還有泰式辣醬炸雞與限定冰沙，是逛街嘴饞時的平價好夥伴。</p>
+            <p><strong>地址：</strong> <span id="des-10">曼谷市區各大商場與路邊均有分店</span> <button class="copy-btn" onclick="copyToClipboard('des-10')">複製</button></p>
+            <p><strong>預算：</strong> THB 50 - 150</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== Market 超市清單 (5) ==================== -->
+    <section id="market" class="space-y-6">
+      <div class="section-title"><span class="icon-slot"><i class="fa-solid fa-basket-shopping"></i></span> 超市清單 (5)</div>
+      <div class="two-col">
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">Big C Supercenter Ratchadamri <span class="text-sm font-normal ml-2">(已排入行程)</span></h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 曼谷市中心最大、最受觀光客歡迎的量販超市，距離四面佛不遠。這裡簡直是泰國零食與伴手禮的火力展示中心，各種大包裝的 Pocky、小老闆海苔、泰式奶茶包、手工皂、藥品應有盡有，價格實惠。買滿額還能直接在服務台辦理退稅手續，是掃貨必排行程。</p>
+            <p><strong>地址：</strong> 97/11 Ratchadamri Rd, Lumphini, Pathum Wan, Bangkok</p>
+            <p><strong>營業時間：</strong> 09:00 - 02:00 (凌晨)</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Lotus's (原 Tesco Lotus) Rama 1</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 緊鄰著 BTS National Stadium 站，距離 Siam 商圈也只有一站距離。相較於永遠擠滿觀光客的 Big C，這家大型超市更偏向當地居民使用。走道寬敞，購物環境舒適，同樣能買齊各種泰國特色零食與生鮮日用品，而且排隊結帳的速度通常快很多。</p>
+            <p><strong>地址：</strong> 33 Rama I Rd, Wang Mai, Pathum Wan, Bangkok</p>
+            <p><strong>營業時間：</strong> 08:00 - 22:00</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Gourmet Market (Siam Paragon)</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 位於 Siam Paragon 百貨地下樓層的高級精品超市。環境極度明亮奢華，商品陳列如藝術品。雖然部分零食價格可能比 Big C 貴幾塊錢，但這裡有最齊全的進口食材、高品質的水果與精緻的泰國在地高檔土產專區。不想人擠人流汗買伴手禮，來這裡就對了。</p>
+            <p><strong>地址：</strong> Siam Paragon G Floor, Rama 1 Rd, Bangkok</p>
+            <p><strong>營業時間：</strong> 10:00 - 22:00</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Don Don Donki (MBK Center)</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 日本驚安殿堂在曼谷開設的大型分店。如果你在泰國突然想念日本的零食、泡麵或是生魚片，來這裡準沒錯。除了豐富的日本商品，他們也有設立泰國伴手禮專區。營業至深夜的特性，非常適合在 Siam 商圈結束一天行程後，來做最後的零食與宵夜補貨。</p>
+            <p><strong>地址：</strong> MBK Center 2nd Floor, Phaya Thai Rd, Bangkok</p>
+            <p><strong>營業時間：</strong> 24小時營業</p>
+          </div>
+        </div>
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Tops Food Hall (Central World)</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>介紹：</strong> 位於知名百貨 Central World 7 樓的頂級超市。Tops 是泰國大型連鎖超市品牌，而 Food Hall 則是其最高階的旗艦店型。這裡集結了全球精選食材、優質起司與葡萄酒，也有規劃完善的泰國皇室計畫農產品與高品質伴手禮區，深受當地中產階級與外籍人士喜愛。</p>
+            <p><strong>地址：</strong> Central World 7th Floor, Ratchadamri Rd, Bangkok</p>
+            <p><strong>營業時間：</strong> 10:00 - 22:00</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <button id="backToTopBtn" class="hidden fixed bottom-8 right-8 rounded-full shadow-lg z-50">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <footer class="text-center text-gray-500 text-sm py-8 mt-12 border-t" style="background:var(--elephant-gray);">
+    <p class="mb-2"><span class="red-text">紅字＝使用者指定／已排入行程項目</span> ｜ <span class="blue-text">藍字＝系統推薦內容</span></p>
+    <p>Day Tag 標示為排入或鄰近該日，距離較遠則標示為「獨立行程」。</p>
+    <div class="mt-4 opacity-30 max-w-xs mx-auto"><div class="thai-pattern" style="height:6px; background-size:12px 12px;"></div></div>
+    <p class="mt-4 text-xs font-bold tracking-widest text-blue-900">Designed for 2026 Bangkok Songkran Festival ｜ 泰式華麗版 v3.0</p>
+  </footer>
+
+  <script>
+    // 嚴格：每個按鈕切換各自「獨立頁面」
+    function showPage(id) {
+      document.querySelectorAll('main > section').forEach(s => s.classList.remove('active'));
+      const tgt = document.getElementById(id);
+      if (tgt) {
+        tgt.classList.add('active');
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      }
+    }
+
+    function copyToClipboard(nodeId) {
+      const el = document.getElementById(nodeId);
+      if (!el) return;
+      navigator.clipboard.writeText(el.innerText.trim()).then(() => {
+        const btn = el.nextElementSibling;
+        const origHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> 成功';
+        btn.style.background = '#dcfce7';
+        btn.style.color = '#166534';
+        btn.style.borderColor = '#166534';
+        setTimeout(() => {
+          btn.innerHTML = origHTML;
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.style.borderColor = '';
+        }, 1500);
+      });
+    }
+
+    const btn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        btn.classList.remove('hidden');
+      } else {
+        btn.classList.add('hidden');
+      }
+    });
+    btn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+  </script>
+</body>
+</html>
