@@ -1,0 +1,414 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管委會法務分析回覆</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #e74c3c;
+            --bg-gray: #f8f9fa;
+            --border: #e2e8f0;
+            --text-main: #333;
+        }
+        body {
+            font-family: "Helvetica Neue", Helvetica, "PingFang TC", "LiHei Pro", "Microsoft JhengHei", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        h1, h2, h3 { color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 5px; }
+        h1 { font-size: 1.8rem; text-align: center; border-bottom: 3px solid var(--primary); }
+        h2 { margin-top: 30px; font-size: 1.4rem; }
+        h3 { font-size: 1.2rem; border-bottom: none; color: var(--secondary); margin-bottom: 5px; }
+        
+        .card {
+            background: var(--bg-gray);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .quote {
+            border-left: 4px solid var(--primary);
+            background-color: #f1f5f9;
+            margin: 10px 0;
+            padding: 10px 15px;
+            border-radius: 0 4px 4px 0;
+        }
+        .quote .src { font-weight: bold; color: var(--primary); margin-bottom: 5px; }
+        .quote .txt { color: #475569; }
+        
+        .alert {
+            color: var(--accent);
+            font-weight: bold;
+            background-color: #fdf2f2;
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #fbd5d5;
+            display: inline-block;
+            margin: 5px 0;
+        }
+
+        .analysis-block {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        .analysis-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+        }
+        .analysis-body { padding: 15px; }
+        .analysis-item { margin-bottom: 15px; }
+        .analysis-item strong { display: block; color: var(--secondary); margin-bottom: 3px; }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 10px;
+            text-align: left;
+        }
+        th { background-color: var(--bg-gray); color: var(--primary); }
+
+        #toc {
+            background: #fff;
+            border: 1px solid var(--border);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        #toc ul { padding-left: 20px; margin: 0; }
+        #toc a { color: var(--secondary); text-decoration: none; }
+        #toc a:hover { text-decoration: underline; color: var(--primary); }
+
+        .disclaimer {
+            font-size: 0.9rem;
+            color: #718096;
+            border-top: 1px dashed var(--border);
+            padding-top: 15px;
+            margin-top: 40px;
+        }
+
+        @media print {
+            body { padding: 0; background-color: white; }
+            .card, .analysis-block, #toc { box-shadow: none; border: 1px solid #000; }
+            #toc { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="top">
+        <h1>管委會法務分析回覆</h1>
+        <div class="card">
+            <strong>案件摘要：</strong>疑似補習班學生於法定開放空間（行人通行區域）打球，球滾入車道擊中車輛造成財損之權責與適法性。<br>
+            <strong>發生區域：</strong>法定開放空間（行人通行區域）、車道、疑似作為營業使用之專有部分。<br>
+            <strong>適用法域：</strong>中華民國法規、桃園市法規、雲揚社區規約及相關管理辦法。
+        </div>
+    </div>
+
+    <div id="toc">
+        <strong>目錄：</strong>
+        <ul>
+            <li><a href="#issues">一、爭點列表</a></li>
+            <li><a href="#community_rules">二、社區規約暨管理辦法</a></li>
+            <li><a href="#laws">三、法規與地方規定</a></li>
+            <li><a href="#analysis">四、直接分析</a></li>
+            <li><a href="#conflicts">五、抵觸與位階判斷</a></li>
+            <li><a href="#liability">六、責任與刑責/罰鍰彙整</a></li>
+            <li><a href="#cases_letters">七、相關判例與函釋</a></li>
+        </ul>
+    </div>
+
+    <h2 id="issues">一、爭點列表</h2>
+    <ul>
+        <li>爭點一：法定開放空間（行人通行區域）是否可供住戶或訪客作為打球等休閒運動之用？</li>
+        <li>爭點二：社區專有部分疑似設立補習班營業，是否違反社區規約與建築法規？</li>
+        <li>爭點三：球滾入車道砸損車輛，肇事學生、法定代理人或補習班負責人之賠償責任為何？</li>
+        <li>爭點四：針對社區法定空間內發生之私人侵權（砸損車輛）行為，管委會是否負有連帶損害賠償責任？</li>
+    </ul>
+
+    <h2 id="community_rules">二、社區規約暨管理辦法</h2>
+    <blockquote class="quote">
+        <div class="src">《雲揚社區住戶規約》 第廿五條第一款第三目</div>
+        <div class="txt">住戶違反公寓大廈管理條例第九條第二項之規定，對共用部分之使用未依設置目的及通常使用方法為之者，應予制止，並得按其性質請求各該主管機關或訴請法院為必要之處置。如有損害並得請求損害賠償。</div>
+    </blockquote>
+    <blockquote class="quote">
+        <div class="src">《雲揚社區住戶規約》 第廿一條第七款</div>
+        <div class="txt">住戶不得於私設通路、防火間隔、防火巷弄、開放空間、退縮空地、樓梯間、共同走廊、防空避難設備等處所堆置雜物、設置柵欄、門扇或營業使用，或違規設置廣告物或私設路障及停車位侵占巷道妨礙出入。但開放空間及退縮空地，在市政府核准範圍內，得依區分所有權人會議決議供營業使用。</div>
+    </blockquote>
+    <blockquote class="quote">
+        <div class="src">《雲揚社區住戶自治管理公約（草案）》 第二條</div>
+        <div class="txt">本社區之公共設施權益屬於全體住戶，任何住戶或個人均不得有侵佔、損毀或妨礙其使用效益之行為。</div>
+    </blockquote>
+    <blockquote class="quote">
+        <div class="src">《雲揚社區住戶自治管理公約（草案）》 第九條</div>
+        <div class="txt">本社區大樓二樓(B棟)、三樓(A棟)以上為住宅區不得設立公司營業，應協助管理委員會使本社區安全無虞並尊重管理規章之推行。</div>
+    </blockquote>
+
+    <h2 id="laws">三、法規與地方規定</h2>
+    <blockquote class="quote">
+        <div class="src">《公寓大廈管理條例》 第 9 條第 2 項及第 4 項</div>
+        <div class="txt">
+            2. 住戶對共用部分之使用應依其設置目的及通常使用方法為之。但另有約定者從其約定。<br>
+            4. 住戶違反第二項規定，管理負責人或管理委員會應予制止，並得按其性質請求各該主管機關或訴請法院為必要之處置。如有損害並得請求損害賠償。
+        </div>
+    </blockquote>
+    <blockquote class="quote">
+        <div class="src">《公寓大廈管理條例》 第 15 條第 1 項</div>
+        <div class="txt">住戶應依使用執照所載用途及規約使用專有部分、約定專用部分，不得擅自變更。</div>
+    </blockquote>
+    <blockquote class="quote">
+        <div class="src">《民法》 第 184 條第 1 項前段</div>
+        <div class="txt">因故意或過失，不法侵害他人之權利者，負損害賠償責任。</div>
+    </blockquote>
+    <blockquote class="quote">
+        <div class="src">《民法》 第 187 條第 1 項</div>
+        <div class="txt">無行為能力人或限制行為能力人，不法侵害他人之權利者，以行為時有識別能力為限，與其法定代理人連帶負損害賠償責任。行為時無識別能力者，由其法定代理人負損害賠償責任。</div>
+    </blockquote>
+
+    <h2 id="analysis">四、直接分析</h2>
+
+    <!-- 爭點一 -->
+    <div class="analysis-block">
+        <div class="analysis-header">爭點一：法定開放空間（行人通行區域）是否可供打球使用？</div>
+        <div class="analysis-body">
+            <div class="analysis-item">
+                <strong>事實摘要</strong>
+                疑似補習班之學生，於社區內原供行人通行使用之法定開放空間進行打球等休閒運動。
+            </div>
+            <div class="analysis-item">
+                <strong>引用規約/管理辦法</strong>
+                《雲揚社區住戶規約》第廿五條第一款第三目、《雲揚社區住戶自治管理公約（草案）》第二條。
+            </div>
+            <div class="analysis-item">
+                <strong>引用法規/地方規定</strong>
+                《公寓大廈管理條例》第 9 條第 2 項。
+            </div>
+            <div class="analysis-item">
+                <strong>適法性/違反判斷</strong>
+                違反。
+            </div>
+            <div class="analysis-item">
+                <strong>本案事實對照：</strong>學生於「供行人通行」之法定開放空間進行打球，干擾通行機能。<br>
+                <strong>違反原因：</strong>依據公寓大廈管理條例第9條第2項及社區規約，共用部分須依「設置目的及通常使用方法」為之。法定開放空間之設置目的為供行人通行或避難，打球行為並非其通常使用方法，且容易使球具滾入車道，明顯妨礙其他住戶通行之安全與公共設施之使用效益。
+            </div>
+            <div class="analysis-item">
+                <strong>責任與刑責/罰鍰</strong>
+                <ul>
+                    <li><strong>行政責任：</strong>違反條例第9條第2項，管委會制止不聽者，得報請桃園市政府處理，依同法第49條處新臺幣4萬元以上20萬元以下罰鍰。</li>
+                    <li><strong>民事責任：</strong>若違規使用造成共用設施毀損，需依民法負損害賠償責任。</li>
+                    <li><strong>刑事責任：</strong>無刑責（單純未依設置目的使用共用空間，無對應之刑罰規定）。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 爭點二 -->
+    <div class="analysis-block">
+        <div class="analysis-header">爭點二：疑似補習班之設立是否違反社區規約與用途？</div>
+        <div class="analysis-body">
+            <div class="analysis-item">
+                <strong>事實摘要</strong>
+                社區內專有部分疑似設立補習班進行營業並招收學生進出。
+            </div>
+            <div class="analysis-item">
+                <strong>引用規約/管理辦法</strong>
+                《雲揚社區住戶自治管理公約（草案）》第九條。
+            </div>
+            <div class="analysis-item">
+                <strong>引用法規/地方規定</strong>
+                《公寓大廈管理條例》第 15 條第 1 項。
+            </div>
+            <div class="analysis-item">
+                <strong>適法性/違反判斷</strong>
+                事實未明（待查核營業樓層與使用執照）。
+            </div>
+            <div class="analysis-item">
+                <strong>本案事實對照：</strong>若該疑似補習班設立於B棟二樓、A棟三樓以上，或未依法變更住宅使用執照。<br>
+                <strong>違反原因：</strong>依據本社區自治管理公約草案第九條，指定樓層以上限作住宅區，不得設立公司營業。同時依條例第15條第1項，專有部分必須依「使用執照所載用途」使用。若使用執照載明為「住宅（H-2類組）」，未經向桃園市政府建管處辦理變更為「補習班（D-5類組）」，即違反專有部分用途規定。
+            </div>
+            <div class="analysis-item">
+                <strong>責任與刑責/罰鍰</strong>
+                <ul>
+                    <li><strong>行政責任：</strong>違反條例第15條第1項，經制止不聽，報請桃園市政府依第49條處新臺幣4萬元以上20萬元以下罰鍰，並得連續處罰。<br>
+                    <span class="alert">【待核對原文：建築法第73條第2項未經核准變更使用，依同法第91條可裁處新臺幣6萬元以上30萬元以下罰鍰】</span></li>
+                    <li><strong>民事責任：</strong>若符合法定要件且情節重大，管委會得依條例第22條訴請法院強制遷離。</li>
+                    <li><strong>刑事責任：</strong>無刑責。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 爭點三 -->
+    <div class="analysis-block">
+        <div class="analysis-header">爭點三：車輛毀損之賠償責任歸屬</div>
+        <div class="analysis-body">
+            <div class="analysis-item">
+                <strong>事實摘要</strong>
+                打球者將球掉落或丟入車道，砸中車輛造成財產損失。
+            </div>
+            <div class="analysis-item">
+                <strong>引用規約/管理辦法</strong>
+                未明文規定侵權損害賠償（回歸民法處斷）。
+            </div>
+            <div class="analysis-item">
+                <strong>引用法規/地方規定</strong>
+                《民法》第 184 條第 1 項前段、第 187 條第 1 項。
+            </div>
+            <div class="analysis-item">
+                <strong>適法性/違反判斷</strong>
+                違反（成立民事侵權行為）。
+            </div>
+            <div class="analysis-item">
+                <strong>本案事實對照：</strong>行為人（學生）在鄰近車道之不當區域打球，因過失致球具擊中車輛。<br>
+                <strong>違反原因：</strong>打球者未盡注意義務，將球拋入車道擊中車輛，屬於「過失不法侵害他人之財產權」，違反民法第184條規定。因學生多為限制行為能力人或無行為能力人，依民法第187條，其法定代理人（家長）應連帶負責；若該行為發生於補習班對學生之保護監督時段（如課間休息），受害車主亦可主張補習班負責人未盡監督義務而連帶求償。
+            </div>
+            <div class="analysis-item">
+                <strong>責任與刑責/罰鍰</strong>
+                <ul>
+                    <li><strong>行政責任：</strong>無。</li>
+                    <li><strong>民事責任：</strong>肇事學生、法定代理人及/或補習班負責人，對受害車主負損害賠償責任（修車費、零件折舊等）。</li>
+                    <li><strong>刑事責任：</strong>無刑責（刑法第354條毀損罪僅處罰「故意」行為，打球過失砸中車輛不構成毀損罪）。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 爭點四 -->
+    <div class="analysis-block">
+        <div class="analysis-header">爭點四：管委會對車損是否有責任？</div>
+        <div class="analysis-body">
+            <div class="analysis-item">
+                <strong>事實摘要</strong>
+                私人車輛在社區車道內遭第三人（學生）打球砸損，車主可能質疑管委會管理不當要求賠償。
+            </div>
+            <div class="analysis-item">
+                <strong>引用規約/管理辦法</strong>
+                未明文規定。
+            </div>
+            <div class="analysis-item">
+                <strong>引用法規/地方規定</strong>
+                《公寓大廈管理條例》第 36 條（管委會職務）。
+            </div>
+            <div class="analysis-item">
+                <strong>適法性/違反判斷</strong>
+                管委會無責任（適法）。
+            </div>
+            <div class="analysis-item">
+                <strong>本案事實對照：</strong>車輛係受「第三人個人過失行為（打球）」所侵害，而非因車道設計不良或公共設施損壞導致。<br>
+                <strong>違反原因：</strong>依條例第36條，管委會之職責為「共有及共用部分之清潔、維護、修繕及一般改良」。學生之突發打球拋擲行為屬私人侵權，管委會既非加害人，且該事故非因公共設施保養欠缺（如採光罩年久失修掉落）所致，故管委會不具備民法上之過失，無須為第三人之個人行為承擔連帶損害賠償責任。
+            </div>
+            <div class="analysis-item">
+                <strong>責任與刑責/罰鍰</strong>
+                <ul>
+                    <li><strong>行政責任：</strong>無。</li>
+                    <li><strong>民事責任：</strong>無連帶賠償責任。車損部分應由受害車主逕向肇事者求償。</li>
+                    <li><strong>刑事責任：</strong>無刑責。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 id="conflicts">五、抵觸與位階判斷</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>規約 / 管理辦法</th>
+                <th>法規 / 地方規定</th>
+                <th>是否牴觸</th>
+                <th>優先適用依據與理由</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>《雲揚社區住戶自治管理公約（草案）》第九條：限制特定樓層營業</td>
+                <td>《公寓大廈管理條例》第 15 條（依使用執照及規約使用）</td>
+                <td>否</td>
+                <td>條例明定專有部分之使用可依「規約」限制。唯自治公約目前標示為「草案」，若已依法經區分所有權人會議決議通過即具備規約效力；若未通過，則仍須回歸主管機關核發之「使用執照用途」為最高準則。</td>
+            </tr>
+            <tr>
+                <td>《雲揚社區住戶規約》第廿一條第七款：開放空間禁止營業使用</td>
+                <td>《建築法》及桃園市政府建築管理規定</td>
+                <td>否</td>
+                <td>規約禁止開放空間營業，與建築法令維持法定空地、開放空間機能之要求相符，無抵觸。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 id="liability">六、責任與刑責/罰鍰彙整</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>行為/爭點</th>
+                <th>行政責任 (罰鍰與處置)</th>
+                <th>民事責任</th>
+                <th>刑事責任</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>於法定開放空間違規打球</td>
+                <td>管委會制止不聽，報桃園市政府處 4萬~20萬罰鍰。</td>
+                <td>若毀損公物需賠償。</td>
+                <td>無刑責。</td>
+            </tr>
+            <tr>
+                <td>未經核准變更作補習班營業</td>
+                <td>條例第49條處 4萬~20萬罰鍰。<br><span class="alert">【待核對：建築法處 6萬~30萬元罰鍰】</span></td>
+                <td>符合法定條件管委會可訴請強制遷離。</td>
+                <td>無刑責。</td>
+            </tr>
+            <tr>
+                <td>球砸損車輛</td>
+                <td>無直接行政處分。</td>
+                <td>肇事者、家長、補習班負連帶損害賠償責任。</td>
+                <td>無刑責（過失毀損不罰）。</td>
+            </tr>
+            <tr>
+                <td>管委會對私人侵權之責任</td>
+                <td>無。</td>
+                <td>無賠償責任（非公共設施維護欠缺）。</td>
+                <td>無刑責。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 id="cases_letters">七、相關判例與函釋</h2>
+    <ul>
+        <li>
+            <strong>最高法院 100 年度台上字第 1012 號 民事判決（要旨摘要）：</strong>
+            <br>管委會之職務在於執行區分所有權人會議決議事項及公寓大廈管理維護工作。對於大廈住戶間或第三人個人之侵權行為，管委會既非侵權行為主體，除有怠於執行管理職務導致公共設施發生危險外，不負損害賠償責任。
+            <br><em>限制：僅適用於事故原因屬單純人為突發侵權，若車道本身存在應修繕而未修繕之重大瑕疵致生危險，管委會仍有民事責任。</em>
+        </li>
+        <li>
+            <strong>內政部營建署（現國土管理署）關於開放空間使用之相關函釋（要旨摘要）：</strong>
+            <br><span class="alert">【待核對原文：內政部相關建管函釋】</span>公寓大廈法定空地或開放空間應依原核准圖說之設置目的使用，不得有妨礙公眾通行或違規挪作特定休閒、營業用途之情事，違者可依建築法第73條及第91條查處。
+            <br><em>限制：需以調閱該社區竣工圖面與開放空間核准性質為依據。</em>
+        </li>
+    </ul>
+
+    <div id="disclaimer" class="disclaimer">
+        聲明：本文件依據現行法規、桃園市政府規範與提供之社區規約編撰，僅供管委會內部研議及向住戶說明法律依據使用，非屬具最終定讞效力之司法判決。具體個案之行政裁處及民事求償結果，仍須視主管機關實質認定與法院調查證據為準。
+    </div>
+
+</body>
+</html>
+
+```
