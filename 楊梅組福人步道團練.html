@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桃園市雙連長跑 楊梅組福人步道團練</title>
+    <!-- 引入字體與圖示 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入 Tailwind CSS 確保響應式佈局 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            900: '#14532d',
+                        },
+                        accent: {
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            scroll-behavior: smooth;
+        }
+        /* 強制單行顯示主旨，不換行 */
+        .single-line-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            display: block;
+        }
+        
+        .hero-pattern {
+            background-color: #14532d;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* 時間軸設計 */
+        .timeline-container {
+            position: relative;
+        }
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 24px;
+            width: 4px;
+            background: #dcfce7;
+            border-radius: 2px;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 64px;
+            margin-bottom: 2rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 16px;
+            top: 4px;
+            width: 20px;
+            height: 20px;
+            background: #22c55e;
+            border: 4px solid #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px #dcfce7;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 導覽列 -->
+    <nav class="fixed w-full z-50 glass-card transition-all duration-300 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-person-running text-brand-600 text-2xl"></i>
+                    <span class="font-bold text-gray-800 text-lg tracking-wider">雙連長跑</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">活動介紹</a>
+                    <a href="#timeline" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">活動流程</a>
+                    <a href="#food" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">澎湃補給</a>
+                    <a href="#transport" class="text-gray-600 hover:text-brand-600 font-medium transition-colors">交通指引</a>
+                </div>
+                <div>
+                    <a href="#register" class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2 rounded-full font-medium transition-colors shadow-md hover:shadow-lg">
+                        立即報名
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 主視覺區 -->
+    <header class="hero-pattern pt-32 pb-20 md:pt-40 md:pb-28 text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <span class="inline-block py-1 px-3 rounded-full bg-brand-500/80 backdrop-blur-sm border border-brand-400 text-sm font-bold tracking-wider mb-6">
+                <i class="fa-solid fa-calendar-check mr-2"></i>8月16日 (週日) 晨間活力登場
+            </span>
+            
+            <!-- 活動主旨：強制單行顯示 -->
+            <h1 class="single-line-title text-3xl md:text-5xl lg:text-6xl font-black mb-6 drop-shadow-lg" title="桃園市雙連長跑 楊梅組福人步道團練暨健走交流活動">
+                桃園市雙連長跑 楊梅組福人步道團練暨健走交流活動
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-100 font-medium mb-8 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
+                走進楊梅秘境綠色隧道！1.5小時舒活健走，享受芬多精，<br class="hidden md:block">
+                會後加碼在地排隊美食、美味蛋糕，與友團共度溫馨週末早晨。
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-4 mb-10">
+                <div class="flex items-center bg-white/20 backdrop-blur-md px-4 py-2 rounded-lg border border-white/30">
+                    <i class="fa-solid fa-users text-accent-500 mr-2"></i>
+                    <span>限量 50 名</span>
+                </div>
+                <div class="flex items-center bg-white/20 backdrop-blur-md px-4 py-2 rounded-lg border border-white/30">
+                    <i class="fa-solid fa-wallet text-accent-500 mr-2"></i>
+                    <span>完全免費 (會員/友團專屬)</span>
+                </div>
+                <div class="flex items-center bg-white/20 backdrop-blur-md px-4 py-2 rounded-lg border border-white/30">
+                    <i class="fa-solid fa-shoe-prints text-accent-500 mr-2"></i>
+                    <span>1.5H 輕鬆健走</span>
+                </div>
+            </div>
+            
+            <a href="#register" class="inline-block bg-accent-500 hover:bg-accent-600 text-white text-lg font-bold py-4 px-10 rounded-full transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(245,158,11,0.4)]">
+                查看報名資訊 <i class="fa-solid fa-arrow-down ml-2"></i>
+            </a>
+        </div>
+        
+        <!-- 底部波浪裝飾 -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+            <svg class="relative block w-full h-12 md:h-20" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,119.33,197.6,108.14Z" fill="#f8fafc"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- 核心資訊卡片列 -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-100 flex items-start gap-4">
+                <div class="bg-brand-100 p-3 rounded-full text-brand-600">
+                    <i class="fa-regular fa-calendar-days text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm text-gray-500 font-bold mb-1">活動日期</h3>
+                    <p class="text-gray-800 font-bold">8月16日 (週日)</p>
+                    <p class="text-xs text-gray-400 mt-1">上午 05:30 報到 / 06:00 出發</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-100 flex items-start gap-4">
+                <div class="bg-brand-100 p-3 rounded-full text-brand-600">
+                    <i class="fa-solid fa-location-dot text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm text-gray-500 font-bold mb-1">集合地點</h3>
+                    <p class="text-gray-800 font-bold">楊梅 福人步道入口</p>
+                    <a href="#transport" class="text-xs text-brand-600 hover:text-brand-800 mt-1 inline-block">查看地圖與停車</a>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-100 flex items-start gap-4">
+                <div class="bg-brand-100 p-3 rounded-full text-brand-600">
+                    <i class="fa-solid fa-user-check text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm text-gray-500 font-bold mb-1">參加資格與人數</h3>
+                    <p class="text-gray-800 font-bold">雙連長跑會員及友團</p>
+                    <p class="text-xs text-gray-400 mt-1">限量 50 名，額滿為止</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-100 flex items-start gap-4">
+                <div class="bg-brand-100 p-3 rounded-full text-brand-600">
+                    <i class="fa-solid fa-sack-dollar text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm text-gray-500 font-bold mb-1">活動費用</h3>
+                    <p class="text-gray-800 font-bold text-brand-600">免費參加</p>
+                    <p class="text-xs text-gray-400 mt-1">備有萬元級豐盛餐點</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 活動說明與亮點區 -->
+    <section id="about" class="py-20 bg-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-black text-gray-800 mb-4">為什麼你不能錯過這場團練？</h2>
+                <div class="h-1 w-20 bg-brand-500 mx-auto rounded mb-6"></div>
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    這不只是一場早晨的健走，更是雙連長跑與友團們聯絡感情的年度溫馨聚會！
+                    楊梅組精心策劃，選定坡度平緩、綠意盎然的「福人步道」，邀請大家在週末早晨一起流汗呼吸芬多精。
+                    運動後，我們更準備了超乎想像的豐盛在地美食，讓身心靈都獲得最大滿足！
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 亮點 1 -->
+                <div class="hover-scale bg-slate-50 rounded-2xl p-8 border border-slate-100">
+                    <div class="w-16 h-16 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-sm">
+                        <i class="fa-solid fa-tree"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">1.5H 綠野秘境健走</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        福人步道以平緩泥土徑與茂密樹林聞名，全程林蔭遮蔽不怕曬。1.5小時的健走規劃，適合各種體能狀態，老少咸宜，是最無壓力的輕運動。
+                    </p>
+                </div>
+
+                <!-- 亮點 2 -->
+                <div class="hover-scale bg-slate-50 rounded-2xl p-8 border border-slate-100">
+                    <div class="w-16 h-16 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-sm">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">重金打造！萬元在地美食</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        不怕你吃，只怕你吃太撐！主辦單位豪擲萬元預算，網羅楊梅市場隱藏版排隊美食、人氣手工蛋餅等澎湃小吃，打造最強賽後補給站。
+                    </p>
+                </div>
+
+                <!-- 亮點 3 -->
+                <div class="hover-scale bg-slate-50 rounded-2xl p-8 border border-slate-100">
+                    <div class="w-16 h-16 bg-pink-100 text-pink-600 rounded-2xl flex items-center justify-center text-3xl mb-6 shadow-sm">
+                        <i class="fa-solid fa-cake-candles"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">溫馨交流與驚喜蛋糕</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        不僅有滿滿的美食，現場更特別準備了精緻蛋糕！無論是慶生、慶祝完賽還是單純同樂，我們希望給所有會員與友團一個最溫暖的週日回憶。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 完整活動時間安排區 -->
+    <section id="timeline" class="py-20 bg-slate-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-brand-600 font-bold tracking-wider uppercase text-sm">Event Schedule</span>
+                <h2 class="text-3xl font-black text-gray-800 mt-2 mb-4">活動時間安排</h2>
+                <div class="h-1 w-20 bg-brand-500 mx-auto rounded mb-4"></div>
+                <p class="text-gray-500">精心規劃的晨間節奏，運動與美食完美交替</p>
+                <p class="text-xs text-gray-400 mt-2"><i class="fa-solid fa-circle-info mr-1"></i> 實際流程依主辦單位當日現場廣播及後續公告為主</p>
+            </div>
+
+            <div class="bg-white p-8 md:p-12 rounded-3xl shadow-lg border border-gray-100">
+                <div class="timeline-container">
+                    
+                    <!-- 流程 1 -->
+                    <div class="timeline-item">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                            <h3 class="text-xl font-bold text-brand-700">05:30 - 05:50</h3>
+                            <span class="inline-block bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-bold mt-2 md:mt-0 w-max">報到與相見歡</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">晨光報到 & 暖身準備</h4>
+                        <p class="text-gray-600">於福人步道入口處集合報到。請各位跑友、友團夥伴相互交流，並由專業幹部帶領進行基礎拉筋暖身，喚醒身體肌肉。</p>
+                    </div>
+
+                    <!-- 流程 2 -->
+                    <div class="timeline-item">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                            <h3 class="text-xl font-bold text-brand-700">05:50 - 06:00</h3>
+                            <span class="inline-block bg-purple-50 text-purple-600 px-3 py-1 rounded-full text-xs font-bold mt-2 md:mt-0 w-max">開場儀式</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">長官與來賓致詞 & 團隊大合照</h4>
+                        <p class="text-gray-600">雙連長跑 曾喜鈞Jim 會長 與 楊梅組組長 曾映仁 總幹事 開場致詞，並邀請現場貴賓為大家勉勵。說明今日健走路線與安全注意事項後，留下充滿活力的團隊大合照。</p>
+                    </div>
+
+                    <!-- 流程 3 -->
+                    <div class="timeline-item">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                            <h3 class="text-xl font-bold text-brand-700">06:00 - 07:30</h3>
+                            <span class="inline-block bg-green-50 text-green-600 px-3 py-1 rounded-full text-xs font-bold mt-2 md:mt-0 w-max">核心活動</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">準時出發！福人步道 1.5H 舒活健走</h4>
+                        <p class="text-gray-600">依循規劃路線進入綠色隧道。此步道為平緩好走的土石徑，適合邊走邊聊。幹部將分佈於隊伍前後，確保大家安全同行，享受 1.5 小時的芬多精洗禮。</p>
+                    </div>
+
+                    <!-- 流程 4 -->
+                    <div class="timeline-item">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                            <h3 class="text-xl font-bold text-brand-700">07:30 - 07:50</h3>
+                            <span class="inline-block bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs font-bold mt-2 md:mt-0 w-max">緩和休息</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">終點集結 & 緩和收操</h4>
+                        <p class="text-gray-600">陸續返回入口處集結，進行緩和伸展，擦拭汗水更換乾爽衣物，準備迎接期待已久的補給時光。</p>
+                    </div>
+
+                    <!-- 流程 5 -->
+                    <div class="timeline-item">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                            <h3 class="text-xl font-bold text-brand-700">07:50 - 09:00</h3>
+                            <span class="inline-block bg-orange-50 text-orange-600 px-3 py-1 rounded-full text-xs font-bold mt-2 md:mt-0 w-max">最高潮！美食饗宴</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">萬元在地補給 & 切蛋糕歡慶</h4>
+                        <p class="text-gray-600">
+                            享用楊梅組精心準備的市場排隊小吃、美味蛋餅及豐盛飲料！活動最高潮將推出現場準備的驚喜蛋糕，大家在歡聲笑語中進行跨團交流，補充流失的熱量。
+                        </p>
+                    </div>
+
+                    <!-- 流程 6 -->
+                    <div class="timeline-item border-l-0">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                            <h3 class="text-xl font-bold text-brand-700">09:00</h3>
+                            <span class="inline-block bg-teal-50 text-teal-600 px-3 py-1 rounded-full text-xs font-bold mt-2 md:mt-0 w-max">圓滿結束</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">歡樂賦歸</h4>
+                        <p class="text-gray-600">吃飽喝足，帶著滿滿的活力與美好回憶，平安返家。期待下一次的團練再聚！</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 餐食與收穫區 -->
+    <section id="food" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- 視覺區 -->
+                <div class="relative">
+                    <div class="absolute inset-0 bg-brand-200 rounded-3xl transform rotate-3 scale-105"></div>
+                    <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="豐盛美食示意圖" class="relative z-10 rounded-3xl shadow-xl object-cover h-[450px] w-full">
+                    
+                    <!-- 浮動標籤 -->
+                    <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-2xl shadow-xl z-20 flex items-center gap-4 animate-bounce" style="animation-duration: 3s;">
+                        <div class="bg-accent-100 p-3 rounded-full text-accent-600">
+                            <i class="fa-solid fa-sack-dollar text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 font-bold">總預算高達</p>
+                            <p class="text-xl font-black text-gray-800">10,000元</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 內容區 -->
+                <div>
+                    <h2 class="text-3xl font-black text-gray-800 mb-6">不計成本的味蕾犒賞<br><span class="text-brand-600">來健走，更要來享受！</span></h2>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                        楊梅組為了展現最高誠意，本次團練特地編列高額預算，只為給大家最優質的補給體驗。這不僅是一次體能的鍛鍊，更是一場在地美食的巡禮！
+                    </p>
+                    
+                    <ul class="space-y-6">
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-xl font-bold text-gray-800">市場必吃手工蛋餅</h4>
+                                <p class="text-gray-600 mt-1">嚴選楊梅在地市場排隊名店，熱騰騰的手工蛋餅，餅皮Q彈、香氣四溢，幫你迅速補充碳水與蛋白質。</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-xl font-bold text-gray-800">特製精美蛋糕</h4>
+                                <p class="text-gray-600 mt-1">健走完的甜蜜獎賞！大家齊聚一堂切蛋糕，不論是慶祝健康、還是慶祝相聚，儀式感直接拉滿。</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-8 h-8 rounded-full bg-brand-100 flex items-center justify-center text-brand-600 font-bold">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-xl font-bold text-gray-800">豐富多樣的神祕小吃</h4>
+                                <p class="text-gray-600 mt-1">除了主食，幹部們還會採買多樣市場在地點心與充足飲品。實際菜單依主辦單位當日採購為主，絕對讓您驚喜連連！</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 交通與停車指引區 -->
+    <section id="transport" class="py-20 bg-slate-800 text-white relative overflow-hidden">
+        <!-- 背景裝飾 -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-brand-600/20 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-accent-600/20 blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-black mb-4">交通與停車指引</h2>
+                <div class="h-1 w-20 bg-brand-500 mx-auto rounded mb-4"></div>
+                <p class="text-gray-300">請提早出發，讓早晨的行程更加從容</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 地圖區 -->
+                <div class="lg:col-span-2 bg-slate-700 p-2 rounded-2xl shadow-2xl border border-slate-600">
+                    <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden h-full min-h-[300px]">
+                        <!-- 嵌入 Google Maps (標準設定：楊梅福人步道) -->
+                        <iframe 
+                            src="https://www.google.com/maps?q=桃園市楊梅區福人步道&hl=zh-TW&z=15&output=embed" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0; min-height: 350px;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
+                <!-- 資訊區 -->
+                <div class="space-y-6">
+                    <div class="bg-slate-700/50 backdrop-blur p-6 rounded-2xl border border-slate-600">
+                        <h3 class="text-xl font-bold text-brand-400 mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-location-arrow"></i> 集合地點
+                        </h3>
+                        <p class="text-white text-lg font-medium mb-1">楊梅 福人步道入口</p>
+                        <p class="text-gray-400 text-sm">請於 05:30 - 05:50 間抵達入口處報到，尋找雙連長跑旗幟或穿著會服之幹部，我們將於 06:00 準時出發。</p>
+                        <p class="text-xs text-yellow-500 mt-2"><i class="fa-solid fa-circle-exclamation"></i> 確切集合點若有微調，依主辦單位後續群組公告為主。</p>
+                    </div>
+
+                    <div class="bg-slate-700/50 backdrop-blur p-6 rounded-2xl border border-slate-600">
+                        <h3 class="text-xl font-bold text-brand-400 mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-square-parking"></i> 停車資訊
+                        </h3>
+                        <ul class="space-y-3 text-gray-300">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-1 text-brand-500 mt-1"></i>
+                                <span><strong>步道入口周邊：</strong>有少量空間可停放，建議提早抵達搶佔車位。</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-2 text-brand-500 mt-1"></i>
+                                <span><strong>楊梅地政事務所前路邊：</strong>距離入口不遠，路邊白線或合法停車格皆可利用。</span>
+                            </li>
+                        </ul>
+                        <p class="text-sm text-gray-400 mt-3 pt-3 border-t border-slate-600">
+                            提醒：請遵守交通規則，切勿違停紅線或阻礙附近居民出入。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 注意事項與 FAQ -->
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                
+                <!-- 報名前重點與 FAQ -->
+                <div>
+                    <h2 class="text-2xl font-black text-gray-800 mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-question text-brand-500"></i> 常見問題與重點
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                            <h4 class="font-bold text-gray-800 mb-2">Q: 我平常沒有在跑步，可以參加嗎？</h4>
+                            <p class="text-gray-600 text-sm">A: 完全可以！本次為「健走」活動，福人步道坡度平緩，1.5小時的安排是以輕鬆休閒、聊天交流為主，非常適合初學者或攜家帶眷參與。</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                            <h4 class="font-bold text-gray-800 mb-2">Q: 非雙連長跑會員可以報名嗎？</h4>
+                            <p class="text-gray-600 text-sm">A: 本次活動專屬「雙連長跑會員」以及受邀之「友團」報名。若您是友團成員，歡迎共襄盛舉！一般民眾暫不開放，敬請見諒。</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+                            <h4 class="font-bold text-gray-800 mb-2">Q: 遇到下雨怎麼辦？</h4>
+                            <p class="text-gray-600 text-sm">A: 若遇輕微毛毛雨，建議穿著輕便雨衣照常進行。若遇颱風或豪大雨特報，將考量安全取消或延期。雨備方案及最終決定，請依主辦單位後續於群組公告為主。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 注意事項 -->
+                <div>
+                    <h2 class="text-2xl font-black text-gray-800 mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-clipboard-list text-brand-500"></i> 行前注意事項
+                    </h2>
+                    
+                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100">
+                        <ul class="space-y-4 text-gray-600">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-shirt text-brand-500 mt-1"></i>
+                                <div>
+                                    <strong class="text-gray-800 block">建議穿著與裝備</strong>
+                                    <span class="text-sm">請穿著舒適透氣的排汗運動服飾、合腳的健走鞋或越野跑鞋（步道為土徑，不建議穿平底休閒鞋）。雙連長跑會員建議穿著會服。</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-bottle-water text-brand-500 mt-1"></i>
+                                <div>
+                                    <strong class="text-gray-800 block">必備物品</strong>
+                                    <span class="text-sm">請自行攜帶足夠的飲用水（至少 500ml）、毛巾、防蚊液、防曬用品，並建議多帶一套乾淨衣物於健走後更換。</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-leaf text-brand-500 mt-1"></i>
+                                <div>
+                                    <strong class="text-gray-800 block">無痕山林 (LNT) 宣導</strong>
+                                    <span class="text-sm">享受大自然的同時，請務必將個人垃圾（含果皮、衛生紙、餐具等）自行帶下山，共同維護福人步道的美麗環境。</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-bullhorn text-brand-500 mt-1"></i>
+                                <div>
+                                    <strong class="text-gray-800 block">活動變更保留權利</strong>
+                                    <span class="text-sm">因應現場狀況，主辦單位保留調整流程、路線及餐飲內容之權利。相關未盡事宜，依主辦單位後續公告為主。</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 結尾報名 CTA 區 -->
+    <section id="register" class="py-20 relative bg-brand-600">
+        <!-- 裝飾背景圖案 -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 2px, transparent 2px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h2 class="text-3xl md:text-5xl font-black text-white mb-6">名額僅限 50 名，額滿為止！</h2>
+            <p class="text-xl text-brand-100 mb-10 leading-relaxed">
+                主辦單位：雙連長跑<br>
+                會長：曾喜鈞Jim ｜ 總幹事 (楊梅組組長)：曾映仁<br>
+                誠摯邀請您與我們共度充滿活力與美食的週末早晨！
+            </p>
+            
+            <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-2xl mx-auto">
+                <div class="mb-6">
+                    <span class="inline-block bg-green-100 text-green-700 font-bold px-4 py-1 rounded-full text-sm mb-4">
+                        報名狀態：熱烈開放中
+                    </span>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">完全免費參加</h3>
+                    <p class="text-gray-500">（本活動專屬雙連長跑會員及友團成員）</p>
+                </div>
+                
+                <!-- 報名按鈕與說明 -->
+                <a href="https://forms.gle/DjCA7Bb3qVvQuKEk6" target="_blank" rel="noopener noreferrer" class="inline-block w-full md:w-auto px-10 py-4 bg-accent-500 hover:bg-accent-600 text-white font-bold text-lg rounded-xl shadow-lg transition-all transform hover:-translate-y-1 hover:shadow-xl mb-4">
+                    <i class="fa-solid fa-pen-to-square mr-2"></i> 點我填寫報名表單
+                </a>
+                <p class="text-xs text-gray-400">
+                    * 點擊按鈕將導向官方指定的報名系統。<br>
+                    * 若系統顯示額滿，可聯繫幹部登記候補，候補成功與否依主辦單位後續通知為主。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾 -->
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-center items-center gap-2 mb-4">
+                <i class="fa-solid fa-person-running text-brand-500 text-2xl"></i>
+                <span class="font-bold text-white text-xl">雙連長跑</span>
+            </div>
+            <p class="mb-4">活力 · 健康 · 友誼 · 在地情</p>
+            <p class="text-sm border-t border-slate-700 pt-6 mt-6">
+                &copy; 2026 雙連長跑. All rights reserved.<br>
+                活動聯絡窗口與最終異動，請依內部群組正式公告為主。
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
