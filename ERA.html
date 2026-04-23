@@ -1,0 +1,459 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生殖醫學檢驗分析報告 - ERA 內膜容受性檢測</title>
+<style>
+  :root {
+    --primary-color: #1a5c78;
+    --secondary-color: #2b8b9e;
+    --bg-color: #f4f7f9;
+    --card-bg: #ffffff;
+    --text-main: #333333;
+    --text-muted: #666666;
+    --border-color: #e0e6ed;
+    
+    /* 狀態標籤顏色 */
+    --tag-normal-bg: #e6f4ea;
+    --tag-normal-text: #1e8e3e;
+    --tag-borderline-bg: #fef7e0;
+    --tag-borderline-text: #b08d00;
+    --tag-abnormal-bg: #fce8e6;
+    --tag-abnormal-text: #d93025;
+    --tag-insufficient-bg: #f1f3f4;
+    --tag-insufficient-text: #5f6368;
+
+    /* 成功率標籤顏色 */
+    --chance-high: #1e8e3e;
+    --chance-mid-high: #0b8043;
+    --chance-medium: #f9ab00;
+    --chance-mid-low: #e37400;
+    --chance-low: #d93025;
+    --chance-unknown: #5f6368;
+    
+    /* 提示框顏色 */
+    --info-bg: #e8f0fe;
+    --info-border: #8ab4f8;
+    --warning-bg: #fef7e0;
+    --warning-border: #fbbc04;
+    --alert-bg: #fce8e6;
+    --alert-border: #f28b82;
+    --success-bg: #e6f4ea;
+    --success-border: #81c995;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .report-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: transparent;
+  }
+
+  .report-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .report-header h1 {
+    margin: 0 0 10px 0;
+    font-size: 1.8rem;
+  }
+
+  .report-subtitle {
+    margin: 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+  }
+
+  .card h2 {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--bg-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card h3 {
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  /* 標籤樣式 */
+  .tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .tag.normal { background: var(--tag-normal-bg); color: var(--tag-normal-text); }
+  .tag.borderline { background: var(--tag-borderline-bg); color: var(--tag-borderline-text); }
+  .tag.abnormal { background: var(--tag-abnormal-bg); color: var(--tag-abnormal-text); }
+  .tag.insufficient { background: var(--tag-insufficient-bg); color: var(--tag-insufficient-text); }
+
+  /* 成功率標籤 */
+  .chance-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  .chance-tag.medium { background-color: var(--chance-medium); }
+
+  /* 表格樣式 */
+  .lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+  }
+  .lab-table th, .lab-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .lab-table th {
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+  .lab-table tr:hover {
+    background-color: #f9fbfc;
+  }
+
+  /* 獨立檢驗項目區塊 */
+  .lab-item-block {
+    background: #fafafa;
+    border-left: 4px solid var(--secondary-color);
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 0 8px 8px 0;
+  }
+  .lab-item-block h3 {
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+  }
+  .lab-item-block ul {
+    margin-bottom: 0;
+    padding-left: 20px;
+  }
+  .lab-item-block li {
+    margin-bottom: 8px;
+  }
+
+  /* 雙欄佈局 (正面/反面因素) */
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .good-factors-box, .risk-factors-box {
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid;
+  }
+  .good-factors-box {
+    background: var(--success-bg);
+    border-color: var(--success-border);
+  }
+  .risk-factors-box {
+    background: var(--alert-bg);
+    border-color: var(--alert-border);
+  }
+
+  /* 提示框 */
+  .info-box, .warning-box, .alert-box, .tip-box {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 5px solid;
+  }
+  .info-box { background: var(--info-bg); border-color: var(--info-border); }
+  .warning-box { background: var(--warning-bg); border-color: var(--warning-border); }
+  .alert-box { background: var(--alert-bg); border-color: var(--alert-border); }
+  .tip-box { background: var(--tag-borderline-bg); border-color: var(--tag-borderline-text); }
+
+  /* 響應式設計 */
+  @media (max-width: 768px) {
+    .two-column-grid {
+      grid-template-columns: 1fr;
+    }
+    .lab-table th, .lab-table td {
+      padding: 8px;
+      font-size: 0.9rem;
+    }
+    .card {
+      padding: 15px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>🧬 生殖醫學檢驗分析報告</h1>
+    <p class="report-subtitle">專業判讀・重點整理・後續指引</p>
+  </header>
+
+  <!-- 一、個案摘要 -->
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要</h2>
+    <div class="info-box">
+      <ul>
+        <li><strong>評估對象：</strong>Chia Yun Chung 女性</li>
+        <li><strong>出生日期：</strong>1978/09/11（目前年齡約 47 歲）</li>
+        <li><strong>檢測機構：</strong>送子鳥診所 (Dr. Hsing-Hua Lai)</li>
+        <li><strong>檢驗項目：</strong>ERA (Endometrial Receptivity Analysis) 子宮內膜容受性檢測</li>
+        <li><strong>檢測週期類型：</strong>HRT（賀爾蒙替代療法週期）</li>
+        <li><strong>採樣時間點：</strong>使用黃體素 (Progesterone) 121 小時後（2026/04/06 12:19 PM）</li>
+      </ul>
+      <p><strong>臨床背景摘要：</strong>個案進行試管嬰兒療程中的 ERA 檢測，旨在尋找最適合胚胎著床的「著床窗 (Window of Implantation)」。本次為 HRT 週期，於服用黃體素 121 小時後進行內膜切片。</p>
+    </div>
+  </section>
+
+  <!-- 二、檢驗報告重點整理 -->
+  <section class="card highlight-card">
+    <h2>🔎 二、檢驗報告重點整理</h2>
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th>項目</th>
+          <th>檢驗結果</th>
+          <th>單位</th>
+          <th>檢驗時間點</th>
+          <th>狀態</th>
+          <th>簡要判讀</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ERA 檢測結果</td>
+          <td>Late Receptive</td>
+          <td>-</td>
+          <td>黃體素浸潤 121 小時</td>
+          <td><span class="tag abnormal">著床窗偏移</span></td>
+          <td>內膜已過熟，著床窗比一般人早開。</td>
+        </tr>
+        <tr>
+          <td>胚胎植入建議時間</td>
+          <td>109 ± 3</td>
+          <td>小時</td>
+          <td>-</td>
+          <td><span class="tag normal">個人化指引</span></td>
+          <td>需比原療程提早 12 小時植入。</td>
+        </tr>
+        <tr>
+          <td>基礎黃體素 (Progesterone)</td>
+          <td>< 1</td>
+          <td>ng/ml</td>
+          <td>首次用藥前 (03/31/2026)</td>
+          <td><span class="tag normal">正常</span></td>
+          <td>用藥前無提早排卵，符合檢測前提。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 三、每一項檢驗數字的詳細說明 -->
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+
+    <div class="lab-item-block">
+      <h3>ERA 檢測結果：Late Receptive（容受性晚期） <span class="tag abnormal">需調整植入時間</span></h3>
+      <ul>
+        <li><strong>這個結果代表什麼：</strong>在一般標準的賀爾蒙週期（HRT）中，通常設定黃體素浸潤 120 小時左右為植入囊胚的最佳時機。但您的切片基因表現顯示，在 121 小時這個時間點，您的內膜已經進入「容受性晚期（Late Receptive）」，也就是「過熟了」。</li>
+        <li><strong>在生殖評估中的意義：</strong>這證實了您的著床窗（Window of Implantation）與標準時間不同。如果按照一般標準時間植入胚胎，胚胎可能會遇到已經關閉的著床窗，導致著床失敗。</li>
+        <li><strong>本個案的可能解讀：</strong>您的子宮內膜對於黃體素的反應比一般人更快。因此，胚胎必須「提早」放進子宮，才能趕上內膜準備好的黃金時期。</li>
+        <li><strong>是否需要追蹤：</strong>不需要重新做一次 ERA 切片，只要在下次植入時，嚴格依照報告建議調整黃體素用藥時間即可。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>植入時間建議：109 ± 3 小時 <span class="tag normal">重要治療指引</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>報告經由演算法計算，建議您在下一次「囊胚（Day 5 胚胎）」植入時，應在開始使用黃體素後的第 109 小時（容許誤差正負 3 小時）進行植入。</li>
+        <li><strong>在生殖評估中的意義：</strong>這是專屬於您的「個人化胚胎植入 (pET)」時間。這比您這次切片所用的 121 小時，**整整提早了 12 小時**。</li>
+        <li><strong>本個案的可能解讀：</strong>下次療程中，醫師會倒推計算。例如：如果預計週四中午 12:00 植入，醫師會安排您在週日晚上 23:00 左右開始塞/吃第一劑黃體素（相差 109 小時）。</li>
+        <li><strong>特別注意：</strong>這份報告的 109 小時是針對「囊胚 (Day 5)」的建議。如果您要植入的是「Day 3 胚胎」，則必須在此建議時間的基礎上，再提早兩天進行植入。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>基礎黃體素 (Progesterone)：低於 1 ng/ml <span class="tag normal">正常且關鍵</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>這是在您 4/1 開始使用黃體素藥物之前的抽血基準值（抽血日為 3/31）。小於 1 ng/ml 表示您自身的卵巢在當時並沒有提早排卵或分泌黃體素。</li>
+        <li><strong>在生殖評估中的意義：</strong>進行 ERA 檢測（以及後續的 HRT 植入週期），前提條件是自身的黃體素必須極低（< 1 ng/ml）。這樣醫師才能完全掌控黃體素起作用的「第 0 小時」，確保 109 小時的計算是精準的。</li>
+        <li><strong>若偏高常見代表：</strong>若用藥前大於 1 ng/ml，代表身體已經自己啟動了著床窗的倒數，這樣外加藥物計算的時間就會失準，該週期通常會被建議取消。</li>
+        <li><strong>本個案的可能解讀：</strong>數值小於 1 ng/ml 證明這次 ERA 檢測的基礎點是完美的，檢測結果具有高度參考價值。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 四、整體評估 -->
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體評估</h2>
+    <p>綜合本次 ERA 報告，針對您的子宮內膜環境有以下明確的醫學結論：</p>
+    <ul>
+      <li><strong>著床窗偏移已確診：</strong>您的內膜成熟速度較快，著床窗比標準時間提前了約半天（12 小時）。這很可能是過去胚胎無法順利著床（如果有此病史）的關鍵原因之一。</li>
+      <li><strong>獲得個人化植入策略：</strong>這是一份好消息，因為我們已經找到了精確的解答（109 小時）。這排除了「不知道何時該植入」的盲區。</li>
+      <li><strong>週期類型需維持一致：</strong>報告特別註明，此建議時間（109 小時）僅適用於與本次檢查相同類型的週期（HRT 週期，即賀爾蒙替代週期）。未來的植入也應採用 HRT 週期，以確保內膜反應的一致性。</li>
+    </ul>
+  </section>
+
+  <!-- 五、目前成功機率評估 -->
+  <section class="card chance-card">
+    <h2>📈 五、目前胚胎著床成功機率評估</h2>
+    <div style="margin-bottom: 15px;">
+      <span class="chance-tag medium">中等（取決於胚胎染色體狀態）</span>
+    </div>
+    <p><strong>判斷依據與情境：</strong>此評估適用於即將進行的「試管嬰兒凍胚植入療程」。雖然 ERA 已經精準解決了「子宮內膜時間點」的問題，但成功率的另一半取決於「胚胎品質」，特別是受限於個案年齡（約 47 歲）。</p>
+    
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面原因（有利著床）</h3>
+        <ul>
+          <li><strong>已掌握精準著床窗：</strong>109 小時的個人化植入時間（pET），大幅度排除了內膜時間不對導致的失敗。</li>
+          <li><strong>檢驗品質佳：</strong>基礎黃體素 < 1 ng/ml，證明 ERA 檢測時間點計算精確無誤。</li>
+          <li><strong>無需重複切片：</strong>報告顯示基因表現量足夠且具診斷意義，不需額外受苦重新切片。</li>
+        </ul>
+      </div>
+      <div class="risk-factors-box">
+        <h3>⚠️ 可能失敗原因（需謹慎評估）</h3>
+        <ul>
+          <li><strong>高齡卵子/胚胎染色體異常風險：</strong>47 歲的自卵胚胎，其染色體異常（Aneuploidy）的機率極高。若胚胎未經 PGT-A（著床前染色體篩檢）確認正常，即便內膜準備完美，胚胎本身的異常仍會導致著床失敗或早期流產。</li>
+          <li><strong>用藥時間不容出錯：</strong>接下來的植入週期，黃體素的使用時間必須精確到小時期別，任何漏藥或提早/延後用藥都會抵銷 ERA 的效果。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 六、可能問題與風險分析 -->
+  <section class="card risk-card">
+    <h2>⚠️ 六、可能問題與風險分析</h2>
+    <div class="warning-box">
+      <p><strong>最大的潛在風險在於「胚胎端」：</strong></p>
+      <p>ERA 報告雖然指出如何讓內膜達到最完美的狀態，但 ERA 報告末端亦有聲明：「遵照 ERA 建議並不保證植入成功，失敗可能肇因於胚胎品質不佳或遺傳異常。」</p>
+      <p>由於年齡因素，若目前準備植入的胚胎是近期取卵且未經過 PGT-A 篩檢，這將是成功與否的最大變數；若是過去年輕時冷凍的胚胎、已通過 PGT-A 的胚胎，或是借卵生子的胚胎，則成功率會大幅提升。</p>
+    </div>
+  </section>
+
+  <!-- 七、調研資料摘要 -->
+  <section class="card research-card">
+    <h2>📚 七、調研資料摘要</h2>
+    <ul>
+      <li><strong>ERA (Endometrial Receptivity Analysis) 簡介：</strong>利用次世代基因定序 (NGS) 技術，分析子宮內膜組織中 248 個與著床相關的基因表現。藉此判斷內膜是處於 Pre-receptive（還沒準備好）、Receptive（準備好）、還是 Late-receptive（過熟）。</li>
+      <li><strong>著床窗偏移的發生率：</strong>臨床統計顯示，約有 25% 到 30% 的女性，其著床窗與一般標準的 120 小時不同。</li>
+      <li><strong>個人化胚胎植入 (pET)：</strong>多項臨床觀察指出，對於反覆植入失敗的患者，若發現著床窗偏移並依照 ERA 結果調整黃體素給藥時間，能有效改善著床率與懷孕率。</li>
+    </ul>
+  </section>
+
+  <!-- 八、建議補充檢查 -->
+  <section class="card next-step-card">
+    <h2>🧪 八、建議補充檢查</h2>
+    <p>既然內膜時間已經確定，為了將成功率拉到最高，建議審視以下項目是否已完成：</p>
+    <ul>
+      <li><strong>PGT-A (著床前染色體篩檢)：</strong><span class="tag borderline">強烈建議討論</span> 如果目前凍存的胚胎尚未切片化驗，在植入前應與醫師討論是否適合進行，以避免將珍貴的著床窗用在染色體異常的胚胎上。</li>
+      <li><strong>子宮鏡檢查 (Hysteroscopy)：</strong>若近期（半年內）未進行，植入前確認子宮腔內無息肉、沾黏或發炎，可確保內膜不只「時間對」，「物理環境也對」。</li>
+      <li><strong>自體免疫與血栓指標：</strong>若過去有反覆流產或多次植入優良胚胎失敗史，可考慮篩檢。</li>
+    </ul>
+  </section>
+
+  <!-- 九、步驟指引 -->
+  <section class="card plan-card">
+    <h2>🪜 九、後續治療步驟指引</h2>
+    <ol>
+      <li><strong>門診回診解說：</strong>帶著此報告回診送子鳥診所，與醫師確認下一個植入週期的計畫。</li>
+      <li><strong>決定植入週期時間：</strong>等待月經來潮，在月經第 2-3 天回診，開始服用雌激素（HRT 週期）養內膜。</li>
+      <li><strong>內膜厚度追蹤：</strong>吃藥 10-14 天後照超音波，確認內膜厚度達標（通常大於 7-8mm）。</li>
+      <li><strong>絕對精準的用藥啟動：</strong>醫師會設定一個植入時間，並「往前推算 109 小時」，指定您在某月某日某時某分開始使用黃體素。<strong>這個時間點至關重要。</strong></li>
+      <li><strong>進行植入：</strong>於黃體素作用滿 109 小時左右，將胚胎植入。</li>
+    </ol>
+  </section>
+
+  <!-- 十、生活與治療建議 -->
+  <section class="card advice-card">
+    <h2>💡 十、生活與治療建議</h2>
+    <div class="tip-box">
+      <ul>
+        <li><strong>設定雙重鬧鐘：</strong>在接下來的植入週期，第一劑黃體素（不論是口服、塞劑或針劑）的時間是決定那 109 小時的起點。強烈建議設定多個鬧鐘，確保分秒不差地用藥。</li>
+        <li><strong>維持規律作息：</strong>荷爾蒙療法期間，避免熬夜與過度勞累，讓內分泌系統穩定。</li>
+        <li><strong>避免劇烈運動：</strong>植入前後可維持日常走動，促進骨盆腔血液循環，但不宜進行重訓、跳躍或高強度有氧。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 十一、建議與醫師討論的關鍵問題 -->
+  <section class="card discussion-card">
+    <h2>🗣️ 十一、建議與醫師討論的關鍵問題</h2>
+    <p>下次門診時，建議您直接向醫師提出以下問題：</p>
+    <ul>
+      <li>「報告顯示我的著床窗要提早 12 小時（109 小時），我們下次植入是否直接依照這個時間設定？我需要準備什麼嗎？」</li>
+      <li>「目前冷凍庫裡的胚胎，有沒有做過 PGT-A（染色體篩檢）？以我的年紀，您評估這顆胚胎本身的成功率大約多少？」</li>
+      <li>「報告建議我要用 HRT（賀爾蒙替代）週期，我們接下來的流程跟這次 ERA 切片的用藥會完全一樣嗎？」</li>
+      <li>「在開始用黃體素之前，是否還需要抽血確認黃體素小於 1 ng/ml，以免提早排卵干擾計畫？」</li>
+      <li>「若是植入 Day 3 的胚胎，時間是否要往前再推兩天？我們這次預計植入的是 Day 5 還是 Day 3 胚胎？」</li>
+    </ul>
+  </section>
+
+  <!-- 十二、警示訊號 -->
+  <section class="card alert-card">
+    <h2>🚨 十二、警示訊號</h2>
+    <div class="alert-box">
+      <p>在準備植入的用藥期間，若出現以下狀況，請立即聯繫生殖中心：</p>
+      <ul>
+        <li><strong>忘記或延遲使用黃體素：</strong>只要第一劑黃體素的時間有誤差（超過1-2小時），整個 109 小時的計畫就會作廢，可能需要取消該週期。</li>
+        <li><strong>陰道不正常出血：</strong>在服用雌激素養內膜階段，或是開始塞黃體素後，出現異常鮮血流出。</li>
+        <li><strong>發燒或骨盆腔劇烈疼痛：</strong>需排除感染或卵巢其他急症。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 十三、重要聲明 -->
+  <section class="card disclaimer-card">
+    <h2>📌 十三、重要聲明</h2>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">
+      本報告由 AI 輔助系統根據您提供的醫學檢驗資料生成，旨在協助您理解醫學術語、數據意義與生殖醫學常規邏輯。本報告<strong>不構成正式醫療診斷、處方建議，亦無法保證植入與懷孕之結果</strong>（正如原廠報告所述，植入成功與否受胚胎品質等多重因素影響）。所有的醫療決策（如：實際給藥時間、用藥劑量、是否植入等）必須由您的主治醫師（Dr. Hsing-Hua Lai 及送子鳥醫療團隊）根據您全面的臨床狀況做最終決定。如有任何突發不適，請遵循常規醫療管道就醫。
+    </p>
+  </section>
+</div>
+
+</body>
+</html>
+
+```
