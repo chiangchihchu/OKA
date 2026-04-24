@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>生殖醫學檢驗分析報告與療程時程表</title>
+<title>生殖醫學檢驗分析與療程時程報告</title>
 <style>
   :root {
     --primary-color: #1a5c73;
@@ -22,14 +22,16 @@
     --tag-borderline-text: #b06000;
     --tag-abnormal-bg: #fce8e6;
     --tag-abnormal-text: #c5221f;
-    --tag-info-bg: #e8f0fe;
-    --tag-info-text: #1967d2;
+    --tag-insufficient-bg: #f1f3f4;
+    --tag-insufficient-text: #5f6368;
     
     /* 提示框顏色 */
     --box-info: #e3f2fd;
     --box-warning: #fff3e0;
     --box-alert: #ffebee;
     --box-tip: #e8f5e9;
+    --box-success: #f1f8e9;
+    --box-caution: #fff8e1;
   }
 
   body {
@@ -50,16 +52,17 @@
   .report-header {
     text-align: center;
     margin-bottom: 30px;
-    padding: 20px;
-    background: var(--primary-color);
+    padding: 25px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
 
   .report-header h1 {
     margin: 0 0 10px 0;
     font-size: 1.8rem;
+    letter-spacing: 1px;
   }
 
   .report-subtitle {
@@ -74,50 +77,63 @@
     padding: 25px;
     margin-bottom: 25px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    border-left: 5px solid var(--secondary-color);
+    border-left: 6px solid var(--secondary-color);
   }
 
   .card h2 {
     color: var(--primary-color);
     margin-top: 0;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border-color);
     font-size: 1.4rem;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
 
   /* 表格設計 */
-  .lab-table, .schedule-table {
+  .data-table {
     width: 100%;
     border-collapse: collapse;
     margin: 15px 0;
+    font-size: 0.95rem;
   }
 
-  .lab-table th, .schedule-table th {
-    background-color: #f8fafc;
-    color: var(--text-main);
-    padding: 12px;
+  .data-table th {
+    background-color: #f0f4f8;
+    color: var(--primary-color);
+    padding: 12px 15px;
     text-align: left;
-    border-bottom: 2px solid var(--border-color);
-    font-weight: 600;
+    border-bottom: 2px solid var(--secondary-color);
+    font-weight: 700;
   }
 
-  .lab-table td, .schedule-table td {
-    padding: 12px;
+  .data-table td {
+    padding: 12px 15px;
     border-bottom: 1px solid var(--border-color);
-    vertical-align: middle;
+    vertical-align: top;
   }
 
-  .schedule-table tr:hover, .lab-table tr:hover {
-    background-color: #f8fafc;
+  .data-table tr:hover {
+    background-color: #f9fafb;
+  }
+
+  .time-badge {
+    display: inline-block;
+    background: #e1f5fe;
+    color: #0277bd;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
   }
 
   /* 標籤設計 */
   .tag {
-    display: inline-block;
-    padding: 4px 8px;
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
     border-radius: 6px;
     font-size: 0.85rem;
     font-weight: 600;
@@ -126,19 +142,21 @@
   .tag.normal { background: var(--tag-normal-bg); color: var(--tag-normal-text); }
   .tag.borderline { background: var(--tag-borderline-bg); color: var(--tag-borderline-text); }
   .tag.abnormal { background: var(--tag-abnormal-bg); color: var(--tag-abnormal-text); }
-  .tag.info { background: var(--tag-info-bg); color: var(--tag-info-text); }
+  .tag.insufficient { background: var(--tag-insufficient-bg); color: var(--tag-insufficient-text); }
 
   /* 成功機率標籤 */
+  .chance-level {
+    margin-bottom: 20px;
+  }
   .chance-tag {
     display: inline-block;
-    padding: 6px 12px;
+    padding: 8px 16px;
     border-radius: 20px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: bold;
     color: white;
-    margin-bottom: 15px;
   }
-  .chance-tag.mid-high { background-color: #00bfa5; }
+  .chance-tag.mid-high { background-color: #00bfa5; box-shadow: 0 2px 5px rgba(0,191,165,0.3); }
 
   /* 雙欄佈局 */
   .two-column-grid {
@@ -148,63 +166,62 @@
   }
 
   .good-factors-box, .risk-factors-box {
-    padding: 15px;
-    border-radius: 8px;
+    padding: 18px;
+    border-radius: 10px;
   }
-  .good-factors-box { background-color: #f1f8e9; border: 1px solid #c5e1a5; }
-  .risk-factors-box { background-color: #ffebee; border: 1px solid #ffcdd2; }
+  .good-factors-box { background-color: var(--box-success); border: 1px solid #c5e1a5; }
+  .risk-factors-box { background-color: var(--box-alert); border: 1px solid #ffcdd2; }
 
-  .good-factors-box h3 { color: #2e7d32; margin-top: 0; }
-  .risk-factors-box h3 { color: #c62828; margin-top: 0; }
+  .good-factors-box h3 { color: #2e7d32; margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid #c5e1a5; padding-bottom: 8px;}
+  .risk-factors-box h3 { color: #c62828; margin-top: 0; font-size: 1.1rem; border-bottom: 1px solid #ffcdd2; padding-bottom: 8px;}
 
   /* 提示框 */
-  .info-box { background: var(--box-info); padding: 15px; border-radius: 8px; border-left: 4px solid #2196f3; margin: 15px 0; }
-  .warning-box { background: var(--box-warning); padding: 15px; border-radius: 8px; border-left: 4px solid #ff9800; margin: 15px 0; }
-  .alert-box { background: var(--box-alert); padding: 15px; border-radius: 8px; border-left: 4px solid #f44336; margin: 15px 0; font-weight: bold; }
-  .tip-box { background: var(--box-tip); padding: 15px; border-radius: 8px; border-left: 4px solid #4caf50; margin: 15px 0; }
+  .info-box { background: var(--box-info); padding: 15px 20px; border-radius: 8px; border-left: 4px solid #2196f3; margin: 15px 0; }
+  .warning-box { background: var(--box-warning); padding: 15px 20px; border-radius: 8px; border-left: 4px solid #ff9800; margin: 15px 0; }
+  .alert-box { background: var(--box-alert); padding: 15px 20px; border-radius: 8px; border-left: 4px solid #f44336; margin: 15px 0; font-weight: 600; color: #b71c1c; }
+  .tip-box { background: var(--box-tip); padding: 15px 20px; border-radius: 8px; border-left: 4px solid #4caf50; margin: 15px 0; }
 
   /* 檢驗項目詳細說明卡片 */
   .lab-item-block {
-    background: #fafafa;
+    background: #ffffff;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 15px 20px;
-    margin-bottom: 15px;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
   }
   .lab-item-block h3 {
     margin-top: 0;
     color: var(--primary-color);
-    border-bottom: 1px dashed #ccc;
-    padding-bottom: 8px;
+    border-bottom: 1px dashed #cfd8dc;
+    padding-bottom: 10px;
+    font-size: 1.2rem;
   }
   .lab-item-block ul {
-    padding-left: 20px;
+    padding-left: 22px;
     margin-bottom: 0;
   }
   .lab-item-block li {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+  }
+  .lab-item-block li strong {
+    color: #455a64;
   }
 
-  /* 時程表特定樣式 */
-  .timeline-date {
-    font-weight: bold;
-    color: var(--primary-color);
-    background: #e8f0fe;
-    padding: 4px 8px;
-    border-radius: 4px;
-    display: inline-block;
-  }
-  .med-highlight {
-    color: #d32f2f;
-    font-weight: bold;
-  }
+  /* 強調文字 */
+  .highlight-red { color: #d32f2f; font-weight: bold; }
+  .highlight-blue { color: #1976d2; font-weight: bold; }
+  .highlight-bg { background-color: #fff9c4; padding: 2px 4px; border-radius: 3px; }
 
   @media (max-width: 768px) {
     .two-column-grid {
       grid-template-columns: 1fr;
     }
     .card {
-      padding: 15px;
+      padding: 18px;
+    }
+    .data-table th, .data-table td {
+      padding: 10px;
     }
   }
 </style>
@@ -214,26 +231,188 @@
 <div class="report-container">
   <header class="report-header">
     <h1>🧬 生殖醫學檢驗分析與療程時程報告</h1>
-    <p class="report-subtitle">凍胚植入前評估・免疫用藥計畫・重點整理指引</p>
+    <p class="report-subtitle">凍胚植入前評估・用藥時程表・費用明細整理</p>
   </header>
 
   <section class="card summary-card">
-    <h2>📋 一、個案摘要與諮詢整理</h2>
-    <ul>
-      <li><strong>評估階段：</strong> 解凍胚胎植入前（Frozen Embryo Transfer, FET）準備期</li>
-      <li><strong>預計植入日期：</strong> 4月30日</li>
-      <li><strong>植入策略：</strong> 預計植入 2 顆 PGT-A 切片正常之囊胚（Day 5 5BC、Day 6 4BC）。著床窗期（ERA）設定為 109 小時。</li>
-      <li><strong>特殊病史/療程脈絡：</strong> 具備免疫與血栓相關評估。目前合併使用多種抗凝血與免疫調節藥物（包含：阿斯匹靈、奎寧、類固醇、免疫球蛋白、復邁、愛栓通）。</li>
-      <li><strong>今日（4/24）檢驗狀態：</strong> 雌激素與內膜厚度達標，黃體素處於低點，準備啟動黃體期。</li>
-    </ul>
+    <h2>📋 一、個案摘要</h2>
     <div class="info-box">
-      <strong>📝 諮詢重點備忘錄：</strong> 醫師確認目前療程進度理想。為應對免疫排斥與血栓風險，植入前已安排高階免疫製劑（IVIG/Humira），並詳細衛教愛栓通（Clexane）施打方式。胚胎雖外觀等級為 BC，但均為染色體正常（Euploid），具有相當高的著床潛力。
+      <strong>階段：</strong> 解凍胚胎植入前（FET）準備期<br>
+      <strong>預計植入日期：</strong> 4月30日<br>
+      <strong>植入策略：</strong> 預計植入 2 顆 PGT-A 切片正常之囊胚（Day 5 5BC、Day 6 4BC）。著床窗期設定為 109 小時。<br>
+      <strong>特殊病史與用藥：</strong> 具備免疫與血栓相關考量。合併使用阿斯匹靈、奎寧、類固醇，並預定施打免疫球蛋白(IVIG)、復邁(Humira)、分離生與愛栓通。
+    </div>
+  </section>
+
+  <!-- 新增：專屬時程表區塊 -->
+  <section class="card schedule-card">
+    <h2>🗓️ 二、用藥與療程完整時程表 (請務必截圖保存)</h2>
+    <div class="tip-box">
+      💡 <strong>重點提醒：</strong> 您的用藥種類較多，請嚴格遵守以下時間點，尤其是 <strong>4/25 晚上的黃體啟動時間</strong>。
+    </div>
+    
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th width="20%">日期</th>
+          <th width="25%">重要行程</th>
+          <th width="55%">詳細用藥指示與注意事項</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="time-badge">4/24 (五)</div>
+            <div>今日</div>
+          </td>
+          <td>日常用藥維持</td>
+          <td>
+            <ul>
+              <li><strong>益斯得 (雌激素)：</strong> 早、晚各 2 顆。</li>
+              <li><strong>擦大腿凝膠：</strong> 早、晚各 1 包。</li>
+              <li><strong>伯基 (阿斯匹靈)：</strong> 晚飯後 1 顆。</li>
+              <li><strong>必賴克廔 (奎寧)：</strong> 早、晚各 1 顆。</li>
+              <li><strong>安斯平：</strong> 常規使用。</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="time-badge">4/25 (六)</div>
+            <div><span class="highlight-red">黃體啟動日</span></div>
+          </td>
+          <td>調整用藥時間<br><strong>關鍵啟動</strong></td>
+          <td>
+            <ul>
+              <li><strong>[異動] 康速龍 (類固醇)：</strong> 改為 <span class="highlight-blue">早、午各 1 顆</span> (避免晚上吃影響睡眠)。</li>
+              <li><strong>[關鍵] 黃體藥物啟動：</strong> 務必於 <span class="highlight-red highlight-bg">晚上 11:00</span> 準時使用：<br>
+                ➔ 吃 2 顆小白球 <br>
+                ➔ 塞 1 支大白球 (陰道塞劑)
+              </li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="time-badge">4/26 (日)</div>
+            <div class="time-badge">4/27 (一)</div>
+          </td>
+          <td>日常備孕用藥</td>
+          <td>
+            <ul>
+              <li><strong>小白球 (黃體素)：</strong> 開始規律一天 4 次 <br>
+              <span class="highlight-blue">(08:00, 13:00, 18:00, 23:00)</span>，每次 2 顆。<br>
+              <em>*務必搭配食物吃，避免嚴重頭暈嗜睡。</em></li>
+              <li>其他常規藥物 (益斯得、凝膠、伯基、必賴克廔、安斯平、康速龍) 皆照常維持。</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="time-badge">4/28 (二)</div>
+            <div>免疫點滴日</div>
+          </td>
+          <td>
+            <strong><span class="highlight-red">中午 12:00 報到</span></strong><br>
+            (預計停留半天)
+          </td>
+          <td>
+            <ul>
+              <li><strong>院內施打：</strong> 免疫球蛋白(IVIG)、復邁(Humira)、分離生。點滴時間較長，請預留整個下午。</li>
+              <li><strong>[新增] 愛栓通 (抗凝血針劑)：</strong> 於打完上述生物製劑後開始施打。每日 1 針，打於肚臍下三指外側。</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="time-badge">4/30 (四)</div>
+            <div><span class="highlight-red">植入日</span></div>
+          </td>
+          <td>
+            <strong>上午 11:00 報到</strong><br>
+            預計 12:00 植入
+          </td>
+          <td>
+            <ul>
+              <li><strong>當日早上：</strong> 藥物正常使用，<span class="highlight-red">不需空腹</span>，可吃早餐。</li>
+              <li><strong>報到流程：</strong> 2樓櫃台報到 ➔ 抽血(黃體素、血栓、血液常規) ➔ 等報告 ➔ 植入。</li>
+              <li><strong>攜帶物品：</strong> 夫妻雙方身分證、簽妥之「解凍胚胎植入同意書」。</li>
+              <li><strong>植入後：</strong> 平躺休息半小時後下床，領取院方提供餐點 (請選擇熟食/貝果，因打生物製劑嚴禁生食)。</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 新增：專屬費用與備藥清點區塊 -->
+  <section class="card">
+    <h2>💰 三、預估費用與藥物盤點表</h2>
+    
+    <h3>💵 4/28 及 4/30 預估費用明細</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>日期</th>
+          <th>項目內容</th>
+          <th>預估費用 (新台幣)</th>
+          <th>備註說明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>4/28</td>
+          <td>免疫球蛋白 (IVIG)</td>
+          <td>約 $65,000</td>
+          <td>2大瓶 + 2小瓶</td>
+        </tr>
+        <tr>
+          <td>4/28</td>
+          <td>分離生 (Intralipid 脂肪乳)</td>
+          <td>約 $2,200 - $3,000</td>
+          <td>靜脈點滴</td>
+        </tr>
+        <tr>
+          <td>4/28</td>
+          <td>復邁 (Humira)</td>
+          <td>約 $17,000</td>
+          <td>生物製劑</td>
+        </tr>
+        <tr>
+          <td><strong>4/28 總計</strong></td>
+          <td><strong>免疫點滴日總費用準備</strong></td>
+          <td><strong><span class="highlight-red">請準備約 $100,000</span></strong></td>
+          <td>當日報到時繳交</td>
+        </tr>
+        <tr>
+          <td>4/30</td>
+          <td>解凍胚胎植入 (FET) 療程費</td>
+          <td><strong><span class="highlight-red">約 $60,000 - $70,000</span></strong></td>
+          <td>包含解凍、植入與當日抽血費用</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>💊 目前手邊剩餘藥物盤點 (確認紀錄)</h3>
+    <div class="info-box">
+      根據諮詢紀錄，護理師已為您精算並補足至 4/30 植入日回診前的藥量：
+      <ul>
+        <li><strong>安斯平：</strong> 已重新開立 30 天份 (預計用到懷孕 12 週)。</li>
+        <li><strong>必賴克廔 (奎寧)：</strong> 手邊剩 10 顆 (可吃到 4/29)，已補開至 4/30。</li>
+        <li><strong>益斯得：</strong> 扣除剩餘量，本次補開 8 顆。</li>
+        <li><strong>大腿凝膠：</strong> 補開 4 包。</li>
+        <li><strong>伯基：</strong> 補開 2 顆。</li>
+        <li><strong>康速龍 (類固醇)：</strong> 開立 6 天份 (自 4/25 吃至 4/30 早上)。</li>
+        <li><strong>小白球：</strong> 開立至 4/30 早上 8:00 之劑量。</li>
+        <li><strong>愛栓通：</strong> 開立 2 支 (於 4/28 打完生物製劑後開始施打)。</li>
+      </ul>
+      <p style="margin-bottom:0;"><em>*所有後續著床用藥，將於 4/30 植入當天諮詢時一併開立。</em></p>
     </div>
   </section>
 
   <section class="card highlight-card">
-    <h2>🔎 二、檢驗報告重點整理 (植入前指標)</h2>
-    <table class="lab-table">
+    <h2>🔎 四、檢驗報告重點整理 (4/24 數值)</h2>
+    <table class="data-table">
       <thead>
         <tr>
           <th>項目</th>
@@ -241,7 +420,7 @@
           <th>單位</th>
           <th>時間點</th>
           <th>狀態</th>
-          <th>臨床判讀</th>
+          <th>簡要判讀</th>
         </tr>
       </thead>
       <tbody>
@@ -251,7 +430,7 @@
           <td>pg/mL</td>
           <td>黃體啟動前夕</td>
           <td><span class="tag normal">達標</span></td>
-          <td>內膜已充分雌化，數值良好</td>
+          <td>內膜已充分雌化 (目標>300)</td>
         </tr>
         <tr>
           <td>Progesterone (黃體素)</td>
@@ -259,7 +438,7 @@
           <td>ng/mL</td>
           <td>黃體啟動前夕</td>
           <td><span class="tag normal">正常</span></td>
-          <td>無提早排卵跡象，著床窗未偏移</td>
+          <td>無提早排卵跡象，著床窗穩定</td>
         </tr>
         <tr>
           <td>內膜厚度</td>
@@ -267,34 +446,43 @@
           <td>mm</td>
           <td>黃體啟動前夕</td>
           <td><span class="tag normal">達標</span></td>
-          <td>厚度充足，適合胚胎著床</td>
+          <td>厚度充足，適合著床</td>
+        </tr>
+        <tr>
+          <td>白血球相關數值</td>
+          <td>無異常</td>
+          <td>-</td>
+          <td>植入前評估</td>
+          <td><span class="tag normal">正常</span></td>
+          <td>肝腎功能待明日報告確認</td>
         </tr>
       </tbody>
     </table>
   </section>
 
   <section class="card detailed-lab-card">
-    <h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+    <h2>🧾 五、每一項檢驗數字的詳細說明</h2>
     
     <div class="lab-item-block">
       <h3>E2 (雌二醇)：337.2 pg/mL <span class="tag normal">達標</span></h3>
       <ul>
-        <li><strong>這個數字代表什麼：</strong> 血液中雌激素的濃度，主要反映卵巢濾泡發育或補充藥物的吸收狀況。</li>
-        <li><strong>在生殖評估中的意義：</strong> 在人工週期凍胚植入中，E2 負責讓子宮內膜增生變厚，為著床做準備。</li>
-        <li><strong>若偏高常見代表：</strong> 過度刺激或藥物劑量較高。</li>
-        <li><strong>若偏低常見代表：</strong> 藥物吸收不良，內膜可能無法順利增生。</li>
-        <li><strong>本個案的可能解讀：</strong> 醫師指出標準為 300 pg/mL 以上。您的數值為 337.2 pg/mL，顯示益斯得（Estrade）與凝膠吸收良好。因為啟動黃體素後，內膜會從「增生期」轉為「分泌期」，結構會緊密化（醫師所謂的「縮水」），植入當天預期會降至 200 pg/mL 左右，這是完全符合生理邏輯的完美準備狀態。</li>
-        <li><strong>是否需要追蹤：</strong> 植入當天會常規抽血再次確認 E2 與黃體素水平。</li>
+        <li><strong>這個數字代表什麼：</strong> 血液中雌激素的濃度，反映補充藥物（益斯得與凝膠）的吸收狀況。</li>
+        <li><strong>在生殖評估中的意義：</strong> 雌激素負責讓子宮內膜增生變厚。醫師設定的理想值為 300 pg/mL 以上。</li>
+        <li><strong>若偏高常見代表：</strong> 過度刺激或藥物劑量極高。</li>
+        <li><strong>若偏低常見代表：</strong> 藥物吸收不良，內膜可能過薄。</li>
+        <li><strong>本個案的可能解讀：</strong> 數值 337.2 pg/mL 非常理想，顯示身體對藥物吸收極佳。啟動黃體素後，內膜結構會緊密化（醫師所謂的「縮水」），預期植入當天 E2 會降至 200 pg/mL 左右，這是完全符合生理邏輯的完美準備狀態。</li>
+        <li><strong>是否需要追蹤：</strong> 植入當天（4/30）會再抽血確認。</li>
       </ul>
     </div>
 
     <div class="lab-item-block">
       <h3>Progesterone (黃體素)：&lt; 1.0 ng/mL <span class="tag normal">正常</span></h3>
       <ul>
-        <li><strong>這個數字代表什麼：</strong> 黃體素是排卵後或透過藥物給予的賀爾蒙，負責啟動「著床窗」（Window of Implantation）。</li>
+        <li><strong>這個數字代表什麼：</strong> 黃體素負責啟動「著床窗」（Window of Implantation）。</li>
         <li><strong>在生殖評估中的意義：</strong> 在「尚未」給予黃體藥物前，這個數值必須處於低點。</li>
-        <li><strong>若偏高常見代表：</strong> 卵巢可能提早排卵（Premature luteinization），會導致著床窗提早開啟，使得植入時胚胎與內膜不同步而失敗。</li>
-        <li><strong>本個案的可能解讀：</strong> 數值小於 1.0 ng/mL 是非常好的結果，代表子宮內膜正在「安靜等待」我們的人為指令。您將在 4/25 晚上 11:00 精準啟動黃體藥物，確保著床窗在植入當下完美開啟。</li>
+        <li><strong>若偏高常見代表：</strong> 卵巢提早排卵，會導致著床窗提早開啟，使得植入時胚胎與內膜不同步。</li>
+        <li><strong>若偏低常見代表：</strong> 在啟動黃體「前」，越低越好。</li>
+        <li><strong>本個案的可能解讀：</strong> 數值小於 1.0 ng/mL 是極佳的結果，代表子宮內膜正在「安靜等待」人為指令。配合 4/25 晚上 11:00 精準啟動黃體藥物，可確保著床窗在植入當下（歷經 109 小時）完美開啟。</li>
       </ul>
     </div>
 
@@ -302,155 +490,94 @@
       <h3>子宮內膜厚度：8 mm <span class="tag normal">達標</span></h3>
       <ul>
         <li><strong>這個數字代表什麼：</strong> 超音波下測量到的子宮內膜最厚處。</li>
-        <li><strong>在生殖評估中的意義：</strong> 內膜是胚胎著床的土壤。一般建議植入前內膜厚度至少達 7-8 mm 以上。</li>
-        <li><strong>本個案的可能解讀：</strong> 8 mm 已達標。轉換黃體後，內膜厚度可能會微幅縮緊至 6-7 mm，這是因為質地變得更黏稠、更適合著床，屬於正常現象，無須擔心厚度變薄。</li>
+        <li><strong>在生殖評估中的意義：</strong> 內膜是胚胎著床的土壤，一般建議植入前厚度至少達 7-8 mm 以上。</li>
+        <li><strong>本個案的可能解讀：</strong> 8 mm 已順利達標。使用黃體素後，內膜厚度可能會微幅縮緊至 6-7 mm，這是因為質地變得更黏稠、更適合著床，屬於正常現象，無須擔心。</li>
       </ul>
     </div>
   </section>
 
+  <section class="card evaluation-card">
+    <h2>🧠 六、整體評估</h2>
+    <p>目前為凍胚植入前最後準備階段，各項指標皆非常順利。內膜厚度與賀爾蒙（E2、黃體素）數據完美符合預期，無提早排卵干擾。本次療程的重點在於「免疫與血栓的嚴密控制」。透過植入前預先施打高階生物製劑（IVIG、Humira）並搭配抗凝血藥物，已為胚胎打造了極低排斥性且血流豐沛的子宮環境。</p>
+  </section>
+
   <section class="card chance-card">
-    <h2>📈 四、目前成功機率評估</h2>
-    <div class="chance-tag mid-high">中等偏高</div>
-    <p><strong>判斷依據：</strong> 本次為解凍試管嬰兒療程（FET）。植入兩顆 PGT-A 染色體切片正常的胚胎，配合完善的內膜準備與積極的免疫/血栓控制，臨床上具有相當良好的著床潛力。</p>
+    <h2>📈 七、目前成功機率評估</h2>
+    <div class="chance-level">
+      <span class="chance-tag mid-high">評估等級：中等偏高</span>
+    </div>
+    <p><strong>適用情境與依據：</strong> 針對本次「解凍試管嬰兒（FET）」療程。基於胚胎為 PGT-A 染色體正常，且內膜條件達標，配合強效免疫防護網，臨床上著床成功率相對樂觀。</p>
     
     <div class="two-column-grid">
       <div class="good-factors-box">
         <h3>✅ 正面原因</h3>
         <ul>
-          <li><strong>胚胎品質：</strong> 雖然外觀為 4BC/5BC，但經過 PGT-A 確認為染色體正常，大幅排除最常見的早期流產與不著床原因。</li>
-          <li><strong>內膜環境：</strong> E2 充足且內膜達 8mm，土壤條件佳。</li>
-          <li><strong>精準著床窗：</strong> 嚴格設定 109 小時的黃體浸潤時間，符合個人化精準醫療。</li>
-          <li><strong>完善防護網：</strong> 已啟動免疫球蛋白、復邁與愛栓通，全面防堵免疫排斥與微血栓問題。</li>
+          <li><strong>胚胎品質優良：</strong> 植入 Day 5 (5BC) 與 Day 6 (4BC) 兩顆囊胚，雖外觀屬中等，但經 AI 及 PGT-A 評估皆為<strong>染色體正常（Euploid）</strong>，大幅排除了高達 40%-50% 的異常流產風險。</li>
+          <li><strong>精準著床窗：</strong> 嚴格執行 109 小時的黃體浸潤時間。</li>
+          <li><strong>內膜達標：</strong> 厚度 8mm 且 E2 > 300 pg/mL，土壤肥沃。</li>
+          <li><strong>免疫防護到位：</strong> 積極使用 IVIG、Humira 等武器壓制排斥反應。</li>
         </ul>
       </div>
       <div class="risk-factors-box">
         <h3>⚠️ 可能風險與變數</h3>
         <ul>
-          <li><strong>免疫反撲風險：</strong> 免疫系統具動態性，植入後或胚胎著床時，免疫反應可能會有波動，需持續抽血監控。</li>
-          <li><strong>雙胞胎風險：</strong> 植入兩顆正常胚胎，雙胞胎機率顯著上升，未來可能增加早產或妊娠高血壓風險。</li>
-          <li><strong>出血風險：</strong> 合併使用阿斯匹靈與愛栓通，容易出現注射處瘀青，且若有早期懷孕出血，出血量可能較多。</li>
+          <li><strong>免疫反撲：</strong> 免疫系統具動態性，植入後可能會有波動，成功著床後仍需密切抽血追蹤。</li>
+          <li><strong>雙胞胎妊娠風險：</strong> 植入兩顆正常胚胎，若皆著床將面臨多胞胎孕期的高血壓或早產風險。</li>
+          <li><strong>血栓體質變數：</strong> 需確切施打愛栓通，確保子宮微血管血流暢通。</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section class="card plan-card">
-    <h2>🪜 五、用藥與療程時程表 (請截圖或加入行事曆)</h2>
-    <div class="tip-box">
-      <strong>💡 醫療資訊設計建議：</strong> 由於您使用的藥物較多且包含特殊時段，以下為您整理接下來至植入當日的關鍵時程表，請嚴格遵守時間。
-    </div>
-    
-    <table class="schedule-table">
-      <thead>
-        <tr>
-          <th>日期</th>
-          <th>重要行程 / 門診</th>
-          <th>新增或異動之用藥指示</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="timeline-date">4/24 (五)</span><br>今日</td>
-          <td>日常用藥維持</td>
-          <td>
-            • 維持原藥物：益斯得(早晚各2)、擦大腿凝膠(早晚各1)、伯基(晚飯後1)、必賴克廔(早晚各1)、安斯平(常規用)。
-          </td>
-        </tr>
-        <tr>
-          <td><span class="timeline-date">4/25 (六)</span><br><strong>黃體啟動日</strong></td>
-          <td>在家服藥與塞劑</td>
-          <td>
-            • <strong class="med-highlight">[新增] 康速龍(類固醇)：</strong>改為<strong>早、午</strong>各一顆 (避免影響睡眠)。<br>
-            • <strong class="med-highlight">[關鍵] 晚上 11:00 啟動黃體：</strong> 吃 2 顆小白球 + 塞 1 支大白球(快孕隆等)。
-          </td>
-        </tr>
-        <tr>
-          <td><span class="timeline-date">4/26-27</span><br>日常備孕</td>
-          <td>在家服藥</td>
-          <td>
-            • 小白球改為常規每日 4 次 (08:00, 13:00, 18:00, 23:00)，每次 2 顆 (建議隨餐吃避免頭暈)。<br>
-            • 維持其他所有口服藥與凝膠。
-          </td>
-        </tr>
-        <tr>
-          <td><span class="timeline-date">4/28 (二)</span><br>免疫點滴日</td>
-          <td><strong>中午 12:00 報到</strong><br>(預計停留半天)</td>
-          <td>
-            • 施打：免疫球蛋白(IVIG)、復邁(Humira)、分離生(Intralipid脂肪乳)。<br>
-            • 費用準備：約需 10 萬元。<br>
-            • <strong class="med-highlight">[新增] 愛栓通(Clexane)：</strong>打完點滴後開始每日施打 1 針 (肚臍下三指外，避開瘀青處交替施打)。
-          </td>
-        </tr>
-        <tr>
-          <td><span class="timeline-date">4/30 (四)</span><br><strong>植入日</strong></td>
-          <td><strong>上午 11:00 報到</strong><br>抽血後，12:00植入</td>
-          <td>
-            • 早上藥物照常使用，<strong>不需空腹</strong>，可正常吃早餐。<br>
-            • 攜帶：夫妻雙方身分證、簽妥之「解凍胚胎植入同意書」。<br>
-            • 植入後平躺休息約半小時，領取餐點(避開生食)。<br>
-            • 植入費用預估：約 6~7 萬元。
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <section class="card research-card">
+    <h2>📚 八、調研資料摘要</h2>
+    <ul>
+      <li><strong>PGT-A 胚胎等級的臨床意義：</strong> 研究顯示，只要是 PGT-A 檢測為染色體正常的胚胎，無論外觀評級為 AA、AB 還是 BC，其著床率與活產率的差異會大幅縮小。因此醫師選擇這兩顆胚胎，是基於其內在基因的健康度。</li>
+      <li><strong>生殖免疫治療（IVIG/Humira）：</strong> 針對反覆著床失敗或具自體免疫抗體的個案，靜脈注射免疫球蛋白（IVIG）能有效抑制毒殺型 T 細胞與 NK 細胞的活性；復邁（Humira）則能降低體內發炎因子（TNF-α），兩者合併使用是目前最高階的安胎策略之一。</li>
+      <li><strong>抗凝血與愛栓通（Clexane）：</strong> 胚胎著床需要極其豐富的微血管網路供應。抗凝血針劑可防止微小血栓形成，確保胚胎不會因為「斷糧」而萎縮。</li>
+    </ul>
   </section>
 
   <section class="card advice-card">
-    <h2>💡 六、生活與治療特別建議</h2>
+    <h2>💡 九、生活與治療建議</h2>
     <ul>
-      <li><strong>愛栓通 (Clexane) 施打技巧：</strong> 
-        <ul>
-          <li><strong>步驟：</strong> 酒精消毒 ➔ 捏起肚皮脂肪 ➔ 針頭 90 度垂直快速刺入 ➔ <strong>緩慢推藥</strong> (越慢越不痛) ➔ 藥劑推到底停留 10 秒 ➔ 放手讓針頭自動回縮。</li>
-          <li><strong>防瘀青關鍵：</strong> 拔針後，務必使用筆蓋背部或手指<strong>持續重壓 10 到 15 分鐘</strong>，絕對不可揉搓。</li>
-          <li><strong>氣泡：</strong> 針筒內的微小氣泡不需排出，直接施打即可（氣泡可將藥物完全推進皮下並封住針孔）。</li>
-        </ul>
-      </li>
-      <li><strong>小白球 (Utrogestan) 副作用：</strong> 服用後極易產生頭暈、嗜睡或酒醉感。強烈建議「隨餐吃」或吃點小東西墊胃再服藥，可大幅減輕頭暈症狀。服藥後避免立刻騎車或開車。</li>
-      <li><strong>飲食注意：</strong> 由於正在使用免疫抑制劑（生物製劑），抵抗力會短暫下降，<strong>絕對禁止生食</strong>（生魚片、未熟蛋、生菜沙拉等），以避免李斯特菌或沙門氏菌感染。</li>
+      <li><strong>愛栓通 (Clexane) 施打技巧：</strong> 這是最容易感到疼痛的針劑。建議坐著且有靠背。捏起肚皮脂肪，針頭垂直快速刺入。<strong>推藥過程越慢越好</strong>，可減輕酸痛感。打完後務必按壓 10-15 分鐘，不可揉，以防大片瘀青。針筒內的微小空氣不需排出。</li>
+      <li><strong>小白球副作用防範：</strong> 極易引發強烈頭暈與嗜睡。請務必<strong>搭配食物一起服用</strong>，可大幅降低暈眩感。服用後切勿自行騎車或開車。</li>
+      <li><strong>飲食嚴格禁忌：</strong> 由於施打了生物製劑，您的抵抗力會暫時下降。<strong>絕對禁止食用任何生食</strong>（生魚片、未熟蛋、生菜沙拉），飲水需煮沸，避免嚴重腸胃感染。</li>
     </ul>
   </section>
 
   <section class="card discussion-card">
-    <h2>🗣️ 七、建議與醫師討論的關鍵問題</h2>
-    <p>植入當天（4/30）諮詢時，您可向醫師或護理師確認以下問題：</p>
+    <h2>🗣️ 十、建議與醫師討論的關鍵問題</h2>
+    <p>4/30 植入當天下床後，諮詢時建議詢問：</p>
     <ul>
-      <li>植入當天早上抽血的「黃體素」與「血栓數值（D-dimer）」是否都在理想範圍？需不需要臨時加強黃體針劑或調整愛栓通劑量？</li>
-      <li>因為有打愛栓通和吃阿斯匹靈，植入後如果出現微量粉色或咖啡色出血，是正常的嗎？什麼程度的出血才需要緊急停藥或回診？</li>
-      <li>本次植入兩顆胚胎，雙胞胎機率較高，如果在後續開獎成功，針對免疫療程的藥物（如類固醇、點滴）預計會使用到懷孕第幾週？</li>
-      <li>施打免疫球蛋白（IVIG）與復邁後，如果有輕微發燒或疲倦是正常的反應嗎？</li>
+      <li>今天早上抽血的「黃體素」數值是否足夠？需要額外增加黃體水針或油針嗎？</li>
+      <li>今天早上抽血的「血栓數值（D-dimer）」狀況如何？目前的愛栓通劑量足夠嗎？</li>
+      <li>因為目前有使用阿斯匹靈與愛栓通，植入後如果出現微量的咖啡色出血，是正常的嗎？什麼情況才需要提早回診？</li>
+      <li>如果開獎成功懷孕，後續的免疫球蛋白（IVIG）與復邁（Humira）預計還要打幾次？大約會使用到懷孕第幾週？</li>
     </ul>
   </section>
 
   <section class="card alert-card">
-    <h2>🚨 八、警示訊號</h2>
+    <h2>🚨 十一、警示訊號 (需盡快就醫)</h2>
     <div class="alert-box">
-      如果您在療程期間（特別是 4/28 施打生物製劑與愛栓通後）出現以下症狀，請立即聯絡生殖中心或前往急診：
+      療程期間若出現以下狀況，請立即聯絡生殖中心或前往急診：
       <ul>
-        <li><strong>嚴重過敏反應：</strong> 施打點滴後出現呼吸困難、嚴重皮疹、胸悶或臉部腫脹。</li>
-        <li><strong>異常出血：</strong> 牙齦血流不止、出現大面積不明原因的深色瘀青、或有血尿/血便現象（與抗凝血劑有關）。</li>
-        <li><strong>劇烈下腹痛：</strong> 無法忍受的單側或雙側下腹劇痛（輕微的悶痛或抽痛在療程中屬正常）。</li>
+        <li><strong>嚴重過敏反應：</strong> 4/28 打完生物製劑後，若有呼吸困難、嚴重胸悶、大面積皮疹。</li>
+        <li><strong>異常出血或劇痛：</strong> 出現不正常的陰道大量鮮血、牙齦流血不止、或是無法忍受的劇烈下腹痛。</li>
+        <li><strong>高燒不退：</strong> 因免疫力下降，若出現不明原因發燒 (>38度) 伴隨畏寒。</li>
       </ul>
     </div>
   </section>
 
-  <section class="card research-card">
-    <h2>📚 九、免疫與血栓試管療程調研摘要</h2>
-    <p>根據當前生殖免疫學實務脈絡：</p>
-    <ul>
-      <li><strong>PGT-A 與免疫治療的結合：</strong> 當確認胚胎染色體正常（Euploid）卻仍反覆著床失敗時，醫學界傾向懷疑母體子宮環境的「免疫排斥」或「微血栓」阻礙了胚胎血流供應。</li>
-      <li><strong>生物製劑（IVIG/Humira）：</strong> IVIG（靜脈注射免疫球蛋白）與 Humira（TNF-α 抑制劑）常用於調節母體免疫系統，降低對外來胚胎的攻擊性。這屬於高階生殖免疫療法，通常在植入前數天施打以預先建立免疫耐受環境。</li>
-      <li><strong>抗凝血療法（Aspirin + Clexane）：</strong> 俗稱的「阿斯匹靈搭配肝素」，主要目的是預防胎盤微血管血栓形成，確保胚胎在著床初期的血液與營養供應無虞，是臨床上對抗抗磷脂質症候群（APS）或不明原因反覆流產的黃金準則之一。</li>
-    </ul>
-  </section>
-
   <section class="card disclaimer-card">
-    <h2>📌 十、重要聲明</h2>
-    <p>本報告由 AI 醫療資訊設計系統依據您提供的語音轉錄內容整理生成，旨在幫助您梳理療程時程、藥物用法與檢驗邏輯。本報告<strong>無法取代主治醫師的最終醫療決策與正式診斷</strong>。您的用藥劑量（如愛栓通、免疫球蛋白）與植入時間（109小時著床窗），皆為醫師針對您個人體質的精準計算，請務必嚴格遵照生殖中心護理師的官方衛教單張執行。祝您本次植入順利，好孕到來！</p>
+    <h2>📌 十二、重要聲明</h2>
+    <p>本報告由 AI 醫療資訊系統依據您提供的語音諮詢紀錄整理生成。此報告為輔助記憶與理解工具，<strong>不可取代主治醫師的正式診斷與處方</strong>。所有藥物劑量（特別是免疫與血栓藥物）及精確用藥時間，皆需以生殖中心發放的正式紙本衛教單張為準。祝您療程一切順利！</p>
   </section>
-
 </div>
 
 </body>
 </html>
 
 ```
+no 
