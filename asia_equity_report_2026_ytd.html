@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>亞股主要市場今年以來表現與兩個月展望（截至 2026-04-24）</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --up: #b91c1c;
+      --down: #065f46;
+      --accent: #1d4ed8;
+      --warn: #92400e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 36px 20px 56px; }
+    header {
+      background: linear-gradient(135deg, #0f172a, #1d4ed8);
+      color: white;
+      border-radius: 24px;
+      padding: 34px;
+      box-shadow: 0 18px 50px rgba(15,23,42,.18);
+    }
+    header h1 { margin: 0 0 8px; font-size: 30px; letter-spacing: .02em; }
+    header p { margin: 4px 0; opacity: .92; }
+    .note {
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 14px;
+      font-size: 14px;
+    }
+    section {
+      background: var(--card);
+      margin-top: 22px;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(15,23,42,.06);
+      border: 1px solid var(--line);
+    }
+    h2 { margin: 0 0 14px; font-size: 22px; }
+    h3 { margin: 20px 0 8px; font-size: 18px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: #fbfdff;
+    }
+    .metric b { display: block; font-size: 15px; color: var(--muted); }
+    .metric span { font-size: 24px; font-weight: 800; }
+    .up { color: var(--up); }
+    .flat { color: var(--accent); }
+    .muted { color: var(--muted); }
+    table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 14px; }
+    th, td { padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { text-align: left; background: #f3f4f6; font-size: 14px; }
+    td { font-size: 14px; }
+    tr:last-child td { border-bottom: none; }
+    .tag {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #3730a3;
+      font-size: 12px;
+      margin: 2px 4px 2px 0;
+      white-space: nowrap;
+    }
+    .warn {
+      background: #fffbeb;
+      border-color: #fde68a;
+      color: var(--warn);
+    }
+    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: #fbfdff;
+    }
+    .card h3 { margin-top: 0; }
+    ul { margin: 8px 0 0 20px; padding: 0; }
+    li { margin: 5px 0; }
+    .scenario {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+    .scenario > div {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      background: #fff;
+    }
+    footer { color: var(--muted); font-size: 13px; margin-top: 18px; }
+    a { color: var(--accent); }
+    @media (max-width: 860px) {
+      .grid, .cards, .scenario { grid-template-columns: 1fr; }
+      header { padding: 24px; }
+      table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1>台股、日股、韓股、港股、上海 A 股、上海 B 股：今年以來變化、上漲力量與兩個月評估</h1>
+      <p>資料基準日：2026-04-24 收盤附近；撰寫日：2026-04-25</p>
+      <p>「上海Ｂ谷」本報告按「上海 B 股」解讀。</p>
+      <div class="note">本報告為市場分析與情境評估，不構成買賣建議。YTD 以 2025 年最後交易日收盤至 2026-04-24 附近最新收盤估算；港股與上海 B 股因公開頁面可得資料限制，以近似值呈現。</div>
+    </header>
+
+    <section>
+      <h2>一、總覽結論</h2>
+      <div class="grid">
+        <div class="metric"><b>今年以來最強</b><span class="up">韓股 KOSPI</span><p class="muted">記憶體、AI 供應鏈與外資回流推升。</p></div>
+        <div class="metric"><b>最具結構性支撐</b><span class="up">台股、日股</span><p class="muted">台股靠 AI 半導體；日股靠公司治理改革、資金重估與科技權值。</p></div>
+        <div class="metric"><b>短線最需留意</b><span class="flat">港股、中國 A/B 股</span><p class="muted">受政策預期、房地產、人民幣與地緣政治牽動較大。</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>二、今年以來變化比較</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>市場</th>
+            <th>代表指數</th>
+            <th>2025 年底基準</th>
+            <th>2026-04-24 附近</th>
+            <th>今年以來變化</th>
+            <th>判讀</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>台股</td>
+            <td>TAIEX 加權指數</td>
+            <td>28,963.60</td>
+            <td>38,932.40</td>
+            <td class="up"><b>約 +34.4%</b></td>
+            <td>AI 半導體與台積電權重效應極強，屬高度科技集中型上漲。</td>
+          </tr>
+          <tr>
+            <td>日股</td>
+            <td>Nikkei 225</td>
+            <td>50,339.48</td>
+            <td>59,716.18</td>
+            <td class="up"><b>約 +18.6%</b></td>
+            <td>延續 2025 年牛市；企業改革、科技股與外資配置需求支撐。</td>
+          </tr>
+          <tr>
+            <td>韓股</td>
+            <td>KOSPI</td>
+            <td>4,214.17</td>
+            <td>6,475.63</td>
+            <td class="up"><b>約 +53.7%</b></td>
+            <td>本輪亞洲主要市場中彈性最大，但對半導體週期依賴也最高。</td>
+          </tr>
+          <tr>
+            <td>港股</td>
+            <td>Hang Seng Index</td>
+            <td>約 25,600–25,700</td>
+            <td>25,978.07</td>
+            <td class="flat"><b>約 +1%～+2%</b></td>
+            <td>2025 年大漲後進入整理；科技、金融、能源分化。</td>
+          </tr>
+          <tr>
+            <td>上海 A 股</td>
+            <td>上證 A 股指數</td>
+            <td>約 4,140 左右</td>
+            <td>約 4,278</td>
+            <td class="up"><b>約 +3%～+4%</b></td>
+            <td>政策與主題輪動支撐，但基本面與房地產壓力仍壓抑估值擴張。</td>
+          </tr>
+          <tr>
+            <td>上海 B 股</td>
+            <td>上證 B 股指數</td>
+            <td>約 260 左右</td>
+            <td>約 272</td>
+            <td class="up"><b>約 +4%～+5%</b></td>
+            <td>市場流動性較低，指標參考性高於實際配置意義。</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted">註：台、日、韓數字使用可查到的年末收盤與 4/24 收盤；港股、上海 A/B 股採公開行情頁與年末報導交叉估算。</p>
+    </section>
+
+    <section>
+      <h2>三、主要上漲力量</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>台股：AI 半導體 + 台積電權重</h3>
+          <span class="tag">AI 伺服器</span><span class="tag">先進製程</span><span class="tag">資金上限放寬</span>
+          <ul>
+            <li>台積電為加權指數核心權重，AI 基礎建設需求使其成為台股最主要推升來源。</li>
+            <li>2026/4/24 附近，台灣主管機關放寬本地基金單一股票投資上限，對台積電形成額外資金面利多。</li>
+            <li>電子權值股同步擴散至聯發科、鴻海、廣達、台達電等 AI 供應鏈。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>日股：治理改革 + 科技權值 + 弱/穩日圓</h3>
+          <span class="tag">公司治理</span><span class="tag">股東報酬</span><span class="tag">半導體設備</span>
+          <ul>
+            <li>東京證交所推動資本效率與股東價值改善，市場給予日本企業更高重估。</li>
+            <li>半導體設備、電子材料與出口股受益於全球 AI 資本支出。</li>
+            <li>若日圓不急升，企業獲利與外資配置情緒仍偏正面。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>韓股：記憶體超循環 + 外資集中買盤</h3>
+          <span class="tag">HBM</span><span class="tag">Samsung</span><span class="tag">SK Hynix</span>
+          <ul>
+            <li>AI 伺服器帶動 HBM 與高階 DRAM 需求，外資資金集中流向大型半導體股。</li>
+            <li>KOSPI 上漲結構高度集中，指數獲利對 Samsung Electronics 與 SK Hynix 敏感。</li>
+            <li>韓國政策面若持續鼓勵股東回報與企業價值提升，可延長估值重估週期。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>港股：中國科技重估 + IPO/南向資金</h3>
+          <span class="tag">AI 概念</span><span class="tag">南向資金</span><span class="tag">IPO 回溫</span>
+          <ul>
+            <li>2025 年港股因 AI 與中國科技股重估大漲，2026 年初轉為震盪消化。</li>
+            <li>港交所 IPO 與交易活絡改善市場信心。</li>
+            <li>金融、電信、能源等高股息類股提供下檔支撐，但網路平台與消費股分化。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>上海 A 股：政策托底 + 主題輪動</h3>
+          <span class="tag">政策預期</span><span class="tag">AI 自主可控</span><span class="tag">商業航天</span>
+          <ul>
+            <li>政策維穩與流動性支持是 A 股主要底層力量。</li>
+            <li>AI、國產替代、商業航天、軍工與高股息央國企輪動活躍。</li>
+            <li>部分主題股短期漲幅過大，已有公司公告提示交易過熱風險。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>上海 B 股：低流動性 + 折價修復</h3>
+          <span class="tag">低流動性</span><span class="tag">美元/港幣計價</span><span class="tag">折價</span>
+          <ul>
+            <li>B 股市場投資人基礎窄、成交量低，常受少量資金影響出現較大波動。</li>
+            <li>今年表現偏溫和，主要受 A 股情緒、人民幣預期與折價修復牽動。</li>
+            <li>不宜把 B 股當作中國股市主趨勢的主要代表，應以 A 股、滬深 300、港股同步觀察。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>四、未來兩個月評估（至 2026 年 6 月底）</h2>
+      <div class="scenario">
+        <div>
+          <h3>基本情境：高位震盪、強者續強</h3>
+          <p>AI 需求與企業獲利仍支撐台、日、韓，但短線漲幅已大，較可能轉為類股輪動與高檔震盪。</p>
+        </div>
+        <div>
+          <h3>樂觀情境：AI 財報與資金面續推</h3>
+          <p>若美股科技財報優於預期、美元利率下行、地緣風險降溫，台股與韓股可續創高，日股挑戰 60,000 後仍有延伸空間。</p>
+        </div>
+        <div>
+          <h3>保守情境：油價、匯率與政策風險</h3>
+          <p>若油價因中東局勢維持高檔、通膨預期回升或美元利率上行，估值較高的科技權值股可能出現 5%～12% 技術性修正。</p>
+        </div>
+      </div>
+
+      <h3>市場別兩個月判斷</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>市場</th>
+            <th>兩個月評級</th>
+            <th>觀察重點</th>
+            <th>主要風險</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>台股</td>
+            <td><b>偏多但追高需控風險</b></td>
+            <td>台積電、AI 伺服器、外資期現貨、台幣匯率。</td>
+            <td>科技股集中度過高；若美股 AI 股回檔，台股震幅會放大。</td>
+          </tr>
+          <tr>
+            <td>日股</td>
+            <td><b>偏多震盪</b></td>
+            <td>日圓、BOJ 利率訊號、企業改革、半導體設備股。</td>
+            <td>日圓快速升值、獲利了結、政策預期落空。</td>
+          </tr>
+          <tr>
+            <td>韓股</td>
+            <td><b>強勢但波動最大</b></td>
+            <td>HBM 價格、SK Hynix/Samsung 財測、外資流向。</td>
+            <td>記憶體價格循環反轉或單一產業過度集中。</td>
+          </tr>
+          <tr>
+            <td>港股</td>
+            <td><b>中性偏震盪</b></td>
+            <td>中國政策、南向資金、平台經濟、港股 IPO 熱度。</td>
+            <td>中國地產壓力、消費修復不足、美元利率高檔。</td>
+          </tr>
+          <tr>
+            <td>上海 A 股</td>
+            <td><b>中性偏多，重主題與政策</b></td>
+            <td>政策刺激、成交量、人民幣、科技自主可控主線。</td>
+            <td>主題炒作退潮、房地產數據疲弱、外資風險偏好下降。</td>
+          </tr>
+          <tr>
+            <td>上海 B 股</td>
+            <td><b>中性，僅作輔助觀察</b></td>
+            <td>A 股情緒、匯率、折價修復。</td>
+            <td>流動性不足、價格訊號代表性有限。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="warn">
+      <h2>五、操作與風控建議</h2>
+      <ul>
+        <li><b>不要只看指數漲幅：</b>台、韓今年高度集中於半導體；若龍頭修正，指數會比等權市場更脆弱。</li>
+        <li><b>兩個月內以「回檔分批」優於「一次追高」：</b>台、韓、日短線累積漲幅大，適合等待 5 日、20 日均線附近的風險報酬改善。</li>
+        <li><b>港股與 A 股看政策確認：</b>若沒有新一輪刺激或企業獲利上修，較可能維持區間震盪。</li>
+        <li><b>關鍵監測清單：</b>美股 AI 財報、Fed/BOJ 利率訊號、油價與中東局勢、美元與人民幣、外資流向、半導體庫存週期。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>資料來源摘錄</h2>
+      <ul>
+        <li>TWSE / Focus Taiwan：TAIEX 2025 年底與 2026-04-24 收盤、台積電驅動因素。</li>
+        <li>Trading Economics / Investing.com / Yahoo Finance：各主要指數 2026-04-24 附近報價。</li>
+        <li>Reuters、FT、Barron's、MarketWatch、SCMP、RTHK：日股、港股、中國科技與政策、台積電資金面與 AI 主題背景。</li>
+      </ul>
+    </section>
+
+    <footer>
+      免責聲明：本文件僅供研究與決策參考，不構成任何金融商品之推薦、招攬或投資建議。實際投資前應再確認即時報價、成分股權重、匯率與自身風險承受度。
+    </footer>
+  </main>
+</body>
+</html>
