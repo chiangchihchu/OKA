@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>台股、台積電、0050、00981A 今年以來比較與兩個月評估</title>
+<style>
+:root {
+  --bg:#f5f7fb; --card:#fff; --ink:#0f172a; --muted:#64748b; --line:#e2e8f0;
+  --blue:#2563eb; --red:#dc2626; --green:#16a34a; --purple:#7c3aed; --amber:#92400e;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;
+  line-height:1.65;
+}
+.wrap { max-width:1120px; margin:0 auto; padding:32px 18px 56px; }
+header {
+  color:#fff; padding:32px; border-radius:24px;
+  background:linear-gradient(135deg,#0f172a,#1e40af 55%,#7c3aed);
+  box-shadow:0 20px 50px rgba(15,23,42,.18);
+}
+h1 { margin:0 0 10px; font-size:30px; }
+h2 { margin:0 0 14px; font-size:22px; }
+h3 { margin:18px 0 8px; font-size:17px; }
+p { margin:8px 0; }
+.note { margin-top:14px; padding:12px 14px; border-radius:14px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.28); }
+section { margin-top:22px; background:var(--card); border:1px solid var(--line); border-radius:20px; padding:24px; box-shadow:0 12px 28px rgba(15,23,42,.06); }
+.chart { overflow:auto; border:1px solid var(--line); border-radius:18px; background:#fff; padding:10px; }
+.grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.card { border:1px solid var(--line); border-radius:16px; padding:15px; background:#fbfdff; }
+.card b { display:block; color:var(--muted); font-size:13px; }
+.big { font-size:24px; font-weight:850; margin-top:4px; }
+.blue { color:var(--blue); } .red { color:var(--red); } .green { color:var(--green); } .purple { color:var(--purple); }
+table { width:100%; border-collapse:collapse; }
+th,td { padding:11px 10px; border-bottom:1px solid var(--line); vertical-align:top; font-size:14px; }
+th { text-align:left; background:#f1f5f9; }
+tr:last-child td { border-bottom:0; }
+.tag { display:inline-block; padding:3px 9px; margin:2px 4px 2px 0; border-radius:999px; background:#eef2ff; color:#3730a3; font-size:12px; }
+.warn { background:#fffbeb; border-color:#fde68a; color:var(--amber); }
+ul { margin:8px 0 0 20px; padding:0; }
+li { margin:4px 0; }
+.footer { color:var(--muted); font-size:13px; }
+@media(max-width:900px) { .grid { grid-template-columns:1fr 1fr; } header { padding:24px; } }
+@media(max-width:620px) { .grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+<header>
+  <h1>台股、台積電、0050、00981A：今年以來變化、上漲力量與兩個月評估</h1>
+  <p>基準日：2026-04-24 收盤；趨勢圖區間：2026-03-25～2026-04-24 共同可得交易日。</p>
+  <div class="note">00981A 為主動式 ETF，2025/05/27 掛牌；今年以來以 Goodinfo 揭示「去年封關 16.91 → 4/24 27.80」計算。圖表為研究整理，不構成投資建議。</div>
+</header>
+
+<section>
+  <h2>一、今年以來漲幅比較</h2>
+  <div class="grid">
+    <div class="card"><b>台股加權</b><div class="big blue">+34.4%</div><p>28,963.60 → 38,932.40</p></div>
+    <div class="card"><b>台積電</b><div class="big red">+41.0%</div><p>1,550 → 2,185</p></div>
+    <div class="card"><b>0050</b><div class="big green">+37.1%</div><p>65.60 → 89.95</p></div>
+    <div class="card"><b>00981A</b><div class="big purple">+64.4%</div><p>16.91 → 27.80</p></div>
+  </div>
+  <div class="chart" style="margin-top:16px;"><svg viewBox="0 0 980 360" role="img" aria-label="今年以來漲幅比較柱狀圖">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<line x1="70" y1="305.0" x2="950" y2="305.0" stroke="#e5e7eb"/>
+<text x="60" y="309.0" text-anchor="end" font-size="12" fill="#64748b">0%</text>
+<line x1="70" y1="249.3" x2="950" y2="249.3" stroke="#e5e7eb"/>
+<text x="60" y="253.3" text-anchor="end" font-size="12" fill="#64748b">15%</text>
+<line x1="70" y1="193.6" x2="950" y2="193.6" stroke="#e5e7eb"/>
+<text x="60" y="197.6" text-anchor="end" font-size="12" fill="#64748b">30%</text>
+<line x1="70" y1="137.9" x2="950" y2="137.9" stroke="#e5e7eb"/>
+<text x="60" y="141.9" text-anchor="end" font-size="12" fill="#64748b">45%</text>
+<line x1="70" y1="82.2" x2="950" y2="82.2" stroke="#e5e7eb"/>
+<text x="60" y="86.2" text-anchor="end" font-size="12" fill="#64748b">60%</text>
+<rect x="119.5" y="177.2" width="121.0" height="127.8" rx="12" fill="#2563eb"/>
+<text x="180.0" y="169.2" text-anchor="middle" font-size="15" font-weight="800" fill="#2563eb">+34.4%</text>
+<text x="180.0" y="332" text-anchor="middle" font-size="14" fill="#334155">台股加權</text>
+<text x="180.0" y="350" text-anchor="middle" font-size="11" fill="#64748b">28,963.60 → 38,932.40</text>
+<rect x="339.5" y="152.9" width="121.0" height="152.1" rx="12" fill="#dc2626"/>
+<text x="400.0" y="144.9" text-anchor="middle" font-size="15" font-weight="800" fill="#dc2626">+41.0%</text>
+<text x="400.0" y="332" text-anchor="middle" font-size="14" fill="#334155">台積電</text>
+<text x="400.0" y="350" text-anchor="middle" font-size="11" fill="#64748b">1,550.00 → 2,185.00</text>
+<rect x="559.5" y="167.2" width="121.0" height="137.8" rx="12" fill="#16a34a"/>
+<text x="620.0" y="159.2" text-anchor="middle" font-size="15" font-weight="800" fill="#16a34a">+37.1%</text>
+<text x="620.0" y="332" text-anchor="middle" font-size="14" fill="#334155">0050</text>
+<text x="620.0" y="350" text-anchor="middle" font-size="11" fill="#64748b">65.60 → 89.95</text>
+<rect x="779.5" y="65.9" width="121.0" height="239.1" rx="12" fill="#7c3aed"/>
+<text x="840.0" y="57.9" text-anchor="middle" font-size="15" font-weight="800" fill="#7c3aed">+64.4%</text>
+<text x="840.0" y="332" text-anchor="middle" font-size="14" fill="#334155">00981A</text>
+<text x="840.0" y="350" text-anchor="middle" font-size="11" fill="#64748b">16.91 → 27.80</text>
+</svg></div>
+  <p class="footer">判讀：00981A 年初至今漲幅最高，反映其主動式持股集中在 AI 伺服器、PCB、散熱、電子零組件等強勢族群；台積電漲幅高於大盤，是台股與 0050 的核心推力。</p>
+</section>
+
+<section>
+  <h2>二、最後開盤日前的近一個月趨勢圖</h2>
+  <div class="chart"><svg viewBox="0 0 980 430" role="img" aria-label="近一個月標準化趨勢圖">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<line x1="60" y1="349.3" x2="956" y2="349.3" stroke="#e5e7eb" stroke-width="1"/>
+<text x="50" y="353.3" text-anchor="end" font-size="12" fill="#64748b">95</text>
+<line x1="60" y1="310.1" x2="956" y2="310.1" stroke="#e5e7eb" stroke-width="1"/>
+<text x="50" y="314.1" text-anchor="end" font-size="12" fill="#64748b">100</text>
+<line x1="60" y1="270.9" x2="956" y2="270.9" stroke="#e5e7eb" stroke-width="1"/>
+<text x="50" y="274.9" text-anchor="end" font-size="12" fill="#64748b">105</text>
+<line x1="60" y1="231.7" x2="956" y2="231.7" stroke="#e5e7eb" stroke-width="1"/>
+<text x="50" y="235.7" text-anchor="end" font-size="12" fill="#64748b">110</text>
+<line x1="60" y1="192.5" x2="956" y2="192.5" stroke="#e5e7eb" stroke-width="1"/>
+<text x="50" y="196.5" text-anchor="end" font-size="12" fill="#64748b">115</text>
+<line x1="60" y1="153.2" x2="956" y2="153.2" stroke="#e5e7eb" stroke-width="1"/>
+<text x="50" y="157.2" text-anchor="end" font-size="12" fill="#64748b">120</text>
+<line x1="60" y1="114.0" x2="956" y2="114.0" stroke="#e5e7eb" stroke-width="1"/>
+<text x="50" y="118.0" text-anchor="end" font-size="12" fill="#64748b">125</text>
+<line x1="60" y1="74.8" x2="956" y2="74.8" stroke="#e5e7eb" stroke-width="1"/>
+<text x="50" y="78.8" text-anchor="end" font-size="12" fill="#64748b">130</text>
+<line x1="60" y1="35.6" x2="956" y2="35.6" stroke="#e5e7eb" stroke-width="1"/>
+<text x="50" y="39.6" text-anchor="end" font-size="12" fill="#64748b">135</text>
+<line x1="60.0" y1="378" x2="60.0" y2="383" stroke="#94a3b8"/>
+<text x="60.0" y="408" text-anchor="middle" font-size="12" fill="#64748b">03/25</text>
+<line x1="239.2" y1="378" x2="239.2" y2="383" stroke="#94a3b8"/>
+<text x="239.2" y="408" text-anchor="middle" font-size="12" fill="#64748b">03/31</text>
+<line x1="418.4" y1="378" x2="418.4" y2="383" stroke="#94a3b8"/>
+<text x="418.4" y="408" text-anchor="middle" font-size="12" fill="#64748b">04/08</text>
+<line x1="597.6" y1="378" x2="597.6" y2="383" stroke="#94a3b8"/>
+<text x="597.6" y="408" text-anchor="middle" font-size="12" fill="#64748b">04/14</text>
+<line x1="776.8" y1="378" x2="776.8" y2="383" stroke="#94a3b8"/>
+<text x="776.8" y="408" text-anchor="middle" font-size="12" fill="#64748b">04/20</text>
+<line x1="956.0" y1="378" x2="956.0" y2="383" stroke="#94a3b8"/>
+<text x="956.0" y="408" text-anchor="middle" font-size="12" fill="#64748b">04/24</text>
+<text x="60" y="20" font-size="14" fill="#334155">標準化指數：2026/03/25 = 100</text>
+<polyline points="60.0,310.1 104.8,312.5 149.6,317.7 194.4,331.7 239.2,350.3 284.0,316.3 328.8,330.4 373.6,315.0 418.4,279.1 463.2,276.7 508.0,263.7 552.8,262.8 597.6,243.1 642.4,233.1 687.2,223.5 732.0,231.2 776.8,227.5 821.6,212.4 866.4,206.0 911.2,209.8 956.0,181.3" fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="956.0" cy="181.3" r="4" fill="#2563eb"/>
+<text x="964.0" y="185.3" font-size="13" fill="#2563eb" font-weight="700">台股加權 116.4</text>
+<polyline points="60.0,310.1 104.8,312.2 149.6,320.7 194.4,337.7 239.2,346.2 284.0,305.8 328.8,325.0 373.6,303.7 418.4,265.5 463.2,263.3 508.0,244.2 552.8,248.5 597.6,220.8 642.4,210.2 687.2,208.1 732.0,231.5 776.8,233.6 821.6,223.0 866.4,223.0 911.2,210.2 956.0,165.6" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="956.0" cy="165.6" r="4" fill="#dc2626"/>
+<text x="964.0" y="169.6" font-size="13" fill="#dc2626" font-weight="700">台積電 118.4</text>
+<polyline points="60.0,310.1 104.8,314.2 149.6,322.4 194.4,333.8 239.2,349.7 284.0,317.8 328.8,333.2 373.6,319.3 418.4,279.2 463.2,279.7 508.0,263.3 552.8,264.8 597.6,239.1 642.4,228.3 687.2,219.5 732.0,228.3 776.8,224.2 821.6,209.2 866.4,205.6 911.2,205.6 956.0,168.6" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="956.0" cy="168.6" r="4" fill="#16a34a"/>
+<text x="964.0" y="172.6" font-size="13" fill="#16a34a" font-weight="700">0050 118.0</text>
+<polyline points="60.0,310.1 104.8,308.2 149.6,311.2 194.4,325.9 239.2,362.3 284.0,318.0 328.8,334.5 373.6,315.0 418.4,260.1 463.2,245.8 508.0,225.2 552.8,228.9 597.6,206.8 642.4,181.2 687.2,152.3 732.0,151.1 776.8,118.1 821.6,102.3 866.4,81.6 911.2,94.0 956.0,49.7" fill="none" stroke="#7c3aed" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="956.0" cy="49.7" r="4" fill="#7c3aed"/>
+<text x="964.0" y="53.7" font-size="13" fill="#7c3aed" font-weight="700">00981A 133.2</text>
+<line x1="60" y1="422" x2="84" y2="422" stroke="#2563eb" stroke-width="4"/>
+<text x="92" y="426" font-size="13" fill="#334155">台股加權</text>
+<line x1="210" y1="422" x2="234" y2="422" stroke="#dc2626" stroke-width="4"/>
+<text x="242" y="426" font-size="13" fill="#334155">台積電</text>
+<line x1="360" y1="422" x2="384" y2="422" stroke="#16a34a" stroke-width="4"/>
+<text x="392" y="426" font-size="13" fill="#334155">0050</text>
+<line x1="510" y1="422" x2="534" y2="422" stroke="#7c3aed" stroke-width="4"/>
+<text x="542" y="426" font-size="13" fill="#334155">00981A</text>
+</svg></div>
+  <p class="footer">圖中以 2026/03/25 = 100 標準化，方便比較不同價格單位的相對走勢。4/24 最後收盤：台股 38,932.40、台積電 2,185、0050 89.95、00981A 27.80。</p>
+</section>
+
+<section>
+  <h2>三、主要上漲力量拆解</h2>
+  <table>
+    <thead><tr><th>標的</th><th>核心上漲力量</th><th>結構特徵</th><th>目前風險</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>台股加權</b></td>
+        <td><span class="tag">AI 資本支出</span><span class="tag">半導體權值股</span><span class="tag">外資回流</span></td>
+        <td>指數上漲高度集中於台積電、AI 伺服器與電子權值股，屬「科技集中型牛市」。</td>
+        <td>若美股 AI 股、半導體設備或 HBM 預期降溫，台股震幅會被放大。</td>
+      </tr>
+      <tr>
+        <td><b>台積電</b></td>
+        <td><span class="tag">先進製程</span><span class="tag">CoWoS/AI 晶片</span><span class="tag">獲利上修</span></td>
+        <td>4/24 收 2,185 元並創高；Goodinfo 顯示 2026 年截至 4/24 漲幅約 41%。</td>
+        <td>估值已反映高度成長預期；若客戶砍單、毛利率或資本支出訊號轉弱，容易出現快速修正。</td>
+      </tr>
+      <tr>
+        <td><b>0050</b></td>
+        <td><span class="tag">台積電高權重</span><span class="tag">大型權值股</span><span class="tag">ETF 資金</span></td>
+        <td>比大盤更偏向大型權值股，受台積電與電子權值牽動；今年以來至 4/24 約 +37.1%。</td>
+        <td>分散程度優於單壓台積電，但仍非真正均衡分散；科技權值修正時回檔壓力仍大。</td>
+      </tr>
+      <tr>
+        <td><b>00981A</b></td>
+        <td><span class="tag">主動選股</span><span class="tag">電子零組件</span><span class="tag">AI 供應鏈</span><span class="tag">題材動能</span></td>
+        <td>Goodinfo 揭示持股含台積電、台光電、台達電、奇鋐、健策、智邦、金像電等；電子零組件與半導體合計權重高。</td>
+        <td>漲幅最大也代表波動最大；持股偏成長與題材，若市場轉向防禦或高股息，短線可能落後。</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>四、未來兩個月評估</h2>
+  <table>
+    <thead><tr><th>標的</th><th>兩個月看法</th><th>上行情境</th><th>下行情境 / 風控</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>台股加權</b></td>
+        <td>偏多但高檔震盪機率升高。</td>
+        <td>美股 AI 財報續強、外資續買、台幣穩定，指數有機會沿 20 日線上行。</td>
+        <td>若跌破短期均線且量增，需防 5%～8% 技術修正。</td>
+      </tr>
+      <tr>
+        <td><b>台積電</b></td>
+        <td>趨勢最強，但不宜忽略估值與集中風險。</td>
+        <td>AI 晶片、先進封裝與先進製程需求續強，股價仍可能帶動台股創高。</td>
+        <td>可用分批、停利區間或以 0050 分散；避免在單日急漲後一次追滿。</td>
+      </tr>
+      <tr>
+        <td><b>0050</b></td>
+        <td>相對穩健的台股核心配置。</td>
+        <td>台積電與大型電子股續強時，0050 可跟上大盤主升段。</td>
+        <td>若想降低波動，可分批或搭配非科技/債券/現金部位。</td>
+      </tr>
+      <tr>
+        <td><b>00981A</b></td>
+        <td>攻擊性最強，適合作為衛星部位而非全部核心。</td>
+        <td>AI 供應鏈、PCB、散熱、電子零組件延續輪動，可能繼續跑贏 0050。</td>
+        <td>若題材降溫或資金轉向價值/高股息，回檔幅度可能高於 0050；建議設定部位上限與停損/再平衡規則。</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="warn">
+  <h2>五、可執行配置觀察</h2>
+  <ul>
+    <li><b>核心/衛星：</b>0050 可作核心；台積電與 00981A 偏衛星或加碼部位。</li>
+    <li><b>追高控管：</b>台積電、00981A 近月漲幅大，兩個月內建議用「回檔分批」而非一次追高。</li>
+    <li><b>監控指標：</b>美股 AI 龍頭財報、TSMC 月營收與法說、台幣匯率、外資買賣超、00981A 折溢價與融資餘額。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>資料來源與限制</h2>
+  <ul>
+    <li>台股加權：Investing.com 歷史資料，4/24 收 38,932.40，近月日資料。</li>
+    <li>台積電、0050：鉅亨網歷史行情與 Goodinfo 年度統計。</li>
+    <li>00981A：Goodinfo 個股概況、CMoney/玩股網 ETF 折溢價與淨值資料。</li>
+    <li>限制：此版本未直接串接即時交易 API；圖表以公開頁面可取得資料重建，盤後更新或資料商修正可能造成細微差異。</li>
+  </ul>
+</section>
+</main>
+</body>
+</html>
