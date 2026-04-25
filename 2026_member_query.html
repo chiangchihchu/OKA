@@ -1,81 +1,425 @@
-
-<!DOCTYPE html>
-<html lang="zh-TW">
+<!doctype html>
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 桃園雙連長跑協會會員查詢</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: #f8f9fa; color: #333; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); width: 100%; max-width: 600px; }
-        h1 { font-size: 1.5rem; color: #2c3e50; text-align: center; margin-bottom: 20px; }
-        .search-box { position: relative; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; border: 1px solid #dee2e6; border-radius: 6px; box-sizing: border-box; font-size: 1rem; outline: none; transition: border-color 0.2s; }
-        input:focus { border-color: #007bff; }
-        .disclaimer { font-size: 0.8rem; color: #6c757d; margin-top: 10px; line-height: 1.4; }
-        #results { margin-top: 20px; width: 100%; }
-        .member-card { border: 1px solid #e9ecef; border-radius: 6px; padding: 15px; margin-bottom: 10px; background-color: #fff; }
-        .member-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f1f1; padding-bottom: 8px; margin-bottom: 8px; }
-        .name { font-weight: bold; font-size: 1.1rem; color: #007bff; }
-        .group { font-size: 0.9rem; color: #6c757d; background: #f1f1f1; padding: 2px 8px; border-radius: 4px; }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.9rem; }
-        .label { color: #6c757d; }
-        .value { color: #212529; font-weight: 500; }
-        .no-result { text-align: center; color: #dc3545; padding: 20px; }
-        .tip { text-align: center; color: #6c757d; padding: 20px; }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>會員會籍查詢系統｜2025 桃園雙連長跑協會</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #182033;
+      --muted: #667085;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --danger-bg: #fff1f2;
+      --danger-border: #fda4af;
+      --danger-text: #9f1239;
+      --ok-bg: #ecfdf3;
+      --ok-border: #86efac;
+      --ok-text: #166534;
+      --warn-bg: #fffbeb;
+      --warn-border: #fcd34d;
+      --warn-text: #92400e;
+      --line: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background: radial-gradient(circle at top, #eaf2ff 0, var(--bg) 42%, #f8fafc 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    main {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 40px 0;
+    }
+    header {
+      margin-bottom: 24px;
+    }
+    .eyebrow {
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: .08em;
+      font-size: 14px;
+    }
+    h1 {
+      margin: 8px 0 10px;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.2;
+    }
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      max-width: 760px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 20px;
+      align-items: start;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: 0 18px 50px rgba(15, 23, 42, .08);
+      padding: 24px;
+    }
+    .alert {
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      border: 1px solid;
+    }
+    .alert strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+    .privacy {
+      background: var(--danger-bg);
+      border-color: var(--danger-border);
+      color: var(--danger-text);
+    }
+    .hint {
+      background: var(--warn-bg);
+      border-color: var(--warn-border);
+      color: var(--warn-text);
+    }
+    label {
+      display: block;
+      font-weight: 700;
+      margin: 20px 0 8px;
+    }
+    .search-row {
+      display: flex;
+      gap: 10px;
+    }
+    input {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 13px 14px;
+      font-size: 16px;
+      outline: none;
+    }
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
+    }
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 0 18px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #fff;
+      background: var(--primary);
+    }
+    button:hover { background: var(--primary-dark); }
+    button.secondary {
+      color: var(--text);
+      background: #e2e8f0;
+    }
+    button.secondary:hover { background: #cbd5e1; }
+    .result {
+      margin-top: 22px;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .found {
+      background: var(--ok-bg);
+      color: var(--ok-text);
+      border: 1px solid var(--ok-border);
+    }
+    .pending {
+      background: var(--warn-bg);
+      color: var(--warn-text);
+      border: 1px solid var(--warn-border);
+    }
+    .not-found {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      border: 1px solid var(--danger-border);
+    }
+    .member-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      margin: 12px 0;
+      background: #fff;
+    }
+    .member-name {
+      margin: 0 0 12px;
+      font-size: 24px;
+    }
+    .fields {
+      display: grid;
+      grid-template-columns: 140px minmax(0, 1fr);
+      gap: 9px 12px;
+    }
+    .field-label {
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .field-value {
+      overflow-wrap: anywhere;
+    }
+    .small {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 0;
+    }
+    .year-list {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .year-list li {
+      margin: 2px 0;
+    }
+    .side h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+    .side ul {
+      padding-left: 20px;
+      margin-bottom: 18px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      background: #f8fafc;
+    }
+    .stat b {
+      display: block;
+      font-size: 24px;
+    }
+    .stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    footer {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    @media (max-width: 860px) {
+      main { width: min(100% - 24px, 680px); padding: 24px 0; }
+      .grid { grid-template-columns: 1fr; }
+      .search-row { flex-direction: column; }
+      button { padding: 12px 16px; }
+      .fields { grid-template-columns: 112px minmax(0, 1fr); }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>2026 會員清單查詢</h1>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="請輸入姓名進行查詢..." oninput="search()">
+  <main>
+    <header>
+      <div class="eyebrow">MEMBER LOOKUP</div>
+      <h1>會員會籍查詢系統</h1>
+      <p class="subtitle">請以會員姓名至少兩個字進行比對。系統只顯示會籍確認所需資訊，並逐年列出 115 年與其他年度會員資格紀錄。</p>
+    </header>
+
+    <section class="grid">
+      <div class="card">
+        <div class="alert privacy">
+          <strong>個資法警示</strong>
+          本系統含可識別自然人之會員姓名與會籍資料，僅限授權人員基於會員管理目的使用。不得擅自複製、截圖、轉傳、公開、另作行銷或超出原蒐集目的之利用；若違反個人資料保護法及相關規範，使用者需自行承擔法律責任。
         </div>
-        <div id="results">
-            <div class="tip">請在上方輸入框輸入您的姓名。</div>
+
+        <div class="alert hint">
+          <strong>查詢規則</strong>
+          請輸入至少兩個字進行比對；系統會移除多餘空白並比對姓名中是否包含輸入文字。為避免誤認會員身分，請以顯示的完整姓名與原始名冊再次核對。
         </div>
-        <div class="disclaimer">
-            * 本系統僅供會員本人查詢會籍與繳費狀態。<br>
-            * 查詢結果僅包含姓名、組別、資格與職務，不顯示身分證字號與完整聯絡資訊，以符合《個人資料保護法》。<br>
-            * 若資料有誤，請洽各組組長。
+
+        <label for="memberName">會員姓名關鍵字</label>
+        <div class="search-row">
+          <input id="memberName" autocomplete="off" inputmode="text" placeholder="至少輸入兩個字，例如：小明">
+          <button id="searchBtn" type="button">查詢</button>
+          <button id="clearBtn" class="secondary" type="button">清除</button>
         </div>
-    </div>
 
-    <script>
-        const members = [{"id": "1", "group": "0800", "name": "王玉嬌", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "2", "group": "0800", "name": "陳秋雁", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "3", "group": "0800", "name": "江舜茹", "fee": "1000", "role": "理事", "status": "會員", "note": "第9、10屆組長"}, {"id": "4", "group": "0800", "name": "詹美淳", "fee": "1000", "role": "理事", "status": "會員", "note": ""}, {"id": "5", "group": "0800", "name": "鄧佳萍", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "6", "group": "0800", "name": "陳玫璇", "fee": "1000", "role": "副主委", "status": "會員", "note": ""}, {"id": "7", "group": "0800", "name": "楊雅婷", "fee": "1000", "role": "賽事報名主委", "status": "會員", "note": ""}, {"id": "8", "group": "0800", "name": "許靜儀", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "9", "group": "0800", "name": "江相芝", "fee": "1000", "role": "團練聯誼主委", "status": "會員", "note": ""}, {"id": "10", "group": "0800", "name": "張卉蓁", "fee": "1000", "role": "副主委", "status": "新會員", "note": ""}, {"id": "11", "group": "0800", "name": "朱志欽", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "12", "group": "0800", "name": "呂紹堅", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "13", "group": "0800", "name": "林大堂", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "14", "group": "0800", "name": "林鈴慈", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "15", "group": "0800", "name": "邱創裕", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "16", "group": "0800", "name": "柳嘉進", "fee": "1000", "role": "會員擴展主委", "status": "會員", "note": ""}, {"id": "17", "group": "0800", "name": "陳達宏", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "18", "group": "0800", "name": "劉自信", "fee": "500", "role": "", "status": "優惠會員", "note": ""}, {"id": "19", "group": "0800", "name": "沈煌棋", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "20", "group": "0800", "name": "謝孟學", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "21", "group": "0800", "name": "鄭瑞勇", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "22", "group": "0800", "name": "徐世憲", "fee": "1000", "role": "理事", "status": "會員", "note": ""}, {"id": "23", "group": "0800", "name": "黃世賢", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "24", "group": "0800", "name": "楊培棋", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "25", "group": "0800", "name": "謝延義", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "26", "group": "0800", "name": "鍾添仁", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "27", "group": "0800", "name": "何思琦", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "28", "group": "0800", "name": "吳榮熾", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "29", "group": "0800", "name": "徐長慶", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "30", "group": "0800", "name": "張進煌", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "31", "group": "0800", "name": "梁景鎮", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "32", "group": "0800", "name": "張中白", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "33", "group": "0800", "name": "張育旗", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "34", "group": "0800", "name": "陳政琮", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "35", "group": "0800", "name": "鍾明勳", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "36", "group": "0800", "name": "羅介暐", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "37", "group": "0800", "name": "姜禮渙", "fee": "1000", "role": "", "status": "會員", "note": "115年北勢轉0800"}, {"id": "38", "group": "0802", "name": "余文泰", "fee": "1000", "role": "", "status": "會員", "note": "115年北勢轉0800"}, {"id": "39", "group": "0800", "name": "莊國修", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "40", "group": "0800", "name": "許宗泰", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "41", "group": "0800", "name": "許惠明", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "42", "group": "0800", "name": "陳昭叡", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "43", "group": "0800", "name": "陳文淵", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "44", "group": "0800", "name": "陳皇儒", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "45", "group": "0800", "name": "施文堂", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "46", "group": "0800", "name": "楊淑娥", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "47", "group": "0800", "name": "謝漢興", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "48", "group": "0800", "name": "張明鈞", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "49", "group": "0800", "name": "薛政憲", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "50", "group": "0800", "name": "張洧豪", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "51", "group": "0800", "name": "李建和", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "52", "group": "0800", "name": "邱葉福", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "53", "group": "0800", "name": "陳廷立", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "54", "group": "0800", "name": "蔡明賢", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "55", "group": "0800", "name": "章仁懷", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "56", "group": "0800", "name": "陳廉聖", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "57", "group": "Livestrong", "name": "呂鳳梅", "fee": "500", "role": "", "status": "會員眷屬", "note": "黃旭耀"}, {"id": "58", "group": "Livestrong", "name": "胡肅敏", "fee": "1000", "role": "資訊編輯教練", "status": "會員", "note": ""}, {"id": "59", "group": "Livestrong", "name": "溫美容", "fee": "500", "role": "", "status": "會員眷屬", "note": "邱國桂"}, {"id": "60", "group": "Livestrong", "name": "吳逸婷", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "61", "group": "Livestrong", "name": "蕭雅文", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "62", "group": "Livestrong", "name": "魏苔芸", "fee": "1000", "role": "理事", "status": "會員", "note": "第10屆LV組長"}, {"id": "63", "group": "Livestrong", "name": "張勻榛", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "64", "group": "Livestrong", "name": "蘇柔伊", "fee": "", "role": "", "status": "會員眷屬", "note": "李俊良"}, {"id": "65", "group": "Livestrong", "name": "陳司恒", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "66", "group": "Livestrong", "name": "林繼洲", "fee": "500", "role": "資訊編輯教練", "status": "優惠會員", "note": ""}, {"id": "67", "group": "Livestrong", "name": "邱國桂", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "68", "group": "Livestrong", "name": "邱顯金", "fee": "1000", "role": "常務理事/賽事總幹事", "status": "會員", "note": ""}, {"id": "69", "group": "Livestrong", "name": "梁景潾", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "70", "group": "Livestrong", "name": "許朝文", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "71", "group": "Livestrong", "name": "陳天予", "fee": "1000", "role": "秘書長", "status": "會員", "note": ""}, {"id": "72", "group": "Livestrong", "name": "陳明山", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "73", "group": "Livestrong", "name": "吳禮青", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "74", "group": "Livestrong", "name": "陳振鈺", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "75", "group": "Livestrong", "name": "彭錦德", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "76", "group": "Livestrong", "name": "游龍俊", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "77", "group": "Livestrong", "name": "黃旭耀", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "78", "group": "Livestrong", "name": "黃耀輝", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "79", "group": "Livestrong", "name": "詹鍚銘", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "80", "group": "Livestrong", "name": "劉俊坤", "fee": "1000", "role": "副總幹事", "status": "會員", "note": ""}, {"id": "81", "group": "Livestrong", "name": "劉彥良", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "82", "group": "Livestrong", "name": "黃少鵬", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "83", "group": "Livestrong", "name": "程業灃", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "84", "group": "Livestrong", "name": "洪國明", "fee": "1000", "role": "家庭聯誼主委", "status": "會員", "note": ""}, {"id": "85", "group": "Livestrong", "name": "范姜坤燕", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "86", "group": "Livestrong", "name": "李俊良", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "87", "group": "Livestrong", "name": "吳承德", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "88", "group": "Livestrong", "name": "劉玉秀", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "89", "group": "Livestrong", "name": "葉宥暄", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "90", "group": "Livestrong", "name": "張文金", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "91", "group": "Livestrong", "name": "何信慶", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "92", "group": "北勢組", "name": "石英樺", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "93", "group": "北勢組", "name": "邱婉婷", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "94", "group": "北勢組", "name": "郭雅鐶", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "95", "group": "北勢組", "name": "彭吉英", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "96", "group": "北勢組", "name": "王妘菲", "fee": "1000", "role": "財務長", "status": "會員", "note": ""}, {"id": "97", "group": "北勢組", "name": "余田圳", "fee": "1000", "role": "理事", "status": "會員", "note": "第10屆組長"}, {"id": "98", "group": "北勢組", "name": "吳順興", "fee": "500", "role": "", "status": "優惠會員", "note": ""}, {"id": "99", "group": "北勢組", "name": "汪俊雄", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "100", "group": "北勢組", "name": "周有常", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "101", "group": "北勢組", "name": "周韋毅", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "102", "group": "北勢組", "name": "徐玉柏", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "103", "group": "北勢組", "name": "曾喜鈞", "fee": "", "role": "會長", "status": "終身會員", "note": ""}, {"id": "104", "group": "北勢組", "name": "葉志文", "fee": "1000", "role": "常務理事", "status": "會員", "note": ""}, {"id": "105", "group": "北勢組", "name": "郭啟銘", "fee": "1000", "role": "後補理事", "status": "會員", "note": ""}, {"id": "106", "group": "北勢組", "name": "陳昌隆", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "107", "group": "北勢組", "name": "邱康智", "fee": "1500", "role": "", "status": "新會員", "note": "115年新會員"}, {"id": "108", "group": "楊梅組 ", "name": "古珈穎", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "109", "group": "楊梅組 ", "name": "姜沁妤", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "110", "group": "楊梅組 ", "name": "梁美惠", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "111", "group": "楊梅組 ", "name": "陳秀貞", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "112", "group": "楊梅組 ", "name": "傅麗花", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "113", "group": "楊梅組 ", "name": "黃秀良", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "114", "group": "楊梅組 ", "name": "楊美玲", "fee": "", "role": " ", "status": "終身會員", "note": ""}, {"id": "115", "group": "楊梅組 ", "name": "羅秀菊", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "116", "group": "楊梅組 ", "name": "江支初", "fee": "", "role": "理事", "status": "終身會員", "note": ""}, {"id": "117", "group": "楊梅組 ", "name": "吳永敦", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "118", "group": "楊梅組 ", "name": "吳念湘", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "119", "group": "楊梅組 ", "name": "巫聖炫", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "120", "group": "楊梅組 ", "name": "沈奕辰", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "121", "group": "楊梅組 ", "name": "林俊宏", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "122", "group": "楊梅組 ", "name": "徐勝振", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "123", "group": "楊梅組 ", "name": "馮天佑", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "124", "group": "楊梅組 ", "name": "張業成", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "125", "group": "楊梅組 ", "name": "陳祈恩", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "126", "group": "楊梅組 ", "name": "曾映仁", "fee": "1000", "role": "資訊編輯主委", "status": "會員", "note": ""}, {"id": "127", "group": "楊梅組 ", "name": "游正治", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "128", "group": "楊梅組 ", "name": "游佳穆", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "129", "group": "楊梅組 ", "name": "馮建智", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "130", "group": "楊梅組 ", "name": "黃竹民", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "131", "group": "楊梅組 ", "name": "廖進忠", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "132", "group": "楊梅組 ", "name": "劉正宏", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "133", "group": "楊梅組 ", "name": "劉貞灝", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "134", "group": "楊梅組 ", "name": "蔡尚華", "fee": "1000", "role": "", "status": "會員", "note": ""}, {"id": "135", "group": "楊梅組 ", "name": "鍾世華", "fee": "", "role": "", "status": "終身會員", "note": ""}, {"id": "136", "group": "楊梅組 ", "name": "蘇雍賀", "fee": "", "role": "", "status": "終身會員", "note": ""}];
+        <div id="result" class="result" aria-live="polite">
+          <span class="status pending">等待查詢</span>
+          <p>請輸入至少兩個字後按「查詢」。</p>
+        </div>
+      </div>
 
-        function search() {
-            const query = document.getElementById('searchInput').value.trim();
-            const resultsDiv = document.getElementById('results');
-            
-            if (query.length < 2) {
-                resultsDiv.innerHTML = '<div class="tip">請輸入至少兩個字以開始查詢。</div>';
-                return;
-            }
+      <aside class="card side">
+        <h2>個資保護設計</h2>
+        <ul>
+          <li>至少輸入兩個字才進行比對。</li>
+          <li>不顯示會費、備註、眷屬關係等非必要欄位。</li>
+          <li>查詢結果僅供會籍確認，禁止另作其他用途。</li>
+        </ul>
+        <div class="stats">
+          <div class="stat"><b id="memberCount">0</b><span>可查詢姓名數</span></div>
+          <div class="stat"><b id="historyCount">0</b><span>含114年紀錄</span></div>
+        </div>
+      </aside>
+    </section>
 
-            const filtered = members.filter(m => m.name.includes(query));
+    <footer>
+      資料來源：上傳之 115 年桃園雙連長跑協會會員清單；其他年度資料依原工作表內容標示為 114 年。最後更新：2026-04-25。
+    </footer>
+  </main>
 
-            if (filtered.length === 0) {
-                resultsDiv.innerHTML = '<div class="no-result">查無資料，請確認姓名是否正確。</div>';
-                return;
-            }
+  <script>
+    const MEMBERS = [{"name": "何信慶", "group": "Livestrong", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "何思琦", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "0800"}]}, {"name": "余文泰", "group": "0802", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "余田圳", "group": "北勢組", "role": "理事", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "傅麗花", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "楊梅組"}]}, {"name": "劉俊坤", "group": "Livestrong", "role": "副總幹事", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "劉彥良", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "劉正宏", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "劉玉秀", "group": "Livestrong", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "劉自信", "group": "0800", "role": "", "qualification115": "優惠會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "0800"}]}, {"name": "劉貞灝", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "古珈穎", "group": "楊梅組", "role": "理事", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "吳念湘", "group": "楊梅組", "role": "資訊編輯主委", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "吳承德", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "Livestrong"}]}, {"name": "吳榮熾", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "吳永敦", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "吳禮青", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "吳逸婷", "group": "Livestrong", "role": "理事", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "Livestrong"}]}, {"name": "吳順興", "group": "北勢組", "role": "", "qualification115": "優惠會員", "source": "115年主表", "otherYears": []}, {"name": "呂啟臣", "group": "0800", "role": "", "qualification115": "會員", "source": "115年第二姓名欄", "otherYears": []}, {"name": "呂紹堅", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "呂鳳梅", "group": "Livestrong", "role": "", "qualification115": "會員眷屬", "source": "115年主表", "otherYears": []}, {"name": "周有常", "group": "北勢組", "role": "會長", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "周韋毅", "group": "北勢組", "role": "常務理事", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "姜沁妤", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "姜禮渙", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "0800"}]}, {"name": "巫聖炫", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "廖進忠", "group": "楊梅組", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "張中白", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "張勻榛", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "張卉蓁", "group": "0800", "role": "副主委", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "張文金", "group": "Livestrong", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "Livestrong"}]}, {"name": "張明鈞", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "張業成", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "張洧豪", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "張育旗", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "張進煌", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "彭吉英", "group": "北勢組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "北勢組"}]}, {"name": "彭錦德", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "徐世憲", "group": "0800", "role": "理事", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "徐信琦", "group": "Livestrong", "role": "", "qualification115": "新會員", "source": "115年第二姓名欄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "徐勝振", "group": "楊梅組", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "徐敏娥", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "徐玉柏", "group": "北勢組", "role": "後補理事", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "徐長慶", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "施文堂", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "曾喜彥", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年第二姓名欄", "otherYears": []}, {"name": "曾喜鈞", "group": "北勢組", "role": "會長", "qualification115": "終身會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "北勢組"}]}, {"name": "曾映仁", "group": "楊梅組", "role": "資訊編輯主委", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "曾智鴻", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "朱志欽", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "李俊良", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "李元正", "group": "", "role": "", "qualification115": "", "source": "115年第二姓名欄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "李建和", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "林俊宏", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "林大堂", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "林炯煌", "group": "Livestrong", "role": "資訊編輯教練", "qualification115": "會員", "source": "115年第二姓名欄", "otherYears": []}, {"name": "林繼洲", "group": "Livestrong", "role": "資訊編輯教練", "qualification115": "優惠會員", "source": "115年主表", "otherYears": []}, {"name": "林鈴慈", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "柳嘉進", "group": "0800", "role": "會員擴展主委", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "梁景潾", "group": "Livestrong", "role": "秘書長", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "梁景鎮", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "梁美惠", "group": "楊梅組", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "楊梅組"}]}, {"name": "楊培棋", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "楊淑娥", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "楊美玲", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "楊雅婷", "group": "0800", "role": "賽事報名主委", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "江支初", "group": "楊梅組", "role": "理事", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "江相芝", "group": "0800", "role": "團練聯誼主委", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "0800"}]}, {"name": "江舜茹", "group": "0800", "role": "理事", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "0800"}]}, {"name": "汪俊雄", "group": "北勢組", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "沈奕辰", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "沈煌棋", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "洪國明", "group": "Livestrong", "role": "家庭聯誼主委", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "Livestrong"}]}, {"name": "游佳穆", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "游正治", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "游龍俊", "group": "Livestrong", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "溫美容", "group": "Livestrong", "role": "", "qualification115": "會員眷屬", "source": "115年主表", "otherYears": []}, {"name": "潘怡均", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "潘怡萍", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "王妘菲", "group": "北勢組", "role": "財務長", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "王捷垠", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "王玉嬌", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "石英樺", "group": "北勢組", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "程中洲", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "程品睿", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "程業灃", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "Livestrong"}]}, {"name": "章仁懷", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "羅介暐", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "羅秀菊", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "胡肅敏", "group": "Livestrong", "role": "資訊編輯教練", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "Livestrong"}]}, {"name": "范姜坤燕", "group": "Livestrong", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "莊國修", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "葉宥暄", "group": "Livestrong", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "葉建德", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "葉志文", "group": "北勢組", "role": "常務理事", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "北勢組"}]}, {"name": "葉曜禎", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "葉錦龍", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年第二姓名欄", "otherYears": []}, {"name": "蔡尚華", "group": "楊梅組", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "蔡明賢", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "蕭雅文", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "薛政憲", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "蘇柔伊", "group": "Livestrong", "role": "資訊編輯教練", "qualification115": "會員眷屬", "source": "115年主表", "otherYears": []}, {"name": "蘇雍賀", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "許宗泰", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "許思筑", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年第二姓名欄", "otherYears": []}, {"name": "許惠明", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "許朝文", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "許靜儀", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "詹哲銘", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "詹美淳", "group": "0800", "role": "理事", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "0800"}]}, {"name": "詹錫銘", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "詹鍚銘", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "謝佳全", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "謝孟學", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "0800"}]}, {"name": "謝延義", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "謝漢興", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "賴珮玲", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "邱創裕", "group": "0800", "role": "會員擴展主委", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "邱國桂", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "邱婉婷", "group": "北勢組", "role": "財務長", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "邱康智", "group": "北勢組", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "邱葉福", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "邱顯金", "group": "Livestrong", "role": "常務理事/賽事總幹事", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "Livestrong"}]}, {"name": "郭啟銘", "group": "北勢組", "role": "後補理事", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "北勢組"}]}, {"name": "郭紹成", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "郭雅鐶", "group": "北勢組", "role": "理事", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "鄒奇君", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "鄧佳萍", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "0800"}]}, {"name": "鄭瑞勇", "group": "0800", "role": "理事", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "鍾世華", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "鍾明勳", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "鍾武雄", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "鍾添仁", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "陳光陽", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "陳司恆", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "陳司恒", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "陳天予", "group": "Livestrong", "role": "秘書長", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "陳廉聖", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "陳廷立", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "陳振鈺", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "陳政琮", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "0800"}]}, {"name": "陳文忠", "group": "", "role": "", "qualification115": "", "source": "其他年度紀錄", "otherYears": [{"label": "其他年度紀錄", "qualification": "非會員"}]}, {"name": "陳文淵", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "陳昌隆", "group": "北勢組", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "北勢組"}]}, {"name": "陳明山", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "陳昭叡", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": []}, {"name": "陳武傑", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年第二姓名欄", "otherYears": []}, {"name": "陳玫璇", "group": "0800", "role": "副主委", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "0800"}]}, {"name": "陳皇儒", "group": "0800", "role": "", "qualification115": "新會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "0800"}]}, {"name": "陳祈恩", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "陳秀貞", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "陳秋雁", "group": "0800", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "陳達宏", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "馮天佑", "group": "楊梅組", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "楊梅組"}]}, {"name": "馮建智", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "魏苔芸", "group": "Livestrong", "role": "理事", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "黃世賢", "group": "0800", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "黃少鵬", "group": "Livestrong", "role": "家庭聯誼主委", "qualification115": "會員", "source": "115年主表", "otherYears": [{"label": "其他年度紀錄", "qualification": "Livestrong"}]}, {"name": "黃旭耀", "group": "Livestrong", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "黃智奕", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年第二姓名欄", "otherYears": []}, {"name": "黃秀良", "group": "楊梅組", "role": "", "qualification115": "終身會員", "source": "115年主表", "otherYears": []}, {"name": "黃竹民", "group": "楊梅組", "role": "", "qualification115": "會員", "source": "115年主表", "otherYears": []}, {"name": "黃耀輝", "group": "Livestrong", "role": "副總幹事", "qualification115": "會員", "source": "115年主表", "otherYears": []}];
 
-            resultsDiv.innerHTML = filtered.map(m => `
-                <div class="member-card">
-                    <div class="member-header">
-                        <span class="name">${m.name}</span>
-                        <span class="group">${m.group}</span>
-                    </div>
-                    <div class="info-grid">
-                        <div><span class="label">編號：</span><span class="value">${m.id}</span></div>
-                        <div><span class="label">資格：</span><span class="value">${m.status}</span></div>
-                        <div><span class="label">職務：</span><span class="value">${m.role || '一般會員'}</span></div>
-                        <div><span class="label">繳費：</span><span class="value">${m.fee ? m.fee + ' 元' : '已繳/免繳'}</span></div>
-                        ${m.note ? `<div style="grid-column: span 2;"><span class="label">備註：</span><span class="value">${m.note}</span></div>` : ''}
-                    </div>
-                </div>
-            `).join('');
+    const normalizeName = (value) => {
+      return String(value || "")
+        .replace(/[\u3000\s]+/g, "")
+        .trim();
+    };
+
+    const escapeHtml = (value) => {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#39;"
+      }[char]));
+    };
+
+    const showWaiting = () => {
+      document.getElementById("result").innerHTML = `
+        <span class="status pending">等待查詢</span>
+        <p>請輸入至少兩個字後按「查詢」。</p>
+      `;
+    };
+
+    const hasActiveQualification = (value) => {
+      const text = String(value || "").trim();
+      return text && text !== "非會員" && text !== "未列於115年名冊";
+    };
+
+    const renderMemberYears = (member) => {
+      const years = [];
+      if (hasActiveQualification(member.qualification115)) {
+        years.push({
+          year: "115年",
+          qualification: member.qualification115,
+          group: member.group || "未填"
+        });
+      }
+
+      if (Array.isArray(member.otherYears)) {
+        member.otherYears.forEach(item => {
+          const rawQualification = String(item.qualification || "").trim();
+          const qualification = rawQualification && rawQualification !== "非會員" ? rawQualification : "會員資格紀錄";
+          years.push({
+            year: item.year || "114年",
+            qualification,
+            group: qualification === "會員資格紀錄" ? "未標示" : qualification
+          });
+        });
+      }
+
+      const unique = [];
+      const seen = new Set();
+      years.forEach(item => {
+        const key = item.year + "|" + item.qualification + "|" + item.group;
+        if (!seen.has(key)) {
+          seen.add(key);
+          unique.push(item);
         }
-    </script>
+      });
+
+      if (!unique.length) return "未查到具有會員資格的年度";
+
+      return `<ul class="year-list">${unique.map(item => {
+        const detail = item.group && item.group !== item.qualification
+          ? `${escapeHtml(item.qualification)}，組別：${escapeHtml(item.group)}`
+          : escapeHtml(item.qualification);
+        return `<li><strong>${escapeHtml(item.year)}</strong>：${detail}</li>`;
+      }).join("")}</ul>`;
+    };
+
+    const renderMember = (member) => {
+      const currentQualification = member.qualification115 || "未列於115年名冊";
+      const group = member.group || "未填";
+      const role = member.role || "無";
+      return `
+        <article class="member-card">
+          <h2 class="member-name">${escapeHtml(member.name)}</h2>
+          <div class="fields">
+            <div class="field-label">115年組別</div><div class="field-value">${escapeHtml(group)}</div>
+            <div class="field-label">115年資格</div><div class="field-value">${escapeHtml(currentQualification)}</div>
+            <div class="field-label">當屆職務</div><div class="field-value">${escapeHtml(role)}</div>
+          </div>
+        </article>
+      `;
+    };
+
+    const searchMember = () => {
+      const raw = document.getElementById("memberName").value;
+      const key = normalizeName(raw);
+      const result = document.getElementById("result");
+
+      if (!key) {
+        showWaiting();
+        return;
+      }
+
+      if (key.length < 2) {
+        result.innerHTML = `
+          <span class="status pending">請增加查詢字數</span>
+          <p>為降低個資揭露風險，請至少輸入兩個字後再查詢。</p>
+        `;
+        return;
+      }
+
+      const matches = MEMBERS.filter(member => normalizeName(member.name).includes(key));
+
+      if (!matches.length) {
+        result.innerHTML = `
+          <span class="status not-found">查無會籍資料</span>
+          <p>未查到姓名包含「${escapeHtml(raw)}」的會員資料。請確認姓名文字，或洽會籍管理人員複核。</p>
+        `;
+        return;
+      }
+
+      result.innerHTML = `
+        <span class="status found">查到 ${matches.length} 筆符合資料</span>
+        <p class="small">請逐筆確認完整姓名，避免同名、近似姓名或舊年度資料造成誤認。</p>
+        ${matches.map(renderMember).join("")}
+        <p class="small">本結果僅供會員會籍確認，不得作為其他目的使用。</p>
+      `;
+    };
+
+    document.getElementById("memberCount").textContent = MEMBERS.length;
+    document.getElementById("historyCount").textContent = MEMBERS.filter(m => Array.isArray(m.otherYears) && m.otherYears.length).length;
+    document.getElementById("searchBtn").addEventListener("click", searchMember);
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      document.getElementById("memberName").value = "";
+      document.getElementById("memberName").focus();
+      showWaiting();
+    });
+    document.getElementById("memberName").addEventListener("keydown", event => {
+      if (event.key === "Enter") searchMember();
+    });
+  </script>
 </body>
 </html>
