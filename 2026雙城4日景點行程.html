@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 吉隆坡 × 新加坡 4 日地鐵美食景點行程</title>
+  <style>
+    :root{
+      --blue:#0f6fb7;
+      --blue-2:#0b4f84;
+      --blue-soft:#e8f4ff;
+      --local-teal:#0f8f8a;
+      --local-gold:#d9a441;
+      --local-green:#1f8a5b;
+      --local-red:#b8322a;
+      --ink:#203040;
+      --muted:#5c6b7a;
+      --paper:#ffffff;
+      --bg:#f4f8fb;
+      --line:#d7e7f2;
+      --alert-red:#d71920;
+      --shadow:0 16px 40px rgba(20,70,110,.13);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(217,164,65,.18), transparent 25%),
+        radial-gradient(circle at 92% 18%, rgba(15,143,138,.14), transparent 26%),
+        linear-gradient(135deg, rgba(15,111,183,.06) 25%, transparent 25%) 0 0/28px 28px,
+        linear-gradient(225deg, rgba(31,138,91,.06) 25%, transparent 25%) 0 0/28px 28px,
+        var(--bg);
+      line-height:1.72;
+    }
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.14;
+      background-image:
+        repeating-linear-gradient(45deg, transparent 0 18px, rgba(11,79,132,.08) 18px 19px),
+        radial-gradient(circle at 30px 30px, rgba(217,164,65,.28) 0 2px, transparent 3px);
+      z-index:-1;
+    }
+    a{color:var(--blue-2);font-weight:800;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .hl-red{color:var(--alert-red);font-weight:900;}
+    .time{white-space:nowrap;}
+    .container{width:min(1180px,92vw);margin:0 auto}
+    header{
+      position:relative;
+      overflow:hidden;
+      color:white;
+      padding:48px 0 34px;
+      background:
+        linear-gradient(120deg, rgba(7,45,78,.96), rgba(15,111,183,.92), rgba(15,143,138,.9)),
+        radial-gradient(circle at 80% 20%, rgba(217,164,65,.55), transparent 22%);
+      box-shadow:0 14px 40px rgba(0,0,0,.18);
+    }
+    header:after{
+      content:"吉隆坡雙子星 × 新加坡魚尾獅 × 地鐵美食散策";
+      position:absolute;
+      right:-80px;
+      bottom:8px;
+      font-size:56px;
+      font-weight:900;
+      color:rgba(255,255,255,.08);
+      white-space:nowrap;
+      letter-spacing:3px;
+    }
+    .hero{position:relative;z-index:1}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);padding:8px 14px;border-radius:999px;font-weight:800}
+    h1{font-size:clamp(28px,4vw,52px);line-height:1.15;margin:18px 0 12px}
+    .hero-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:18px;align-items:stretch}
+    .hero-card{
+      background:rgba(255,255,255,.13);
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:var(--radius);
+      padding:18px;
+      backdrop-filter:blur(10px);
+    }
+    .hero-card strong{color:#fff1b8}
+    nav{
+      position:sticky;
+      top:0;
+      z-index:20;
+      background:rgba(255,255,255,.94);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line);
+      box-shadow:0 8px 24px rgba(30,70,100,.08);
+    }
+    .nav-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:12px 0}
+    .nav-btn{
+      border:0;
+      border-radius:16px;
+      padding:12px 10px;
+      color:#fff;
+      cursor:pointer;
+      font-weight:900;
+      background:linear-gradient(135deg,var(--blue),var(--local-teal));
+      box-shadow:0 8px 18px rgba(15,111,183,.18);
+      transition:.18s ease;
+    }
+    .nav-btn:hover,.nav-btn.active{transform:translateY(-2px);background:linear-gradient(135deg,var(--blue-2),var(--local-green))}
+    main{padding:28px 0 70px}
+    section{display:none}
+    section.active{display:block;animation:rise .35s ease}
+    @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin:18px 0 18px;
+      color:var(--blue-2);
+      font-size:clamp(23px,2.6vw,34px);
+      font-weight:950;
+    }
+    .section-title .mark{
+      width:44px;height:44px;border-radius:15px;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--local-gold),#ffe9a6);
+      color:#5c3900;
+      box-shadow:var(--shadow);
+    }
+    .grid{display:grid;gap:18px}
+    .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .card{
+      background:rgba(255,255,255,.94);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:20px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:6px;
+      background:linear-gradient(90deg,var(--blue),var(--local-teal),var(--local-gold));
+    }
+    .card h3,.card h4{margin:8px 0 8px;color:var(--blue-2);line-height:1.35}
+    .muted{color:var(--muted)}
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:5px 10px;
+      border-radius:999px;
+      background:var(--blue-soft);
+      color:var(--blue-2);
+      font-size:13px;
+      font-weight:900;
+      border:1px solid #c9e4f6;
+      margin:3px 4px 3px 0;
+    }
+    .badge.gold{background:#fff3cd;color:#7a5200;border-color:#f1d98c}
+    .badge.green{background:#e6f6ee;color:#0d6841;border-color:#bce6cf}
+    .badge.red{background:#ffe9e9;color:#a41418;border-color:#ffc6c6}
+    .day{
+      margin:0 0 24px;
+      border-radius:28px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.85);
+      box-shadow:var(--shadow);
+    }
+    .day-head{
+      color:white;
+      padding:18px 22px;
+      background:linear-gradient(135deg,var(--blue-2),var(--local-teal));
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .day-head h3{margin:0;color:#fff}
+    .timeline{padding:18px 20px 20px}
+    .event{
+      display:grid;
+      grid-template-columns:110px 1fr;
+      gap:14px;
+      border-left:5px solid var(--line);
+      padding:0 0 18px 18px;
+      margin-left:8px;
+      position:relative;
+    }
+    .event:before{
+      content:"";
+      width:15px;height:15px;border-radius:50%;
+      background:var(--local-gold);
+      position:absolute;left:-10px;top:6px;
+      border:3px solid white;
+      box-shadow:0 0 0 2px var(--local-gold);
+    }
+    .event:last-child{padding-bottom:0}
+    .event .time{
+      color:var(--blue-2);
+      font-weight:950;
+      background:var(--blue-soft);
+      border:1px solid #cce5f6;
+      border-radius:14px;
+      padding:8px;
+      height:max-content;
+      text-align:center;
+    }
+    .event-body{
+      background:#fff;
+      border:1px solid #e7eef5;
+      border-radius:18px;
+      padding:14px;
+    }
+    .event-body h4{margin:0 0 6px}
+    .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+    .meta div{background:#f7fbff;border:1px solid #e1edf6;border-radius:14px;padding:8px;font-size:13px}
+    table{width:100%;border-collapse:separate;border-spacing:0 10px}
+    th{color:var(--blue-2);text-align:left;font-size:13px;padding:0 10px}
+    td{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 10px;vertical-align:top}
+    td:first-child{border-left:1px solid var(--line);border-radius:14px 0 0 14px;font-weight:900;color:var(--blue-2)}
+    td:last-child{border-right:1px solid var(--line);border-radius:0 14px 14px 0}
+    .route-card{
+      background:linear-gradient(135deg,#ffffff,#f2fbff);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:20px;
+      box-shadow:var(--shadow);
+    }
+    .route-line{
+      padding:12px;
+      background:#fff;
+      border:1px dashed var(--blue);
+      border-radius:16px;
+      font-weight:850;
+      color:var(--blue-2);
+    }
+    .risk{border-left:7px solid var(--blue);padding:14px 16px;border-radius:16px;background:#fff;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .risk.medium{border-left-color:var(--local-gold)}
+    .risk.high{border-left-color:var(--alert-red)}
+    .weather-box{
+      background:linear-gradient(135deg,#e8f4ff,#fff8df);
+      border:1px solid #cce3f6;
+      border-radius:var(--radius);
+      padding:20px;
+    }
+    .clothes{counter-reset:item;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .cloth{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:13px;
+    }
+    .cloth:before{
+      counter-increment:item;
+      content:counter(item);
+      display:inline-grid;
+      place-items:center;
+      width:24px;height:24px;
+      border-radius:50%;
+      background:var(--blue);
+      color:white;
+      font-weight:900;
+      margin-right:8px;
+    }
+    #backTop{
+      position:fixed;right:18px;bottom:18px;
+      width:52px;height:52px;border-radius:50%;
+      border:0;
+      background:linear-gradient(135deg,var(--local-gold),var(--local-red));
+      color:white;
+      font-size:22px;
+      font-weight:950;
+      box-shadow:0 12px 26px rgba(0,0,0,.22);
+      cursor:pointer;
+      display:none;
+      z-index:30;
+    }
+    .note{font-size:13px;color:var(--muted)}
+    .mini-list{margin:8px 0 0;padding-left:20px}
+    .mini-list li{margin:4px 0}
+    @media(max-width:880px){
+      .hero-grid,.grid.two,.grid.three,.clothes{grid-template-columns:1fr}
+      .nav-inner{grid-template-columns:repeat(2,1fr)}
+      .event{grid-template-columns:1fr}
+      .event .time{text-align:left;width:max-content}
+      .meta{grid-template-columns:1fr 1fr}
+      table,thead,tbody,tr,th,td{display:block}
+      thead{display:none}
+      tr{margin-bottom:14px}
+      td{border:1px solid var(--line)!important;border-radius:14px!important;margin-bottom:4px}
+      td:before{content:attr(data-label);display:block;color:var(--muted);font-size:12px;font-weight:800;margin-bottom:3px}
+    }
+    @media(max-width:520px){
+      .nav-inner{grid-template-columns:1fr}
+      .meta{grid-template-columns:1fr}
+      header{padding-top:34px}
+      .card{padding:16px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container hero">
+      <span class="eyebrow">🚇 以地鐵為主軸｜GHA 鈦金早餐｜機場貴賓室｜美食與知名景點</span>
+      <h1>2026 吉隆坡 × 新加坡 4 日城市美食景點互動行程</h1>
+      <div class="hero-grid" id="headerContent"></div>
+    </div>
+  </header>
+  <nav>
+    <div class="container nav-inner">
+      <button class="nav-btn active" onclick="showSection('itinerary')">每日行程</button>
+      <button class="nav-btn" onclick="showSection('food')">米其林與在地美食</button>
+      <button class="nav-btn" onclick="showSection('souvenirs')">伴手禮建議</button>
+      <button class="nav-btn" onclick="showSection('attractions-wall')">景點導覽牆</button>
+      <button class="nav-btn" onclick="showSection('desserts')">下午茶甜點特輯</button>
+      <button class="nav-btn" onclick="showSection('daily-routes')">每日 Google 路線圖</button>
+      <button class="nav-btn" onclick="showSection('transport-stay')">交通與住宿</button>
+      <button class="nav-btn" onclick="showSection('risks')">假設與風險</button>
+    </div>
+  </nav>
+  <main class="container">
+    <section id="itinerary" class="active"></section>
+    <section id="food"></section>
+    <section id="souvenirs"></section>
+    <section id="attractions-wall"></section>
+    <section id="desserts"></section>
+    <section id="daily-routes"></section>
+    <section id="transport-stay"></section>
+    <section id="risks"></section>
+  </main>
+  <script>
+    const trip = {
+      title:"2026 吉隆坡 × 新加坡 4 日城市美食景點互動行程",
+      dates:"2026/05/14 - 2026/05/17",
+      travelers:"台北 TPE → 吉隆坡 KUL → 新加坡 SIN → 台北 TPE",
+      transportTheme:"城市內以地鐵 MRT / LRT / Monorail / 新加坡 MRT 為主，必要時使用 Grab 或計程車銜接行李與深夜路段。",
+      hotels:[
+        {city:"吉隆坡",name:"PARKROYAL COLLECTION Kuala Lumpur",stay:"2026/05/14 - 2026/05/16",note:"GHA 鈦金卡會員早餐；早餐內容與會員禮遇出發前需再次確認。"},
+        {city:"新加坡",name:"PARKROYAL on Beach Road, Singapore",stay:"2026/05/16 - 2026/05/17",note:"GHA 鈦金卡會員早餐；如升等、延遲退房或 Lounge 權益需依入住當日飯店確認。"}
+      ],
+      flights:[
+        {day:"Day 1",flight:"BR227",route:"台北 TPE 桃園國際機場 → 吉隆坡 KUL 吉隆坡國際機場",time:"2026/05/14 09:30 起飛",status:"已確認"},
+        {day:"Day 3",flight:"TR451 Scoot A320",route:"吉隆坡 KUL Terminal 2 → 新加坡 SIN Terminal 1",time:"2026/05/16 11:35 - 12:50",status:"經濟艙 H，約 1 小時 15 分"},
+        {day:"Day 4",flight:"BR216",route:"新加坡 SIN 樟宜機場 → 台北 TPE 桃園國際機場",time:"2026/05/17 15:20 起飛",status:"已確認"}
+      ]
+    };
+
+    const userHighlights = ["Ah Heng Food Corner","亞興飯店","豐年瓦煲雞飯","PARKROYAL COLLECTION Kuala Lumpur","PARKROYAL on Beach Road","桃園機場","長榮貴賓室","龍騰貴賓室","新加坡的長榮貴賓室"];
+
+    const days = [
+      {
+        day:"Day 1",
+        date:"2026/05/14（四）",
+        city:"台北 → 吉隆坡",
+        range:"桃園機場、KUL、Bukit Bintang、Jalan Alor",
+        theme:"抵達吉隆坡，入住武吉免登，夜間用地鐵與步行熟悉市中心",
+        events:[
+          {time:"06:30",place:"桃園國際機場",activity:"抵達機場辦理 BR227 報到、出境與安檢。預留時間排入桃園機場長榮貴賓室或可使用之合作貴賓室。",transport:"機場捷運／接送／計程車依實際安排",cost:"待補充",note:"貴賓室資格依票種、會員或信用卡權益；出發前需再次確認。"},
+          {time:"07:20",place:"桃園機場 <span class='hl-red'>長榮貴賓室</span>",activity:"安排早餐、咖啡、淋浴或休息。若 BR227 使用航廈或開放時間異動，以長榮航空與桃園機場現場公告為準。",transport:"步行",cost:"依資格",note:"建議不要吃太飽，保留機上與抵達後小吃空間。"},
+          {time:"09:30",place:"BR227 台北 TPE → 吉隆坡 KUL",activity:"搭乘長榮航空前往吉隆坡。",transport:"飛機",cost:"已購票",note:"航班已確認；行李、登機門與航廈出發前需再次確認。"},
+          {time:"14:00",place:"吉隆坡 KUL 入境",activity:"入境、領行李、購買 Touch 'n Go 或交通卡加值。",transport:"步行",cost:"交通卡加值待補充",note:"入境尖峰可能排隊，建議保留 60-90 分鐘緩衝。"},
+          {time:"15:30",place:"KLIA Ekspres / MRT 銜接至 Bukit Bintang",activity:"前往 <span class='hl-red'>PARKROYAL COLLECTION Kuala Lumpur</span>，辦理入住或寄放行李。",transport:"KLIA Ekspres + MRT / Monorail，行李多可 Grab",cost:"約 MYR 55 起，Grab 視路況",note:"飯店位於武吉免登商圈，步行可達 Pavilion、Lot 10、Jalan Alor。"},
+          {time:"17:30",place:"Pavilion Kuala Lumpur、Bukit Bintang",activity:"逛 Pavilion 與周邊商圈，熟悉地鐵動線與晚餐區域。",transport:"步行",cost:"免費，購物另計",note:"晚間人潮多，保管隨身物品。"},
+          {time:"19:00",place:"Jalan Alor / <span class='hl-red'>亞興飯店（Ah Heng Food Corner）</span>",activity:"安排使用者指定美食，嘗試在地熱炒、沙嗲、福建麵或雞飯類餐點。",transport:"步行",cost:"約 MYR 20-60/人",note:"店名與營業狀態需出發前再次確認；若客滿可改 Jalan Alor 周邊。"},
+          {time:"21:00",place:"飯店周邊",activity:"返回飯店休息，整理隔日地鐵與景點路線。",transport:"步行",cost:"免費",note:"隔天以地鐵串聯市區景點，建議準備輕便包。"}
+        ]
+      },
+      {
+        day:"Day 2",
+        date:"2026/05/15（五）",
+        city:"吉隆坡",
+        range:"Bukit Bintang、KLCC、Pasar Seni、Masjid Jamek、Merdeka Square",
+        theme:"雙子星、歷史街區、中央市場、瓦煲雞飯與米其林在地小吃",
+        events:[
+          {time:"08:00",place:"<span class='hl-red'>PARKROYAL COLLECTION Kuala Lumpur</span> 早餐",activity:"使用 GHA 鈦金卡會員早餐。建議優先品嚐椰漿飯、咖哩、粥品、熱帶水果與現煮蛋料理。",transport:"飯店內",cost:"會員權益",note:"早餐內容、時段與會員資格需出發前再次確認。"},
+          {time:"09:20",place:"KLCC Park、Petronas Twin Towers",activity:"搭乘 MRT / Monorail 前往 KLCC，拍攝雙子星與城市公園。",transport:"地鐵 + 步行",cost:"約 MYR 3-6",note:"若要登塔觀景需預約門票；本行程以外觀與周邊散策為主。"},
+          {time:"11:00",place:"Aquaria KLCC 或 Suria KLCC",activity:"室內避暑備案，可選水族館、百貨或咖啡休息。",transport:"步行",cost:"待補充",note:"若天氣炎熱或下雨，這段可延長。"},
+          {time:"12:30",place:"Jalan Ipoh / Chow Kit 美食區",activity:"午餐安排米其林或在地小吃，例如海鮮粉、肉骨茶或瓦煲飯備選。",transport:"MRT / Grab 混合",cost:"約 MYR 20-60/人",note:"中午排隊店家需保留等待時間。"},
+          {time:"14:00",place:"Pasar Seni、Central Market",activity:"參觀中央市場、茨廠街與老城區騎樓建築，採買小型伴手禮。",transport:"MRT Pasar Seni + 步行",cost:"免費，購物另計",note:"中央市場適合買蠟染、錫器、小包裝零食。"},
+          {time:"15:30",place:"Merdeka Square、Sultan Abdul Samad Building",activity:"走訪獨立廣場與蘇丹阿都沙末大廈，欣賞摩爾式立面與殖民時期城市肌理。",transport:"步行",cost:"免費",note:"午後戶外炎熱，攜帶水與防曬。"},
+          {time:"17:30",place:"Masjid Jamek 周邊",activity:"傍晚拍攝清真寺與河流交會景觀。",transport:"步行 / LRT",cost:"免費",note:"宗教場所需注意衣著，進入範圍依現場規定。"},
+          {time:"19:00",place:"<span class='hl-red'>豐年瓦煲雞飯</span>",activity:"安排使用者指定瓦煲雞飯。以炭火鍋巴、臘腸與醬香雞肉為重點。",transport:"MRT / Grab 混合",cost:"約 MYR 20-50/人",note:"店名、分店與營業狀態需出發前再次確認；若排隊過長，改 Jalan Ipoh Claypot Chicken Rice。"},
+          {time:"21:00",place:"Bukit Bintang / Lot 10 Hutong",activity:"回到飯店周邊，想加餐可到 Lot 10 Hutong 或便利商店採買。",transport:"MRT / Monorail",cost:"約 MYR 5-30",note:"隔日早班機跨國移動，勿安排太晚。"}
+        ]
+      },
+      {
+        day:"Day 3",
+        date:"2026/05/16（六）",
+        city:"吉隆坡 → 新加坡",
+        range:"KUL Terminal 2、樟宜 T1、Bugis、Kampong Gelam、Marina Bay",
+        theme:"吉隆坡飛新加坡，安排馬來西亞龍騰貴賓室清單與新加坡初訪地標",
+        events:[
+          {time:"07:30",place:"<span class='hl-red'>PARKROYAL COLLECTION Kuala Lumpur</span> 早餐",activity:"使用 GHA 鈦金卡會員早餐。今日需搭機，建議以清爽熱食、咖啡與水果為主。",transport:"飯店內",cost:"會員權益",note:"若飯店早餐太早未開，需改外帶或機場。"},
+          {time:"08:15",place:"退房前往 KUL Terminal 2",activity:"退房並前往機場，保留吉隆坡市區交通與機場安檢時間。",transport:"Grab / KLIA Ekspres + 接駁，行李多建議 Grab",cost:"視方式",note:"Scoot 為低成本航空，行李與登機規定需確認。"},
+          {time:"09:30",place:"KUL Terminal 2 <span class='hl-red'>龍騰貴賓室清單</span>",activity:"可評估 Plaza Premium Lounge gateway@klia2、Plaza Premium Lounge Satellite / Airside、Travel Club Lounge、CapsuleTransit Lounge 休息區等，實際可用依信用卡或 DragonPass App 顯示為準。",transport:"航廈步行",cost:"依權益或現場收費",note:"龍騰合作名單常變動，出發前需再次確認可用、所在區域與是否需過安檢。"},
+          {time:"11:35",place:"TR451 KUL T2 → SIN T1",activity:"搭乘 Scoot 經濟艙 H，飛往新加坡。",transport:"飛機",cost:"已購票",note:"使用者提供航班：11:35 起飛，12:50 抵達。"},
+          {time:"12:50",place:"新加坡樟宜機場 T1",activity:"入境、領行李，使用 MRT 或計程車前往 PARKROYAL on Beach Road。",transport:"MRT East West Line + Downtown Line / 計程車",cost:"MRT 約 SGD 2-4；計程車視路況",note:"飯店在 Beach Road / Bugis / Kampong Gelam 一帶。"},
+          {time:"14:30",place:"<span class='hl-red'>PARKROYAL on Beach Road, Singapore</span>",activity:"辦理入住或寄放行李，確認 GHA 鈦金卡早餐與可用禮遇。",transport:"步行 / 計程車",cost:"會員權益",note:"若尚未可入住，先寄放行李後前往 Bugis。"},
+          {time:"15:30",place:"Kampong Gelam、Sultan Mosque、Haji Lane",activity:"步行探索甘榜格南、蘇丹清真寺與哈芝巷壁畫小店，感受馬來、阿拉伯與新加坡年輕設計文化。",transport:"步行",cost:"免費，購物另計",note:"靠近飯店，非常適合作為新加坡第一站。"},
+          {time:"17:30",place:"Bugis / Arab Street 下午茶",activity:"安排咖啡、甜點或中東風味小點，避開午後濕熱。",transport:"步行",cost:"約 SGD 8-25/人",note:"可選 Konditori、Rich and Good Cake Shop 或 % Arabica Bugis。"},
+          {time:"19:00",place:"Marina Bay、魚尾獅公園",activity:"搭乘 MRT 前往濱海灣，看魚尾獅、金沙、濱海灣夜景。",transport:"MRT + 步行",cost:"約 SGD 2-3",note:"如遇雷雨，改逛 Suntec / Marina Bay Sands 室內。"},
+          {time:"20:15",place:"Lau Pa Sat / Satay Street 或 Old Airport Road 備選",activity:"新加坡晚餐：沙嗲、叻沙、海南雞飯或福建麵。",transport:"MRT / 步行",cost:"約 SGD 10-25/人",note:"若想離飯店近，可改 Bugis / Beach Road 周邊。"},
+          {time:"22:00",place:"飯店",activity:"返回飯店休息。",transport:"MRT / Grab",cost:"約 SGD 2-20",note:"隔日返台前仍有半日行程。"}
+        ]
+      },
+      {
+        day:"Day 4",
+        date:"2026/05/17（日）",
+        city:"新加坡 → 台北",
+        range:"Beach Road、牛車水或樟宜機場、SIN T3",
+        theme:"新加坡半日經典散策，排入新加坡長榮貴賓室後返台",
+        events:[
+          {time:"08:00",place:"<span class='hl-red'>PARKROYAL on Beach Road</span> 早餐",activity:"使用 GHA 鈦金卡會員早餐。建議品嚐咖椰吐司、咖啡、熱食、印度煎餅或叻沙類選項；實際以飯店當日供應為準。",transport:"飯店內",cost:"會員權益",note:"早餐評論多提及選擇豐富，但餐檯內容會變動，出發前需再次確認。"},
+          {time:"09:15",place:"Bugis / 牛車水二選一",activity:"若想輕鬆：Bugis Junction、Bugis Street 採買；若想經典：MRT 前往 Chinatown 逛牛車水、佛牙寺外觀與伴手禮。",transport:"MRT + 步行",cost:"約 SGD 2-5，購物另計",note:"依體力與天氣選擇，不建議排太遠。"},
+          {time:"11:15",place:"飯店退房",activity:"返回飯店取行李、退房，前往樟宜機場。",transport:"MRT / 計程車",cost:"MRT 約 SGD 2-4；計程車視路況",note:"BR216 15:20 起飛，建議保留足夠報到與退稅時間。"},
+          {time:"12:30",place:"新加坡樟宜機場",activity:"長榮航空通常於樟宜機場 Terminal 3 辦理報到；完成退稅、出境與安檢。",transport:"機場步行 / Skytrain",cost:"免費",note:"航廈、櫃檯、登機門需出發前再次確認。"},
+          {time:"13:15",place:"<span class='hl-red'>新加坡長榮貴賓室</span> / Star Alliance 可用貴賓室",activity:"排入新加坡機場長榮或合作貴賓室休息，享用熱食、飲品、充電與整理行李。",transport:"航廈步行",cost:"依艙等、會員或信用卡權益",note:"若無長榮自營貴賓室或資格不符，需依長榮指定合作 Lounge 或信用卡 App 顯示為準。"},
+          {time:"15:20",place:"BR216 SIN → TPE",activity:"搭乘長榮航空返回台北。",transport:"飛機",cost:"已購票",note:"航班已確認；抵達時間、行李轉盤與登機門以航空公司公告為準。"}
+        ]
+      }
+    ];
+
+    const foods = [
+      ["<span class='hl-red'>亞興飯店（Ah Heng Food Corner）</span>","吉隆坡 Bukit Bintang / Jalan Alor","在地熱炒/小吃","使用者指定、在地推薦","2026 行程指定","熱炒、沙嗲、雞飯或福建麵類","MYR 20-60","Day 1","https://www.google.com/maps/search/?api=1&query=Ah+Heng+Food+Corner+Kuala+Lumpur","店名與營業時間需出發前再次確認。"],
+      ["<span class='hl-red'>豐年瓦煲雞飯</span>","吉隆坡","瓦煲雞飯","使用者指定、在地推薦","2026 行程指定","瓦煲雞飯、臘腸、鍋巴","MYR 20-50","Day 2","https://www.google.com/maps/search/?api=1&query=Fung+Wong+Claypot+Chicken+Rice+Kuala+Lumpur","中文店名對應店家需再次查證，若不確定改用 Jalan Ipoh Claypot Chicken Rice。"],
+      ["Jalan Ipoh Claypot Chicken Rice","吉隆坡 Jalan Ipoh","瓦煲雞飯","Michelin Bib Gourmand","Michelin Guide Kuala Lumpur & Penang 2026 最新可查版本","瓦煲雞飯、臘腸、鹹魚","MYR 20-45","日程:Day 2","https://guide.michelin.com/my/en/search?q=Jalan%20Ipoh%20Claypot%20Chicken%20Rice","可作豐年瓦煲雞飯備案。"],
+      ["Hai Kah Lang","吉隆坡","海鮮粉麵","Michelin Bib Gourmand","Michelin Guide Kuala Lumpur & Penang 2026 最新可查版本","海鮮粉、魚頭米粉","MYR 20-60","日程:Day 2","https://guide.michelin.com/my/en/search?q=Hai%20Kah%20Lang","中午尖峰排隊，需預留時間。"],
+      ["Ah Hei Bak Kut Teh","吉隆坡 Pudu","肉骨茶","Michelin Bib Gourmand / 待出發前再核對","Michelin Guide Kuala Lumpur & Penang 最新可查版本","肉骨茶、油條、滷味","MYR 25-60","日程:Day 2","https://guide.michelin.com/my/en/search?q=Ah%20Hei%20Bak%20Kut%20Teh","米其林身分與年度需出發前再次確認。"],
+      ["Heun Kee Claypot Chicken Rice","吉隆坡 Pudu","瓦煲雞飯","在地人氣名店","2026 網路推薦待查證","炭火瓦煲雞飯","MYR 20-50","日程:Day 2","https://www.google.com/maps/search/?api=1&query=Heun+Kee+Claypot+Chicken+Rice","若指定瓦煲雞飯客滿可作替代。"],
+      ["Lot 10 Hutong","吉隆坡 Bukit Bintang","美食街","在地集合名店","2026 商場資訊待確認","福建麵、肉骨茶、檳城小吃","MYR 15-50","日程:Day 1","https://www.google.com/maps/search/?api=1&query=Lot+10+Hutong","飯店附近，適合雨備與宵夜。"],
+      ["Bijan Bar & Restaurant","吉隆坡 Bukit Ceylon","馬來料理","Michelin Selected / 待核對","Michelin Guide Kuala Lumpur & Penang 最新可查版本","仁當牛肉、馬來傳統菜","MYR 80-180","日程:Day 2","https://guide.michelin.com/my/en/search?q=Bijan%20Kuala%20Lumpur","適合想吃較正式的馬來料理晚餐。"],
+      ["Dewakan","吉隆坡","現代馬來西亞料理","Michelin 星級餐廳","Michelin Guide Kuala Lumpur & Penang 最新可查版本","季節套餐、在地食材料理","MYR 500+","日程:Day 2","https://guide.michelin.com/my/en/search?q=Dewakan","需提前訂位；不作本行程主排，避免壓縮地鐵景點。"],
+      ["Nasi Lemak Wanjo","吉隆坡 Kampung Baru","椰漿飯","在地人氣名店","2026 網路推薦待查證","椰漿飯、炸雞、參巴","MYR 10-25","日程:Day 2","https://www.google.com/maps/search/?api=1&query=Nasi+Lemak+Wanjo","適合早午餐或宵夜，需注意尖峰排隊。"],
+      ["Hill Street Tai Hwa Pork Noodle","新加坡 Crawford Lane","肉脞麵","Michelin 星級餐廳","Michelin Guide Singapore 2025 最新可查版本","醋香肉脞麵、魚丸湯","SGD 8-15","日程:Day 3","https://guide.michelin.com/sg/en/search?q=Hill%20Street%20Tai%20Hwa","新加坡 2026 年度若尚未公布，以官方最新可查版本為準。"],
+      ["Odette","新加坡 National Gallery","法式精緻料理","Michelin 三星","Michelin Guide Singapore 2025 最新可查版本","主廚套餐","SGD 400+","日程:Day 4","https://guide.michelin.com/sg/en/search?q=Odette","需提前訂位，時間不足不建議硬排。"],
+      ["Les Amis","新加坡 Orchard","法式精緻料理","Michelin 三星","Michelin Guide Singapore 2025 最新可查版本","法式套餐、酒單","SGD 400+","日程:Day 4","https://guide.michelin.com/sg/en/search?q=Les%20Amis","高端餐廳，需正式服裝與訂位。"],
+      ["Tian Tian Hainanese Chicken Rice","新加坡 Maxwell","海南雞飯","在地人氣名店","2026 在地推薦待查證","海南雞飯、雞油飯","SGD 6-12","日程:Day 4","https://www.google.com/maps/search/?api=1&query=Tian+Tian+Hainanese+Chicken+Rice","若去牛車水，可作早午餐。"],
+      ["Lau Pa Sat Satay Street","新加坡 CBD","沙嗲/熟食中心","在地推薦","2026 營業資訊待確認","沙嗲、烤蝦、福建麵","SGD 10-30","Day 3","https://www.google.com/maps/search/?api=1&query=Lau+Pa+Sat+Satay+Street","晚間氣氛佳，遇雨可進熟食中心。"],
+      ["Zam Zam Singapore","新加坡 Kampong Gelam","印度穆斯林料理","在地老店","2026 在地推薦待查證","Murtabak、拉茶、咖哩","SGD 8-20","日程:Day 3","https://www.google.com/maps/search/?api=1&query=Zam+Zam+Singapore","飯店附近，適合抵達日輕鬆晚餐。"],
+      ["Hjh Maimunah","新加坡 Kampong Gelam","馬來料理","Michelin Bib Gourmand / 待核對","Michelin Guide Singapore 最新可查版本","Nasi Padang、仁當","SGD 10-25","日程:Day 3","https://guide.michelin.com/sg/en/search?q=Hjh%20Maimunah","靠近飯店，可作新加坡第一餐。"],
+      ["328 Katong Laksa","新加坡 Katong","叻沙","在地人氣名店","2026 在地推薦待查證","加東叻沙","SGD 7-15","日程:Day 4","https://www.google.com/maps/search/?api=1&query=328+Katong+Laksa","需搭車，若時間緊不建議。"],
+      ["Old Airport Road Food Centre","新加坡 Dakota","熟食中心","在地推薦","2026 營業資訊待確認","福建麵、蘿蔔糕、沙嗲","SGD 8-25","日程:Day 3","https://www.google.com/maps/search/?api=1&query=Old+Airport+Road+Food+Centre","可作晚餐備案，MRT 可達。"],
+      ["Song Fa Bak Kut Teh","新加坡 Clarke Quay / 多分店","肉骨茶","在地連鎖名店","2026 店鋪資訊待確認","胡椒肉骨茶、油條","SGD 15-30","日程:Day 4","https://www.google.com/maps/search/?api=1&query=Song+Fa+Bak+Kut+Teh+Singapore","機場或市區多分店，適合返程前。"]
+    ];
+
+    const souvenirs = [
+      ["Beryl's 巧克力","吉隆坡/機場","榴槤、提拉米蘇、杏仁巧克力","MYR 20-80","Day 2/3","馬來西亞本土巧克力品牌，適合辦公室分送。","機場與市區商場常見，價格與包裝出發前確認。"],
+      ["BOH Tea 馬來西亞茶","吉隆坡超市","高原紅茶、奶茶包","MYR 15-50","Day 2","金馬崙高原茶文化代表，重量輕好攜帶。","可在超市或機場購買。"],
+      ["OldTown White Coffee","吉隆坡超市","白咖啡三合一","MYR 15-40","Day 2","怡保白咖啡是馬來西亞經典日常飲品。","注意糖分偏高，可選減糖。"],
+      ["肉骨茶包","吉隆坡超市","A1 / 余仁生等湯包","MYR 8-30","Day 2","將南洋藥膳湯頭帶回家，適合煮排骨。","入境台灣肉品規定需留意，買純香料包。"],
+      ["榴槤零食","吉隆坡","榴槤餅、榴槤糖、榴槤咖啡","MYR 10-50","Day 2","馬來西亞熱帶水果印象強烈。","避免購買味道過重或需冷藏品。"],
+      ["Central Market 蠟染小物","吉隆坡 Pasar Seni","蠟染包、絲巾、杯墊","MYR 20-150","Day 2","Batik 代表馬來與南洋花紋工藝。","議價與品質需現場判斷。"],
+      ["皇家雪蘭莪錫器","吉隆坡","小杯、茶葉罐、鑰匙圈","MYR 80-500+","Day 2","馬來西亞錫器工藝代表。","高單價，適合重要禮物。"],
+      ["咖椰醬 Kaya","吉隆坡/新加坡","斑蘭咖椰醬","MYR/SGD 5-15","Day 3/4","南洋早餐文化核心，搭配吐司與奶油。","需注意容量、托運與保存期限。"],
+      ["Milo 馬來西亞版","吉隆坡超市","Milo 粉、Milo Nuggets","MYR 10-35","Day 2","馬來西亞 Milo 文化盛行，口味濃郁。","適合親友與小孩。"],
+      ["Dodol 椰糖糕","吉隆坡","傳統椰糖糯米糕","MYR 10-30","Day 2","馬來傳統甜點，口感黏韌。","甜度高，少量購買。"],
+      ["TWG Tea","新加坡機場/市區","茶包禮盒","SGD 25-100+","Day 4","新加坡精緻茶品牌代表，包裝體面。","樟宜機場購買方便。"],
+      ["Bengawan Solo","新加坡","斑蘭蛋糕、千層糕、鳳梨塔","SGD 12-40","Day 4","新加坡南洋糕點代表。","斑蘭蛋糕保存期短，適合返台當日買。"],
+      ["Irvin's Salted Egg","新加坡","鹹蛋魚皮、鹹蛋洋芋片","SGD 8-20","Day 4","新加坡近年代表性零食。","機場與市區常見，易碎需保護。"],
+      ["Bee Cheng Hiang 美珍香","新加坡","肉乾、肉鬆卷","SGD 15-60","Day 4","華人肉乾文化代表。","肉品入境台灣限制嚴格，不建議帶回台灣；可現場吃。"],
+      ["Ya Kun Kaya Toast 伴手禮","新加坡","咖椰醬、咖啡包","SGD 6-20","Day 4","新加坡咖椰吐司早餐記憶。","機場或市區店購買。"],
+      ["Raffles Hotel Kaya / 紀念品","新加坡","咖椰醬、明信片、小物","SGD 10-80","Day 4","殖民建築與新加坡酒店文化象徵。","若時間不足可跳過。"],
+      ["Merlion 魚尾獅小物","新加坡","磁鐵、鑰匙圈、杯子","SGD 3-20","Day 4","新加坡最直觀城市符號。","牛車水與機場皆可買。"],
+      ["Tiger Balm 虎標萬金油","新加坡藥妝","萬金油、貼布","SGD 5-20","Day 4","源自南洋的經典家庭保健品。","藥品入境規定需留意。"],
+      ["Prima Taste 料理包","新加坡超市","叻沙、肉骨茶、海南雞飯醬包","SGD 5-15","Day 4","在家復刻新加坡味道。","注意重量與托運。"],
+      ["樟宜機場限定小物","新加坡 Changi","Jewel、魚尾獅、航空主題商品","SGD 5-50","Day 4","機場本身就是新加坡旅遊記憶。","時間不夠時最方便採買。"]
+    ];
+
+    const attractions = [
+      ["Petronas Twin Towers 雙子星塔","吉隆坡 KLCC","雙塔天際線、KLCC Park、夜間燈光","雙子星是吉隆坡最具辨識度的現代地標，以伊斯蘭幾何紋樣與鋼鐵玻璃立面形塑馬來西亞首都的國際形象。旅人可在 KLCC Park 尋找水池與樹影前景，拍出雙塔垂直線條。若不登塔，也能透過公園、Suria KLCC 與周邊空橋感受金融區節奏，是第一次到吉隆坡必訪的城市名片。","1.5-2 小時","MRT / LRT 至 KLCC，步行銜接","登塔需預約；午後雷雨時改百貨室內。","https://www.google.com/maps/search/?api=1&query=Petronas+Twin+Towers"],
+      ["KLCC Park","吉隆坡 KLCC","城市綠洲、水舞、雙塔取景","KLCC Park 是雙子星腳下的城市公園，將摩天樓、湖面、棕櫚與慢跑步道組合成吉隆坡都會生活的日常風景。白天適合散步避開車流，傍晚能觀察上班族、家庭與旅人共享公共空間。公園的水池與橋面是拍攝雙塔倒影與廣角照片的好位置，也適合在炎熱天氣中安排較輕鬆的步行節奏。","45-90 分鐘","LRT KLCC 後步行","戶外炎熱，補水與防曬。","https://www.google.com/maps/search/?api=1&query=KLCC+Park"],
+      ["Pavilion Kuala Lumpur","吉隆坡 Bukit Bintang","購物、餐飲、冷氣雨備","Pavilion 是武吉免登最具代表性的購物中心之一，連接精品、餐飲、超市與街區步行動線。對入住 PARKROYAL COLLECTION Kuala Lumpur 的旅人來說，這裡是調整時差、避雨、換匯、採買與晚餐備案的核心據點。商場周邊也能感受吉隆坡多族群都會消費文化，從國際品牌到南洋餐飲都集中在短距離內。","1-2 小時","飯店步行或 Bukit Bintang MRT","週末人多，保管財物。","https://www.google.com/maps/search/?api=1&query=Pavilion+Kuala+Lumpur"],
+      ["Jalan Alor 亞羅街","吉隆坡 Bukit Bintang","夜市美食、霓虹招牌、熱炒","Jalan Alor 是吉隆坡夜間街頭飲食的代表場景，沿街攤棚、熱炒香氣、榴槤攤與多語言招牌交織成南洋城市的夜生活。它不一定是最精緻的餐飲選擇，卻很適合第一晚感受吉隆坡的開放、熱鬧與多族群飲食文化。使用者指定的亞興飯店可放在此區域搜尋確認，若店況變動，整條街仍有大量替代餐點。","1-1.5 小時","Bukit Bintang MRT 後步行","價格與店家評價落差大，點餐前確認。","https://www.google.com/maps/search/?api=1&query=Jalan+Alor+Kuala+Lumpur"],
+      ["Central Market 中央市場","吉隆坡 Pasar Seni","蠟染、手工藝、伴手禮","中央市場由傳統濕貨市場轉型為文化與手工藝空間，是理解吉隆坡多元文化伴手禮的好入口。館內可見蠟染布、錫器、木雕、明信片與各民族風格小物，適合購買體積小、文化辨識度高的紀念品。建築本身也保留老城區尺度，與周邊茨廠街、河岸、獨立廣場可組成地鐵步行散策。","1-1.5 小時","MRT Pasar Seni 後步行","觀光價格需比較；貴重工藝確認材質。","https://www.google.com/maps/search/?api=1&query=Central+Market+Kuala+Lumpur"],
+      ["Petaling Street 茨廠街","吉隆坡 Chinatown","騎樓、華人街、街頭小吃","茨廠街是吉隆坡華人商業記憶的重要街區，從藥材、茶餐室、老招牌到新式咖啡館，展現城市更新與老街生活並存的樣貌。街區周邊可看見華人廟宇、印度廟與殖民時期建築在短距離內交錯，正是吉隆坡多族群共居的縮影。適合午後搭配中央市場與獨立廣場步行，邊走邊觀察騎樓與街頭飲食。","1 小時","MRT Pasar Seni 後步行","人潮多，注意扒手與仿冒品。","https://www.google.com/maps/search/?api=1&query=Petaling+Street+Kuala+Lumpur"],
+      ["Merdeka Square 獨立廣場","吉隆坡 老城區","歷史草坪、旗桿、殖民建築","獨立廣場象徵馬來西亞國家歷史的重要時刻，周邊聚集蘇丹阿都沙末大廈、皇家雪蘭莪俱樂部與舊政府建築。廣場的開闊草坪與摩爾式拱廊呈現殖民行政中心的空間語彙，也讓旅人理解吉隆坡從錫礦聚落走向首都的歷史轉折。傍晚光線柔和，適合拍攝建築立面。","45-90 分鐘","Masjid Jamek LRT / MRT Pasar Seni 步行","戶外少遮蔭，避開正午。","https://www.google.com/maps/search/?api=1&query=Merdeka+Square+Kuala+Lumpur"],
+      ["Sultan Abdul Samad Building","吉隆坡 老城區","摩爾式建築、鐘樓、拱廊","蘇丹阿都沙末大廈是吉隆坡最具代表性的歷史建築之一，紅磚、白色拱線與銅色圓頂展現英殖民時期對伊斯蘭與摩爾風格的詮釋。它面向獨立廣場，見證行政、法律與國家儀典的城市記憶。對喜歡建築與攝影的旅人來說，這裡能用短時間捕捉吉隆坡不同於現代高樓的歷史層次。","30-60 分鐘","Masjid Jamek LRT 後步行","多為外觀拍攝，進入限制依現場。","https://www.google.com/maps/search/?api=1&query=Sultan+Abdul+Samad+Building"],
+      ["Masjid Jamek","吉隆坡 老城區","河流交會、清真寺外觀","Masjid Jamek 坐落於巴生河與鵝嘜河交會處，是吉隆坡早期城市發展的重要地點。白色洋蔥形圓頂、拱廊與棕櫚樹共同形成柔和的河岸景觀，與周邊高樓對比鮮明。旅人可在外圍步道理解清真寺在馬來社會中的日常位置，也能將它與獨立廣場、中央市場安排成一條文化步行線。","30-60 分鐘","LRT Masjid Jamek","進入宗教場所需遵守衣著與禮拜時間規定。","https://www.google.com/maps/search/?api=1&query=Masjid+Jamek+Kuala+Lumpur"],
+      ["Kampung Baru","吉隆坡","椰漿飯、傳統馬來聚落、雙塔視角","Kampung Baru 是吉隆坡市中心少見仍保有傳統馬來聚落氣質的街區，低矮住宅、路邊餐攤與遠方雙子星形成強烈對比。這裡適合品嚐椰漿飯、烤魚與馬來家常菜，同時觀察城市開發與在地生活如何並存。若安排晚上前往，能拍到摩天樓與傳統屋舍同框的吉隆坡獨特畫面。","1-1.5 小時","LRT Kampung Baru","夜間部分巷弄較暗，建議結伴或使用 Grab。","https://www.google.com/maps/search/?api=1&query=Kampung+Baru+Kuala+Lumpur"],
+      ["Kampong Gelam 甘榜格南","新加坡 Bugis","蘇丹清真寺、哈芝巷、馬來阿拉伯文化","甘榜格南是新加坡最適合步行感受多族群文化的區域之一，從蘇丹清真寺金色圓頂、Arab Street 布料店，到 Haji Lane 的壁畫與選物店，短短幾條街呈現馬來、阿拉伯、印度穆斯林與年輕創意社群的交會。飯店位於 Beach Road，抵達日不必長途移動即可深入街區，非常適合作為新加坡第一站。","1.5-2 小時","飯店步行 / MRT Bugis","宗教場所附近注意衣著與拍照禮貌。","https://www.google.com/maps/search/?api=1&query=Kampong+Gelam+Singapore"],
+      ["Sultan Mosque 蘇丹清真寺","新加坡 Kampong Gelam","金色圓頂、宗教地標","蘇丹清真寺是新加坡穆斯林社群的重要地標，金色圓頂與對稱立面讓它成為甘榜格南最醒目的視覺中心。周邊街道保留布料、香水、地毯與穆斯林飲食文化，展現新加坡作為港口城市的移民歷史。即使只在外觀停留，也能理解宗教建築如何形塑街區氣質與日常生活。","30-60 分鐘","MRT Bugis / 飯店步行","入內需遵守開放時間與服裝規定。","https://www.google.com/maps/search/?api=1&query=Sultan+Mosque+Singapore"],
+      ["Haji Lane 哈芝巷","新加坡 Kampong Gelam","壁畫、小店、咖啡","Haji Lane 是新加坡年輕創意與觀光街區的代表，狹窄巷弄中聚集彩色壁畫、獨立服飾、香氛小店與咖啡館。它與蘇丹清真寺、Arab Street 只隔幾步，卻呈現截然不同的潮流表情。抵達新加坡後在此散步，可用較低體力完成拍照、下午茶與輕購物，是短停留行程的高效率選擇。","45-90 分鐘","飯店步行","午後人潮多，拍照需留意車輛與店家門口。","https://www.google.com/maps/search/?api=1&query=Haji+Lane+Singapore"],
+      ["Merlion Park 魚尾獅公園","新加坡 Marina Bay","魚尾獅、金沙天際線、夜景","魚尾獅公園是新加坡最經典的城市地標取景點，面向 Marina Bay，可一次看到魚尾獅、濱海灣金沙、金融區與海灣水面。這個符號融合獅城傳說與海港城市身份，是新加坡觀光形象的核心。建議傍晚至夜間前往，光線、天際線與水面倒影最有層次，也能順路銜接 Lau Pa Sat 晚餐。","45-75 分鐘","MRT Raffles Place / Bayfront + 步行","熱門拍照點擁擠，雷雨時改室內。","https://www.google.com/maps/search/?api=1&query=Merlion+Park+Singapore"],
+      ["Marina Bay Sands","新加坡 Marina Bay","金沙建築、購物、濱海灣夜景","濱海灣金沙以三座塔樓托起空中船型平台，是新加坡全球化城市景觀的象徵。即使不登上觀景台，也可在商場、水岸步道與藝術科學博物館周邊感受城市規劃的精準與華麗。對短暫停留者來說，這裡與魚尾獅公園、Gardens by the Bay 可組成夜間散策核心，雨天也能轉入室內商場。","1-2 小時","MRT Bayfront","觀景台與展覽票價需出發前確認。","https://www.google.com/maps/search/?api=1&query=Marina+Bay+Sands"],
+      ["Gardens by the Bay","新加坡 Marina Bay","超級樹、花穹、雲霧林","濱海灣花園展現新加坡花園城市的高度人工與自然整合。超級樹在夜間燈光秀時最具戲劇性，花穹與雲霧林則適合作為高溫或下雨時的室內備案。這裡不只是觀光景點，也體現新加坡以景觀工程、永續技術與城市品牌共同打造公共空間的能力。若時間有限，可只走戶外超級樹區。","1.5-3 小時","MRT Bayfront + 步行","展館門票、燈光秀時間需再次確認。","https://www.google.com/maps/search/?api=1&query=Gardens+by+the+Bay"],
+      ["Chinatown 牛車水","新加坡","佛牙寺、伴手禮、熟食中心","牛車水是新加坡華人移民歷史的重要街區，廟宇、會館、騎樓、熟食中心與現代酒吧在此並存。短時間旅客可從 Chinatown MRT 出站，走訪佛牙寺外觀、史密斯街與伴手禮店，再視時間品嚐 Maxwell Food Centre。這裡與新加坡國家敘事中的多元族群密切相關，也適合返程前採買輕便紀念品。","1-2 小時","MRT Chinatown","返程日需抓緊回飯店取行李時間。","https://www.google.com/maps/search/?api=1&query=Chinatown+Singapore"],
+      ["Jewel Changi Airport","新加坡 樟宜機場","雨漩渦、室內森林、機場購物","Jewel Changi 將機場、商場、室內森林與大型瀑布結合，是新加坡把交通節點轉化為觀光目的地的代表案例。若返程時間充裕，可在報到前後安排短暫停留，拍攝 Rain Vortex 並採買伴手禮。由於航廈、報到櫃檯與出境動線會影響可用時間，建議以不影響 BR216 登機為前提。","45-90 分鐘","樟宜機場航廈步行 / Skytrain","需確認行李與出境前後位置，勿壓縮登機時間。","https://www.google.com/maps/search/?api=1&query=Jewel+Changi+Airport"],
+      ["Bugis Street","新加坡 Bugis","平價購物、小吃、年輕街區","Bugis Street 是新加坡市中心平價購物與小吃密集區，從服飾、紀念品、飲料到零食都能快速採買。它鄰近飯店與甘榜格南，交通便利，適合返程日上午不想跑太遠時安排。這裡雖然觀光化，但仍可感受新加坡年輕人與旅客混雜的商業街氛圍，作為短時間補買伴手禮很實用。","45-90 分鐘","MRT Bugis / 飯店步行","假日擁擠，注意隨身物品。","https://www.google.com/maps/search/?api=1&query=Bugis+Street+Singapore"],
+      ["National Gallery Singapore","新加坡 Civic District","美術館、殖民建築改造","新加坡國家美術館由舊最高法院與市政廳改造而成，外觀保留殖民時期紀念性建築，內部則以現代展覽空間串聯東南亞藝術史。若想在短行程加入文化深度，這裡比純購物更能理解新加坡如何透過建築再利用與藝術收藏建構國家文化敘事。時間不足時可只參觀公共區域與外觀。","1.5-2.5 小時","MRT City Hall","展覽與票價需出發前確認。","https://www.google.com/maps/search/?api=1&query=National+Gallery+Singapore"]
+    ];
+
+    const desserts = [
+      ["Konditori Artisan Bakes","肉桂捲、可頌","新加坡 Kampong Gelam","北歐風麵包甜點店，靠近飯店與蘇丹清真寺，適合抵達日下午茶。","Day 3 15:30-17:30","https://www.google.com/maps/search/?api=1&query=Konditori+Singapore"],
+      ["Rich and Good Cake Shop","瑞士卷","新加坡 Bugis / Kandahar St","老字號瑞士卷，斑蘭與咖椰口味具南洋特色，適合買回飯店吃。","Day 3 下午","https://www.google.com/maps/search/?api=1&query=Rich+and+Good+Cake+Shop"],
+      ["% Arabica Bugis","拿鐵、咖啡","新加坡 Bugis","極簡風格咖啡店，適合在甘榜格南散步後短休。","Day 3 下午","https://www.google.com/maps/search/?api=1&query=%25+Arabica+Bugis"],
+      ["YY Kafei Dian","咖椰麵包、咖啡","新加坡 Beach Road","復古咖啡店，靠近飯店，可作早餐後散步或返程日前點心。","Day 4 上午","https://www.google.com/maps/search/?api=1&query=YY+Kafei+Dian+Singapore"],
+      ["Bengawan Solo","斑蘭蛋糕、千層糕","新加坡多分店/機場","新加坡經典南洋糕點品牌，適合返程日買伴手禮。","Day 4 機場前","https://www.google.com/maps/search/?api=1&query=Bengawan+Solo+Singapore"],
+      ["The Mandarin Cake Shop / Hotel cake shop 類","蛋糕、咖啡","新加坡市區","若遇雨可選飯店或商場蛋糕店，休息品質較穩定。","日程:Day 4","https://www.google.com/maps/search/?api=1&query=Singapore+cake+shop+Bugis"],
+      ["Inside Scoop","冰淇淋","吉隆坡 Bukit Bintang 周邊","馬來西亞人氣冰淇淋，可找榴槤、椰子等在地風味。","Day 1 晚上","https://www.google.com/maps/search/?api=1&query=Inside+Scoop+Bukit+Bintang"],
+      ["Bean Brothers KL","咖啡、甜點","吉隆坡","吉隆坡精品咖啡代表之一，若想早午餐可安排分店。","日程:Day 2","https://www.google.com/maps/search/?api=1&query=Bean+Brothers+Kuala+Lumpur"],
+      ["VCR Kuala Lumpur","咖啡、早午餐甜點","吉隆坡 Bukit Bintang","黑色老屋咖啡館，適合想跳過飯店早餐以外的咖啡備案；本行程因飯店早餐不主排。","日程:Day 2","https://www.google.com/maps/search/?api=1&query=VCR+Kuala+Lumpur"],
+      ["Oriental Kopi","蛋塔、白咖啡","吉隆坡/機場","馬來西亞連鎖南洋咖啡餐室，蛋塔與白咖啡適合當點心。","Day 3 機場或市區","https://www.google.com/maps/search/?api=1&query=Oriental+Kopi+Kuala+Lumpur"]
+    ];
+
+    const routes = [
+      {day:"Day 1",area:"桃園機場 → 吉隆坡 Bukit Bintang",mode:"飛機 + KLIA Ekspres/MRT + 步行",origin:"Taiwan Taoyuan International Airport",destination:"PARKROYAL COLLECTION Kuala Lumpur",points:["EVA Air Lounge Taoyuan Airport","Kuala Lumpur International Airport Terminal 1","Pavilion Kuala Lumpur","Jalan Alor Kuala Lumpur","Ah Heng Food Corner Kuala Lumpur"],note:"以抵達與入住為主，晚間飯店周邊步行覓食，避免長距離移動。"},
+      {day:"Day 2",area:"KLCC → 老城區 → Bukit Bintang",mode:"MRT/LRT/Monorail + 步行，必要時 Grab",origin:"PARKROYAL COLLECTION Kuala Lumpur",destination:"PARKROYAL COLLECTION Kuala Lumpur",points:["Petronas Twin Towers","KLCC Park","Central Market Kuala Lumpur","Merdeka Square","Masjid Jamek Kuala Lumpur","Jalan Ipoh Claypot Chicken Rice"],note:"串聯現代地標與歷史街區，晚餐回到瓦煲雞飯或武吉免登。"},
+      {day:"Day 3",area:"吉隆坡機場 → 新加坡 Beach Road → Marina Bay",mode:"Grab/KLIA + 飛機 + 新加坡 MRT + 步行",origin:"PARKROYAL COLLECTION Kuala Lumpur",destination:"PARKROYAL on Beach Road Singapore",points:["Kuala Lumpur International Airport Terminal 2","Plaza Premium Lounge KLIA Terminal 2","Singapore Changi Airport Terminal 1","Kampong Gelam Singapore","Haji Lane Singapore","Merlion Park Singapore","Lau Pa Sat Singapore"],note:"跨國移動日，景點集中飯店附近與濱海灣，降低行李與交通壓力。"},
+      {day:"Day 4",area:"Beach Road / Bugis / Chinatown → Changi T3",mode:"新加坡 MRT + 機場步行，行李多可計程車",origin:"PARKROYAL on Beach Road Singapore",destination:"Singapore Changi Airport Terminal 3",points:["Bugis Street Singapore","Chinatown Singapore","Jewel Changi Airport","EVA Air Lounge Singapore Changi Airport"],note:"返程日只安排半日市區與機場貴賓室，不壓縮 BR216 報到時間。"}
+    ];
+
+    const transportStay = {
+      cityTransport:[
+        "吉隆坡：以 MRT、LRT、Monorail 串聯 Bukit Bintang、KLCC、Pasar Seni、Masjid Jamek。行李、雨天或深夜可用 Grab。",
+        "新加坡：以 MRT 為主，Bugis、City Hall、Raffles Place、Bayfront、Chinatown 都適合短距離串聯。行李移動可使用計程車或 Grab。",
+        "機場：KUL 市區至機場可用 KLIA Ekspres 或 Grab；SIN 市區至樟宜可用 MRT 或計程車。"
+      ],
+      lounges:[
+        {name:"桃園機場長榮貴賓室",where:"TPE，依 BR227 航廈與資格",detail:"排入 Day 1 出發前。可用資格依艙等、長榮會員或信用卡權益，出發前需再次確認。"},
+        {name:"KUL Terminal 2 龍騰可查清單",where:"KUL T2 / gateway@klia2 / airside",detail:"可查 Plaza Premium Lounge、Travel Club Lounge、CapsuleTransit Lounge 等；DragonPass 合作名單、所在區域與開放時間常變動，需以 App 當日顯示為準。"},
+        {name:"新加坡長榮或合作貴賓室",where:"SIN，長榮 BR216 通常 T3 報到",detail:"排入 Day 4 登機前。若無自營或資格不符，依長榮指定合作 Lounge、Star Alliance 或信用卡權益為準。"}
+      ]
+    };
+
+    const risks = [
+      ["high","跨國移動與航班","Day 3 TR451 與 Day 4 BR216 都涉及報到、安檢、行李與航廈銜接。航班時間、航廈、登機門與行李規定出發前需再次確認。"],
+      ["medium","地鐵與行李","吉隆坡與新加坡地鐵方便，但拖大行李轉乘會降低效率。機場與飯店移動建議視行李量使用 Grab 或計程車。"],
+      ["medium","排隊與訂位","米其林、熟食中心與瓦煲雞飯可能排隊；高端餐廳需提前訂位。未確認營業時間者均標示出發前需再次確認。"],
+      ["high","午後雷雨與濕熱","5 月馬來西亞與新加坡通常濕熱，午後雷陣雨機率高，戶外拍照與步行需保留雨備。"],
+      ["medium","會員早餐權益","GHA 鈦金卡早餐、升等、延遲退房與 Lounge 權益可能依飯店政策、訂房管道與入住率不同而變動。"],
+      ["info","治安與財物","Bukit Bintang、Jalan Alor、Bugis、牛車水等人潮多，注意手機、護照、錢包與包包拉鍊。"],
+      ["medium","預算","地鐵費用低，但機場交通、Grab、米其林餐廳與購物會拉高總支出。建議分開設定餐費、交通、伴手禮預算。"],
+      ["medium","臨時休館與營業變動","景點、餐廳、貴賓室營業時間、票價、航廈與權益資訊皆可能異動，所有重要資訊出發前需再次確認。"]
+    ];
+
+    function byId(id){return document.getElementById(id);}
+    function isHL(name,list){return list.some(x => String(name).toLowerCase().includes(String(x).toLowerCase()) || String(x).toLowerCase().includes(String(name).toLowerCase()));}
+    function suggestNearestDay(item){
+      const text = JSON.stringify(item);
+      if(text.includes("吉隆坡") || text.includes("Kuala Lumpur") || text.includes("MYR")) return "日程:Day 2";
+      if(text.includes("新加坡") || text.includes("Singapore") || text.includes("SGD")) return "日程:Day 3";
+      return "日程:Day 2";
+    }
+    function buildGoogleMapsRoute(dayRoute){
+      const enc = encodeURIComponent;
+      const origin = enc(dayRoute.origin);
+      const destination = enc(dayRoute.destination);
+      const waypoints = dayRoute.points.map(enc).join("|");
+      let travelmode = "transit";
+      if(dayRoute.mode.includes("步行") && !dayRoute.mode.includes("飛機")) travelmode = "transit";
+      return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&waypoints=${waypoints}&travelmode=${travelmode}`;
+    }
+    function showSection(id){
+      document.querySelectorAll("main section").forEach(s=>s.classList.remove("active"));
+      byId(id).classList.add("active");
+      document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
+      [...document.querySelectorAll(".nav-btn")].find(b=>b.getAttribute("onclick").includes(id))?.classList.add("active");
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+    function backToTop(){window.scrollTo({top:0,behavior:"smooth"});}
+
+    function renderHeader(){
+      byId("headerContent").innerHTML = `
+        <div class="hero-card">
+          <div><strong>日期：</strong>${trip.dates}</div>
+          <div><strong>路線：</strong>${trip.travelers}</div>
+          <div><strong>主題：</strong>${trip.transportTheme}</div>
+          <div><strong>指定美食：</strong><span class="hl-red">亞興飯店（Ah Heng Food Corner）</span>、<span class="hl-red">豐年瓦煲雞飯</span></div>
+        </div>
+        <div class="hero-card">
+          <div><strong>住宿：</strong>${trip.hotels.map(h=>`${h.city}｜${h.name}｜${h.stay}`).join("<br>")}</div>
+          <div style="margin-top:8px"><strong>早餐：</strong>兩間飯店皆安排 GHA 鈦金卡會員早餐，內容與權益出發前需再次確認。</div>
+        </div>`;
+    }
+
+    function renderItinerary(){
+      byId("itinerary").innerHTML = `
+        <div class="section-title"><span class="mark">🚇</span>每日行程</div>
+        ${days.map(d=>`
+          <article class="day">
+            <div class="day-head">
+              <h3>${d.day}｜${d.date}｜${d.city}</h3>
+              <div><span class="badge gold">${d.theme}</span><span class="badge">${d.range}</span></div>
+            </div>
+            <div class="timeline">
+              ${d.events.map(e=>`
+                <div class="event">
+                  <div class="time">${e.time}</div>
+                  <div class="event-body">
+                    <h4>${e.place}</h4>
+                    <div>${e.activity}</div>
+                    <div class="meta">
+                      <div><strong>交通</strong><br>${e.transport}</div>
+                      <div><strong>預估費用</strong><br>${e.cost}</div>
+                      <div><strong>備註</strong><br>${e.note}</div>
+                      <div><strong>狀態</strong><br>${e.note.includes("確認")?"出發前需再次確認":"已排入行程"}</div>
+                    </div>
+                  </div>
+                </div>`).join("")}
+            </div>
+          </article>`).join("")}`;
+    }
+
+    function renderFood(){
+      byId("food").innerHTML = `
+        <div class="section-title"><span class="mark">🍜</span>米其林與在地美食</div>
+        <div class="card"><strong>米其林標示原則：</strong>吉隆坡採 Michelin Guide Kuala Lumpur & Penang 2026 最新可查版本；新加坡若 2026 年度尚未公布，採 Michelin Guide Singapore 2025 最新可查版本。未能確認米其林身分者標示為在地推薦或待核對，不宣稱星級、Bib Gourmand 或入選狀態。</div>
+        <table>
+          <thead><tr><th>店名</th><th>區域/類型</th><th>推薦來源</th><th>招牌菜/費用</th><th>安排日</th><th>連結與備註</th></tr></thead>
+          <tbody>
+          ${foods.map(f=>`
+            <tr>
+              <td data-label="店名">${f[0]}</td>
+              <td data-label="區域/類型">${f[1]}<br><span class="badge">${f[2]}</span></td>
+              <td data-label="推薦來源">${f[3]}<br><span class="note">${f[4]}</span></td>
+              <td data-label="招牌菜/費用">${f[5]}<br><span class="badge gold">${f[6]}</span></td>
+              <td data-label="安排日">${f[7]}</td>
+              <td data-label="連結與備註"><a href="${f[8]}" target="_blank" rel="noopener">參考連結</a><br>${f[9]}</td>
+            </tr>`).join("")}
+          </tbody>
+        </table>`;
+    }
+
+    function renderSouvenirs(){
+      byId("souvenirs").innerHTML = `
+        <div class="section-title"><span class="mark">🎁</span>伴手禮建議</div>
+        <div class="grid two">
+        ${souvenirs.map(s=>`
+          <div class="card">
+            <h3>${s[0]}</h3>
+            <span class="badge">${s[1]}</span><span class="badge gold">${s[3]}</span><span class="badge green">${s[4]}</span>
+            <p><strong>推薦品：</strong>${s[2]}</p>
+            <p><strong>文化意義：</strong>${s[5]}</p>
+            <p><strong>備註：</strong>${s[6]}</p>
+          </div>`).join("")}
+        </div>`;
+    }
+
+    function renderAttractions(){
+      byId("attractions-wall").innerHTML = `
+        <div class="section-title"><span class="mark">🏙️</span>景點導覽牆</div>
+        <div class="grid two">
+        ${attractions.map(a=>`
+          <div class="card">
+            <h3>${a[0]}</h3>
+            <span class="badge">${a[1]}</span><span class="badge gold">${a[2]}</span>
+            <p>${a[3]}</p>
+            <p><strong>建議停留：</strong>${a[4]}</p>
+            <p><strong>交通方式：</strong>${a[5]}</p>
+            <p><strong>注意事項：</strong>${a[6]}</p>
+            <a href="${a[7]}" target="_blank" rel="noopener">Google Maps 參考連結</a>
+          </div>`).join("")}
+        </div>`;
+    }
+
+    function renderDesserts(){
+      byId("desserts").innerHTML = `
+        <div class="section-title"><span class="mark">🍰</span>下午茶甜點特輯</div>
+        <div class="grid two">
+        ${desserts.map(d=>`
+          <div class="card">
+            <h3>${d[0]}</h3>
+            <span class="badge gold">${d[1]}</span><span class="badge">${d[2]}</span>
+            <p><strong>特色：</strong>${d[3]}</p>
+            <p><strong>推薦時段：</strong>${d[4]}</p>
+            <a href="${d[5]}" target="_blank" rel="noopener">參考連結</a>
+          </div>`).join("")}
+        </div>`;
+    }
+
+    function renderDailyRoutes(){
+      byId("daily-routes").innerHTML = `
+        <div class="section-title"><span class="mark">🗺️</span>每日 Google 路線圖</div>
+        <div class="grid two">
+        ${routes.map(r=>`
+          <div class="route-card">
+            <h3>${r.day}｜${r.area}</h3>
+            <div class="route-line">${r.origin} → ${r.points.join(" → ")} → ${r.destination}</div>
+            <p><strong>建議交通方式：</strong>${r.mode}</p>
+            <p><strong>串聯順序：</strong>${r.points.join(" → ")}</p>
+            <p><strong>動線重點：</strong>${r.note}</p>
+            <a href="${buildGoogleMapsRoute(r)}" target="_blank" rel="noopener">開啟 Google Maps 每日路線</a>
+          </div>`).join("")}
+        </div>`;
+    }
+
+    function renderTransportStay(){
+      byId("transport-stay").innerHTML = `
+        <div class="section-title"><span class="mark">🛫</span>交通與住宿</div>
+        <div class="grid two">
+          <div class="card">
+            <h3>航班資訊</h3>
+            ${trip.flights.map(f=>`<p><span class="badge">${f.day}</span><strong>${f.flight}</strong><br>${f.route}<br>${f.time}<br><span class="note">${f.status}</span></p>`).join("")}
+          </div>
+          <div class="card">
+            <h3>住宿與早餐</h3>
+            ${trip.hotels.map(h=>`<p><strong>${h.name}</strong><br>${h.city}｜${h.stay}<br>${h.note}</p>`).join("")}
+            <p><strong>飯店早餐推薦內容：</strong>吉隆坡建議優先嘗試椰漿飯、咖哩、熱帶水果、現煮蛋與咖啡；新加坡建議嘗試咖椰吐司、叻沙或亞洲熱食、印度煎餅、咖啡與水果。實際餐檯依飯店當日供應。</p>
+          </div>
+          <div class="card">
+            <h3>城市內交通方式</h3>
+            <ul class="mini-list">${transportStay.cityTransport.map(x=>`<li>${x}</li>`).join("")}</ul>
+          </div>
+          <div class="card">
+            <h3>貴賓室安排</h3>
+            ${transportStay.lounges.map(l=>`<p><strong>${l.name}</strong><br><span class="badge">${l.where}</span><br>${l.detail}</p>`).join("")}
+          </div>
+        </div>
+        <div class="card" style="margin-top:18px">
+          <h3>待確認事項</h3>
+          <ul class="mini-list">
+            <li>BR227、TR451、BR216 的航廈、報到櫃檯、登機門、行李規則與航班時間。</li>
+            <li>GHA 鈦金卡早餐、升等、延遲退房與飯店 Lounge 權益。</li>
+            <li>龍騰 DragonPass 在 KUL Terminal 2 當日可用 Lounge 清單、開放時間與可進入區域。</li>
+            <li>米其林餐廳最新年度狀態、營業時間、訂位與排隊情況。</li>
+          </ul>
+        </div>`;
+    }
+
+    function renderRisks(){
+      byId("risks").innerHTML = `
+        <div class="section-title"><span class="mark">⚠️</span>假設與風險</div>
+        <div class="weather-box">
+          <h3>當地天氣評估</h3>
+          <p><strong>行程期間：</strong>2026/05/14-05/17，吉隆坡與新加坡皆屬熱帶濕熱氣候，5 月通常白天悶熱，午後或傍晚有雷陣雨可能。實際預報需於出發前 7-10 天再次確認。</p>
+          <p><strong>預估溫度區間：</strong>吉隆坡約 25-34°C；新加坡約 26-33°C。夜間降溫有限，日夜溫差通常不大，但室內冷氣強。</p>
+          <p><strong>降雨與濕度：</strong>午後雷雨、短時強降雨與高濕度可能影響戶外拍照、地鐵步行、Jalan Alor、魚尾獅公園與濱海灣夜景。建議準備折傘、輕量雨衣、防水袋與快乾衣物。</p>
+          <p><strong>交通影響：</strong>暴雨時 Grab / 計程車需求上升、車資與等待時間增加；地鐵仍是主要穩定方案。戶外景點遇雨即改百貨、博物館、Jewel Changi 或熟食中心。</p>
+          <p><strong>雨備或高溫備案：</strong>吉隆坡改 Pavilion、Suria KLCC、Central Market 室內；新加坡改 Bugis Junction、Marina Bay Sands、National Gallery、Jewel Changi。所有天氣資訊出發前需再次確認。</p>
+        </div>
+        <div class="grid two" style="margin-top:18px">
+          ${risks.map(r=>`
+            <div class="risk ${r[0]}">
+              <span class="badge ${r[0]==='high'?'red':r[0]==='medium'?'gold':'green'}">${r[0]}</span>
+              <h3>${r[1]}</h3>
+              <p>${r[2]}</p>
+            </div>`).join("")}
+        </div>
+        <div class="section-title"><span class="mark">👕</span>衣著建議 10 項</div>
+        <div class="clothes">
+          <div class="cloth"><strong>上身穿搭：</strong>排汗短袖、薄襯衫或透氣棉麻上衣，適合濕熱與地鐵移動。</div>
+          <div class="cloth"><strong>下身穿搭：</strong>輕薄長褲、寬褲或及膝裙褲，兼顧步行與宗教場所禮儀。</div>
+          <div class="cloth"><strong>外套或防風層：</strong>帶一件薄外套或輕量襯衫，應對飯店、百貨與機場強冷氣。</div>
+          <div class="cloth"><strong>雨具或防水裝備：</strong>折疊傘、手機防水袋、防潑水包，午後雷雨時很實用。</div>
+          <div class="cloth"><strong>步行鞋款：</strong>穿已磨合的運動鞋或防滑休閒鞋，避免新鞋造成水泡。</div>
+          <div class="cloth"><strong>襪子與足部保護：</strong>透氣吸濕襪、備用襪與小水泡貼，適合連續地鐵步行。</div>
+          <div class="cloth"><strong>帽子、墨鏡或防曬：</strong>戶外 KLCC、獨立廣場、魚尾獅公園需防曬帽、墨鏡與防曬乳。</div>
+          <div class="cloth"><strong>晚餐或正式場合服裝：</strong>若臨時訂高端米其林餐廳，準備 smart casual，避免拖鞋、背心與運動短褲。</div>
+          <div class="cloth"><strong>溫差備品：</strong>薄圍巾或輕外套可應對機艙、機場與飯店冷氣，尤其長時間候機。</div>
+          <div class="cloth"><strong>文化或宗教場合：</strong>清真寺、寺廟或宗教街區避免過度暴露，進入場所時遵守遮肩、遮膝與脫鞋規定。</div>
+        </div>`;
+    }
+
+    function mount(){
+      renderHeader();
+      renderItinerary();
+      renderFood();
+      renderSouvenirs();
+      renderAttractions();
+      renderDesserts();
+      renderDailyRoutes();
+      renderTransportStay();
+      renderRisks();
+      window.addEventListener("scroll",()=>{byId("backTop").style.display = window.scrollY > 420 ? "block" : "none";});
+    }
+    mount();
+  </script>
+</body>
+</html>
