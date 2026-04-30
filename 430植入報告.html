@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生殖醫學檢驗分析報告</title>
+    <style>
+        :root {
+            --primary-color: #1a5c73;
+            --secondary-color: #2b8cbe;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #e0e0e0;
+            
+            /* Tag Colors */
+            --tag-normal-bg: #e8f5e9;
+            --tag-normal-text: #2e7d32;
+            --tag-borderline-bg: #fff3e0;
+            --tag-borderline-text: #ef6c00;
+            --tag-abnormal-bg: #ffebee;
+            --tag-abnormal-text: #c62828;
+            --tag-insufficient-bg: #eceff1;
+            --tag-insufficient-text: #546e7a;
+
+            /* Alert Box Colors */
+            --info-bg: #e3f2fd;
+            --info-border: #64b5f6;
+            --warning-bg: #fff8e1;
+            --warning-border: #ffd54f;
+            --alert-bg: #ffebee;
+            --alert-border: #e57373;
+            --success-bg: #e8f5e9;
+            --success-border: #81c784;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .report-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .report-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.2em;
+        }
+
+        .report-subtitle {
+            margin: 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            font-size: 1.4em;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Tables */
+        .lab-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        .lab-table th, .lab-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .lab-table th {
+            background-color: var(--bg-color);
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        .tag.normal { background-color: var(--tag-normal-bg); color: var(--tag-normal-text); }
+        .tag.borderline { background-color: var(--tag-borderline-bg); color: var(--tag-borderline-text); }
+        .tag.abnormal { background-color: var(--tag-abnormal-bg); color: var(--tag-abnormal-text); }
+        .tag.insufficient { background-color: var(--tag-insufficient-bg); color: var(--tag-insufficient-text); }
+
+        .chance-tag {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .chance-tag.high { background-color: #2e7d32; }
+        .chance-tag.mid-high { background-color: #43a047; }
+        .chance-tag.medium { background-color: #fb8c00; }
+        .chance-tag.mid-low { background-color: #f4511e; }
+        .chance-tag.low { background-color: #c62828; }
+        .chance-tag.unknown { background-color: #78909c; }
+
+        /* Detailed Lab Block */
+        .lab-item-block {
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--secondary-color);
+        }
+        .lab-item-block h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .lab-item-block ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .lab-item-block li {
+            margin-bottom: 8px;
+        }
+
+        /* Two Column Grid */
+        .two-column-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .two-column-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Alert Boxes */
+        .alert-box {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 5px solid;
+        }
+        .info-box { background-color: var(--info-bg); border-left-color: var(--info-border); }
+        .warning-box { background-color: var(--warning-bg); border-left-color: var(--warning-border); }
+        .danger-box { background-color: var(--alert-bg); border-left-color: var(--alert-border); }
+        .success-box { background-color: var(--success-bg); border-left-color: var(--success-border); }
+
+        .good-factors-box {
+            background-color: var(--success-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--success-border);
+        }
+        .risk-factors-box {
+            background-color: var(--alert-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--alert-border);
+        }
+
+        /* Lists */
+        ul.custom-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        ul.custom-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+        }
+        ul.custom-list li::before {
+            content: "•";
+            color: var(--primary-color);
+            font-size: 1.5em;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+        .highlight-text {
+            font-weight: bold;
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+<div class="report-container">
+    <header class="report-header">
+        <h1>🧬 生殖醫學檢驗與療程評估報告</h1>
+        <p class="report-subtitle">胚胎植入後・用藥調整與臨床追蹤指引</p>
+    </header>
+
+    <section class="card summary-card">
+        <h2>📋 一、個案摘要</h2>
+        <ul class="custom-list">
+            <li><strong>目前階段：</strong> 試管嬰兒療程 - <b>胚胎植入後關鍵著床期</b>。</li>
+            <li><strong>檢驗日期：</strong> 本日最新抽血檢測（含黃體素、血栓、游離甲狀腺素）。</li>
+            <li><strong>主訴與現況：</strong> 植入後無明顯腹痛出血等不適，正在接受完整之黃體支持與免疫/血栓用藥介入。</li>
+            <li><strong>用藥調整重點：</strong> 因黃體素數值微偏低，新增「黃體油針」；因處於免疫著床關鍵期，調升「康速龍（類固醇）」劑量，並維持「愛栓通（血栓針）」及其他安胎藥物。</li>
+        </ul>
+    </section>
+
+    <section class="card highlight-card">
+        <h2>🔎 二、檢驗報告重點整理</h2>
+        <div class="table-responsive">
+            <table class="lab-table">
+                <thead>
+                    <tr>
+                        <th>檢驗項目</th>
+                        <th>結果</th>
+                        <th>單位</th>
+                        <th>時間點</th>
+                        <th>狀態</th>
+                        <th>簡要判讀</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>黃體素 (Progesterone, P4)</td>
+                        <td><strong>22.07</strong></td>
+                        <td>ng/mL</td>
+                        <td>植入後</td>
+                        <td><span class="tag borderline">邊界</span></td>
+                        <td>略低於植入後理想目標 (30 ng/mL)</td>
+                    </tr>
+                    <tr>
+                        <td>血栓指標 (D-dimer)</td>
+                        <td><strong>0.081</strong></td>
+                        <td>mg/L FEU</td>
+                        <td>植入後</td>
+                        <td><span class="tag normal">正常</span></td>
+                        <td>凝血功能在安全範圍，無明顯血栓風險</td>
+                    </tr>
+                    <tr>
+                        <td>游離甲狀腺素 (Free T4)</td>
+                        <td><strong>未出</strong></td>
+                        <td>-</td>
+                        <td>植入後</td>
+                        <td><span class="tag insufficient">資料不足</span></td>
+                        <td>本日已抽血，報告尚待確認</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="card detailed-lab-card">
+        <h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+        
+        <div class="lab-item-block">
+            <h3>黃體素 (Progesterone)：22.07 ng/mL <span class="tag borderline">邊界 / 需加強</span></h3>
+            <ul>
+                <li><strong>這個數字代表什麼：</strong> 黃體素是維持子宮內膜穩定、提供胚胎著床及發育所需營養的關鍵賀爾蒙。</li>
+                <li><strong>在生殖評估中的意義：</strong> 在試管嬰兒胚胎植入後，充足的黃體素濃度是安胎的基礎。</li>
+                <li><strong>若偏低常見代表：</strong> 子宮內膜可能變得不穩定，增加早期出血或胚胎著床失敗、流產的風險。</li>
+                <li><strong>本個案的可能解讀：</strong> 目前數值為 22.07 ng/mL，雖然有一定濃度，但距離臨床建議的理想安全值（大於 30 ng/mL）仍有微幅差距。</li>
+                <li><strong>建議與處置：</strong> 必須立刻加強黃體支持。臨床上已安排自今日起，每隔一天施打一劑「黃體油針」，以快速提升血液中的黃體素濃度。</li>
+            </ul>
+        </div>
+
+        <div class="lab-item-block">
+            <h3>血栓指標 (D-dimer)：0.081 <span class="tag normal">正常 / 良好</span></h3>
+            <ul>
+                <li><strong>這個數字代表什麼：</strong> 這是體內微小血栓形成的指標。數值越低，代表體內血液凝固與溶血系統越平衡。</li>
+                <li><strong>在生殖評估中的意義：</strong> 若有自體免疫問題或血栓體質，微血栓容易阻塞子宮內膜的微血管，導致胚胎無法順利獲得養分而著床失敗。</li>
+                <li><strong>若偏高常見代表：</strong> 處於高凝血狀態，著床與懷孕維持的風險增加。</li>
+                <li><strong>本個案的可能解讀：</strong> 目前數值為 0.081，屬於非常安全的低數值，顯示目前預防性使用的抗凝血藥物（愛栓通、伯基）發揮了極好的保護作用，子宮血流灌注環境良好。</li>
+                <li><strong>建議與處置：</strong> 維持目前的抗凝血治療策略，並按計畫於 5/2 回診追蹤血栓趨勢。</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="card evaluation-card">
+        <h2>🧠 四、整體評估</h2>
+        <p>您目前處於胚胎植入後的<strong>最關鍵著床期</strong>。綜合目前的用藥策略與檢驗數據，我們正在積極應對兩大方向：</p>
+        <ol>
+            <li><strong>強化黃體支持：</strong> 針對血液中黃體素略低於 30 ng/mL 的狀況，醫療團隊已精準地加入黃體油針，此舉能快速且有效率地穩定內膜環境。</li>
+            <li><strong>母胎免疫容受度與血流控制：</strong> 您的療程涵蓋了完整的免疫調節與血栓預防計畫（康速龍、奎寧、伯基、愛栓通）。這顯示團隊不僅在協助著床，更積極預防母體免疫系統對胚胎產生排斥反應。目前的血栓數值極佳，證明現行策略非常有效。</li>
+        </ol>
+    </section>
+
+    <section class="card chance-card">
+        <h2>📈 五、目前成功機率評估</h2>
+        <div class="chance-tag mid-high">中等偏高</div>
+        <p><strong>評估情境：</strong> 試管嬰兒胚胎植入後著床成功率推估。</p>
+        
+        <div class="two-column-grid">
+            <div class="good-factors-box">
+                <h3>✅ 正面原因</h3>
+                <ul class="custom-list">
+                    <li><strong>即時的數值監控：</strong> 發現黃體素偏低即刻補針，避免了內膜剝落風險。</li>
+                    <li><strong>血栓指標完美：</strong> D-dimer 極低，代表子宮微血管環境非常適合著床。</li>
+                    <li><strong>全方位的免疫防護：</strong> 類固醇、抗凝血劑、免疫調節劑三管齊下，大幅降低不明原因著床失敗率。</li>
+                </ul>
+            </div>
+            <div class="risk-factors-box">
+                <h3>⚠️ 可能失敗原因</h3>
+                <ul class="custom-list">
+                    <li><strong>黃體素爬升速度：</strong> 若對油針吸收較慢，黃體素仍無法達標，可能產生微量出血。</li>
+                    <li><strong>潛在免疫波動：</strong> 胚胎著床過程中可能激發母體免疫反應（如 NK 細胞或 TNF 升高），需等待後續抽血驗證。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="card research-card">
+        <h2>📚 七、調研資料摘要</h2>
+        <p>根據生殖醫學臨床實務觀點：</p>
+        <ul class="custom-list">
+            <li><strong>黃體素與著床：</strong> 研究指出，試管植入後若血清黃體素能維持在特定區間之上，臨床妊娠率與活產率顯著較高。發現不足時，及時以肌肉注射（油針）補充是主流且有效的救援方式。</li>
+            <li><strong>免疫用藥防護：</strong> 針對有反覆著床失敗風險或免疫傾向的患者，預防性使用低劑量類固醇（如康速龍）與抗凝血劑（如愛栓通），能有效抑制著床部位的局部發炎反應，提升胚胎存活率。</li>
+        </ul>
+    </section>
+
+    <section class="card plan-card">
+        <h2>🪜 八、近期步驟指引與藥物計畫</h2>
+        <div class="info-box">
+            <strong>📅 未來兩次重要回診：</strong><br>
+            1. <strong>5月2日 (週六) 11:30 - 12:00：</strong> 抽血檢驗血栓 (D-dimer) 與全血球計數 (CBC)。抽血後可先離開，預計一小時後看報告調整藥物。<br>
+            2. <strong>5月4日 (週一) 18:30：</strong> 晚間回診。抽血檢驗免疫系統（B細胞、NK細胞、腫瘤壞死因子、懷孕數值、血栓）。因夜間送檢，詳細免疫報告需等待至隔日或週三。
+        </div>
+
+        <table class="lab-table" style="font-size: 0.9em;">
+            <thead>
+                <tr>
+                    <th>藥物名稱</th>
+                    <th>用途</th>
+                    <th>使用方法與頻率 (即日起)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>黃體油針</strong></td>
+                    <td>強力安胎</td>
+                    <td><strong>每隔一天施打一支</strong> (臀部肌肉注射)</td>
+                </tr>
+                <tr>
+                    <td><strong>康速龍 (類固醇)</strong></td>
+                    <td>免疫調節防排斥</td>
+                    <td><strong>早2顆、晚2顆</strong> (劑量調升)</td>
+                </tr>
+                <tr>
+                    <td><strong>愛栓通 (血栓針)</strong></td>
+                    <td>預防微血栓</td>
+                    <td><strong>每天一支</strong> (皮下注射)</td>
+                </tr>
+                <tr>
+                    <td><strong>小白球 (Utrogestan)</strong></td>
+                    <td>內膜穩定</td>
+                    <td><strong>一天 4 次，每次 2 顆</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>益斯得 (雌激素)</strong></td>
+                    <td>維持內膜厚度</td>
+                    <td><strong>三餐飯後，每次 3 顆</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>得泰隆 (Duphaston)</strong></td>
+                    <td>口服黃體支持</td>
+                    <td><strong>早 2 顆、晚 2 顆</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>伯基 (Aspirin)</strong></td>
+                    <td>促進血液循環</td>
+                    <td><strong>每晚 1 顆</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>奎寧 (Plaquenil)</strong></td>
+                    <td>免疫微調</td>
+                    <td>依照醫囑持續服用</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="card advice-card">
+        <h2>💡 九、生活與治療建議</h2>
+        <ul class="custom-list">
+            <li><strong>活動與休息：</strong> 保持充足睡眠。可正常上班活動，但<strong>避免久站、久走或提重物</strong>（雙手才搬得動的皆算重物）。若走動時間長，建議每 15-30 分鐘坐下休息。</li>
+            <li><strong>飲食原則：</strong> 正常飲食即可（咖啡、茶、微辣可適量）。<strong>絕對禁止：</strong>菸、酒、中藥進補，以及任何可能引起宮縮的食物（如麻油、薏仁等）。</li>
+            <li><strong>穿著：</strong> 盡量以寬鬆衣物為主，不穿高跟鞋。若分泌物較多，建議勤換內褲或使用輕薄護墊以防感染。</li>
+            <li><strong>油針注射提醒：</strong> 需換上較粗的粉紅色針頭抽藥，再換回細針頭施打於臀部外上四分之一處。<strong>下針後務必「反抽」</strong>，確認無回血才可推藥。</li>
+        </ul>
+    </section>
+
+    <section class="card alert-card">
+        <h2>🚨 十、重要警示與緊急處理原則</h2>
+        <div class="danger-box">
+            <strong>🔴 關於陰道出血：</strong>
+            <ul>
+                <li><strong>深褐色/黑色/咖啡色出血：</strong> 或小於 50 元硬幣的微量出血，屬於陳舊血，請勿驚慌。處置：在原本用藥外，<strong>額外口服 2 顆小白球</strong>，觀察半小時至一小時。</li>
+                <li><span class="highlight-text">鮮紅色中大量出血 (滴在護墊上的量)：</span> 
+                    1. 立刻施打 1 支黃體油針。<br>
+                    2. 口服 1 顆止血藥。<br>
+                    3. <strong>立刻暫停施打一次「愛栓通」</strong>。<br>
+                    4. 拍照出血狀況並聯繫診所。
+                </li>
+            </ul>
+        </div>
+        <div class="warning-box">
+            <strong>🟠 關於子宮收縮感：</strong>
+            <p>如果您感覺肚臍下方呈現三角形區域有<strong>「緊緊的、下墜感」</strong>或伴隨明顯腰痠，可能是子宮正在收縮。<br>
+            處置：請立即口服 1 顆「抗宮縮藥」。基本為每 8 小時可吃一顆，若宮縮頻繁，可縮短至 4-6 小時服用一次。*(註：兩側腹部偶爾刺刺的感覺，為賀爾蒙變化導致微血管擴張，屬正常現象，不需服藥)*</p>
+        </div>
+    </section>
+
+    <section class="card discussion-card">
+        <h2>🗣️ 十一、建議與醫師討論的關鍵問題</h2>
+        <p>在即將到來的 5/2 或 5/4 回診中，您可向醫師提出以下問題以釐清後續方向：</p>
+        <ul class="custom-list">
+            <li>打了黃體油針之後，今天抽血的黃體素數值是否有順利拉升到 30 ng/mL 以上？</li>
+            <li>5/4 驗的免疫數據（如 NK 細胞）如果在著床期有波動，會需要立刻安排打免疫球蛋白（IVIG）或生物製劑嗎？</li>
+            <li>目前康速龍（類固醇）增加到一天 4 顆，預計會維持這樣的劑量多久？</li>
+            <li>我今天抽的游離甲狀腺素（Free T4）報告是否正常？需要補充甲狀腺素嗎？</li>
+        </ul>
+    </section>
+
+    <section class="card disclaimer-card">
+        <h2>📌 十二、重要聲明</h2>
+        <p style="font-size: 0.9em; color: var(--text-muted);">
+            本報告為依據您提供的資訊所做之醫學衛教整理與分析，目的是協助您理解目前的療程狀況與數據意義。此報告<strong>並非正式診斷證明、處方箋或療效保證</strong>。試管嬰兒著床機率受諸多動態因素影響，醫學上無法給予 100% 成功之承諾。用藥調整、劑量增減與後續醫療處置，請務必<strong>以您主治醫師或醫療團隊的最終當面醫囑為準</strong>。如有任何劇烈不適，請立即就醫或與您的生殖中心聯繫。
+        </p>
+    </section>
+
+</div>
+
+</body>
+</html>
