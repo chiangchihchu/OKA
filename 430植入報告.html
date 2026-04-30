@@ -198,6 +198,66 @@
             border: 1px solid var(--alert-border);
         }
 
+        /* Timeline */
+        .timeline {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: relative;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            width: 4px;
+            background: var(--border-color);
+            border-radius: 2px;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 25px;
+        }
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: 4px solid var(--card-bg);
+            box-shadow: 0 0 0 2px var(--primary-color);
+            z-index: 1;
+        }
+        .timeline-date {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+            font-size: 1.1em;
+            display: inline-block;
+            background: var(--info-bg);
+            padding: 4px 10px;
+            border-radius: 15px;
+        }
+        .timeline-content {
+            background: var(--bg-color);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-top: 8px;
+        }
+        .timeline-content ul {
+            margin-bottom: 0;
+            padding-left: 20px;
+        }
+
         /* Lists */
         ul.custom-list {
             list-style-type: none;
@@ -354,13 +414,51 @@
     </section>
 
     <section class="card plan-card">
-        <h2>🪜 八、近期步驟指引與藥物計畫</h2>
-        <div class="info-box">
-            <strong>📅 未來兩次重要回診：</strong><br>
-            1. <strong>5月2日 (週六) 11:30 - 12:00：</strong> 抽血檢驗血栓 (D-dimer) 與全血球計數 (CBC)。抽血後可先離開，預計一小時後看報告調整藥物。<br>
-            2. <strong>5月4日 (週一) 18:30：</strong> 晚間回診。抽血檢驗免疫系統（B細胞、NK細胞、腫瘤壞死因子、懷孕數值、血栓）。因夜間送檢，詳細免疫報告需等待至隔日或週三。
-        </div>
+        <h2>📅 八、未來時程與回診計畫</h2>
+        <p>由於目前是寶寶著床的最關鍵時期，前兩週將會密集安排回診（約每兩天一次）。具體時程如下：</p>
+        
+        <ul class="timeline">
+            <li class="timeline-item">
+                <div class="timeline-date">📍 今日起</div>
+                <div class="timeline-content">
+                    <ul>
+                        <li>開始每隔一天施打<strong>黃體油針</strong>。</li>
+                        <li><strong>康速龍（類固醇）</strong>劑量調升為早晚各2顆。</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <div class="timeline-date">📍 5月 2日 (週六) 11:30 回診</div>
+                <div class="timeline-content">
+                    <ul>
+                        <li><strong>檢驗項目：</strong> 抽血檢驗血栓 (D-dimer) 與全血球計數 (CBC)。</li>
+                        <li><strong>看診流程：</strong> 抽血後需等候約 1 小時看報告。確認數值後，醫師將為您評估是否需調整血栓藥物，完成批價領藥後即可離開。</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <div class="timeline-date">📍 5月 4日 (週一) 18:30 回診</div>
+                <div class="timeline-content">
+                    <ul>
+                        <li><strong>檢驗項目：</strong> 晚間抽血檢驗免疫系統（B細胞、NK細胞、腫瘤壞死因子、懷孕數值、血栓）。</li>
+                        <li><strong>報告進度：</strong> 因夜間送檢，詳細免疫報告最快需等待至隔日（週二晚間）或週三早上才能確認。</li>
+                        <li><strong>備註：</strong> 若報告顯示需施打免疫球蛋白(IVIG)等特殊製劑，診所會另行通知並安排白天進行靜脈注射。</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <div class="timeline-date">📍 5月 27日 (預定)</div>
+                <div class="timeline-content">
+                    <ul>
+                        <li><strong>安斯平追蹤：</strong> 到期前或當日追蹤安斯平藥物狀況。</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </section>
 
+    <section class="card plan-card">
+        <h2>💊 九、目前藥物計畫總表</h2>
         <table class="lab-table" style="font-size: 0.9em;">
             <thead>
                 <tr>
@@ -378,7 +476,7 @@
                 <tr>
                     <td><strong>康速龍 (類固醇)</strong></td>
                     <td>免疫調節防排斥</td>
-                    <td><strong>早2顆、晚2顆</strong> (劑量調升)</td>
+                    <td><strong>早2顆、晚2顆</strong> (劑量已調升)</td>
                 </tr>
                 <tr>
                     <td><strong>愛栓通 (血栓針)</strong></td>
@@ -401,9 +499,9 @@
                     <td><strong>早 2 顆、晚 2 顆</strong></td>
                 </tr>
                 <tr>
-                    <td><strong>伯基 (Aspirin)</strong></td>
+                    <td><strong>安斯平 / 伯基</strong></td>
                     <td>促進血液循環</td>
-                    <td><strong>每晚 1 顆</strong></td>
+                    <td><strong>早晚各 1 顆 / 睡前 1 顆</strong> (依處方維持)</td>
                 </tr>
                 <tr>
                     <td><strong>奎寧 (Plaquenil)</strong></td>
@@ -415,7 +513,7 @@
     </section>
 
     <section class="card advice-card">
-        <h2>💡 九、生活與治療建議</h2>
+        <h2>💡 十、生活與治療建議</h2>
         <ul class="custom-list">
             <li><strong>活動與休息：</strong> 保持充足睡眠。可正常上班活動，但<strong>避免久站、久走或提重物</strong>（雙手才搬得動的皆算重物）。若走動時間長，建議每 15-30 分鐘坐下休息。</li>
             <li><strong>飲食原則：</strong> 正常飲食即可（咖啡、茶、微辣可適量）。<strong>絕對禁止：</strong>菸、酒、中藥進補，以及任何可能引起宮縮的食物（如麻油、薏仁等）。</li>
@@ -425,7 +523,7 @@
     </section>
 
     <section class="card alert-card">
-        <h2>🚨 十、重要警示與緊急處理原則</h2>
+        <h2>🚨 十一、重要警示與緊急處理原則</h2>
         <div class="danger-box">
             <strong>🔴 關於陰道出血：</strong>
             <ul>
@@ -446,7 +544,7 @@
     </section>
 
     <section class="card discussion-card">
-        <h2>🗣️ 十一、建議與醫師討論的關鍵問題</h2>
+        <h2>🗣️ 十二、建議與醫師討論的關鍵問題</h2>
         <p>在即將到來的 5/2 或 5/4 回診中，您可向醫師提出以下問題以釐清後續方向：</p>
         <ul class="custom-list">
             <li>打了黃體油針之後，今天抽血的黃體素數值是否有順利拉升到 30 ng/mL 以上？</li>
@@ -457,7 +555,7 @@
     </section>
 
     <section class="card disclaimer-card">
-        <h2>📌 十二、重要聲明</h2>
+        <h2>📌 十三、重要聲明</h2>
         <p style="font-size: 0.9em; color: var(--text-muted);">
             本報告為依據您提供的資訊所做之醫學衛教整理與分析，目的是協助您理解目前的療程狀況與數據意義。此報告<strong>並非正式診斷證明、處方箋或療效保證</strong>。試管嬰兒著床機率受諸多動態因素影響，醫學上無法給予 100% 成功之承諾。用藥調整、劑量增減與後續醫療處置，請務必<strong>以您主治醫師或醫療團隊的最終當面醫囑為準</strong>。如有任何劇烈不適，請立即就醫或與您的生殖中心聯繫。
         </p>
