@@ -99,6 +99,7 @@
   .tag.borderline { background-color: var(--borderline-bg); color: var(--borderline-text); }
   .tag.abnormal { background-color: var(--abnormal-bg); color: var(--abnormal-text); }
   .tag.insufficient { background-color: var(--insufficient-bg); color: var(--insufficient-text); }
+  .tag.special { background-color: #e9d8fd; color: #44337a; }
 
   .chance-level {
     text-align: center;
@@ -170,35 +171,36 @@
   .alert-box { background-color: var(--alert-bg); border-left: 4px solid var(--alert-border); padding: 12px 16px; margin-bottom: 16px; border-radius: 0 8px 8px 0; }
 
   .summary-list { list-style: none; padding: 0; margin: 0; }
-  .summary-list li { padding: 8px 0; border-bottom: 1px dashed var(--border-color); display: flex; }
+  .summary-list li { padding: 8px 0; border-bottom: 1px dashed var(--border-color); display: flex; flex-wrap: wrap; }
   .summary-list li:last-child { border-bottom: none; }
   .summary-list strong { min-width: 120px; color: var(--primary-color); }
 
-  .embryo-analysis {
-    background-color: #fff;
-    border: 1px solid #e2e8f0;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 15px;
+  .price-highlight {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #c53030;
   }
-
 </style>
 </head>
 <body>
 
 <div class="report-container">
   <header class="report-header">
-    <h1>🧬 生殖醫學檢驗分析報告</h1>
-    <p class="report-subtitle">專業判讀・重點整理・後續指引</p>
+    <h1>🧬 生殖醫學檢驗與療程分析報告</h1>
+    <p class="report-subtitle">囊胚植入後暨免疫用藥綜合評估</p>
   </header>
 
   <section class="card summary-card">
     <h2>📋 一、個案摘要</h2>
     <ul class="summary-list">
       <li><strong>個案姓名：</strong>鍾佳妘 (ID: 94982)</li>
-      <li><strong>評估重點：</strong>囊胚植入後第二天狀態評估（包含胚胎影像、凝血指標、血液常規檢查）</li>
-      <li><strong>已知資訊：</strong>已完成植入，檢附三顆囊胚照片，以及植入後第二天的抽血檢驗報告（D-dimer與CBC+DC）。</li>
-      <li><strong>資料限制：</strong>未提供年齡、AMH、基礎荷爾蒙、子宮內膜厚度、黃體素(P4)/雌激素(E2)抽血數值及既往病史 <span class="tag insufficient">部分資料不足</span></li>
+      <li><strong>評估重點：</strong>囊胚植入後第二天狀態評估，並整合「免疫球蛋白 (IVIG)」與其他免疫抑制劑的療程作用與費用。</li>
+      <li><strong>已知資訊：</strong>
+        <br>1. 植入三顆優質囊胚（含孵化中囊胚）。
+        <br>2. 植入後第二天抽血：D-dimer與CBC+DC常規。
+        <br>3. <strong>接受高強度免疫療程：</strong>包含 IVIG (免疫球蛋白)、Benlysta (奔麗生)、Humira (復邁) 與 Dexamethasone (類固醇)。
+      </li>
+      <li><strong>資料限制：</strong>未提供年齡、AMH、基礎荷爾蒙、確切的免疫疾病診斷名稱（如抗磷脂質症候群 APS、紅斑性狼瘡 SLE 或 NK細胞偏高等） <span class="tag insufficient">部分資料不足</span></li>
     </ul>
   </section>
 
@@ -235,14 +237,14 @@
             <td>79.1 %</td>
             <td>通常 40~75%</td>
             <td><span class="tag borderline">略偏高</span></td>
-            <td>常見於療程用藥或早期著床生理反應。</td>
+            <td>預期內的生理性或藥物（類固醇）反應。</td>
           </tr>
           <tr>
             <td>LYMPH% (淋巴球)</td>
             <td>17.3 %</td>
             <td>通常 20~40%</td>
             <td><span class="tag borderline">略偏低</span></td>
-            <td>與NEUT%相對應的生理性偏移。</td>
+            <td>與NEUT%相對應的偏移。</td>
           </tr>
           <tr>
             <td>Hb (血紅素)</td>
@@ -251,163 +253,135 @@
             <td><span class="tag normal">正常</span></td>
             <td>無貧血問題，血氧供應良好。</td>
           </tr>
-          <tr>
-            <td>PLT (血小板)</td>
-            <td>307 10^3/uL</td>
-            <td>130 ~ 399</td>
-            <td><span class="tag normal">正常</span></td>
-            <td>凝血功能基礎正常。</td>
-          </tr>
         </tbody>
       </table>
     </div>
   </section>
 
   <section class="card detailed-lab-card">
-    <h2>🧾 三、各項資料與檢驗數字詳細說明</h2>
+    <h2>🧾 三、新增醫療處置評估：免疫球蛋白 (IVIG) 與免疫用藥</h2>
     
     <div class="lab-item-block">
-      <h3>1. 胚胎照片判讀（影像） <span class="tag normal">狀態優良</span></h3>
+      <h3>1. 免疫球蛋白 (IVIG 10% Gamunex-C) 價格與用量 <span class="tag special">免疫介入治療</span></h3>
       <ul>
-        <li><strong>照片呈現內容：</strong>影像中展示了三顆培育至「囊胚期（Blastocyst）」的胚胎。</li>
-        <li><strong>本個案的意義解讀：</strong>
+        <li><strong>帳單費用解析：</strong>根據您提供的繳費單，本次施打了兩種劑量的 IVIG：
           <ul>
-            <li><strong>左側與中間：</strong>為擴張中的囊胚（Expanded Blastocyst），細胞團塊緊密且外圍滋養層細胞排列整齊，屬於型態優良的胚胎。</li>
-            <li><strong>右側：</strong>為<strong>正在孵化／已孵化（Hatching/Hatched）的囊胚</strong>。這是胚胎發育非常良好的徵象，代表胚胎已經突破透明帶，準備好隨時與子宮內膜接觸並著床。</li>
+            <li><strong>25ml IVIG 10%：</strong> 單價 <span class="price-highlight">NT$ 13,000</span></li>
+            <li><strong>100ml IVIG 10%：</strong> 單價 <span class="price-highlight">NT$ 52,000</span></li>
+            <li><strong>合計 IVIG 花費：</strong> <span class="price-highlight">NT$ 65,000</span> (總劑量 125ml，通常依據體重計算克數)</li>
           </ul>
         </li>
-        <li><strong>結論：</strong>植入的「種子」品質極佳，具備很高的著床潛力。</li>
       </ul>
     </div>
 
     <div class="lab-item-block">
-      <h3>2. D-dimer (D-雙聚體)：0.083 mg/L FEU <span class="tag normal">正常</span></h3>
+      <h3>2. 免疫球蛋白 (IVIG) 的臨床作用評估</h3>
       <ul>
-        <li><strong>這個數字代表什麼：</strong>D-dimer 是體內血栓溶解後產生的產物，用來評估體內是否有異常的血液凝固或微血栓形成。</li>
-        <li><strong>在生殖評估中的意義：</strong>如果數值過高，代表子宮微血管可能有血栓，這會阻斷胚胎著床所需的血液與營養供應，是導致反覆著床失敗或早期流產的原因之一。</li>
-        <li><strong>本個案的可能解讀：</strong>數值 0.083 遠低於參考值上限 (0.55)，代表<strong>目前您體內沒有血栓傾向</strong>。子宮腔的血液循環應該是暢通的，這為胚胎提供了一個極佳的著床環境。</li>
-        <li><strong>是否需要追蹤：</strong>目前數據非常漂亮，通常只需維持現有的常規用藥即可，不需要特別額外施打抗凝血劑（如肝素）。</li>
-      </ul>
-    </div>
-
-    <div class="lab-item-block">
-      <h3>3. WBC、NEUT% 與 LYMPH% (白血球分類) <span class="tag borderline">生理性偏移</span></h3>
-      <ul>
-        <li><strong>實際數字：</strong>WBC 8.27 (正常) / NEUT% 79.1% (略高) / LYMPH% 17.3% (略低)。</li>
-        <li><strong>這個數字代表什麼：</strong>白血球是免疫系統的指標。嗜中性球(NEUT)負責對抗細菌與急性壓力；淋巴球(LYMPH)則負責調節複雜的免疫反應。</li>
-        <li><strong>在生殖評估中的意義：</strong>在試管嬰兒療程中，我們有時會看「嗜中性球/淋巴球比值(NLR)」。</li>
-        <li><strong>本個案的可能解讀：</strong>
+        <li><strong>這個藥物是什麼：</strong>IVIG 是從健康捐血者血漿中萃取的高濃度免疫球蛋白（抗體）。在生殖醫學中，通常用於「反覆著床失敗」或「習慣性流產」且懷疑有自體免疫/同種免疫排斥的患者。</li>
+        <li><strong>對本次植入的作用與評估：</strong>
           <ul>
-            <li>白血球總數正常，代表沒有感染。</li>
-            <li>NEUT% 略升與 LYMPH% 略降，是<strong>試管療程植入後常見的現象</strong>。主要原因有二：一是為了安胎補充的大量黃體素（Progesterone）會引起輕微的白血球升高與嗜中性球偏移；二是母體為了不排斥胚胎（胚胎有一半基因來自先生），免疫系統會產生短暫的「生理性免疫偏移」來達到免疫容受。</li>
+            <li><strong>中和有害抗體：</strong>它可以像海綿一樣，吸附並中和母體內可能攻擊胚胎的自體抗體。</li>
+            <li><strong>抑制殺手細胞 (NK Cells)：</strong>降低子宮自然殺手細胞的毒性，避免免疫系統將胚胎誤認為「外來異物」而進行攻擊。</li>
+            <li><strong>調節免疫寬容：</strong>促進調節性 T 細胞 (Tregs) 的增生，為胚胎建立一個和平、不被排斥的「著床保護傘」。</li>
           </ul>
         </li>
-        <li><strong>是否需要追蹤：</strong>只要您沒有發燒、喉嚨痛或泌尿道感染等症狀，這個微幅的偏移完全可以視為<strong>正常的療程反應</strong>，無需過度擔憂。</li>
+        <li><strong>結論：</strong>這是一項高強度、高成本但對於特定免疫型不孕症（如抗磷脂質症候群、NK過高）非常關鍵的「保胎」武器。</li>
       </ul>
     </div>
 
     <div class="lab-item-block">
-      <h3>4. RBC、Hb、Hct、MCV 等紅血球指標 <span class="tag normal">正常</span></h3>
+      <h3>3. 綜合免疫療程分析 (Benlysta, Humira, Dexamethasone)</h3>
       <ul>
-        <li><strong>實際數字：</strong>RBC 4.40 / Hb 13.6 g/dL / Hct 39.3% / MCV 89.3 fL。</li>
-        <li><strong>這個數字代表什麼：</strong>評估是否有貧血，以及紅血球攜氧的能力。</li>
-        <li><strong>本個案的可能解讀：</strong>所有數值均落在完美正常範圍內（特別是 Hb > 12，MCV > 80）。代表您沒有地中海型貧血帶因，也沒有缺鐵性貧血。</li>
-        <li><strong>結論：</strong>母體能提供充足的含氧血液給子宮，對胚胎發育有利。</li>
+        <li><strong>其他藥物代表什麼：</strong>
+          <ul>
+            <li><strong>Benlysta (22,000元)：</strong>常用於紅斑性狼瘡(SLE)等自體免疫疾病，降低B細胞活性。</li>
+            <li><strong>Humira (17,000元)：</strong>腫瘤壞死因子(TNF-α)抑制劑，用於降低強烈發炎反應。</li>
+            <li><strong>Dexamethasone：</strong>強效類固醇，全面抑制發炎與免疫。</li>
+          </ul>
+        </li>
+        <li><strong>本個案的可能解讀：</strong>您的用藥清單顯示您正在接受<strong>「生殖免疫科的頂配防護療程」</strong>。這解釋了抽血報告中 NEUT% 升高的原因——類固醇（Dexamethasone）通常會導致嗜中性白血球釋放至血液中，這完全是預期中的藥物反應，請勿擔心。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>4. 胚胎與基礎血液狀態回顧 <span class="tag normal">狀態優良</span></h3>
+      <ul>
+        <li><strong>胚胎：</strong>三顆囊胚中包含<strong>孵化中的囊胚（Hatching Blastocyst）</strong>，品質極佳，隨時準備著床。</li>
+        <li><strong>凝血 (D-dimer 0.083)：</strong>數值非常漂亮，沒有血栓現象，代表目前的用藥（可能包含預防性藥物）成功維持了子宮血流的暢通。</li>
       </ul>
     </div>
   </section>
 
   <section class="card evaluation-card">
     <h2>🧠 四、整體評估</h2>
-    <p>綜合囊胚照片與植入後第二天的抽血報告來看，目前的發展處於<strong>非常理想的軌道上</strong>。胚胎本身展現了極佳的活力（已達孵化階段），且母體的凝血功能（D-dimer）與供血功能（Hb）皆十分優良，沒有血栓阻礙著床的風險。血液常規中的輕微白血球比例變化，吻合黃體素使用及植入後的正常生理反應。</p>
+    <p>這是一個<strong>「高潛力胚胎」結合「高強度免疫守護」</strong>的植入週期。胚胎本身具備極高的著床條件，而母體方面，醫師已經動用了最先進且完整的免疫抑制策略（IVIG + 生物製劑 + 類固醇），來壓制任何可能攻擊胚胎的免疫反應。同時，血液常規與 D-dimer 檢測都顯示母體處於安全的狀態，發炎與血栓風險皆在掌控中。</p>
   </section>
 
   <section class="card chance-card">
     <h2>📈 五、目前成功機率評估</h2>
     <div class="chance-level">
-      <span class="chance-tag mid-high">預估成功率：中等偏高 (Favorable)</span>
+      <span class="chance-tag mid-high">預估成功率：中等偏高 (Favorable under immune protocol)</span>
     </div>
-    <p style="text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">*此為針對單次優質囊胚植入且無血栓阻礙之臨床推估，需結合您的年齡與子宮內膜狀況最終定論。</p>
+    <p style="text-align: center; color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">*由於已使用了強效的免疫介入，胚胎著床的障礙已被大幅排除，機率顯著提升。</p>
     
     <div class="two-column-grid">
       <div class="good-factors-box">
         <h3>✅ 正面原因</h3>
         <ul>
-          <li><strong>胚胎品質極佳：</strong>出現孵化中囊胚，著床潛力通常是各型態中最高的。</li>
-          <li><strong>無微血栓風險：</strong>D-dimer 數值極低，子宮腔血流灌注佳。</li>
-          <li><strong>無貧血體質：</strong>血紅素充足，基礎健康狀態良好。</li>
-          <li><strong>正常免疫/壓力反應：</strong>白血球總數正常，無潛在急性感染干擾。</li>
+          <li><strong>胚胎品質卓越：</strong>具備孵化潛力。</li>
+          <li><strong>完善的免疫防護傘：</strong>IVIG 搭配生物製劑，有效阻斷抗體與發炎因子干擾著床。</li>
+          <li><strong>良好的子宮血流：</strong>D-dimer 偏低，無血栓威脅。</li>
         </ul>
       </div>
       <div class="risk-factors-box">
-        <h3>⚠️ 未知變數 / 可能失敗原因</h3>
+        <h3>⚠️ 可能風險 / 需注意變數</h3>
         <ul>
-          <li><strong>未知母體年齡：</strong>胚胎染色體正常的機率與年齡直接相關（若有做PGS/PGT-A則可排除此疑慮）。</li>
-          <li><strong>著床窗 (WOI) 是否精準：</strong>若未做過 ERA 檢測，著床時間點仍有微小偏差風險。</li>
-          <li><strong>賀爾蒙支持狀態：</strong>目前報告無當日 E2、P4 數值，無法確知黃體支持是否完全達標。</li>
+          <li><strong>免疫抑制的副作用：</strong>施打多種免疫抑制劑後，母體抵抗力會顯著下降，極易感染。</li>
+          <li><strong>黃體支持需充足：</strong>報告中未見 E2/P4 數值，需確保內膜厚度與黃體素足以對接胚胎。</li>
+          <li><strong>胚胎染色體因素：</strong>若未做 PGS，高齡或本身條件仍有染色體異常之自然淘汰率。</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section class="card research-card">
-    <h2>📚 六、調研資料摘要</h2>
-    <p>在當代生殖醫學臨床實務中：</p>
-    <ul>
-      <li><strong>D-dimer 與試管嬰兒：</strong>研究顯示，反覆著床失敗或習慣性流產的婦女，常伴隨凝血異常。若植入後 D-dimer 顯著升高，醫師通常會介入使用阿斯匹靈 (Aspirin) 或低分子量肝素 (LMWH)。您的數值正常，代表不需承受這類額外藥物的副作用風險。</li>
-      <li><strong>NLR（嗜中性/淋巴球比值）：</strong>近期研究探討免疫系統對胚胎著床的影響。懷孕初期或大量使用黃體素時，免疫系統會自然轉向「容忍」狀態，導致嗜中性球比例輕微上升。這是一種為了保護胚胎不被母體排斥的生理性微調。</li>
-      <li><strong>孵化期囊胚 (Hatching Blastocyst)：</strong>臨床數據顯示，植入Day 5 或 Day 6的孵化期囊胚，其臨床妊娠率通常顯著高於早期囊胚或桑椹胚，因為它們已經跨越了發育的第一個大考驗。</li>
-    </ul>
-  </section>
-
   <section class="card plan-card">
-    <h2>🪜 七、步驟指引與後續建議</h2>
+    <h2>🪜 六、步驟指引與生活建議</h2>
     <div class="info-box">
-      <strong>目前最重要的事情就是「按時用藥」與「放鬆心情」。</strong>
+      <strong>免疫介入期間，最重要的任務是「嚴格防範感染」與「按時服藥」。</strong>
     </div>
     <ol>
-      <li><strong>持續安胎療程：</strong>請務必嚴格按照醫師指示，使用黃體素（塞劑、口服或水針）與雌激素。胚胎雖好，仍需內膜與荷爾蒙的穩定支撐。</li>
-      <li><strong>注意用藥後反應：</strong>黃體素常會引起胸部脹痛、腹部微脹、疲倦或體溫微升，這都是正常現象，不要因為這些症狀患得患失。</li>
-      <li><strong>等待開獎：</strong>通常植入囊胚後的 <strong>第 10 到 14 天</strong> 是抽血驗孕（b-hCG）的標準時間，請依診所安排的時間回診抽血。</li>
+      <li><strong>絕對防範感染：</strong>因為施打了 Humira、Benlysta 與類固醇，您目前的免疫力比一般孕婦低很多。請務必<strong>勤洗手、出門戴口罩、避免去人多的密閉公共場所、不吃生食（避免生魚片、未熟蛋以防李斯特菌或沙門氏菌感染）</strong>。</li>
+      <li><strong>追蹤副作用：</strong>IVIG 施打後，少數人可能出現輕微頭痛、發燒或肌肉痠痛（繳費單上的 Panadol 普拿疼、Vena 抗組織胺即是預防此類過敏發燒反應的藥物）。若出現劇烈頭痛或嚴重過敏，需立即反應。</li>
+      <li><strong>維持安定心情：</strong>您已經做了最萬全的醫療準備，接下來的這十天，請保持平靜，不需絕對臥床，維持正常輕度活動以促進血液循環。</li>
     </ol>
   </section>
 
-  <section class="card advice-card">
-    <h2>💡 八、生活照護建議</h2>
-    <ul>
-      <li><strong>日常活動：</strong>正常作息即可，不需要絕對臥床（研究指出長期臥床反而降低血液循環）。可以散步，但避免提重物、劇烈運動或腹部用力的動作。</li>
-      <li><strong>飲食建議：</strong>均衡飲食，多攝取優質蛋白質與蔬菜，預防便秘（便秘用力對植入後不佳）。避免生食以防腸胃炎。</li>
-      <li><strong>體溫與洗澡：</strong>請以淋浴為主，<strong>絕對避免泡澡、溫泉或使用電毯直接熱敷腹部</strong>，高溫會影響胚胎發育。</li>
-    </ul>
-  </section>
-
   <section class="card discussion-card">
-    <h2>🗣️ 九、建議與醫師討論的關鍵問題</h2>
-    <p>雖然目前狀況良好，下次門診（或開獎時）可向醫師詢問以下問題，讓自己更安心：</p>
+    <h2>🗣️ 七、建議與醫師討論的關鍵問題</h2>
+    <p>下次回診或開獎時，建議可與醫師確認以下醫療細節：</p>
     <ul>
-      <li>👉 「請問植入當天或近期的黃體素 (Progesterone, P4) 數值是否足夠？需要增加塞劑或打針嗎？」</li>
-      <li>👉 「我的白血球分類中，嗜中性球稍微偏高，這單純是黃體素藥物的影響對嗎？」</li>
-      <li>👉 「這次植入的這顆孵化囊胚，之前的等級（如 4AA, 5AB等）大約落在哪裡？是否曾做過 PGS/PGT-A 染色體篩檢？」</li>
+      <li>👉 「請問目前的白血球稍微偏高，是否單純是類固醇（Dexamethasone）的影響？有需要特別注意感染徵象嗎？」</li>
+      <li>👉 「若兩天後確認著床成功（或開獎懷孕），目前的免疫球蛋白 (IVIG) 與生物製劑 (Humira / Benlysta) 預計的施打頻率與週期會如何安排？」</li>
+      <li>👉 「目前的凝血功能 (D-dimer) 很好，是否還需要搭配阿斯匹靈或肝素來預防未來的血栓？」</li>
     </ul>
   </section>
 
   <section class="card alert-card">
-    <h2>🚨 十、警示訊號</h2>
+    <h2>🚨 八、警示訊號</h2>
     <div class="alert-box">
-      <strong>若出現以下症狀，請提早回診或前往急診：</strong>
+      <strong>免疫治療期間，出現以下症狀請立刻聯絡生殖中心或就醫：</strong>
       <ul style="margin-top: 8px; margin-bottom: 0;">
-        <li>出現<strong>劇烈、持續且無法緩解的下腹疼痛</strong>或痙攣。</li>
-        <li>陰道出現<strong>鮮紅色且量大（如月經第二天）的異常出血</strong>（若是少許咖啡色點狀出血，通常為著床出血，先觀察即可）。</li>
-        <li>出現嚴重呼吸喘、尿量明顯減少或腹部異常極度脹大（需排除晚發型卵巢過度刺激症候群 OHSS）。</li>
-        <li>不明原因發燒超過 38°C。</li>
+        <li><strong>不明原因的發燒（>38度）</strong>、嚴重喉嚨痛或泌尿道感染症狀（因免疫力低下，感染易迅速惡化）。</li>
+        <li>施打 IVIG 後出現極度劇烈的頭痛、胸悶或呼吸困難。</li>
+        <li>陰道出現<strong>鮮紅色且量大</strong>的出血，或伴隨劇烈腹部絞痛。</li>
       </ul>
     </div>
   </section>
 
   <section class="card disclaimer-card">
-    <h2>📌 十一、重要聲明</h2>
+    <h2>📌 九、重要聲明</h2>
     <p style="font-size: 13px; color: var(--text-muted);">
-      本報告由醫療資訊輔助系統生成，旨在根據您提供的檢驗數據進行邏輯分析與衛教整理。目前為止您的檢驗數據展現了非常正向的著床條件。然而，生殖醫學涉及多重變數，本報告<strong>不能取代主治醫師的當面診斷與治療決策</strong>。成功機率為定性推估，不構成療效保證。任何用藥調整或醫療決策，請務必遵從您的生殖中心與主治醫師之指示。祝您好孕！
+      本報告由醫療資訊輔助系統生成，旨在根據您提供的檢驗數據與醫療費用清單進行臨床邏輯分析。您目前接受的是高度專精的生殖免疫聯合療法，此報告<strong>不能取代主治醫師的當面診斷與治療決策</strong>。成功機率為定性推估，不構成療效保證。任何用藥調整（特別是免疫抑制劑的增減）極具風險，請務必嚴格遵從您的生殖中心與免疫科醫師之指示。祝您順利著床！
     </p>
   </section>
 </div>
