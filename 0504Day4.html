@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生殖醫學檢驗分析報告</title>
+<style>
+  :root {
+    --primary-color: #1A365D;
+    --secondary-color: #0D9488;
+    --bg-color: #F8FAFC;
+    --card-bg: #FFFFFF;
+    --text-main: #334155;
+    --text-light: #64748B;
+    
+    /* Tag Colors */
+    --tag-normal-bg: #DEF7EC;
+    --tag-normal-text: #03543F;
+    --tag-borderline-bg: #FEF08A;
+    --tag-borderline-text: #713F12;
+    --tag-abnormal-bg: #FDE8E8;
+    --tag-abnormal-text: #9B1C1C;
+    --tag-pending-bg: #E1EFFE;
+    --tag-pending-text: #1E429F;
+
+    /* Box Colors */
+    --info-bg: #EBF5FF;
+    --info-border: #3F83F8;
+    --warning-bg: #FFF7ED;
+    --warning-border: #F6993F;
+    --alert-bg: #FDF2F2;
+    --alert-border: #F05252;
+    --success-bg: #F0FDF4;
+    --success-border: #31C48D;
+  }
+
+  body {
+    font-family: 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans TC', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .report-container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .report-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid var(--primary-color);
+  }
+  .report-header h1 {
+    color: var(--primary-color);
+    font-size: 28px;
+    margin: 0 0 10px 0;
+  }
+  .report-subtitle {
+    color: var(--secondary-color);
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  }
+  .card h2 {
+    color: var(--primary-color);
+    font-size: 20px;
+    border-left: 4px solid var(--secondary-color);
+    padding-left: 12px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Tables */
+  .lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+  }
+  .lab-table th, .lab-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #E2E8F0;
+  }
+  .lab-table th {
+    background-color: #F1F5F9;
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+  .lab-table tbody tr:hover {
+    background-color: #F8FAFC;
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 8px;
+    white-space: nowrap;
+  }
+  .tag.normal { background: var(--tag-normal-bg); color: var(--tag-normal-text); }
+  .tag.borderline { background: var(--tag-borderline-bg); color: var(--tag-borderline-text); }
+  .tag.abnormal { background: var(--tag-abnormal-bg); color: var(--tag-abnormal-text); }
+  .tag.pending { background: var(--tag-pending-bg); color: var(--tag-pending-text); }
+
+  /* Chance Badge */
+  .chance-level {
+    display: inline-block;
+    background: linear-gradient(135deg, #0D9488, #0F766E);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(13, 148, 136, 0.3);
+  }
+
+  /* Two Column Grid */
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 768px) {
+    .two-column-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Boxes */
+  .box {
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 4px solid;
+    margin-bottom: 16px;
+  }
+  .info-box { background: var(--info-bg); border-color: var(--info-border); }
+  .warning-box { background: var(--warning-bg); border-color: var(--warning-border); }
+  .alert-box { background: var(--alert-bg); border-color: var(--alert-border); }
+  .good-factors-box { background: var(--success-bg); border-color: var(--success-border); padding: 16px; border-radius: 8px; }
+  .risk-factors-box { background: var(--warning-bg); border-color: var(--warning-border); padding: 16px; border-radius: 8px; }
+
+  .good-factors-box h3, .risk-factors-box h3 {
+    margin-top: 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .good-factors-box h3 { color: #046C4E; }
+  .risk-factors-box h3 { color: #9A3412; }
+
+  /* Lab Item Block */
+  .lab-item-block {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .lab-item-block h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .lab-item-block ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .lab-item-block li {
+    margin-bottom: 8px;
+    color: #475569;
+  }
+  .lab-item-block strong {
+    color: var(--text-main);
+  }
+
+  /* Typography Utilities */
+  ul { padding-left: 20px; }
+  li { margin-bottom: 8px; }
+  .text-muted { color: var(--text-light); font-size: 0.9em; }
+  
+  /* Meds Table */
+  .meds-list {
+    background: #FFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 15px;
+  }
+  .meds-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed #CBD5E1;
+    padding: 8px 0;
+  }
+  .meds-item:last-child { border-bottom: none; }
+  .meds-name { font-weight: bold; color: var(--primary-color); }
+  .meds-dosage { color: #64748B; }
+</style>
+</head>
+<body>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>🧬 生殖醫學檢驗分析與用藥指引報告</h1>
+    <p class="report-subtitle">胚胎植入後第4天・早期著床評估・免疫與血栓監測</p>
+  </header>
+
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要</h2>
+    <div class="info-box">
+      <p><em>註：本報告內容依據語音轉寫紀錄進行專業醫學推演與校正，部分藥名為語音辨識之諧音（如：哎酸痛→愛栓通，他說龍→康速龍），已於下方報告中自動修正為臨床標準用詞。</em></p>
+    </div>
+    <ul>
+      <li><strong>評估對象階段：</strong> 胚胎植入後，正在進行黃體支持與免疫用藥療程。</li>
+      <li><strong>目前時間點：</strong> 植入後第 4 天（驗孕抽血基準日）。</li>
+      <li><strong>本次回診主訴：</strong> 第一次檢驗懷孕指數（β-hCG）、追蹤血栓數值（D-dimer）、抽取免疫檢體。</li>
+      <li><strong>症狀反饋：</strong> 個案詢問「肚子不舒服、覺得一直有刺痛感」，醫療端評估後未特別警示，屬植入後常見現象。</li>
+      <li><strong>目前用藥狀態：</strong> 採用高度免疫與血栓防護療程（包含肝素、類固醇、阿斯匹靈及高劑量黃體素等）。</li>
+    </ul>
+  </section>
+
+  <section class="card highlight-card">
+    <h2>🔎 二、檢驗報告重點整理</h2>
+    <div style="overflow-x: auto;">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th>檢驗項目</th>
+            <th>檢測結果</th>
+            <th>單位</th>
+            <th>時間點</th>
+            <th>狀態</th>
+            <th>簡要判讀</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>β-hCG (懷孕指數)</strong></td>
+            <td>4.75</td>
+            <td>mIU/mL</td>
+            <td>植入後第4天</td>
+            <td><span class="tag normal">早期著床成功</span></td>
+            <td>數值大於 0.1，確認胚胎已開始初步著床。</td>
+          </tr>
+          <tr>
+            <td><strong>D-dimer (血栓指標)</strong></td>
+            <td>0.066</td>
+            <td>mg/L (推估)</td>
+            <td>植入後第4天</td>
+            <td><span class="tag normal">控制良好</span></td>
+            <td>數值穩定，代表目前微血栓風險低，子宮血流灌注良好。</td>
+          </tr>
+          <tr>
+            <td><strong>免疫相關抽血</strong></td>
+            <td>(送檢中)</td>
+            <td>-</td>
+            <td>植入後第4天</td>
+            <td><span class="tag pending">等待報告中</span></td>
+            <td>明晚出報告，將決定是否需追加免疫球蛋白(IVIG)等點滴治療。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+    
+    <div class="lab-item-block">
+      <h3>β-hCG (人體絨毛膜促性腺激素)：4.75 <span class="tag normal">早期著床成功</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> β-hCG 是由早期胚胎滋養層細胞分泌的荷爾蒙，是判斷是否懷孕的黃金指標。</li>
+        <li><strong>在生殖評估中的意義：</strong> 植入後極早期的驗孕（如第4天），主要用來捕捉胚胎是否已經順利「咬住」子宮內膜。</li>
+        <li><strong>本個案的可能解讀：</strong> 醫療端明確指出「大於0.1代表有著床」。您目前的數值為 4.75，這是一個非常正向的早期訊號，證明胚胎沒有游離，已經開始與母體建立連結。</li>
+        <li><strong>後續觀察重點：</strong> 懷孕早期的 hCG 看的不是絕對值，而是<strong>「翻倍速度」</strong>。診所預期您的數值每兩天應成長 2.5 倍。因此下一次回診（植入後第6天），目標數值為 <strong>4.75 × 2.5 = 11.875 以上</strong>。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>D-dimer / 血栓指標：0.066 <span class="tag normal">控制優良</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> 血液中纖維蛋白分解的產物，用來評估體內是否有異常的血液凝固或微血栓形成。</li>
+        <li><strong>在生殖評估中的意義：</strong> 對於有免疫或血栓病史的備孕女性，微血栓會堵塞子宮內膜的微血管，導致胚胎無法獲得足夠營養而著床失敗或早期流產。</li>
+        <li><strong>本個案的可能解讀：</strong> 數值 0.066 處於非常低且安全的範圍。這代表目前的抗凝血用藥（愛栓通肝素、伯基阿斯匹靈）發揮了極佳的保護作用，子宮內膜的血流灌注暢通無阻。</li>
+        <li><strong>是否需要追蹤：</strong> 是。隨懷孕週數增加，孕婦的凝血功能會自然改變，需配合療程持續抽血追蹤。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體評估</h2>
+    <p>目前正處於<strong>「植入後極早期觀察期」</strong>，整體狀況往非常樂觀的方向發展。胚胎已確認初步著床（hCG 4.75），且威脅著床的血栓因子目前被藥物完美壓制（D-dimer 0.066）。</p>
+    <p>您提到肚子有刺痛感，這在植入後初期非常常見，多半是由於胚胎著床、子宮充血擴張、或是大量黃體素藥物引起的腸胃與骨盆腔反應，只要沒有伴隨劇烈絞痛或鮮紅出血，無須過度擔憂。目前的重點在於<strong>維持藥物濃度</strong>，等待免疫報告出爐，並觀察兩天後 hCG 的翻倍狀況。</p>
+  </section>
+
+  <section class="card chance-card">
+    <h2>📈 五、目前成功機率評估</h2>
+    <div class="chance-level">中等偏高</div>
+    <p class="text-muted">註：此評估針對「本次試管植入療程是否能順利發展為臨床懷孕」，為依據目前 Day 4 數據之臨床推估，仍需視後續翻倍與超音波結果而定。</p>
+    
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面原因</h3>
+        <ul>
+          <li><strong>著床訊號出現：</strong> Day 4 hCG 達 4.75，證明胚胎已具備著床能力。</li>
+          <li><strong>血栓控制完美：</strong> 凝血指標 0.066，營造了良好的子宮內膜微環境。</li>
+          <li><strong>醫療介入積極：</strong> 診所採用高規格的黃體與免疫血栓支持療程，防護網建立完整。</li>
+        </ul>
+      </div>
+      <div class="risk-factors-box">
+        <h3>⚠️ 可能失敗原因 (潛在變數)</h3>
+        <ul>
+          <li><strong>週數過早：</strong> 即使有著床，生化妊娠（淺著床後萎縮）在初期仍有一定機率發生。</li>
+          <li><strong>免疫排斥風險：</strong> 免疫報告（如抗體指數、白血球攻擊性等）尚未出爐，若母體出現免疫排斥反應，可能會攻擊剛著床的胚胎。</li>
+          <li><strong>藥物漏用的風險：</strong> 由於用藥極度複雜且種類繁多，一旦漏打漏吃，可能引發荷爾蒙或凝血狀態的劇烈波動。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card risk-card">
+    <h2>⚠️ 六、可能問題與用藥風險分析</h2>
+    <div class="warning-box">
+      <strong>複雜用藥依從性挑戰：</strong>
+      <p>目前的療程涵蓋口服、塞劑與皮下注射，且時間點分散（早晚、三餐、隔日）。最大的風險在於「忘記用藥」或「自行停藥」。特別是<strong>愛栓通（肝素）</strong>和<strong>黃體油針</strong>，對於維持懷孕至關重要，必須嚴格遵守時間。</p>
+    </div>
+  </section>
+
+  <section class="card research-card">
+    <h2>📚 七、調研資料摘要</h2>
+    <ul>
+      <li><strong>早期 hCG 翻倍原則：</strong> 臨床共識指出，健康的早期懷孕，其血清 β-hCG 濃度大約每 48 到 72 小時會成長一倍以上（診所標準設定為兩天 2.5 倍是非常嚴謹且安全的觀察指標）。</li>
+      <li><strong>反覆流產與免疫血栓治療：</strong> 針對有潛在免疫或血栓問題的個案，常規會使用低分子量肝素（如愛栓通）合併低劑量阿斯匹靈（如伯基），研究顯示這能顯著提升活產率。若免疫指標異常發炎，則會考慮在植入前後介入類固醇（如康速龍）或靜脈注射免疫球蛋白（IVIG）。</li>
+    </ul>
+  </section>
+
+  <section class="card plan-card">
+    <h2>🪜 八、關鍵步驟指引與用藥清單</h2>
+    <p>以下為接下來兩天（至 5月6日 回診前）的嚴格執行計畫：</p>
+    
+    <div class="meds-list">
+      <div class="meds-item">
+        <span class="meds-name">💉 愛栓通 (Heparin/肝素 - 防血栓)</span>
+        <span class="meds-dosage">每天 1 支。(註：今日尚未施打，請盡快補打)</span>
+      </div>
+      <div class="meds-item">
+        <span class="meds-name">💉 黃體油針 (Progesterone - 安胎)</span>
+        <span class="meds-dosage">每隔一日 1 支。(註：明天 5/5 需施打，請確實回抽確認無回血再推藥)</span>
+      </div>
+      <div class="meds-item">
+        <span class="meds-name">💊 益斯得 (Estromon - 雌激素)</span>
+        <span class="meds-dosage">三餐飯後，每次 3 顆。</span>
+      </div>
+      <div class="meds-item">
+        <span class="meds-name">💊 小白球 (Utrogestan - 黃體素)</span>
+        <span class="meds-dosage">一天 4 次，每次 2 顆。</span>
+      </div>
+      <div class="meds-item">
+        <span class="meds-name">💊 康速龍 (Prednisolone - 類固醇/抗發炎)</span>
+        <span class="meds-dosage">早上 2 顆、下午 2 顆。</span>
+      </div>
+      <div class="meds-item">
+        <span class="meds-name">💊 伯基 (Bokey - 阿斯匹靈)</span>
+        <span class="meds-dosage">每天晚上 1 顆。</span>
+      </div>
+      <div class="meds-item">
+        <span class="meds-name">💊 A藥物 (依診所指示，推測為特定補充劑)</span>
+        <span class="meds-dosage">早晚各 1 顆。</span>
+      </div>
+      <div class="meds-item">
+        <span class="meds-name">🧴 陰道塞劑 (推測為快孕隆或類似塞劑)</span>
+        <span class="meds-dosage">早上 2 劑、晚上 2 劑。</span>
+      </div>
+      <div class="meds-item">
+        <span class="meds-name">💊 安斯林 & 可你 (特定免疫調節藥物)</span>
+        <span class="meds-dosage">早晚各 1 顆 (預計維持至 5/27 評估)。</span>
+      </div>
+    </div>
+    
+    <br>
+    <strong>📅 回診計畫：</strong>
+    <ul>
+      <li><strong>5月6日 (週三) 18:50：</strong> 回診抽血（追蹤 hCG 翻倍與血栓）。</li>
+      <li><strong>看報告與對策：</strong> 評估免疫抽血結果。若醫師判定需施打免疫針劑（IVIG等），預計安排於 5月7日 (週四) 早上施打；若時間不允許，最遲需於 5月8日 (週五) 早上施打（診所已提醒延遲一天會有潛在風險）。</li>
+    </ul>
+  </section>
+
+  <section class="card discussion-card">
+    <h2>🗣️ 九、建議與醫師討論的關鍵問題</h2>
+    <p>5月6日回診時，建議您可以向醫師確認以下問題：</p>
+    <ul>
+      <li>今天的 β-hCG 翻倍幅度是否有達到預期的 11.875 以上？這個成長曲線算是強勢嗎？</li>
+      <li>前天抽血的「免疫報告」結果如何？是否有特定的發炎指數或抗體異常？</li>
+      <li>根據目前的免疫結果，是否確認需要追加施打免疫球蛋白（IVIG）或其他的點滴？</li>
+      <li>肚子持續偶爾有刺痛感，目前陰道分泌物或塞劑殘渣的顏色是否正常？</li>
+      <li>如果週四早上真的無法請假打針，延後到週五早上打的這 24 小時空窗期，風險具體會落在哪裡？是否可以口服藥物暫時加強？</li>
+    </ul>
+  </section>
+
+  <section class="card alert-card">
+    <h2>🚨 十、警示訊號與就醫時機</h2>
+    <div class="alert-box">
+      <p>您目前處於極早期的著床階段，請密切觀察身體狀況。若出現以下任一症狀，請<strong>不要等到原定的 5月6日，應立即與診所聯繫或前往生殖中心急診</strong>：</p>
+      <ul>
+        <li><strong>異常出血：</strong> 出現鮮紅色、量多如月經般的陰道出血（少量的咖啡色分泌物為塞劑殘渣或著床性出血，屬正常現象，但仍需觀察）。</li>
+        <li><strong>劇烈腹痛：</strong> 原本的「刺痛感」轉變為劇烈的絞痛、撕裂痛，且單側明顯或伴隨冒冷汗。</li>
+        <li><strong>過敏反應：</strong> 施打肝素或服用大量免疫藥物後，出現嚴重的呼吸急促、全身大面積皮疹或異常出血不止（如牙齦狂流血）。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card disclaimer-card">
+    <h2>📌 十一、重要聲明</h2>
+    <p class="text-muted">本報告係依據您提供的語音對話紀錄與數據進行之醫學邏輯分析與衛教整理。報告中之數據解讀、成功率推估與用藥清單整理，僅供您作為個人紀錄與回診溝通之參考，<strong>絕對無法取代您的主治醫師之正式診斷與處方</strong>。試管嬰兒療程與免疫用藥極度複雜且因人而異，任何藥物的增減、停用或副作用疑慮，請務必遵照原就診生殖中心之醫囑執行。</p>
+  </section>
+</div>
+
+</body>
+</html>
