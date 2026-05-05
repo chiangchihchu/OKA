@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生殖免疫檢驗分析與全面比對報告</title>
+<style>
+  :root {
+    --primary-color: #1a5c7a;
+    --secondary-color: #f4f7f6;
+    --text-main: #333333;
+    --text-muted: #666666;
+    --normal-color: #27ae60;
+    --borderline-color: #f39c12;
+    --abnormal-color: #e74c3c;
+    --insufficient-color: #95a5a6;
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+    background-color: #eaeff2;
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .report-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: transparent;
+  }
+
+  .report-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 30px;
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .report-header h1 {
+    margin: 0 0 10px 0;
+    font-size: 28px;
+    letter-spacing: 1px;
+  }
+
+  .report-subtitle {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.9;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+  }
+
+  .card h2 {
+    color: var(--primary-color);
+    font-size: 20px;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Tags & Badges */
+  .tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .tag.normal { background-color: var(--normal-color); }
+  .tag.borderline { background-color: var(--borderline-color); }
+  .tag.abnormal { background-color: var(--abnormal-color); }
+  .tag.insufficient { background-color: var(--insufficient-color); }
+
+  .chance-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 15px;
+  }
+  .chance-tag.mid-low { background-color: #d35400; }
+
+  /* Tables */
+  .lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+  .lab-table th, .lab-table td {
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+  }
+  .lab-table th {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .lab-table tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+  .lab-table tr:hover {
+    background-color: #f1f8ff;
+  }
+
+  /* Info Boxes */
+  .info-box, .warning-box, .alert-box, .success-box, .caution-box {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 5px solid;
+  }
+  .info-box { background-color: #ebf5fb; border-color: #3498db; }
+  .warning-box { background-color: #fef9e7; border-color: #f1c40f; }
+  .alert-box { background-color: #fdedec; border-color: #e74c3c; }
+  .success-box { background-color: #e9f7ef; border-color: #2ecc71; }
+  .caution-box { background-color: #fdf2e9; border-color: #e67e22; }
+
+  /* Layouts */
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .two-column-grid {
+      grid-template-columns: 1fr;
+    }
+    .lab-table {
+      font-size: 12px;
+      display: block;
+      overflow-x: auto;
+    }
+  }
+
+  /* Detailed Lab Items */
+  .lab-item-block {
+    background-color: #fbfcfc;
+    border: 1px solid #ebedef;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .lab-item-block h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 18px;
+    border-bottom: 1px dashed #bdc3c7;
+    padding-bottom: 10px;
+  }
+  .lab-item-block ul {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--text-main);
+  }
+  .lab-item-block li {
+    margin-bottom: 10px;
+  }
+  .lab-item-block li strong {
+    color: var(--primary-color);
+  }
+
+  /* Specific Highlights */
+  .highlight-value {
+    font-weight: bold;
+    color: var(--abnormal-color);
+  }
+  .trend-down { color: var(--normal-color); font-weight: bold; }
+  .trend-up { color: var(--abnormal-color); font-weight: bold; }
+  .trend-neutral { color: var(--text-muted); }
+
+  /* Emergency Banner */
+  .emergency-banner {
+    background-color: #c0392b;
+    color: white;
+    padding: 18px 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 15px rgba(192, 57, 43, 0.4);
+    animation: pulse 2s infinite;
+  }
+  .emergency-banner .icon {
+    font-size: 28px;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(192, 57, 43, 0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(192, 57, 43, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(192, 57, 43, 0); }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>🧬 生殖免疫檢驗全數據深度分析報告</h1>
+    <p class="report-subtitle">三階段數據精準比對・藥物反應解碼・生物製劑介入評估</p>
+  </header>
+
+  <div class="emergency-banner">
+    <span class="icon">🚨</span>
+    <div>
+      <strong>醫療緊急警報：發炎指標極高！需盡快回診評估！</strong><br>
+      <span style="font-size: 15px; font-weight: normal;">發現極高濃度之 TNF-α (42.2)。<b>雖然著床階段本就會有生理性的 TNF-α 升高</b>，但此數值遠超一般預期。必須馬上回診，由醫師判定是否需於 48 小時內施打生物製劑！</span>
+    </div>
+  </div>
+
+  <section class="card summary-card">
+    <h2>📋 一、個案核心摘要</h2>
+    <div class="info-box">
+      <p>本報告涵蓋了您提供的所有生殖免疫檢驗數據，進行了<strong>「用藥前 ➡️ 用藥後 ➡️ 第四天 (Day 4)」</strong>的三階段深度比對。不僅關注單一異常值，更剖析了「白血球分布」與「各類淋巴球」在藥物作用下的消長關係。</p>
+      <ul>
+        <li><strong>核心問題：</strong> 第四天出現了強烈的發炎指標（TNF-α 飆高至 42.2）與 NK 細胞反彈（18.7%），是否需調整或繼續使用生物製劑？</li>
+        <li><strong>深度結論摘要：</strong> 基礎免疫用藥（如類固醇）確實壓制了整體的 T/B 淋巴球數量，但<strong>未能壓制住具有強烈毒殺性的 NK 細胞與 TNF-α 發炎因子</strong>。這是一個典型的「免疫突破（Immune Flare）」現象，強烈支持使用生物製劑進行靶向介入。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card highlight-card">
+    <h2>🔎 二、三階段全數據比對總覽</h2>
+    <p>下表詳細列出所有數據變化。請特別注意「比例（%）」與「絕對數量（Abs）」的落差，這是判讀免疫藥物是否有效的重要關鍵。</p>
+    <div style="overflow-x:auto;">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th>檢驗項目</th>
+            <th>參考區間</th>
+            <th>用藥前</th>
+            <th>用藥後</th>
+            <th>第四天 (Day 4)</th>
+            <th>趨勢分析與臨床解讀</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 核心殺手與發炎指標 -->
+          <tr>
+            <td><strong>腫瘤壞死因子<br>(TNF-α)</strong></td>
+            <td>&lt; 4 pg/mL</td>
+            <td class="trend-neutral">無資料</td>
+            <td class="trend-neutral">無資料</td>
+            <td class="highlight-value">42.2</td>
+            <td><span class="tag abnormal">嚴重超標</span> 高於上限 10 倍以上，極強烈發炎訊號。</td>
+          </tr>
+          <tr>
+            <td><strong>NK 細胞比例<br>(CD16+56 %)</strong></td>
+            <td>&lt; 14.9 %</td>
+            <td>11.0 %</td>
+            <td class="trend-down">8.4 % (降)</td>
+            <td class="highlight-value">18.7 % (升)</td>
+            <td><span class="tag abnormal">異常反彈</span> 藥物初期有效，但在 Day4 急遽反撲。</td>
+          </tr>
+          
+          <!-- B細胞與抗體 -->
+          <tr>
+            <td><strong>B 細胞比例<br>(CD19 %)</strong></td>
+            <td>&lt; 14.9 %</td>
+            <td class="highlight-value">22.6 %</td>
+            <td class="trend-down">17.7 % (降)</td>
+            <td class="highlight-value">18.2 % (平)</td>
+            <td><span class="tag abnormal">持續偏高</span> 雖比最初下降，但仍高於參考值。</td>
+          </tr>
+          <tr>
+            <td><strong>B 細胞絕對值<br>(CD19 Abs)</strong></td>
+            <td>&lt; 499.9 uL</td>
+            <td class="highlight-value">612</td>
+            <td class="trend-down">294 (降)</td>
+            <td class="trend-down">186 (降)</td>
+            <td><span class="tag normal">控制良好</span> 絕對數量有被藥物成功壓制。</td>
+          </tr>
+          <tr>
+            <td><strong>甲狀腺球蛋白抗體<br>(ATA)</strong></td>
+            <td>&lt; 115 IU/mL</td>
+            <td class="highlight-value">171</td>
+            <td colspan="2" class="trend-neutral">無資料 (通常無需頻繁追蹤)</td>
+            <td><span class="tag abnormal">基線異常</span> 確立患者具有潛在自體免疫活躍體質。</td>
+          </tr>
+
+          <!-- T細胞群與白血球總體 -->
+          <tr>
+            <td><strong>輔助 T 細胞比例<br>(Helper cell CD4%)</strong></td>
+            <td>27 ~ 51 %</td>
+            <td>28.4 %</td>
+            <td>32.3 %</td>
+            <td class="highlight-value">22.9 % (降)</td>
+            <td><span class="tag borderline">偏低</span> T細胞受抑制，免疫系統結構改變。</td>
+          </tr>
+          <tr>
+            <td><strong>輔助 T 細胞絕對值<br>(CD4 Abs)</strong></td>
+            <td>404 ~ 1612 uL</td>
+            <td>754</td>
+            <td>533</td>
+            <td class="highlight-value">233 (降)</td>
+            <td><span class="tag abnormal">顯著低落</span> 免疫用藥(如類固醇)的強烈抑制結果。</td>
+          </tr>
+          <tr>
+            <td><strong>總 T 細胞絕對值<br>(CD3 Abs)</strong></td>
+            <td>723 ~ 2737 uL</td>
+            <td>1726</td>
+            <td>1172</td>
+            <td class="highlight-value">638 (降)</td>
+            <td><span class="tag borderline">偏低</span> 整體 T 細胞數量被藥物大幅壓低。</td>
+          </tr>
+          <tr>
+            <td><strong>白血球總數<br>(WBC)</strong></td>
+            <td>3.5 ~ 10 e3/ul</td>
+            <td>5.47</td>
+            <td>5.12</td>
+            <td>8.88 (升)</td>
+            <td><span class="tag normal">正常偏高</span> 類固醇常見副作用（白血球脫邊際效應）。</td>
+          </tr>
+          <tr>
+            <td><strong>淋巴球百分比<br>(Lymphocyte %)</strong></td>
+            <td>19 ~ 48 %</td>
+            <td class="trend-neutral">無資料</td>
+            <td class="trend-neutral">無資料</td>
+            <td class="highlight-value">11.5 %</td>
+            <td><span class="tag abnormal">偏低</span> 白血球雖多，但淋巴球佔比極低。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、逐項深度解讀：數字背後的生理意義</h2>
+
+    <div class="lab-item-block">
+      <h3>1. 腫瘤壞死因子 (TNF-α) 與自然殺手細胞：著床生理反應 vs 病理性發炎</h3>
+      <ul>
+        <li><strong>TNF-α 的生理必要性 (著床期升高)：</strong> 必須先釐清一個重要觀念：<b>在胚胎準備著床的階段（植入後初期），子宮內膜本來就需要一定程度的發炎反應來幫助胚胎「破土」並侵入內膜。</b> 此時 TNF-α 會有生理性的自然升高，這對著床是必要的過程。</li>
+        <li><strong>TNF-α (42.2 pg/mL) 的異常程度：</strong> <span class="tag abnormal">極度危險</span> 雖然著床會讓數值升高，但正常生理性升高通常有一定的幅度。當數值超過 40（參考值 &lt; 4，超標 10 倍以上）時，在臨床上往往被認為已經跨越了「幫助著床」的界線，轉變為「病理性」的過度發炎，會對胚胎滋養層產生毒殺作用。</li>
+        <li><strong>NK 細胞比例 (18.7%)：</strong> <span class="tag abnormal">異常反彈</span> 您的 NK 細胞從 11% 被壓制到 8.4%，卻在第四天突破防線飆升到 18.7%。NK 細胞的異常活躍，更進一步佐證了這不僅僅是單純的著床發炎，而是伴隨強烈免疫攻擊的跡象。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>2. 免疫抑制劑（如類固醇）造成的「矛盾現象」解析</h3>
+      <ul>
+        <li><strong>白血球總數 (WBC) 升至 8.88，但淋巴球 (Lymphocyte) 降至 11.5%：</strong> 這是一個非常經典的「類固醇藥物反應」。類固醇會讓嗜中性白血球進入血液（導致總 WBC 上升），但同時會迫使淋巴球凋亡或離開周邊血（導致淋巴球 % 下降）。這證明了<strong>您確實有服用且吸收了免疫抑制藥物</strong>。</li>
+        <li><strong>CD3、CD4 絕對數值雙雙跌破下限 (CD3: 638, CD4: 233)：</strong> 您的整體 T 細胞防禦力被藥物壓得很低。</li>
+        <li><strong>關鍵推論：</strong> 既然 T 細胞都被壓制得這麼低，為什麼還會排斥？因為<strong>剩下的淋巴球中，具有強烈攻擊性的 NK 細胞佔據了絕對優勢 (18.7%)，且大量分泌了 TNF-α</strong>。這就像是常規部隊（T/B細胞）被遣散了，但特種部隊（NK細胞）卻失控發動了攻擊。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>3. B 細胞與抗體體質：潛在的火種</h3>
+      <ul>
+        <li><strong>B 細胞 (CD19) 的比例與絕對值：</strong> 絕對值從 612 降至 186（控制良好），但佔比仍在 18.2%（偏高）。配合最初 <strong>ATA 171 陽性</strong>，這代表您天生具有自體免疫敏感體質，雖然 B 細胞總量被壓制，但產生抗體的傾向並未完全消失。</li>
+        <li>本個案的其他自體抗體（如抗磷脂、紅斑性狼瘡相關）皆為陰性，這是好消息，代表發炎主力不是來自全身性的大型自體免疫疾病，而是針對胚胎的局部/細胞性排斥。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體評估與生物製劑 (Biologics) 介入判斷</h2>
+    <div class="alert-box" style="background-color: #fadbd8; border-color: #c0392b; color: #7b241c;">
+      <strong style="font-size: 1.1em;">🚨 臨床結論與緊急程度：需立即處理 (極度緊急)！</strong><br>
+      強烈建議必須馬上回診，釐清此超高數值是「強烈的著床生理反應」還是「免疫排斥風暴」，並評估是否需在<strong>兩天（48小時）內</strong>緊急介入使用生物製劑 (如 Humira)。
+    </div>
+    <p>綜合所有細節比對，得出以下核心判斷：</p>
+    <ol>
+      <li><strong>區分著床發炎與免疫排斥：</strong> 著床期本就會有輕度的發炎與 TNF-α 升高。然而，您目前的 TNF-α (42.2) 配合 NK 細胞 (18.7%) 的雙雙飆高，在生殖免疫經驗中，極大機率屬於「免疫突破 (Immune Flare)」，而非單純的著床反應。</li>
+      <li><strong>常規藥物已經達到極限：</strong> 從 CD4 降到 233 來看，常規的類固醇/免疫調節劑劑量已經發揮了很強的抑制作用，再加重劑量可能會增加嚴重感染風險，但卻依然無法控制 TNF-α 的飆高。</li>
+      <li><strong>生物製劑的黃金救援期：</strong> 若醫師判定此為病理性發炎，抗 TNF-α 生物製劑（如阿達木單抗 Adalimumab）能直接中和血液中的發炎因子。為阻斷毒殺胚胎的連鎖反應，<strong>務必與時間賽跑，在發現異常的兩天之內迅速施打</strong>。</li>
+    </ol>
+  </section>
+
+  <section class="card chance-card">
+    <h2>📈 五、目前成功機率評估</h2>
+    <div class="chance-tag mid-low">現階段 (未加用生物製劑前)：中等偏低</div>
+    <p><em>註：若能迅速施打生物製劑中和 TNF-α 並壓制 NK 細胞，可大幅扭轉劣勢，將成功著床並穩定的機率提升至<strong>中等偏高</strong>。</em></p>
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面原因 (您的優勢)</h3>
+        <ul>
+          <li><strong>精準監控：</strong> 醫師在 Day 4 就抓到了免疫反彈的訊號，這是極其關鍵的黃金救援期。</li>
+          <li><strong>基礎藥物吸收良好：</strong> B 細胞絕對值與 T 細胞均有下降，證明身體對藥物沒有抗性。</li>
+          <li><strong>無複雜抗體：</strong> 缺乏高危險的血栓抗體（如抗磷脂症候群），減少了血栓造成死胎的複合風險。</li>
+        </ul>
+      </div>
+      <div class="risk-factors-box">
+        <h3>⚠️ 可能失敗原因 (當前風險)</h3>
+        <ul>
+          <li><strong>TNF-α = 42.2 毒性極強：</strong> 這是目前胚胎面臨的最大生存危機。</li>
+          <li><strong>免疫結構失衡：</strong> 淋巴球總數低，但 NK 細胞比例異常擴張，形成「低防禦、高攻擊」的矛盾狀態。</li>
+          <li><strong>可能面臨著床失敗或極早期流產（化學懷孕）的風險。</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card research-card">
+    <h2>📚 六、調研資料摘要：生殖醫學對 TNF-α 的共識與著床機制</h2>
+    <ul>
+      <li><strong>TNF-α 的雙面刃（著床的必需與毒藥）：</strong> 醫學界已知，<b>著床期 (Implantation Window) 子宮內膜本就會出現 Th1 (發炎性) 免疫細胞群集的現象，這會促使 TNF-α 等細胞激素暫時升高，用以誘導內膜重塑，幫助胚胎著床。</b> 缺乏這種輕度發炎，胚胎反而無法順利著床。</li>
+      <li><strong>何時變為病理性發炎？</strong> 問題在於「量」。當 TNF-α 濃度過高、持續時間過長，或是伴隨過多的高毒性 NK 細胞時，就會引發血栓微環境與滋養層細胞凋亡 (Apoptosis)，導致胚胎停止發育或流產。</li>
+      <li><strong>臨床處置常規與時效：</strong> 對於反覆著床失敗且檢驗出 TNF-α 異常飆高的患者，國際生殖免疫學界廣泛認同使用 TNF-α 拮抗劑（Biological therapies）來挽救。這類藥物能在 24-48 小時內迅速發揮中和作用。<strong>臨床上強烈建議在偵測到急性發炎飆升的 24 至 48 小時內立刻給藥，以搶救胚胎</strong>。</li>
+    </ul>
+  </section>
+
+  <section class="card plan-card">
+    <h2>🪜 七、緊急步驟指引與下一步建議</h2>
+    <ol>
+      <li><strong>【🚨 立即行動】必須馬上回診：</strong> 不要等待例行回診日！請「今天或最遲明天」立即掛號或聯絡您的生殖免疫主治醫師。務必明確告知護理師或醫師您的「TNF-α 高達 42.2」與「NK 飆升至 18.7%」，要求緊急安排看診。</li>
+      <li><strong>【⏳ 搶救時效】兩天內施打生物製劑：</strong> 由於發炎激素對胚胎的毒殺是不可逆的，強烈建議在發現異常的 48 小時（兩天）內完成 Humira（復邁）或其他同類製劑的施打，進行黃金救援。</li>
+      <li><strong>【防範感染】注意個人防護：</strong> 由於您的 CD4 輔助 T 細胞掉到 233（處於免疫低下狀態），請務必戴好口罩，避免出入人潮擁擠場所，預防感冒或感染。</li>
+      <li><strong>【維持原案】切勿自行停用類固醇：</strong> 類固醇不能突然停藥（會引發嚴重反彈），且目前 CD19 等數值仍需原本的藥物維持。</li>
+      <li><strong>【後續追蹤】：</strong> 緊急施打生物製劑後約 3-5 天，建議複檢 TNF-α 與白血球分類，確認這波免疫風暴是否已被成功瓦解。</li>
+    </ol>
+  </section>
+
+  <section class="card discussion-card">
+    <h2>🗣️ 八、建議與醫師討論的關鍵問題</h2>
+    <div class="info-box">
+      <p>針對這份詳細數據，請在門診詢問：</p>
+      <ol>
+        <li><strong style="color:var(--abnormal-color);">「醫師，我查資料發現胚胎著床本來就會讓 TNF-α 升高。請問我現在高達 42.2 的數值，是著床的正常生理現象，還是已經屬於過度發炎的免疫排斥？」</strong></li>
+        <li>「如果是屬於免疫排斥，我是否必須在接下來的 24-48 小時內，立刻施打生物製劑（如復邁）或免疫球蛋白來保護胚胎？」</li>
+        <li>「我的 CD4 掉到 233，但 NK 卻飆到 18.7%，這是不是代表目前的藥物雖然壓制了常規免疫，卻讓 NK 細胞失控了？」</li>
+        <li>「我現在白血球 8.88，但淋巴球只有 11.5%，這是不是類固醇的作用？在這樣的免疫力下如果再打生物製劑，我有沒有需要特別預防感染的措施？」</li>
+        <li>「目前的 B 細胞佔比 (18.2%) 還是偏高，加上我之前有 ATA 陽性，需不需要調整其他基礎免疫用藥（如奎寧、類固醇）的劑量？」</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="card disclaimer-card">
+    <h2>📌 九、重要聲明</h2>
+    <p style="font-size: 13px; color: #7f8c8d; margin: 0;">
+      本深度分析報告基於您提供的三份完整檢驗數據進行交叉比對與生殖醫學邏輯推演。此報告<strong>無法取代醫師的正式診斷、無法決定確切藥物劑量，亦不保證任何療程結果</strong>。生物製劑屬強效免疫調節藥物，具有特定的副作用，實際的處置方案請務必遵照您的主治醫師之臨床專業判斷與處方。
+    </p>
+  </section>
+
+</div>
+
+</body>
+</html>
