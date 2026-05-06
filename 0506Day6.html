@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生殖免疫檢驗與門診處置完整報告</title>
+<style>
+  :root {
+    --primary-color: #1a5c7a;
+    --secondary-color: #f4f7f6;
+    --text-main: #333333;
+    --text-muted: #666666;
+    --normal-color: #27ae60;
+    --borderline-color: #f39c12;
+    --abnormal-color: #e74c3c;
+    --info-color: #2980b9;
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+    background-color: #eaeff2;
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .report-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: transparent;
+  }
+
+  .report-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 30px;
+    border-radius: 12px 12px 0 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .report-header h1 {
+    margin: 0 0 10px 0;
+    font-size: 28px;
+    letter-spacing: 1px;
+  }
+
+  .report-subtitle {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.9;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+  }
+
+  .card h2 {
+    color: var(--primary-color);
+    font-size: 20px;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Tags & Badges */
+  .tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .tag.normal { background-color: var(--normal-color); }
+  .tag.info { background-color: var(--info-color); }
+  .tag.borderline { background-color: var(--borderline-color); }
+  .tag.abnormal { background-color: var(--abnormal-color); }
+  .tag.super-good { background-color: #2e86c1; }
+
+  /* Tables */
+  .lab-table, .med-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+  .lab-table th, .lab-table td, .med-table th, .med-table td {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+  }
+  .lab-table th, .med-table th {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .lab-table tr:nth-child(even), .med-table tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+  .med-table td:first-child {
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+
+  /* Info Boxes */
+  .info-box, .warning-box, .alert-box, .success-box {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 5px solid;
+  }
+  .info-box { background-color: #ebf5fb; border-color: #3498db; }
+  .warning-box { background-color: #fef9e7; border-color: #f1c40f; }
+  .alert-box { background-color: #fdedec; border-color: #e74c3c; }
+  .success-box { background-color: #e9f7ef; border-color: #27ae60; }
+
+  /* Banners */
+  .success-banner {
+    background-color: #27ae60;
+    color: white;
+    padding: 18px 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+  }
+  .success-banner .icon { font-size: 28px; }
+
+  .clarification-banner {
+    background-color: #2980b9;
+    color: white;
+    padding: 18px 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 10px rgba(41, 128, 185, 0.3);
+  }
+  .clarification-banner .icon { font-size: 28px; }
+
+</style>
+</head>
+<body>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>🧬 生殖免疫會診與用藥總評估報告</h1>
+    <p class="report-subtitle">植入後 Day 6・HCG 穩健成長・發炎指標釋疑・完整保胎計畫</p>
+  </header>
+
+  <div class="success-banner">
+    <span class="icon">🎊</span>
+    <div>
+      <strong>好消息：HCG 穩健成長！血栓警報解除！</strong><br>
+      <span style="font-size: 15px; font-weight: normal;">Day 6 懷孕指數 (HCG) 為 17.58，兩天內翻倍達標；D-dimer (0.053) 完美過關。兩側微刺痛為正常賀爾蒙現象，無宮縮疑慮。胚胎正順利扎根！</span>
+    </div>
+  </div>
+
+  <div class="clarification-banner">
+    <span class="icon">💡</span>
+    <div>
+      <strong>醫學釋疑：TNF-α 42.2 為「正常假性升高」，危機解除！</strong><br>
+      <span style="font-size: 15px; font-weight: normal;">醫師明確指出，因先前施打過「復邁 (Humira)」，藥物會將壞死因子凝結在血液中，導致抽血數值看似飆高。<b>只要數值低於 60 皆屬正常安全範圍。</b> 先前擔憂的發炎風暴純屬虛驚一場！</span>
+    </div>
+  </div>
+
+  <section class="card summary-card">
+    <h2>📋 一、主治醫師會診意見總結 (5月6日)</h2>
+    <div class="info-box">
+      <ul>
+        <li><strong>HCG 成長進度：</strong> Day 6 數值 17.58，兩天內翻了超過 2.5 倍（達 3.7 倍）。雖然尚未達到爆發性的 10 倍成長，但步伐穩健，預期 Day 7 的目標落在 35 左右。</li>
+        <li><strong>TNF-α 發炎指數釋疑：</strong> 42.2 屬於打完復邁後的「假性升高」，完全在安全控制範圍內（< 60 即可），並非胚胎遭到攻擊。</li>
+        <li><strong>NK 細胞與 IVIG 施打：</strong> 針對 Day 4 (5/4) 測得 NK 細胞上升的狀況，醫師決策果斷，<b>今日立即於院內施打「免疫球蛋白 (IVIG) 2大瓶 + 2小瓶」</b>，及時且精準地壓制了 NK 細胞的活躍。</li>
+        <li><strong>症狀評估：</strong> 您感受到的「兩側微刺痛」是賀爾蒙變化的正常生理現象；只要沒有中間下墜感、腰痠或出血，就沒有宮縮風險，不需要額外打安胎點滴。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card highlight-card">
+    <h2>🔎 二、核心檢驗數據與最新解讀</h2>
+    <div style="overflow-x:auto;">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th>檢驗項目</th>
+            <th>Day 4 數據</th>
+            <th>Day 6 數據 (最新)</th>
+            <th>最新臨床解讀 (經醫師核對)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>懷孕指數 (HCG)</strong></td>
+            <td>4.75</td>
+            <td style="color: #27ae60; font-weight: bold; font-size: 1.1em;">17.58</td>
+            <td><span class="tag normal">穩健成長</span> 穩定翻倍中，胚胎持續發育。</td>
+          </tr>
+          <tr>
+            <td><strong>血栓指標 (D-dimer)</strong></td>
+            <td>-</td>
+            <td style="color: #27ae60; font-weight: bold;">0.053</td>
+            <td><span class="tag normal">極佳</span> 完全無血栓風險，子宮血流非常暢通。</td>
+          </tr>
+          <tr>
+            <td><strong>腫瘤壞死因子 (TNF-α)</strong></td>
+            <td style="color: #2980b9; font-weight: bold;">42.2</td>
+            <td>-</td>
+            <td><span class="tag info">假性升高 (安全)</span> 復邁藥物作用，低於 60 皆屬正常，無過度發炎。</td>
+          </tr>
+          <tr>
+            <td><strong>NK 細胞 (CD16+56 %)</strong></td>
+            <td style="color: #e74c3c; font-weight: bold;">18.7 %</td>
+            <td>-</td>
+            <td><span class="tag borderline">今日已處置</span> 已透過施打 IVIG (2大2小) 進行靶向壓制。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card detailed-lab-card">
+    <h2>💊 三、完整用藥計畫與時間表 (5/6 ~ 5/8 兩天份)</h2>
+    <p>以下為醫師開立帶回家的所有藥物清單，請嚴格按時服用，為胚胎提供最安穩的著床環境：</p>
+    <div style="overflow-x:auto;">
+      <table class="med-table">
+        <thead>
+          <tr>
+            <th>藥物名稱 (類別)</th>
+            <th>頻率與時間點</th>
+            <th>單次劑量</th>
+            <th>本次攜回總量 (2天份)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>益斯得 / 雌激素</td>
+            <td>三餐飯後 (早、中、晚)</td>
+            <td>每次 3 顆</td>
+            <td>18 顆</td>
+          </tr>
+          <tr>
+            <td>黃體凝膠 (大腿凝膠)</td>
+            <td>早、晚</td>
+            <td>各 2 支</td>
+            <td>8 支</td>
+          </tr>
+          <tr>
+            <td>小白球 / 黃體素</td>
+            <td>一天 4 次 (早、中、晚、睡前)</td>
+            <td>每次 2 顆</td>
+            <td>16 顆</td>
+          </tr>
+          <tr>
+            <td>伯基 (Aspirin) / 抗凝血</td>
+            <td>每晚 (睡前)</td>
+            <td>每次 1 顆</td>
+            <td>2 顆</td>
+          </tr>
+          <tr>
+            <td>黃體油針 (阿順 / 安胎針)</td>
+            <td>每天施打</td>
+            <td>每次 1 支</td>
+            <td>2 支</td>
+          </tr>
+          <tr>
+            <td>康速龍 / 類固醇</td>
+            <td>早上、下午</td>
+            <td>各 2 顆</td>
+            <td>8 顆</td>
+          </tr>
+          <tr>
+            <td>奎寧 (Plaquenil)</td>
+            <td>早、晚</td>
+            <td>各 1 顆</td>
+            <td>(依原藥袋計算)</td>
+          </tr>
+          <tr>
+            <td>安斯平</td>
+            <td>早、晚</td>
+            <td>各 1 顆</td>
+            <td>(依原藥袋計算)</td>
+          </tr>
+          <tr>
+            <td>艾碧顆</td>
+            <td>早、晚</td>
+            <td>各 1 顆</td>
+            <td>4 顆</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="success-box">
+      <strong>🏥 院內特殊處置 (5/6 今日)：</strong>
+      <ul>
+        <li><strong>IVIG (免疫球蛋白)：</strong> 2 大瓶 + 2 小瓶，已於今日在院內點滴施打完畢，成功築起免疫防護網。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card plan-card">
+    <h2>📅 四、下次回診與處置指引</h2>
+    <div class="info-box">
+      <ul>
+        <li><strong>回診時間：</strong> 5月8日 (禮拜五) 晚上 18:30。(晚上回診不影響點滴或抽血結果)</li>
+        <li><strong>預計抽血項目：</strong> 懷孕指數 (HCG)、血栓 (D-dimer)、雌激素、黃體素、全血球計數 (CBC)。</li>
+        <li><strong>看診流程：</strong> 18:30 報到抽血 ➡️ 約等待 1 小時出報告 (19:30) ➡️ 醫師核對報告並諮詢 ➡️ 約 20:00~20:20 離院。</li>
+        <li><strong>潛在醫療處置預告：</strong> 5/8 回診時距離上次打「復邁 (Humira)」剛好滿 10 天 (常規為 7-10 天一針)。若醫師評估需補打復邁，當晚會在院內施打並留院觀察 1 小時後方可返家。因今日已打過 IVIG，短期內不會再密集施打 IVIG。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card disclaimer-card">
+    <h2>📌 五、重要叮嚀與聲明</h2>
+    <p style="font-size: 13px; color: #7f8c8d; margin: 0;">
+      您的胚胎非常努力，目前的醫療策略（復邁解除了發炎警報，IVIG 壓制了 NK 細胞）也完美奏效。請放鬆心情，這兩天只要按表操課吃藥、塞劑與打油針，感受兩側的微刺痛（代表賀爾蒙在運作），並期待禮拜五 HCG 繼續翻倍的好消息！本報告整理自門診醫囑，實際用藥請以診所發放之藥袋與護理師當面衛教為準。
+    </p>
+  </section>
+
+</div>
+
+</body>
+</html>
