@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生殖醫學檢驗分析報告</title>
+<style>
+  :root {
+    --primary-color: #2c5282; /* 深藍 */
+    --secondary-color: #319795; /* 藍綠 */
+    --bg-color: #f7fafc;
+    --card-bg: #ffffff;
+    --text-main: #2d3748;
+    --text-muted: #718096;
+    --border-color: #e2e8f0;
+    
+    /* 狀態顏色 */
+    --color-normal: #38a169;
+    --color-borderline: #d69e2e;
+    --color-abnormal: #e53e3e;
+    --color-insufficient: #718096;
+    
+    /* 提示框背景 */
+    --bg-info: #ebf8ff;
+    --bg-warning: #fffff0;
+    --bg-alert: #fff5f5;
+    --bg-tip: #e6fffa;
+    --bg-success: #f0fff4;
+  }
+
+  body {
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang TC', 'LiHei Pro', 'Hiragino Sans GB', 'Microsoft JhengHei', Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .report-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: transparent;
+  }
+
+  /* Header */
+  .report-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .report-header h1 {
+    margin: 0 0 10px 0;
+    font-size: 28px;
+    letter-spacing: 1px;
+  }
+  .report-subtitle {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.9;
+  }
+
+  /* Cards */
+  .card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+  }
+  .card h2 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Tables */
+  .lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+    font-size: 15px;
+  }
+  .lab-table th, .lab-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .lab-table th {
+    background-color: #f8fafc;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .lab-table tr:hover {
+    background-color: #f1f5f9;
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+  }
+  .tag.normal { background-color: var(--color-normal); }
+  .tag.borderline { background-color: var(--color-borderline); }
+  .tag.abnormal { background-color: var(--color-abnormal); }
+  .tag.insufficient { background-color: var(--color-insufficient); }
+
+  /* Chance Tags */
+  .chance-tag {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 15px;
+  }
+  .chance-tag.high { background-color: #2f855a; }
+  .chance-tag.mid-high { background-color: #38a169; }
+  .chance-tag.medium { background-color: #d69e2e; }
+  .chance-tag.mid-low { background-color: #dd6b20; }
+  .chance-tag.low { background-color: #e53e3e; }
+  .chance-tag.unknown { background-color: #718096; }
+
+  /* Info Boxes */
+  .info-box, .warning-box, .alert-box, .tip-box, .success-box, .caution-box {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 5px solid;
+  }
+  .info-box { background-color: var(--bg-info); border-left-color: #3182ce; }
+  .warning-box { background-color: var(--bg-warning); border-left-color: #d69e2e; }
+  .alert-box { background-color: var(--bg-alert); border-left-color: #e53e3e; }
+  .tip-box { background-color: var(--bg-tip); border-left-color: #319795; }
+  .success-box { background-color: var(--bg-success); border-left-color: #38a169; }
+  .caution-box { background-color: var(--bg-alert); border-left-color: #e53e3e; }
+
+  /* Grid Layouts */
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 768px) {
+    .two-column-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Detailed Lab Item Block */
+  .lab-item-block {
+    background-color: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .lab-item-block h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+  }
+  .lab-item-block ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .lab-item-block li {
+    margin-bottom: 8px;
+  }
+  .lab-item-block strong {
+    color: #4a5568;
+  }
+
+  /* Lists */
+  .custom-list {
+    list-style: none;
+    padding: 0;
+  }
+  .custom-list li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+  }
+  .custom-list li::before {
+    content: "•";
+    color: var(--secondary-color);
+    font-weight: bold;
+    font-size: 20px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>🧬 生殖醫學檢驗分析報告</h1>
+    <p class="report-subtitle">胚胎植入後（Day 4 - Day 8）進階免疫與內分泌追蹤判讀</p>
+  </header>
+
+  <!-- 一、個案摘要 -->
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要</h2>
+    <div class="info-box">
+      <ul class="custom-list">
+        <li><strong>評估階段：</strong>試管嬰兒（IVF）胚胎植入後追蹤。</li>
+        <li><strong>檢驗時間軸：</strong>包含植入後第 4 天（免疫學指標）、第 6 天（血栓與早期 HCG）、第 8 天（HCG 翻倍及荷爾蒙指數）。</li>
+        <li><strong>核心發現：</strong>植入後第 6 天與第 8 天的 <strong>HCG 數值呈現非常優良的翻倍成長，顯示已成功著床且胚胎初期發育良好</strong>；荷爾蒙（E2、P4）支持充足。然而，植入後第 4 天的<strong>免疫學檢查顯示明顯異常（高 TNF-a、NK 細胞與 B 細胞比例偏高）</strong>，提示母體存在潛在的免疫排斥風險。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 二、檢驗報告重點整理 -->
+  <section class="card highlight-card">
+    <h2>🔎 二、檢驗報告重點整理</h2>
+    <div style="overflow-x: auto;">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th>檢驗項目</th>
+            <th>結果</th>
+            <th>單位</th>
+            <th>參考值</th>
+            <th>時間點</th>
+            <th>狀態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Day 8 -->
+          <tr>
+            <td><strong>HCG-serum</strong> (人類絨毛膜促性腺激素)</td>
+            <td><strong>44.49</strong></td>
+            <td>mIU/mL</td>
+            <td>&lt; 0.5</td>
+            <td>植入第 8 天</td>
+            <td><span class="tag normal">懷孕/翻倍佳</span></td>
+          </tr>
+          <tr>
+            <td><strong>E2</strong> (雌二醇)</td>
+            <td><strong>419.0</strong></td>
+            <td>pg/mL</td>
+            <td>-</td>
+            <td>植入第 8 天</td>
+            <td><span class="tag normal">充足</span></td>
+          </tr>
+          <tr>
+            <td><strong>P4</strong> (黃體素)</td>
+            <td><strong>37.78</strong></td>
+            <td>ng/mL</td>
+            <td>-</td>
+            <td>植入第 8 天</td>
+            <td><span class="tag normal">充足</span></td>
+          </tr>
+          <!-- Day 6 -->
+          <tr>
+            <td><strong>HCG-serum</strong></td>
+            <td><strong>17.58</strong></td>
+            <td>mIU/mL</td>
+            <td>&lt; 0.5</td>
+            <td>植入第 6 天</td>
+            <td><span class="tag normal">早期著床</span></td>
+          </tr>
+          <tr>
+            <td><strong>D-dimer</strong> (血栓D-雙合蛋白)</td>
+            <td><strong>0.053</strong></td>
+            <td>mg/L FEU</td>
+            <td>&lt; 0.55</td>
+            <td>植入第 6 天</td>
+            <td><span class="tag normal">正常</span></td>
+          </tr>
+          <!-- Day 4 -->
+          <tr>
+            <td><strong>腫瘤壞死因子-a (TNF-a)</strong></td>
+            <td><strong>42.2</strong></td>
+            <td>pg/mL</td>
+            <td>&lt; 4</td>
+            <td>植入第 4 天</td>
+            <td><span class="tag abnormal">嚴重偏高</span></td>
+          </tr>
+          <tr>
+            <td><strong>NK cell (CD16+56)</strong></td>
+            <td><strong>18.7</strong></td>
+            <td>%</td>
+            <td>&lt; 14.9</td>
+            <td>植入第 4 天</td>
+            <td><span class="tag abnormal">偏高</span></td>
+          </tr>
+          <tr>
+            <td><strong>B cell (CD19)</strong></td>
+            <td><strong>18.2</strong></td>
+            <td>%</td>
+            <td>&lt; 14.9</td>
+            <td>植入第 4 天</td>
+            <td><span class="tag abnormal">偏高</span></td>
+          </tr>
+          <tr>
+            <td><strong>Helper cell (CD4)</strong></td>
+            <td><strong>22.9</strong></td>
+            <td>%</td>
+            <td>27 ~ 51</td>
+            <td>植入第 4 天</td>
+            <td><span class="tag abnormal">偏低</span></td>
+          </tr>
+          <tr>
+            <td><strong>Lymphocyte(IDM)</strong></td>
+            <td><strong>11.5</strong></td>
+            <td>%</td>
+            <td>19 ~ 48</td>
+            <td>植入第 4 天</td>
+            <td><span class="tag abnormal">偏低</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 三、每一項檢驗數字的詳細說明 -->
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+
+    <div class="lab-item-block">
+      <h3>HCG-serum (人類絨毛膜促性腺激素)：Day 6=17.58 ➔ Day 8=44.49 mIU/mL <span class="tag normal">懷孕/翻倍極佳</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>胚胎著床後，滋養層細胞開始分泌的懷孕荷爾蒙。</li>
+        <li><strong>在生殖評估中的意義：</strong>確認是否成功懷孕，以及早期胚胎發育的活力（主要看 48 小時的翻倍率）。</li>
+        <li><strong>本個案的可能解讀：</strong>這是一個<strong>非常棒的訊號</strong>！植入第 6 天測到 17.58 已確認早期著床；間隔 48 小時後（第 8 天）數值爬升至 44.49，翻倍率達到 2.5 倍（一般標準為 1.66 倍以上即可），這表示胚胎目前生命力旺盛，正在順利成長。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>E2 (雌二醇)：419.0 pg/mL <span class="tag normal">正常且充足</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>主要的女性荷爾蒙，用於維持子宮內膜的厚度與血流。</li>
+        <li><strong>在生殖評估中的意義：</strong>懷孕初期的重要安胎荷爾蒙，支持子宮內膜環境。</li>
+        <li><strong>本個案的可能解讀：</strong>植入第 8 天數值達 419 pg/mL 是非常充足的狀態，顯示目前的雌激素藥物支持（或自體黃體功能）完全能滿足早期懷孕的需求。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>P4 (黃體素)：37.78 ng/mL <span class="tag normal">正常且充足</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>被稱為「安胎荷爾蒙」，能放鬆子宮平滑肌，避免子宮收縮並維持內膜穩定。</li>
+        <li><strong>在生殖評估中的意義：</strong>確保不會因為黃體素不足而導致早期流產。試管療程中，通常期望數值穩定在 15~20 以上。</li>
+        <li><strong>本個案的可能解讀：</strong>數值高達 37.78 ng/mL，代表您的黃體素補充非常到位，子宮環境目前處於非常穩定的安胎狀態，沒有黃體素不足的疑慮。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>腫瘤壞死因子-a (TNF-a)：42.2 pg/mL <span class="tag abnormal">嚴重偏高</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>這是一種強烈的「促發炎」細胞因子，由免疫細胞分泌。</li>
+        <li><strong>在生殖評估中的意義：</strong>在備孕與懷孕初期，過高的 TNF-a 會對胚胎產生毒性，影響滋養層細胞侵入子宮內膜（影響著床），並可能導致早期微血栓，增加反覆性流產的風險。</li>
+        <li><strong>若偏高常見代表：</strong>體內呈現 Th1（促發炎）優勢的免疫反應，母體免疫系統將胚胎視為「外來物」而產生攻擊訊號。</li>
+        <li><strong>本個案的可能解讀：</strong>正常參考值為小於 4，您的數值高達 42.2，這是本次報告中<strong>最具風險的指標</strong>。即使目前 HCG 翻倍良好，過高的 TNF-a 仍是早期流產的高風險因子，必須高度重視。</li>
+        <li><strong>是否需要追蹤：</strong>強烈建議立即與醫師討論，通常需要使用免疫調節藥物（如復邁 Humira、奎寧 Plaquenil 或類固醇）介入。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>NK cell (CD16+56) 自然殺手細胞：18.7 % <span class="tag abnormal">偏高</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>人體免疫系統中負責攻擊外來異物或異常細胞的巡邏部隊。</li>
+        <li><strong>在生殖評估中的意義：</strong>適度的 NK 細胞有助於子宮內膜血管新生；但「周邊血 NK 細胞比例過高」或活性太強，容易對胚胎產生毒性攻擊。</li>
+        <li><strong>本個案的可能解讀：</strong>大於參考值 14.9%，顯示您的免疫系統防禦過當。這與高 TNF-a 相互呼應，共同指向「母體免疫排斥」的風險。臨床上常見以脂肪乳劑（Intralipid）或免疫球蛋白（IVIG）來壓制 NK 細胞活性。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>B cell (CD19)：18.2 % <span class="tag abnormal">偏高</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>負責產生抗體的免疫細胞。</li>
+        <li><strong>在生殖評估中的意義：</strong>過高的 B 細胞比例可能與自體免疫抗體的產生有關（如抗磷脂質抗體、抗甲狀腺抗體等），增加懷孕不穩定的風險。</li>
+        <li><strong>本個案的可能解讀：</strong>略高於標準值（< 14.9%），再次印證整體免疫系統偏向亢進狀態，需綜合評估是否合併其他自體免疫疾病問題。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>白血球分類 (Lymphocyte / Helper cell CD4 / 絕對計數等) <span class="tag borderline">整體偏低/分布失衡</span></h3>
+      <ul>
+        <li><strong>數字概況：</strong>Lymphocyte(IDM) 11.5% (偏低)；CD4 22.9% (偏低)；CD3絕對計數 638 uL (偏低)；CD4絕對計數 233 uL (偏低)。</li>
+        <li><strong>本個案的可能解讀：</strong>您的淋巴球總比例偏低，這可能是因為您在植入前後已經使用了「類固醇（如普賴鬆）」或其他免疫抑制劑所導致的壓制效果。然而，即使整體淋巴球被壓低，其中的<strong>「不良攻擊部隊」（NK 細胞、B 細胞）比例仍然居高不下</strong>。這代表目前的用藥（如果有的話）尚未完全精準控制住對胚胎有威脅的免疫反應。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>D-dimer (血栓D-雙合蛋白)：0.053 mg/L FEU <span class="tag normal">正常</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>體內凝血與溶血機制的產物，數值高代表有微血栓形成的傾向。</li>
+        <li><strong>在生殖評估中的意義：</strong>過高會導致胎盤微血管阻塞，影響胚胎養分供給而導致流產。</li>
+        <li><strong>本個案的可能解讀：</strong>數值 0.053 遠低於警戒值 0.55，這是好消息。代表目前子宮的血流供應順暢，沒有因為高免疫發炎而引發凝血異常（血栓）。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 四、整體評估 -->
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體評估</h2>
+    <p>綜合植入後第 4 到 8 天的檢驗結果，目前的臨床狀態可總結為：<strong>「胚胎順利著床且活力極佳，但面臨嚴峻的母體免疫環境挑戰」</strong>。</p>
+    <ul class="custom-list">
+      <li><strong>胚胎端（極佳）：</strong>從 HCG 完美的翻倍速度來看，這顆胚胎的質量與著床能力非常優秀。加上 E2 與 P4 數值高且穩定，基礎的「土壤與肥料」都已準備妥當。</li>
+      <li><strong>母體免疫端（高風險）：</strong>TNF-a 數值高達 42.2，加上 NK 細胞與 B 細胞比例超標，明確指出母體的免疫系統正處於強烈的「促發炎、具攻擊性」狀態。這種環境就像是溫室裡起了火，即使種子發芽得很好，也很容易受到高發炎環境的毒害而導致早期萎縮或流產。</li>
+      <li><strong>血栓風險（目前安全）：</strong>幸運的是，D-dimer 數值極低，代表目前這把「免疫之火」還沒有引發血液濃稠或血栓問題，這是保護胚胎的最後一道防線。</li>
+    </ul>
+  </section>
+
+  <!-- 五、目前成功機率評估 -->
+  <section class="card chance-card">
+    <h2>📈 五、目前後續順利懷孕機率推估</h2>
+    <div class="chance-tag mid-high">中等偏高</div>
+    <p style="font-size: 14px; color: var(--text-muted); margin-top: -10px; margin-bottom: 20px;">*此評估為綜合現有檢驗數據之臨床趨勢推估，前提是需具備完善的醫療免疫介入。</p>
+    
+    <div class="two-column-grid">
+      <div class="success-box">
+        <h3 style="color: #2f855a; margin-top: 0;">✅ 正面原因（有利保胎）</h3>
+        <ul class="custom-list">
+          <li><strong>HCG 翻倍完美：</strong>48小時內從 17.58 爬升至 44.49，顯示胚胎生命力強勁。</li>
+          <li><strong>荷爾蒙支持穩固：</strong>E2 (419.0) 與 P4 (37.78) 濃度非常理想，黃體功能無虞。</li>
+          <li><strong>無血栓跡象：</strong>D-dimer 數值極低，確保胚胎微血管血流順暢供氧。</li>
+        </ul>
+      </div>
+      <div class="caution-box">
+        <h3 style="color: #c53030; margin-top: 0;">⚠️ 可能失敗原因（主要風險）</h3>
+        <ul class="custom-list">
+          <li><strong>TNF-a 嚴重超標：</strong>高發炎細胞因子直接對胚胎產生毒性，是免疫流產的頭號主因。</li>
+          <li><strong>NK / B 細胞比例過高：</strong>代表非專一性免疫攻擊活性強，可能對滋養層細胞造成破壞。</li>
+          <li><strong>免疫失衡：</strong>CD4 輔助 T 細胞比例偏低，顯示免疫系統失去正常的包容與調節能力。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 六、可能問題與風險分析 -->
+  <section class="card risk-card">
+    <h2>⚠️ 六、可能問題與風險分析</h2>
+    <div class="warning-box">
+      <p>目前的重點在於<strong>「與時間賽跑」</strong>。胚胎本身正在努力長大，但免疫系統也在試圖排斥它。如果沒有及時且積極的免疫介入，高濃度的 TNF-a 與 NK 細胞隨時可能導致胚胎心跳停止或萎縮出血。不能因為目前 HCG 翻倍良好就掉以輕心。</p>
+    </div>
+  </section>
+
+  <!-- 七、調研資料摘要 -->
+  <section class="card research-card">
+    <h2>📚 七、調研資料摘要</h2>
+    <ul class="custom-list">
+      <li><strong>TNF-a 與懷孕：</strong>醫學研究普遍認為，正常的懷孕需要母體免疫轉向 Th2（抗發炎、包容）狀態。當 TNF-a (Th1代表) 過高時，會導致內皮細胞損傷並啟動細胞凋亡，與「反覆性著床失敗 (RIF)」及「反覆性早期流產 (RPL)」有高度相關。</li>
+      <li><strong>常見免疫介入策略：</strong>針對高 TNF-a 及高 NK 細胞，生殖免疫科醫師常使用的武器包含：
+        <ul>
+          <li><strong>腫瘤壞死因子抑制劑（生物製劑）：</strong>如復邁（Humira），直接中和過高的 TNF-a。</li>
+          <li><strong>脂肪乳劑（Intralipid）或免疫球蛋白（IVIG）：</strong>以靜脈點滴方式降低 NK 細胞的活性與毒性。</li>
+          <li><strong>免疫抑制劑：</strong>如類固醇（Prednisolone）、奎寧（Plaquenil）或得泰克（Tacrolimus）。</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 八、建議補充檢查 -->
+  <section class="card next-step-card">
+    <h2>🧪 八、建議補充檢查</h2>
+    <ul class="custom-list">
+      <li><strong>追蹤 HCG：</strong>植入後 10-12 天或 14 天需再次抽血，確保數值持續呈現指數型翻倍，未受免疫攻擊而停滯。</li>
+      <li><strong>超音波排程：</strong>在 HCG 大於 1500-2000 mIU/mL 時（約植入後 3-4 週 / 孕期 5-6 週），安排陰道超音波確認妊娠囊（Gestational sac）位置，排除子宮外孕並確認著床在子宮內。</li>
+      <li><strong>免疫複血：</strong>視醫師用藥狀況，可能需要在 1-2 週後重新抽血追蹤 TNF-a 與 NK 細胞，確認藥物是否有效將發炎指數壓制下來。</li>
+    </ul>
+  </section>
+
+  <!-- 九、步驟指引 -->
+  <section class="card plan-card">
+    <h2>🪜 九、步驟指引</h2>
+    <ol>
+      <li><strong>【立即執行】</strong>絕對不可自行停用目前正在使用的任何安胎藥物（快孕隆、小白球、益斯得或打針等）。</li>
+      <li><strong>【急迫聯絡】</strong>請在收到這份報告的 <strong>1-2 天內</strong>，立即掛號您的生殖主治醫師或免疫風濕科醫師。帶著這份 TNF-a 與 NK 細胞超標的報告，討論是否需要立即啟動進階的免疫保胎點滴或生物製劑。</li>
+      <li><strong>【密切追蹤】</strong>按照生殖中心的指示，在約定的時間（通常是植入後第 10-14 天）返回診所進行下一波 HCG 抽血。</li>
+    </ol>
+  </section>
+
+  <!-- 十、生活與治療建議 -->
+  <section class="card advice-card">
+    <h2>💡 十、生活與治療建議</h2>
+    <ul class="custom-list">
+      <li><strong>降低發炎飲食：</strong>暫時避免食用過度加工食品、高糖食物、油炸物，這些會促進體內發炎反應。可適度攝取抗發炎的 Omega-3（如魚油，但需先確認醫師同意不影響凝血）。</li>
+      <li><strong>避免免疫刺激：</strong>這段時間請盡量不要進補（如當歸、人參、四物等中藥）、不要吃增強免疫力的保健食品（如靈芝、牛樟芝），因為您的免疫力已經「太強了」，進補會火上加油。</li>
+      <li><strong>充分休息減壓：</strong>心理壓力會促使免疫系統釋放更多發炎因子，請盡量保持睡眠充足、心情平靜。</li>
+    </ul>
+  </section>
+
+  <!-- 十一、建議與醫師討論的關鍵問題 -->
+  <section class="card discussion-card">
+    <h2>🗣️ 十一、建議與醫師討論的關鍵問題</h2>
+    <div class="tip-box">
+      <p>就醫時，您可以直接拿以下清單向醫師提問：</p>
+      <ol style="font-weight: 500;">
+        <li>「醫師，我第8天的 HCG 翻倍得很好（44.49），但是第 4 天測的 TNF-a 高達 42.2，NK細胞也偏高。請問我們需不需要馬上打復邁（Humira）、Intralipid 或 IVIG 來保護胚胎？」</li>
+        <li>「我目前的淋巴球總比例偏低，但特定免疫細胞還是偏高，我現在正在吃的免疫藥物（如類固醇或奎寧）劑量需要調高嗎？」</li>
+        <li>「我的 D-dimer 很低，那伯基（Aspirin）或肝素（Heparin）這類抗凝血藥物還需要繼續吃/打嗎？」</li>
+        <li>「黃體素跟雌激素目前數值很棒，用藥就維持原來的劑量對嗎？」</li>
+        <li>「請問我下次抽血 HCG 跟免疫指標預計安排在什麼時候？」</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 十二、警示訊號 -->
+  <section class="card alert-card">
+    <h2>🚨 十二、警示訊號</h2>
+    <div class="alert-box">
+      <p><strong>若出現以下任一症狀，請立即前往急診或聯絡您的生殖中心：</strong></p>
+      <ul style="margin-bottom: 0;">
+        <li>出現<strong>鮮紅色</strong>的大量陰道出血（超過月經量），或伴隨血塊。</li>
+        <li>下腹部出現<strong>無法忍受的劇烈絞痛</strong>（尤其是單側刺痛），需警覺子宮外孕破裂風險。</li>
+        <li>伴隨嚴重的頭暈、冒冷汗、心悸甚至暈厥。</li>
+      </ul>
+      <p style="font-size: 13px; margin-top: 10px;">*註：少量的咖啡色分泌物在懷孕初期是常見的，可能是著床出血或黃體素塞劑刺激子宮頸，請先臥床休息並持續用藥，不需過度恐慌，但仍需回報診所。</p>
+    </div>
+  </section>
+
+  <!-- 十三、重要聲明 -->
+  <section class="card disclaimer-card">
+    <h2>📌 十三、重要聲明</h2>
+    <p style="font-size: 13px; color: var(--text-muted); text-align: justify;">
+      本報告由 AI 醫療資訊系統根據您提供的局部檢驗數據與資訊自動生成，目的在於協助您理解檢驗數字的臨床意涵與整理討論重點，以利醫病溝通。本分析<strong>不構成任何正式醫療診斷、治療指示或處方建議</strong>。生殖免疫學極為複雜，實際成功率與治療策略必須由您的主治醫師親自結合您的完整病史、影像學檢查與實際臨床狀況進行評估。任何藥物增減或停用，請務必先獲得您的主治醫師許可。
+    </p>
+  </section>
+</div>
+
+</body>
+</html>
