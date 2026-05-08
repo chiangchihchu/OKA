@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Day8生殖醫學檢驗分析報告</title>
+<title>生殖醫學檢驗分析報告</title>
 <style>
   :root {
     --primary-color: #2c5282; /* 深藍 */
@@ -19,6 +19,7 @@
     --color-borderline: #d69e2e;
     --color-abnormal: #e53e3e;
     --color-insufficient: #718096;
+    --color-safe: #3182ce;
     
     /* 提示框背景 */
     --bg-info: #ebf8ff;
@@ -118,6 +119,7 @@
   .tag.normal { background-color: var(--color-normal); }
   .tag.borderline { background-color: var(--color-borderline); }
   .tag.abnormal { background-color: var(--color-abnormal); }
+  .tag.safe { background-color: var(--color-safe); }
   .tag.insufficient { background-color: var(--color-insufficient); }
 
   /* Chance Tags */
@@ -219,17 +221,19 @@
 <div class="report-container">
   <header class="report-header">
     <h1>🧬 生殖醫學檢驗分析報告</h1>
-    <p class="report-subtitle">胚胎植入後（Day 4 - Day 8）免疫、內分泌與用藥療程深度判讀</p>
+    <p class="report-subtitle">胚胎植入後（Day 4 - Day 8）進階免疫防護與荷爾蒙追蹤</p>
   </header>
 
   <!-- 一、個案摘要 -->
   <section class="card summary-card">
     <h2>📋 一、個案摘要</h2>
-    <div class="info-box">
+    <div class="success-box">
       <ul class="custom-list">
         <li><strong>評估階段：</strong>試管嬰兒（IVF）胚胎植入後追蹤。</li>
-        <li><strong>檢驗時間軸：</strong>包含植入後第 4 天（免疫學指標）、第 6 天（血栓、早期 HCG 及<strong>關鍵用藥介入</strong>）、第 8 天（HCG 翻倍及荷爾蒙指數）。</li>
-        <li><strong>核心發現：</strong>植入後第 4 天的免疫抽血發現明顯異常（高 TNF-a、NK 細胞），對此，醫療團隊在<strong>第 6 天給予了非常精確且強力的免疫與抗凝血介入（包含高劑量 IVIG 免疫球蛋白）</strong>。在強大火力的保護下，第 8 天的 <strong>HCG 數值呈現非常優良的翻倍成長，顯示胚胎成功克服了母體免疫排斥的危機，初期發育極佳！</strong></li>
+        <li><strong>診療時間軸：</strong>包含植入後第 4 天抽血、第 6 天回診用藥調整與 IVIG 施打、第 8 天開獎（抽血追蹤）。</li>
+        <li><strong>核心發現：</strong>
+          <br>1. <strong>免疫控制極佳：</strong>Day 4 雖然 TNF-a 數值高達 42.2，但確認是施打「復邁 (Humira)」造成的<strong>安全假性升高</strong>；而針對稍微攀升的 NK 細胞，診所已在 Day 6 迅速給予 <strong>IVIG (2+2大劑量)</strong> 進行火力壓制。
+          <br>2. <strong>著床與發育完美：</strong>在嚴密的免疫與三重抗凝血保護下，Day 6 的 HCG 為 17.58，到 Day 8 順利翻倍至 44.49（2.5倍），顯示<strong>胚胎生命力極強，安全著床且正在穩定長大！</strong></li>
       </ul>
     </div>
   </section>
@@ -246,18 +250,18 @@
             <th>單位</th>
             <th>參考值</th>
             <th>時間點</th>
-            <th>狀態</th>
+            <th>狀態判讀</th>
           </tr>
         </thead>
         <tbody>
           <!-- Day 8 -->
           <tr>
-            <td><strong>HCG-serum</strong> (人類絨毛膜促性腺激素)</td>
+            <td><strong>HCG-serum</strong> (絨毛膜促性腺激素)</td>
             <td><strong>44.49</strong></td>
             <td>mIU/mL</td>
             <td>&lt; 0.5</td>
             <td>植入第 8 天</td>
-            <td><span class="tag normal">懷孕/翻倍佳</span></td>
+            <td><span class="tag normal">翻倍優良</span></td>
           </tr>
           <tr>
             <td><strong>E2</strong> (雌二醇)</td>
@@ -265,7 +269,7 @@
             <td>pg/mL</td>
             <td>-</td>
             <td>植入第 8 天</td>
-            <td><span class="tag normal">充足</span></td>
+            <td><span class="tag normal">子宮環境佳</span></td>
           </tr>
           <tr>
             <td><strong>P4</strong> (黃體素)</td>
@@ -273,7 +277,7 @@
             <td>ng/mL</td>
             <td>-</td>
             <td>植入第 8 天</td>
-            <td><span class="tag normal">充足</span></td>
+            <td><span class="tag normal">安胎充足</span></td>
           </tr>
           <!-- Day 6 -->
           <tr>
@@ -290,7 +294,7 @@
             <td>mg/L FEU</td>
             <td>&lt; 0.55</td>
             <td>植入第 6 天</td>
-            <td><span class="tag normal">極低/安全</span></td>
+            <td><span class="tag normal">極低/無血栓</span></td>
           </tr>
           <!-- Day 4 -->
           <tr>
@@ -299,7 +303,7 @@
             <td>pg/mL</td>
             <td>&lt; 4</td>
             <td>植入第 4 天</td>
-            <td><span class="tag abnormal">嚴重偏高</span></td>
+            <td><span class="tag safe">藥物假性升高(安全)</span></td>
           </tr>
           <tr>
             <td><strong>NK cell (CD16+56)</strong></td>
@@ -307,101 +311,96 @@
             <td>%</td>
             <td>&lt; 14.9</td>
             <td>植入第 4 天</td>
-            <td><span class="tag abnormal">偏高</span></td>
+            <td><span class="tag borderline">略偏高(已處理)</span></td>
           </tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- 三、Day 6 關鍵治療介入（新增） -->
+  <!-- 三、關鍵用藥與治療介入分析 -->
   <section class="card summary-card">
-    <h2>💊 三、Day 6 關鍵用藥與治療介入分析</h2>
-    <div class="success-box">
-      <p>根據您的 Day 6 醫療費用收據，醫療團隊針對 Day 4 檢驗出的免疫危機（高 TNF-a 與 NK 細胞），給予了<strong>業界最高規格的「保胎防護網」</strong>，這是一次非常成功且及時的救援：</p>
+    <h2>💊 三、關鍵免疫用藥與防護網分析</h2>
+    <div class="info-box">
+      <p>根據您的看診紀錄與收據，醫療團隊為您佈下了<strong>「業界最高規格的免疫保胎防護網」</strong>：</p>
       <ul class="custom-list">
-        <li><strong>🛡️ 免疫壓制重武器 (IVIG 免疫球蛋白)：</strong>施打了 Gamunex-C (10%) 總計約 250ml。這是最有效中和抗體、降低 NK 細胞毒性與改善 Th1/Th2 平衡的終極武器。它直接為胚胎撐起了一把保護傘。</li>
-        <li><strong>🩸 三重抗凝血防護 (Arixtra + Eliquis + BOKEY)：</strong>
-          <ul>
-            <li><strong>Arixtra 2.5mg (固栓凝)：</strong>強效的皮下注射抗凝血劑。</li>
-            <li><strong>Eliquis 5mg (艾必克凝)：</strong>新型口服抗凝血藥。</li>
-            <li><strong>BOKEY 100mg (伯基/阿斯匹靈)：</strong>抗血小板藥物。</li>
-            <li><em>評價：</em>您的 D-dimer 雖然很低 (0.053)，但因為 TNF-a 嚴重偏高易引發微血栓，醫師採取了「預防性」的極強火力來確保子宮微血管 100% 暢通，保障胚胎養分。</li>
-          </ul>
-        </li>
-        <li><strong>💊 類固醇消炎 (Compesolon 5mg)：</strong>康速龍 8 顆。用於持續壓制體內的發炎反應，直接對抗過高的 TNF-a。</li>
-        <li><strong>🌱 荷爾蒙完美覆蓋 (Estrade + Divigel + Utrogestan + Progesterone)：</strong>雌激素（口服+抹劑）與黃體素（小白球+針劑/塞劑）雙管齊下，難怪您的 E2 與 P4 數值會如此漂亮！</li>
-        <li><strong>💉 防過敏前置用藥 (Vena 30mg)：</strong>這是在打 IVIG 之前標準的抗組織胺給藥，預防過敏反應。</li>
+        <li><strong>🎯 復邁 (Humira) 精準壓制 TNF-a：</strong>您先前已施打過復邁，它的藥效正在完美發揮作用，成功將發炎因子綁住，這是為什麼抽血出現 42.2「假性升高」的原因（標準為低於 60 即屬安全）。復邁為胚胎擋下了最具殺傷力的攻擊。</li>
+        <li><strong>🛡️ IVIG 免疫球蛋白 (2大2小)：</strong>因 Day 4 發現 NK 細胞略有攀升（18.7%），醫師果斷在 Day 6 安排施打 IVIG 點滴。這能有效降低 NK 細胞毒性，補足了最後一塊免疫防護拼圖。</li>
+        <li><strong>🩸 三重抗凝血防護 (固栓凝 Arixtra + 艾必克凝 Eliquis + 伯基 Bokey)：</strong>在極強的抗血栓藥物保護下，您的 D-dimer 維持在極低的 0.053，確保子宮微血管 100% 暢通，讓營養能順利輸送給胚胎。</li>
+        <li><strong>🌱 全方位荷爾蒙包覆：</strong>益斯得(Estrade)、大腿凝膠(Divigel)、小白球(Utrogestan)高達16顆與黃體油針，聯手將 E2 與 P4 撐在非常漂亮的數值。</li>
       </ul>
     </div>
   </section>
 
   <!-- 四、每一項檢驗數字的詳細說明 -->
   <section class="card detailed-lab-card">
-    <h2>🧾 四、每一項檢驗數字的詳細說明與連動效應</h2>
+    <h2>🧾 四、檢驗數字與看診紀錄連動解讀</h2>
 
     <div class="lab-item-block">
-      <h3>HCG-serum：Day 6=17.58 ➔ Day 8=44.49 mIU/mL <span class="tag normal">懷孕/翻倍極佳</span></h3>
+      <h3>腫瘤壞死因子-a (TNF-a) 42.2 pg/mL <span class="tag safe">藥物假性升高 / 安全過關</span></h3>
       <ul>
-        <li><strong>本個案的可能解讀：</strong>植入第 6 天測到 17.58 已確認早期著床；間隔 48 小時後（第 8 天）爬升至 44.49，翻倍率達到 2.5 倍！在 Day 4 免疫環境如此惡劣的情況下，胚胎還能展現這麼強的生命力，<strong>全歸功於 Day 6 施打的 IVIG 與強效抗凝血藥物發揮了立即的保護作用</strong>。</li>
+        <li><strong>過去的疑慮：</strong>未了解用藥史時，大於 4 會被視為免疫嚴重失控。</li>
+        <li><strong>真相與解讀：</strong>根據醫師的親自解說，由於您已施打了「復邁(Humira)」，復邁會與 TNF-a 結合，阻止其攻擊胚胎，但這會讓血液中測量到的 TNF-a 濃度產生<strong>「假性升高」</strong>。</li>
+        <li><strong>臨床意義：</strong>醫師明確表示，在復邁保護下，數值只要<strong>低於 60 都是絕對安全的</strong>。您的 42.2 顯示藥物正在完美運作中，發炎反應已被妥善控制，無須擔心。</li>
       </ul>
     </div>
 
     <div class="lab-item-block">
-      <h3>腫瘤壞死因子-a (TNF-a) 42.2 與 NK cell 18.7% <span class="tag abnormal">免疫排斥警訊</span></h3>
+      <h3>NK cell (18.7%) ➔ Day 6 IVIG 介入 <span class="tag normal">已精準處理</span></h3>
       <ul>
-        <li><strong>本個案的可能解讀：</strong>Day 4 的數值顯示母體免疫系統正對胚胎發起強烈攻擊。正常情況下這極易導致早期萎縮流產。但因為<strong>醫師在 Day 6 迅速介入了高劑量 IVIG 點滴與康速龍（類固醇）</strong>，這個危機目前已被強行壓制下來，胚胎得以安全發育。</li>
-        <li><strong>後續觀察：</strong>IVIG 的效力通常能維持 3 到 4 週。需要追蹤 TNF-a 是否真的被壓下來，以決定後續是否需要追加劑量。</li>
+        <li><strong>本個案的解讀：</strong>NK 細胞是免疫防禦部隊，植入後微微上升代表身體察覺到胚胎的存在。為了避免 NK 細胞過度活化誤傷胚胎，醫師已在 Day 6 及時幫您施打「免疫球蛋白 (IVIG)」。IVIG 會讓 NK 細胞安靜下來，目前危機已解除。</li>
       </ul>
     </div>
 
     <div class="lab-item-block">
-      <h3>E2 (419.0 pg/mL) 與 P4 (37.78 ng/mL) <span class="tag normal">防線穩固</span></h3>
+      <h3>HCG-serum：Day 6=17.58 ➔ Day 8=44.49 mIU/mL <span class="tag normal">強勢翻倍</span></h3>
       <ul>
-        <li><strong>本個案的可能解讀：</strong>由於您使用了包含 Estrade、Divigel、Utrogestan 與 Progesterone 在內的「海陸空」全方位荷爾蒙補充，目前的黃體與雌激素防線堅不可摧，提供胚胎非常舒適的內膜環境。</li>
+        <li><strong>本個案的解讀：</strong>這是這份報告中最棒的消息！48 小時內數值成長了 2.5 倍。這代表在復邁、IVIG 和滿滿的黃體素保護下，這顆胚胎非常爭氣，適應得非常好。</li>
       </ul>
     </div>
-
+    
     <div class="lab-item-block">
-      <h3>D-dimer：0.053 mg/L FEU <span class="tag normal">極度安全</span></h3>
+      <h3>生理症狀回饋：兩側微刺痛 <span class="tag normal">正常現象</span></h3>
       <ul>
-        <li><strong>本個案的可能解讀：</strong>數值遠低於警戒值，且您目前正在使用「固栓凝針劑 + 艾必克凝口服 + 伯基口服」三重抗凝血防護，子宮內膜微血管發生血栓堵塞的機率微乎其微。</li>
+        <li><strong>本個案的解讀：</strong>您向諮詢師反映下腹兩側有刺痛感。如同諮詢師所述，只要不是正中間的強烈宮縮感或下墜感，兩側偶爾的刺痛通常是因為大量荷爾蒙（黃體素、雌激素）刺激子宮韌帶或卵巢造成的正常生理反應，這表示子宮正在為懷孕做準備。</li>
       </ul>
     </div>
   </section>
 
   <!-- 五、整體評估 -->
   <section class="card evaluation-card">
-    <h2>🧠 五、整體評估：轉危為安，謹慎樂觀</h2>
-    <p>結合抽血報告與 Day 6 的治療單，這是一次<strong>「教科書級別的生殖免疫危機處理」</strong>。</p>
+    <h2>🧠 五、整體評估：防禦滿點，順利起跑</h2>
+    <p>統整所有資訊，目前的生殖免疫療程呈現<strong>「教科書級別的完美掌控」</strong>：</p>
     <ul class="custom-list">
-      <li>Day 4 警鈴大作（高 TNF-a、高 NK），胚胎面臨強烈免疫攻擊。</li>
-      <li>Day 6 醫療團隊果斷介入，投入重兵（IVIG、類固醇、三重抗凝血），成功撲滅發炎之火。</li>
-      <li>Day 8 捷報傳來，HCG 翻倍速度極佳（2.5倍），證實胚胎在保護傘下正在健康長大。</li>
+      <li><strong>發炎問題：</strong>被復邁 (Humira) 徹底綁死（TNF-a 假性升高證實藥效發揮）。</li>
+      <li><strong>排斥問題：</strong>被 Day 6 的 IVIG (2+2) 強力鎮壓。</li>
+      <li><strong>血栓問題：</strong>被三種抗凝血神藥（固栓凝、艾必克凝、伯基）完全排除。</li>
+      <li><strong>胚胎表現：</strong>HCG 2.5 倍優良成長，E2 與 P4 數值漂亮。</li>
     </ul>
-    <p>目前的狀態非常有希望，胚胎本身的素質與著床能力極強，而母體的攻擊也被藥物成功阻擋。</p>
+    <p>醫療團隊的佈陣非常嚴密，胚胎也給予了極佳的回應。目前可以放下心中大石，保持愉悅的心情迎接接下來的翻倍追蹤。</p>
   </section>
 
   <!-- 六、目前成功機率評估 -->
   <section class="card chance-card">
     <h2>📈 六、目前後續順利懷孕機率推估</h2>
-    <div class="chance-tag high">高 / 審慎樂觀</div>
-    <p style="font-size: 14px; color: var(--text-muted); margin-top: -10px; margin-bottom: 20px;">*免疫治療已到位，且 HCG 反應極佳，只要維持藥效，成功率大幅提升。</p>
+    <div class="chance-tag high">偏高 / 樂觀</div>
+    <p style="font-size: 14px; color: var(--text-muted); margin-top: -10px; margin-bottom: 20px;">*最大的免疫地雷已證實為藥物假性升高（安全），且 HCG 反應極佳，成功率大幅提升。</p>
     
     <div class="two-column-grid">
       <div class="success-box">
         <h3 style="color: #2f855a; margin-top: 0;">✅ 護航成功的正面因素</h3>
         <ul class="custom-list">
-          <li><strong>精準治療：</strong>及時的 IVIG 與抗凝血介入是此次翻倍成功的最大功臣。</li>
+          <li><strong>TNF-a 掌控良好：</strong>低於 60 的假性升高代表復邁作用完美。</li>
+          <li><strong>精準救援：</strong>及時的 IVIG 介入消除了 NK 細胞的潛在威脅。</li>
           <li><strong>HCG 完美翻倍：</strong>胚胎生命力頑強，發育進度超前。</li>
           <li><strong>穩健的荷爾蒙：</strong>E2 與 P4 完全沒有缺乏的疑慮。</li>
         </ul>
       </div>
       <div class="caution-box">
-        <h3 style="color: #c53030; margin-top: 0;">⚠️ 需持續監控的風險（防禦重點）</h3>
+        <h3 style="color: #c53030; margin-top: 0;">⚠️ 後續需監控的重點（非嚴重風險）</h3>
         <ul class="custom-list">
-          <li><strong>用藥出血風險：</strong>同時使用三種抗凝血藥，極易造成皮下瘀青、牙齦出血或陰道出血。</li>
-          <li><strong>免疫反彈：</strong>IVIG 藥效衰退後，TNF-a 與 NK 細胞可能會「反撲」，需定期抽血監控。</li>
+          <li><strong>用藥出血風險：</strong>同時使用三種抗凝血藥，若有著床出血，量可能會看起來較多，易引起恐慌。</li>
+          <li><strong>注意復邁銜接：</strong>目前復邁已打 8 天，需與醫師確認是否需要銜接下一針（通常 7-10 天一針）。</li>
         </ul>
       </div>
     </div>
@@ -409,9 +408,9 @@
 
   <!-- 七、可能問題與風險分析 -->
   <section class="card risk-card">
-    <h2>⚠️ 七、當前首要風險：出血與免疫監控</h2>
-    <div class="warning-box">
-      <p>過去您的最大風險是胚胎被排斥；現在您的最大風險轉為<strong>「抗凝血藥物造成的出血副作用」</strong>。由於 Arixtra、Eliquis、Bokey 都是強力疏通血管的藥物，一旦有一點點著床性出血，都可能會看起來量很大。請保持心情平靜，只要沒有劇烈腹痛，微量出血可先詢問診所調整抗凝血藥物。</p>
+    <h2>⚠️ 七、當前注意事項：小心抗凝血劑造成的微出血</h2>
+    <div class="tip-box" style="border-left-color: #d69e2e;">
+      <p>過去您的最大擔憂是免疫排斥，現在這個風險已經被醫療團隊排除。目前的重點在於<strong>「預防與應對抗凝血藥物造成的出血副作用」</strong>。由於固栓凝、艾必克凝、伯基都是強效疏通血管的藥物，一旦胚胎持續往內膜鑽（著床），可能會引發微血管破裂，加上抗凝血藥的關係，可能會出現咖啡色或粉紅色分泌物。請保持冷靜，只要沒有劇烈腹痛，通常是安全的，只需回報診所即可。</p>
     </div>
   </section>
 
@@ -419,22 +418,22 @@
   <section class="card plan-card">
     <h2>🪜 八、下一步行動指引</h2>
     <ol>
-      <li><strong>嚴格按表操課：</strong>所有用藥（包含針劑、口服、塞劑）請務必分毫不差地照時間執行，千萬不可自行停藥。</li>
-      <li><strong>等待下一次開獎/超音波：</strong>按預定時間（通常為植入後第 14 天）回診追蹤 HCG，確保數值突破千關。</li>
-      <li><strong>安排免疫複檢：</strong>與醫師確認何時需要再次抽血檢驗 TNF-a 與 NK cell，以評估第一次打的 IVIG 效力能維持多久。</li>
+      <li><strong>繼續嚴格用藥：</strong>所有的針劑、口服與塞劑（尤其是每天高達 16 顆的小白球與抗凝血藥物）請繼續定時定量使用。</li>
+      <li><strong>5月8日晚上回診：</strong>依照約定，在 5/8 (五) 晚上 6:30 回診抽血。預計會再追蹤 HCG、D-dimer、E2、P4 以及 CBC 全血球計數。報告約需等待 1 小時。</li>
+      <li><strong>觀察宮縮：</strong>紀錄下腹部的感覺。兩側刺痛為正常；若出現正中央緊緊的、下墜感、或類似月經來的酸痛，請在回診時告知醫師。</li>
     </ol>
   </section>
 
   <!-- 九、建議與醫師討論的關鍵問題 -->
   <section class="card discussion-card">
-    <h2>🗣️ 九、建議與醫師討論的關鍵問題 (更新版)</h2>
+    <h2>🗣️ 九、建議與醫師討論的關鍵問題</h2>
     <div class="tip-box">
-      <p>由於您已接受了完整的免疫介入，下次門診時請將提問重點轉向「藥物調整與監控」：</p>
+      <p>5/8 晚上回診看報告時，您可以與醫師確認以下重點：</p>
       <ol style="font-weight: 500;">
-        <li>「醫師，Day 8 的 HCG 翻得很好，表示 Day 6 打的 IVIG 有效。請問我們預計什麼時候需要複抽免疫血（TNF-a）來決定要不要打第二劑 IVIG？」</li>
-        <li>「我目前同時在用固栓凝 (Arixtra)、艾必克凝 (Eliquis) 跟伯基 (Bokey)，如果接下來出現咖啡色分泌物或粉紅出血，我應該優先停哪一個抗凝血藥？」</li>
-        <li>「D-dimer 目前 0.053 很低，三重抗凝血的劑量是否會一直維持到照到心跳，還是中間會慢慢減量？」</li>
-        <li>「目前的類固醇 (Compesolon) 會吃到什麼時候？長期吃有需要補充鈣片嗎？」</li>
+        <li>「醫師，我上一針『復邁 (Humira)』已經打了大約 8-10 天了，請問今天或這幾天需要安排打下一針來維持藥效嗎？」</li>
+        <li>「如果這幾天我不小心出現了咖啡色或粉紅色的點狀出血，我手上的三種抗凝血藥（固栓凝、艾必克凝、伯基）應該優先停掉哪一種？」</li>
+        <li>「今天的 D-dimer 如果還是很低，固栓凝 (Arixtra) 的針劑會不會考慮停掉或減量？」</li>
+        <li>「請問下一次回診，是直接安排照超音波看胚囊了嗎？」</li>
       </ol>
     </div>
   </section>
@@ -443,12 +442,12 @@
   <section class="card alert-card">
     <h2>🚨 十、警示訊號</h2>
     <div class="alert-box">
-      <p><strong>若出現以下任一症狀，請立即聯絡您的生殖中心：</strong></p>
+      <p><strong>若出現以下任一症狀，請提早聯絡您的生殖中心：</strong></p>
       <ul style="margin-bottom: 0;">
-        <li>出現<strong>鮮紅色大量陰道出血</strong>（因為您有使用抗凝血劑，流血可能不易止住，需盡快聯絡診所評估停用部分抗凝血藥）。</li>
-        <li>施打 Arixtra 的部位出現異常大面積的硬塊或紫黑色瘀青無法消退。</li>
-        <li>下腹部劇烈單側絞痛。</li>
-        <li>發燒或嚴重過敏反應（IVIG 的遲發性副作用，較為罕見）。</li>
+        <li>出現<strong>鮮紅色大量陰道出血</strong>（需盡快聯絡診所評估停用部分抗凝血藥）。</li>
+        <li>施打固栓凝 (Arixtra) 的部位出現異常大面積且非常疼痛的硬塊無法消退。</li>
+        <li>下腹部「正中央」出現強烈的下墜感與規律性宮縮痛。</li>
+        <li>發燒或嚴重過敏反應（IVIG 施打後的遲發性反應，需注意水分補充）。</li>
       </ul>
     </div>
   </section>
@@ -457,7 +456,7 @@
   <section class="card disclaimer-card">
     <h2>📌 十一、重要聲明</h2>
     <p style="font-size: 13px; color: var(--text-muted); text-align: justify;">
-      本報告由 AI 醫療資訊系統根據您提供的局部檢驗數據與醫療收據自動生成，目的在於協助您理解用藥邏輯與數字的臨床意涵。本分析<strong>不構成任何正式醫療診斷、治療指示或處方建議</strong>。您目前的用藥為高階生殖免疫療法，風險與成效的拿捏極度依賴臨床經驗，任何藥物增減或停用，絕對必須先獲得您的主治醫師親自指示。
+      本報告由 AI 醫療資訊系統根據您提供的檢驗數據與看診對話紀錄自動生成，目的在於協助您釐清免疫數據（如 TNF-a 假性升高）的真實臨床意涵，降低焦慮。本分析<strong>不構成任何正式醫療診斷、治療指示或處方建議</strong>。您目前的免疫與抗凝血療程極為專業且複雜，任何藥物增減或停用，絕對必須遵照您主治醫師的親自指示。
     </p>
   </section>
 </div>
