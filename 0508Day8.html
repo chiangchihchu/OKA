@@ -216,6 +216,7 @@
   .tag.borderline { background-color: var(--color-borderline); }
   .tag.abnormal { background-color: var(--color-abnormal); }
   .tag.safe { background-color: var(--color-safe); }
+  .tag.highlight { background-color: #dd6b20; } /* 橘色：重要 */
 
   /* Chance Tags */
   .chance-tag {
@@ -399,9 +400,72 @@
     </div>
   </section>
 
-  <!-- 三、核心用藥機制與完整說明 -->
+  <!-- 三、hCG 翻倍預估表 -->
   <section class="card">
-    <h2>💊 三、核心用藥機制與分類說明</h2>
+    <h2>📈 三、hCG 翻倍預估表 (Day 8 基準)</h2>
+    <div class="info-box">
+      <p style="margin-top: 0; margin-bottom: 10px;"><strong>臨床醫學標準：</strong>著床初期 (HCG < 1200 mIU/mL 階段)，健康的胚胎 HCG 水平通常會每 <strong>48 到 72 小時</strong>翻倍（即成長為兩倍）。</p>
+      <ul class="custom-list" style="font-size: 14px;">
+        <li><strong>理想高標 (48小時翻倍)：</strong>代表胚胎分裂與著床非常強勢。</li>
+        <li><strong>及格底線 (72小時翻倍)：</strong>代表胚胎仍在持續發育。落在此區間也是正常的。</li>
+      </ul>
+      <p style="margin-bottom: 0; font-size: 13px; color: var(--text-muted); margin-top: 8px;">*本表以您 Day 8 實際抽血數值 <strong>44.49</strong> 為起點，依數學模型進行區間推估，實際數值會因個人體質波動，僅供回診前參考。</p>
+    </div>
+
+    <div style="overflow-x: auto;">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th>植入天數 (日期)</th>
+            <th>間隔時間</th>
+            <th>及格預估區間<br><span style="font-size: 12px; font-weight: normal;">(72小時翻一倍)</span></th>
+            <th>理想高標預估<br><span style="font-size: 12px; font-weight: normal;">(48小時翻一倍)</span></th>
+            <th>里程碑與目標說明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background-color: #f0fff4;">
+            <td><strong>Day 8 (5/8)</strong></td>
+            <td>-</td>
+            <td colspan="2" style="text-align: center; font-weight: bold; color: #2f855a;">44.49 (實際測量值)</td>
+            <td><span class="tag normal">已達成</span> 較 D6(17.58) 成長2.5倍</td>
+          </tr>
+          <tr>
+            <td>Day 10 (5/10)</td>
+            <td>+48 小時</td>
+            <td>約 70.6</td>
+            <td>約 88.9</td>
+            <td>週末居家藥物保護期</td>
+          </tr>
+          <tr style="background-color: #ebf8ff;">
+            <td><strong>Day 11 (5/11)</strong></td>
+            <td><strong>+72 小時</strong></td>
+            <td><strong>約 88.9</strong></td>
+            <td><strong>約 125.8</strong></td>
+            <td><span class="tag highlight">回診期中考</span> 目標應落在 <strong>89 ~ 126</strong> 之間。若大於 126 代表爆發力極佳！</td>
+          </tr>
+          <tr>
+            <td>Day 12 (5/12)</td>
+            <td>+96 小時</td>
+            <td>約 112.1</td>
+            <td>約 177.9</td>
+            <td>持續追蹤</td>
+          </tr>
+          <tr>
+            <td>Day 14 (5/14)</td>
+            <td>+144 小時</td>
+            <td>約 177.9</td>
+            <td>約 355.9</td>
+            <td>常規抽血開獎日 (若順利通常安排首次超音波)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 四、核心用藥機制與完整說明 -->
+  <section class="card">
+    <h2>💊 四、核心用藥機制與分類說明</h2>
     <p style="margin-bottom: 20px; color: var(--text-muted);">目前的治療方針可分為三大防禦體系，以下根據您的單據為您拆解各藥物的戰略意義與目前劑量：</p>
     
     <div class="med-grid">
@@ -450,9 +514,9 @@
     </div>
   </section>
 
-  <!-- 四、整體專業評估與成功機率 -->
+  <!-- 五、整體專業評估與成功機率 -->
   <section class="card">
-    <h2>📈 四、整體專業評估與成功機率</h2>
+    <h2>📈 五、整體專業評估與成功機率</h2>
     <div class="chance-tag mid-high">預期機率：中等偏高 / 審慎樂觀</div>
     <p style="font-size: 14px; color: var(--text-muted); margin-top: -10px; margin-bottom: 20px;">*綜合所有臨床介入與胚胎反饋的定性評估。</p>
     
@@ -479,13 +543,13 @@
     </div>
   </section>
 
-  <!-- 五、建議與醫師討論的問題 -->
+  <!-- 六、建議與醫師討論的問題 -->
   <section class="card">
-    <h2>🗣️ 五、Day 11 (下週一) 期中考 面診提問指南</h2>
+    <h2>🗣️ 六、Day 11 (下週一) 期中考 面診提問指南</h2>
     <div class="warning-box">
       <p>5/11 早上 09:40 抽血後，當天與賴醫師的討論將決定下一階段的戰略，請帶著以下問題確認：</p>
       <ol style="font-weight: 500; margin-bottom: 0;">
-        <li style="margin-bottom: 10px;"><strong>關於胚胎發育：</strong>「賴醫師，今天抽的 HCG 數值，翻倍曲線有達到您期待的爆發性成長嗎？」</li>
+        <li style="margin-bottom: 10px;"><strong>關於胚胎發育：</strong>「賴醫師，今天抽的 HCG 數值，翻倍曲線有落在 89 ~ 126 的預期區間內嗎？您覺得這個成長速度理想嗎？」</li>
         <li style="margin-bottom: 10px;"><strong>關於血栓調整：</strong>「週末加倍打血栓針跟加重類固醇後，今天的 D-dimer 有順利降回原點嗎？愛栓通確定可以恢復一天一支了嗎？」</li>
         <li style="margin-bottom: 10px;"><strong>關於免疫期中考：</strong>「今天抽的『淋巴球表面標誌』，主要是看前幾天打的 IVIG 有沒有把 NK 細胞壓下來對嗎？如果報告出來還是偏高，我們什麼時候要打第二次 IVIG？」</li>
         <li><strong>關於里程碑：</strong>「如果今天數值一切順利，預計安排哪一天照超音波確認胚囊？」</li>
