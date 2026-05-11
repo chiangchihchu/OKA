@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生殖醫學檢驗分析報告</title>
+  <style>
+    :root {
+      --primary-color: #1a5f7a;
+      --secondary-color: #227c9d;
+      --bg-color: #f4f7f9;
+      --card-bg: #ffffff;
+      --text-main: #333333;
+      --text-muted: #666666;
+      --border-color: #e2e8f0;
+      
+      --color-normal: #2e7d32;
+      --bg-normal: #e8f5e9;
+      --color-borderline: #f57f17;
+      --bg-borderline: #fff3e0;
+      --color-abnormal: #c62828;
+      --bg-abnormal: #ffebee;
+      --color-insufficient: #455a64;
+      --bg-insufficient: #eceff1;
+      
+      --box-info: #e3f2fd;
+      --box-warning: #fff8e1;
+      --box-alert: #ffebee;
+      --box-tip: #f3e5f5;
+      --box-success: #e8f5e9;
+      --box-caution: #fff3e0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .report-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: transparent;
+    }
+
+    .report-header {
+      background: var(--primary-color);
+      color: white;
+      padding: 30px 20px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .report-header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .report-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+    }
+
+    .card h2 {
+      color: var(--primary-color);
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 標籤樣式 */
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .tag.normal { background: var(--bg-normal); color: var(--color-normal); }
+    .tag.borderline { background: var(--bg-borderline); color: var(--color-borderline); }
+    .tag.abnormal { background: var(--bg-abnormal); color: var(--color-abnormal); }
+    .tag.insufficient { background: var(--bg-insufficient); color: var(--color-insufficient); }
+
+    /* 成功機率標籤 */
+    .chance-tag {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .chance-tag.mid-low { background: #f57c00; }
+    
+    /* 表格樣式 */
+    .lab-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    .lab-table th, .lab-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .lab-table th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      color: var(--secondary-color);
+    }
+    .lab-table tr:hover {
+      background-color: #f1f5f9;
+    }
+
+    /* 雙欄佈局 */
+    .two-column-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .two-column-grid {
+        grid-template-columns: 1fr;
+      }
+      .lab-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+
+    .good-factors-box, .risk-factors-box {
+      padding: 16px;
+      border-radius: 8px;
+      border-left: 4px solid;
+    }
+    .good-factors-box {
+      background-color: var(--box-success);
+      border-left-color: var(--color-normal);
+    }
+    .risk-factors-box {
+      background-color: var(--box-caution);
+      border-left-color: var(--color-borderline);
+    }
+
+    .good-factors-box h3, .risk-factors-box h3 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    /* 獨立檢驗項目說明卡片 */
+    .lab-item-block {
+      background: #fdfdfd;
+      border: 1px solid #e0e0e0;
+      border-left: 5px solid var(--secondary-color);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+    }
+    .lab-item-block h3 {
+      font-size: 1.2rem;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .lab-item-block ul {
+      list-style-type: none;
+    }
+    .lab-item-block li {
+      margin-bottom: 8px;
+      padding-left: 16px;
+      position: relative;
+    }
+    .lab-item-block li::before {
+      content: "•";
+      color: var(--secondary-color);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+    .lab-item-block strong {
+      color: #444;
+    }
+
+    /* 提示區塊 */
+    .info-box { background: var(--box-info); padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #1976d2; }
+    .warning-box { background: var(--box-warning); padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #fbc02d; }
+    .alert-box { background: var(--box-alert); padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #d32f2f; color: #b71c1c; font-weight: bold; }
+    .tip-box { background: var(--box-tip); padding: 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid #8e24aa; }
+
+    .list-style {
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    .list-style li {
+      margin-bottom: 8px;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>🧬 生殖醫學檢驗與療程分析報告</h1>
+    <p class="report-subtitle">胚胎植入後追蹤・免疫數據判讀・後續用藥指引</p>
+  </header>
+
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要</h2>
+    <ul class="list-style">
+      <li><strong>評估階段：</strong> 試管嬰兒療程，胚胎植入後追蹤階段。</li>
+      <li><strong>植入概況：</strong> 植入 3 顆胚胎（1 顆孵化進度正常，2 顆孵化較慢「還宅在裡面」）。</li>
+      <li><strong>既往病史：</strong> 過去曾有 3 次外院試管植入失敗（反覆性著床失敗，RIF）病史。</li>
+      <li><strong>目前用藥：</strong> 
+        免疫球蛋白（IVIG，已打完 5+2 劑）、類固醇（目前由早晚各 3 顆調增至 4 顆）、生物製劑（復邁 / 本立生評估中）、抗血栓藥物（肝素 / 伯基）、安胎藥物。
+      </li>
+      <li><strong>近期症狀：</strong> 
+        類似感冒症狀（咳嗽、黃痰轉白痰、無發燒）、睡眠不佳。腹部偶有刺痛、抽筋感、一陣一陣緊縮感。
+      </li>
+    </ul>
+    <div class="warning-box">
+      <strong>臨床焦點：</strong> 植入後 hCG 數值上升緩慢，且合併強烈的免疫排斥指標（NK細胞偏高）。目前醫療團隊正積極透過高劑量免疫抑制劑挽救著床。
+    </div>
+  </section>
+
+  <section class="card highlight-card">
+    <h2>🔎 二、檢驗報告重點整理</h2>
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th>項目</th>
+          <th>結果</th>
+          <th>單位</th>
+          <th>狀態</th>
+          <th>簡要判讀</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>hCG (懷孕指數)</td>
+          <td>56 - 59</td>
+          <td>mIU/mL</td>
+          <td><span class="tag borderline">邊界/緩慢</span></td>
+          <td>目前數值偏低（未達預期之 140），上升速度落後，需觀察明日翻倍狀況。</td>
+        </tr>
+        <tr>
+          <td>NK 細胞 (自然殺手細胞) 項目1</td>
+          <td>18.7</td>
+          <td>%</td>
+          <td><span class="tag abnormal">異常</span></td>
+          <td>大於正常參考值（<15%），代表免疫排斥活性強。</td>
+        </tr>
+        <tr>
+          <td>NK 細胞 (自然殺手細胞) 項目2</td>
+          <td>18.2</td>
+          <td>%</td>
+          <td><span class="tag abnormal">異常</span></td>
+          <td>大於正常參考值（<15%）。兩項相加超過 36%，屬高風險。</td>
+        </tr>
+        <tr>
+          <td>B 細胞 (B Cells)</td>
+          <td>待今晚報告</td>
+          <td>-</td>
+          <td><span class="tag insufficient">資料不足</span></td>
+          <td>若數值飆升，明日需緊急施打生物製劑 (本立生)。</td>
+        </tr>
+        <tr>
+          <td>白血球 (WBC)</td>
+          <td>~ 100 (約 10,000)</td>
+          <td>/uL</td>
+          <td><span class="tag normal">正常/預期內</span></td>
+          <td>受類固醇及輕微感冒影響微幅上升，目前尚在可接受範圍內（不宜超過 15,000）。</td>
+        </tr>
+        <tr>
+          <td>血栓指標 (D-Dimer)</td>
+          <td>未提供確切數字</td>
+          <td>-</td>
+          <td><span class="tag abnormal">異常/需壓制</span></td>
+          <td>醫師指示需進一步壓低，以改善子宮血流供應。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+    
+    <div class="lab-item-block">
+      <h3>hCG（人類絨毛膜促性腺激素）：56 - 59 mIU/mL <span class="tag borderline">上升緩慢</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> 胚胎著床後由滋養層細胞分泌的懷孕賀爾蒙，是確認懷孕及胚胎發育初期最關鍵的指標。</li>
+        <li><strong>在生殖評估中的意義：</strong> 正常著床的胚胎，hCG 數值通常每 48 小時會翻倍（增加 1.66~2 倍）。</li>
+        <li><strong>若偏高常見代表：</strong> 多胞胎妊娠，或計算週期有誤差。</li>
+        <li><strong>若偏低常見代表：</strong> 胚胎著床晚、發育遲緩、生化妊娠（早期流產）或子宮外孕的風險。</li>
+        <li><strong>本個案的可能解讀：</strong> 醫師預期數值應達 140 左右，目前僅 59，代表爬升速度偏慢。但由於植入的 3 顆胚胎中有 2 顆「孵化較慢」，著床時間點可能往後遞延，因此仍有挽救機會。</li>
+        <li><strong>是否需要追蹤：</strong> <strong>絕對需要。</strong> 明日（24小時後）必須回診抽血比較，若能持續爬升至 60-70 以上，代表胚胎仍在努力發育。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>自然殺手細胞 (NK Cells) 子項目 1 & 2：18.7% / 18.2% <span class="tag abnormal">明顯異常</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> 血液周邊的自然殺手細胞比例，反映母體免疫系統的攻擊活性。</li>
+        <li><strong>在生殖評估中的意義：</strong> 一般生殖醫學建議 NK 細胞比例應控制在 10%~15% 以下。若比例過高，母體免疫系統會將胚胎視為「外來物」而進行攻擊，導致著床失敗或早期流產。</li>
+        <li><strong>本個案的可能解讀：</strong> 兩個指標均高於 15%，且總和高達 36% 以上。這強烈暗示本次 hCG 上升緩慢與「母體免疫排斥」有極大關聯，也是過去三次植入失敗的可能主因。</li>
+        <li><strong>建議合併判讀項目：</strong> B 細胞與血栓指數。</li>
+        <li><strong>醫療處置：</strong> 已使用 IVIG（免疫球蛋白）5+2 劑進行中和，並持續增加類固醇（早晚各 4 顆）壓制免疫反應。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>白血球 (WBC)：約 10,000 /uL (臨床口語 100) <span class="tag normal">預期內波動</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> 體內發炎或感染的指標。</li>
+        <li><strong>本個案的可能解讀：</strong> 因個案正在服用高劑量「類固醇」，藥物本身就會導致白血球數值假性升高；加上近期有類似感冒症狀，數值上升屬合理現象。</li>
+        <li><strong>是否需要追蹤：</strong> 醫師判定目前尚可接受，但若超過 15,000 /uL（臨床口語 150）或合併發燒，需警覺是否有實質細菌感染。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>血栓指標 (D-Dimer 等)：醫師指示「需再壓低」 <span class="tag insufficient">需結合原始數字</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> 血液凝結機制的活化程度。數值偏高代表微血管容易產生微小血栓。</li>
+        <li><strong>本個案的可能解讀：</strong> 免疫反應常伴隨微血栓形成，若子宮內膜微血管阻塞，胚胎將無法獲得足夠氧氣與養分（hCG 表現就會停滯或下降）。</li>
+        <li><strong>醫療處置：</strong> 需持續使用抗凝血藥物（如肝素注射）改善子宮血流，幫助「救回」發育中的胚胎。</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體臨床評估</h2>
+    <p>綜合判讀，目前處於<strong>「著床後免疫排斥拉鋸戰」</strong>的關鍵期。</p>
+    <p>個案本身具有強烈的免疫不孕體質（NK 細胞指標總和 >36%），導致前三次外院療程失敗。本次療程雖已預防性使用免疫球蛋白（IVIG）等高階藥物，但強烈的免疫反撲仍使胚胎著床過程受到阻礙，表現為 hCG 數值上升緩慢（停留在 59）。</p>
+    <p>好消息是，因為植入的胚胎中有孵化較慢的個體，且只要數值 <strong>「還沒往下掉」</strong>，在生殖免疫學的實務上，透過緊急調整類固醇劑量（提升至 4+4）、控制血栓，並視今晚 B 細胞報告決定是否追加生物製劑（本立生），仍有成功救援的真實案例。</p>
+  </section>
+
+  <section class="card chance-card">
+    <h2>📈 五、目前成功機率評估</h2>
+    <div style="text-align: center;">
+      <span class="chance-tag mid-low">中等偏低 (但仍有挽救希望)</span>
+    </div>
+    <p style="text-align: center; margin-bottom: 20px; color: var(--text-muted);">
+      * 本評估基於目前 hCG 翻倍遲緩與高免疫指標現況。明日 hCG 是否持續爬升為最終決定關鍵。
+    </p>
+    
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面原因 (有利因素)</h3>
+        <ul>
+          <li><strong>胚胎特性：</strong> 植入的 3 顆胚胎中有 2 顆孵化較慢，hCG 數值落後可能只是單純「晚著床」。</li>
+          <li><strong>數值未降：</strong> hCG 目前尚未呈現衰退趨勢，代表胚胎仍有生命力。</li>
+          <li><strong>醫療介入精準：</strong> 醫療團隊已精準抓出 NK 細胞異常，並已給予 IVIG、調整類固醇劑量，且積極追蹤 B 細胞。</li>
+          <li><strong>醫師臨床經驗：</strong> 醫師明確表示近期有數個相似數值（起步 200 多停滯，甚至更低）成功救回的案例。</li>
+        </ul>
+      </div>
+      <div class="risk-factors-box">
+        <h3>⚠️ 可能失敗原因 (風險因素)</h3>
+        <ul>
+          <li><strong>強烈免疫排斥：</strong> NK 細胞指標總和高達 36%，母體攻擊胚胎的力道強烈。</li>
+          <li><strong>hCG 爬升落後：</strong> 預期 140 但實際僅 59，若明日驗血數值反轉向下，則生化妊娠機率極高。</li>
+          <li><strong>合併微發炎：</strong> 類似感冒的免疫活化（咳嗽、白血球上升），可能間接刺激體內免疫系統活躍。</li>
+          <li><strong>既往病史：</strong> 過去 3 次 RIF 經驗，顯示母體著床環境先天挑戰較大。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card research-card">
+    <h2>📚 六、調研資料摘要</h2>
+    <ul class="list-style">
+      <li><strong>NK細胞與反覆著床失敗：</strong> 臨床免疫學共識指出，周邊血 CD56+ NK 細胞過高與反覆著床失敗及早期流產高度相關。標準治療包括類固醇、靜脈注射免疫球蛋白 (IVIG) 及抗血栓藥物。</li>
+      <li><strong>hCG 早期生長遲滯的挽救：</strong> 在免疫型不孕症患者中，早期 hCG 上升緩慢有時是免疫攻擊導致微血管血流不良所致。臨床文獻證實，透過適時調升免疫抑制劑及加強抗凝血（肝素），改善子宮微循環後，部分案例的 hCG 軌跡可恢復正常，最終成功活產。</li>
+    </ul>
+  </section>
+
+  <section class="card plan-card">
+    <h2>🪜 七、步驟指引與下一步</h2>
+    <ol class="list-style">
+      <li><strong>立即執行：</strong> 遵照醫師指示，將類固醇藥物調整為「早上 4 顆、晚上 4 顆」以壓制免疫細胞；安胎藥物與抗血栓藥物正常服用。</li>
+      <li><strong>今晚待辦：</strong> 等待診所通知今晚出爐的「B 細胞」檢驗報告。</li>
+      <li><strong>明日重點行動：</strong> 
+        <ul>
+          <li><strong>回診抽血：</strong> 再次檢驗 hCG。若數值由 59 爬升至 60-70 以上，代表救援有效；若明顯下降，需與醫師討論停藥時機。</li>
+          <li><strong>決定進階用藥：</strong> 若今晚 B 細胞數據偏高，明日需依醫師指示回診施打生物製劑（本立生 / Benlysta），因距離上次施打已達 13 天，符合最快 14 天可再次施打的週期。</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <section class="card advice-card">
+    <h2>💡 八、生活與照護建議</h2>
+    <ul class="list-style">
+      <li><strong>充足睡眠：</strong> 醫師特別提醒「睡飽一點」。熬夜或晚睡會導致抵抗力紊亂，加重感冒症狀，並可能激發免疫系統異常活化。</li>
+      <li><strong>感冒症狀管理：</strong> 目前無發燒且為輕微類流感，持續觀察即可。多喝溫水稀釋痰液。若出現發燒（>38度），請立即聯繫生殖中心，因發燒會嚴重影響胚胎發育。</li>
+      <li><strong>腹部症狀觀察：</strong> 偶爾刺痛、抽筋、緊縮感在植入後及用藥期間常見。但請注意休息，若轉為「劇烈疼痛」需立刻就醫。</li>
+      <li><strong>心理建設：</strong> 雖然焦慮難免，但目前數據並未宣判失敗，請盡量保持心情平穩，給胚胎與藥物作用的時間。</li>
+    </ul>
+  </section>
+
+  <section class="card discussion-card">
+    <h2>🗣️ 九、建議明日與醫師討論的關鍵問題</h2>
+    <div class="tip-box">
+      建議在明日回診時，直接向醫師詢問以下問題，以掌握療程方向：
+    </div>
+    <ol class="list-style">
+      <li><strong>關於 hCG：</strong>「今天的 hCG 數值跟昨天相比，成長幅度有達到您認為安全的『救援成功』標準嗎？」</li>
+      <li><strong>關於 B 細胞報告：</strong>「昨晚出爐的 B 細胞數據是多少？這個數值代表我需要立刻打本立生嗎？」</li>
+      <li><strong>關於血栓：</strong>「目前的肝素劑量是否足夠壓制血栓？子宮的血流供應狀況目前評估起來如何？」</li>
+      <li><strong>關於用藥極限：</strong>「類固醇已經加到 8 顆，加上 IVIG 和生物製劑，對母體的副作用需要注意什麼？（如：血糖、感染風險）」</li>
+      <li><strong>關於最壞打算：</strong>「如果這兩天 hCG 還是停滯甚至下降，我們大約在植入後第幾天會設定為停損點（停藥）？」</li>
+    </ol>
+  </section>
+
+  <section class="card alert-card">
+    <h2>🚨 十、警示訊號 (需立即急診或聯絡醫療團隊)</h2>
+    <div class="alert-box">
+      若在此期間出現以下任一症狀，請勿等待明日門診，應立即就醫：
+      <ul style="margin-top: 10px; margin-left: 20px;">
+        <li>突然發生<strong>劇烈、無法忍受的單側或雙側下腹痛</strong>（需排除子宮外孕或卵巢扭轉）。</li>
+        <li>出現<strong>鮮紅色大量陰道出血</strong>（超過月經量）伴隨血塊。</li>
+        <li><strong>發燒超過 38°C</strong>（發燒可能引發強烈宮縮並對胚胎造成致命影響）。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card disclaimer-card">
+    <h2>📌 十一、重要聲明</h2>
+    <p style="font-size: 0.9rem; color: var(--text-muted);">
+      本報告由 AI 醫療資訊分析系統根據您提供的文字紀錄生成，旨在協助您梳理醫療脈絡與衛教知識。<strong>本報告不具備正式醫療診斷、處方開立或療效保證之法律效力。</strong> 懷孕機率之評估僅為依據當下檢驗數值所做之臨床邏輯推估。您的實際病情、最終用藥劑量與後續療程決策，請務必以您的主治醫師（生殖免疫專科醫師）之當麵評估與指示為準。
+    </p>
+  </section>
+
+</div>
+
+</body>
+</html>
