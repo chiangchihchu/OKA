@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生殖醫學檢驗分析報告</title>
+    <style>
+        :root {
+            --primary-color: #1a5c79;
+            --secondary-color: #3b82f6;
+            --bg-color: #f4f7f9;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --info-color: #3b82f6;
+            
+            --bg-success: #ecfdf5;
+            --bg-warning: #fffbeb;
+            --bg-danger: #fef2f2;
+            --bg-info: #eff6ff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .report-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: transparent;
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .report-header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .report-subtitle {
+            margin: 10px 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--bg-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card h3 {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+
+        .lab-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        .lab-table th, .lab-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .lab-table th {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* 標籤設計 */
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            line-height: 1;
+        }
+        .tag.normal { background-color: var(--bg-success); color: #047857; border: 1px solid #a7f3d0; }
+        .tag.borderline { background-color: var(--bg-warning); color: #b45309; border: 1px solid #fde68a; }
+        .tag.abnormal { background-color: var(--bg-danger); color: #b91c1c; border: 1px solid #fecaca; }
+        .tag.insufficient { background-color: #f3f4f6; color: #4b5563; border: 1px solid #d1d5db; }
+
+        .chance-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .chance-tag.high { background-color: #dcfce7; color: #15803d; }
+        .chance-tag.mid-high { background-color: #dbeafe; color: #1d4ed8; }
+        .chance-tag.medium { background-color: #fef9c3; color: #854d0e; }
+        .chance-tag.mid-low { background-color: #ffedd5; color: #c2410c; }
+        .chance-tag.low { background-color: #fee2e2; color: #b91c1c; }
+        .chance-tag.unknown { background-color: #f3f4f6; color: #374151; }
+
+        /* 雙欄設計 */
+        .two-column-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .good-factors-box, .risk-factors-box {
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid;
+        }
+        .good-factors-box {
+            background-color: var(--bg-success);
+            border-color: #a7f3d0;
+        }
+        .good-factors-box h3 { color: #047857; margin-bottom: 10px;}
+        .risk-factors-box {
+            background-color: var(--bg-danger);
+            border-color: #fecaca;
+        }
+        .risk-factors-box h3 { color: #b91c1c; margin-bottom: 10px;}
+
+        /* 提示框 */
+        .alert-box { background-color: var(--bg-danger); border-left: 4px solid var(--danger-color); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 15px; }
+        .warning-box { background-color: var(--bg-warning); border-left: 4px solid var(--warning-color); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 15px; }
+        .info-box { background-color: var(--bg-info); border-left: 4px solid var(--info-color); padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 15px; }
+        .tip-box { background-color: #f8fafc; border-left: 4px solid #64748b; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 15px; }
+
+        /* 檢驗項目區塊 */
+        .lab-item-block {
+            background-color: #fafafa;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .lab-item-block h3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+        .lab-item-block ul {
+            padding-left: 20px;
+            margin: 0;
+            color: var(--text-muted);
+        }
+        .lab-item-block li {
+            margin-bottom: 8px;
+        }
+        .lab-item-block strong {
+            color: var(--text-main);
+        }
+
+        .medication-list {
+            list-style: none;
+            padding: 0;
+        }
+        .medication-list li {
+            background: #f8fafc;
+            margin-bottom: 8px;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .two-column-grid {
+                grid-template-columns: 1fr;
+            }
+            .lab-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="report-container">
+    <header class="report-header">
+        <h1>🧬 生殖醫學檢驗分析與用藥評估報告</h1>
+        <p class="report-subtitle">免疫生殖與早期懷孕追蹤・重點整理・後續指引</p>
+    </header>
+
+    <section class="card summary-card">
+        <h2>📋 一、個案摘要</h2>
+        <div class="info-box">
+            <p><strong>目前的臨床狀態：</strong> 您目前處於試管嬰兒（IVF）療程植入後的早期懷孕階段。本次回診主要針對**懷孕指數（hCG）**與**免疫指標（B細胞）**進行追蹤。由於觀察到懷孕數值出現下降趨勢，且免疫細胞數值上升，醫療團隊正在針對用藥（包含類固醇、抗凝血劑、生物製劑）進行緊急評估與微調。</p>
+        </div>
+        <ul>
+            <li><strong>評估階段：</strong> 胚胎植入後之早期懷孕追蹤</li>
+            <li><strong>主要臨床發現：</strong> 懷孕數值（hCG）連續兩次成長趨緩並出現下降；周邊血 B 細胞（B Cells）數值持續上升。</li>
+            <li><strong>前次特殊用藥：</strong> 約 14 天前曾施打生物製劑「本立生」（Benlysta，或為類似標靶B細胞之免疫藥物）。</li>
+            <li><strong>目前用藥調整狀態：</strong> 類固醇已於昨日調整；口服抗凝血劑維持；愛栓通（Clexane）暫停明晚劑量。今日暫不施打生物製劑。</li>
+        </ul>
+    </section>
+
+    <section class="card highlight-card">
+        <h2>🔎 二、檢驗報告重點整理</h2>
+        <table class="lab-table">
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>結果</th>
+                    <th>單位</th>
+                    <th>時間點</th>
+                    <th>狀態</th>
+                    <th>簡要判讀</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>懷孕指數 (hCG)</td>
+                    <td>未提供具體數字，但呈現下降</td>
+                    <td><span class="tag insufficient">未提供</span></td>
+                    <td>今日回診與昨日對比</td>
+                    <td><span class="tag abnormal">異常 (下降)</span></td>
+                    <td>顯示胚胎發育慢下來，有早期流產之風險。</td>
+                </tr>
+                <tr>
+                    <td>周邊血 B 細胞</td>
+                    <td>未提供具體數字，但持續上升</td>
+                    <td><span class="tag insufficient">未提供</span></td>
+                    <td>近期追蹤</td>
+                    <td><span class="tag abnormal">異常 (上升)</span></td>
+                    <td>顯示體內免疫反應活躍，可能對胚胎造成排斥或發炎影響。</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 0.9rem; color: #666;"><em>註：錄音中未提及確切抽血數值，本報告依據醫師口述之「趨勢變化」進行專業邏輯分析。</em></p>
+    </section>
+
+    <section class="card detailed-lab-card">
+        <h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+        
+        <div class="lab-item-block">
+            <h3>懷孕指數 (hCG) 趨勢：下降 <span class="tag abnormal">異常</span></h3>
+            <ul>
+                <li><strong>這個指標代表什麼：</strong> 人類絨毛膜促性腺激素（hCG）是由胚胎滋養層細胞分泌的荷爾蒙，是判斷早期懷孕是否穩定發展的最關鍵指標。</li>
+                <li><strong>在生殖評估中的意義：</strong> 正常早期懷孕，hCG 數值大約每 48 小時應翻倍成長（至少成長 1.66 倍）。若成長遲緩或下降，是胚胎著床不穩定的強烈訊號。</li>
+                <li><strong>本個案的可能解讀：</strong> 醫師提到數值對比昨天已下降，且「前面已經慢了兩次」。這強烈暗示胚胎目前的發育已經停滯或受損，著床於子宮內膜的狀態並不穩定（可能演變為化學性懷孕或早期流產）。</li>
+                <li><strong>建議合併判讀項目：</strong> 需合併目前的免疫指標（B細胞）、黃體素（Progesterone）以及未來的超音波結果進行綜合判斷。</li>
+            </ul>
+        </div>
+
+        <div class="lab-item-block">
+            <h3>B 細胞 (B Cells) 趨勢：持續上升 <span class="tag abnormal">異常</span></h3>
+            <ul>
+                <li><strong>這個指標代表什麼：</strong> B細胞是人體白血球中負責產生抗體與調節免疫反應的重要淋巴球。</li>
+                <li><strong>在生殖評估中的意義：</strong> 在生殖免疫學中，若母體將胚胎視為「外來物」，B細胞可能會異常活躍並產生自體免疫抗體，引發子宮內局部發炎與微血栓，進而攻擊胚胎導致著床失敗或早期流產。</li>
+                <li><strong>本個案的可能解讀：</strong> 雖然 14 天前已施打針對 B細胞的生物製劑，但目前的周邊血檢驗顯示 B細胞依然在上升。這代表體內的免疫發炎反應未能完全被壓制。醫師提到，骨髓內的 B細胞實際數量可能比周邊血驗到的更高。這極可能是導致 hCG 下降的核心原因。</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="card evaluation-card">
+        <h2>🧠 四、整體用藥與療程評估</h2>
+        <div class="warning-box">
+            <p><strong>目前的治療困境與醫療決策邏輯：</strong></p>
+            <p>面對胚胎發育遲緩（hCG下降）與免疫指數失控（B細胞上升），醫療團隊面臨「是否要加碼免疫藥物」的抉擇。賴醫師最終決定<strong>「暫緩追加生物製劑」</strong>，其主要原因如下：</p>
+            <ol>
+                <li><strong>時效性考量：</strong> 生物製劑（如本立生）並非特效藥，施打後需要一定的時間在體內產生作用。由於目前 hCG 已呈現不可逆的下降趨勢，此時施打可能「緩不濟急」，無法及時挽救已經受損的胚胎。</li>
+                <li><strong>胚胎狀態考量：</strong> 胚胎的發育已經連續兩次減慢，顯示其生命力或著床基礎可能已遭受實質影響。</li>
+                <li><strong>副作用與成本考量：</strong> 為了避免不必要的醫療介入（讓您白打一針），目前先以<strong>類固醇</strong>來減低全身性的發炎反應，並維持<strong>抗凝血劑（愛栓通、口服藥）</strong>來維持子宮微血管的血流，是最為平衡且保守的應對策略。</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="card chance-card">
+        <h2>📈 五、目前成功機率評估</h2>
+        <p>依據目前的抽血趨勢評估此次懷孕持續發展的成功機率：</p>
+        <div class="chance-level"><span class="chance-tag low">偏低</span></div>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;"><em>適用情境：目前植入週期之早期懷孕維持機率。</em></p>
+        
+        <div class="two-column-grid">
+            <div class="good-factors-box">
+                <h3>✅ 正面支持因素</h3>
+                <ul>
+                    <li><strong>醫療團隊介入迅速：</strong> 已精準抓出 B細胞 異常，並在第一時間調整了類固醇與抗凝血劑，為內膜環境做最後的保護努力。</li>
+                    <li><strong>抗凝血支持充足：</strong> 目前早晚維持口服抗凝血劑與愛栓通皮下注射，可確保子宮血流不受微血栓影響。</li>
+                    <li><strong>密切的追蹤機制：</strong> 每日回診抽血追蹤，確保決策都在最新數據下進行。</li>
+                </ul>
+            </div>
+            <div class="risk-factors-box">
+                <h3>⚠️ 可能失敗風險</h3>
+                <ul>
+                    <li><strong>hCG 已呈下降趨勢：</strong> 這是最關鍵的警訊，通常意味著胚胎停止發育。</li>
+                    <li><strong>頑固型免疫反應：</strong> 距離上次施打生物製劑已兩週，但 B細胞 仍未受控持續上升，顯示免疫排斥力道強烈。</li>
+                    <li><strong>藥物反應延遲：</strong> 即使現階段加重免疫抑制藥物，作用時間也難以趕上胚胎急劇下降的現況。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="card research-card">
+        <h2>📚 六、調研資料摘要（生殖免疫學）</h2>
+        <div class="tip-box">
+            <p><strong>B細胞在反覆著床失敗中的角色：</strong></p>
+            <p>臨床生殖免疫學認為，部分女性的免疫系統會將胚胎視為半個外來抗原。當自體免疫抗體（如 ANA、抗磷脂質抗體等）或 B細胞、NK細胞過度活躍時，會引發著床處的微血管栓塞與發炎反應。此時胚胎無法獲得充足養分，進而導致 hCG 成長遲緩或萎縮。</p>
+            <p><strong>常見的應對策略：</strong></p>
+            <ul>
+                <li><strong>第一線：</strong> 阿斯匹靈（如伯基 Bokey）、低分子量肝素（如愛栓通 Clexane）防止血栓；類固醇抑制發炎。</li>
+                <li><strong>進階治療：</strong> 當第一線藥物壓制不住時，生殖中心會考慮使用靜脈注射免疫球蛋白 (IVIG)、脂肪乳、或生物製劑（針對 B細胞或 TNF-α）來調節免疫環境。然而，此類治療必須在胚胎受損前提前佈局。</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="card plan-card">
+        <h2>🪜 七、步驟指引與用藥計畫</h2>
+        <p>依據醫療人員指示，您目前的短期行動計畫如下：</p>
+        <ul class="medication-list">
+            <li><strong>💊 類固醇：</strong> 依照昨日調整後的新劑量繼續服用，這可以幫助降低體內發炎。</li>
+            <li><strong>💊 口服抗凝血劑：</strong> 繼續維持「早上 1 顆、下午 1 顆」。</li>
+            <li><strong>💉 愛栓通 (Clexane) 針劑計畫：</strong> 
+                <br>✓ 今日早上：施打 1 支
+                <br>✓ 今日晚上：施打 1 支
+                <br>✓ 明日早上：施打 1 支
+                <br><strong>⛔ 明日晚上：暫停施打（等待明日晚間抽血結果與醫師討論後再決定）。</strong>
+            </li>
+            <li><strong>🏥 回診安排：</strong> 明天晚上回診，再次抽取 hCG 數值。</li>
+        </ul>
+    </section>
+
+    <section class="card advice-card">
+        <h2>💡 八、生活與照護建議</h2>
+        <ul>
+            <li><strong>心理調適：</strong> 免疫因素導致的胚胎狀況常常令人感到挫折，因為這並非卵子或胚胎本身品質不好，而是母體環境過於「保護」所致。請務必給予自己喘息的空間，並尋求家人或伴侶的情感支持。</li>
+            <li><strong>作息與壓力：</strong> 壓力與睡眠不足會進一步刺激免疫系統。雖然得知數值下降會影響心情，但請盡量維持平穩的作息，錄音中提到睡眠狀況「還好」，請繼續保持。</li>
+            <li><strong>留意出血：</strong> 隨著 hCG 可能的持續下降，未來幾天可能會開始出現咖啡色分泌物或類似月經的出血，請使用護墊並觀察出血量。</li>
+        </ul>
+    </section>
+
+    <section class="card discussion-card">
+        <h2>🗣️ 九、建議明晚與醫師討論的關鍵問題</h2>
+        <p>明天晚上面對賴醫師時，您可以將以下問題截圖或記下，這能幫助您釐清未來的方向：</p>
+        <ul>
+            <li>📝 「如果今明兩天數值確認無法挽回，我們目前的藥物（類固醇、愛栓通）會如何安排停藥？停藥後大概多久月經會來？」</li>
+            <li>📝 「這次觀察到 B細胞 壓制不住，是不是代表下一次植入前，我們需要提早改變免疫用藥的策略？或嘗試其他種類的生物製劑或免疫球蛋白（IVIG）？」</li>
+            <li>📝 「依照目前的免疫反應強度，下次植入前是否需要先重新抽血評估免疫指數基礎值，等數值完全降下來後再安排植入？」</li>
+            <li>📝 「目前調整過後的類固醇劑量，如果要慢慢停掉，需要經過多久的遞減過程？會有什麼副作用需要注意嗎？」</li>
+        </ul>
+    </section>
+
+    <section class="card alert-card">
+        <h2>🚨 十、警示訊號</h2>
+        <div class="alert-box">
+            <strong>如果在等待明晚回診的期間，出現以下任一症狀，請提早與生殖中心聯繫或前往急診室：</strong>
+            <ul style="margin-top: 10px; margin-bottom: 0;">
+                <li>突發性的<strong>劇烈下腹部疼痛或單側痙攣痛</strong>（需排除子宮外孕可能）。</li>
+                <li>陰道出現<strong>異常大量鮮血</strong>（超過平時月經最大量）或伴隨大塊血塊。</li>
+                <li>出現發燒、畏寒、頭暈或意識模糊的狀況。</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="card disclaimer-card">
+        <h2>📌 十一、重要聲明</h2>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">
+            本報告基於您提供的醫療諮詢錄音內容進行結構化整理與醫學邏輯分析。本報告旨在幫助您更好地理解醫療團隊的決策脈絡與檢驗意義，<strong>不可作為正式的醫療診斷書或處方依據</strong>。所有的藥物增減、停藥時機及最終療程決策，請務必遵循您的主治醫師（賴醫師）明日晚間的最終專業判斷。
+        </p>
+    </section>
+</div>
+
+</body>
+</html>
