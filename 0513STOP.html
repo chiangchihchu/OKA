@@ -1,0 +1,426 @@
+<style>
+  :root {
+    --primary-color: #1A365D;
+    --secondary-color: #2B6CB0;
+    --accent-color: #3182CE;
+    --bg-light: #F7FAFC;
+    --card-bg: #FFFFFF;
+    --text-main: #2D3748;
+    --text-muted: #718096;
+    
+    --success-bg: #F0FFF4;
+    --success-border: #9AE6B4;
+    --success-text: #22543D;
+    
+    --warning-bg: #FFFFF0;
+    --warning-border: #FAF089;
+    --warning-text: #744210;
+    
+    --danger-bg: #FFF5F5;
+    --danger-border: #FEB2B2;
+    --danger-text: #742A2A;
+
+    --info-bg: #EBF8FF;
+    --info-border: #90CDF4;
+    --info-text: #2A4365;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text-main);
+    background-color: var(--bg-light);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+
+  .report-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .report-header {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .report-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  .report-subtitle {
+    margin-top: 10px;
+    font-size: 16px;
+    opacity: 0.9;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #E2E8F0;
+  }
+
+  .card h2 {
+    color: var(--primary-color);
+    font-size: 20px;
+    border-bottom: 2px solid #EDF2F7;
+    padding-bottom: 12px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Table Styles */
+  .lab-table, .timeline-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+  }
+
+  .lab-table th, .timeline-table th {
+    background-color: var(--bg-light);
+    color: var(--text-muted);
+    font-weight: 600;
+    text-align: left;
+    padding: 12px;
+    border-bottom: 2px solid #E2E8F0;
+  }
+
+  .lab-table td, .timeline-table td {
+    padding: 12px;
+    border-bottom: 1px solid #E2E8F0;
+    vertical-align: top;
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .tag.normal { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success-border); }
+  .tag.borderline { background: var(--warning-bg); color: var(--warning-text); border: 1px solid var(--warning-border); }
+  .tag.abnormal { background: var(--danger-bg); color: var(--danger-text); border: 1px solid var(--danger-border); }
+  .tag.insufficient { background: #EDF2F7; color: #4A5568; border: 1px solid #CBD5E0; }
+
+  .chance-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  .chance-tag.mid-high { background: var(--success-bg); color: var(--success-text); border: 2px solid var(--success-border); }
+
+  /* Info Boxes */
+  .info-box, .warning-box, .alert-box, .success-box, .caution-box {
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border-left: 4px solid;
+  }
+  .info-box { background: var(--info-bg); border-color: var(--info-border); color: var(--info-text); }
+  .warning-box { background: var(--warning-bg); border-color: var(--warning-border); color: var(--warning-text); }
+  .alert-box { background: var(--danger-bg); border-color: var(--danger-border); color: var(--danger-text); }
+  .success-box { background: var(--success-bg); border-color: var(--success-border); color: var(--success-text); }
+  .caution-box { background: #FFF5F5; border-color: #FC8181; color: #9B2C2C; }
+
+  /* Two Column Grid */
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  /* Lab Item Block */
+  .lab-item-block {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  .lab-item-block h3 {
+    margin-top: 0;
+    color: var(--secondary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .lab-item-block ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .lab-item-block li {
+    margin-bottom: 8px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .two-column-grid { grid-template-columns: 1fr; }
+    .lab-table, .timeline-table { display: block; overflow-x: auto; white-space: nowrap; }
+    .lab-item-block h3 { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+</style>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>🧬 生殖醫學檢驗分析與治療計畫報告</h1>
+    <p class="report-subtitle">專業判讀・用藥時間表・後續指引</p>
+  </header>
+
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要</h2>
+    <ul>
+      <li><strong>評估對象：</strong>試管嬰兒（IVF）胚胎植入後之女性</li>
+      <li><strong>主訴與現狀：</strong>胚胎植入後追蹤，近期曾有感冒發燒症狀。原預期 hCG 應上升，但檢驗顯示 hCG 下降，確認為早期著床失敗或化學性懷孕。</li>
+      <li><strong>核心異常：</strong>自去年 11 月起即有 B 細胞（CD19）數值過高的免疫異常病史。</li>
+      <li><strong>既往治療：</strong>曾使用免疫抑制劑（安斯平）、抗瘧疾藥物（奎寧）以及生物製劑（奔立生 Benlysta）嘗試壓制免疫排斥反應，但植入後免疫反應仍強烈反撲。</li>
+    </ul>
+  </section>
+
+  <section class="card highlight-card">
+    <h2>🔎 二、檢驗報告與治療時間表總覽</h2>
+    
+    <div class="info-box">
+      <strong>🗓️ 關鍵時間表與數值變化：</strong><br>
+      本次療程中，雖然植入前免疫數值看似穩定，但在胚胎進入子宮後，誘發了強烈的免疫反撲。
+    </div>
+
+    <table class="timeline-table">
+      <thead>
+        <tr>
+          <th>日期 / 時間點</th>
+          <th>事件 / 檢驗項目</th>
+          <th>數值或用藥</th>
+          <th>狀態判讀</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>去年 11 月</td>
+          <td>發現免疫異常</td>
+          <td>B 細胞 (CD19) 極高</td>
+          <td><span class="tag abnormal">異常</span></td>
+        </tr>
+        <tr>
+          <td>今年 4/17 & 4/28</td>
+          <td>生物製劑施打</td>
+          <td>打 奔立生 (Benlysta)</td>
+          <td><span class="tag normal">療程中</span></td>
+        </tr>
+        <tr>
+          <td>5/4 ~ 5/6 (植入前後)</td>
+          <td>免疫監測</td>
+          <td>B 細胞：186</td>
+          <td><span class="tag normal">壓制良好</span></td>
+        </tr>
+        <tr>
+          <td>5/11 (植入後第 7 天)</td>
+          <td>免疫監測</td>
+          <td>B 細胞：329</td>
+          <td><span class="tag abnormal">免疫反撲</span></td>
+        </tr>
+        <tr>
+          <td>5/13 (今日)</td>
+          <td>懷孕指數監測</td>
+          <td>hCG 下降</td>
+          <td><span class="tag abnormal">著床失敗</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+    
+    <div class="lab-item-block">
+      <h3>B細胞 (CD19) 絕對值：186 <span class="tag normal">植入前後壓制良好</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>體內負責產生抗體與免疫記憶的 B 淋巴細胞數量。</li>
+        <li><strong>在生殖評估中的意義：</strong>B 細胞若過度活躍，會將胚胎視為外來物進行攻擊，導致著床失敗或早期流產。</li>
+        <li><strong>本個案的意義：</strong>5/4 至 5/6 期間（植入前後）測得 186，醫師判斷此數值「還不錯」，表示在先前的藥物控制下，表面的 B 細胞數量已被成功壓制在安全範圍內。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>B細胞 (CD19) 絕對值：329 <span class="tag abnormal">植入後第 7 天異常飆高</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>胚胎植入一週後，血液中 B 細胞的絕對數量。</li>
+        <li><strong>若偏高常見代表：</strong>強烈的免疫排斥反應正在發生，躲藏在骨髓中的 B 細胞傾巢而出。</li>
+        <li><strong>本個案的可能解讀：</strong>從 186 飆升至 329，升幅高達 1.76 倍。醫師指出，只要升幅超過 1.5 倍，就代表免疫系統「在作怪」。這說明先前的藥物雖然壓制了血液中的 B 細胞，但未能清除躲藏在骨髓中的記憶細胞；當胚胎（外來抗原）進入子宮時，立刻引發了劇烈的免疫攻擊。</li>
+        <li><strong>是否需要追蹤：</strong>是。需在後續療程中採用更強效或更具標靶性的生物製劑來徹底壓制。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>hCG 懷孕指數：數值下降 <span class="tag abnormal">確認著床失敗</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>絨毛膜促性腺激素，是胚胎著床後由滋養層細胞分泌的荷爾蒙，代表是否成功懷孕。</li>
+        <li><strong>若偏低常見代表：</strong>胚胎未能順利著床，或發生極早期的流產（化學性懷孕）。</li>
+        <li><strong>本個案的可能解讀：</strong>由於遭受 B 細胞的強烈攻擊，胚胎無法存活，導致 hCG 數值不升反降。</li>
+        <li><strong>是否需要追蹤：</strong>極度重要。必須在兩週後回診抽血，確認 hCG 降至 0.1 以下，確保子宮內無殘留。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體評估與核心問題分析</h2>
+    <p>綜合本次療程的數據變化，目前的生殖挑戰非常明確，屬於<strong>「免疫性不孕與重複性著床失敗」</strong>：</p>
+    <ul>
+      <li><strong>免疫防線被突破：</strong>雖然植入前使用了口服免疫藥物（安斯平）與基礎生物製劑（奔立生），表面看似成功壓制（數值 186），但胚胎進入後引發的抗原刺激，喚醒了深層骨髓中的 B 細胞（數值飆至 329），導致胚胎遭到免疫系統排斥。</li>
+      <li><strong>牽動其他免疫因子與子宮收縮：</strong>B 細胞的活躍往往不會單獨發生，醫師判斷可能同時帶動了腫瘤壞死因子（TNF-α）、自然殺手細胞（NK cells）的連鎖反應，並刺激子宮引發異常收縮，這也是導致患者近期有「感冒發燒感」的潛在原因之一。</li>
+    </ul>
+  </section>
+
+  <section class="card chance-card">
+    <h2>📈 五、目前成功機率評估 (針對下一週期新療程)</h2>
+    <div class="chance-tag mid-high">中等偏高</div>
+    <p><strong>判斷依據：</strong>雖然本次療程失敗，但<strong>失敗原因極度明確</strong>，且醫師已制定出極具針對性的「高階二線生物製劑整合計畫」。在肝腎功能良好的前提下，若能嚴格執行新計畫，下一次著床成功的機率相對樂觀。</p>
+    
+    <div class="two-column-grid">
+      <div class="success-box">
+        <h3>✅ 正面原因</h3>
+        <ul>
+          <li><strong>病因已精確鎖定：</strong>完全掌握是 CD19 (B細胞) 在植入後反撲導致。</li>
+          <li><strong>肝腎功能良好：</strong>患者目前的肝腎功能正常，能夠承受下一階段較強的生物製劑治療。</li>
+          <li><strong>具備明確的升級對策：</strong>醫師已規劃升級使用三劑奔立生清空骨髓 B 細胞，並備妥復邁、IVIG 與孕寶林作為多重防線。</li>
+        </ul>
+      </div>
+      <div class="caution-box">
+        <h3>⚠️ 可能失敗原因 (需克服的風險)</h3>
+        <ul>
+          <li><strong>免疫記憶頑強：</strong>B 細胞非常狡猾且具記憶性，若未在植入前徹底壓制至極低點，仍有反撲風險。</li>
+          <li><strong>連鎖免疫反應：</strong>B 細胞可能喚醒 NK 細胞或 TNF-α，需要多種高價藥物協同作戰，藥物反應因人而異。</li>
+          <li><strong>子宮收縮干擾：</strong>免疫反應引發的子宮收縮若未能被「孕寶林」有效安撫，仍可能將胚胎排出。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card plan-card">
+    <h2>🪜 六、未來治療計畫與用藥時間表</h2>
+    <p>為了克服強大的 B 細胞免疫記憶，下一次療程將採用<strong>「先清空、後防禦」</strong>的策略：</p>
+
+    <table class="timeline-table">
+      <thead>
+        <tr>
+          <th>階段</th>
+          <th>時間點</th>
+          <th>行動與用藥調整</th>
+          <th>醫學目的</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>第一階段：停藥與休養</strong></td>
+          <td>即日起</td>
+          <td>
+            • <strong>全面停藥：</strong>停用安斯平、停用奎寧 (Plaquenil)。<br>
+            • 僅維持常規保養（如甲狀腺藥物早晚一顆）。
+          </td>
+          <td>中斷無效的免疫抑制，讓身體準備自然排出未能著床的胚胎，預計 2-3 天後月經來潮。</td>
+        </tr>
+        <tr>
+          <td><strong>第二階段：確認流產完全</strong></td>
+          <td>兩週後</td>
+          <td>
+            • 回診抽血檢驗 hCG。<br>
+            • 目標：hCG < 0.1。
+          </td>
+          <td>確認子宮環境已完全清理乾淨，無殘留組織影響後續療程。</td>
+        </tr>
+        <tr>
+          <td><strong>第三階段：免疫深層重置</strong></td>
+          <td>休息的 1~2 個月內</td>
+          <td>
+            • 施打 <strong>奔立生 (Benlysta)</strong>，每 3 週至 1 個月施打一次。<br>
+            • 總共需施打 3 次。
+          </td>
+          <td>直接使用第二線生物製劑，將躲藏在骨髓中的 B 細胞逼出並壓制到「絕對低點」。</td>
+        </tr>
+        <tr>
+          <td><strong>第四階段：下一次植入防禦</strong></td>
+          <td>下次胚胎植入時</td>
+          <td>
+            • <strong>復邁 (Humira)：</strong>對付腫瘤壞死因子 (TNF-α)。<br>
+            • <strong>IVIG (免疫球蛋白)：</strong>若 NK 細胞上升則緊急動用。<br>
+            • <strong>孕寶林 (Tractocile)：</strong>植入時使用。
+          </td>
+          <td>建構滴水不漏的防護網，同時抑制發炎、殺手細胞，並防止免疫引發的子宮收縮。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card research-card">
+    <h2>📚 七、調研資料摘要 (生殖免疫學觀點)</h2>
+    <ul>
+      <li><strong>B 細胞與不孕：</strong>臨床研究顯示，過度活化的 B 細胞不僅會產生自體免疫抗體，還會分泌細胞激素，改變子宮內膜的免疫微環境，使胚胎被視為「異物」而遭到排斥。</li>
+      <li><strong>免疫細胞的「骨髓庇護所」：</strong>傳統口服免疫抑制劑（如類固醇、奎寧等）往往只能清除周邊血液中的活躍免疫細胞。具備記憶性的 B 細胞會躲藏在骨髓中，當胚胎植入（抗原刺激）時迅速增生反撲，這也是為何需要動用單株抗體生物製劑（如 Benlysta）進行深層清除的原因。</li>
+      <li><strong>子宮收縮與著床：</strong>免疫排斥發炎反應會釋放前列腺素等物質，誘發子宮異常收縮。臨床上常在植入前後使用催產素受體拮抗劑（如 Atosiban/孕寶林）來減少子宮收縮，提升著床率。</li>
+    </ul>
+  </section>
+
+  <section class="card advice-card">
+    <h2>💡 八、生活與休養建議</h2>
+    <div class="tip-box">
+      <strong>醫師特別囑咐：不要給自己太大壓力，生活步調放慢。</strong>
+    </div>
+    <ul>
+      <li><strong>正常生活：</strong>維持原本的生活作息即可，不需要特別臥床或過度改變日常。</li>
+      <li><strong>睡眠充足：</strong>每天確保 6 到 8 小時的高品質睡眠，良好的睡眠是穩定免疫系統的最佳基礎。</li>
+      <li><strong>適度運動即可：</strong>不需要進行劇烈運動，避免讓身體處於過度疲勞或物理性發炎狀態；散步、輕度瑜珈等舒緩活動為佳。</li>
+      <li><strong>心情調適：</strong>免疫系統深受情緒與壓力賀爾蒙影響，請盡量放鬆心情，準備迎接 1-2 個月後的重新出發。</li>
+    </ul>
+  </section>
+
+  <section class="card discussion-card">
+    <h2>🗣️ 九、建議與醫師討論的關鍵問題</h2>
+    <p>在下一次門診（預計兩週後抽 hCG 時），建議您可以與醫師確認以下細節：</p>
+    <ul>
+      <li>1. 「請問我這次停用奎寧和安斯平後，身體會有什麼反彈症狀需要特別注意嗎？」</li>
+      <li>2. 「接下來預計要打三次的『奔立生』，請問大約的費用預算落在哪裡？有需要配合特定的飲食嗎？」</li>
+      <li>3. 「下一次療程預計加入的『復邁』和『IVIG』，是在植入前幾天施打，還是植入當天看報告再決定？」</li>
+      <li>4. 「關於預防子宮收縮的『孕寶林』，是在植入當天打點滴嗎？會需要住院或在診所躺比較久嗎？」</li>
+      <li>5. 「在這 1-2 個月的休息期，除了打生物製劑，我原有的甲狀腺藥物劑量需要因為沒有懷孕而重新調整嗎？」</li>
+    </ul>
+  </section>
+
+  <section class="card alert-card">
+    <h2>🚨 十、警示訊號 (需盡快就醫)</h2>
+    <div class="alert-box">
+      目前即將面臨藥物停用後的內膜剝落（月經/小產出血）。若出現以下狀況，請立即前往急診或聯絡生殖中心：
+    </div>
+    <ul>
+      <li><strong>異常大量出血：</strong>不到一小時就需更換產婦型衛生棉，且伴隨大塊血塊。</li>
+      <li><strong>劇烈難忍的腹痛：</strong>超越一般經痛，且吃止痛藥無法緩解。</li>
+      <li><strong>嚴重感染徵象：</strong>發高燒（超過 38.5 度）、畏寒、或分泌物有惡臭。</li>
+      <li><strong>頭暈昏厥：</strong>因出血過多導致嚴重的頭暈、心悸、甚至短暫失去意識。</li>
+    </ul>
+  </section>
+
+  <section class="card disclaimer-card">
+    <h2>📌 十一、重要聲明</h2>
+    <p style="font-size: 14px; color: var(--text-muted);">
+      本報告基於您提供的音檔紀錄與生殖醫學常規邏輯進行資訊整理與摘要。此報告旨在協助您理解目前的檢驗數值意義、醫師的治療邏輯與未來的用藥時間表，<strong>並非正式的醫療診斷書或處方箋</strong>。由於免疫性不孕的治療高度複雜且因人而異，所有的藥物停用、啟動、劑量調整及下一步療程，請務必嚴格遵照您主治醫師的最終醫囑執行。
+    </p>
+  </section>
+</div>
