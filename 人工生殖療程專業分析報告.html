@@ -3,355 +3,283 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>人工生殖療程專業分析報告｜FET、免疫治療與早期懷孕追蹤</title>
+<title>免疫媽媽 FET 植入療程完整專業報告｜時程、費用、用藥與免疫建議</title>
 <style>
 :root{
-  --bg:#f6f8fb;--paper:#ffffff;--ink:#243044;--muted:#607089;--line:#d8e0ea;
-  --primary:#2f6f9f;--primary2:#e9f3fb;--note:#eef8f0;--warn:#fff3e6;--danger:#fdecec;
-  --ok:#eaf7f0;--shadow:0 8px 24px rgba(36,48,68,.08);
+  --bg:#f5f7fb;--paper:#fff;--ink:#243044;--muted:#65758b;--line:#d7e1ec;
+  --blue:#286b9e;--blue2:#e8f3fb;--green:#eaf7ef;--yellow:#fff6e5;--red:#fdecec;
+  --purple:#f0ecff;--shadow:0 8px 26px rgba(36,48,68,.08);
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;line-height:1.72}
-.container{max-width:1180px;margin:0 auto;padding:28px 18px 56px}
-header{background:linear-gradient(135deg,#1f5f8f,#6ea4c8);color:#fff;border-radius:24px;padding:34px 36px;box-shadow:var(--shadow);margin-bottom:24px}
-h1{font-size:34px;line-height:1.25;margin:0 0 10px}
-h2{font-size:24px;margin:34px 0 14px;border-left:6px solid var(--primary);padding-left:12px}
+.container{max-width:1220px;margin:auto;padding:28px 18px 64px}
+header{background:linear-gradient(135deg,#1f5f8f,#70a9cc);color:#fff;border-radius:24px;padding:34px 38px;box-shadow:var(--shadow);margin-bottom:22px}
+h1{margin:0 0 8px;font-size:34px;line-height:1.25}
+h2{font-size:25px;margin:34px 0 14px;border-left:7px solid var(--blue);padding-left:12px}
 h3{font-size:19px;margin:24px 0 10px;color:#244f73}
-p{margin:8px 0}
 section{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:var(--shadow)}
+p{margin:8px 0}
 table{width:100%;border-collapse:collapse;margin:14px 0 20px;background:#fff;font-size:14px}
 th,td{border:1px solid var(--line);padding:10px 11px;vertical-align:top}
 th{background:#dcebf6;color:#1f4967;font-weight:700}
 tr:nth-child(even) td{background:#fbfdff}
 ul,ol{padding-left:1.35em}
-.badge{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 12px;margin:4px 6px 0 0;font-size:13px}
-.note,.warning,.danger,.expert-box{border-radius:14px;padding:16px 18px;margin:14px 0;border:1px solid}
-.note{background:var(--note);border-color:#bfe3c7}
-.warning{background:var(--warn);border-color:#ffd59f}
-.danger{background:var(--danger);border-color:#f5b6b6}
-.expert-box{background:var(--primary2);border-color:#bdd7ec}
+.badge{display:inline-block;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;margin:4px 6px 0 0;font-size:13px}
+.note,.warning,.danger,.expert-box,.cost-box{border-radius:14px;padding:16px 18px;margin:14px 0;border:1px solid}
+.note{background:var(--green);border-color:#bfe3c7}
+.warning{background:var(--yellow);border-color:#ffd590}
+.danger{background:var(--red);border-color:#f3b8b8}
+.expert-box{background:var(--blue2);border-color:#bdd7ec}
+.cost-box{background:#f9f4ff;border-color:#d9c6ff}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
 .card strong{color:#1f5f8f}
 .small{font-size:13px;color:var(--muted)}
-.status-ok{background:#eaf7f0}.status-watch{background:#fff7e6}.status-risk{background:#fdecec}
-@media(max-width:850px){.grid{grid-template-columns:1fr} h1{font-size:27px} table{font-size:13px}}
-@media print{
-  body{background:#fff}.container{max-width:none;padding:0}section,header{box-shadow:none;break-inside:avoid}
-  a{color:inherit;text-decoration:none}
-}
+.ok{background:#eaf7ef}.watch{background:#fff6e5}.risk{background:#fdecec}.purple{background:#f0ecff}
+.money{text-align:right;white-space:nowrap}
+@media(max-width:900px){.grid{grid-template-columns:1fr} h1{font-size:27px} table{font-size:13px}}
+@media print{body{background:#fff}.container{max-width:none;padding:0}section,header{box-shadow:none;break-inside:avoid} a{color:inherit;text-decoration:none}}
 </style>
 </head>
 <body>
 <div class="container">
+
 <header>
-  <h1>人工生殖療程專業分析報告</h1>
-  <p>冷凍胚胎植入（FET）・反覆著床失敗（RIF）・生殖免疫與早期懷孕動態追蹤</p>
-  <span class="badge">個案：女性，1978 年生，約 48 歲</span>
-  <span class="badge">主要策略：受贈卵子 IVF / FET</span>
-  <span class="badge">重點：免疫、血栓、黃體支持、hCG 動態</span>
+<h1>免疫媽媽 FET 植入療程完整專業報告</h1>
+<p>整合：受贈卵 IVF、FET 植入、免疫檢驗、hCG 動態、實際費用、用藥與後續策略</p>
+<span class="badge">個案：1978 年生，約 48 歲</span>
+<span class="badge">療程：受贈卵子 IVF / 冷凍囊胚植入</span>
+<span class="badge">關鍵議題：RIF、B cell、NK cell、抗凝血、IVIG、生物製劑</span>
 </header>
 
 <section>
-<h2>1. 報告摘要與核心判讀</h2>
+<h2>1. 報告總結：這次植入到底發生了什麼？</h2>
 <div class="note">
-本報告整合已提供之療程紀錄、胚胎報告、植入前用藥計畫、植入後 Day 2 至 Day 12 檢驗與門診指示，目的為建立一份可保存、可列印、便於與主治醫師討論的人工生殖專業分析文件。此報告不可取代正式診斷、醫囑或處方。
+本次是「胚胎端條件佳，但母體免疫環境高度敏感」的 FET 週期。胚胎來自受贈卵子，受精與囊胚形成結果良好；植入後 Day 4 至 Day 8 hCG 有明確上升，代表至少曾發生早期著床。然而 Day 11 後 hCG 成長明顯趨緩，Day 12 出現下降趨勢，同時 B cell / CD19 再度偏高，顯示本輪最大風險並非單純「沒有著床」，而是「著床後早期維持不穩」。
 </div>
 <table>
-<tr><th>面向</th><th>目前已知重點</th><th>臨床意義</th><th>下一步建議</th></tr>
-<tr><td>胚胎來源與品質</td><td>使用受贈卵子；24 顆解凍/使用，21 顆受精，最終 12 顆囊胚冷凍；D5 7 顆、D6 5 顆；多數為 4BC/5BC，另有 D6 4AC。</td><td>受贈卵子可大幅降低高齡卵子染色體異常影響；胚胎庫存充足，累積機會佳。</td><td>後續植入需依內膜、免疫與血栓狀態決定植入時機與顆數。</td></tr>
-<tr><td>植入前子宮內膜</td><td>4/24：E2 337.2 pg/mL、P4 &lt;1.0 ng/mL、內膜 8 mm。</td><td>黃體啟動前條件良好，無提早黃體化跡象，內膜厚度達植入常用門檻。</td><td>黃體啟動時間需精準，尤其 FET 著床窗以小時計算。</td></tr>
-<tr><td>植入策略</td><td>4/30 進行 FET；報告中曾記載預計植入 2 顆 PGT-A 正常囊胚，後續 Day 2 / Day 11 紀錄顯示實際植入 3 顆囊胚。</td><td>資料間存在差異，需以診所正式胚胎植入紀錄為準。</td><td>請向診所索取正式植入紀錄：胚胎數、等級、D5/D6、是否 PGT-A、植入時間。</td></tr>
-<tr><td>免疫背景</td><td>RIF 3 次；B cell / CD19 曾偏高；TNF-α、NK cell、B cell 為追蹤重點；曾用 Plaquenil、Azathioprine、類固醇、Humira、Benlysta、IVIG 等。</td><td>屬高免疫監控需求個案；免疫用藥需兼顧胚胎保護與感染風險。</td><td>每次調整免疫藥物都應同時看 WBC、淋巴球、CD3/CD4/CD8、感染症狀與 hCG 變化。</td></tr>
-<tr><td>早期懷孕動態</td><td>hCG：Day 4 = 4.75；Day 6 = 17.58；Day 8 = 44.49；Day 11 約 56–59；Day 12 紀錄為下降趨勢。</td><td>Day 4–8 有早期著床與上升，但 Day 11 後成長明顯趨緩，Day 12 下降提示生化妊娠/早期流產風險升高。</td><td>需依主治醫師指示連續追蹤 hCG 至明確上升或下降，並安排停藥或後續週期策略。</td></tr>
-<tr><td>凝血與黃體支持</td><td>D-dimer 多次低值或安全：0.083、0.081、0.053、Day 8 &lt;0.1；P4 Day 8 = 37.78 ng/mL。</td><td>抗凝血與黃體支持大致充分；Day 8 P4 屬穩定支持狀態。</td><td>抗凝血停用、加量或暫停需依 D-dimer、出血風險、hCG 走勢與醫囑決定。</td></tr>
+<tr><th>核心面向</th><th>實際資料</th><th>專業判讀</th><th>對下次療程的意義</th></tr>
+<tr><td>胚胎端</td><td>24 顆受贈卵子、21 顆受精、12 顆囊胚冷凍；D5 共 7 顆、D6 共 5 顆。</td><td>胚胎庫存非常充足，且受贈卵子可降低高齡卵子染色體異常風險。</td><td>下次仍有多顆胚胎可用，重點應轉為母體免疫、子宮腔與內膜同步。</td></tr>
+<tr><td>植入前內膜</td><td>4/24：E2 337.2 pg/mL、P4 &lt;1.0 ng/mL、內膜 8 mm；4/25 23:00 啟動黃體。</td><td>植入前內膜與荷爾蒙條件大致合格，無明顯提早黃體化。</td><td>下次仍應精準計算黃體暴露時數，並於植入日與 Day 5–8 追蹤 P4。</td></tr>
+<tr><td>植入日</td><td>4/30 FET；紀錄曾有「預計植入 2 顆 PGT-A 正常囊胚」，後續 Day 2 / Day 11 報告又寫「植入 3 顆囊胚」。</td><td>資料有差異，需以診所正式植入單為準。</td><td>請務必索取正式胚胎解凍植入紀錄：植入顆數、等級、D5/D6、是否 PGT-A。</td></tr>
+<tr><td>hCG 動態</td><td>Day 4：4.75；Day 6：17.58；Day 8：44.49；Day 11：約 56–59；Day 12：下降趨勢。</td><td>Day 4–8 表示早期著床成立，但 Day 11–12 顯示發育停滯或生化妊娠風險升高。</td><td>下次應更早建立免疫穩定，而不是等 hCG 慢下來才救援。</td></tr>
+<tr><td>免疫反應</td><td>用藥前 CD19 絕對值 612/uL、CD19 22.6%；用藥後降至 294/uL、17.7%；Day 11 CD19 17.4% 仍偏高。</td><td>B cell 是本案最需要管理的免疫軸；NK 經 IVIG 後可被壓下，但 B cell 後段仍反彈。</td><td>下次植入前應先訂出 B cell 達標門檻與 Benlysta / 其他策略時機。</td></tr>
+<tr><td>血栓與黃體支持</td><td>D-dimer：0.081、0.083、0.053、&lt;0.1；P4：植入日 22.07，Day 8 37.78。</td><td>血栓指標多數安全；P4 植入日略邊界，後續油針與塞劑補強後達穩定。</td><td>抗凝血與黃體支持方向合理，但需避免過度加藥造成出血或副作用。</td></tr>
 </table>
 </section>
 
 <section>
-<h2>2. 完整時程表：從免疫調整到 Day 12 追蹤</h2>
-<table>
-<tr><th>日期 / 階段</th><th>療程事件</th><th>檢驗 / 數據</th><th>用藥與處置</th><th>專業評估</th></tr>
-<tr><td>2026/03/06–04/02</td><td>植入前免疫調養期</td><td>用藥後 CD19 絕對值下降、NK 絕對值下降；WBC 維持正常。</td><td>Asazipam / Azathioprine、Plaquenil / Hydroxychloroquine。</td><td>口服免疫調節有效，但仍需注意甲狀腺抗體、血栓抗體與骨髓抑制。</td></tr>
-<tr><td>2026/03/11</td><td>生殖免疫會診</td><td>RIF 3 次；B cell 約 22%，絕對值曾 &gt;600/uL；體重 58 kg。</td><td>規劃病毒/感染篩檢，評估 IVIG、生物製劑。</td><td>若 B cell 口服藥壓制有限，需考慮更精準的高階免疫策略。</td></tr>
-<tr><td>2026/03/12</td><td>卵子解凍與 ICSI 規劃</td><td>預計 24 顆卵子；預期 70% 受精，3–5 顆以上囊胚。</td><td>ICSI，不做 PGT-A / PGS 的紀錄。</td><td>起始卵子數充足，有利於抵抗 IVF 漏斗效應。</td></tr>
-<tr><td>2026/03/18</td><td>胚胎培養完成</td><td>24 顆卵子、21 顆受精，12 顆囊胚冷凍；囊胚率約 57%。</td><td>D5：4BC ×6、5BC ×1；D6：4AC ×1、5BC ×4。</td><td>胚胎庫存豐富；TE 多為 C 級，初期著床力可能較頂級 TE 稍弱，但受贈卵子提供染色體優勢。</td></tr>
-<tr><td>2026/04/24</td><td>FET 植入前準備</td><td>E2 337.2 pg/mL、P4 &lt;1.0 ng/mL、內膜 8 mm。</td><td>益斯得、雌激素凝膠、伯基、Plaquenil、安斯平；4/25 晚上 23:00 啟動黃體。</td><td>內膜與荷爾蒙條件良好；黃體啟動時間是著床窗同步核心。</td></tr>
-<tr><td>2026/04/28</td><td>植入前免疫點滴日</td><td>無特殊抽血結果列示。</td><td>IVIG、Humira、分離生 / Intralipid；啟動愛栓通。</td><td>屬高規格免疫與血栓預防佈局。</td></tr>
-<tr><td>2026/04/30</td><td>FET 植入日</td><td>P4 22.07 ng/mL、D-dimer 0.081 mg/L FEU；Free T4 待報。</td><td>新增或加強黃體油針；康速龍調升；維持抗凝血、免疫與黃體支持。</td><td>P4 稍低於部分診所目標，已用油針補強；D-dimer 安全。</td></tr>
-<tr><td>2026/05/02 Day 2</td><td>植入後第 2 天追蹤</td><td>D-dimer 0.083、WBC 8.27、NEUT% 79.1、LYMPH% 17.3。</td><td>IVIG / Gamunex-C 125 mL，估算費用 NT$65,000；另有 Benlysta、Humira、Dexamethasone 等紀錄。</td><td>血栓安全；嗜中性偏高與淋巴偏低可見於類固醇或免疫治療後，仍需防感染。</td></tr>
-<tr><td>2026/05/04 Day 4</td><td>第一次極早期驗孕與免疫抽血</td><td>hCG 4.75；D-dimer 約 0.066；TNF-α 42.2；NK 18.7%；CD4 233、CD3 638；WBC 8.88。</td><td>維持愛栓通、黃體油針、益斯得、小白球、康速龍、伯基、塞劑等。</td><td>出現早期著床訊號；免疫數據需謹慎解讀。後續醫師認為 TNF-α 42.2 可能為 Humira 後假性升高。</td></tr>
-<tr><td>2026/05/06 Day 6</td><td>hCG 翻倍與免疫處置</td><td>hCG 17.58；D-dimer 0.053。</td><td>院內施打 IVIG 2 大瓶 + 2 小瓶；繼續黃體、抗凝血、類固醇、Plaquenil、安斯平等。</td><td>Day 4 至 Day 6 上升約 3.7 倍，早期成長良好；D-dimer 極佳。</td></tr>
-<tr><td>2026/05/08 Day 8</td><td>翻倍確認與生物製劑接續</td><td>hCG 44.49；E2 419 pg/mL；P4 37.78 ng/mL；D-dimer &lt;0.1。</td><td>補打 Humira 40 mg；週末愛栓通早晚各 1 支；康速龍早 3 晚 3；黃體油針 5/10。</td><td>hCG 成長達標但尚需後續追蹤；E2/P4 支持穩定；血栓仍安全但醫師超前加強。</td></tr>
-<tr><td>2026/05/11 Day 11</td><td>免疫驗收與 hCG 期中追蹤</td><td>hCG 約 56–59；NK 9.2%；B cell 17.4%；WBC 11.92。</td><td>類固醇調至早 4 晚 4；規劃或討論 Benlysta；維持抗凝血與安胎藥。</td><td>NK 已被 IVIG 壓下，但 B cell 仍偏高；hCG 成長低於預期，進入高風險觀察。</td></tr>
-<tr><td>2026/05/12 Day 12</td><td>hCG 下降趨勢與用藥重新評估</td><td>未列具體數字；紀錄為 hCG 下降，B cell 持續上升。</td><td>暫不追加生物製劑；類固醇依新劑量；口服抗凝血維持；愛栓通按醫囑部分暫停。</td><td>早期流產或生化妊娠風險升高；後續需依主治醫師判斷是否持續保胎或逐步停藥。</td></tr>
-</table>
-</section>
-
-<section>
-<h2>3. 人工生殖完整流程總覽</h2>
-<table>
-<tr><th>階段</th><th>約略時間</th><th>主要內容</th><th>本個案重點</th></tr>
-<tr><td>初診與病史整理</td><td>第 1 次門診</td><td>年齡、不孕時間、過去植入失敗、流產史、免疫或血栓病史、男性因素。</td><td>48 歲、RIF 3 次、採受贈卵子策略，重點轉為子宮內膜與免疫容受。</td></tr>
-<tr><td>基礎檢查</td><td>月經第 2–5 天或療程前</td><td>AMH、FSH/LH/E2、P4、TSH/Free T4、泌乳激素、精液分析、感染篩檢、輸卵管/子宮腔評估。</td><td>目前資料較偏向免疫與植入週期，建議補齊正式基礎檢查摘要。</td></tr>
-<tr><td>療程規劃</td><td>檢查完成後</td><td>決定 IUI、IVF、自卵/借卵、是否 PGT、植入策略。</td><td>採受贈卵子 IVF/FET，胚胎數充足。</td></tr>
-<tr><td>胚胎建立</td><td>取卵或卵子解凍後 1–7 天</td><td>ICSI、受精觀察、D3 分裂、D5/D6 囊胚培養與冷凍。</td><td>受精率與囊胚形成率表現優良。</td></tr>
-<tr><td>植入前內膜準備</td><td>約 2–3 週</td><td>雌激素養內膜，確認厚度與 P4，按時啟動黃體素。</td><td>4/24 內膜 8 mm、E2 達標、P4 未提早上升。</td></tr>
-<tr><td>免疫 / 血栓預處理</td><td>植入前數日至數週</td><td>依個案使用阿斯匹靈、肝素、類固醇、Plaquenil、IVIG、生物製劑等。</td><td>本個案為高強度免疫策略，需嚴格防感染與監測血球。</td></tr>
-<tr><td>胚胎植入</td><td>黃體啟動後特定小時數</td><td>將胚胎置入子宮腔，通常不需麻醉。</td><td>著床窗設定曾記載為 109 小時。</td></tr>
-<tr><td>黃體支持與早期追蹤</td><td>植入後至驗孕/孕早期</td><td>黃體素、雌激素、抗凝血與免疫藥物維持；抽 hCG、P4、E2、D-dimer、CBC。</td><td>Day 4–8 有早期 hCG 上升，Day 11–12 趨緩/下降。</td></tr>
-<tr><td>驗孕與妊娠追蹤</td><td>植入後約 9–14 天起</td><td>β-hCG 連續追蹤、約 5–6 週看孕囊、6–7 週看心跳。</td><td>目前尚未進入超音波確認期，需先釐清 hCG 趨勢。</td></tr>
-</table>
-</section>
-
-<section>
-<h2>4. IUI 與 IVF / FET 比較</h2>
-<table>
-<tr><th>比較項目</th><th>IUI 人工授精</th><th>IVF / ICSI 試管嬰兒</th><th>FET 冷凍胚胎植入</th><th>本個案適用性</th></tr>
-<tr><td>適用對象</td><td>輕度男性因素、排卵障礙、不明原因不孕、輸卵管至少一側通暢。</td><td>輸卵管因素、男性因素、高齡、IUI 失敗、多重因素不孕。</td><td>已有冷凍胚胎、需調整內膜或免疫狀態者。</td><td>已進入 FET，IUI 不符合目前策略。</td></tr>
-<tr><td>侵入性</td><td>低</td><td>中高，含取卵、麻醉、實驗室程序。</td><td>中低，植入本身通常不需麻醉。</td><td>FET 可避免再次取卵。</td></tr>
-<tr><td>用藥強度</td><td>低至中</td><td>中至高</td><td>依內膜準備方式與免疫需求而定。</td><td>本個案因免疫因素，用藥強度高。</td></tr>
-<tr><td>成功率特性</td><td>單次較低，受年齡與精卵品質影響大。</td><td>可取得胚胎並篩選，單次潛力較高。</td><td>取決於胚胎品質、內膜同步與母體環境。</td><td>胚胎端優勢明顯，母體免疫端是主要變數。</td></tr>
-<tr><td>費用</td><td>較低</td><td>較高</td><td>中至高，若加免疫治療則大幅增加。</td><td>本週期費用主要由免疫生物製劑、IVIG、FET 構成。</td></tr>
-<tr><td>何時升級</td><td>IUI 3–4 次失敗、年齡較高、輸卵管或精子問題明顯。</td><td>可改採借卵、PGT、ICSI 或凍胚策略。</td><td>可重複依胚胎庫存安排。</td><td>已採高階 FET 策略。</td></tr>
-</table>
-</section>
-
-<section>
-<h2>5. 胚胎與植入策略專業評估</h2>
-<div class="grid">
-<div class="card"><strong>胚胎成果</strong><p>24 顆卵子、21 顆受精、12 顆囊胚，形成率約 57%，屬非常良好的胚胎庫存成果。</p></div>
-<div class="card"><strong>等級解讀</strong><p>多數為 4BC / 5BC，代表 ICM 多為 B、TE 多為 C；D6 4AC 有 A 級內細胞團。C 級 TE 可能影響初期著床力，但不等於不能活產。</p></div>
-<div class="card"><strong>受贈卵子優勢</strong><p>年輕捐贈卵子通常降低高齡卵子染色體異常風險，因此形態學非頂級的胚胎仍可能具備良好潛力。</p></div>
+<h2>2. 實際費用明細：依檔案與收據逐項列出</h2>
+<div class="cost-box">
+<strong>重點：</strong>以下不是一般市場估價，而是根據你提供的報告與收據影像整理出的「本輪已知實際費用」。其中 5/6 收據最完整，總實收金額為 NT$70,695；若與藥品細項加總有些微差異，可能是影像反光遮蔽、系統分類或未完整拍到項目造成，已在表內標註。
 </div>
+
+<h3>2.1 已知實際費用總表</h3>
+<table>
+<tr><th>日期</th><th>階段</th><th>項目</th><th class="money">實際 / 報告金額</th><th>資料來源與說明</th></tr>
+<tr><td>4/28</td><td>植入前免疫點滴日</td><td>IVIG 免疫球蛋白</td><td class="money">約 NT$65,000</td><td>報告列：2 大瓶 + 2 小瓶。</td></tr>
+<tr><td>4/28</td><td>植入前免疫點滴日</td><td>Intralipid / 分離生</td><td class="money">約 NT$2,200–3,000</td><td>報告列為靜脈點滴費用。</td></tr>
+<tr><td>4/28</td><td>植入前免疫點滴日</td><td>Humira / 復邁</td><td class="money">約 NT$17,000</td><td>報告列為生物製劑。</td></tr>
+<tr><td>4/28</td><td>植入前免疫點滴日</td><td>當日免疫點滴總準備金</td><td class="money">約 NT$100,000</td><td>報告建議當日準備金，含 IVIG、Humira、分離生等。</td></tr>
+<tr><td>4/30</td><td>FET 植入日</td><td>解凍胚胎植入療程費</td><td class="money">約 NT$60,000–70,000</td><td>報告列：包含解凍、植入與當日抽血費用。</td></tr>
+<tr><td>5/2</td><td>Day 2</td><td>IVIG 10% Gamunex-C 合計</td><td class="money">NT$65,000</td><td>25 mL NT$13,000 + 100 mL NT$52,000；報告列為總劑量 125 mL。</td></tr>
+<tr><td>5/2</td><td>Day 2</td><td>Benlysta / 本立生</td><td class="money">約 NT$22,000</td><td>報告列為 B cell 相關生物製劑費用。</td></tr>
+<tr><td>5/2</td><td>Day 2</td><td>Humira / 復邁</td><td class="money">約 NT$17,000</td><td>報告列為 TNF-α 抑制劑費用。</td></tr>
+<tr><td>5/6</td><td>Day 6</td><td>門診收據實收總額</td><td class="money"><strong>NT$70,695</strong></td><td>收據：應收 NT$71,290、優免 NT$595、實收 NT$70,695。</td></tr>
+<tr><td>5/11</td><td>Day 11</td><td>淋巴球表面標誌抽血</td><td class="money">NT$3,060</td><td>報告列為「關鍵驗收」費用，用於驗證 IVIG 是否壓下 NK。</td></tr>
+</table>
+
+<h3>2.2 5/6 Day 6 收據：分類費用</h3>
+<table>
+<tr><th>收據分類</th><th class="money">應收額</th><th class="money">優免額</th><th class="money">實收額</th><th>說明</th></tr>
+<tr><td>掛號費</td><td class="money">NT$250</td><td class="money">NT$0</td><td class="money">NT$250</td><td>門診掛號。</td></tr>
+<tr><td>診察費</td><td class="money">NT$350</td><td class="money">NT$350</td><td class="money">NT$0</td><td>收據顯示全額優免。</td></tr>
+<tr><td>藥品費</td><td class="money">NT$67,440</td><td class="money">NT$0</td><td class="money">NT$67,440</td><td>主要由 IVIG 與抗凝血 / 黃體 / 免疫藥構成。</td></tr>
+<tr><td>處置費</td><td class="money">NT$800</td><td class="money">NT$0</td><td class="money">NT$800</td><td>院內處置與點滴相關。</td></tr>
+<tr><td>檢驗費</td><td class="money">NT$2,450</td><td class="money">NT$245</td><td class="money">NT$2,205</td><td>hCG、D-dimer、E2、P4、CBC+DC。</td></tr>
+<tr><td><strong>合計</strong></td><td class="money"><strong>NT$71,290</strong></td><td class="money"><strong>NT$595</strong></td><td class="money"><strong>NT$70,695</strong></td><td>收據實付金額。</td></tr>
+</table>
+
+<h3>2.3 5/6 Day 6 收據：逐項檢驗與藥品費用</h3>
+<table>
+<tr><th>項目</th><th>用途</th><th class="money">單價</th><th class="money">數量</th><th class="money">小計</th><th>專業意義</th></tr>
+<tr><td>HCG-serum</td><td>懷孕指數</td><td class="money">405</td><td class="money">1</td><td class="money">405</td><td>追蹤胚胎是否持續分泌 hCG。</td></tr>
+<tr><td>D-dimer</td><td>血栓指標</td><td class="money">720</td><td class="money">1</td><td class="money">720</td><td>判斷是否需調整抗凝血藥。</td></tr>
+<tr><td>E2</td><td>雌激素</td><td class="money">450</td><td class="money">1</td><td class="money">450</td><td>評估內膜與早孕支持環境。</td></tr>
+<tr><td>P4</td><td>黃體素</td><td class="money">360</td><td class="money">1</td><td class="money">360</td><td>確認黃體支持是否足夠。</td></tr>
+<tr><td>CBC+DC</td><td>全血球與分類</td><td class="money">270</td><td class="money">1</td><td class="money">270</td><td>追蹤感染、白血球、免疫抑制安全性。</td></tr>
+<tr><td>Estrade 2mg</td><td>雌激素口服</td><td class="money">5</td><td class="money">18</td><td class="money">90</td><td>維持內膜厚度與早孕荷爾蒙環境。</td></tr>
+<tr><td>Divigel 0.1% Gel 1g</td><td>雌激素凝膠</td><td class="money">20</td><td class="money">8</td><td class="money">160</td><td>經皮補充雌激素。</td></tr>
+<tr><td>BOKEY / Tapal 100mg</td><td>低劑量阿斯匹靈</td><td class="money">5</td><td class="money">2</td><td class="money">10</td><td>降低血小板聚集，改善微循環。</td></tr>
+<tr><td>Eliquis 5mg</td><td>口服抗凝血</td><td class="money">57</td><td class="money">4</td><td class="money">228</td><td>抗凝血策略之一；需注意出血風險。</td></tr>
+<tr><td>Utrogestan 100mg</td><td>口服 / 陰道黃體素</td><td class="money">17</td><td class="money">16</td><td class="money">272</td><td>穩定內膜，支持著床。</td></tr>
+<tr><td>Progesterone 50mg</td><td>黃體油針</td><td class="money">80</td><td class="money">1</td><td class="money">80</td><td>提升血中 P4，救援植入日邊界 P4。</td></tr>
+<tr><td>Arixtra 2.5mg/0.5ml</td><td>抗凝血針</td><td class="money">580</td><td class="money">2</td><td class="money">1,160</td><td>預防微血栓，維持子宮血流。</td></tr>
+<tr><td>Compesolon 5mg</td><td>類固醇</td><td class="money">5</td><td class="money">8</td><td class="money">40</td><td>降低免疫發炎與排斥反應。</td></tr>
+<tr><td>25ml IVIG10% Gamunex-C</td><td>免疫球蛋白</td><td class="money">6,500</td><td class="money">2</td><td class="money">13,000</td><td>調節 NK / 抗體相關免疫反應。</td></tr>
+<tr><td>100ml IVIG10% Gamunex-C</td><td>免疫球蛋白</td><td class="money">26,000</td><td class="money">2</td><td class="money">52,000</td><td>本日最大費用來源。</td></tr>
+<tr><td>Vena / Diphenhydramine HCl 30mg</td><td>抗過敏</td><td class="money">50</td><td class="money">1</td><td class="money">50</td><td>常用於 IVIG 前後降低過敏反應。</td></tr>
+<tr><td><strong>細項可見小計</strong></td><td colspan="3">依影像可辨識項目加總</td><td class="money"><strong>NT$69,245</strong></td><td>其中檢驗小計 NT$2,205、可見藥品小計約 NT$67,040；與收據藥品費 NT$67,440 差 NT$400，可能有影像未完整顯示或系統分類差異。</td></tr>
+</table>
+
+<h3>2.4 本輪已知最低可確認支出</h3>
+<table>
+<tr><th>組成</th><th class="money">可確認金額</th><th>說明</th></tr>
+<tr><td>4/28 免疫點滴日準備</td><td class="money">約 NT$100,000</td><td>含 IVIG、Humira、分離生等；屬報告建議準備金。</td></tr>
+<tr><td>4/30 FET 植入</td><td class="money">約 NT$60,000–70,000</td><td>解凍、植入與當日抽血。</td></tr>
+<tr><td>5/6 Day 6 收據實付</td><td class="money">NT$70,695</td><td>含 IVIG、抽血、抗凝血、黃體與雌激素藥物。</td></tr>
+<tr><td>5/11 淋巴球表面標誌</td><td class="money">NT$3,060</td><td>免疫驗收抽血。</td></tr>
+<tr><td><strong>本輪已知最低合計</strong></td><td class="money"><strong>約 NT$233,755–243,755+</strong></td><td>尚未包含所有 5/2、5/8、5/12 若另有收據、交通、其他抽血、追加藥物或前期胚胎建立費。</td></tr>
+</table>
+</section>
+
+<section>
+<h2>3. 完整醫療過程時程表</h2>
+<table>
+<tr><th>日期 / 階段</th><th>醫療事件</th><th>檢驗與數據</th><th>用藥 / 處置</th><th>專業判讀</th></tr>
+<tr><td>2026/03/05</td><td>用藥前免疫基線檢查</td><td>CD19 22.6%、CD19 絕對值 612/uL；NK 11%、NK 絕對值 298/uL；WBC 5.47；ATA 171；B2GP IgG 19.4。</td><td>準備進入免疫調養。</td><td>B cell 明顯偏高、B2GP IgG 接近上限、ATA 偏高，屬「免疫媽媽」風險型態。</td></tr>
+<tr><td>2026/03/06–04/02</td><td>植入前免疫調養</td><td>用藥後 CD19 絕對值降至 294/uL，NK 絕對值降至 140/uL，WBC 5.12。</td><td>Asazipam / Azathioprine 50mg 每日 2 次；Plaquenil 200mg 每日 2 次。</td><td>用藥後 B cell 與 NK cell 下降，代表免疫調養有效，且白血球未被壓到危險。</td></tr>
+<tr><td>2026/03/12</td><td>受贈卵子 ICSI / 受精</td><td>24 顆卵子，21 顆受精。</td><td>ICSI。</td><td>受精率約 87.5%，胚胎實驗室結果佳。</td></tr>
+<tr><td>2026/03/18</td><td>囊胚培養與冷凍完成</td><td>12 顆囊胚冷凍：D5 7 顆、D6 5 顆；D5 多為 4BC / 5BC，D6 有 4AC、5BC。</td><td>囊胚冷凍保存。</td><td>庫存充足；雖多數 TE 為 C，但受贈卵子背景提升整體潛力。</td></tr>
+<tr><td>2026/04/24</td><td>FET 植入前檢查</td><td>E2 337.2、P4 &lt;1.0、內膜 8 mm。</td><td>益斯得、Divigel、伯基、Plaquenil、安斯平、康速龍等。</td><td>內膜達可植入水準；P4 未提前上升，適合啟動黃體。</td></tr>
+<tr><td>2026/04/25 23:00</td><td>黃體啟動</td><td>未列。</td><td>小白球 2 顆 + 大白球陰道塞劑 1 支；之後小白球每日 4 次、每次 2 顆。</td><td>FET 成敗關鍵之一是黃體素暴露時數與胚胎日齡同步。</td></tr>
+<tr><td>2026/04/28</td><td>植入前免疫點滴日</td><td>未列。</td><td>IVIG、Humira、Intralipid；打完後啟動愛栓通每日 1 針。</td><td>採高規格免疫 + 抗凝血預防策略，目的在植入前降低 NK / TNF / 微血栓風險。</td></tr>
+<tr><td>2026/04/30</td><td>FET 植入日</td><td>P4 22.07、D-dimer 0.081。</td><td>新增黃體油針；康速龍早晚各 2 顆；維持愛栓通、小白球、益斯得、得胎隆、伯基、安斯平、Plaquenil。</td><td>P4 略邊界，補油針合理；D-dimer 安全。</td></tr>
+<tr><td>2026/05/02 Day 2</td><td>植入後第二天追蹤</td><td>D-dimer 0.083；WBC 8.27；NEUT% 79.1；LYMPH% 17.3。</td><td>IVIG、Benlysta、Humira、Dexamethasone 等免疫處置資料。</td><td>血栓安全；嗜中性偏高與淋巴偏低常見於類固醇 / 壓力反應，但需防感染。</td></tr>
+<tr><td>2026/05/04 Day 4</td><td>極早期 hCG 與免疫檢查</td><td>hCG 4.75；TNF-α 42.2；NK 18.7%；CD19 18.2%；CD4 絕對值 233；WBC 8.88。</td><td>維持保胎與免疫藥。</td><td>hCG 已出現代表早期著床；NK 升高觸發後續 IVIG，CD4 偏低提示感染風險。</td></tr>
+<tr><td>2026/05/06 Day 6</td><td>hCG 翻倍與院內 IVIG</td><td>hCG 17.58；D-dimer 0.053。</td><td>IVIG 2 大瓶 + 2 小瓶；Day 6 收據實付 NT$70,695。</td><td>hCG 由 4.75 到 17.58，兩天約 3.7 倍，早期表現良好；D-dimer 極低。</td></tr>
+<tr><td>2026/05/08 Day 8</td><td>翻倍確認與防線收緊</td><td>hCG 44.49；E2 419；P4 37.78；D-dimer &lt;0.1。</td><td>補打 Humira 40mg；5/9–5/10 愛栓通早晚各 1 支；康速龍早 3 晚 3；5/10 黃體油針。</td><td>hCG 成長約 2.5 倍，P4/E2 支持良好；因高風險背景，醫師採預防性抗凝血加強。</td></tr>
+<tr><td>2026/05/11 Day 11</td><td>免疫驗收與 hCG 期中考</td><td>hCG 約 56–59；NK 9.2%；CD19 17.4%；WBC 11.92。</td><td>類固醇調至早 4 晚 4；討論 Benlysta；維持安胎與抗凝血。</td><td>NK 被 IVIG 壓下，但 B cell 仍偏高；hCG 未達預期約 140，進入高風險觀察。</td></tr>
+<tr><td>2026/05/12 Day 12</td><td>hCG 下降與救援策略重新評估</td><td>hCG 下降趨勢；B cell 持續上升。</td><td>類固醇依新劑量；口服抗凝血早 1 下午 1；愛栓通部分時段暫停；暫不追加生物製劑。</td><td>高度懷疑生化妊娠或早期發育停滯；需追蹤至 hCG 明確下降或重新上升。</td></tr>
+</table>
+</section>
+
+<section>
+<h2>4. 免疫數據前後比較：為什麼你是「免疫媽媽」？</h2>
+<table>
+<tr><th>指標</th><th>用藥前</th><th>用藥後 / 植入前</th><th>植入後變化</th><th>判讀</th></tr>
+<tr><td>CD19 / B cell %</td><td>22.6%（高於 &lt;14.9）</td><td>17.7%（仍偏高但改善）</td><td>Day 11：17.4%；Day 12 描述持續上升。</td><td class="risk">本案最重要風險軸。B cell 代表抗體反應與自體免疫活性，可能干擾著床後早期胎盤建立。</td></tr>
+<tr><td>CD19 絕對值</td><td>612/uL（高於 &lt;499.9）</td><td>294/uL（正常）</td><td>Day 11：329/uL；Day 4 曾 186/uL。</td><td class="watch">絕對值比百分比更重要；植入前被壓下，但植入後百分比仍偏高。</td></tr>
+<tr><td>NK cell %</td><td>11%</td><td>8.4%</td><td>Day 4：18.7%；Day 11：9.2%。</td><td class="watch">NK 對 IVIG 反應佳；問題是 Day 4 曾上升，代表下次可能要更早預防。</td></tr>
+<tr><td>NK 絕對值</td><td>298/uL，接近上限</td><td>140/uL</td><td>Day 11：175/uL。</td><td class="ok">IVIG 後回到安全範圍。</td></tr>
+<tr><td>CD4 絕對值</td><td>754/uL</td><td>533/uL</td><td>Day 4：233/uL；Day 11：680/uL。</td><td class="watch">Day 4 偏低，代表防感染能力可能被壓低；高強度免疫療法需平衡感染風險。</td></tr>
+<tr><td>WBC</td><td>5.47</td><td>5.12</td><td>Day 11：11.92。</td><td class="watch">類固醇、壓力、感染皆可升高；咳嗽黃痰時需警覺。</td></tr>
+<tr><td>ATA</td><td>171 IU/mL，高於 &lt;115</td><td>未提供追蹤</td><td>未提供</td><td class="watch">甲狀腺自體免疫體質，建議植入前追 TSH、Free T4，懷孕早期更需密切監測。</td></tr>
+<tr><td>Anti-B2GP IgG</td><td>19.4 CU，接近上限 20</td><td>未提供追蹤</td><td>以 D-dimer 與抗凝血策略追蹤</td><td class="watch">抗磷脂抗體邊界值，支持使用阿斯匹靈 / 抗凝血的臨床邏輯，但需避免出血。</td></tr>
+</table>
+
 <div class="expert-box">
-<h3>植入策略建議</h3>
-<ul>
-<li>請確認正式植入紀錄：本輪到底植入 2 顆或 3 顆、各胚胎等級、是否 PGT-A 正常、D5/D6、解凍後存活與擴張狀態。</li>
-<li>若下次再植入，建議先把「免疫基線」降到更穩定，再排植入；尤其 B cell / CD19 與 NK cell 的植入前數值應有明確目標。</li>
-<li>若 TE 多為 C 級，醫師可能會考慮植入顆數，但需嚴格衡量多胞胎、早產、高齡妊娠與母體風險。</li>
-</ul>
+<h3>免疫媽媽的關鍵概念</h3>
+<p>此個案不是單純「胚胎品質不好」的型態，而是偏向「母體免疫系統容易把胚胎視為外來物」的型態。NK cell 像前線攻擊細胞，B cell 像抗體製造工廠；這次 IVIG 對 NK 的壓制效果明顯，但 B cell 在後段仍偏高，可能是 hCG 後期爬升失速的重要原因之一。下次策略應該是「植入前先讓 B cell 穩定達標」，而不是等 hCG 變慢後再追加救援。</p>
 </div>
 </section>
 
 <section>
-<h2>6. 檢驗數據動態表</h2>
+<h2>5. 這次用藥：目的、時機與風險</h2>
 <table>
-<tr><th>檢驗項目</th><th>基線 / 植入前</th><th>Day 4</th><th>Day 6</th><th>Day 8</th><th>Day 11–12</th><th>判讀</th></tr>
-<tr><td>hCG</td><td>陰性或未測</td><td>4.75</td><td>17.58</td><td>44.49</td><td>56–59，後續下降趨勢</td><td>Day 4–8 表現為早期著床，但 Day 11 後不理想，需視最終趨勢判斷是否生化妊娠。</td></tr>
-<tr><td>E2</td><td>4/24：337.2</td><td>未列</td><td>未列</td><td>419.0</td><td>未列</td><td>雌激素支持充分。</td></tr>
-<tr><td>P4</td><td>4/24：&lt;1.0；4/30：22.07</td><td>未列</td><td>未列</td><td>37.78</td><td>未列</td><td>4/30 曾偏邊界，後續油針與塞劑後 Day 8 穩定。</td></tr>
-<tr><td>D-dimer</td><td>4/30：0.081</td><td>約 0.066</td><td>0.053</td><td>&lt;0.1</td><td>醫師仍要求壓低</td><td>整體安全，但高免疫個案仍需預防微血栓。</td></tr>
-<tr><td>TNF-α</td><td>未列</td><td>42.2</td><td>醫師判定為 Humira 後假性升高，&lt;60 安全</td><td>未測</td><td>未列</td><td>不可單看數字，需結合 Humira 使用時間與醫師判讀。</td></tr>
-<tr><td>NK cell %</td><td>用藥前 11.0%，用藥後 8.4%</td><td>18.7%</td><td>已施打 IVIG</td><td>待驗</td><td>9.2%</td><td>IVIG 後 NK 控制良好。</td></tr>
-<tr><td>B cell / CD19 %</td><td>用藥前 22.6%，用藥後 17.7%</td><td>18.2%</td><td>未列</td><td>未列</td><td>17.4%，Day 12 趨勢仍上升</td><td>持續偏高，是後續週期需優先處理的免疫標的。</td></tr>
-<tr><td>CD3 / CD4</td><td>用藥後仍安全</td><td>CD3 638、CD4 233 偏低</td><td>未列</td><td>未列</td><td>未列</td><td>免疫抑制下防禦力下降，感染風險需重視。</td></tr>
-<tr><td>WBC</td><td>5.12 左右</td><td>8.88</td><td>未列</td><td>未列</td><td>11.92</td><td>可受類固醇與感冒影響；若發燒或 WBC 持續上升需警覺感染。</td></tr>
+<tr><th>藥物 / 處置</th><th>本次使用時機</th><th>主要目的</th><th>本案觀察到的意義</th><th>注意事項</th></tr>
+<tr><td>Asazipam / Azathioprine 50mg</td><td>3/6–4/2 起，早晚各 1 顆</td><td>抑制 B/T 淋巴球過度活化。</td><td>用藥後 CD19 絕對值 612 → 294，NK 298 → 140，效果明顯。</td><td>需 CBC、肝腎功能監測；白血球過低或感染時需回報。</td></tr>
+<tr><td>Plaquenil 200mg</td><td>植入前後持續</td><td>免疫調節、降低自體免疫發炎。</td><td>有助壓低 NK / B cell 背景活性。</td><td>長期使用需眼科追蹤；勿自行停藥。</td></tr>
+<tr><td>益斯得 / Estrade、Divigel</td><td>FET 內膜準備與植入後</td><td>養內膜、維持 E2。</td><td>Day 8 E2 419，支持環境充足。</td><td>合併抗凝血時仍需注意血栓與出血平衡。</td></tr>
+<tr><td>小白球 / Utrogestan、黃體凝膠、黃體油針、得胎隆</td><td>4/25 23:00 啟動，植入後加強</td><td>黃體支持、穩定內膜。</td><td>植入日 P4 22.07 偏邊界，Day 8 P4 37.78 轉穩。</td><td>FET 不能漏用；油針需注意注射部位硬塊、疼痛、感染。</td></tr>
+<tr><td>伯基 / Bokey</td><td>植入前後</td><td>抗血小板，改善微血流。</td><td>對 Anti-B2GP IgG 邊界、RIF 背景有其邏輯。</td><td>胃痛、黑便、異常出血需回報。</td></tr>
+<tr><td>Arixtra / 愛栓通、Eliquis</td><td>植入前後；5/9–5/10 曾早晚加強</td><td>抗凝血，預防微血栓。</td><td>D-dimer 一直低，代表血栓指標被控制。</td><td>抗凝血不可自行加減；若出血或 hCG 下降，停用節奏需醫師決定。</td></tr>
+<tr><td>康速龍 / Compesolon、Dexamethasone</td><td>植入前後逐步加量，Day 11 早 4 晚 4</td><td>廣泛抗發炎、降低免疫排斥。</td><td>可能使 WBC 升高、淋巴比例下降，也可能影響睡眠。</td><td>高劑量不可突然停藥，需遞減；感染、血糖、胃痛需監測。</td></tr>
+<tr><td>IVIG / Gamunex-C</td><td>4/28、5/2、5/6 等</td><td>調節抗體、降低 NK 細胞毒性、促進免疫寬容。</td><td>Day 11 NK 9.2%，顯示對 NK 有效。</td><td>費用高；可能頭痛、過敏、血栓、腎功能負擔；需院內監測。</td></tr>
+<tr><td>Humira / 復邁</td><td>植入前約 D-2、Day 8 補打</td><td>TNF-α 抑制，降低發炎風暴。</td><td>Day 4 TNF-α 42.2 被醫師解讀為 Humira 後安全假性升高。</td><td>需注意感染；施打前後若發燒、咳嗽惡化需回報。</td></tr>
+<tr><td>Benlysta / 本立生</td><td>B cell 偏高時討論或使用</td><td>降低 B cell 活性與抗體相關免疫。</td><td>Day 11 報告指出 B cell 是關鍵阻礙，Day 12 因 hCG 下降暫不追加。</td><td>不是立即見效的急救藥；應在下次植入前提早規劃時機。</td></tr>
+<tr><td>Intralipid / 分離生</td><td>4/28 免疫點滴日</td><td>部分診所用於免疫調節輔助。</td><td>作為高規格免疫防護之一。</td><td>證據強度與適應症需與醫師討論。</td></tr>
+<tr><td>Vena / Diphenhydramine</td><td>IVIG 前後</td><td>抗過敏、降低點滴反應。</td><td>5/6 收據列 1 顆/支 NT$50。</td><td>可能嗜睡、口乾。</td></tr>
 </table>
 </section>
 
 <section>
-<h2>7. 用藥總表與專業分析</h2>
+<h2>6. hCG 與免疫事件的臨床解讀</h2>
 <table>
-<tr><th>藥物分類</th><th>常見名稱 / 本個案出現名稱</th><th>使用階段</th><th>主要作用</th><th>常見副作用 / 風險</th><th>注意事項</th></tr>
-<tr><td>雌激素</td><td>益斯得、Estrade / Estromon、雌激素凝膠</td><td>FET 內膜準備與植入後</td><td>增厚與維持子宮內膜，支持早期妊娠環境。</td><td>乳房脹、噁心、頭痛、血栓風險增加。</td><td>不可自行停藥；若有胸痛、喘、單側腿腫需立即就醫。</td></tr>
-<tr><td>黃體素</td><td>小白球 Utrogestan、黃體凝膠、黃體油針、Progesterone</td><td>黃體啟動後至驗孕/孕早期</td><td>穩定內膜、降低子宮收縮、支持胚胎著床。</td><td>嗜睡、頭暈、腹脹、注射部位疼痛、陰道分泌物。</td><td>FET 的黃體啟動時間非常關鍵，漏用應立即聯絡診所。</td></tr>
-<tr><td>口服黃體支持</td><td>Duphaston / 得胎隆</td><td>植入後</td><td>輔助黃體素支持。</td><td>噁心、頭暈、乳房脹。</td><td>依醫囑固定時間使用。</td></tr>
-<tr><td>低劑量阿斯匹靈</td><td>伯基 Bokey</td><td>植入前後與早孕期</td><td>降低血小板聚集、改善微循環。</td><td>胃痛、瘀青、出血風險。</td><td>若有黑便、大量出血，需立即回報。</td></tr>
-<tr><td>抗凝血針</td><td>愛栓通 Arixtra / Clexane 類肝素藥物</td><td>植入前後、血栓高風險期</td><td>預防子宮微血栓，維持胎盤早期血流。</td><td>瘀青、注射部位疼痛、出血、血小板異常。</td><td>不可自行加減；停針需依 D-dimer、hCG、出血風險與醫囑。</td></tr>
-<tr><td>類固醇</td><td>康速龍 Prednisolone、Dexamethasone</td><td>植入期與免疫活化期</td><td>抑制發炎與免疫排斥。</td><td>失眠、胃不適、血糖上升、白血球假性升高、感染風險。</td><td>高劑量或長期使用不可突然停藥，需醫師安排遞減。</td></tr>
-<tr><td>免疫調節藥</td><td>Plaquenil / Hydroxychloroquine / 奎寧</td><td>植入前調養至孕早期視醫囑</td><td>降低自體免疫活性與發炎反應。</td><td>腸胃不適、皮疹，長期需注意眼部安全。</td><td>需依風濕免疫或生殖免疫醫師監測。</td></tr>
-<tr><td>免疫抑制劑</td><td>Asazipam / Azathioprine / 安思平或安斯平紀錄</td><td>植入前免疫控制</td><td>抑制淋巴球與抗體相關免疫反應。</td><td>白血球下降、肝功能異常、感染風險。</td><td>需定期 CBC、肝腎功能；不可自行調整。</td></tr>
-<tr><td>IVIG</td><td>Gamunex-C 10%</td><td>植入前後、NK 或免疫反應高風險期</td><td>調節免疫寬容、降低 NK 細胞毒性、中和部分抗體。</td><td>頭痛、發燒、過敏、血栓風險、腎功能負擔、費用高。</td><td>需院內監測，施打前後補水與觀察過敏反應。</td></tr>
-<tr><td>TNF-α 抑制劑</td><td>Humira / 復邁</td><td>植入前後免疫發炎控制</td><td>抑制 TNF-α 相關發炎路徑。</td><td>感染風險、注射反應、潛伏感染風險。</td><td>使用後 TNF-α 數值可能出現藥物相關解讀差異，需由醫師判斷。</td></tr>
-<tr><td>B cell 標靶藥</td><td>Benlysta / 本立生 / 奔麗生</td><td>B cell 持續偏高時</td><td>抑制 B cell 活性與抗體相關免疫反應。</td><td>感染風險、過敏、費用高、作用非立即。</td><td>若 hCG 已下降，是否追加需衡量時效、成本與副作用。</td></tr>
-<tr><td>脂肪乳</td><td>Intralipid / 分離生</td><td>部分免疫療程輔助</td><td>可能用於調節免疫反應。</td><td>過敏、脂質代謝負擔。</td><td>證據強度與適應症需與醫師討論。</td></tr>
-<tr><td>止痛 / 抗過敏輔助</td><td>Panadol、Diphenhydramine / Vena</td><td>IVIG 或點滴前後</td><td>降低發燒、頭痛、過敏反應。</td><td>嗜睡、口乾。</td><td>用於處置副作用，非核心保胎藥。</td></tr>
+<tr><th>時間點</th><th>hCG</th><th>推估趨勢</th><th>當時免疫狀態</th><th>判讀</th></tr>
+<tr><td>Day 4</td><td>4.75</td><td>極早期陽性</td><td>NK 18.7%、CD19 18.2%、TNF-α 42.2。</td><td>已發生早期著床，但免疫系統有升溫跡象。</td></tr>
+<tr><td>Day 6</td><td>17.58</td><td>相較 Day 4 約 3.7 倍</td><td>D-dimer 0.053；施打 IVIG。</td><td>早期成長好，醫師立即壓 NK，策略合理。</td></tr>
+<tr><td>Day 8</td><td>44.49</td><td>相較 Day 6 約 2.5 倍</td><td>P4 37.78、E2 419、D-dimer &lt;0.1；補 Humira。</td><td>荷爾蒙與抗凝血支持佳，hCG 仍在成長。</td></tr>
+<tr><td>Day 11</td><td>約 56–59</td><td>相較 Day 8 成長明顯不足</td><td>NK 降至 9.2%，CD19 17.4%，WBC 11.92。</td><td>NK 已控制，但 B cell 仍偏高；hCG 停滯是最大警訊。</td></tr>
+<tr><td>Day 12</td><td>未提供具體數字，但下降</td><td>下降</td><td>B cell 持續上升；暫不追加生物製劑。</td><td>若後續持續下降，高度符合生化妊娠 / 極早期流產方向。</td></tr>
 </table>
 <div class="warning">
-用藥種類多且時間分散，最大的實務風險不是單一藥物，而是「漏用、重複用、錯時間、突然停藥」。建議使用紙本表格、手機鬧鐘與伴侶交叉確認。
+<h3>重要判讀</h3>
+<p>Day 4–8 的上升表示胚胎曾經啟動著床，不是完全沒有機會；但 Day 11–12 的停滯/下降比早期漂亮上升更具臨床意義。若 hCG 沒有重新上升，應與醫師討論如何安全停藥與等待月經，而不是無限制加藥。</p>
 </div>
 </section>
 
 <section>
-<h2>8. IVF / FET 詳細療程時間表模板</h2>
-<table>
-<tr><th>階段</th><th>常見時間點</th><th>檢查 / 程序</th><th>用藥</th><th>判斷標準</th></tr>
-<tr><td>內膜準備</td><td>月經第 2–3 天起或醫囑指定</td><td>陰道超音波、E2、P4</td><td>雌激素口服/貼片/凝膠</td><td>內膜通常希望 ≥7–8 mm，型態良好；P4 不應提早升高。</td></tr>
-<tr><td>黃體啟動</td><td>植入前 3–6 天，依胚胎日數與 ERA/著床窗設定</td><td>確認時間點</td><td>黃體素塞劑、口服、油針</td><td>時間必須精準；D5/D6 胚胎需與內膜暴露黃體素時數同步。</td></tr>
-<tr><td>免疫預處理</td><td>植入前數日至數週</td><td>CBC、淋巴球表面標誌、D-dimer、TNF-α、必要時感染篩檢</td><td>類固醇、Plaquenil、IVIG、生物製劑、抗凝血</td><td>目標是降低過度免疫攻擊，同時避免感染與白血球過低。</td></tr>
-<tr><td>植入日</td><td>FET 當日</td><td>抽血、解凍胚胎、胚胎植入</td><td>當日用藥通常照常</td><td>胚胎解凍存活、內膜同步、P4 足夠。</td></tr>
-<tr><td>植入後 Day 2–4</td><td>早期著床期</td><td>D-dimer、CBC、必要時早期 hCG/免疫</td><td>黃體、雌激素、抗凝血、免疫藥</td><td>避免感染與血栓；hCG 若提早出現僅作趨勢參考。</td></tr>
-<tr><td>Day 6–8</td><td>早期 hCG 翻倍觀察</td><td>hCG、D-dimer、E2、P4、CBC</td><td>依數據調整黃體、肝素、類固醇或 IVIG</td><td>hCG 趨勢比單點更重要；P4/E2 不足需救援。</td></tr>
-<tr><td>Day 10–14</td><td>正式驗孕期</td><td>連續 hCG，必要時免疫與凝血</td><td>若 hCG 成長佳則延續；若下降則評估停藥策略</td><td>hCG 需持續上升；下降需警覺生化妊娠。</td></tr>
-<tr><td>孕 5–7 週</td><td>若 hCG 持續上升</td><td>超音波看孕囊、卵黃囊、心跳</td><td>逐步調整安胎與免疫藥</td><td>排除子宮外孕，確認臨床妊娠。</td></tr>
-</table>
-</section>
-
-<section>
-<h2>9. 檢查與程序清單</h2>
-<table>
-<tr><th>類別</th><th>項目</th><th>目的</th><th>執行時間</th><th>專業說明</th></tr>
-<tr><td>女性檢查</td><td>AMH</td><td>評估卵巢庫存</td><td>療程前</td><td>本個案採受贈卵子，AMH 對本輪胚胎品質影響較小，但仍可了解卵巢狀況。</td></tr>
-<tr><td>女性檢查</td><td>FSH / LH / E2 / P4</td><td>評估基礎荷爾蒙與週期狀態</td><td>月經第 2–5 天、植入前</td><td>FET 尤其重視 E2 與 P4 是否與內膜同步。</td></tr>
-<tr><td>女性檢查</td><td>陰道超音波</td><td>內膜厚度、型態、卵巢囊腫</td><td>植入前多次</td><td>本個案 4/24 內膜 8 mm，符合常見植入門檻。</td></tr>
-<tr><td>子宮評估</td><td>子宮鏡 / SIS / HSG</td><td>排除息肉、沾黏、中隔、輸卵管積水</td><td>植入前</td><td>RIF 個案建議確認子宮腔環境，避免胚胎端優勢被結構問題抵消。</td></tr>
-<tr><td>男性檢查</td><td>精液分析 / DNA fragmentation</td><td>評估精子數量、活動力、形態與 DNA 完整性</td><td>療程前</td><td>胚胎 D3 後發育與精子基因也有關；不可忽略男性因素。</td></tr>
-<tr><td>免疫檢查</td><td>淋巴球表面標誌 CD3/CD4/CD8/CD19/CD16+56</td><td>監測 T/B/NK 細胞比例與絕對值</td><td>植入前後</td><td>本個案 CD19 與 NK 是關鍵追蹤項目。</td></tr>
-<tr><td>免疫檢查</td><td>TNF-α</td><td>評估發炎訊號</td><td>植入前後視情況</td><td>使用 Humira 後需由醫師解讀，避免誤判假性升高。</td></tr>
-<tr><td>自體免疫</td><td>ATA、Anti-TPO、ANA、抗磷脂抗體、B2GP</td><td>評估自體免疫與血栓傾向</td><td>療程前與必要追蹤</td><td>ATA 與 B2GP IgG 曾為關注點，建議納入下次週期前基線評估。</td></tr>
-<tr><td>凝血檢查</td><td>D-dimer、必要時 Protein S/C、抗凝血相關檢查</td><td>追蹤微血栓風險</td><td>植入後密集追蹤</td><td>本個案 D-dimer 多次安全，但仍因免疫背景採預防性抗凝血。</td></tr>
-<tr><td>血液安全</td><td>CBC + DC、肝腎功能</td><td>監測感染、骨髓抑制與藥物安全</td><td>免疫用藥期間</td><td>高劑量類固醇、生物製劑、Azathioprine 需定期監測。</td></tr>
-<tr><td>實驗室程序</td><td>ICSI</td><td>單一精子顯微注射，提高受精可控性</td><td>卵子解凍當日</td><td>本個案採 ICSI，受精率良好。</td></tr>
-<tr><td>實驗室程序</td><td>囊胚培養與冷凍</td><td>篩選能發育至 D5/D6 的胚胎</td><td>受精後 5–6 天</td><td>本個案 12 顆冷凍囊胚，庫存佳。</td></tr>
-<tr><td>植入程序</td><td>FET</td><td>將解凍胚胎放入子宮腔</td><td>黃體啟動後特定時數</td><td>通常不需麻醉，關鍵在胚胎、內膜、免疫與血流同步。</td></tr>
-</table>
-</section>
-
-<section>
-<h2>10. 費用詳細列表與估算</h2>
-<div class="note">以下為依本個案收據與台灣常見自費項目的區間估算。實際費用會依國家、地區、院所、用藥劑量、藥品品牌、體重、實驗室技術與個人狀況而異。</div>
-<table>
-<tr><th>費用項目</th><th>說明</th><th>常見費用區間（新台幣）</th><th>是否每次需要</th><th>備註</th></tr>
-<tr><td>初診 / 諮詢費</td><td>生殖醫學與免疫會診</td><td>500–3,000+</td><td>視情況</td><td>名醫或特殊門診可能更高。</td></tr>
-<tr><td>基礎抽血檢查</td><td>CBC、肝腎功能、感染篩檢等</td><td>1,000–8,000</td><td>常需要</td><td>高免疫用藥者頻率較高。</td></tr>
-<tr><td>AMH / 荷爾蒙檢查</td><td>AMH、FSH、LH、E2、P4、TSH 等</td><td>1,500–8,000</td><td>依階段</td><td>FET 追蹤常反覆抽 E2/P4。</td></tr>
-<tr><td>超音波追蹤</td><td>內膜、卵泡、子宮腔初步檢查</td><td>500–2,000 / 次</td><td>常需要</td><td>次數依週期而異。</td></tr>
-<tr><td>精液分析</td><td>精子濃度、活動力、形態</td><td>800–3,000</td><td>療程前</td><td>必要時加做 DNA 碎片。</td></tr>
-<tr><td>子宮輸卵管攝影 / 子宮鏡</td><td>評估輸卵管或子宮腔</td><td>3,000–30,000+</td><td>視病史</td><td>RIF 建議評估子宮腔。</td></tr>
-<tr><td>IUI</td><td>洗精與人工授精</td><td>8,000–30,000 / 次</td><td>非本個案主軸</td><td>加藥另計。</td></tr>
-<tr><td>IVF 取卵週期</td><td>促排、取卵、實驗室</td><td>120,000–250,000+</td><td>若需新取卵</td><td>受贈卵另有捐卵相關費用。</td></tr>
-<tr><td>ICSI</td><td>顯微注射</td><td>20,000–60,000</td><td>常見</td><td>本個案已使用。</td></tr>
-<tr><td>胚胎培養 / 囊胚培養</td><td>D3 至 D5/D6 培養</td><td>20,000–80,000</td><td>IVF 週期</td><td>依院所包套或分項。</td></tr>
-<tr><td>胚胎冷凍 / 保存年費</td><td>冷凍與年度保存</td><td>10,000–40,000；年費 5,000–20,000</td><td>有胚胎即需</td><td>胚胎數多可能加價。</td></tr>
-<tr><td>PGT-A / PGT-M</td><td>胚胎基因檢測</td><td>每顆 15,000–30,000+；另有切片費</td><td>視策略</td><td>本資料中 PGT-A 記載不一致，需確認。</td></tr>
-<tr><td>FET 解凍植入週期</td><td>解凍、植入、部分抽血</td><td>60,000–70,000+</td><td>每次 FET</td><td>4/24 報告估算即為此區間。</td></tr>
-<tr><td>黃體 / 雌激素支持</td><td>益斯得、小白球、凝膠、油針等</td><td>5,000–30,000+</td><td>FET 後常需要</td><td>油針與高劑量用藥會增加成本。</td></tr>
-<tr><td>抗凝血藥</td><td>伯基、愛栓通 / Clexane 類藥物</td><td>數百至數萬元</td><td>視風險</td><td>早晚加量時費用增加。</td></tr>
-<tr><td>IVIG</td><td>Gamunex-C 等免疫球蛋白</td><td>本個案單次約 65,000；依體重可更高</td><td>非每人需要</td><td>高成本，高監測需求。</td></tr>
-<tr><td>Humira</td><td>TNF-α 抑制劑</td><td>約 17,000 / 針或依院所</td><td>視免疫策略</td><td>需注意感染篩檢與發燒。</td></tr>
-<tr><td>Benlysta</td><td>B cell 標靶相關生物製劑</td><td>約 22,000+ / 次或依藥量</td><td>視 B cell</td><td>非急救特效藥，需評估時機。</td></tr>
-<tr><td>Intralipid</td><td>脂肪乳點滴</td><td>約 2,200–3,000+</td><td>視院所</td><td>證據與適應症需討論。</td></tr>
-<tr><td>驗孕與懷孕追蹤</td><td>hCG、E2、P4、D-dimer、CBC、超音波</td><td>每次 1,000–8,000+</td><td>需要</td><td>高風險個案追蹤頻率高。</td></tr>
-</table>
-<h3>費用區間總結</h3>
-<table>
-<tr><th>療程類型</th><th>估算區間</th><th>本個案備註</th></tr>
-<tr><td>IUI 單次</td><td>約 NT$8,000–50,000（含藥物差異）</td><td>非目前建議主軸。</td></tr>
-<tr><td>IVF 單次取卵週期</td><td>約 NT$150,000–350,000+，若含受贈卵子、PGT 或高階技術可能更高</td><td>本個案已建立胚胎庫存。</td></tr>
-<tr><td>FET 單次植入週期</td><td>約 NT$60,000–100,000+；若含密集抽血與藥物可能更高</td><td>4/30 FET 估 NT$60,000–70,000。</td></tr>
-<tr><td>FET + 高階免疫療程</td><td>約 NT$150,000–300,000+ / 週期，依 IVIG、生物製劑次數大幅變動</td><td>本個案單次 IVIG 約 NT$65,000，另 Humira、Benlysta 等顯著增加費用。</td></tr>
-</table>
-</section>
-
-<section>
-<h2>11. 本輪療程風險評估</h2>
-<table>
-<tr><th>風險</th><th>目前證據</th><th>嚴重度</th><th>建議處理</th></tr>
-<tr><td>生化妊娠 / 早期流產</td><td>hCG Day 4–8 上升，Day 11 明顯低於預期，Day 12 下降。</td><td class="status-risk">高</td><td>依醫師指示連續追 hCG；若確認下降，討論停藥、出血觀察與下週期策略。</td></tr>
-<tr><td>B cell 免疫活化</td><td>CD19 持續偏高，Day 11 17.4%，Day 12 描述仍上升。</td><td class="status-risk">高</td><td>下次植入前先建立 B cell 控制目標，討論 Benlysta 或替代策略的施打時機。</td></tr>
-<tr><td>NK cell 攻擊</td><td>Day 4 18.7%，IVIG 後 Day 11 9.2%。</td><td class="status-watch">中，已改善</td><td>下次週期可考慮更前置的 NK 監測與 IVIG 時程。</td></tr>
-<tr><td>感染風險</td><td>高劑量類固醇、生物製劑、IVIG；CD4 曾低至 233；有咳嗽痰症狀。</td><td class="status-risk">高</td><td>發燒、黃痰惡化、喘、胸痛需即時回報；避免人群、生食。</td></tr>
-<tr><td>血栓 / 出血平衡</td><td>D-dimer 多次安全，但用抗凝血加量；若 hCG 下降或出血風險變化需調整。</td><td class="status-watch">中</td><td>肝素與阿斯匹靈不可自行停用或加量；大量出血、黑便、嚴重瘀青需回報。</td></tr>
-<tr><td>荷爾蒙支持不足</td><td>4/30 P4 22.07，Day 8 P4 37.78。</td><td class="status-ok">目前較低</td><td>本輪後期 P4 充足；下次仍應在植入日與 Day 5–8 追蹤。</td></tr>
-<tr><td>心理壓力與睡眠不足</td><td>RIF、密集抽血、hCG 下降造成高度焦慮。</td><td class="status-watch">中</td><td>建立固定資訊接收時間、伴侶分工、睡眠優先，必要時尋求心理支持。</td></tr>
-</table>
-</section>
-
-<section>
-<h2>12. 後續決策建議</h2>
+<h2>7. 對「免疫媽媽」的下一輪策略建議</h2>
 <div class="expert-box">
-<h3>A. 若本輪 hCG 持續下降</h3>
-<ol>
-<li>與醫師確認是否已達「生化妊娠」判定，並詢問類固醇、黃體素、雌激素、抗凝血與免疫藥如何逐步停用。</li>
-<li>追蹤 hCG 至接近陰性，確保沒有持續上升或異常平台期；若有劇烈單側腹痛或暈眩，需排除子宮外孕。</li>
-<li>記錄本輪完整用藥與免疫數據，作為下次週期前「預防性佈局」依據，而不是等著床後再救援。</li>
-</ol>
-</div>
-<div class="expert-box">
-<h3>B. 下次 FET 前建議建立「植入前免疫達標表」</h3>
-<table>
-<tr><th>項目</th><th>建議討論目標</th><th>理由</th></tr>
-<tr><td>CD19 / B cell % 與絕對值</td><td>植入前需降至醫師認可安全區，且維持穩定</td><td>本輪後期 B cell 持續上升，是主要風險。</td></tr>
-<tr><td>NK cell % 與絕對值</td><td>植入前與植入後 Day 4–6 追蹤</td><td>IVIG 對 NK 有效，可考慮更前置安排。</td></tr>
-<tr><td>TNF-α</td><td>需註明是否近期使用 Humira，避免誤判</td><td>Humira 後可能造成解讀差異。</td></tr>
-<tr><td>CBC / CD4</td><td>避免 CD4 過低仍繼續加重免疫抑制</td><td>保胎與感染風險需要平衡。</td></tr>
-<tr><td>D-dimer</td><td>建立加量與減量門檻</td><td>避免血栓與出血兩端風險。</td></tr>
-<tr><td>TSH / Free T4 / ATA</td><td>植入前確認甲狀腺功能達孕前目標</td><td>ATA 曾偏高，需避免甲狀腺波動影響早孕。</td></tr>
-</table>
-</div>
-<div class="expert-box">
-<h3>C. 下次週期策略問題清單</h3>
+<h3>7.1 植入前應先達標，而不是植入後才救援</h3>
 <ul>
-<li>本輪 hCG 下降的主因，醫師判斷較像胚胎本身、B cell 免疫、血栓、黃體不足，還是多因素？</li>
-<li>Benlysta / Humira / IVIG 的最佳施打時機是否應前移到植入前，而非 hCG 趨緩後才救援？</li>
-<li>若 CD4 曾低至 233，下次是否要設定免疫抑制上限，避免感染風險過高？</li>
-<li>是否需要重新評估子宮腔：子宮鏡、慢性子宮內膜炎、內膜菌相或 CD138？</li>
-<li>是否需要確認男性因素：精液 DNA 碎片、生活型態、感染或氧化壓力？</li>
-<li>下次植入顆數應如何平衡成功率與多胞胎/高齡妊娠風險？</li>
+<li><strong>B cell / CD19：</strong>下次 FET 前建議先抽 CD19 百分比與絕對值，確認不只是絕對值正常，比例也盡量壓到醫師認可範圍。若要用 Benlysta，應討論是否需提前到植入前，而不是 hCG 停滯後才補。</li>
+<li><strong>NK cell：</strong>本次 IVIG 後 NK 從 Day 4 的 18.7% 降至 Day 11 的 9.2%，代表 IVIG 對 NK 有效。下次可討論 IVIG 時機是否要更前置或固定化。</li>
+<li><strong>CD4 / 感染安全：</strong>Day 4 CD4 曾低至 233/uL，這代表免疫抑制雖然有利於降低排斥，但也可能增加感染風險。下次不應只追求「免疫越低越好」，而是要有安全下限。</li>
+<li><strong>甲狀腺抗體：</strong>ATA 171 偏高，植入前與驗孕陽性後應追蹤 TSH、Free T4；若 TSH 未達備孕/孕早期目標，需與內分泌或生殖醫師討論。</li>
+<li><strong>抗磷脂 / 微血栓：</strong>Anti-B2GP IgG 19.4 接近上限，本次 D-dimer 控制良好。下次仍可保留抗凝血策略，但需明確制定「加量、減量、停針」條件。</li>
 </ul>
 </div>
+
+<h3>7.2 下次門診要問醫師的問題</h3>
+<ol>
+<li>這次 hCG Day 11 後失速，醫師認為主因較偏「胚胎本身」、「B cell 免疫」、「血流微血栓」、「黃體支持」還是多因素？</li>
+<li>若 CD19 在植入前仍高於參考值，是否應延後植入，先處理免疫？</li>
+<li>Benlysta / Humira / IVIG 下次是否需要提前施打？最佳時間點是植入前幾天或幾週？</li>
+<li>本次植入到底是 2 顆或 3 顆？每顆是 D5 / D6、等級、是否 PGT-A 正常？</li>
+<li>是否建議補做子宮鏡、慢性子宮內膜炎 CD138、子宮內膜菌相、ERA/著床窗，避免把所有失敗都歸因免疫？</li>
+<li>若本次確認生化妊娠，類固醇、抗凝血、雌激素、黃體素如何安全遞減與停藥？</li>
+</ol>
 </section>
 
 <section>
-<h2>13. 生活型態、營養與照護建議</h2>
+<h2>8. 生活、營養與安全照護建議</h2>
 <table>
 <tr><th>面向</th><th>建議</th><th>原因</th></tr>
-<tr><td>睡眠</td><td>固定作息，優先確保 7–8 小時睡眠；避免熬夜追報告。</td><td>睡眠不足會增加壓力荷爾蒙與發炎反應。</td></tr>
-<tr><td>感染預防</td><td>戴口罩、勤洗手、避免密閉人群；不吃生食、未熟蛋、未消毒乳製品。</td><td>生物製劑與類固醇下感染風險提高。</td></tr>
-<tr><td>飲食</td><td>地中海型飲食：魚類、蛋、豆類、深色蔬菜、橄欖油、堅果；減少精緻糖與油炸。</td><td>有助抗發炎與穩定血糖。</td></tr>
-<tr><td>蛋白質</td><td>每餐有優質蛋白質，若食慾差可與醫師討論營養補充。</td><td>支持內膜修復、免疫平衡與早期懷孕需求。</td></tr>
-<tr><td>咖啡因 / 酒精 / 菸</td><td>避免酒精與吸菸；咖啡因依醫師建議控制，通常不過量。</td><td>降低流產與血管收縮相關風險。</td></tr>
-<tr><td>運動</td><td>植入後避免劇烈運動；可輕度散步，避免久臥與久坐。</td><td>促進循環，同時避免子宮過度刺激。</td></tr>
-<tr><td>性生活</td><td>植入後與出血或腹痛期間通常建議暫停，依診所指示。</td><td>避免宮縮與感染風險。</td></tr>
-<tr><td>心理壓力</td><td>設定固定查報告時間，伴侶協助統整資訊；必要時找諮商或支持團體。</td><td>RIF 與高強度療程會造成重大心理負荷。</td></tr>
-<tr><td>男性因素</td><td>男性同樣需戒菸酒、睡眠、運動、避免高溫泡湯與桑拿，必要時檢查 DNA 碎片。</td><td>精子基因品質會影響胚胎 D3 後發育與流產風險。</td></tr>
+<tr><td>感染預防</td><td>戴口罩、勤洗手、避免密閉人群；不吃生食、未熟蛋、未消毒乳製品。</td><td>IVIG、生物製劑、類固醇與 Azathioprine 會改變免疫反應。</td></tr>
+<tr><td>睡眠</td><td>固定上床時間，避免半夜反覆查數據；類固醇盡量依醫囑安排在白天。</td><td>睡眠差會升高壓力荷爾蒙與發炎反應，也會放大焦慮。</td></tr>
+<tr><td>飲食</td><td>採抗發炎飲食：魚、蛋、豆、深色蔬菜、橄欖油、堅果；減少高糖與油炸。</td><td>穩定血糖與發炎背景，支持內膜與免疫平衡。</td></tr>
+<tr><td>抗凝血安全</td><td>避免撞擊、按摩注射瘀青處；黑便、血尿、流鼻血不止、月經量暴增要回報。</td><td>Arixtra / Eliquis / Bokey 疊加時需平衡血栓與出血。</td></tr>
+<tr><td>運動</td><td>可輕度散步，避免久臥、久坐、劇烈運動、搬重物。</td><td>適度活動有助循環，過度活動可能增加不適與焦慮。</td></tr>
+<tr><td>心理支持</td><td>把抽血、用藥、費用與問題交由伴侶或家人共同整理。</td><td>免疫型 RIF 療程高度耗能，照護者分工可降低壓力。</td></tr>
+<tr><td>男性因素</td><td>男性仍需維持睡眠、戒菸酒、避免高溫泡湯，必要時檢查精子 DNA fragmentation。</td><td>即使用受贈卵子，精子 DNA 品質仍會影響胚胎後續發育。</td></tr>
 </table>
 </section>
 
 <section>
-<h2>14. 警示訊號：需立即聯絡診所或就醫</h2>
+<h2>9. 警示訊號：哪些狀況要立即聯絡診所？</h2>
 <div class="danger">
 <ul>
-<li>大量鮮紅色陰道出血，超過月經量或伴隨大血塊。</li>
-<li>突然劇烈單側下腹痛、肩膀痛、暈眩、冒冷汗，需排除子宮外孕或內出血。</li>
-<li>發燒 ≥38°C、畏寒、黃痰惡化、喘、胸痛。</li>
-<li>嚴重頭痛、視力模糊、臉部或喉嚨腫脹，需排除 IVIG 或藥物過敏反應。</li>
-<li>黑便、血尿、無法止血、大片瘀青，需評估抗凝血相關出血。</li>
-<li>漏打肝素、漏塞黃體素、油針錯過時間，不要自行補倍量，應立即詢問診所。</li>
+<li>大量鮮紅色出血、血塊、出血量超過平常月經最大量。</li>
+<li>劇烈單側腹痛、肩膀痛、暈眩、冒冷汗，需排除子宮外孕或腹腔內出血。</li>
+<li>發燒 ≥38°C、畏寒、黃痰惡化、呼吸喘、胸痛。</li>
+<li>抗凝血期間出現黑便、血尿、流鼻血不止、大片瘀青。</li>
+<li>IVIG 或生物製劑後出現嚴重頭痛、視力模糊、臉/喉嚨腫脹、全身蕁麻疹。</li>
+<li>漏打愛栓通、漏塞黃體素、油針錯過時間：不要自行補雙倍，應立即問診所。</li>
 </ul>
 </div>
 </section>
 
 <section>
-<h2>15. 就診前準備清單</h2>
-<table>
-<tr><th>資料</th><th>目的</th><th>是否建議帶去</th></tr>
-<tr><td>正式胚胎植入紀錄</td><td>確認植入幾顆、等級、D5/D6、是否 PGT-A、解凍狀態。</td><td>必帶</td></tr>
-<tr><td>hCG 連續數值表</td><td>判斷上升、平台或下降速度。</td><td>必帶</td></tr>
-<tr><td>所有免疫數據</td><td>CD19、NK、CD3/CD4/CD8、TNF-α、WBC、淋巴球。</td><td>必帶</td></tr>
-<tr><td>用藥時間表</td><td>確認是否有漏用或時間錯置。</td><td>必帶</td></tr>
-<tr><td>收據與藥袋照片</td><td>釐清藥名、劑量、費用與可否報帳。</td><td>建議</td></tr>
-<tr><td>症狀日記</td><td>出血、腹痛、發燒、咳嗽、睡眠、注射反應。</td><td>建議</td></tr>
-<tr><td>下次週期問題清單</td><td>避免門診緊張漏問。</td><td>必帶</td></tr>
-</table>
-</section>
-
-<section>
-<h2>16. 專家總結</h2>
-<p>本個案的胚胎端條件相對有利：受贈卵子、受精率高、囊胚庫存充足，代表「種子」本身具備良好基礎。真正的挑戰集中在「土壤」：子宮內膜的免疫容受、B cell / NK cell 活性、血栓微循環與用藥安全平衡。</p>
-<p>本輪 FET 在 Day 4–8 出現明確早期著床與 hCG 上升，說明胚胎曾成功與母體建立初步連結；然而 Day 11–12 hCG 成長趨緩甚至下降，合併 B cell 持續偏高，代表本輪懷孕維持風險升高。若最終確認為生化妊娠，這並不代表胚胎策略錯誤，而是提示下次週期應更前置、更穩定地處理 B cell 與整體免疫基線。</p>
+<h2>10. 最終專業結論</h2>
+<p>這次療程可以分成三句話理解：</p>
+<ol>
+<li><strong>胚胎端條件不差：</strong>受贈卵子 IVF 成果良好，12 顆囊胚冷凍，代表未來仍有植入機會。</li>
+<li><strong>著床曾經發生：</strong>Day 4 到 Day 8 hCG 明確上升，說明胚胎曾與子宮內膜建立初步連結。</li>
+<li><strong>維持失敗風險來自母體環境：</strong>Day 11 後 hCG 失速，伴隨 CD19 / B cell 偏高，提示免疫與早期胎盤建立可能是下次要優先處理的核心。</li>
+</ol>
 <div class="expert-box">
-下次週期的核心不應只是「加更多藥」，而是建立明確的植入前達標條件：B cell、NK cell、CD4 安全範圍、D-dimer、TSH/Free T4、子宮腔狀態、黃體啟動時間與植入顆數策略。所有高階免疫治療都必須與感染風險、血球數、費用及實際胚胎狀態一起評估。
+下次的重點不是單純「把藥越加越多」，而是建立一套可量化的植入前通關條件：CD19 / B cell、NK、CD4 安全性、D-dimer、TSH / Free T4、P4、子宮腔狀態與植入胚胎資料。當免疫壓制、感染風險、血栓風險與荷爾蒙支持都被量化管理時，下一次 FET 的決策品質會比這次更高。
 </div>
 </section>
 
 <section>
-<h2>17. 醫療免責聲明</h2>
+<h2>11. 醫療免責聲明</h2>
 <div class="warning">
-本報告根據使用者提供之醫療紀錄、影像文字、檢驗數據與網頁報告整理而成，目的為衛教、資訊整合與醫病溝通準備。人工生殖、免疫治療、抗凝血治療、生物製劑與懷孕早期追蹤皆屬高度個別化醫療決策。本報告不提供個別化處方、不保證懷孕成功、不替代醫師診斷或醫囑。任何藥物新增、停用、減量、加量、施打時機與後續療程安排，均應以主治生殖醫學專科醫師及相關專科醫師之正式判斷為準。
+本報告依使用者提供之影像、收據與公開 HTML 療程紀錄整理，目的為衛教、醫病溝通與資料彙整。人工生殖、免疫治療、生物製劑、抗凝血與早期懷孕追蹤皆屬高度個別化醫療決策。本報告不提供個別化處方劑量、不保證懷孕成功，也不能取代主治醫師診斷。任何藥物新增、停用、加量、減量、施打時機與下一輪療程安排，均應以生殖醫學專科醫師及相關專科醫師正式醫囑為準。
 </div>
-<p class="small">資料來源：使用者提供之檢驗影像與療程報告網頁（生殖免疫檢驗分析、0311、0312、0318、0424、4/30、0502、0504、0506、0508、0511、0512 等）。</p>
+<p class="small">整理日期：2026-05-13。資料來源：使用者提供之收據/檢驗影像與 0311、0312、0318、0424、0430、0502、0504、0506、0508、0511、0512 等療程紀錄。</p>
 </section>
 
 </div>
