@@ -1,610 +1,1527 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>2026 宜蘭雲舞間 Villa 家族包棟兩天一夜行程企劃書</title>
-  <style>
-    :root{
-      --bg:#f8f1e6;
-      --paper:#fffaf2;
-      --card:#ffffff;
-      --text:#3e372f;
-      --muted:#756a5f;
-      --tea:#aa7a4b;
-      --tea-dark:#6f4b31;
-      --green:#6f8f6a;
-      --green-dark:#496c47;
-      --green-soft:#edf4e8;
-      --orange:#e7a15d;
-      --orange-soft:#fff1df;
-      --line:#e4d4bd;
-      --shadow:0 12px 30px rgba(104,75,44,.10);
-      --radius:20px;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at top left,rgba(255,255,255,.9),transparent 34%),
-        linear-gradient(180deg,var(--bg),#f2e7d8);
-      line-height:1.65;
-    }
-    a{color:#3f7350;text-decoration:none;border-bottom:1px dotted #3f7350}
-    a:hover{opacity:.85}
-    .wrap{max-width:1160px;margin:auto;padding:28px}
-    .hero{
-      position:relative;
-      overflow:hidden;
-      border:1px solid var(--line);
-      border-radius:32px;
-      padding:44px;
-      box-shadow:var(--shadow);
-      background:
-        linear-gradient(135deg,#fff5df 0%,#eef6e8 52%,#f7dfbd 100%);
-    }
-    .hero:after{
-      content:"";
-      position:absolute;
-      right:-90px;
-      bottom:-110px;
-      width:280px;
-      height:280px;
-      border-radius:50%;
-      background:rgba(170,122,75,.12);
-    }
-    .eyebrow{
-      display:inline-block;
-      padding:7px 15px;
-      border-radius:999px;
-      background:rgba(255,255,255,.76);
-      color:var(--green-dark);
-      font-weight:900;
-      margin-bottom:12px;
-    }
-    h1{
-      margin:8px 0 14px;
-      font-size:clamp(2.05rem,4.5vw,3.8rem);
-      line-height:1.12;
-      color:var(--tea-dark);
-      letter-spacing:.01em;
-    }
-    .subtitle{
-      max-width:820px;
-      font-size:1.12rem;
-      color:var(--muted);
-      margin:0;
-    }
-    h2{
-      margin:34px 0 16px;
-      color:var(--tea-dark);
-      font-size:1.55rem;
-      border-left:8px solid var(--orange);
-      padding-left:12px;
-    }
-    h3{
-      color:var(--green-dark);
-      margin:18px 0 10px;
-      font-size:1.18rem;
-    }
-    .section{
-      margin:24px 0;
-      padding:24px;
-      background:rgba(255,250,242,.82);
-      border:1px solid rgba(228,212,189,.9);
-      border-radius:26px;
-      box-shadow:var(--shadow);
-    }
-    .grid{display:grid;gap:16px}
-    .grid-2{grid-template-columns:repeat(2,1fr)}
-    .grid-3{grid-template-columns:repeat(3,1fr)}
-    .grid-4{grid-template-columns:repeat(4,1fr)}
-    .card{
-      background:rgba(255,255,255,.9);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:18px;
-      box-shadow:0 6px 18px rgba(95,71,47,.06);
-    }
-    .summary strong{
-      display:block;
-      color:var(--tea-dark);
-      font-size:.94rem;
-    }
-    .summary span{
-      display:block;
-      font-size:1.12rem;
-      font-weight:900;
-      margin-top:4px;
-    }
-    .pill{
-      display:inline-block;
-      margin:3px 4px 3px 0;
-      padding:5px 11px;
-      border-radius:999px;
-      font-size:.88rem;
-      font-weight:900;
-      background:var(--orange-soft);
-      color:#8a5b2a;
-    }
-    .pill.green{
-      background:var(--green-soft);
-      color:var(--green-dark);
-    }
-    .mini-nav{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-top:20px;
-    }
-    .mini-nav a{
-      display:inline-block;
-      padding:8px 12px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background:#fff;
-      color:#684b31;
-      font-weight:800;
-      border-bottom:1px solid var(--line);
-    }
-    table{
-      width:100%;
-      border-collapse:separate;
-      border-spacing:0;
-      overflow:hidden;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:#fff;
-      box-shadow:0 5px 16px rgba(95,71,47,.05);
-      margin:12px 0 22px;
-    }
-    th,td{
-      padding:12px 13px;
-      border-right:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      vertical-align:top;
-      min-width:88px;
-    }
-    th{
-      background:#efe3d2;
-      color:#5e432e;
-      text-align:left;
-      font-weight:900;
-      white-space:nowrap;
-    }
-    tr:last-child td{border-bottom:0}
-    th:last-child,td:last-child{border-right:0}
-    .day{
-      border-left:10px solid var(--green);
-      background:#fffdf8;
-      border-radius:22px;
-      padding:20px;
-      border-top:1px solid var(--line);
-      border-right:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      margin:18px 0;
-    }
-    .route-box{
-      background:var(--green-soft);
-      border:1px solid #cfdcc8;
-      border-radius:18px;
-      padding:14px 16px;
-      margin:12px 0 18px;
-    }
-    .route-box p{margin:5px 0}
-    .money{font-weight:900;color:#7b4f28}
-    .note{
-      background:#fff7e8;
-      border:1px solid #efd7b4;
-      border-left:8px solid var(--orange);
-      border-radius:16px;
-      padding:14px 16px;
-      margin:12px 0;
-    }
-    .simple-list{
-      margin:0;
-      padding-left:20px;
-    }
-    .simple-list li{margin:4px 0}
-    input[type="checkbox"]{
-      width:18px;
-      height:18px;
-      accent-color:var(--green);
-      vertical-align:middle;
-    }
-    .qty{
-      white-space:nowrap;
-      font-weight:800;
-      color:var(--tea-dark);
-    }
-
-    @media(max-width:860px){
-      .wrap{padding:14px}
-      .hero{padding:26px}
-      .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
-      table{display:block;overflow-x:auto}
-      th,td{min-width:118px}
-    }
-    @media print{
-      body{background:#fff}
-      .wrap{padding:0;max-width:none}
-      .hero,.section,.card,.day{box-shadow:none;background:#fff}
-      .mini-nav{display:none}
-      a{color:#222;border-bottom:0;text-decoration:underline}
-      .section,.day{page-break-inside:avoid}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【鍾家 2026 宜蘭盛夏慶典】36人包棟歡樂之旅討論企劃書</title>
+    <!-- Tailwind CSS for Responsive Layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#F8F5F0',  // 溫暖奶茶底
+                            DEFAULT: '#4A5D4E',// 森林綠
+                            dark: '#2F3E33',   // 深木綠
+                            accent: '#C88D66', // 暖橘陶土
+                            gold: '#B48A46',   // 慶典金
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #F8F5F0;
+            color: #2F3E33;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1ECE4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C4BCAE;
+            border-radius: 4px;
+        }
+        /* Print Friendly CSS */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background-color: white !important;
+                color: black !important;
+            }
+            .print-card {
+                border: 1px solid #ddd !important;
+                box-shadow: none !important;
+                background-color: white !important;
+                page-break-inside: avoid;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
 </head>
+<body class="antialiased">
 
-<body>
-  <div class="wrap">
-
-    <header class="hero">
-      <span class="eyebrow">家族旅遊行程企劃書</span>
-      <h1>2026 宜蘭雲舞間 Villa<br>家族包棟兩天一夜</h1>
-      <p class="subtitle">8/8 百匯窯烤雞午餐、下午採買、入住雲舞間；8/9 親子休閒、甲富哥活海產午餐、下午歸途。</p>
-
-      <div class="grid grid-4" style="margin-top:24px">
-        <div class="card summary"><strong>日期</strong><span>2026/8/8（六）– 8/9（日）</span></div>
-        <div class="card summary"><strong>住宿</strong><span>雲舞間 Villa 包棟</span></div>
-        <div class="card summary"><strong>人數</strong><span>36 位</span></div>
-        <div class="card summary"><strong>交通</strong><span>自行開車</span></div>
-      </div>
-
-      <div class="mini-nav">
-        <a href="#overview">旅遊概要</a>
-        <a href="#itinerary">每日行程</a>
-        <a href="#rooms">住宿房間</a>
-        <a href="#restaurants">餐廳</a>
-        <a href="#shopping">採購確認清單</a>
-        <a href="#budget">費用</a>
-      </div>
+    <!-- COVER SECTION -->
+    <header class="relative bg-cover bg-center h-[500px] flex items-center justify-center text-center overflow-hidden" style="background-image: linear-gradient(rgba(47, 62, 51, 0.65), rgba(47, 62, 51, 0.85)), url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1200');">
+        <div class="absolute inset-0 bg-brand-dark opacity-10 mix-blend-overlay"></div>
+        <div class="relative z-10 px-4 max-w-4xl">
+            <span class="inline-block px-4 py-1.5 mb-4 bg-brand-accent text-white text-xs font-semibold tracking-widest rounded-full uppercase">Family Trip 2026</span>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-wide mb-3">鍾家 ‧ 盛夏包棟慶典</h1>
+            <p class="text-xl md:text-2xl text-brand-light font-light italic mb-8">「歡笑相聚，在蘭陽平原寫下我們的盛夏回憶」</p>
+            
+            <!-- Quick Summary Badges -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto text-white">
+                <div class="bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/20">
+                    <div class="text-xs text-brand-light/70">旅遊日期</div>
+                    <div class="text-sm md:text-base font-bold mt-1">2026/8/8 (六) - 8/9 (日)</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/20">
+                    <div class="text-xs text-brand-light/70">入住人數</div>
+                    <div class="text-sm md:text-base font-bold mt-1">36位 貴賓同歡</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/20">
+                    <div class="text-xs text-brand-light/70">下榻莊園</div>
+                    <div class="text-sm md:text-base font-bold mt-1">五結 雲舞間 Villa</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/20">
+                    <div class="text-xs text-brand-light/70">交通方式</div>
+                    <div class="text-sm md:text-base font-bold mt-1">家族自駕 (10台車)</div>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <section class="section" id="overview">
-      <h2>1. 旅遊概要</h2>
-      <div class="grid grid-3">
-        <div class="card">
-          <h3>住宿資訊</h3>
-          <p><strong>住宿：</strong><a href="https://twminsu.tw/yunwujianvilla/" target="_blank">雲舞間 Villa</a></p>
-          <p><strong>地址：</strong>宜蘭縣冬山鄉柯林二路430號</p>
-          <p><strong>地圖：</strong><a href="https://www.google.com/maps/search/?api=1&query=雲舞間Villa%20宜蘭縣冬山鄉柯林二路430號" target="_blank">雲舞間 Villa Google Map</a></p>
+    <!-- FLOATING ORGANIZER CARD -->
+    <div class="max-w-6xl mx-auto -mt-12 px-4 relative z-20">
+        <div class="bg-white rounded-2xl shadow-xl p-6 border border-brand-accent/20 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+            <div class="flex items-center space-x-4 border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0">
+                <div class="p-3 bg-brand-light rounded-full text-brand">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                </div>
+                <div>
+                    <h3 class="text-xs text-gray-400 font-bold uppercase tracking-wider">活動總召集人</h3>
+                    <p class="text-lg font-bold text-brand-dark">黃薇樺 小姐</p>
+                    <p class="text-sm text-gray-500">📞 0900179130</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0">
+                <div class="p-3 bg-amber-50 rounded-full text-amber-600">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <div>
+                    <h3 class="text-xs text-gray-400 font-bold uppercase tracking-wider">包棟契約狀態</h3>
+                    <p class="text-base font-bold text-brand-accent">已付訂金：NT$ 10,000</p>
+                    <p class="text-xs text-gray-500">於 2026/05/03 (日) 支付完成</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="p-3 bg-emerald-50 rounded-full text-emerald-600">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <div>
+                    <h3 class="text-xs text-gray-400 font-bold uppercase tracking-wider">包棟合約尾款</h3>
+                    <p class="text-lg font-extrabold text-emerald-700">NT$ 40,000</p>
+                    <p class="text-xs text-gray-500">入住現場付清 (總計 NT$ 50,000)</p>
+                </div>
+            </div>
         </div>
-        <div class="card">
-          <h3>主辦資訊</h3>
-          <p><strong>主辦貴賓：</strong>黃薇樺</p>
-          <p><strong>主辦電話：</strong>0900179130</p>
-          <p><strong>訂房確認：</strong>2026年5月3日</p>
-          <p><strong>包棟房間：</strong>10 個住宿單位</p>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-6xl mx-auto px-4 py-12 space-y-16">
+
+        <!-- SECTION 1: 旅遊概要 & 規劃假設 -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 print-card">
+            <!-- 旅遊概要 -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-light">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="w-2.5 h-6 bg-brand rounded-full"></span>
+                    <h2 class="text-2xl font-bold text-brand-dark">蘭陽假期 旅遊概要</h2>
+                </div>
+                <div class="space-y-4">
+                    <p class="text-gray-600 leading-relaxed">
+                        本次盛會為<b>鍾家</b>年度大型包棟活動。特別選在宜蘭五結的高品質獨棟別墅<b>「雲舞間Villa」</b>，不僅擁有廣闊的庭園綠地、專屬戶外太空艙，更備有迎賓下午茶及中西式元氣早餐。36位家族成員橫跨長輩、中生代、與活力十足的孩子們，行程安排以<b>「低速慢遊、歡聚烤肉、親子同樂、長輩不累」</b>為最高原則！
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-100">
+                        <div>
+                            <span class="text-xs text-gray-400 font-medium">總入住人數</span>
+                            <p class="text-base font-bold text-brand-dark">36位 (含6位國小生/幼兒)</p>
+                        </div>
+                        <div>
+                            <span class="text-xs text-gray-400 font-medium">開放總房數</span>
+                            <p class="text-base font-bold text-brand-dark">10間房 (全開包棟)</p>
+                        </div>
+                        <div>
+                            <span class="text-xs text-gray-400 font-medium">餐食亮點</span>
+                            <p class="text-base font-bold text-brand-dark">窯烤雞、澎湃海鮮、別墅烤肉</p>
+                        </div>
+                        <div>
+                            <span class="text-xs text-gray-400 font-medium">雨天備案</span>
+                            <p class="text-base font-bold text-brand-dark">園區室內展館 / 別墅交誼廳</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 規劃假設 -->
+            <div class="bg-amber-50/60 p-8 rounded-2xl border border-amber-100">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="w-2.5 h-6 bg-brand-accent rounded-full"></span>
+                    <h2 class="text-2xl font-bold text-amber-950">行程規劃假設說明</h2>
+                </div>
+                <ul class="space-y-3.5 text-sm text-amber-900 leading-relaxed">
+                    <li class="flex items-start">
+                        <span class="text-brand-accent mr-2">✦</span>
+                        <div><strong>成員構成假設：</strong>36人預設為：成年（含國/高中、大學）共30位，國小及幼稚園共6位（依優惠合約申報）。</div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-brand-accent mr-2">✦</span>
+                        <div><strong>車輛數假設：</strong>自駕估計為10部車，雲舞間Villa及餐廳均可容納寬敞停車需求。</div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-brand-accent mr-2">✦</span>
+                        <div><strong>下午茶與早餐：</strong>別墅提供之下午茶於 15:00~16:30 提供，隔日早餐 08:30~09:30 供應，請注意時間。</div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-brand-accent mr-2">✦</span>
+                        <div><strong>第一天下午採買：</strong>預設於下午入住前，分派 2 台車人員前往五結喜互惠超市採購當晚烤肉食材與啤酒，其餘車輛直接前往別墅辦理入住。</div>
+                    </li>
+                    <li class="flex items-start text-xs text-amber-800 italic">
+                        <span class="mr-2">⚠️</span>
+                        <span>官方資訊、票價及營業時間可能因現場狀況調整，出發前一週請務必由各負責人再次去電確認。</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 2: 家族討論重點 -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-brand-light print-card">
+            <div class="flex items-center space-x-3 mb-6">
+                <span class="w-2.5 h-6 bg-brand rounded-full"></span>
+                <h2 class="text-2xl font-bold text-brand-dark">家族會前討論重點</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-5 bg-stone-50 rounded-xl border border-stone-100">
+                    <span class="text-xs font-bold text-brand-accent tracking-widest uppercase">DISCUSS 01</span>
+                    <h3 class="text-base font-bold text-brand-dark mt-1 mb-2">第一晚晚餐形式確認</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        目前安排於別墅烤肉。是否需要向民宿代訂「豪華烤肉懶人包」，或是完全自行採買？（下方已附詳細採購清單）。
+                    </p>
+                </div>
+                <div class="p-5 bg-stone-50 rounded-xl border border-stone-100">
+                    <span class="text-xs font-bold text-brand-accent tracking-widest uppercase">DISCUSS 02</span>
+                    <h3 class="text-base font-bold text-brand-dark mt-1 mb-2">第二日親子休閒場所選定</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        目前行程主推「綠舞日式主題園區」，有豐富草地與動物、日式體驗，適合36人同樂。
+                    </p>
+                </div>
+                <div class="p-5 bg-stone-50 rounded-xl border border-stone-100">
+                    <span class="text-xs font-bold text-brand-accent tracking-widest uppercase">DISCUSS 03</span>
+                    <h3 class="text-base font-bold text-brand-dark mt-1 mb-2">餐期座位與大桌預訂</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        百匯窯烤雞與甲富哥海產皆極為熱門。因36人需預訂 3~4 桌，需提前至少一個月撥打電話付訂。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: 每日行程總覽 -->
+        <section class="space-y-6">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-brand-dark">宜蘭包棟歡樂之旅 ‧ 二日時間軸</h2>
+                <p class="text-sm text-gray-500 mt-2">簡單好讀的時間流，掌握全體移動步調</p>
+            </div>
+
+            <!-- TIMELINE TIMETABLE -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Day 1 卡片 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-brand-light p-6 print-card">
+                    <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                        <div>
+                            <span class="text-sm font-bold text-brand-accent">8月8日 星期六</span>
+                            <h3 class="text-xl font-bold text-brand-dark">Day 1：吃雞啟程 ‧ 別墅派對</h3>
+                        </div>
+                        <span class="px-3 py-1 bg-brand-light text-brand text-xs font-medium rounded-full">啟程與歡聚</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <span class="text-brand font-bold text-sm bg-brand-light px-2.5 py-0.5 rounded-md">11:30</span>
+                            <div>
+                                <h4 class="text-sm font-bold text-brand-dark">百匯窯烤雞餐廳（午餐聚會）</h4>
+                                <p class="text-xs text-gray-400 mt-0.5">36人分桌會合，品嚐熱騰騰窯烤雞</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-brand font-bold text-sm bg-brand-light px-2.5 py-0.5 rounded-md">13:30</span>
+                            <div>
+                                <h4 class="text-sm font-bold text-brand-dark">食材大採購分隊 ＆ 家族漫遊隊</h4>
+                                <p class="text-xs text-gray-400 mt-0.5">採購組至喜互惠超市；其他人前往附近小景點</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-brand font-bold text-sm bg-brand-light px-2.5 py-0.5 rounded-md">15:00</span>
+                            <div>
+                                <h4 class="text-sm font-bold text-brand-dark">別墅 Check-In & 迎賓下午茶</h4>
+                                <p class="text-xs text-gray-400 mt-0.5">開箱10間超美房間、享用精緻下午茶與別墅泳池</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-brand font-bold text-sm bg-brand-light px-2.5 py-0.5 rounded-md">17:30</span>
+                            <div>
+                                <h4 class="text-sm font-bold text-brand-dark">雲舞間戶外星空烤肉派對</h4>
+                                <p class="text-xs text-gray-400 mt-0.5">大草地烤肉、生啤酒乾杯、孩子放電、大人暢聊</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 2 卡片 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-brand-light p-6 print-card">
+                    <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                        <div>
+                            <span class="text-sm font-bold text-brand-accent">8月9日 星期日</span>
+                            <h3 class="text-xl font-bold text-brand-dark">Day 2：和風莊園 ‧ 海鮮盛宴</h3>
+                        </div>
+                        <span class="px-3 py-1 bg-brand-light text-brand text-xs font-medium rounded-full">慢活與歸途</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <span class="text-brand font-bold text-sm bg-brand-light px-2.5 py-0.5 rounded-md">08:30</span>
+                            <div>
+                                <h4 class="text-sm font-bold text-brand-dark">享用別墅元氣早餐</h4>
+                                <p class="text-xs text-gray-400 mt-0.5">慢活晨光，別墅中西式活力早餐</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-brand font-bold text-sm bg-brand-light px-2.5 py-0.5 rounded-md">10:00</span>
+                            <div>
+                                <h4 class="text-sm font-bold text-brand-dark">退房 & 前往親子休閒場所</h4>
+                                <p class="text-xs text-gray-400 mt-0.5">推薦：綠舞日式主題園區（超萌水豚、羊駝餵食）</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-brand font-bold text-sm bg-brand-light px-2.5 py-0.5 rounded-md">12:30</span>
+                            <div>
+                                <h4 class="text-sm font-bold text-brand-dark">甲富哥活海產（豪華慶典午餐）</h4>
+                                <p class="text-xs text-gray-400 mt-0.5">必吃水果盤！頂級海鮮饗宴，為聚會畫下完美句點</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-brand font-bold text-sm bg-brand-light px-2.5 py-0.5 rounded-md">15:00</span>
+                            <div>
+                                <h4 class="text-sm font-bold text-brand-dark">滿載而歸，平安返家</h4>
+                                <p class="text-xs text-gray-400 mt-0.5">分批上國道五號，避開尖峰車潮</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: 每日詳細行程 & GOOGLE MAP 路線 -->
+        <section class="space-y-12">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-brand-dark">每日詳細行程規畫表</h2>
+                <p class="text-sm text-gray-500 mt-2">包含每段車程、距離、停留時間、對應地圖與專屬負責人</p>
+            </div>
+
+            <!-- DAY 1 DETAIL -->
+            <div class="bg-white rounded-2xl shadow-sm border border-brand-light overflow-hidden print-card">
+                <div class="bg-brand text-white p-6">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between">
+                        <div>
+                            <span class="text-xs bg-white/20 text-brand-light px-3 py-1 rounded-full font-bold uppercase tracking-wider">Day 1 ‧ 2026/08/08 (六)</span>
+                            <h3 class="text-2xl font-bold mt-2">香氣誘人窯烤雞 ‧ 雲舞間奢華烤肉夜</h3>
+                        </div>
+                        <div class="text-right mt-3 md:mt-0">
+                            <p class="text-xs text-brand-light/80">今日主題氣氛</p>
+                            <p class="text-sm font-semibold italic text-brand-accent">「興奮啟程，大口吃肉，星空下的歡聚時光」</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
+                        <thead>
+                            <tr class="border-b border-gray-100 text-brand-dark/70 text-sm">
+                                <th class="pb-3 font-bold w-24">時間</th>
+                                <th class="pb-3 font-bold w-56">行程項目 / 地點</th>
+                                <th class="pb-3 font-bold w-28">交通 / 車程</th>
+                                <th class="pb-3 font-bold w-28">停留時間</th>
+                                <th class="pb-3 font-bold w-24">負責人</th>
+                                <th class="pb-3 font-bold">備註與貼心提醒</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50 text-sm text-gray-600">
+                            <tr>
+                                <td class="py-4 font-bold text-brand-dark text-base">11:30 - 13:00</td>
+                                <td class="py-4">
+                                    <div class="font-bold text-gray-800">百匯窯烤雞餐廳</div>
+                                    <a href="https://www.google.com/maps/search/?api=1&query=百匯窯烤雞餐廳" target="_blank" class="text-brand-accent hover:underline text-xs flex items-center mt-1">
+                                        📍 宜蘭縣五結鄉五結路三段171號 🗺️
+                                    </a>
+                                </td>
+                                <td class="py-4">自駕前往</td>
+                                <td class="py-4">90分鐘</td>
+                                <td class="py-4">黃薇樺</td>
+                                <td class="py-4 text-xs"><b>已訂位36人（4桌）</b>。窯烤雞需現烤，入座後立刻請服務生上雞。門口有大型專屬停車場。</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 font-bold text-brand-dark text-base">13:00 - 15:00</td>
+                                <td class="py-4">
+                                    <div class="font-bold text-gray-800">物資採購組 (喜互惠五結店)</div>
+                                    <a href="https://www.google.com/maps/search/?api=1&query=喜互惠超市五結店" target="_blank" class="text-brand-accent hover:underline text-xs flex items-center mt-1">
+                                        📍 宜蘭縣五結鄉中正路一段132號 🗺️
+                                    </a>
+                                </td>
+                                <td class="py-4">車程 8分 (3km)</td>
+                                <td class="py-4">60~90分鐘</td>
+                                <td class="py-4">沛翰 / 郡儀</td>
+                                <td class="py-4 text-xs">指派2台休旅車前往採買烤肉食材與啤酒，其他人可先前往別墅外拍照、放慢步調。</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 font-bold text-brand-dark text-base">15:00 - 17:30</td>
+                                <td class="py-4">
+                                    <div class="font-bold text-gray-800">雲舞間 Villa Check-In</div>
+                                    <a href="https://www.google.com/maps/search/?api=1&query=雲舞間Villa" target="_blank" class="text-brand-accent hover:underline text-xs flex items-center mt-1">
+                                        📍 宜蘭縣五結鄉孝威南路17號 🗺️
+                                    </a>
+                                </td>
+                                <td class="py-4">車程 10分 (4.5km)</td>
+                                <td class="py-4">整個下午</td>
+                                <td class="py-4">黃薇樺</td>
+                                <td class="py-4 text-xs">辦理入住，領取鑰匙與分配房間。享受民宿提供的<b>迎賓下午茶</b>。可先讓長輩、小孩在房間梳洗休息。</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 font-bold text-brand-dark text-base">17:30 - 21:30</td>
+                                <td class="py-4">
+                                    <div class="font-bold text-gray-800">星空戶外烤肉 BBQ 晚宴</div>
+                                    <span class="text-xs text-brand-dark/70">別墅中庭花園區</span>
+                                </td>
+                                <td class="py-4">別墅內部</td>
+                                <td class="py-4">240分鐘</td>
+                                <td class="py-4">泓叡 / 謹頤</td>
+                                <td class="py-4 text-xs">啟動大型星空烤肉！備妥生啤酒、果汁。孩子們可在草地嬉戲，別墅內備有視聽視訊，長輩可在客廳唱歌吹冷氣。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Day 1 Map Direction Summary -->
+                <div class="bg-brand-light p-6 border-t border-gray-100 flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-base">🗺️ 第一天自駕整體導航參考</h4>
+                        <p class="text-xs text-gray-500 mt-1">路線：五結交流道 → 百匯窯烤雞 → 喜互惠五結店 → 雲舞間Villa</p>
+                        <p class="text-xs text-brand-accent font-bold mt-1">★ 總車程時間約 25 分鐘 | 總距離約 10 公里 | 沿途皆有便利平面車位</p>
+                    </div>
+                    <a href="https://www.google.com/maps/dir/宜蘭五結交流道/百匯窯烤雞/喜互惠五結店/雲舞間Villa" target="_blank" class="px-5 py-2.5 bg-brand text-white text-sm font-bold rounded-xl hover:bg-brand-dark transition shadow-md inline-flex items-center space-x-2">
+                        <span>開啟 Google Map 聯結導航</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- DAY 2 DETAIL -->
+            <div class="bg-white rounded-2xl shadow-sm border border-brand-light overflow-hidden print-card">
+                <div class="bg-brand-accent text-white p-6">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between">
+                        <div>
+                            <span class="text-xs bg-white/20 text-brand-light px-3 py-1 rounded-full font-bold uppercase tracking-wider">Day 2 ‧ 2026/08/09 (日)</span>
+                            <h3 class="text-2xl font-bold mt-2">日式庭園慢步調 ‧ 頂級海產水果盤饗宴</h3>
+                        </div>
+                        <div class="text-right mt-3 md:mt-0">
+                            <p class="text-xs text-brand-light/80">今日主題氣氛</p>
+                            <p class="text-sm font-semibold italic text-brand-light">「和風悠閒，極鮮活海產，滿溢感動返家」</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 overflow-x-auto">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
+                        <thead>
+                            <tr class="border-b border-gray-100 text-brand-dark/70 text-sm">
+                                <th class="pb-3 font-bold w-24">時間</th>
+                                <th class="pb-3 font-bold w-56">行程項目 / 地點</th>
+                                <th class="pb-3 font-bold w-28">交通 / 車程</th>
+                                <th class="pb-3 font-bold w-28">停留時間</th>
+                                <th class="pb-3 font-bold w-24">負責人</th>
+                                <th class="pb-3 font-bold">備註與貼心提醒</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50 text-sm text-gray-600">
+                            <tr>
+                                <td class="py-4 font-bold text-brand-dark text-base">08:30 - 09:30</td>
+                                <td class="py-4">
+                                    <div class="font-bold text-gray-800">別墅元氣早餐</div>
+                                    <span class="text-xs text-brand-dark/70">別墅一樓餐廳</span>
+                                </td>
+                                <td class="py-4">無</td>
+                                <td class="py-4">60分鐘</td>
+                                <td class="py-4">民宿管家</td>
+                                <td class="py-4 text-xs">別墅現做中西式元氣早餐。長輩可提早於庭園散步拍照，孩子們可補眠。</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 font-bold text-brand-dark text-base">10:00 - 12:00</td>
+                                <td class="py-4">
+                                    <div class="font-bold text-gray-800">綠舞日式主題園區 (親子休閒推薦)</div>
+                                    <a href="https://www.google.com/maps/search/?api=1&query=綠舞日式主題園區" target="_blank" class="text-brand-accent hover:underline text-xs flex items-center mt-1">
+                                        📍 宜蘭縣五結鄉五結路二段459號 🗺️
+                                    </a>
+                                </td>
+                                <td class="py-4">車程 8分 (4km)</td>
+                                <td class="py-4">120分鐘</td>
+                                <td class="py-4">相蓉 / 芷嫺</td>
+                                <td class="py-4 text-xs">10:00準時退房前往。園區為全台最大日式主題園區，平緩好走，非常適合長輩散步，孩子們可以看水豚、草泥馬、摸狐獴，有大量室內避雨設施。</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 font-bold text-brand-dark text-base">12:30 - 14:30</td>
+                                <td class="py-4">
+                                    <div class="font-bold text-gray-800">甲富哥活海產</div>
+                                    <a href="https://www.google.com/maps/search/?api=1&query=甲富哥活海產" target="_blank" class="text-brand-accent hover:underline text-xs flex items-center mt-1">
+                                        📍 宜蘭縣冬山鄉廣興路526號 🗺️
+                                    </a>
+                                </td>
+                                <td class="py-4">車程 20分 (11km)</td>
+                                <td class="py-4">120分鐘</td>
+                                <td class="py-4">黃薇樺</td>
+                                <td class="py-4 text-xs"><b>已訂位36人（4桌）</b>。宜蘭在地神級海鮮餐廳，食材極致新鮮，最著名的飯後水果盤更是驚豔。務必準時入座！</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 font-bold text-brand-dark text-base">14:30 -</td>
+                                <td class="py-4">
+                                    <div class="font-bold text-gray-800">滿載而歸 ‧ 啟程歸途</div>
+                                    <span class="text-xs text-brand-dark/70">國道五號返家</span>
+                                </td>
+                                <td class="py-4">返程自駕</td>
+                                <td class="py-4">無限制</td>
+                                <td class="py-4">各車車長</td>
+                                <td class="py-4 text-xs">午後國五北上路段易壅塞或實施高乘載管制，建議吃飽後可分批北返，或在附近買完伴手禮（如羅東順進蜜餞行）後走替代道路。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Day 2 Map Direction Summary -->
+                <div class="bg-brand-light p-6 border-t border-gray-100 flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-base">🗺️ 第二天自駕整體導航參考</h4>
+                        <p class="text-xs text-gray-500 mt-1">路線：雲舞間Villa → 綠舞日式主題園區 → 甲富哥活海產 → 羅東交流道</p>
+                        <p class="text-xs text-brand-accent font-bold mt-1">★ 總車程時間約 30 分鐘 | 總距離約 15 公里 | 長輩移動平緩不疲憊</p>
+                    </div>
+                    <a href="https://www.google.com/maps/dir/雲舞間Villa/綠舞日式主題園區/甲富哥活海產/羅東交流道" target="_blank" class="px-5 py-2.5 bg-brand text-white text-sm font-bold rounded-xl hover:bg-brand-dark transition shadow-md inline-flex items-center space-x-2">
+                        <span>開啟 Google Map 聯結導航</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: 住宿與房間表 (雲舞間Villa 10間房全開) -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-brand-light print-card">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-4 border-b border-gray-100">
+                <div class="flex items-center space-x-3">
+                    <span class="w-2.5 h-6 bg-brand rounded-full"></span>
+                    <h2 class="text-2xl font-bold text-brand-dark">雲舞間 Villa 分房計畫表</h2>
+                </div>
+                <span class="text-xs bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full mt-2 md:mt-0">包棟共 10 間客房完美配給</span>
+            </div>
+
+            <div class="mb-6 p-4 bg-stone-50 rounded-xl text-xs text-stone-600 leading-relaxed grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <strong>💡 長輩貼心安排：</strong>
+                    我們特別將長輩、高樓層不便之成員，安排於一樓「愛心清水模房」及免爬梯之親地房型，出入方便無障礙。
+                </div>
+                <div>
+                    <strong>🚀 太空艙極致體驗：</strong>
+                    年輕一輩或小家庭（如佳佳、阿華）體驗超吸睛的浪漫太空艙，擁有專屬氣氛，讓全家話題滿滿！
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[750px]">
+                    <thead>
+                        <tr class="border-b border-stone-200 text-brand-dark/70 text-sm bg-stone-50">
+                            <th class="p-3 font-bold w-24">房間代號</th>
+                            <th class="p-3 font-bold w-36">房型</th>
+                            <th class="p-3 font-bold w-32">入住家族</th>
+                            <th class="p-3 font-bold w-20">成人數</th>
+                            <th class="p-3 font-bold w-20">兒童/幼兒</th>
+                            <th class="p-3 font-bold w-36">主要床型與設施</th>
+                            <th class="p-3 font-bold">備註說明 (長輩/嬰幼兒友善)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 text-sm text-gray-600">
+                        <!-- 房01 -->
+                        <tr class="hover:bg-brand-light/40">
+                            <td class="p-3 font-bold text-brand-dark">01房</td>
+                            <td class="p-3 text-brand">精緻二人房</td>
+                            <td class="p-3 font-bold text-gray-800">相蓉家</td>
+                            <td class="p-3">2 位</td>
+                            <td class="p-3">0 位</td>
+                            <td class="p-3">加大雙人床x1</td>
+                            <td class="p-3 text-xs">一樓溫馨雙人房，適合小夫妻。</td>
+                        </tr>
+                        <!-- 房201 -->
+                        <tr class="hover:bg-brand-light/40">
+                            <td class="p-3 font-bold text-brand-dark">201房</td>
+                            <td class="p-3 text-brand">景觀豪華四人房</td>
+                            <td class="p-3 font-bold text-gray-800">郡儀家</td>
+                            <td class="p-3">2 位</td>
+                            <td class="p-3">2 位</td>
+                            <td class="p-3">雙人床x2</td>
+                            <td class="p-3 text-xs">二樓採光絕佳四人房，適合帶學童之家庭。</td>
+                        </tr>
+                        <!-- 房202 -->
+                        <tr class="hover:bg-brand-light/40">
+                            <td class="p-3 font-bold text-brand-dark">202房</td>
+                            <td class="p-3 text-brand">溫馨舒適雙人房</td>
+                            <td class="p-3 font-bold text-gray-800">泓叡家</td>
+                            <td class="p-3">2 位</td>
+                            <td class="p-3">0 位</td>
+                            <td class="p-3">標準雙人床x1</td>
+                            <td class="p-3 text-xs">二樓典雅客房，隔音與採光佳。</td>
+                        </tr>
+                        <!-- 房301 -->
+                        <tr class="hover:bg-brand-light/40">
+                            <td class="p-3 font-bold text-brand-dark">301房</td>
+                            <td class="p-3 text-brand">高空全景四人房</td>
+                            <td class="p-3 font-bold text-gray-800">謹頤家</td>
+                            <td class="p-3">2 位</td>
+                            <td class="p-3">2 位</td>
+                            <td class="p-3">雙人床x2</td>
+                            <td class="p-3 text-xs">三樓全視野四人房，適合大空間需求家庭。</td>
+                        </tr>
+                        <!-- 房302 -->
+                        <tr class="hover:bg-brand-light/40">
+                            <td class="p-3 font-bold text-brand-dark">302房</td>
+                            <td class="p-3 text-brand">頂樓星空雙人房</td>
+                            <td class="p-3 font-bold text-gray-800">芷嫺家</td>
+                            <td class="p-3">2 位</td>
+                            <td class="p-3">0 位</td>
+                            <td class="p-3">加大雙人床x1</td>
+                            <td class="p-3 text-xs">視野極佳，適合享受寧靜的小倆口。</td>
+                        </tr>
+                        <!-- 房158 -->
+                        <tr class="hover:bg-brand-light/40">
+                            <td class="p-3 font-bold text-brand-dark">158房</td>
+                            <td class="p-3 text-brand">清水模愛心房A</td>
+                            <td class="p-3 font-bold text-gray-800">沛翰家</td>
+                            <td class="p-3">2 位</td>
+                            <td class="p-3">2 位 (童)</td>
+                            <td class="p-3">雙人床x2</td>
+                            <td class="p-3 text-xs">一樓免爬樓梯，孩子跑跳安全。</td>
+                        </tr>
+                        <!-- 房168 -->
+                        <tr class="hover:bg-brand-light/40">
+                            <td class="p-3 font-bold text-brand-dark">168房</td>
+                            <td class="p-3 text-brand">清水模愛心房B</td>
+                            <td class="p-3 font-bold text-gray-800">秀菊 ＆ 隨行</td>
+                            <td class="p-3">4 位</td>
+                            <td class="p-3">0 位</td>
+                            <td class="p-3">加大雙人床x2</td>
+                            <td class="p-3 text-xs"><b>長輩極友善！</b>一樓大空間無障礙，出入免爬梯。</td>
+                        </tr>
+                        <!-- 房188 -->
+                        <tr class="hover:bg-brand-light/40">
+                            <td class="p-3 font-bold text-brand-dark">188房</td>
+                            <td class="p-3 text-brand">清水模愛心房C</td>
+                            <td class="p-3 font-bold text-gray-800">美真 ＆ 錦娥</td>
+                            <td class="p-3">4 位</td>
+                            <td class="p-3">0 位</td>
+                            <td class="p-3">加大雙人床x2</td>
+                            <td class="p-3 text-xs"><b>長輩極友善！</b>一樓大空間，衛浴防滑。</td>
+                        </tr>
+                        <!-- 太空艙1 -->
+                        <tr class="hover:bg-brand-light/40">
+                            <td class="p-3 font-bold text-brand-dark">太空艙1</td>
+                            <td class="p-3 text-amber-600 font-semibold">浪漫太空艙 A</td>
+                            <td class="p-3 font-bold text-gray-800">佳佳 ＆ 隨行</td>
+                            <td class="p-3">3 位</td>
+                            <td class="p-3">0 位</td>
+                            <td class="p-3">太空艙大床+單人臥鋪</td>
+                            <td class="p-3 text-xs">極富科技感之新穎太空艙，年輕成員最愛。</td>
+                        </tr>
+                        <!-- 太空艙2 -->
+                        <tr class="hover:bg-brand-light/40">
+                            <td class="p-3 font-bold text-brand-dark">太空艙2</td>
+                            <td class="p-3 text-amber-600 font-semibold">浪漫太空艙 B</td>
+                            <td class="p-3 font-bold text-gray-800">阿華 ＆ 隨行</td>
+                            <td class="p-3">3 位</td>
+                            <td class="p-3">0 位</td>
+                            <td class="p-3">太空艙大床+單人臥鋪</td>
+                            <td class="p-3 text-xs">獨立景觀窗，夜晚可直接躺著看星星。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 6: 每日餐廳三選一方案 -->
+        <section class="space-y-8">
+            <div class="text-center">
+                <span class="text-brand-accent text-xs font-bold tracking-widest uppercase">RESTAURANTS 3-CHOICES</span>
+                <h2 class="text-3xl font-extrabold text-brand-dark mt-2">主要餐期「三選一」方案設計</h2>
+                <p class="text-sm text-gray-500 mt-1">鍾家本次指定午餐為「百匯窯烤雞」及「甲富哥海鮮」，在此保留指定，並同時附上同等級精選備案以利家族備用討論！</p>
+            </div>
+
+            <!-- 餐期一：第一天午餐 -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand-light print-card">
+                <h3 class="text-lg font-bold text-brand-dark border-b border-gray-100 pb-3 mb-6 flex items-center space-x-2">
+                    <span class="px-2.5 py-0.5 bg-brand text-white text-xs rounded">第一天午餐</span>
+                    <span>出發啟程首聚（預設：百匯窯烤雞）</span>
+                </h3>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Option 1: Selected -->
+                    <div class="border-2 border-brand rounded-xl p-5 relative bg-brand-light/30">
+                        <span class="absolute top-3 right-3 bg-brand text-white text-xs font-bold px-2 py-0.5 rounded-full">鍾家指定</span>
+                        <h4 class="font-extrabold text-brand-dark text-base">① 百匯窯烤雞餐廳</h4>
+                        <p class="text-xs text-amber-700 font-semibold mt-1">料理類型：台式窯烤雞、蘭陽合菜</p>
+                        <p class="text-xs text-gray-500 mt-3"><strong>特色菜：</strong>皮脆多汁窯烤雞、蟹黃豆腐煲、手工海鮮捲。</p>
+                        <p class="text-xs text-gray-600 mt-2"><strong>長輩友善：</strong>座位寬敞平緩，提供大圓桌，非常適合36人聚餐。</p>
+                        <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-500 space-y-1">
+                            <div>🕒 11:00-21:00 (平日15:00-17:00休息)</div>
+                            <div>💰 平均每人 NT$ 400 - 600</div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=百匯窯烤雞餐廳" target="_blank" class="text-brand-accent hover:underline block mt-2 font-bold">🗺️ 點此查看 Google Map 地圖連結</a>
+                        </div>
+                    </div>
+                    <!-- Option 2 -->
+                    <div class="border border-stone-200 rounded-xl p-5 bg-white">
+                        <h4 class="font-bold text-gray-800 text-base">② 饗宴鐵板燒 (頂級奢華版備案)</h4>
+                        <p class="text-xs text-gray-400 mt-1">料理類型：無菜單創意鐵板燒</p>
+                        <p class="text-xs text-gray-500 mt-3"><strong>特色菜：</strong>野生大鮑魚、海膽龍蝦、無骨牛小排捲。</p>
+                        <p class="text-xs text-gray-600 mt-2"><strong>長輩友善：</strong>主廚親自解說，精緻且節奏慢，但包桌位置有限。</p>
+                        <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-500 space-y-1">
+                            <div>🕒 11:00-21:00 (需預約)</div>
+                            <div>💰 平均每人 NT$ 2,000 以上</div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=饗宴鐵板燒" target="_blank" class="text-brand-accent hover:underline block mt-2 font-bold">🗺️ 點此查看 Google Map 地圖連結</a>
+                        </div>
+                    </div>
+                    <!-- Option 3 -->
+                    <div class="border border-stone-200 rounded-xl p-5 bg-white">
+                        <h4 class="font-bold text-gray-800 text-base">③ 駿懷舊餐廳 (特色主題版備案)</h4>
+                        <p class="text-xs text-gray-400 mt-1">料理類型：懷舊復古風手路菜</p>
+                        <p class="text-xs text-gray-500 mt-3"><strong>特色菜：</strong>辣椒蟹、黑糖西魯肉、駿雕魚。</p>
+                        <p class="text-xs text-gray-600 mt-2"><strong>長輩友善：</strong>店內充滿50年代柑仔店回憶，長輩極具共鳴。</p>
+                        <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-500 space-y-1">
+                            <div>🕒 11:00-14:00, 17:00-21:00</div>
+                            <div>💰 平均每人 NT$ 500 - 700</div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=駿懷舊餐廳" target="_blank" class="text-brand-accent hover:underline block mt-2 font-bold">🗺️ 點此查看 Google Map 地圖連結</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 餐期二：第二天午餐 -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand-light print-card">
+                <h3 class="text-lg font-bold text-brand-dark border-b border-gray-100 pb-3 mb-6 flex items-center space-x-2">
+                    <span class="px-2.5 py-0.5 bg-brand-accent text-white text-xs rounded">第二天午餐</span>
+                    <span>豪華頂級海鮮收尾（預設：甲富哥活海產）</span>
+                </h3>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Option 1: Selected -->
+                    <div class="border-2 border-brand-accent rounded-xl p-5 relative bg-brand-light/30">
+                        <span class="absolute top-3 right-3 bg-brand-accent text-white text-xs font-bold px-2 py-0.5 rounded-full">鍾家指定</span>
+                        <h4 class="font-extrabold text-brand-dark text-base">① 甲富哥活海產</h4>
+                        <p class="text-xs text-amber-700 font-semibold mt-1">料理類型：極鮮現撈海鮮、爆盛水果盤</p>
+                        <p class="text-xs text-gray-500 mt-3"><strong>特色菜：</strong>清蒸紅條魚、櫻花蝦炒飯、神級免費豪華飯後水果盤。</p>
+                        <p class="text-xs text-gray-600 mt-2"><strong>長輩友善：</strong>海產口感軟糯新鮮，好咀嚼，口味清甜不油膩。</p>
+                        <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-500 space-y-1">
+                            <div>🕒 11:30-14:00, 17:30-21:00 (極熱門)</div>
+                            <div>💰 平均每人 NT$ 600 - 1,000</div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=甲富哥活海產" target="_blank" class="text-brand-accent hover:underline block mt-2 font-bold">🗺️ 點此查看 Google Map 地圖連結</a>
+                        </div>
+                    </div>
+                    <!-- Option 2 -->
+                    <div class="border border-stone-200 rounded-xl p-5 bg-white">
+                        <h4 class="font-bold text-gray-800 text-base">② 永豐活海鮮餐廳 (蘇澳備案)</h4>
+                        <p class="text-xs text-gray-400 mt-1">料理類型：南方澳現撈海產</p>
+                        <p class="text-xs text-gray-500 mt-3"><strong>特色菜：</strong>招牌豆腐鯊、現切生魚片、清蒸白蝦。</p>
+                        <p class="text-xs text-gray-600 mt-2"><strong>長輩友善：</strong>附電梯、備有大型包廂與大圓桌，停車方便。</p>
+                        <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-500 space-y-1">
+                            <div>🕒 11:00-20:00</div>
+                            <div>💰 平均每人 NT$ 500 - 800</div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=永豐活海鮮餐廳" target="_blank" class="text-brand-accent hover:underline block mt-2 font-bold">🗺️ 點此查看 Google Map 地圖連結</a>
+                        </div>
+                    </div>
+                    <!-- Option 3 -->
+                    <div class="border border-stone-200 rounded-xl p-5 bg-white">
+                        <h4 class="font-bold text-gray-800 text-base">③ 饗宴海鮮合菜 ‧ 來來海鮮</h4>
+                        <p class="text-xs text-gray-400 mt-1">料理類型：高CP值平價海鮮熱炒</p>
+                        <p class="text-xs text-gray-500 mt-3"><strong>特色菜：</strong>避風塘炒蟹、鮮魚味噌湯、糕渣拼盤。</p>
+                        <p class="text-xs text-gray-600 mt-2"><strong>長輩友善：</strong>出菜極快，適合不喜歡等太久的大家庭。</p>
+                        <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-500 space-y-1">
+                            <div>🕒 11:00-14:00, 17:00-21:00</div>
+                            <div>💰 平均每人 NT$ 400 - 600</div>
+                            <a href="https://www.google.com/maps/search/?api=1&query=五結來來海鮮" target="_blank" class="text-brand-accent hover:underline block mt-2 font-bold">🗺️ 點此查看 Google Map 地圖連結</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: 烤肉採購清單 (【唯一保留】勾選功能以利現場採買分工) -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-brand-light print-card">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-4 border-b border-gray-100">
+                <div class="flex items-center space-x-3">
+                    <span class="w-2.5 h-6 bg-brand-accent rounded-full"></span>
+                    <h2 class="text-2xl font-bold text-brand-dark">第一晚「36人星空烤肉」食材物資採購清單 (支持動態勾選)</h2>
+                </div>
+                <span class="text-xs bg-brand text-white font-bold px-3 py-1 rounded-full mt-2 md:mt-0">依成人 30人、幼兒 6人精準劑量設計</span>
+            </div>
+
+            <div class="p-4 bg-emerald-50 rounded-xl text-xs text-emerald-800 leading-relaxed mb-6">
+                <strong>📝 食材比例精算原則：</strong>
+                成人肉類/海鮮配給約為 300g/人，幼童為 150g/人，總肉量估約 10kg。特別安排低脂肉品與大量軟嫩蔬菜（如水果玉米、筊白筍），並備有無糖茶與兒童專屬鮮乳，兼顧全齡健康！
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[800px]">
+                    <thead>
+                        <tr class="border-b border-stone-200 text-brand-dark/70 text-sm bg-stone-50">
+                            <th class="p-3 font-bold w-12">確認</th>
+                            <th class="p-3 font-bold w-24">分類</th>
+                            <th class="p-3 font-bold w-48">品項名稱</th>
+                            <th class="p-3 font-bold w-28">建議採購數量</th>
+                            <th class="p-3 font-bold w-20">預估單價</th>
+                            <th class="p-3 font-bold w-20">預估小計</th>
+                            <th class="p-3 font-bold w-24">購買建議地點</th>
+                            <th class="p-3 font-bold w-20">負責人</th>
+                            <th class="p-3 font-bold">備註與保存方法</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 text-sm text-gray-600">
+                        <!-- 肉類 -->
+                        <tr>
+                            <td class="p-3"><input type="checkbox" class="rounded text-brand-accent focus:ring-brand-accent w-4 h-4"></td>
+                            <td class="p-3 font-bold text-brand-dark">🥩 精緻肉品</td>
+                            <td class="p-3">厚切梅花豬排 (烤肉必備)</td>
+                            <td class="p-3">20 盒 (約 5kg)</td>
+                            <td class="p-3">NT$ 150</td>
+                            <td class="p-3">NT$ 3,000</td>
+                            <td class="p-3">喜互惠超市</td>
+                            <td class="p-3">沛翰</td>
+                            <td class="p-3 text-xs">肉質軟嫩，極適合牙口不好之長輩。</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3"><input type="checkbox" class="rounded text-brand-accent focus:ring-brand-accent w-4 h-4"></td>
+                            <td class="p-3 font-bold text-brand-dark">🥩 精緻肉品</td>
+                            <td class="p-3">去骨嫩雞腿肉 (已醃漬)</td>
+                            <td class="p-3">15 包 (約 3.5kg)</td>
+                            <td class="p-3">NT$ 120</td>
+                            <td class="p-3">NT$ 1,800</td>
+                            <td class="p-3">喜互惠超市</td>
+                            <td class="p-3">沛翰</td>
+                            <td class="p-3 text-xs">口感軟滑，孩子與長輩均極易入口。</td>
+                        </tr>
+                        <!-- 海鮮 -->
+                        <tr>
+                            <td class="p-3"><input type="checkbox" class="rounded text-brand-accent focus:ring-brand-accent w-4 h-4"></td>
+                            <td class="p-3 font-bold text-brand-dark">🐟 鮮美海鮮</td>
+                            <td class="p-3">帶殼大草蝦 (急速冷凍)</td>
+                            <td class="p-3">6 盒 (約 60 隻)</td>
+                            <td class="p-3">NT$ 350</td>
+                            <td class="p-3">NT$ 2,100</td>
+                            <td class="p-3">喜互惠超市</td>
+                            <td class="p-3">郡儀</td>
+                            <td class="p-3 text-xs">大草蝦好剝肉彈，備妥冰塊保鮮。</td>
+                        </tr>
+                        <!-- 蔬菜 -->
+                        <tr>
+                            <td class="p-3"><input type="checkbox" class="rounded text-brand-accent focus:ring-brand-accent w-4 h-4"></td>
+                            <td class="p-3 font-bold text-brand-dark">🥬 清甜蔬菜</td>
+                            <td class="p-3">宜蘭本地三星蔥 + 水果玉米</td>
+                            <td class="p-3">各 10 串 / 20 支</td>
+                            <td class="p-3">NT$ 150</td>
+                            <td class="p-3">NT$ 1,500</td>
+                            <td class="p-3">喜互惠超市</td>
+                            <td class="p-3">郡儀</td>
+                            <td class="p-3 text-xs">在地三星蔥烤來極甜！水果玉米超甜多汁。</td>
+                        </tr>
+                        <!-- 主食 -->
+                        <tr>
+                            <td class="p-3"><input type="checkbox" class="rounded text-brand-accent focus:ring-brand-accent w-4 h-4"></td>
+                            <td class="p-3 font-bold text-brand-dark">🍞 主食系列</td>
+                            <td class="p-3">軟綿鮮奶吐司 + 銅板烤麻糬</td>
+                            <td class="p-3">6 袋 / 5 盒</td>
+                            <td class="p-3">NT$ 80</td>
+                            <td class="p-3">NT$ 880</td>
+                            <td class="p-3">喜互惠超市</td>
+                            <td class="p-3">芷嫺</td>
+                            <td class="p-3 text-xs">鮮奶吐司不乾澀，夾烤肉極讚。</td>
+                        </tr>
+                        <!-- 飲品 -->
+                        <tr>
+                            <td class="p-3"><input type="checkbox" class="rounded text-brand-accent focus:ring-brand-accent w-4 h-4"></td>
+                            <td class="p-3 font-bold text-brand-dark">🍹 清涼飲品</td>
+                            <td class="p-3">生啤酒桶 (預約) + 無糖綠茶 + 水</td>
+                            <td class="p-3">1 桶 / 各 3 箱</td>
+                            <td class="p-3">NT$ 2,500</td>
+                            <td class="p-3">NT$ 3,500</td>
+                            <td class="p-3">超市/酒商配送</td>
+                            <td class="p-3">泓叡</td>
+                            <td class="p-3 text-xs">長輩多選無糖茶與瓶裝水，保持水分。</td>
+                        </tr>
+                        <!-- 用品 -->
+                        <tr>
+                            <td class="p-3"><input type="checkbox" class="rounded text-brand-accent focus:ring-brand-accent w-4 h-4"></td>
+                            <td class="p-3 font-bold text-brand-dark">🔧 烤肉用品</td>
+                            <td class="p-3">高級無煙炭 + 環保紙餐具組</td>
+                            <td class="p-3">5 包 / 4 套</td>
+                            <td class="p-3">NT$ 200</td>
+                            <td class="p-3">NT$ 1,000</td>
+                            <td class="p-3">喜互惠超市</td>
+                            <td class="p-3">謹頤</td>
+                            <td class="p-3 text-xs">雲舞間Villa有提供烤肉架，僅自備炭火與消耗品。</td>
+                        </tr>
+                        <!-- 總計 -->
+                        <tr class="bg-brand-light/60 font-bold text-brand-dark">
+                            <td class="p-3"></td>
+                            <td class="p-3">合計估算</td>
+                            <td class="p-3 text-brand-accent">36人豪華烤肉晚宴</td>
+                            <td class="p-3">--</td>
+                            <td class="p-3">--</td>
+                            <td class="p-3 text-lg">NT$ 13,780</td>
+                            <td class="p-3">--</td>
+                            <td class="p-3">--</td>
+                            <td class="p-3 text-xs">平均每位僅約 NT$ 380，豐盛飽足！</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 8: 家族分工任務表 -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-brand-light print-card">
+            <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-gray-100">
+                <span class="w-2.5 h-6 bg-brand rounded-full"></span>
+                <h2 class="text-2xl font-bold text-brand-dark">家族籌備任務分工表</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse min-w-[700px]">
+                    <thead>
+                        <tr class="border-b border-stone-200 text-brand-dark/70 text-sm bg-stone-50">
+                            <th class="p-3 font-bold w-16">項次</th>
+                            <th class="p-3 font-bold w-40">任務項目</th>
+                            <th class="p-3 font-bold w-64">詳細內容說明</th>
+                            <th class="p-3 font-bold w-28">最遲完成日</th>
+                            <th class="p-3 font-bold w-24">主責人</th>
+                            <th class="p-3 font-bold">備註與進度備忘</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 text-sm text-gray-600">
+                        <tr>
+                            <td class="p-3 text-stone-400 font-mono">01</td>
+                            <td class="p-3 font-bold text-gray-800">別墅尾款確認</td>
+                            <td class="p-3">備妥現金 NT$ 40,000，並與雲舞間管家對好入住房型。</td>
+                            <td class="p-3 font-semibold text-brand">2026/08/07</td>
+                            <td class="p-3">黃薇樺</td>
+                            <td class="p-3 text-xs">已匯1萬訂金。尾款現場交付。</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 text-stone-400 font-mono">02</td>
+                            <td class="p-3 font-bold text-gray-800">餐廳桌位付訂</td>
+                            <td class="p-3">撥打百匯窯烤雞與甲富哥海產電話，鎖定36位（4桌）大位置。</td>
+                            <td class="p-3 font-semibold text-brand">2026/07/08</td>
+                            <td class="p-3">黃薇樺</td>
+                            <td class="p-3 text-xs">建議於出發前一個月完成電話確認與匯款。</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 text-stone-400 font-mono">03</td>
+                            <td class="p-3 font-bold text-gray-800">採買與冰桶準備</td>
+                            <td class="p-3">準備大冰桶2個裝自駕車，喜互惠超市採購肉品生鮮用。</td>
+                            <td class="p-3 font-semibold text-brand">2026/08/08</td>
+                            <td class="p-3">沛翰 / 郡儀</td>
+                            <td class="p-3 text-xs">採購組車長需攜帶大冰桶。</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 text-stone-400 font-mono">04</td>
+                            <td class="p-3 font-bold text-gray-800">幼兒與長輩常備藥</td>
+                            <td class="p-3">提醒帶長輩防蚊液、血壓藥、孩子常備退燒藥與感冒藥。</td>
+                            <td class="p-3 font-semibold text-brand">2026/08/07</td>
+                            <td class="p-3">各家家長</td>
+                            <td class="p-3 text-xs">防蚊與防曬在宜蘭盛夏非常重要。</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 text-stone-400 font-mono">05</td>
+                            <td class="p-3 font-bold text-gray-800">家族收款總會計</td>
+                            <td class="p-3">負責統整過路費、餐費、別墅款、食材費之公帳收款與分配。</td>
+                            <td class="p-3 font-semibold text-brand">2026/08/09</td>
+                            <td class="p-3">謹頤</td>
+                            <td class="p-3 text-xs">行程中隨時記帳，第二天晚上車程前分攤完畢。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 9: 費用估算與分攤建議 (互動式動態試算功能) -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-brand-light print-card">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-4 border-b border-gray-100">
+                <div class="flex items-center space-x-3">
+                    <span class="w-2.5 h-6 bg-brand rounded-full"></span>
+                    <h2 class="text-2xl font-bold text-brand-dark">財務收支估算與互動分攤器</h2>
+                </div>
+                <span class="text-xs bg-amber-50 text-amber-800 font-bold px-3 py-1 rounded-full mt-2 md:mt-0">讓大眾公開透明無負擔</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 預算三大區間估計 -->
+                <div class="lg:col-span-1 space-y-4">
+                    <h3 class="font-bold text-brand-dark text-base border-b border-stone-100 pb-2">💰 預算方案評估</h3>
+                    
+                    <div class="p-4 bg-stone-50 rounded-xl border border-stone-100">
+                        <span class="text-xs font-bold text-gray-400">方案 A ‧ 保守簡約款</span>
+                        <div class="text-lg font-bold text-brand-dark mt-1">NT$ 2,200 / 人</div>
+                        <p class="text-xs text-gray-500 mt-1">含包棟、平價窯烤雞、別墅簡易烤肉（無額外自費門票）。</p>
+                    </div>
+
+                    <div class="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                        <span class="text-xs font-bold text-amber-600">方案 B ‧ 舒適經典款 (推薦)</span>
+                        <div class="text-lg font-bold text-amber-900 mt-1">NT$ 2,800 / 人</div>
+                        <p class="text-xs text-amber-700 mt-1">含包棟、豐盛百匯雞、奢華海陸烤肉啤酒、綠舞日式主題園區（含門票）、頂級甲富哥海產。</p>
+                    </div>
+
+                    <div class="p-4 bg-brand-light/50 rounded-xl border border-brand-light">
+                        <span class="text-xs font-bold text-brand">方案 C ‧ 寬裕奢華版</span>
+                        <div class="text-lg font-bold text-brand-dark mt-1">NT$ 3,800 / 人</div>
+                        <p class="text-xs text-gray-500 mt-1">含上述所有行程、額外加訂專業烤肉外燴服務、蘇澳豪華伴手禮，與多項付費DIY日式活動。</p>
+                    </div>
+                </div>
+
+                <!-- 費用細目估算表 -->
+                <div class="lg:col-span-2 space-y-6">
+                    <h3 class="font-bold text-brand-dark text-base border-b border-stone-100 pb-2">📝 基礎公帳開銷細目表 (以36人經典款估算)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs border-collapse">
+                            <thead>
+                                <tr class="border-b border-gray-100 text-gray-400">
+                                    <th class="pb-2">項目名稱</th>
+                                    <th class="pb-2">單價計算</th>
+                                    <th class="pb-2">數量</th>
+                                    <th class="pb-2 text-right">小計</th>
+                                    <th class="pb-2">公務備註</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-50 text-gray-600">
+                                <tr>
+                                    <td class="py-2.5 font-bold text-gray-800">雲舞間Villa包棟費</td>
+                                    <td class="py-2.5">NT$ 50,000 / 棟 (含下午茶早餐)</td>
+                                    <td class="py-2.5">1 晚</td>
+                                    <td class="py-2.5 text-right font-bold text-brand-dark">NT$ 50,000</td>
+                                    <td class="py-2.5 text-xs text-brand-accent">已付1萬訂金，現場付4萬。</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2.5 font-bold text-gray-800">百匯窯烤雞午餐</td>
+                                    <td class="py-2.5">NT$ 5,000 / 桌 (含飲料)</td>
+                                    <td class="py-2.5">4 桌</td>
+                                    <td class="py-2.5 text-right font-bold text-brand-dark">NT$ 20,000</td>
+                                    <td class="py-2.5 text-xs">首日大聚餐。</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2.5 font-bold text-gray-800">烤肉食材與啤酒物資</td>
+                                    <td class="py-2.5">NT$ 380 / 人估量</td>
+                                    <td class="py-2.5">36 人</td>
+                                    <td class="py-2.5 text-right font-bold text-brand-dark">NT$ 13,780</td>
+                                    <td class="py-2.5 text-xs">喜互惠大量採買。</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2.5 font-bold text-gray-800">親子場所 綠舞園區門票</td>
+                                    <td class="py-2.5">團體票 NT$ 150 / 人 (幼童免費)</td>
+                                    <td class="py-2.5">30 人</td>
+                                    <td class="py-2.5 text-right font-bold text-brand-dark">NT$ 4,500</td>
+                                    <td class="py-2.5 text-xs">現場憑多人合買團體票。</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2.5 font-bold text-gray-800">甲富哥活海產午餐</td>
+                                    <td class="py-2.5">NT$ 7,000 / 桌 (含澎湃水果盤)</td>
+                                    <td class="py-2.5">4 桌</td>
+                                    <td class="py-2.5 text-right font-bold text-brand-dark">NT$ 28,000</td>
+                                    <td class="py-2.5 text-xs">返程奢華大餐。</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2.5 font-bold text-gray-800">行政預備公積金</td>
+                                    <td class="py-2.5">應付過路費與油資補貼/小點心</td>
+                                    <td class="py-2.5">1 批</td>
+                                    <td class="py-2.5 text-right font-bold text-brand-dark">NT$ 3,720</td>
+                                    <td class="py-2.5 text-xs">多退少補。</td>
+                                </tr>
+                                <tr class="bg-stone-50 font-bold text-sm text-brand-dark">
+                                    <td class="py-3">估計總費用金額</td>
+                                    <td class="py-3">--</td>
+                                    <td class="py-3">--</td>
+                                    <td class="py-3 text-right text-amber-700 text-base">NT$ 120,000</td>
+                                    <td class="py-3 text-xs text-gray-500">公帳全包總預算。</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 互動分攤計算機 (JS) -->
+                    <div class="p-5 bg-brand-light/40 border border-brand/10 rounded-xl space-y-4 no-print">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-brand-dark text-sm">💡 互動公帳分攤計算機</h4>
+                            <span class="text-xs bg-brand text-white px-2 py-0.5 rounded">即時試算</span>
+                        </div>
+                        <div class="flex items-center space-x-4 text-xs">
+                            <label class="flex items-center space-x-1 cursor-pointer">
+                                <input type="radio" name="split_method" value="head" checked onclick="calculateSplit()" class="text-brand focus:ring-brand">
+                                <span>按36人頭均分 (大人小孩等值)</span>
+                            </label>
+                            <label class="flex items-center space-x-1 cursor-pointer">
+                                <input type="radio" name="split_method" value="family" onclick="calculateSplit()" class="text-brand focus:ring-brand">
+                                <span>按 10 家戶均分</span>
+                            </label>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-stone-100 flex justify-between items-center">
+                            <span class="text-xs text-gray-500">預計應收金額：</span>
+                            <span id="split_result" class="text-lg font-black text-brand-dark">NT$ 3,333 / 人</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 10: 5項獨立建議景點 -->
+        <section class="space-y-8 print-card">
+            <div class="text-center">
+                <span class="text-brand-accent text-xs font-bold tracking-widest uppercase">EXTRA PLACES</span>
+                <h2 class="text-3xl font-extrabold text-brand-dark mt-2">五項獨立推薦景點 (備案與順遊)</h2>
+                <p class="text-sm text-gray-500 mt-1">涵蓋親子、大自然、雨天室內、長輩樂活，可彈性安插至空檔時間</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+                <!-- 景點1 -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-brand-light flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block px-2 py-0.5 bg-emerald-100 text-emerald-800 text-[10px] font-bold rounded mb-2">自然景點 ‧ 長輩極推</span>
+                        <h4 class="font-bold text-brand-dark text-base">一、明池國家森林遊樂區</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed">黑天鵝與大霧迷濛的落羽松，長輩散步如登仙境，夏日避暑首選。</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-400">
+                        <div class="text-brand font-semibold">📍 大同鄉英士村 </div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=明池國家森林遊樂區" target="_blank" class="text-brand-accent hover:underline block mt-1 font-bold">🗺️ 開啟導航</a>
+                    </div>
+                </div>
+                <!-- 景點2 -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-brand-light flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block px-2 py-0.5 bg-sky-100 text-sky-800 text-[10px] font-bold rounded mb-2">親子同樂 ‧ 動物互動</span>
+                        <h4 class="font-bold text-brand-dark text-base">二、斑比山丘</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed">小奈良餵梅花鹿、水豚，有超美霜淇淋與彩繪地標，孩子超愛。</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-400">
+                        <div class="text-brand font-semibold">📍 冬山鄉下湖路285號</div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=斑比山丘" target="_blank" class="text-brand-accent hover:underline block mt-1 font-bold">🗺️ 開啟導航</a>
+                    </div>
+                </div>
+                <!-- 景點3 -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-brand-light flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block px-2 py-0.5 bg-amber-100 text-amber-800 text-[10px] font-bold rounded mb-2">文化傳承 ‧ 無障礙</span>
+                        <h4 class="font-bold text-brand-dark text-base">三、宜蘭傳藝園區</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed">紅磚老街、手作DIY、乘船遊河，全區無障礙通道，長輩輪椅也超好推。</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-400">
+                        <div class="text-brand font-semibold">📍 五結鄉五結路二段201號</div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=宜蘭傳藝園區" target="_blank" class="text-brand-accent hover:underline block mt-1 font-bold">🗺️ 開啟導航</a>
+                    </div>
+                </div>
+                <!-- 景點4 -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-brand-light flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block px-2 py-0.5 bg-purple-100 text-purple-800 text-[10px] font-bold rounded mb-2">室內避雨 ‧ 吹冷氣</span>
+                        <h4 class="font-bold text-brand-dark text-base">四、蜡藝蠟筆城堡</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed">全亞洲最大彩色筆外觀！室內巨大彩色城堡，下雨也能玩到瘋。</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-400">
+                        <div class="text-brand font-semibold">📍 蘇澳鎮海山西路500號</div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=蜡藝蠟筆城堡" target="_blank" class="text-brand-accent hover:underline block mt-1 font-bold">🗺️ 開啟導航</a>
+                    </div>
+                </div>
+                <!-- 景點5 -->
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-brand-light flex flex-col justify-between">
+                    <div>
+                        <span class="inline-block px-2 py-0.5 bg-rose-100 text-rose-800 text-[10px] font-bold rounded mb-2">放空漫步 ‧ 幼兒無壓力</span>
+                        <h4 class="font-bold text-brand-dark text-base">五、羅東運動公園落羽松</h4>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed">在別墅隔壁，有大片草地、能餵飽飽的大錦鯉，最天然無壓放電景點。</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-400">
+                        <div class="text-brand font-semibold">📍 羅東鎮公正路666號</div>
+                        <a href="https://www.google.com/maps/search/?api=1&query=羅東運動公園落羽松" target="_blank" class="text-brand-accent hover:underline block mt-1 font-bold">🗺️ 開啟導航</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 11: 十項伴手禮推薦 -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-brand-light print-card">
+            <div class="flex items-center space-x-3 mb-8 pb-4 border-b border-gray-100">
+                <span class="w-2.5 h-6 bg-brand-accent rounded-full"></span>
+                <h2 class="text-2xl font-bold text-brand-dark">精選宜蘭十大人氣伴手禮推薦</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 1 -->
+                <div class="flex items-start space-x-3 p-3 bg-stone-50 rounded-xl">
+                    <span class="text-brand-accent font-bold mt-0.5">•</span>
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-sm">1. 奕順軒 ‧ 奶凍捲</h4>
+                        <p class="text-xs text-gray-500 mt-1">奶香醇厚滑順，全家人回購第一名！需冷藏保存，返家當日再行購買。</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=奕順軒羅東店" target="_blank" class="text-[10px] text-brand-accent font-semibold block mt-1">📍 奕順軒羅東店 🗺️</a>
+                    </div>
+                </div>
+                <!-- 2 -->
+                <div class="flex items-start space-x-3 p-3 bg-stone-50 rounded-xl">
+                    <span class="text-brand-accent font-bold mt-0.5">•</span>
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-sm">2. 諾貝爾 ‧ 奶凍捲</h4>
+                        <p class="text-xs text-gray-500 mt-1">與奕順軒齊名，草莓奶凍風味極佳，深受大小朋友熱愛。</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=諾貝爾奶凍羅東店" target="_blank" class="text-[10px] text-brand-accent font-semibold block mt-1">📍 諾貝爾奶凍羅東店 🗺️</a>
+                    </div>
+                </div>
+                <!-- 3 -->
+                <div class="flex items-start space-x-3 p-3 bg-stone-50 rounded-xl">
+                    <span class="text-brand-accent font-bold mt-0.5">•</span>
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-sm">3. 順進蜜餞行</h4>
+                        <p class="text-xs text-gray-500 mt-1">老字號秤重蜜餞，平價多樣。話梅、芭樂乾是阿公阿嬤最愛古早味。</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=順進蜜餞行" target="_blank" class="text-[10px] text-brand-accent font-semibold block mt-1">📍 冬山鄉大進路438號 🗺️</a>
+                    </div>
+                </div>
+                <!-- 4 -->
+                <div class="flex items-start space-x-3 p-3 bg-stone-50 rounded-xl">
+                    <span class="text-brand-accent font-bold mt-0.5">•</span>
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-sm">4. 魏姐包心粉圓 ‧ 禮盒包裝</h4>
+                        <p class="text-xs text-gray-500 mt-1">在家也能重現羅東夜市美味，大顆黑糖包心粉圓，Q彈帶勁。</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=魏姐包心粉圓羅東" target="_blank" class="text-[10px] text-brand-accent font-semibold block mt-1">📍 羅東夜市店 🗺️</a>
+                    </div>
+                </div>
+                <!-- 5 -->
+                <div class="flex items-start space-x-3 p-3 bg-stone-50 rounded-xl">
+                    <span class="text-brand-accent font-bold mt-0.5">•</span>
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-sm">5. 博士鴨 ‧ 鴨賞鴨排</h4>
+                        <p class="text-xs text-gray-500 mt-1">高規格櫻桃鴨精緻醃製，真空包裝，帶回家切絲配三星蔥即可大口下酒。</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=博士鴨五結店" target="_blank" class="text-[10px] text-brand-accent font-semibold block mt-1">📍 五結鄉福興村 🗺️</a>
+                    </div>
+                </div>
+                <!-- 6 -->
+                <div class="flex items-start space-x-3 p-3 bg-stone-50 rounded-xl">
+                    <span class="text-brand-accent font-bold mt-0.5">•</span>
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-sm">6. 謝記鴨賞</h4>
+                        <p class="text-xs text-gray-500 mt-1">百年古法炭烤，煙燻香氣厚重，長輩泡茶的最佳傳統鹹香點心。</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=謝記鴨賞五結" target="_blank" class="text-[10px] text-brand-accent font-semibold block mt-1">📍 五結鄉五結路二段 🗺️</a>
+                    </div>
+                </div>
+                <!-- 7 -->
+                <div class="flex items-start space-x-3 p-3 bg-stone-50 rounded-xl">
+                    <span class="text-brand-accent font-bold mt-0.5">•</span>
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-sm">7. 三源行 ‧ 肉乾肉鬆</h4>
+                        <p class="text-xs text-gray-500 mt-1">純手工溫體豬製作，肉鬆酥脆、肉乾蜜汁香甜。適合贈送親友長輩。</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=三源行宜蘭" target="_blank" class="text-[10px] text-brand-accent font-semibold block mt-1">📍 宜蘭市康樂路 🗺️</a>
+                    </div>
+                </div>
+                <!-- 8 -->
+                <div class="flex items-start space-x-3 p-3 bg-stone-50 rounded-xl">
+                    <span class="text-brand-accent font-bold mt-0.5">•</span>
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-sm">8. 三星蔥燒餅 (阿蔥師)</h4>
+                        <p class="text-xs text-gray-500 mt-1">外皮極為酥脆，多層次咬勁，滿滿脫水三星蔥鹹香，常溫易保存。</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=阿蔥師三星蔥燒餅" target="_blank" class="text-[10px] text-brand-accent font-semibold block mt-1">📍 羅東鎮純精路 🗺️</a>
+                    </div>
+                </div>
+                <!-- 9 -->
+                <div class="flex items-start space-x-3 p-3 bg-stone-50 rounded-xl">
+                    <span class="text-brand-accent font-bold mt-0.5">•</span>
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-sm">9. 宜蘭牛舌餅 (老房手作)</h4>
+                        <p class="text-xs text-gray-500 mt-1">有別於傳統，超薄脆牛舌餅香脆如洋芋片，適合買去辦公室分享。</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=宜蘭牛舌餅" target="_blank" class="text-[10px] text-brand-accent font-semibold block mt-1">📍 全省各大超市/羅東老店 🗺️</a>
+                    </div>
+                </div>
+                <!-- 10 -->
+                <div class="flex items-start space-x-3 p-3 bg-stone-50 rounded-xl">
+                    <span class="text-brand-accent font-bold mt-0.5">•</span>
+                    <div>
+                        <h4 class="font-bold text-brand-dark text-sm">10. 羅東肉羹番 (肉捲冷凍包)</h4>
+                        <p class="text-xs text-gray-500 mt-1">國宴指定小吃，冷凍包肉捲帶回家用氣炸鍋一炸，金黃酥脆超厲害。</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=羅東肉羹番" target="_blank" class="text-[10px] text-brand-accent font-semibold block mt-1">📍 羅東鎮民權路185-1號 🗺️</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 12: 十間餐廳總推薦 -->
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-brand-light print-card">
+            <div class="flex items-center space-x-3 mb-8 pb-4 border-b border-gray-100">
+                <span class="w-2.5 h-6 bg-brand rounded-full"></span>
+                <h2 class="text-2xl font-bold text-brand-dark">宜蘭十大家族餐廳總推薦名單</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse min-w-[750px]">
+                    <thead>
+                        <tr class="border-b border-stone-200 text-brand-dark/70 bg-stone-50">
+                            <th class="p-3 font-bold">餐廳名稱</th>
+                            <th class="p-3 font-bold">料理特色與代表菜</th>
+                            <th class="p-3 font-bold">均價 (每人)</th>
+                            <th class="p-3 font-bold">家庭友善亮點 (長輩/幼童)</th>
+                            <th class="p-3 font-bold">建議地圖連結</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 text-gray-600">
+                        <tr>
+                            <td class="p-3 font-bold text-gray-800">1. 紅樓中餐廳 (蘭城晶英)</td>
+                            <td class="p-3">櫻桃霸王鴨五吃、櫻桃鴨握壽司</td>
+                            <td class="p-3">NT$ 1,000 - 1,500</td>
+                            <td class="p-3">全台最厲害櫻桃烤鴨，環境奢華精緻。</td>
+                            <td class="p-3"><a href="https://www.google.com/maps/search/?api=1&query=紅樓中餐廳" target="_blank" class="text-brand-accent hover:underline">📍 導航 🗺️</a></td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-gray-800">2. 來來牛排館 (五結)</td>
+                            <td class="p-3">炙烤超大厚切牛排、紅茶酥皮濃湯吃到飽</td>
+                            <td class="p-3">NT$ 400 - 600</td>
+                            <td class="p-3">工業風、座位超多。孩子們的牛排天堂。</td>
+                            <td class="p-3"><a href="https://www.google.com/maps/search/?api=1&query=來來牛排館五結" target="_blank" class="text-brand-accent hover:underline">📍 導航 🗺️</a></td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-gray-800">3. 渡小月餐廳 (宜蘭老店)</td>
+                            <td class="p-3">招牌糕渣、蘭陽手路西魯肉</td>
+                            <td class="p-3">NT$ 600 - 800</td>
+                            <td class="p-3">國宴級蘭陽古早味菜色，極討長輩歡心。</td>
+                            <td class="p-3"><a href="https://www.google.com/maps/search/?api=1&query=宜蘭渡小月餐廳" target="_blank" class="text-brand-accent hover:underline">📍 導航 🗺️</a></td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-gray-800">4. 掌上明珠會館</td>
+                            <td class="p-3">頂級日式懷石創意無菜單</td>
+                            <td class="p-3">NT$ 1,500 - 3,000</td>
+                            <td class="p-3">極致日式禪風庭園，寧靜優雅，適合深度慢食。</td>
+                            <td class="p-3"><a href="https://www.google.com/maps/search/?api=1&query=掌上明珠會館" target="_blank" class="text-brand-accent hover:underline">📍 導航 🗺️</a></td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-gray-800">5. 壯圍穀倉風味妙手菜</td>
+                            <td class="p-3">割稻飯、古早味麥芽糖DIY體驗</td>
+                            <td class="p-3">NT$ 400 - 500</td>
+                            <td class="p-3">重現昔日農夫割稻文化，充滿鄉土趣味。</td>
+                            <td class="p-3"><a href="https://www.google.com/maps/search/?api=1&query=壯圍穀倉" target="_blank" class="text-brand-accent hover:underline">📍 導航 🗺️</a></td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-gray-800">6. 番割田甕缸雞</td>
+                            <td class="p-3">柴燒甕缸雞、涼拌三星蔥、招牌炸豆腐</td>
+                            <td class="p-3">NT$ 400 - 600</td>
+                            <td class="p-3">位於蘇澳交流道旁，大片玻璃採光，停車超寬敞。</td>
+                            <td class="p-3"><a href="https://www.google.com/maps/search/?api=1&query=番割田甕缸雞" target="_blank" class="text-brand-accent hover:underline">📍 導航 🗺️</a></td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-gray-800">7. 青山食藝 ‧ 料理</td>
+                            <td class="p-3">無菜單日台混搭美學合菜</td>
+                            <td class="p-3">NT$ 800 - 1,200</td>
+                            <td class="p-3">一人一套精緻上菜，不需搶食，尊榮感高。</td>
+                            <td class="p-3"><a href="https://www.google.com/maps/search/?api=1&query=青山食藝" target="_blank" class="text-brand-accent hover:underline">📍 導航 🗺️</a></td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-gray-800">8. 蘭陽溪口親子餐廳</td>
+                            <td class="p-3">現做窯烤披薩、義大利麵、精緻甜點</td>
+                            <td class="p-3">NT$ 350 - 500</td>
+                            <td class="p-3">設有室內大球池、戶外沙坑，孩子瘋狂放電。</td>
+                            <td class="p-3"><a href="https://www.google.com/maps/search/?api=1&query=蘭陽溪口親子餐廳" target="_blank" class="text-brand-accent hover:underline">📍 導航 🗺️</a></td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-gray-800">9. 饗家無菜單料理 (五結)</td>
+                            <td class="p-3">現撈深海魚兩吃、特色手工鮮蝦燒賣</td>
+                            <td class="p-3">NT$ 600 - 1,000</td>
+                            <td class="p-3">極具宜蘭在地情懷的大圓桌，擺盤大氣十足。</td>
+                            <td class="p-3"><a href="https://www.google.com/maps/search/?api=1&query=饗家無菜單料理" target="_blank" class="text-brand-accent hover:underline">📍 導航 🗺️</a></td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-gray-800">10. 阿國海鮮 (壯圍)</td>
+                            <td class="p-3">炭火慢燉黑糖粉圓、現煎野生馬頭魚</td>
+                            <td class="p-3">NT$ 600 - 900</td>
+                            <td class="p-3">神級平價活海產，免費炭燒粉圓無限享用。</td>
+                            <td class="p-3"><a href="https://www.google.com/maps/search/?api=1&query=阿國海鮮" target="_blank" class="text-brand-accent hover:underline">📍 導航 🗺️</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 13: 注意事項 & 出發前 Check -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 print-card">
+            <!-- 出發前確認清單 -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-light">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="w-2.5 h-6 bg-brand rounded-full"></span>
+                    <h2 class="text-2xl font-bold text-brand-dark">出發前行李準備指南</h2>
+                </div>
+                <div class="space-y-4 text-sm text-gray-600">
+                    <div class="flex items-start space-x-3">
+                        <span class="text-brand-accent mt-1">✦</span>
+                        <span><strong>身分證件與健保卡：</strong>長輩與孩子健保卡務必隨身攜帶。</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="text-brand-accent mt-1">✦</span>
+                        <span><strong>民宿房款尾款現金：</strong>NT$ 40,000 (民宿現場交付)。</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="text-brand-accent mt-1">✦</span>
+                        <span><strong>別墅泳池泳裝：</strong>別墅設有戲水泳池，請大人小孩自備泳衣泳帽。</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="text-brand-accent mt-1">✦</span>
+                        <span><strong>夏日防曬與防蚊：</strong>宜蘭五結盛夏小黑蚊多，防蚊液務必備足。</span>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <span class="text-brand-accent mt-1">✦</span>
+                        <span><strong>個人常備藥物：</strong>長輩三高藥物、暈車藥、小兒常備退燒。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 注意事項 -->
+            <div class="bg-red-50/50 p-8 rounded-2xl border border-red-100">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="w-2.5 h-6 bg-red-600 rounded-full"></span>
+                    <h2 class="text-2xl font-bold text-red-950">安全與重要注意事項</h2>
+                </div>
+                <ul class="space-y-4 text-sm text-red-900 leading-relaxed">
+                    <li class="flex items-start">
+                        <span class="mr-2">⚠️</span>
+                        <div><strong>民宿安全規範：</strong>雲舞間別墅園區遼闊，孩童於草地、池畔活動時，大人務必全程陪同看管，嚴禁獨自涉水。</div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2">⚠️</span>
+                        <div><strong>行車安全第一：</strong>自駕車輛多達10台，請設定同一個車長 LINE 頻道，隨時通報塞車路段與休息站停留，切勿趕路。</div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2">⚠️</span>
+                        <div><strong>退房時間與整潔：</strong>民宿退房時間為 10:00，請前一晚烤肉結束後協助將大型垃圾分類，共同維護優質包棟別墅環境。</div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2">⚠️</span>
+                        <div><strong>出發前再次確認：</strong>所有餐期桌位、超市營業時間，請在 8/1 左右由負責人進行最後一次去電核對。</div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- SECTION 14: 互動討論留言板 -->
+        <section class="bg-stone-100 p-8 rounded-2xl border border-stone-200 no-print">
+            <div class="flex items-center space-x-3 mb-4">
+                <span class="p-2 bg-brand text-white rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                </span>
+                <h2 class="text-2xl font-bold text-brand-dark">家族討論備註板 (現場互動討論用)</h2>
+            </div>
+            <p class="text-xs text-gray-500 mb-6">可在下方即時輸入家人提出的意見（例如：誰不吃蝦、誰想帶風箏、車位分配），點擊新增，便可動態顯示在網頁底部，供大會記錄！</p>
+
+            <div class="space-y-4">
+                <div class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-3">
+                    <input type="text" id="note_member" placeholder="提出成員 (如：相蓉)" class="px-4 py-2 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand w-full md:w-1/4">
+                    <input type="text" id="note_content" placeholder="討論內容備註 (如：當天帶一箱葡萄柚去烤肉配啤酒...)" class="px-4 py-2 rounded-xl border border-stone-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand w-full md:w-3/4">
+                    <button onclick="addNote()" class="px-6 py-2 bg-brand text-white font-bold rounded-xl hover:bg-brand-dark transition text-sm whitespace-nowrap">新增備註</button>
+                </div>
+
+                <!-- 留言呈現區 -->
+                <div class="bg-white p-4 rounded-xl border border-stone-200 min-h-[100px] space-y-2" id="notes_list">
+                    <div class="text-xs text-gray-400 italic">目前尚無即時討論記錄，請在上方輸入...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRINT BUTTON -->
+        <div class="text-center no-print">
+            <button onclick="window.print()" class="px-8 py-3.5 bg-brand-accent text-white font-black rounded-2xl hover:bg-opacity-90 shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 inline-flex items-center space-x-3 text-base">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                <span>列印本份家族企劃書 (Print PDF)</span>
+            </button>
+            <p class="text-[10px] text-gray-400 mt-2">※ 網頁已優化列印格式，將自動隱藏互動按鈕，完美呈現紙本排版。</p>
         </div>
-        <div class="card">
-          <h3>行程重點</h3>
-          <span class="pill green">百匯窯烤雞</span>
-          <span class="pill green">下午採買</span>
-          <span class="pill green">雲舞間包棟</span>
-          <span class="pill">親子休閒</span>
-          <span class="pill">甲富哥活海產</span>
-          <span class="pill">歸途</span>
-        </div>
-      </div>
-    </section>
 
-    <section class="section" id="itinerary">
-      <h2>2. 每日行程</h2>
+    </main>
 
-      <div class="day">
-        <h3>Day 1｜2026/8/8（六）百匯午餐・下午採買・入住雲舞間</h3>
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark text-stone-400 text-center py-12 px-4 mt-20 border-t border-brand/20">
+        <p class="text-sm">鍾家 2026 宜蘭盛夏慶典 ‧ 36人包棟歡樂之旅 討論企劃書</p>
+        <p class="text-xs mt-2 text-stone-500">主辦人：黃薇樺 0900179130 | 尾款 NT$ 40,000 | 祝您旅途平安，收穫滿滿歡笑！</p>
+    </footer>
 
-        <div class="route-box">
-          <strong>Day 1 Google Map 路線</strong>
-          <p><a href="https://www.google.com/maps/dir/百匯窯烤雞餐廳/羅東全聯/雲舞間Villa" target="_blank">各自出發 → 百匯窯烤雞 → 羅東 / 五結採買 → 雲舞間 Villa</a></p>
-        </div>
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+        // 1. 動態分攤試算
+        function calculateSplit() {
+            const method = document.querySelector('input[name="split_method"]:checked').value;
+            const resultElement = document.getElementById('split_result');
+            const totalBudget = 120000; // 預估總額
+            
+            if (method === 'head') {
+                const perHead = Math.round(totalBudget / 36);
+                resultElement.innerText = `NT$ ${perHead.toLocaleString()} / 每人 (不分大人小孩)`;
+            } else if (method === 'family') {
+                const perFamily = Math.round(totalBudget / 10);
+                resultElement.innerText = `NT$ ${perFamily.toLocaleString()} / 每戶 (共10間/家分攤)`;
+            }
+        }
 
-        <table>
-          <thead>
-            <tr>
-              <th>時間</th>
-              <th>行程項目</th>
-              <th>地點</th>
-              <th>停留時間</th>
-              <th>交通方式</th>
-              <th>預估車程 / 距離</th>
-              <th>Google Map</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>09:00–11:20</td>
-              <td>各家庭自行出發</td>
-              <td>各自住家 → 百匯窯烤雞餐廳</td>
-              <td>依各車安排</td>
-              <td>自行開車</td>
-              <td>依出發地不同</td>
-              <td><a href="https://www.google.com/maps/search/?api=1&query=百匯窯烤雞餐廳%20宜蘭縣五結鄉福興村五結路三段171號" target="_blank">百匯導航</a></td>
-            </tr>
-            <tr>
-              <td>11:30–13:20</td>
-              <td>午餐</td>
-              <td>百匯窯烤雞餐廳</td>
-              <td>約 110 分鐘</td>
-              <td>自行開車集合</td>
-              <td>實際路況請確認</td>
-              <td><a href="https://www.google.com/maps/search/?api=1&query=百匯窯烤雞餐廳%20268宜蘭縣五結鄉福興村五結路三段171號" target="_blank">百匯地圖</a></td>
-            </tr>
-            <tr>
-              <td>13:30–14:40</td>
-              <td>下午採買</td>
-              <td>五結 / 羅東 / 冬山超市或量販店</td>
-              <td>60–70 分鐘</td>
-              <td>採買車 1–2 台</td>
-              <td>約 10–20 分鐘</td>
-              <td><a href="https://www.google.com/maps/search/?api=1&query=羅東%20全聯%20家樂福%20超市%20飲料%20冰塊" target="_blank">採買點搜尋</a></td>
-            </tr>
-            <tr>
-              <td>14:40–15:20</td>
-              <td>前往住宿 / 辦理入住</td>
-              <td>雲舞間 Villa</td>
-              <td>40 分鐘</td>
-              <td>自行開車</td>
-              <td>約 15–30 分鐘</td>
-              <td><a href="https://www.google.com/maps/search/?api=1&query=雲舞間Villa%20宜蘭縣冬山鄉柯林二路430號" target="_blank">雲舞間導航</a></td>
-            </tr>
-            <tr>
-              <td>15:20–16:30</td>
-              <td>迎賓下午茶 / 房間分配</td>
-              <td>雲舞間 Villa 公共區</td>
-              <td>70 分鐘</td>
-              <td>民宿內步行</td>
-              <td>民宿內</td>
-              <td><a href="https://twminsu.tw/yunwujianvilla/" target="_blank">住宿資訊</a></td>
-            </tr>
-            <tr>
-              <td>16:30–18:00</td>
-              <td>自由活動</td>
-              <td>民宿內</td>
-              <td>90 分鐘</td>
-              <td>民宿內步行</td>
-              <td>民宿內</td>
-              <td><a href="https://www.google.com/maps/search/?api=1&query=雲舞間Villa" target="_blank">地點連結</a></td>
-            </tr>
-            <tr>
-              <td>18:00–20:00</td>
-              <td>民宿晚餐 / 宵夜</td>
-              <td>雲舞間 Villa</td>
-              <td>120 分鐘</td>
-              <td>民宿內</td>
-              <td>民宿內</td>
-              <td><a href="#shopping">採購確認清單</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        // 2. 家族互動留言板
+        let notes = [
+            { member: "總召薇樺", content: "8/8首日出發前一晚，請各車長加滿油，充飽電，準時 11:30 在百匯窯烤雞會合！" }
+        ];
 
-      <div class="day">
-        <h3>Day 2｜2026/8/9（日）親子休閒・甲富哥活海產・歸途</h3>
+        function renderNotes() {
+            const list = document.getElementById('notes_list');
+            if (notes.length === 0) {
+                list.innerHTML = `<div class="text-xs text-gray-400 italic">目前尚無即時討論記錄，請在上方輸入...</div>`;
+                return;
+            }
+            list.innerHTML = notes.map((note, index) => `
+                <div class="flex items-start justify-between p-2.5 bg-stone-50 rounded-lg text-xs border-l-4 border-brand-accent">
+                    <div class="space-y-0.5">
+                        <span class="font-bold text-brand-dark">[${note.member}]：</span>
+                        <span class="text-gray-600">${note.content}</span>
+                    </div>
+                    <button onclick="deleteNote(${index})" class="text-red-500 hover:text-red-700 font-bold ml-2">✕</button>
+                </div>
+            `).join('');
+        }
 
-        <div class="route-box">
-          <strong>Day 2 Google Map 路線</strong>
-          <p><a href="https://www.google.com/maps/dir/雲舞間Villa/羅東運動公園/甲富哥活海產" target="_blank">雲舞間 Villa → 羅東運動公園 → 甲富哥活海產 → 歸途</a></p>
-          <p><a href="https://www.google.com/maps/dir/雲舞間Villa/梅花湖/甲富哥活海產" target="_blank">備選路線：雲舞間 Villa → 梅花湖 → 甲富哥活海產 → 歸途</a></p>
-        </div>
+        function addNote() {
+            const memberInput = document.getElementById('note_member');
+            const contentInput = document.getElementById('note_content');
+            
+            const member = memberInput.value.trim();
+            const content = contentInput.value.trim();
+            
+            if (!member || !content) {
+                // Not using raw browser alert - simple DOM logging or color flash
+                memberInput.classList.add('border-red-500');
+                contentInput.classList.add('border-red-500');
+                setTimeout(() => {
+                    memberInput.classList.remove('border-red-500');
+                    contentInput.classList.remove('border-red-500');
+                }, 1500);
+                return;
+            }
 
-        <table>
-          <thead>
-            <tr>
-              <th>時間</th>
-              <th>行程項目</th>
-              <th>地點</th>
-              <th>停留時間</th>
-              <th>交通方式</th>
-              <th>預估車程 / 距離</th>
-              <th>Google Map</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>08:00–09:00</td>
-              <td>民宿早餐</td>
-              <td>雲舞間 Villa</td>
-              <td>60 分鐘</td>
-              <td>民宿內</td>
-              <td>民宿內</td>
-              <td><a href="https://twminsu.tw/yunwujianvilla/" target="_blank">住宿資訊</a></td>
-            </tr>
-            <tr>
-              <td>09:00–10:00</td>
-              <td>整理行李 / 退房</td>
-              <td>雲舞間 Villa</td>
-              <td>60 分鐘</td>
-              <td>民宿內</td>
-              <td>民宿內</td>
-              <td><a href="https://www.google.com/maps/search/?api=1&query=雲舞間Villa" target="_blank">地點連結</a></td>
-            </tr>
-            <tr>
-              <td>10:10–11:20</td>
-              <td>親子休閒場所</td>
-              <td>羅東運動公園 / 梅花湖</td>
-              <td>60–70 分鐘</td>
-              <td>自行開車</td>
-              <td>約 10–25 分鐘</td>
-              <td><a href="https://www.google.com/maps/search/?api=1&query=羅東運動公園" target="_blank">羅東運動公園</a> / <a href="https://www.google.com/maps/search/?api=1&query=梅花湖" target="_blank">梅花湖</a></td>
-            </tr>
-            <tr>
-              <td>11:20–11:50</td>
-              <td>前往午餐</td>
-              <td>甲富哥活海產</td>
-              <td>30 分鐘</td>
-              <td>自行開車</td>
-              <td>約 10–25 分鐘</td>
-              <td><a href="https://www.google.com/maps/search/?api=1&query=甲富哥活海產%20宜蘭縣冬山鄉廣興路87號" target="_blank">甲富哥導航</a></td>
-            </tr>
-            <tr>
-              <td>11:50–13:40</td>
-              <td>午餐</td>
-              <td>甲富哥活海產</td>
-              <td>約 110 分鐘</td>
-              <td>自行開車集合</td>
-              <td>實際路況請確認</td>
-              <td><a href="https://www.google.com/maps/search/?api=1&query=甲富哥活海產%20宜蘭縣冬山鄉廣興路87號" target="_blank">甲富哥地圖</a></td>
-            </tr>
-            <tr>
-              <td>14:10 後</td>
-              <td>歸途</td>
-              <td>各家庭住家</td>
-              <td>依各車安排</td>
-              <td>自行開車</td>
-              <td>依返家方向</td>
-              <td><a href="https://www.google.com/maps" target="_blank">Google Map</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+            notes.push({ member, content });
+            memberInput.value = '';
+            contentInput.value = '';
+            renderNotes();
+        }
 
-    <section class="section" id="rooms">
-      <h2>3. 住宿與房間表</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>房號 / 空間</th>
-            <th>入住家庭 / 人員</th>
-            <th>建議入住人數</th>
-            <th>房型 / 空間</th>
-            <th>床型需求</th>
-            <th>房間負責人</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>01</strong></td><td>相蓉家</td><td>6 人</td><td>大家庭房 / 加床房</td><td>3 大床，或 2 大床 + 加床 / 地墊</td><td></td></tr>
-          <tr><td><strong>201</strong></td><td>郡儀家</td><td>4 人</td><td>四人房</td><td>2 大床</td><td></td></tr>
-          <tr><td><strong>202</strong></td><td>泓叡家</td><td>4 人</td><td>四人房</td><td>2 大床</td><td></td></tr>
-          <tr><td><strong>301</strong></td><td>謹頤家</td><td>5 人</td><td>五人 / 加床房</td><td>2 大床 + 1 加床，或大房型</td><td></td></tr>
-          <tr><td><strong>302</strong></td><td>芷嫺家</td><td>4 人</td><td>四人房</td><td>2 大床</td><td></td></tr>
-          <tr><td><strong>158</strong></td><td>沛翰家</td><td>3 人</td><td>三人 / 四人房</td><td>1 大床 + 1 小床，或 2 大床</td><td></td></tr>
-          <tr><td><strong>168</strong></td><td>秀菊</td><td>1 人</td><td>單人 / 雙人房</td><td>1 大床或 2 小床</td><td></td></tr>
-          <tr><td><strong>188</strong></td><td>美真、錦娥</td><td>2 人</td><td>雙人房</td><td>2 小床，或 1 大床</td><td></td></tr>
-          <tr><td><strong>太空艙 1</strong></td><td>佳佳</td><td>2 人</td><td>浪漫太空艙屋</td><td>依太空艙實際床型</td><td></td></tr>
-          <tr><td><strong>太空艙 2</strong></td><td>阿華</td><td>2 人</td><td>浪漫太空艙屋</td><td>依太空艙實際床型</td><td></td></tr>
-        </tbody>
-      </table>
+        function deleteNote(index) {
+            notes.splice(index, 1);
+            renderNotes();
+        }
 
-      <div class="grid grid-3">
-        <div class="card summary"><strong>房間表小計</strong><span>33 人</span></div>
-        <div class="card summary"><strong>原訂入住</strong><span>36 人</span></div>
-        <div class="card summary"><strong>尚待補入房間表</strong><span>3 人</span></div>
-      </div>
-    </section>
-
-    <section class="section" id="restaurants">
-      <h2>4. 餐廳安排</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>日期</th>
-            <th>餐別</th>
-            <th>餐廳 / 方案</th>
-            <th>料理類型</th>
-            <th>地址</th>
-            <th>Google Map</th>
-            <th>時間</th>
-            <th>價位估算</th>
-            <th>訂位負責人</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>8/8</td><td>午餐</td><td>百匯窯烤雞餐廳</td><td>窯烤雞 / 海鮮快炒</td><td>268宜蘭縣五結鄉福興村五結路三段171號</td><td><a href="https://www.google.com/maps/search/?api=1&query=百匯窯烤雞餐廳%20268宜蘭縣五結鄉福興村五結路三段171號" target="_blank">地圖</a></td><td>11:30</td><td>$400–700 / 人</td><td></td></tr>
-          <tr><td>8/8</td><td>晚餐</td><td>民宿輕烤肉 / 宵夜</td><td>簡化 BBQ / 熟食</td><td>雲舞間 Villa</td><td><a href="https://www.google.com/maps/search/?api=1&query=雲舞間Villa" target="_blank">地圖</a></td><td>18:00–20:00</td><td>$250–500 / 人</td><td></td></tr>
-          <tr><td>8/9</td><td>早餐</td><td>民宿早餐</td><td>住宿附早餐</td><td>雲舞間 Villa</td><td><a href="https://www.google.com/maps/search/?api=1&query=雲舞間Villa" target="_blank">地圖</a></td><td>民宿安排</td><td>依民宿規定</td><td></td></tr>
-          <tr><td>8/9</td><td>午餐</td><td>甲富哥活海產</td><td>活海產 / 熱炒 / 合菜</td><td>宜蘭縣冬山鄉廣興路87號</td><td><a href="https://www.google.com/maps/search/?api=1&query=甲富哥活海產%20宜蘭縣冬山鄉廣興路87號" target="_blank">地圖</a></td><td>11:50</td><td>$400–800 / 人</td><td></td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section class="section" id="shopping">
-      <h2>5. 採購確認清單</h2>
-      <div class="note">
-        採購清單為本文件唯一保留勾選功能的表單。數量以 36 人輕量晚餐、飲料、宵夜與公共用品估算。
-      </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>確認</th>
-            <th>分類</th>
-            <th>細項</th>
-            <th>建議數量</th>
-            <th>預估小計</th>
-            <th>購買地點</th>
-            <th>負責人</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><input type="checkbox"></td><td>飲用水</td><td>瓶裝水 600ml</td><td class="qty">4 箱</td><td>$720</td><td>全聯 / 量販店</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>無糖飲料</td><td>無糖綠茶、無糖烏龍茶、麥茶</td><td class="qty">6 組</td><td>$900</td><td>全聯 / 量販店</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>兒童飲品</td><td>果汁、牛奶、優酪乳</td><td class="qty">2 組</td><td>$350</td><td>全聯 / 量販店</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>冰品保冷</td><td>冰塊</td><td class="qty">6–8 包</td><td>$500</td><td>便利商店 / 超市</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>冰品保冷</td><td>保冷袋、冰寶</td><td class="qty">1 批</td><td>$500</td><td>超市 / 五金行</td><td></td></tr>
-
-          <tr><td><input type="checkbox"></td><td>輕烤肉</td><td>牛肉片 / 豬肉片</td><td class="qty">3 kg</td><td>$1,350</td><td>全聯 / 肉品店</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>輕烤肉</td><td>雞翅 / 雞腿排</td><td class="qty">3 kg</td><td>$750</td><td>全聯 / 肉品店</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>兒童友善</td><td>熱狗、雞塊、甜不辣</td><td class="qty">1 批</td><td>$900</td><td>全聯 / 量販店</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>蔬菜</td><td>玉米、杏鮑菇、香菇、青椒、洋蔥</td><td class="qty">8–10 份</td><td>$1,000</td><td>市場 / 全聯</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>主食</td><td>吐司、飯糰、白飯、炒麵</td><td class="qty">36–40 人份</td><td>$1,400</td><td>全聯 / 便當店</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>宵夜</td><td>泡麵、科學麵、餅乾、鹹點</td><td class="qty">1 批</td><td>$1,200</td><td>全聯 / 超市</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>水果</td><td>西瓜、葡萄、香蕉、芭樂</td><td class="qty">1 批</td><td>$1,500</td><td>水果行 / 全聯</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>長輩清爽選項</td><td>豆腐、蒸蛋材料、粥品、湯品</td><td class="qty">1 批</td><td>$800</td><td>全聯 / 市場</td><td></td></tr>
-
-          <tr><td><input type="checkbox"></td><td>調味料</td><td>烤肉醬、鹽、胡椒、醬油、辣椒</td><td class="qty">1 批</td><td>$500</td><td>全聯</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>烤肉用品</td><td>烤網、火種、炭火、夾子、手套</td><td class="qty">1 批</td><td>$1,200</td><td>五金行 / 超市</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>餐具</td><td>碗、盤、紙杯、筷子、湯匙</td><td class="qty">50 人份</td><td>$750</td><td>全聯 / 五金行</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>清潔</td><td>大垃圾袋、廚房紙巾、濕紙巾、洗碗精</td><td class="qty">1 批</td><td>$800</td><td>全聯 / 五金行</td><td></td></tr>
-          <tr><td><input type="checkbox"></td><td>備用用品</td><td>防蚊液、衛生紙、保鮮膜、夾鏈袋</td><td class="qty">1 批</td><td>$800</td><td>全聯 / 藥妝店</td><td></td></tr>
-        </tbody>
-      </table>
-      <div class="grid grid-3">
-        <div class="card summary"><strong>採購估算</strong><span class="money">$14,870</span></div>
-        <div class="card summary"><strong>建議公費</strong><span class="money">$18,000–$20,000</span></div>
-        <div class="card summary"><strong>採買時間</strong><span>8/8 午餐後</span></div>
-      </div>
-    </section>
-
-    <section class="section" id="budget">
-      <h2>6. 費用估算</h2>
-      <div class="grid grid-4">
-        <div class="card summary"><strong>包棟原計金額</strong><span class="money">$59,888</span></div>
-        <div class="card summary"><strong>優惠金額</strong><span class="money">$50,000</span></div>
-        <div class="card summary"><strong>已付訂金</strong><span class="money">$10,000</span></div>
-        <div class="card summary"><strong>尾款暫估</strong><span class="money">$40,000</span></div>
-      </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th>項目</th>
-            <th>計算方式</th>
-            <th>單價</th>
-            <th>數量</th>
-            <th>小計</th>
-            <th>分攤方式</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>住宿費</td><td>優惠包棟價</td><td>$50,000</td><td>1</td><td>$50,000</td><td>按人頭或家庭分攤</td></tr>
-          <tr><td>Day 1 百匯午餐</td><td>36 人聚餐</td><td>$600</td><td>36</td><td>$21,600</td><td>各家庭依人數</td></tr>
-          <tr><td>Day 2 甲富哥午餐</td><td>36 人海產聚餐</td><td>$650</td><td>36</td><td>$23,400</td><td>各家庭依人數</td></tr>
-          <tr><td>下午採買 / 民宿晚餐宵夜</td><td>輕量採買</td><td>$500</td><td>36</td><td>$18,000</td><td>公費分攤</td></tr>
-          <tr><td>交通費 / 油資</td><td>8 台車估算</td><td>$1,500</td><td>8</td><td>$12,000</td><td>各車自理或同車分攤</td></tr>
-          <tr><td>親子休閒費</td><td>羅東運動公園免費或梅花湖租車</td><td>$150</td><td>36</td><td>$5,400</td><td>各家庭自理</td></tr>
-          <tr><td>雜支與預備金</td><td>臨時用品與預備金</td><td>$10,000</td><td>1</td><td>$10,000</td><td>旅後退補</td></tr>
-          <tr><td><strong>合計</strong></td><td>舒適抓法</td><td>-</td><td>-</td><td><strong>$140,400</strong></td><td>約 $3,900 / 人</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-  </div>
+        // Initialize lists
+        window.onload = function() {
+            calculateSplit();
+            renderNotes();
+        }
+    </script>
 </body>
 </html>
