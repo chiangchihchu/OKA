@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桃園市雙連長跑協會 - 2026 科技跑者控制台</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                        tech: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        cyber: {
+                            bg: '#05070f',
+                            card: 'rgba(13, 20, 38, 0.7)',
+                            primary: '#00f2fe',  /* 電馭藍 */
+                            secondary: '#4facfe',
+                            runner: '#39ff14',   /* 極速螢光綠 */
+                            dark: '#0a0d1a',
+                            border: 'rgba(0, 242, 254, 0.15)'
+                        }
+                    },
+                    boxShadow: {
+                        'neon-blue': '0 0 15px rgba(0, 242, 254, 0.4)',
+                        'neon-runner': '0 0 20px rgba(57, 255, 20, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 科技感動態背景 */
+        body {
+            background-color: #05070f;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(57, 255, 20, 0.05) 0%, transparent 45%),
+                linear-gradient(rgba(18, 24, 48, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(18, 24, 48, 0.3) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+        }
+
+        /* 跑者動態線條 */
+        @keyframes run-line {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .run-bar::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: linear-gradient(90deg, transparent, #39ff14, transparent);
+            animation: run-line 3s infinite linear;
+        }
+    </style>
+</head>
+<body class="text-slate-200 font-sans min-h-screen flex flex-col justify-between selection:bg-cyber-runner selection:text-black">
+
+    <!-- 導覽列 -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-cyber-bg/80 border-b border-cyber-border transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <!-- 科技感 Logo 區塊 -->
+                <div class="relative w-11 h-11 bg-gradient-to-tr from-cyber-primary to-cyber-runner rounded-lg flex items-center justify-center shadow-neon-blue">
+                    <!-- 跑者向量圖案 -->
+                    <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    <span class="absolute -bottom-1 -right-1 w-3 h-3 bg-cyber-runner rounded-full animate-ping"></span>
+                </div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-black tracking-wider bg-gradient-to-r from-white via-slate-100 to-cyber-primary bg-clip-text text-transparent">
+                        雙連長跑協會
+                    </h1>
+                    <p class="text-[10px] font-tech text-cyber-runner tracking-widest uppercase">Taoyuan Shuanglian</p>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold tracking-wider">
+                <a href="#active-events" class="hover:text-cyber-primary transition-colors duration-200">2026熱門報名</a>
+                <a href="#member-portal" class="hover:text-cyber-runner transition-colors duration-200 flex items-center gap-1">
+                    <span>會員查詢</span>
+                    <span class="w-1.5 h-1.5 bg-cyber-runner rounded-full"></span>
+                </a>
+                <a href="#history-events" class="text-slate-400 hover:text-white transition-colors duration-200">歷史紀錄</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄宣傳區 -->
+    <section class="relative overflow-hidden pt-12 pb-20 md:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- 左側文字與核心標語 -->
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyber-dark border border-cyber-runner/30 text-cyber-runner text-xs font-semibold tracking-widest uppercase">
+                    <span class="w-2 h-2 rounded-full bg-cyber-runner animate-pulse"></span>
+                    2026 跑者紀元已啟動
+                </div>
+                <h2 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight">
+                    用腳步丈量大地 <br>
+                    <span class="bg-gradient-to-r from-cyber-primary via-blue-400 to-cyber-runner bg-clip-text text-transparent">
+                        釋放無限極速能量
+                    </span>
+                </h2>
+                <p class="text-slate-400 text-base md:text-lg max-w-xl mx-auto lg:mx-0">
+                    桃園市雙連長跑協會，結合運動激情與現代科技。在這裡，每一公里的跨步都有夥伴相隨。即刻加入 2026 全新團練與指標賽事，啟動您的專屬征途！
+                </p>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                    <a href="#active-events" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-cyber-primary to-cyber-secondary text-black font-extrabold rounded-lg hover:shadow-neon-blue transform hover:-translate-y-0.5 transition-all duration-200 text-center tracking-wider">
+                        立即搶報賽事
+                    </a>
+                    <a href="#member-portal" class="w-full sm:w-auto px-8 py-4 bg-cyber-dark/80 text-cyber-runner border border-cyber-runner/50 font-extrabold rounded-lg hover:bg-cyber-runner hover:text-black hover:shadow-neon-runner transform hover:-translate-y-0.5 transition-all duration-200 text-center tracking-wider">
+                        🔎 查詢會員資格
+                    </a>
+                </div>
+            </div>
+
+            <!-- 右側科技視覺區 -->
+            <div class="lg:col-span-5 relative flex justify-center">
+                <div class="relative w-72 h-72 md:w-96 md:h-96">
+                    <!-- 背景發光大圓圈 -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-cyber-primary/20 to-cyber-runner/20 rounded-full blur-3xl animate-pulse"></div>
+                    <!-- 科技感同心圓 -->
+                    <div class="absolute inset-0 border border-dashed border-cyber-primary/30 rounded-full animate-[spin_40s_linear_infinite]"></div>
+                    <div class="absolute inset-8 border border-double border-cyber-runner/20 rounded-full animate-[spin_20s_linear_infinite_reverse]"></div>
+                    <!-- 跑者意象 SVG -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <svg class="w-48 h-48 md:w-64 md:h-64 text-cyber-primary drop-shadow-[0_0_15px_rgba(0,242,254,0.6)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 科技感跑步人體線條 -->
+                            <path d="M55 20 C55 23.86 51.86 27 48 27 C44.14 27 41 23.86 41 20 C41 16.14 44.14 13 48 13 C51.86 13 55 16.14 55 20 Z" fill="currentColor"/>
+                            <path d="M48 30 L40 45 L25 43" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M48 30 L55 42 L72 38" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M48 30 L45 52 L55 68 L68 85" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M45 52 L32 64 L20 78" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 主區塊：報名與查詢 -->
+    <main class="relative z-10 flex-grow space-y-24 pb-20">
+        
+        <!-- 會員查詢入口 -->
+        <section id="member-portal" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative rounded-2xl p-8 md:p-12 bg-cyber-dark border border-cyber-runner/40 overflow-hidden shadow-neon-runner">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-cyber-runner/5 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-cyber-primary/5 rounded-full blur-3xl"></div>
+                
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-8 text-center lg:text-left space-y-4">
+                        <span class="px-3 py-1 bg-cyber-runner/10 border border-cyber-runner/30 text-cyber-runner text-xs rounded font-bold tracking-widest">MEMBER DATABASE</span>
+                        <h3 class="text-2xl md:text-4xl font-extrabold tracking-wide">
+                            2026 雙連長跑會員資格查詢
+                        </h3>
+                        <p class="text-slate-400 max-w-xl">
+                            快速確認您的最新年度會員會籍與資格狀態。請點選查詢入口，於系統資料庫中輸入個人基本資料進行驗證。
+                        </p>
+                    </div>
+                    <div class="lg:col-span-4 flex justify-center lg:justify-end w-full">
+                        <a href="https://chiangchihchu.github.io/OKA/2026_member_query.html" target="_blank" rel="noopener noreferrer" class="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-5 bg-cyber-runner text-black font-extrabold text-lg rounded-xl overflow-hidden shadow-lg hover:shadow-neon-runner transition-all duration-300 transform hover:scale-105">
+                            <span class="relative z-10 flex items-center gap-2">
+                                🔎 會員資格查詢
+                                <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 熱門報名賽事 (進行中) -->
+        <section id="active-events" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            <div class="text-center md:text-left">
+                <div class="flex items-center justify-center md:justify-start gap-3">
+                    <span class="w-8 h-1 bg-cyber-primary rounded"></span>
+                    <span class="text-cyber-primary font-tech tracking-widest text-sm font-bold uppercase">Active Registrations</span>
+                </div>
+                <h3 class="text-3xl md:text-4xl font-black mt-2 tracking-wide">
+                    2026 開放報名中活動
+                </h3>
+                <p class="text-slate-400 mt-2">點選以下賽事連結，即可進入官方 Google 報名系統進行填報。</p>
+            </div>
+
+            <!-- 報名卡片網格 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- 卡片 1: 雙連團練報名 -->
+                <div class="group relative rounded-2xl bg-cyber-card border border-cyber-border hover:border-cyber-primary/60 p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-neon-blue">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 bg-cyber-primary/10 border border-cyber-primary/30 text-cyber-primary text-xs rounded-full font-bold">2026 年度團練</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-cyber-runner animate-ping"></span>
+                        </div>
+                        <h4 class="text-xl md:text-2xl font-black text-white group-hover:text-cyber-primary transition-colors">
+                            2026 雙連團練報名
+                        </h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            雙連長跑協會專屬，週週精實自我。不論您是初階跑者還是馬拉松老將，這裡有科學化的配速與最溫暖的補給團隊。
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-800 flex items-center justify-between">
+                        <span class="text-xs font-tech text-slate-500">SYSTEM: ACTIVE</span>
+                        <a href="https://script.google.com/macros/s/AKfycbw063a0jB_H0YJEDl7yVPhMxsyeDu4uURqDsRiUKYYistPSVVzGkY0ChdDZ-i9aTfEpWg/exec" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-gradient-to-r from-cyber-primary to-blue-500 hover:from-cyber-primary hover:to-cyber-primary text-black font-extrabold rounded-lg text-sm transition-all duration-200">
+                            立即報名 →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 卡片 2: 虎馬第八屆烤雞馬拉松 -->
+                <div class="group relative rounded-2xl bg-cyber-card border border-cyber-border hover:border-cyber-primary/60 p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-neon-blue">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs rounded-full font-bold">雲林經典賽事</span>
+                            <span class="text-xs font-tech text-cyber-runner">HOT 🔥</span>
+                        </div>
+                        <h4 class="text-xl md:text-2xl font-black text-white group-hover:text-cyber-primary transition-colors">
+                            2026 虎馬第八屆全國烤雞馬拉松
+                        </h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            最香、最具特色的美食嘉年華馬拉松！一邊揮灑汗水，一邊大啖香噴噴的烤雞补給，絕對不能錯過的歡樂跑聚。
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-800 flex items-center justify-between">
+                        <span class="text-xs font-tech text-slate-500">SYSTEM: OPEN</span>
+                        <a href="https://script.google.com/macros/s/AKfycbwE8zNuYBAVYf-MLNMk6tclzkGczkuzppOLEuRGAl8MmfANLF5zbHRJv-xEB56b7P_e/exec" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-gradient-to-r from-cyber-primary to-blue-500 hover:from-cyber-primary hover:to-cyber-primary text-black font-extrabold rounded-lg text-sm transition-all duration-200">
+                            立即報名 →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 卡片 3: 泰安烏嘎彥森林馬拉松 -->
+                <div class="group relative rounded-2xl bg-cyber-card border border-cyber-border hover:border-cyber-primary/60 p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-neon-blue">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs rounded-full font-bold">秘境越野</span>
+                            <span class="text-xs font-tech text-cyber-runner">LIMITED 🌲</span>
+                        </div>
+                        <h4 class="text-xl md:text-2xl font-black text-white group-hover:text-cyber-primary transition-colors">
+                            2026 第五屆泰安烏嘎彥原鄉秘境森林馬拉松
+                        </h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            深入苗栗泰安的原鄉秘境，穿梭於夢幻般的竹林與鬱鬱蔥蔥的森林步道。在清新的芬多精洗禮中，挑戰極致上坡！
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-800 flex items-center justify-between">
+                        <span class="text-xs font-tech text-slate-500">SYSTEM: ACTIVE</span>
+                        <a href="https://script.google.com/macros/s/AKfycbxQpS-Yrlf6_Nm3zbjRSjN5YLDmHGQb0YtK8N5zcYaK9qmAdeCEG7PRQUqvAGJZYJxXng/exec" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-gradient-to-r from-cyber-primary to-blue-500 hover:from-cyber-primary hover:to-cyber-primary text-black font-extrabold rounded-lg text-sm transition-all duration-200">
+                            立即報名 →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 卡片 4: 榮耀九三向國軍致敬 -->
+                <div class="group relative rounded-2xl bg-cyber-card border border-cyber-border hover:border-cyber-primary/60 p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-neon-blue">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 bg-red-500/10 border border-red-500/30 text-red-400 text-xs rounded-full font-bold">愛國嘉年華</span>
+                            <span class="text-xs font-tech text-cyber-runner">HONOR 🎖️</span>
+                        </div>
+                        <h4 class="text-xl md:text-2xl font-black text-white group-hover:text-cyber-primary transition-colors">
+                            2026「榮耀九三 向國軍致敬」路跑嘉年華
+                        </h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            一同向守護家園的英勇國軍致上崇高敬意！盛大的嘉年華氛圍，融合健康路跑與精彩的互動攤位，全家同樂首選。
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-slate-800 flex items-center justify-between">
+                        <span class="text-xs font-tech text-slate-500">SYSTEM: ACTIVE</span>
+                        <a href="https://script.google.com/macros/s/AKfycbyJfEHJPEFssp0mtz1c6MFy5vGuBmcon5Htxq0AGNB2tAu0UBw-dELHH-eat872BxuXdQ/exec" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 bg-gradient-to-r from-cyber-primary to-blue-500 hover:from-cyber-primary hover:to-cyber-primary text-black font-extrabold rounded-lg text-sm transition-all duration-200">
+                            立即報名 →
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 歷史賽事紀錄 -->
+        <section id="history-events" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between">
+                <div>
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-1 bg-slate-600 rounded"></span>
+                        <span class="text-slate-400 font-tech tracking-widest text-sm font-bold uppercase">Event Archiving</span>
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-extrabold mt-2 tracking-wide text-slate-300">
+                        2026 已截止賽事紀錄
+                    </h3>
+                </div>
+                <p class="text-slate-500 text-sm mt-2 md:mt-0">本期已截止登記或已結束團報之項目存檔</p>
+            </div>
+
+            <!-- 高科技終端風格日誌表單 -->
+            <div class="relative overflow-x-auto rounded-xl border border-slate-800 bg-cyber-dark/40 backdrop-blur-sm">
+                
+                <!-- 控制台頂部欄 -->
+                <div class="px-6 py-3 bg-cyber-dark border-b border-slate-800 flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-red-500/60"></span>
+                    <span class="w-3 h-3 rounded-full bg-yellow-500/60"></span>
+                    <span class="w-3 h-3 rounded-full bg-green-500/60"></span>
+                    <span class="text-[11px] font-tech text-slate-500 ml-2">SYSTEM_LOG // ARCHIVED_ACTIVITIES</span>
+                </div>
+
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-800 text-slate-400 text-xs tracking-wider uppercase font-tech bg-cyber-dark/60">
+                            <th class="py-4 px-6 font-semibold">序號 ID</th>
+                            <th class="py-4 px-6 font-semibold">活動名稱 Activity Name</th>
+                            <th class="py-4 px-6 font-semibold">截止日期 Date</th>
+                            <th class="py-4 px-6 font-semibold text-right">狀態 Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/50 text-sm font-medium">
+                        <!-- 第一筆 -->
+                        <tr class="hover:bg-slate-900/30 transition-colors">
+                            <td class="py-4 px-6 font-tech text-slate-500">04</td>
+                            <td class="py-4 px-6 text-slate-300">2026年 議長盃團報</td>
+                            <td class="py-4 px-6 font-tech text-slate-400">2026-04-24</td>
+                            <td class="py-4 px-6 text-right">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-red-500/10 text-red-400 text-xs border border-red-500/20">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                    已截止
+                                </span>
+                            </td>
+                        </tr>
+                        <!-- 第二筆 -->
+                        <tr class="hover:bg-slate-900/30 transition-colors">
+                            <td class="py-4 px-6 font-tech text-slate-500">05</td>
+                            <td class="py-4 px-6 text-slate-300">2026 雙連海外跑旅</td>
+                            <td class="py-4 px-6 font-tech text-slate-400">2026-05-17</td>
+                            <td class="py-4 px-6 text-right">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-red-500/10 text-red-400 text-xs border border-red-500/20">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                    已截止
+                                </span>
+                            </td>
+                        </tr>
+                        <!-- 第三筆 -->
+                        <tr class="hover:bg-slate-900/30 transition-colors">
+                            <td class="py-4 px-6 font-tech text-slate-500">06</td>
+                            <td class="py-4 px-6 text-slate-300">2026 蘆竹機捷馬拉松</td>
+                            <td class="py-4 px-6 font-tech text-slate-400">2026-05-20</td>
+                            <td class="py-4 px-6 text-right">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-red-500/10 text-red-400 text-xs border border-red-500/20">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                    已截止
+                                </span>
+                            </td>
+                        </tr>
+                        <!-- 第四筆 -->
+                        <tr class="hover:bg-slate-900/30 transition-colors">
+                            <td class="py-4 px-6 font-tech text-slate-500">07</td>
+                            <td class="py-4 px-6 text-slate-300">2026 外木山海上長泳報名表</td>
+                            <td class="py-4 px-6 font-tech text-slate-400">2026-05-20</td>
+                            <td class="py-4 px-6 text-right">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-red-500/10 text-red-400 text-xs border border-red-500/20">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                    已截止
+                                </span>
+                            </td>
+                        </tr>
+                        <!-- 第五筆 -->
+                        <tr class="hover:bg-slate-900/30 transition-colors">
+                            <td class="py-4 px-6 font-tech text-slate-500">08</td>
+                            <td class="py-4 px-6 text-slate-300">「馬武督探索森林」親子健走</td>
+                            <td class="py-4 px-6 font-tech text-slate-400">2026-05-20</td>
+                            <td class="py-4 px-6 text-right">
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-red-500/10 text-red-400 text-xs border border-red-500/20">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                    已截止
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 底部資訊 & 特效 -->
+    <footer class="relative z-10 border-t border-slate-800 bg-cyber-dark/80 backdrop-blur-md text-slate-500 text-xs py-10">
+        <!-- 橫向動態能量跑馬燈 -->
+        <div class="absolute top-0 inset-x-0 h-[1px] bg-slate-800 overflow-hidden">
+            <div class="run-bar absolute inset-y-0 w-1/3"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="text-center md:text-left space-y-2">
+                <p class="font-bold text-slate-300">桃園市雙連長跑協會 © 2026</p>
+                <p class="text-slate-500">專業、速度與凝聚力。在這裡，跑出屬於你的極限未來。</p>
+            </div>
+            <div class="flex justify-center md:justify-end gap-6 text-[11px] font-tech">
+                <span class="flex items-center gap-1.5 text-cyber-runner">
+                    <span class="w-1.5 h-1.5 bg-cyber-runner rounded-full animate-ping"></span>
+                    SERVER: SECURED
+                </span>
+                <span class="text-slate-600">|</span>
+                <span class="text-slate-400">LATENCY: 14MS</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
