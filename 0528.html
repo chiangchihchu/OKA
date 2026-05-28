@@ -16,7 +16,16 @@
       --warning: #f59e0b;
       --danger: #ef4444;
       --info: #3b82f6;
-      --border-color: #e2e8f0;
+      --border-color: #cbd5e1;
+      
+      /* 行事曆專用色彩 */
+      --cal-injection: #0d9488;  /* 針劑-藍綠 */
+      --cal-steroid-bid: #f59e0b; /* 類固醇早晚-橘黃 */
+      --cal-steroid-qd: #fef08a;  /* 類固醇每日1顆-淺黃 */
+      --cal-steroid-stop: #ef4444; /* 類固醇停藥-紅色 */
+      --cal-immune: #3b82f6;     /* 奎寧阿斯匹靈-藍色 */
+      --cal-period: #ec4899;     /* 經期-粉色 */
+      --cal-clinic: #8b5cf6;     /* 回診-紫色 */
     }
 
     body {
@@ -29,7 +38,7 @@
     }
 
     .report-container {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 2rem auto;
       padding: 0 1.5rem;
     }
@@ -60,8 +69,8 @@
     .card {
       background-color: var(--card-bg);
       border-radius: 12px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
       padding: 2rem;
       margin-bottom: 1.5rem;
     }
@@ -103,12 +112,7 @@
       text-align: center;
       margin-bottom: 1rem;
     }
-    .chance-badge.high { background-color: #d1fae5; color: #065f46; border: 2px solid #34d399; }
     .chance-badge.mid-high { background-color: #ecfdf5; color: #047857; border: 2px solid #6ee7b7; }
-    .chance-badge.medium { background-color: #eff6ff; color: #1e40af; border: 2px solid #93c5fd; }
-    .chance-badge.mid-low { background-color: #fffbeb; color: #92400e; border: 2px solid #fcd34d; }
-    .chance-badge.low { background-color: #fee2e2; color: #991b1b; border: 2px solid #fca5a5; }
-    .chance-badge.unknown { background-color: #f1f5f9; color: #475569; border: 2px solid #cbd5e1; }
 
     /* 表格樣式 */
     .lab-table {
@@ -119,7 +123,7 @@
     }
 
     .lab-table th, .lab-table td {
-      border-bottom: 1px solid var(--border-color);
+      border-bottom: 1px solid #e2e8f0;
       padding: 1rem;
       text-align: left;
     }
@@ -130,38 +134,11 @@
       font-weight: 600;
     }
 
-    /* 提示框樣式 */
-    .info-box {
-      background-color: #eff6ff;
-      border-left: 4px solid var(--info);
-      padding: 1rem;
-      border-radius: 0 8px 8px 0;
-      margin: 1rem 0;
-    }
-
-    .warning-box {
-      background-color: #fffbeb;
-      border-left: 4px solid var(--warning);
-      padding: 1rem;
-      border-radius: 0 8px 8px 0;
-      margin: 1rem 0;
-    }
-
-    .alert-box {
-      background-color: #fee2e2;
-      border-left: 4px solid var(--danger);
-      padding: 1rem;
-      border-radius: 0 8px 8px 0;
-      margin: 1rem 0;
-    }
-
-    .tip-box {
-      background-color: #f0fdf4;
-      border-left: 4px solid var(--success);
-      padding: 1rem;
-      border-radius: 0 8px 8px 0;
-      margin: 1rem 0;
-    }
+    /* 提示與警示框 */
+    .info-box { background-color: #eff6ff; border-left: 4px solid var(--info); padding: 1rem; border-radius: 0 8px 8px 0; margin: 1rem 0; }
+    .warning-box { background-color: #fffbeb; border-left: 4px solid var(--warning); padding: 1rem; border-radius: 0 8px 8px 0; margin: 1rem 0; }
+    .alert-box { background-color: #fee2e2; border-left: 4px solid var(--danger); padding: 1rem; border-radius: 0 8px 8px 0; margin: 1rem 0; }
+    .tip-box { background-color: #f0fdf4; border-left: 4px solid var(--success); padding: 1rem; border-radius: 0 8px 8px 0; margin: 1rem 0; }
 
     /* 兩欄排版 */
     .two-column-grid {
@@ -171,17 +148,171 @@
       margin-top: 1rem;
     }
 
-    @media (max-width: 768px) {
+    /* -------------------------------------
+       行事曆組件設計 (CSS Grid)
+       ------------------------------------- */
+    .calendar-section {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .calendar-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      background: #f8fafc;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      border: 1px solid #e2e8f0;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 500;
+      gap: 0.4rem;
+    }
+
+    .legend-color {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+    }
+
+    .calendar-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .calendar-wrapper {
+        grid-template-columns: 1fr;
+      }
       .two-column-grid {
         grid-template-columns: 1fr;
       }
-      .lab-table {
-        display: block;
-        overflow-x: auto;
-      }
     }
 
-    /* 逐項詳細卡片 */
+    .month-container {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1rem;
+      background: #ffffff;
+    }
+
+    .month-header {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #f1f5f9;
+    }
+
+    .weekday-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      font-weight: bold;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .day-cell {
+      aspect-ratio: 1;
+      border: 1px solid #f1f5f9;
+      border-radius: 6px;
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background-color: #fafafa;
+    }
+
+    .day-cell.empty {
+      background: transparent;
+      border: none;
+    }
+
+    .day-cell .num {
+      align-self: flex-start;
+    }
+
+    /* 今日特別標示 */
+    .day-cell.today {
+      border: 2px solid var(--primary-color) !important;
+      background-color: #eff6ff;
+    }
+    .day-cell.today::after {
+      content: "今日";
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background: var(--primary-color);
+      color: white;
+      font-size: 0.55rem;
+      padding: 1px 3px;
+      border-radius: 3px;
+    }
+
+    /* 用藥標記點/條 */
+    .pill-indicators {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      width: 100%;
+      margin-top: 2px;
+    }
+
+    .pill-bar {
+      height: 4px;
+      border-radius: 2px;
+      width: 100%;
+    }
+
+    /* 微型標籤字體 */
+    .micro-label {
+      font-size: 0.55rem;
+      line-height: 1;
+      padding: 1px 2px;
+      border-radius: 2px;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    /* 色彩對照 */
+    .bg-injection { background-color: var(--cal-injection); }
+    .bg-steroid-bid { background-color: var(--cal-steroid-bid); }
+    .bg-steroid-qd { background-color: var(--cal-steroid-qd); color: #854d0e !important; }
+    .bg-steroid-stop { background-color: var(--cal-steroid-stop); }
+    .bg-immune { background-color: var(--cal-immune); }
+    .bg-period { background-color: var(--cal-period); }
+    .bg-clinic { background-color: var(--cal-clinic); }
+
+    /* -------------------------------------
+       大綱與卡片排版
+       ------------------------------------- */
     .lab-item-block {
       background-color: #fafafa;
       border: 1px solid #e5e5e5;
@@ -211,7 +342,6 @@
       font-size: 0.95rem;
     }
 
-    /* 步驟指引樣式 */
     .step-list {
       list-style: none;
       padding-left: 0;
@@ -246,7 +376,6 @@
       margin-bottom: 0.25rem;
     }
 
-    /* 關鍵問題樣式 */
     .question-list {
       list-style-type: none;
       padding-left: 0;
@@ -275,12 +404,317 @@
   <!-- 頁頭 -->
   <header class="report-header">
     <h1>🧬 生殖醫學臨床分析暨療程規劃報告</h1>
-    <p class="report-subtitle">免疫調節・長效下調針劑（柳培林）施打・植入前調經週期規劃</p>
+    <p class="report-subtitle">免疫調節・長效下調針劑（奔離生/柳培林）施打・植入前調經精準控制</p>
   </header>
+
+  <!-- 二、療程黃金行事曆 (新加入) -->
+  <section class="calendar-section">
+    <h2>📅 二、雙月份可視化療程黃金行事曆</h2>
+    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1rem;">
+      以下行事曆專為您量身打造，完整呈現自 <strong>5月28日 (今日施打第二劑)</strong> 起，至 <strong>6月25日 (預計施打第三劑回診)</strong> 的精準用藥與生理對位規劃。
+    </p>
+    
+    <!-- 圖例說明 -->
+    <div class="calendar-legend">
+      <div class="legend-item"><span class="legend-color bg-injection"></span><span style="color: var(--cal-injection); font-weight:700;">[針劑]</span> 奔離生施打</div>
+      <div class="legend-item"><span class="legend-color bg-immune"></span><span style="color: var(--cal-immune); font-weight:700;">[免疫]</span> 奎寧+阿斯匹靈 (早晚各1)</div>
+      <div class="legend-item"><span class="legend-color bg-steroid-bid"></span><span style="color: var(--cal-steroid-bid); font-weight:700;">[類固醇]</span> 減量期 (早晚各1)</div>
+      <div class="legend-item"><span class="legend-color bg-steroid-qd"></span><span style="color: #854d0e; font-weight:700;">[類固醇]</span> 後期 (每日1顆)</div>
+      <div class="legend-item"><span class="legend-color bg-steroid-stop"></span><span style="color: var(--cal-steroid-stop); font-weight:700;">[類固醇]</span> 🛑 停藥日</div>
+      <div class="legend-item"><span class="legend-color bg-period"></span><span style="color: var(--cal-period); font-weight:700;">[經期]</span> 預估月經來潮</div>
+      <div class="legend-item"><span class="legend-color bg-clinic"></span><span style="color: var(--cal-clinic); font-weight:700;">[回診]</span> 醫院回診任務</div>
+    </div>
+
+    <!-- 雙月日曆結構 -->
+    <div class="calendar-wrapper">
+      
+      <!-- 5月日曆 (2026年5月 1號為星期五) -->
+      <div class="month-container">
+        <div class="month-header">2026 年 5 月</div>
+        <div class="weekday-grid">
+          <div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div>
+        </div>
+        <div class="days-grid">
+          <!-- 1號到16號(空白對齊，1號是五) -->
+          <div class="day-cell empty"></div>
+          <div class="day-cell empty"></div>
+          <div class="day-cell empty"></div>
+          <div class="day-cell empty"></div>
+          <div class="day-cell empty"></div>
+          <div class="day-cell">1</div>
+          <div class="day-cell">2</div>
+          <!-- 第一排 -->
+          <div class="day-cell">3</div>
+          <div class="day-cell">4</div>
+          <div class="day-cell">5</div>
+          <div class="day-cell">6</div>
+          <div class="day-cell">7</div>
+          <div class="day-cell">8</div>
+          <div class="day-cell">9</div>
+          <!-- 第二排 -->
+          <div class="day-cell">10</div>
+          <div class="day-cell">11</div>
+          <div class="day-cell">12</div>
+          <div class="day-cell">13</div>
+          <div class="day-cell">14</div>
+          <div class="day-cell">15</div>
+          <div class="day-cell">16</div>
+          <!-- 第三排 (17號月經/第一劑) -->
+          <div class="day-cell" style="border-color: var(--cal-period);">
+            <span class="num">17</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-period">🩸 LMP</span>
+              <span class="micro-label bg-injection">💉 第1劑</span>
+            </div>
+          </div>
+          <div class="day-cell">18</div>
+          <div class="day-cell">19</div>
+          <div class="day-cell">20</div>
+          <div class="day-cell">21</div>
+          <div class="day-cell">22</div>
+          <div class="day-cell">23</div>
+          <!-- 第四排 -->
+          <div class="day-cell">24</div>
+          <div class="day-cell">25</div>
+          <div class="day-cell">26</div>
+          <div class="day-cell">27</div>
+          <!-- 今日 (5/28) -->
+          <div class="day-cell today">
+            <span class="num">28</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-injection">💉 第2劑</span>
+              <span class="micro-label bg-steroid-bid">💊 減至早晚1</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <!-- 5/29 -->
+          <div class="day-cell">
+            <span class="num">29</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-bid">💊 早晚1</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <!-- 5/30 -->
+          <div class="day-cell">
+            <span class="num">30</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-bid">💊 舊藥末日</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <!-- 第五排 (5/31) -->
+          <div class="day-cell">
+            <span class="num">31</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-bid" style="font-size:0.5rem;">💊 新藥啟動</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <!-- 補空白 -->
+          <div class="day-cell empty"></div><div class="day-cell empty"></div><div class="day-cell empty"></div><div class="day-cell empty"></div><div class="day-cell empty"></div><div class="day-cell empty"></div>
+        </div>
+      </div>
+
+      <!-- 6月日曆 (2026年6月 1號為星期一) -->
+      <div class="month-container">
+        <div class="month-header">2026 年 6 月</div>
+        <div class="weekday-grid">
+          <div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div>
+        </div>
+        <div class="days-grid">
+          <!-- 補空白 (1號是星期一) -->
+          <div class="day-cell empty"></div>
+          <!-- 6/1 ~ 6/3 類固醇早晚1 -->
+          <div class="day-cell">
+            <span class="num">1</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-bid">💊 早晚1</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">2</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-bid">💊 早晚1</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">3</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-bid">💊 減量末日</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <!-- 6/4 ~ 6/6 類固醇每日1顆 -->
+          <div class="day-cell">
+            <span class="num">4</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-qd">💊 每日1顆</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">5</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-qd">💊 每日1顆</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">6</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-qd">💊 每日1顆</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <!-- 第二排 (6/7 ~ 6/11 類固醇每日1顆) -->
+          <div class="day-cell">
+            <span class="num">7</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-qd">💊 每日1顆</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">8</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-qd">💊 每日1顆</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">9</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-qd">💊 每日1顆</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">10</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-qd">💊 每日1顆</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <div class="day-cell" style="border-color: #cbd5e1;">
+            <span class="num">11</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-qd">💊 類固醇QD</span>
+              <span class="micro-label bg-immune">💊 延經對位中</span>
+            </div>
+          </div>
+          <!-- 6/12 類固醇正式停藥 -->
+          <div class="day-cell" style="border-color: var(--cal-steroid-stop);">
+            <span class="num">12</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-steroid-stop">🛑 停類固醇</span>
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">13</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <!-- 第三排 (6/14 ~ 6/20) -->
+          <div class="day-cell">
+            <span class="num">14</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">15</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">16</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">17</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-immune">💊 免疫/調經</span>
+            </div>
+          </div>
+          <!-- 6/18 延經後預計經期來潮 -->
+          <div class="day-cell" style="border-color: var(--cal-period); background-color: #fdf2f8;">
+            <span class="num">18</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-period">🩸 預計月經</span>
+              <span class="micro-label bg-immune">💊 免疫繼續</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">19</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-immune">💊 免疫繼續</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">20</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-immune">💊 免疫繼續</span>
+            </div>
+          </div>
+          <!-- 第四排 (6/21 ~ 6/25) -->
+          <div class="day-cell">
+            <span class="num">21</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-immune">💊 免疫繼續</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">22</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-immune">💊 免疫繼續</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">23</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-immune">💊 免疫繼續</span>
+            </div>
+          </div>
+          <div class="day-cell">
+            <span class="num">24</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-immune">💊 舊藥吃完</span>
+            </div>
+          </div>
+          <!-- 6/25 關鍵回診 + 打針 -->
+          <div class="day-cell" style="border-color: var(--cal-clinic); background-color: #faf5ff;">
+            <span class="num" style="color:var(--cal-clinic);">25</span>
+            <div class="pill-indicators">
+              <span class="micro-label bg-clinic">🏥 關鍵回診</span>
+              <span class="micro-label bg-injection">💉 第3劑</span>
+              <span class="micro-label bg-clinic">🧪 免疫抽血</span>
+            </div>
+          </div>
+          <div class="day-cell">26</div>
+          <div class="day-cell">27</div>
+          <!-- 第五排 (6/28 ~ 6/30) -->
+          <div class="day-cell">28</div>
+          <div class="day-cell">29</div>
+          <div class="day-cell">30</div>
+          <!-- 補空白 -->
+          <div class="day-cell empty"></div><div class="day-cell empty"></div><div class="day-cell empty"></div><div class="day-cell empty"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <!-- 一、個案摘要 -->
   <section class="card">
-    <h2>📋 一、個案摘要</h2>
+    <h2>📋 一、個案摘要與臨床比對</h2>
     <div class="two-column-grid">
       <div>
         <p><strong>評估對象：</strong> 備孕女性（高度懷疑或確診免疫因素不孕／子宮內膜異位症者）</p>
@@ -288,16 +722,16 @@
         <p><strong>月經週期：</strong> 規律，約 25 ~ 28 天</p>
       </div>
       <div>
-        <p><strong>當前治療階段：</strong> 準備進入胚胎植入療程（目前進行長效型下調針劑降調節與免疫調節中）</p>
-        <p><strong>關鍵藥物調整日：</strong> 2026 年 5 月 28 日（今日開始類固醇減量）</p>
-        <p><strong>下一次關鍵回診日：</strong> 2026 年 6 月 25 日（預計施打第三劑長效下調針劑並追蹤免疫指標）</p>
+        <p><strong>當前治療階段：</strong> 準備進入胚胎植入療程（目前進行長效下調針劑降調節與免疫調節中）</p>
+        <p><strong>關鍵藥物調整日：</strong> 2026 年 5 月 28 日（今日開始類固醇減量，並施打第二劑奔離生）</p>
+        <p><strong>下一次關鍵回診日：</strong> 2026 年 6 月 25 日（預計施打第三劑長效針劑並進行最終植入前免疫指標確認）</p>
       </div>
     </div>
   </section>
 
-  <!-- 二、檢驗報告重點整理 -->
+  <!-- 三、檢驗報告重點整理 -->
   <section class="card">
-    <h2>🔎 二、檢驗報告重點整理</h2>
+    <h2>🔎 三、檢驗報告重點整理</h2>
     <p>目前白血球（WBC）最新追蹤報告已出爐，數值正常。這對於正服用免疫抑制劑（類固醇、奎寧）的個案而言，是非常正面的指標，代表目前免疫控制良好，且未出現骨髓抑制或嚴重感染引發之白血球異常。</p>
     <table class="lab-table">
       <thead>
@@ -323,7 +757,7 @@
           <td><strong>長效下調針劑（奔離生/柳培林）</strong></td>
           <td>已施打兩劑</td>
           <td>-</td>
-          <td>5/26 已完成第二劑</td>
+          <td>5/28 今日已完成第二劑</td>
           <td><span class="tag normal">符合進度</span></td>
           <td>穩定控制盆腔發炎，阻斷內源性荷爾蒙以利胚胎植入。</td>
         </tr>
@@ -363,9 +797,9 @@
     </table>
   </section>
 
-  <!-- 三、每一項檢驗數字的詳細說明 -->
+  <!-- 四、每一項檢驗數字的詳細說明 -->
   <section class="card">
-    <h2>🧾 三、每一項檢驗數字與療程藥物詳細說明</h2>
+    <h2>🧾 四、每一項檢驗數字與療程藥物詳細說明</h2>
     
     <!-- 1. WBC -->
     <div class="lab-item-block">
@@ -390,7 +824,7 @@
         <li><strong>階梯式減量時程：</strong> 
           <ul>
             <li><strong>5/28 ~ 6/3：</strong> 早晚各 1 顆（每日共 2 顆）</li>
-            <li><strong>6/4 起：</strong> 每日僅吃 1 顆（通常為早上服用）</li>
+            <li><strong>6/4 ~ 6/11：</strong> 每日僅吃 1 顆（通常為早上服用）</li>
             <li><strong>之後（6/12 左右）：</strong> 完全停藥（不需再吃）</li>
           </ul>
         </li>
@@ -404,7 +838,7 @@
       <ul>
         <li><strong>這個治療代表什麼：</strong> 性腺激素釋放素促進劑 (GnRH agonist) 長效針劑，通常每 4 週施打一次。</li>
         <li><strong>在生殖評估中的意義：</strong> 強效抑制卵巢分泌雌激素，讓子宮內膜異位症、子宮腺肌症萎縮，並降低子宮內膜發炎因子，大幅提升後續凍胚植入 (FET) 的著床率。</li>
-        <li><strong>時程規劃判讀：</strong> 5/26 已打第二劑，第三劑預計於 6/25 施打（維持 4 週一次的穩定濃度）。其保護效期通常可覆蓋至 7/23 以前，因此在此保護黃金期內完成植入是最佳策略。</li>
+        <li><strong>時程規劃判讀：</strong> 5/28 今日已打第二劑，第三劑預計於 6/25 施打（維持 4 週一次的穩定濃度）。其保護效期通常可覆蓋至 7/23 以前，因此在此保護黃金期內完成植入是最佳策略。</li>
       </ul>
     </div>
 
@@ -414,7 +848,7 @@
       <ul>
         <li><strong>這個藥物代表什麼：</strong> 奎寧為免疫調節劑，阿斯匹靈為抗血小板抗凝血劑。皆為「早晚各 1 顆」維持服用。</li>
         <li><strong>在生殖評估中的意義：</strong> 兩者相輔相成，奎寧負責降低自體免疫系統對胚胎的攻擊性；阿斯匹靈則負責預防胎盤微細血管血栓形成，保障內膜血流灌注。</li>
-        <li><strong>本個案的可能解讀：</strong> 將持續帶足 25 天藥量（剛好至 6/25 下次回診），中途不可自行斷藥，以確保免疫環境持續處於「低發炎、低排斥」狀態。</li>
+        <li><strong>本個案的可能解讀：</strong> 將持續帶足 25 天藥量（配合舊藥到5/30，可完整吃到 6/25 下次回診），中途不可自行斷藥，以確保免疫環境持續處於「低發炎、低排斥」狀態。</li>
       </ul>
     </div>
 
@@ -429,20 +863,20 @@
     </div>
   </section>
 
-  <!-- 四、整體評估 -->
+  <!-- 五、整體評估 -->
   <section class="card">
-    <h2>🧠 四、整體評估</h2>
+    <h2>🧠 五、整體評估</h2>
     <p>本個案屬於非常精準且細緻的<strong>「免疫調控 + 子宮微環境下調 + 經期精準對位」</strong>植入前準備療程：</p>
     <ul>
       <li><strong>卵巢與子宮環境控制：</strong>藉由兩到三劑「柳培林（奔離生）」的壓制，能徹底清除子宮內膜異位引發的局部發炎，並創造一個極度安靜、無干擾的子宮內膜環境。</li>
-      <li><strong>免疫防線建立：</strong>白血球狀態 OK 證實了身體能耐受目前的免疫療法。類固醇正在安全退場，而奎寧與阿斯匹靈持續守護，能有效避免著床期的免疫排斥。</li>
-      <li><strong>時程對位邏輯：</strong>5/17 LMP ➡️ 5/26 施打第二劑 ➡️ 5/28 啟動調經延經（預計延至 6/18）➡️ 6/25 施打第三劑。此時間鏈完美對接，能將胚胎植入點鎖定在柳培林藥效最強、子宮環境最純淨的黃金窗口內。</li>
+      <li><strong>免疫防線建立：</strong>白血聲明/白血球狀態 OK 證實了身體能耐受目前的免疫療法。類固醇正在安全退場，而奎寧與阿斯匹靈持續守護，能有效避免著床期的免疫排斥。</li>
+      <li><strong>時程對位邏輯：</strong>5/17 LMP ➡️ 5/28 施打第二劑 ➡️ 5/28 啟動調經延經（預計延至 6/18）➡️ 6/25 施打第三劑。此時間鏈完美對接，能將胚胎植入點鎖定在柳培林藥效最強、子宮環境最純淨的黃金窗口內。</li>
     </ul>
   </section>
 
-  <!-- 五、目前成功機率評估 -->
+  <!-- 六、目前成功機率評估 -->
   <section class="card">
-    <h2>📈 五、目前成功機率評估</h2>
+    <h2>📈 六、目前成功機率評估</h2>
     <div style="text-align: center;">
       <span class="chance-badge mid-high">目前評估：中等偏高</span>
     </div>
@@ -471,9 +905,9 @@
     </div>
   </section>
 
-  <!-- 六、可能問題與風險分析 -->
+  <!-- 七、可能問題與風險分析 -->
   <section class="card">
-    <h2>⚠️ 六、可能問題與風險分析</h2>
+    <h2>⚠️ 七、可能問題與風險分析</h2>
     <ul>
       <li><strong>類固醇減量／停藥反應：</strong>部分患者在停用類固醇（康速龍）期間，可能出現短暫疲倦、關節酸痛等現象。這屬於正常生理適應，但若出現顯著的皮膚紅斑、關節劇痛，需排除免疫反彈。</li>
       <li><strong>調經延經不規律出血：</strong>服用延經藥（調經藥）期間，少數人可能出現點狀微量出血（Breakthrough bleeding），若僅是褐色分泌物，通常不影響療程，不需過度恐慌。</li>
@@ -481,9 +915,9 @@
     </ul>
   </section>
 
-  <!-- 七、調研資料摘要 -->
+  <!-- 八、調研資料摘要 -->
   <section class="card">
-    <h2>📚 七、臨床實務調研摘要</h2>
+    <h2>📚 八、臨床實務調研摘要</h2>
     <div class="info-box">
       <p>根據生殖醫學的主流臨床共識與不孕症免疫治療指引：</p>
       <ul>
@@ -494,9 +928,9 @@
     </div>
   </section>
 
-  <!-- 八、建議補充檢查 -->
+  <!-- 九、建議補充檢查 -->
   <section class="card">
-    <h2>🧪 八、進入植入療程前建議補充檢查</h2>
+    <h2>🧪 九、進入植入療程前建議補充檢查</h2>
     <table class="lab-table">
       <thead>
         <tr>
@@ -529,9 +963,9 @@
     </table>
   </section>
 
-  <!-- 九、步驟指引 -->
+  <!-- 十、步驟指引 -->
   <section class="card">
-    <h2>🪜 九、病患專屬每日用藥與療程指引</h2>
+    <h2>🪜 十、病患專屬每日用藥與療程指引</h2>
     <p>請依照以下排定之優先順序，確實執行您的日常與回診步驟：</p>
     <div class="step-list">
       <div class="step-item" data-step="1">
@@ -554,14 +988,14 @@
       </div>
       <div class="step-item" data-step="4">
         <div class="step-title">6/25 關鍵回診與追蹤</div>
-        <div><strong>回診任務：</strong> 進行「最終免疫指標確認」抽血，並施打「第三劑長效柳培林」。</div>
+        <div><strong>回診任務：</strong> 進行「最終免疫指標確認」抽血，並施打「第三劑長效型柳培林」。</div>
       </div>
     </div>
   </section>
 
-  <!-- 十、生活與治療建議 -->
+  <!-- 十一、生活與治療建議 -->
   <section class="card">
-    <h2>💡 十、生活型態與抗炎飲食建議</h2>
+    <h2>💡 十一、生活型態與抗炎飲食建議</h2>
     <div class="tip-box">
       <p><strong>1. 地中海抗炎飲食（極度推薦）：</strong></p>
       <ul>
@@ -585,9 +1019,9 @@
     </div>
   </section>
 
-  <!-- 十一、建議與醫師討論的關鍵問題 -->
+  <!-- 十二、建議與醫師討論的關鍵問題 -->
   <section class="card">
-    <h2>🗣️ 十一、6/25 回診時建議與醫師討論的關鍵問題</h2>
+    <h2>🗣️ 十二、6/25 回診時建議與醫師討論的關鍵問題</h2>
     <p>為了讓您的門診溝通更加高效，建議您在 6 月 25 日回診時，直接將以下問題向主治醫師提出討論：</p>
     <ul class="question-list">
       <li class="question-item">1. 「醫生，我今天的白血球跟免疫抽血報告結果如何？自體免疫指標有因為類固醇停藥而反彈嗎？」</li>
@@ -598,9 +1032,9 @@
     </ul>
   </section>
 
-  <!-- 十二、警示訊號 -->
+  <!-- 十三、警示訊號 -->
   <section class="card">
-    <h2>🚨 十二、安全警示與就醫時機</h2>
+    <h2>🚨 十三、安全警示與就醫時機</h2>
     <p>目前雖然您的報告一切正常且安全，但在服用藥物與調經期間，若出現以下<strong>緊急警訊</strong>，請勿等待至 6/25 回診，應立即安排門診或至急診處理：</p>
     <div class="alert-box">
       <p><strong>1. 全身性感染徵象：</strong> 體溫高於 38°C、出現畏寒、劇烈咳嗽或解尿灼熱痛。（因目前使用免疫調節藥物，需排除白血球低下引起的感染）。</p>
@@ -610,9 +1044,9 @@
     </div>
   </section>
 
-  <!-- 十三、重要聲明 -->
+  <!-- 十四、重要聲明 -->
   <section class="card disclaimer-card">
-    <h2>📌 十三、重要非診斷聲明</h2>
+    <h2>📌 十四、重要非診斷聲明</h2>
     <p>本報告乃基於個案提供之生殖醫學諮詢與看診錄音資料，進行之臨床學術整理與衛教分析，旨在協助個案理解藥物時程與醫學邏輯，提高醫病溝通效率。<strong>本報告不能取代實體醫療院所醫師之親自看診、正式臨床診斷與處方。</strong></p>
     <p>所有用藥劑量之增減、調經藥物之服用方法以及柳培林針劑之施打時間，<strong>最終均必須以您主治醫師之實體醫囑及醫療院所之指示為唯一標準。</strong>若對用藥有任何疑問，請務必先與您的生殖醫學中心或原診所護理人員聯繫確認。</p>
   </section>
