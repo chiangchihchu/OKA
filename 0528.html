@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生殖醫學檢驗分析暨療程規劃報告</title>
+  <style>
+    :root {
+      --primary-color: #1e3a8a; /* 深藍色 */
+      --secondary-color: #0d9488; /* 藍綠色 */
+      --bg-color: #f8fafc; /* 淺灰背景 */
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #3b82f6;
+      --border-color: #e2e8f0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.7;
+      margin: 0;
+      padding: 0;
+    }
+
+    .report-container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .report-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: #ffffff;
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .report-header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .report-subtitle {
+      margin: 0.5rem 0 0 0;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      font-size: 1.35rem;
+      color: var(--primary-color);
+      border-bottom: 2px solid #eff6ff;
+      padding-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* 標籤樣式 */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .tag.normal { background-color: #d1fae5; color: #065f46; }
+    .tag.borderline { background-color: #fef3c7; color: #92400e; }
+    .tag.abnormal { background-color: #fee2e2; color: #991b1b; }
+    .tag.insufficient { background-color: #f1f5f9; color: #475569; }
+
+    /* 成功機率標籤 */
+    .chance-badge {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .chance-badge.high { background-color: #d1fae5; color: #065f46; border: 2px solid #34d399; }
+    .chance-badge.mid-high { background-color: #ecfdf5; color: #047857; border: 2px solid #6ee7b7; }
+    .chance-badge.medium { background-color: #eff6ff; color: #1e40af; border: 2px solid #93c5fd; }
+    .chance-badge.mid-low { background-color: #fffbeb; color: #92400e; border: 2px solid #fcd34d; }
+    .chance-badge.low { background-color: #fee2e2; color: #991b1b; border: 2px solid #fca5a5; }
+    .chance-badge.unknown { background-color: #f1f5f9; color: #475569; border: 2px solid #cbd5e1; }
+
+    /* 表格樣式 */
+    .lab-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .lab-table th, .lab-table td {
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .lab-table th {
+      background-color: #f8fafc;
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    /* 提示框樣式 */
+    .info-box {
+      background-color: #eff6ff;
+      border-left: 4px solid var(--info);
+      padding: 1rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+
+    .warning-box {
+      background-color: #fffbeb;
+      border-left: 4px solid var(--warning);
+      padding: 1rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+
+    .alert-box {
+      background-color: #fee2e2;
+      border-left: 4px solid var(--danger);
+      padding: 1rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+
+    .tip-box {
+      background-color: #f0fdf4;
+      border-left: 4px solid var(--success);
+      padding: 1rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+    }
+
+    /* 兩欄排版 */
+    .two-column-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .two-column-grid {
+        grid-template-columns: 1fr;
+      }
+      .lab-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+
+    /* 逐項詳細卡片 */
+    .lab-item-block {
+      background-color: #fafafa;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .lab-item-block h3 {
+      margin-top: 0;
+      font-size: 1.15rem;
+      color: var(--primary-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed #cbd5e1;
+      padding-bottom: 0.5rem;
+    }
+
+    .lab-item-block ul {
+      margin: 0.5rem 0 0 0;
+      padding-left: 1.25rem;
+    }
+
+    .lab-item-block li {
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    /* 步驟指引樣式 */
+    .step-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .step-item {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .step-item::before {
+      content: attr(data-step);
+      position: absolute;
+      left: 0;
+      top: 0.1rem;
+      width: 1.75rem;
+      height: 1.75rem;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
+
+    .step-title {
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.25rem;
+    }
+
+    /* 關鍵問題樣式 */
+    .question-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .question-item {
+      background-color: #f8fafc;
+      border-left: 4px solid var(--secondary-color);
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.75rem;
+      border-radius: 0 6px 6px 0;
+      font-weight: 500;
+    }
+
+    .disclaimer-card {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 3px solid #cbd5e1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="report-container">
+  
+  <!-- 頁頭 -->
+  <header class="report-header">
+    <h1>🧬 生殖醫學臨床分析暨療程規劃報告</h1>
+    <p class="report-subtitle">免疫調節・長效下調針劑（柳培林）施打・植入前調經週期規劃</p>
+  </header>
+
+  <!-- 一、個案摘要 -->
+  <section class="card">
+    <h2>📋 一、個案摘要</h2>
+    <div class="two-column-grid">
+      <div>
+        <p><strong>評估對象：</strong> 備孕女性（高度懷疑或確診免疫因素不孕／子宮內膜異位症者）</p>
+        <p><strong>最後一次月經 (LMP)：</strong> 2026 年 5 月 17 日</p>
+        <p><strong>月經週期：</strong> 規律，約 25 ~ 28 天</p>
+      </div>
+      <div>
+        <p><strong>當前治療階段：</strong> 準備進入胚胎植入療程（目前進行長效型下調針劑降調節與免疫調節中）</p>
+        <p><strong>關鍵藥物調整日：</strong> 2026 年 5 月 28 日（今日開始類固醇減量）</p>
+        <p><strong>下一次關鍵回診日：</strong> 2026 年 6 月 25 日（預計施打第三劑長效下調針劑並追蹤免疫指標）</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 二、檢驗報告重點整理 -->
+  <section class="card">
+    <h2>🔎 二、檢驗報告重點整理</h2>
+    <p>目前白血球（WBC）最新追蹤報告已出爐，數值正常。這對於正服用免疫抑制劑（類固醇、奎寧）的個案而言，是非常正面的指標，代表目前免疫控制良好，且未出現骨髓抑制或嚴重感染引發之白血球異常。</p>
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th>檢驗項目</th>
+          <th>實際結果</th>
+          <th>單位</th>
+          <th>時間點</th>
+          <th>狀態判斷</th>
+          <th>臨床意義簡述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>白血球計數 (WBC)</strong></td>
+          <td>正常 (OK)</td>
+          <td>-</td>
+          <td>近期追蹤</td>
+          <td><span class="tag normal">正常</span></td>
+          <td>免疫用藥期間骨髓安全指標，目前無感染或異常抑制風險。</td>
+        </tr>
+        <tr>
+          <td><strong>長效下調針劑（奔離生/柳培林）</strong></td>
+          <td>已施打兩劑</td>
+          <td>-</td>
+          <td>5/26 已完成第二劑</td>
+          <td><span class="tag normal">符合進度</span></td>
+          <td>穩定控制盆腔發炎，阻斷內源性荷爾蒙以利胚胎植入。</td>
+        </tr>
+        <tr>
+          <td><strong>免疫調節劑（奎寧）</strong></td>
+          <td>早晚各 1 顆</td>
+          <td>200 mg/顆</td>
+          <td>持續服用中</td>
+          <td><span class="tag normal">穩定控制</span></td>
+          <td>抑制自體抗體，優化子宮內膜微環境，降低排斥風險。</td>
+        </tr>
+        <tr>
+          <td><strong>免疫調節劑（阿斯匹靈）</strong></td>
+          <td>早晚各 1 顆</td>
+          <td>100 mg/顆</td>
+          <td>持續至 6/25</td>
+          <td><span class="tag normal">穩定控制</span></td>
+          <td>改善子宮微循環、抗凝血，促進子宮內膜血流。</td>
+        </tr>
+        <tr>
+          <td><strong>類固醇 (Prednisolone)</strong></td>
+          <td>階梯式減量中</td>
+          <td>5 mg/顆</td>
+          <td>5/28 今日起減量</td>
+          <td><span class="tag normal">遵照醫囑</span></td>
+          <td>今日（5/28）起由早晚各2顆減至早晚各1顆，後續將停藥。</td>
+        </tr>
+        <tr>
+          <td><strong>黃體素調經藥</strong></td>
+          <td>預計延經一週</td>
+          <td>-</td>
+          <td>5/28 今日開立</td>
+          <td><span class="tag borderline">待啟動</span></td>
+          <td>推遲 6 月月經至約 6/18，使植入期精準對位在針劑保護期內。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 三、每一項檢驗數字的詳細說明 -->
+  <section class="card">
+    <h2>🧾 三、每一項檢驗數字與療程藥物詳細說明</h2>
+    
+    <!-- 1. WBC -->
+    <div class="lab-item-block">
+      <h3>白血球計數 (WBC Count) <span class="tag normal">正常</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> 白血球是人體的免疫防衛細胞，用於評估是否有發炎、感染或骨髓抑制。</li>
+        <li><strong>在生殖評估中的意義：</strong> 由於您合併使用自體免疫藥物（如奎寧與類固醇），醫師需密切監控白血球，確保藥物未過度壓制骨髓造血功能，也確認體內無急性發炎。</li>
+        <li><strong>若偏高常見代表：</strong> 身體有急性發炎、細菌感染、或是服用高劑量類固醇引起的暫時性白血球邊緣性偏高。</li>
+        <li><strong>若偏低常見代表：</strong> 病毒感染、自體免疫疾病活動期（如紅斑性狼瘡），或免疫抑制劑引起的骨髓抑制。</li>
+        <li><strong>本個案的可能解讀：</strong> 目前白血球報告「OK、沒有任何問題」，代表您的身體對目前的免疫治療耐受性極佳，無感染跡象，可安全地繼續後續植入準備。</li>
+        <li><strong>建議合併判讀項目：</strong> 紅血球、血小板、臨床發炎指標（如 CRP）以及自體免疫抗體滴度。</li>
+        <li><strong>是否需要追蹤：</strong> 療程前（進入植入週期前）需隨同其他免疫指標進行最終確認。</li>
+      </ul>
+    </div>
+
+    <!-- 2. 類固醇 -->
+    <div class="lab-item-block">
+      <h3>類固醇 (Prednisolone / 口服藥物) <span class="tag normal">調整減量期</span></h3>
+      <ul>
+        <li><strong>這個數字（劑量）代表什麼：</strong> 原劑量為早晚各 2 顆（每日 20 mg），自 5/28 起調降為早晚各 1 顆（每日 10 mg）。</li>
+        <li><strong>在生殖評估中的意義：</strong> 用於抑制過強的子宮局部免疫反應（如 NK 細胞或 B 細胞過度活躍），避免胚胎被母體免疫系統排斥。</li>
+        <li><strong>階梯式減量時程：</strong> 
+          <ul>
+            <li><strong>5/28 ~ 6/3：</strong> 早晚各 1 顆（每日共 2 顆）</li>
+            <li><strong>6/4 起：</strong> 每日僅吃 1 顆（通常為早上服用）</li>
+            <li><strong>之後（6/12 左右）：</strong> 完全停藥（不需再吃）</li>
+          </ul>
+        </li>
+        <li><strong>減量原因與意義：</strong> 類固醇不可驟然停藥，否則可能引起反彈性發炎。目前的「階梯式減量」能讓腎上腺功能安全適應，同時在降調節（下調）期間維持免疫平衡。</li>
+      </ul>
+    </div>
+
+    <!-- 3. 長效下調針劑 -->
+    <div class="lab-item-block">
+      <h3>長效型下調針劑（柳培林 / 迪波 / 譯音：奔離生） <span class="tag normal">符合臨床規劃</span></h3>
+      <ul>
+        <li><strong>這個治療代表什麼：</strong> 性腺激素釋放素促進劑 (GnRH agonist) 長效針劑，通常每 4 週施打一次。</li>
+        <li><strong>在生殖評估中的意義：</strong> 強效抑制卵巢分泌雌激素，讓子宮內膜異位症、子宮腺肌症萎縮，並降低子宮內膜發炎因子，大幅提升後續凍胚植入 (FET) 的著床率。</li>
+        <li><strong>時程規劃判讀：</strong> 5/26 已打第二劑，第三劑預計於 6/25 施打（維持 4 週一次的穩定濃度）。其保護效期通常可覆蓋至 7/23 以前，因此在此保護黃金期內完成植入是最佳策略。</li>
+      </ul>
+    </div>
+
+    <!-- 4. 奎寧與阿斯匹靈 -->
+    <div class="lab-item-block">
+      <h3>奎寧 (Plaquenil) & 阿斯匹靈 (Aspirin / 譯音：安食品) <span class="tag normal">維持原劑量</span></h3>
+      <ul>
+        <li><strong>這個藥物代表什麼：</strong> 奎寧為免疫調節劑，阿斯匹靈為抗血小板抗凝血劑。皆為「早晚各 1 顆」維持服用。</li>
+        <li><strong>在生殖評估中的意義：</strong> 兩者相輔相成，奎寧負責降低自體免疫系統對胚胎的攻擊性；阿斯匹靈則負責預防胎盤微細血管血栓形成，保障內膜血流灌注。</li>
+        <li><strong>本個案的可能解讀：</strong> 將持續帶足 25 天藥量（剛好至 6/25 下次回診），中途不可自行斷藥，以確保免疫環境持續處於「低發炎、低排斥」狀態。</li>
+      </ul>
+    </div>
+
+    <!-- 5. 雌孕激素調經藥 -->
+    <div class="lab-item-block">
+      <h3>調經週期管理（口服避孕藥或雌孕激素製劑） <span class="tag borderline">精準對位控制</span></h3>
+      <ul>
+        <li><strong>這個治療代表什麼：</strong> 今日（5/28）開立調經藥，目的在於「人為延後」下次月經期。</li>
+        <li><strong>在生殖評估中的意義：</strong> 若不調經，下次月經預計 6/11 ~ 6/12 來潮，此時因 6/25 才要打第三劑柳培林，兩者時間線會產生落差，可能導致植入時間錯過「柳培林最強保護效期（7/23前）」。</li>
+        <li><strong>臨床決策：</strong> 將下次月經「延後一週」至 6/18 左右來潮。如此一來，月經來潮後剛好銜接 6/25 施打第三劑，並直接進入植入週期，達到「用藥期、針劑保護期、內膜準備期」三合一的完美對位。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 四、整體評估 -->
+  <section class="card">
+    <h2>🧠 四、整體評估</h2>
+    <p>本個案屬於非常精準且細緻的<strong>「免疫調控 + 子宮微環境下調 + 經期精準對位」</strong>植入前準備療程：</p>
+    <ul>
+      <li><strong>卵巢與子宮環境控制：</strong>藉由兩到三劑「柳培林（奔離生）」的壓制，能徹底清除子宮內膜異位引發的局部發炎，並創造一個極度安靜、無干擾的子宮內膜環境。</li>
+      <li><strong>免疫防線建立：</strong>白血球狀態 OK 證實了身體能耐受目前的免疫療法。類固醇正在安全退場，而奎寧與阿斯匹靈持續守護，能有效避免著床期的免疫排斥。</li>
+      <li><strong>時程對位邏輯：</strong>5/17 LMP ➡️ 5/26 施打第二劑 ➡️ 5/28 啟動調經延經（預計延至 6/18）➡️ 6/25 施打第三劑。此時間鏈完美對接，能將胚胎植入點鎖定在柳培林藥效最強、子宮環境最純淨的黃金窗口內。</li>
+    </ul>
+  </section>
+
+  <!-- 五、目前成功機率評估 -->
+  <section class="card">
+    <h2>📈 五、目前成功機率評估</h2>
+    <div style="text-align: center;">
+      <span class="chance-badge mid-high">目前評估：中等偏高</span>
+    </div>
+    <div class="info-box">
+      <p><strong>評估適用情境：</strong> 凍胚植入療程 (FET) 準備期。此等級係依據目前檢驗指標、藥物反應與時程對接精密性所作之臨床推估，代表該階段之籌備極具優勢。</p>
+    </div>
+
+    <div class="two-column-grid">
+      <div style="background-color: #f0fdf4; padding: 1.25rem; border-radius: 8px; border: 1px solid #bbf7d0;">
+        <h3 style="color: #166534; margin-top: 0; display: flex; align-items: center; gap: 0.25rem;">✅ 正面原因</h3>
+        <ul style="padding-left: 1.25rem; margin: 0; font-size: 0.95rem;">
+          <li><strong>白血球狀況優良：</strong>免疫耐受性好，未因用藥產生副作用。</li>
+          <li><strong>雙劑柳培林已完成：</strong>對子宮腺肌症或內膜異位發炎已有顯著的下調控制。</li>
+          <li><strong>時程精準管控：</strong>今日及時加入調經藥，成功避開可能干擾黃金植入期的「經期落差」。</li>
+          <li><strong>免疫多管齊下：</strong>奎寧與阿斯匹靈持續在線，保障微循環並降低排斥。</li>
+        </ul>
+      </div>
+      <div style="background-color: #fffbeb; padding: 1.25rem; border-radius: 8px; border: 1px solid #fde68a;">
+        <h3 style="color: #92400e; margin-top: 0; display: flex; align-items: center; gap: 0.25rem;">⚠️ 可能失敗（需預防）原因</h3>
+        <ul style="padding-left: 1.25rem; margin: 0; font-size: 0.95rem;">
+          <li><strong>停用類固醇後免疫反彈：</strong>6月中旬完全停用類固醇後，需觀察是否有自體免疫指標回升。</li>
+          <li><strong>經期不按預期來潮：</strong>若個案身體對調經藥反應特殊，月經未如期在 6/18 左右來潮，會稍微影響對位精準度。</li>
+          <li><strong>內膜增厚不理想：</strong>下調針劑可能造成雌激素極低，進入植入週期時需補充足夠雌激素以增厚內膜。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 六、可能問題與風險分析 -->
+  <section class="card">
+    <h2>⚠️ 六、可能問題與風險分析</h2>
+    <ul>
+      <li><strong>類固醇減量／停藥反應：</strong>部分患者在停用類固醇（康速龍）期間，可能出現短暫疲倦、關節酸痛等現象。這屬於正常生理適應，但若出現顯著的皮膚紅斑、關節劇痛，需排除免疫反彈。</li>
+      <li><strong>調經延經不規律出血：</strong>服用延經藥（調經藥）期間，少數人可能出現點狀微量出血（Breakthrough bleeding），若僅是褐色分泌物，通常不影響療程，不需過度恐慌。</li>
+      <li><strong>長效針劑的更年期症狀：</strong>施打第二、三劑柳培林後，體內雌激素可能降至極低水準，部分患者會出現潮熱、盜汗、陰道乾澀、情緒波動或睡眠障礙。此為藥效確實發揮之表現，不需過度擔憂，可通過多喝水與物理散熱緩解。</li>
+    </ul>
+  </section>
+
+  <!-- 七、調研資料摘要 -->
+  <section class="card">
+    <h2>📚 七、臨床實務調研摘要</h2>
+    <div class="info-box">
+      <p>根據生殖醫學的主流臨床共識與不孕症免疫治療指引：</p>
+      <ul>
+        <li>對於<strong>子宮內膜異位症或子宮腺肌症</strong>合併<strong>反覆著床失敗 (RIF)</strong>之患者，於植入前接受 2 ~ 3 個月的長效型 GnRH 類似物（如柳培林）治療，能有效重塑內膜接受度，其懷孕率顯著高於未下調之對照組。</li>
+        <li>在免疫異常不孕中，白血球（WBC）的定期監測是服用免疫調節劑的「安全護欄」。維持穩定的<strong>奎寧與阿斯匹靈聯合治療</strong>，能藉由抗炎與抗凝血雙重機制，大幅改善蛻膜化子宮內膜的血流灌注。</li>
+        <li><strong>精準調經對位法：</strong>臨床上利用孕激素或避孕藥微調月經期，能確保凍胚植入的時間完美落在下調針劑施打後的 4 週內，此時子宮內膜的發炎因子（如 MCP-1, TNF-alpha）處於最低谷，是胚胎著床的最佳時機。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 八、建議補充檢查 -->
+  <section class="card">
+    <h2>🧪 八、進入植入療程前建議補充檢查</h2>
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th>建議檢查</th>
+          <th>最佳時間點</th>
+          <th>檢查目的</th>
+          <th>重要性</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>最終免疫指標確認</strong></td>
+          <td>預計 6/25 療程前</td>
+          <td>確認自體免疫抗體（如抗磷脂抗體、ANA等）及發炎因子處於安全範圍。</td>
+          <td><span class="tag borderline">高度建議</span></td>
+        </tr>
+        <tr>
+          <td><strong>陰道超音波（內膜與卵巢監測）</strong></td>
+          <td>6 月經期第 2 ~ 4 天</td>
+          <td>評估內膜基礎厚度，確認無殘留卵泡或異常水泡，正式啟動植入用藥。</td>
+          <td><span class="tag normal">必須執行</span></td>
+        </tr>
+        <tr>
+          <td><strong>肝腎功能與生化檢查</strong></td>
+          <td>與免疫追蹤同日</td>
+          <td>評估長期服用奎寧與阿斯匹靈等藥物之代謝安全。</td>
+          <td><span class="tag borderline">建議執行</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 九、步驟指引 -->
+  <section class="card">
+    <h2>🪜 九、病患專屬每日用藥與療程指引</h2>
+    <p>請依照以下排定之優先順序，確實執行您的日常與回診步驟：</p>
+    <div class="step-list">
+      <div class="step-item" data-step="1">
+        <div class="step-title">免疫調節藥物（奎寧、阿斯匹靈）持續服用</div>
+        <div><strong>每日執行：</strong> 奎寧（早晚各1顆）與阿斯匹靈（早晚各1顆，與食物同服），穩定服用至 6/25，中途不可漏藥。</div>
+      </div>
+      <div class="step-item" data-step="2">
+        <div class="step-title">類固醇（哪去水）階梯式減量與停藥</div>
+        <div>
+          <ul>
+            <li><strong>5/28 ~ 6/3：</strong> 早晚各 1 顆（每日2顆）。</li>
+            <li><strong>6/4 ~ 6/11：</strong> 每日 1 顆（建議固定於早餐後服用）。</li>
+            <li><strong>6/12 起：</strong> 功成身退，正式停止服用。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-item" data-step="3">
+        <div class="step-title">調經藥物啟動（延經規劃）</div>
+        <div><strong>執行方式：</strong> 遵照今日醫師與護理師交代之調經藥服用指引，按時、定量服用，以精準控制下次月經於 6/18 左右來潮。</div>
+      </div>
+      <div class="step-item" data-step="4">
+        <div class="step-title">6/25 關鍵回診與追蹤</div>
+        <div><strong>回診任務：</strong> 進行「最終免疫指標確認」抽血，並施打「第三劑長效柳培林」。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 十、生活與治療建議 -->
+  <section class="card">
+    <h2>💡 十、生活型態與抗炎飲食建議</h2>
+    <div class="tip-box">
+      <p><strong>1. 地中海抗炎飲食（極度推薦）：</strong></p>
+      <ul>
+        <li>多攝取深海魚類（富含 Omega-3，如鮭魚、鯖魚），有助於降低全身性發炎。</li>
+        <li>每日攝取足量深綠色蔬菜與抗氧化水果（如藍莓、櫻桃）。</li>
+        <li>烹調油改用特級初榨橄欖油，避免攝取油炸、高糖及精緻加工食品，防範免疫系統過度活化。</li>
+      </ul>
+    </div>
+    <div class="tip-box">
+      <p><strong>2. 溫和運動與血液循環：</strong></p>
+      <ul>
+        <li>每日快走 30 分鐘，或進行溫和瑜伽。運動能協同阿斯匹靈，顯著改善骨盆腔血流，對增厚子宮內膜大有幫助。</li>
+        <li>避免劇烈或極度高強度的重訓，以防引發免疫發炎反應。</li>
+      </ul>
+    </div>
+    <div class="tip-box">
+      <p><strong>3. 壓力管理與充足睡眠：</strong></p>
+      <ul>
+        <li>高壓力會刺激腎上腺皮質醇分泌，干擾免疫平衡。建議每日最晚於夜間 11 點前入睡，並確保 7-8 小時優質睡眠。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 十一、建議與醫師討論的關鍵問題 -->
+  <section class="card">
+    <h2>🗣️ 十一、6/25 回診時建議與醫師討論的關鍵問題</h2>
+    <p>為了讓您的門診溝通更加高效，建議您在 6 月 25 日回診時，直接將以下問題向主治醫師提出討論：</p>
+    <ul class="question-list">
+      <li class="question-item">1. 「醫生，我今天的白血球跟免疫抽血報告結果如何？自體免疫指標有因為類固醇停藥而反彈嗎？」</li>
+      <li class="question-item">2. 「我的調經藥吃完後，月經有按預期（約6/18）來潮。接下來我們是否在 6/25 順利打完第三劑柳培林後，就正式進入胚胎植入的內膜增厚週期？」</li>
+      <li class="question-item">3. 「打完第二、三劑柳培林後，我有些微潮熱、盜汗的症狀，這是否代表降調節效果非常好？這會影響接下來植入時雌激素（如益斯得）的給藥劑量嗎？」</li>
+      <li class="question-item">4. 「類固醇我已經按照階梯式減量在 6/12 停藥了，在植入前或植入後，我還需要重新開始服用類固醇嗎？還是只靠奎寧和阿斯匹靈就足夠？」</li>
+      <li class="question-item">5. 「為了預防著床期或懷孕初期的免疫排斥，我們預計在植入前後，是否需要安排點滴治療（如 IVIG 靜脈注射免疫球蛋白或脂肪乳 Lipofundin）？」</li>
+    </ul>
+  </section>
+
+  <!-- 十二、警示訊號 -->
+  <section class="card">
+    <h2>🚨 十二、安全警示與就醫時機</h2>
+    <p>目前雖然您的報告一切正常且安全，但在服用藥物與調經期間，若出現以下<strong>緊急警訊</strong>，請勿等待至 6/25 回診，應立即安排門診或至急診處理：</p>
+    <div class="alert-box">
+      <p><strong>1. 全身性感染徵象：</strong> 體溫高於 38°C、出現畏寒、劇烈咳嗽或解尿灼熱痛。（因目前使用免疫調節藥物，需排除白血球低下引起的感染）。</p>
+      <p><strong>2. 異常嚴重腹痛：</strong> 出現突發性、撕裂般或持續加劇的下腹劇痛，伴隨頭暈、臉色蒼白或呼吸急促。</p>
+      <p><strong>3. 異常大出血：</strong> 陰道排出鮮紅色血塊且量多，在一小時內浸濕整塊衛生棉，並伴隨劇烈腹痛。</p>
+      <p><strong>4. 嚴重藥物過敏：</strong> 出現全身性皮膚紅疹、搔癢、黏膜腫脹（如眼瞼、嘴唇腫）或呼吸困難。</p>
+    </div>
+  </section>
+
+  <!-- 十三、重要聲明 -->
+  <section class="card disclaimer-card">
+    <h2>📌 十三、重要非診斷聲明</h2>
+    <p>本報告乃基於個案提供之生殖醫學諮詢與看診錄音資料，進行之臨床學術整理與衛教分析，旨在協助個案理解藥物時程與醫學邏輯，提高醫病溝通效率。<strong>本報告不能取代實體醫療院所醫師之親自看診、正式臨床診斷與處方。</strong></p>
+    <p>所有用藥劑量之增減、調經藥物之服用方法以及柳培林針劑之施打時間，<strong>最終均必須以您主治醫師之實體醫囑及醫療院所之指示為唯一標準。</strong>若對用藥有任何疑問，請務必先與您的生殖醫學中心或原診所護理人員聯繫確認。</p>
+  </section>
+
+</div>
+
+</body>
+</html>
