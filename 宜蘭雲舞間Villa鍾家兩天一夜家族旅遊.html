@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 宜蘭雲舞間 Villa 鍾家兩天一夜家族旅遊</title>
+  <style>
+    :root{
+      --primary-blue:#1e6f9f;
+      --primary-blue-dark:#134a6b;
+      --yilan-green:#6fa36f;
+      --yilan-rice:#f6edcf;
+      --yilan-water:#d9f0f4;
+      --yilan-earth:#b77945;
+      --card:#fffdf7;
+      --ink:#263238;
+      --muted:#65727a;
+      --line:#d9e4df;
+      --alert-red:#d62828;
+      --medium:#d88900;
+      --high:#b00020;
+      --shadow:0 14px 32px rgba(30,73,88,.14);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%,rgba(255,255,255,.9) 0 10%,transparent 11%),
+        radial-gradient(circle at 92% 18%,rgba(111,163,111,.24) 0 10%,transparent 11%),
+        linear-gradient(135deg,var(--yilan-water),var(--yilan-rice) 54%,#e7f4df);
+      min-height:100vh;
+    }
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.18;
+      background:
+        linear-gradient(120deg,transparent 0 38%,rgba(30,111,159,.35) 39% 40%,transparent 41%),
+        repeating-linear-gradient(90deg,rgba(111,163,111,.35) 0 2px,transparent 2px 28px);
+      mask-image:linear-gradient(to bottom,black,transparent 80%);
+    }
+    .container{max-width:1180px;margin:auto;padding:18px}
+    header{
+      position:relative;
+      overflow:hidden;
+      border-radius:30px;
+      padding:34px 26px;
+      background:
+        linear-gradient(135deg,rgba(19,74,107,.95),rgba(30,111,159,.84)),
+        radial-gradient(circle at top right,#fff 0 10%,transparent 11%);
+      color:white;
+      box-shadow:var(--shadow);
+    }
+    header:after{
+      content:"龜山島・稻田・三星蔥・家族歡聚";
+      position:absolute;
+      right:20px;
+      bottom:16px;
+      color:rgba(255,255,255,.18);
+      font-weight:900;
+      font-size:34px;
+      letter-spacing:.08em;
+    }
+    h1{margin:0 0 12px;font-size:clamp(26px,5vw,48px);line-height:1.1}
+    .subtitle{font-size:clamp(16px,2.4vw,22px);font-weight:700;color:#eef9ff}
+    .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .chip,.badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.34);
+      font-size:14px;
+      font-weight:800;
+    }
+    nav{
+      position:sticky;
+      top:0;
+      z-index:10;
+      margin:16px 0;
+      padding:12px;
+      border-radius:22px;
+      background:rgba(255,253,247,.92);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(12px);
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+    }
+    nav button,.top-btn{
+      border:0;
+      border-radius:16px;
+      padding:12px 10px;
+      background:#eaf5f8;
+      color:var(--primary-blue-dark);
+      font-weight:900;
+      cursor:pointer;
+      transition:.2s;
+    }
+    nav button.active,nav button:hover,.top-btn:hover{
+      background:var(--primary-blue);
+      color:white;
+      transform:translateY(-1px);
+    }
+    section{display:none;animation:fade .28s ease}
+    section.active{display:block}
+    @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .section-title{
+      margin:28px 0 14px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:28px;
+      color:var(--primary-blue-dark);
+    }
+    .section-title:before{
+      content:"";
+      width:12px;
+      height:34px;
+      border-radius:99px;
+      background:linear-gradient(var(--primary-blue),var(--yilan-green));
+      flex:0 0 auto;
+    }
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .card{
+      background:rgba(255,253,247,.94);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .day-card{border-left:8px solid var(--yilan-green)}
+    .day-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .day-head h3{margin:0;color:var(--primary-blue-dark);font-size:24px}
+    .timeline{display:grid;gap:12px}
+    .event{
+      display:grid;
+      grid-template-columns:86px 1fr;
+      gap:12px;
+      padding:12px;
+      border-radius:18px;
+      background:#f7fbf7;
+      border:1px dashed #c9dcd0;
+    }
+    .time{
+      white-space:nowrap;
+      font-weight:900;
+      color:var(--primary-blue);
+      background:white;
+      border-radius:14px;
+      padding:9px;
+      text-align:center;
+      align-self:start;
+    }
+    .event h4{margin:0 0 6px;font-size:18px}
+    .meta{color:var(--muted);font-size:14px;line-height:1.6}
+    table{width:100%;border-collapse:separate;border-spacing:0 10px}
+    th{text-align:left;color:var(--primary-blue-dark);font-size:13px;padding:6px}
+    td{
+      background:var(--card);
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      padding:10px 8px;
+      vertical-align:top;
+      font-size:14px;
+      line-height:1.5;
+    }
+    td:first-child{border-left:1px solid var(--line);border-radius:14px 0 0 14px;font-weight:900}
+    td:last-child{border-right:1px solid var(--line);border-radius:0 14px 14px 0}
+    a{color:var(--primary-blue-dark);font-weight:900;text-decoration:none;border-bottom:1px solid rgba(30,111,159,.25)}
+    .hl-red{color:var(--alert-red);font-weight:900}
+    .route-card{
+      background:linear-gradient(135deg,#fffdf7,#eef9fb);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .route-card:before{
+      content:"";
+      position:absolute;
+      right:-30px;
+      top:-30px;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      background:rgba(111,163,111,.18);
+    }
+    .route-flow{font-weight:900;line-height:1.8;color:var(--primary-blue-dark)}
+    .risk{border-left:8px solid var(--primary-blue)}
+    .risk.medium{border-left-color:var(--medium)}
+    .risk.high{border-left-color:var(--high)}
+    .weather-box{
+      background:linear-gradient(135deg,#e8f7ff,#fff8df);
+      border:2px solid #cbe5ef;
+      border-radius:24px;
+      padding:18px;
+      margin-bottom:16px;
+    }
+    .clothes{counter-reset:item;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .clothes div{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:12px;
+    }
+    .clothes div:before{
+      counter-increment:item;
+      content:counter(item) ". ";
+      font-weight:900;
+      color:var(--primary-blue);
+    }
+    .top-btn{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      box-shadow:var(--shadow);
+      z-index:11;
+    }
+    .note{font-size:13px;color:var(--muted);line-height:1.7}
+    .pill{
+      display:inline-block;
+      margin:3px 4px 3px 0;
+      padding:5px 9px;
+      border-radius:999px;
+      background:#edf7ed;
+      color:#315b36;
+      font-size:12px;
+      font-weight:900;
+    }
+    .room-grid{
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+    .room-card{
+      border-radius:18px;
+      padding:14px;
+      background:linear-gradient(135deg,#ffffff,#edf8f1);
+      border:1px solid var(--line);
+      min-height:96px;
+    }
+    .room-no{
+      font-size:22px;
+      font-weight:950;
+      color:var(--primary-blue-dark);
+      margin-bottom:8px;
+    }
+    .room-family{
+      font-size:16px;
+      font-weight:900;
+      color:var(--ink);
+    }
+    .feature-list{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+      margin-top:12px;
+    }
+    .feature{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:12px;
+      line-height:1.6;
+    }
+    @media(max-width:860px){
+      nav{grid-template-columns:repeat(2,1fr)}
+      .grid,.grid-3,.clothes,.feature-list{grid-template-columns:1fr}
+      .room-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .event{grid-template-columns:72px 1fr}
+      table,thead,tbody,tr,th,td{display:block}
+      thead{display:none}
+      tr{margin-bottom:12px}
+      td{border:1px solid var(--line)!important;border-radius:12px!important;margin-bottom:2px}
+      td:before{content:attr(data-label);display:block;font-size:12px;color:var(--muted);font-weight:900;margin-bottom:4px}
+      header:after{font-size:20px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header id="pageHeader"></header>
+    <nav id="nav"></nav>
+    <main>
+      <section id="itinerary" class="active"></section>
+      <section id="food"></section>
+      <section id="souvenirs"></section>
+      <section id="attractions-wall"></section>
+      <section id="desserts"></section>
+      <section id="daily-routes"></section>
+      <section id="transport-stay"></section>
+      <section id="risks"></section>
+    </main>
+  </div>
+  <button class="top-btn" onclick="backToTop()">回到頂部</button>
+  <script>
+    const trip = {
+      title:"2026 宜蘭雲舞間 Villa 鍾家旅遊",
+      subtitle:"8/8（六）Day 1：預約美味 ‧ 懷舊盛宴｜8/9（日）Day 2：蔥田手作 ‧ 海鮮盛宴",
+      destination:"宜蘭・頭城・羅東・冬山・三星",
+      dates:"2026/8/8（六）－2026/8/9（日）",
+      people:"家族旅遊，約 36 人分桌會合",
+      stay:"雲舞間 Villa",
+      theme:"看海早餐、懷舊桌菜、Villa 泳池歡聚、三星蔥農村體驗、活海產收尾",
+      highlightNames:["滿山望海","駿懷舊餐廳","喜互惠超市","雲舞間 Villa","初咪體驗農場","甲富哥活海產","DIY創意蔥麵包","蔥勁派","蔥油餅"],
+      nav:[
+        ["itinerary","每日行程"],
+        ["food","米其林與在地美食"],
+        ["souvenirs","伴手禮建議"],
+        ["attractions-wall","景點導覽牆"],
+        ["desserts","下午茶甜點特輯"],
+        ["daily-routes","每日 Google 路線圖"],
+        ["transport-stay","交通與住宿"],
+        ["risks","假設與風險"]
+      ],
+      rooms:[
+        ["01","相蓉家"],
+        ["201","郡儀家"],
+        ["202","泓叡家"],
+        ["301","謹頤家"],
+        ["302","芷嫺家"],
+        ["158","沛翰家"],
+        ["168","秀菊"],
+        ["188","美真錦娥"],
+        ["太空艙1","佳佳"],
+        ["太空艙2","阿樺"]
+      ],
+      days:[
+        {
+          day:"Day 1",
+          date:"8月8日 星期六",
+          title:"啟程與歡聚｜預約美味 ‧ 懷舊盛宴",
+          area:"頭城海岸 → 羅東 → 冬山 Villa",
+          events:[
+            {time:"10:00",place:"滿山望海 早餐",activity:"出發首站，美味早餐溫暖開局；建議提早確認訂位、停車與用餐限時。",transport:"自駕或包車集合",cost:"約 NT$200－500/人，出發前需再次確認",note:"海景座位熱門，36人建議分批抵達。"},
+            {time:"11:30",place:"駿懷舊餐廳",activity:"36人分桌會合，重溫50年代老街風情與手路菜。",transport:"滿山望海至羅東約需視車況安排",cost:"依合菜桌數計，待補充",note:"官方資訊顯示午餐時段 11:00－14:00，最後仍以店家公告為準。"},
+            {time:"13:30",place:"食材大採購分隊 ＆ 家族漫遊隊",activity:"採購組至喜互惠超市補齊晚間 Villa 聚會食材；其他人前往別墅外放鬆或就近散步。",transport:"自駕分隊",cost:"依採購清單，待補充",note:"建議分配冰品、飲料、生鮮、烤肉或宵夜、早餐備品。"},
+            {time:"15:00",place:"雲舞間 Villa Check-In & 迎賓下午茶",activity:"開箱10間房、依房間配置入住、享用精緻下午茶、別墅泳池與拍照區，展開家族歡聚。",transport:"羅東／喜互惠至冬山 Villa",cost:"住宿費用待補充",note:"入住規則、戲水池使用、廚房設備、垃圾分類與退房時間出發前需再次確認。"}
+          ]
+        },
+        {
+          day:"Day 2",
+          date:"8月9日 星期日",
+          title:"慢活與歸途｜蔥田手作 ‧ 海鮮盛宴",
+          area:"冬山 Villa → 三星 → 冬山／羅東 → 返家",
+          events:[
+            {time:"10:00",place:"初咪體驗農場",activity:"三星蔥農村體驗，DIY創意蔥麵包與蔥勁派（蔥油餅）。Klook 頁面介紹含全台首創造型蔥麵包 DIY、室內冷氣烘焙教室、返鄉青農導覽、拔蔥與洗蔥體驗，另可了解三星天送埤砌石文化、草垺與管流等地方故事。",transport:"自駕或包車",cost:"Klook 頁面顯示方案價自 NT$120 起，依所選方案與日期為準，出發前需再次確認",note:"Klook 頁面顯示評分 4.9/5、146 則評價、8K+ 人參加過；地址顯示東興路13號。方案與可預訂日期需再次確認。"},
+            {time:"12:30",place:"甲富哥活海產",activity:"頂級海鮮饗宴，活海產、熱炒與團體聚餐，為聚會畫下完美句點。",transport:"三星至冬山／羅東周邊",cost:"依時價與桌菜安排，待補充",note:"大型團體務必訂位，海鮮時價與菜色以現場為準。"},
+            {time:"15:00",place:"滿載而歸，平安返家",activity:"避開尖峰車潮，開開心心回溫暖的家。",transport:"自駕分流返家",cost:"油資、過路費、停車費待補充",note:"暑假週日午後國道與雪隧可能壅塞，建議提早上路或分批離開。"}
+          ]
+        }
+      ]
+    };
+
+    const food = [
+      ["滿山望海","頭城","海景咖啡／早餐","使用者指定＋近期旅遊推薦","2026 來源年度","手沖咖啡、乳酪蛋糕、海景早午餐","NT$200－500","Day 1","https://marsfood.tw/manshan/","熱門海景座位，營業與訂位出發前需再次確認。"],
+      ["駿懷舊餐廳","羅東","懷舊台菜合菜","使用者指定＋店家官方","2026 可查資訊","手路菜、復古主題合菜","依桌菜計","Day 1","https://www.eland-chun.com.tw/WebMaster/?section=1","官方顯示午餐 11:00－14:00；大型團體須先訂桌。"],
+      ["甲富哥活海產","冬山／羅東周邊","活海產熱炒","使用者指定＋近期食記推薦","2026 來源年度","活魚、白蝦、海瓜子、熱炒、水果盤","依時價","Day 2","https://www.mecocute.com/jia-fu-ge/","海鮮時價與菜色變動大，出發前需再次確認。"],
+      ["初咪體驗農場","三星","農村體驗輕食","使用者指定＋Klook","2026 可查資訊","DIY創意蔥麵包、蔥勁派（蔥油餅）、拔蔥洗蔥體驗","Klook 顯示自 NT$120 起","Day 2","https://www.klook.com/zh-TW/activity/75848-yilan-diy-creative-scallion-bread-experience/","Klook 頁面顯示 4.9/5、146則評價、8K+ 人參加過；方案與日期需再次確認。"],
+      ["羅東夜市小吃群","羅東","夜市小吃","在地人氣推薦","2026 參考年度","蔥油餅、包心粉圓、糕渣、卜肉","NT$50－250","日程:Day 1","https://travel.yilan.tw/zh-tw/attraction/details/102","若晚間體力允許可分隊前往，停車與人潮需評估。"],
+      ["正常鮮肉小籠湯包","宜蘭市","小籠湯包","在地人氣推薦","2026 參考年度","鮮肉小籠湯包","NT$100－250","日程:Day 1","https://www.google.com/maps/search/?api=1&query=正常鮮肉小籠湯包","未排入主行程，適合自駕支線。"],
+      ["蒜味肉羹","宜蘭市","宜蘭小吃","在地人氣推薦","2026 參考年度","蒜味肉羹、魯肉飯","NT$80－200","日程:Day 1","https://www.google.com/maps/search/?api=1&query=宜蘭蒜味肉羹","味道較重，長輩與小孩可視口味調整。"],
+      ["阿娘給的蒜味肉羹","宜蘭市","小吃","在地人氣推薦","2026 參考年度","蒜味肉羹","NT$80－200","日程:Day 1","https://www.google.com/maps/search/?api=1&query=阿娘給的蒜味肉羹","熱門排隊店，未確認營業日不建議硬排。"],
+      ["柯氏蔥油餅","礁溪","排隊點心","在地人氣推薦","2026 參考年度","蔥油餅加蛋","NT$50－120","日程:Day 2","https://www.google.com/maps/search/?api=1&query=柯氏蔥油餅","若回程經礁溪可順買，人潮與停車需預留。"],
+      ["礁溪甕窯雞","礁溪","烤雞合菜","在地人氣推薦","2026 參考年度","甕窯雞、雞油拌飯","NT$400－900/人","日程:Day 2","https://www.google.com/maps/search/?api=1&query=礁溪甕窯雞","適合替代午餐或晚餐，但本次主餐已安排甲富哥。"],
+      ["宜蘭渡小月餐廳","宜蘭市","蘭陽料理","在地老店推薦","2026 參考年度","糕渣、西魯肉、膽肝","NT$400－900/人","日程:Day 1","https://www.google.com/maps/search/?api=1&query=宜蘭渡小月餐廳","可作為懷舊台菜備案。"],
+      ["掌上明珠會館","壯圍","景觀無菜單料理","在地景觀餐廳推薦","2026 參考年度","無菜單料理、庭園景觀","NT$1200 以上","日程:Day 1","https://www.google.com/maps/search/?api=1&query=掌上明珠會館","團體需提前訂位，預算較高。"],
+      ["蘭城晶英紅樓中餐廳","宜蘭市","烤鴨／中餐","飯店餐廳推薦","2026 參考年度","櫻桃霸王鴨","NT$1000 以上","日程:Day 1","https://www.silksplace-yilan.com.tw/","適合慶祝餐，非本次主線，須提早訂位。"],
+      ["饗宴鐵板燒","宜蘭市","鐵板燒","在地高評價推薦","2026 參考年度","海鮮鐵板燒","NT$1000 以上","日程:Day 1","https://www.google.com/maps/search/?api=1&query=宜蘭饗宴鐵板燒","不適合36人大型同時用餐，較適合小分隊。"],
+      ["大麵章","宜蘭市","傳統麵食","在地人氣推薦","2026 參考年度","麻醬麵、餛飩湯","NT$60－180","日程:Day 2","https://www.google.com/maps/search/?api=1&query=宜蘭大麵章","老店用餐節奏快，停車不易。"],
+      ["林場肉羹","羅東","小吃","在地人氣推薦","2026 參考年度","肉羹、米粉炒","NT$80－200","日程:Day 1","https://www.google.com/maps/search/?api=1&query=羅東林場肉羹","近羅東林業文化園區，適合作為散步支線。"],
+      ["阿灶伯當歸羊肉湯","羅東","夜市小吃","在地人氣推薦","2026 參考年度","當歸羊肉湯、臭豆腐","NT$100－250","日程:Day 1","https://www.google.com/maps/search/?api=1&query=阿灶伯當歸羊肉湯","夏季較熱，適合晚間小分隊。"],
+      ["富美海鮮火鍋","蘇澳","海鮮火鍋","在地海鮮推薦","2026 參考年度","海鮮火鍋、現流魚","NT$600－1200/人","日程:Day 2","https://www.google.com/maps/search/?api=1&query=富美海鮮火鍋","距離主線較遠，僅作海鮮備案。"],
+      ["宜蘭滷之鄉","礁溪","滷味伴手輕食","在地推薦","2026 參考年度","鴨翅、豆干、滷味","NT$100－500","日程:Day 2","https://www.google.com/maps/search/?api=1&query=宜蘭滷之鄉","適合回程買車上點心。"],
+      ["米其林 Guide Taiwan 官方名單","台灣","餐飲指南查證","Michelin Guide 官方","Michelin Guide Taiwan 2025 最新可查版本","本行程宜蘭指定餐廳未確認列入星級／必比登／入選","依餐廳","日程:Day 1","https://guide.michelin.com/tw/en/article/michelin-guide-ceremony/taiwan-full-list","為避免誤標，宜蘭本行程餐廳均不宣稱米其林身分；出發前可再查官方最新名單。"]
+    ];
+
+    const souvenirs = [
+      ["奕順軒","宜蘭市／羅東","奶凍捲、桂圓蛋糕","NT$150－600","Day 2","宜蘭人氣糕餅記憶，適合分送親友。","冷藏品需保冷袋。"],
+      ["諾貝爾奶凍","羅東","草莓奶凍捲、芋頭奶凍捲","NT$200－600","Day 1","羅東代表甜點伴手禮。","暑假需注意保存溫度。"],
+      ["三星蔥製品","三星","蔥油餅、蔥醬、蔥餅乾","NT$100－500","Day 2","連結三星蔥田體驗，最貼合本次主題。","初咪或三星周邊可選購。"],
+      ["宜蘭餅","宜蘭市／礁溪","超薄牛舌餅","NT$100－400","Day 2","宜蘭經典薄餅，輕巧好分裝。","易碎，建議手提。"],
+      ["鴨賞","宜蘭／礁溪","煙燻鴨賞","NT$200－600","Day 2","蘭陽傳統風味，適合下酒與家常料理。","需冷藏，確認真空包裝。"],
+      ["膽肝","宜蘭市","宜蘭膽肝","NT$250－800","Day 2","宜蘭傳統醃漬工藝。","口味較鹹，適合長輩。"],
+      ["金棗蜜餞","礁溪／宜蘭","金棗乾、金棗茶","NT$100－400","Day 2","宜蘭金棗展現酸甜果香。","可作茶飲或零嘴。"],
+      ["員山蜂蜜","員山","龍眼蜜、蜂蜜醋","NT$250－900","Day 2","連結宜蘭丘陵農產。","選購時確認產地標示。"],
+      ["礁溪溫泉番茄製品","礁溪","番茄乾、果醬","NT$150－500","Day 2","反映礁溪農產與溫泉鄉特色。","季節供應不一。"],
+      ["蘭陽博物館文創","頭城","明信片、地景文具","NT$80－600","Day 1","以龜山島、單面山、蘭陽地景為設計符號。","若未順遊可略過。"],
+      ["傳藝中心文創","五結","工藝小物、布袋戲、木作","NT$150－1000","Day 1","保存傳統工藝與台灣民俗美學。","適合小朋友紀念品。"],
+      ["米粉羹調理包","宜蘭","傳統羹湯調理包","NT$100－350","Day 2","把宜蘭小吃味帶回家。","品牌與保存方式待補充。"],
+      ["三星蔥蛋捲","三星","蔥香蛋捲","NT$150－450","Day 2","蔥香與甜點結合，貼近農村體驗。","易碎，建議最後買。"],
+      ["烏石港海味乾貨","頭城","小魚乾、櫻花蝦、魚鬆","NT$150－800","Day 1","海港生活記憶與蘭陽海味。","確認保存期限與產地。"],
+      ["喜互惠超市在地選物","宜蘭各店","宜蘭限定零食、飲料、烤肉備品","NT$50－1000","Day 1","本地超市補給，也是家族旅行的生活感體驗。","採購清單先分工。"],
+      ["宜蘭米","員山／三星","在地米、小包裝米","NT$150－500","Day 2","蘭陽平原水田文化代表。","重量較重，適合開車。"],
+      ["蔥油拌麵","三星／宜蘭","三星蔥拌麵","NT$150－450","Day 2","把三星蔥風味轉成家常料理。","品牌待現場挑選。"],
+      ["礁溪溫泉皂","礁溪","溫泉皂、沐浴小物","NT$100－500","Day 2","溫泉鄉生活風格伴手。","香味與成分視個人喜好。"],
+      ["宜蘭花生糖","宜蘭","花生糖、芝麻糖","NT$100－350","Day 2","傳統茶點與長輩喜愛零食。","夏季避免悶熱融化。"],
+      ["在地果醬與農產加工品","三星／冬山","果醬、果乾、洛神花茶","NT$150－600","Day 2","呼應農村體驗與宜蘭田園。","以農會或官方通路為佳。"]
+    ];
+
+    const attractions = [
+      ["滿山望海","頭城","龜山島海景與南洋風咖啡空間。","滿山望海適合作為宜蘭家族旅行的第一站，因為它把頭城海岸、龜山島視野與度假氛圍濃縮在同一個空間。大片窗景能讓長輩舒適坐著看海，小朋友也能感受宜蘭從山到海的開闊感。假日人潮旺，建議把它視為暖身早餐與拍照點，而非趕時間的景點。","60－90分鐘","自駕、包車","訂位、低消、停車、用餐時間需確認。","https://marsfood.tw/manshan/"],
+      ["駿懷舊餐廳","羅東","50年代復古街景與台式合菜。","駿懷舊餐廳以台灣老街、復古招牌與兒時記憶打造主題用餐環境，對跨世代家族旅遊特別有共鳴。長輩能從擺設與老歌找回生活記憶，年輕成員則能透過餐桌分享認識早期台灣飲食文化。36人分桌用餐時，建議事先規劃桌次與長輩座位。","90－120分鐘","自駕、包車","大型團體需訂桌，菜色與桌數待確認。","https://www.eland-chun.com.tw/WebMaster/?section=1"],
+      ["喜互惠超市","宜蘭在地連鎖","Villa 聚會採購與在地生活觀察。","喜互惠是宜蘭在地重要超市品牌，對家族 Villa 旅遊而言不只是採買點，也是一種在地生活體驗。採購組可補齊飲料、冰品、水果、宵夜、早餐與烤肉用品，其他成員則可先前往 Villa 休息。建議採購清單事先分為冷藏、生鮮、零食與共用耗材，避免重複購買。","30－60分鐘","自駕分隊","週末停車與結帳人潮需預留。","https://www.surewell.com.tw/ec99/rwd1451/category.asp?category_id=23"],
+      ["雲舞間 Villa","冬山","泳池、帳篷、綠意庭院與家族包棟。","雲舞間 Villa 位於冬山，官方介紹強調綠意、泡泡帳篷、神殿帳篷、戲水池與特色拍照區，很適合本次家族旅遊的核心聚會。它讓行程從移動轉為共享生活：孩子玩水、大人聊天、長輩休息、親友拍照。建議入住後先說明房間分配、公共空間使用與安全規則。","住宿停留","自駕、包車","入住、退房、戲水池規則、廚房設備出發前需確認。","https://yunwujianvilla.yibnb.net/"],
+      ["初咪體驗農場","三星","三星蔥 DIY、農村採收與文化導覽。","初咪體驗農場把三星蔥從食材變成可參與的旅行記憶。Klook 介紹此活動為宜蘭三星蔥體驗，包含全台首創造型蔥麵包 DIY、蔥勁派（蔥油餅）、返鄉青農導覽、拔蔥與洗蔥體驗，並以生動故事分享三星天送埤砌石文化、草垺與管流等地方遺產。室內冷氣烘焙教室讓夏天或雨天都較舒適，適合孩子、長輩與親子共同參與。","90－120分鐘","自駕、包車","Klook 顯示地址為東興路13號、評分 4.9/5、146則評價與 8K+ 參加；方案、費用、日期與名額需出發前再次確認。","https://www.klook.com/zh-TW/activity/75848-yilan-diy-creative-scallion-bread-experience/"],
+      ["甲富哥活海產","冬山","活海鮮、熱炒與團體聚餐。","甲富哥活海產位於冬山廣興一帶，接近羅東與三星動線，是 Day 2 從農場體驗轉往返家的理想午餐點。海鮮餐廳最迷人的地方在於現場魚貨與時令菜色，讓旅行以熱鬧餐桌收尾。大型家族應先確認桌數、停車、菜單預算與兒童座椅。","90－120分鐘","自駕、包車","海鮮時價與菜色不固定，務必再次確認。","https://www.mecocute.com/jia-fu-ge/"],
+      ["羅東林業文化園區","羅東","森林鐵道、貯木池與林業記憶。","羅東林業文化園區保存太平山林業運輸與木材產業記憶，園區平坦好走，適合長輩與孩子散步。貯木池、舊鐵道與日式建築讓人理解宜蘭不只有稻田與海岸，也曾是重要林業轉運地。若 Day 1 午餐後有人不採購，可作為漫遊隊備案。","60－90分鐘","自駕、步行","夏季炎熱，需防曬補水。","https://travel.yilan.tw/zh-tw/attraction/details/92"],
+      ["羅東夜市","羅東","宜蘭夜間小吃與庶民生活。","羅東夜市是宜蘭最具代表性的夜間生活場域之一，小吃密集、選擇多，適合年輕成員在 Villa 晚間活動後小分隊探訪。它展現宜蘭人日常飲食的熱鬧與親切，但週末人潮密集，36人不適合整團移動，建議自由分流並約定集合時間。","60－120分鐘","自駕、計程車","人潮、停車與兒童走失風險需注意。","https://travel.yilan.tw/zh-tw/attraction/details/102"],
+      ["蘭陽博物館","頭城","單面山建築與宜蘭地景文化。","蘭陽博物館的建築靈感來自北關海岸單面山，外觀本身就是理解宜蘭地質與文化的入口。館內展示從山、平原到海的蘭陽生活，適合把宜蘭旅行從吃喝延伸到土地故事。若 Day 1 早餐後時間彈性，可短暫順遊或留作雨備。","90－150分鐘","自駕、火車轉乘","展覽、票價與休館日需確認。","https://www.lym.gov.tw/"],
+      ["烏石港","頭城","海港、衝浪與龜山島出海口。","烏石港是宜蘭東北角海上活動的重要門戶，可遠眺龜山島，也能感受漁港與觀光港交會的氛圍。夏季有衝浪、賞鯨與海鮮相關活動，但本次家族行程較緊湊，建議作為滿山望海周邊散步或拍照備案，而非強制安排。","30－90分鐘","自駕","海風強、日曬強，出海活動需看海象。","https://www.necoast-nsa.gov.tw/Attraction-Content.aspx?a=273&l=1"],
+      ["冬山河親水公園","五結／冬山","水岸綠地與親子活動。","冬山河親水公園是宜蘭親子旅行的經典場域，河岸寬闊、步道平順，能展現蘭陽平原水系與生活休閒的連結。若 Villa 入住前後需要讓孩子放電，這裡是不錯的戶外備案；但8月天氣炎熱，正午不宜久留。","60－120分鐘","自駕","高溫、午後雷陣雨與活動檔期需確認。","https://travel.yilan.tw/zh-tw/attraction/details/72"],
+      ["國立傳統藝術中心","五結","工藝街、戲曲與民俗文化。","國立傳統藝術中心以街屋、工藝、戲曲與民俗展演呈現台灣傳統生活美學。對家族旅遊而言，它能讓不同年齡層各取所需：孩子看表演，長輩逛老街，年輕人拍建築細節。若遇雨或需要替代戶外行程，可將它列為大型團體備案。","120－180分鐘","自駕","票價、演出時間與停車資訊需確認。","https://www.px-sunmake.org.tw/"],
+      ["梅花湖","冬山","湖畔散步與低強度休閒。","梅花湖位於冬山，是宜蘭慢旅行常見景點，湖畔步道相對容易行走，適合長輩散步、孩子騎車或家庭合照。它與雲舞間 Villa、甲富哥活海產所在區域距離相對順路，可作為 Day 2 午餐前後的彈性點，但夏季需避開正午。","60－90分鐘","自駕","日曬、防蚊與停車需留意。","https://travel.yilan.tw/zh-tw/attraction/details/61"],
+      ["仁山植物園","冬山","植物景觀與山林散步。","仁山植物園位於冬山山麓，能從平原進入宜蘭綠色山林。園區以植物展示與步道為主，適合喜歡自然、攝影與散步的家人。由於本次主軸是 Villa 與農場，不建議硬塞，但若有早起成員，可作為清晨或延伸旅行選項。","90－150分鐘","自駕","步道坡度、蚊蟲與午後雨需注意。","https://travel.yilan.tw/zh-tw/attraction/details/63"],
+      ["三星青蔥文化館","三星","三星蔥產業與農會選物。","三星青蔥文化館能補足初咪體驗農場的知識面，讓家人理解三星蔥為何成為宜蘭代表農產。館內與周邊常可找到蔥相關加工品，適合作為伴手禮採買點。若 Day 2 農場後仍有時間，可短暫停留。","30－60分鐘","自駕","開放時間與販售品項需確認。","https://www.google.com/maps/search/?api=1&query=三星青蔥文化館"],
+      ["清水地熱公園","大同","煮蛋、地熱與山谷溪流。","清水地熱公園展現宜蘭山區地熱資源，遊客可體驗溫泉煮蛋與山谷景觀，是很有記憶點的親子景點。不過它距離本次主線較遠，36人移動時間長，較適合延伸一日遊而非塞入兩天一夜主行程。","90－150分鐘","自駕","山路、停車、煮食排隊與天候需確認。","https://travel.yilan.tw/zh-tw/attraction/details/43"],
+      ["幾米公園","宜蘭市","繪本場景與城市散步。","幾米公園把繪本角色帶入宜蘭車站周邊，讓城市空間變得童趣而易親近。它適合短暫停留拍照，尤其是帶小孩或喜歡插畫的家人。若回程有人搭火車或想進宜蘭市買伴手禮，可順路安排。","30－60分鐘","火車、自駕","戶外拍照點日曬強，停車需找周邊車位。","https://travel.yilan.tw/zh-tw/attraction/details/101"],
+      ["宜蘭設治紀念館","宜蘭市","日式木造建築與城市歷史。","宜蘭設治紀念館保存日式木造官舍氛圍，是認識宜蘭城市治理與歷史紋理的安靜景點。相較夜市與海港，這裡節奏慢、空間細緻，適合喜歡建築、歷史與攝影的家人。若遇雨，可與宜蘭市區甜點或伴手禮串聯。","60－90分鐘","自駕、步行","開館、票價與休館日需確認。","https://travel.yilan.tw/zh-tw/attraction/details/50"],
+      ["礁溪溫泉公園","礁溪","溫泉鄉休憩與回程泡腳。","礁溪溫泉公園位於回程常經過的礁溪，是宜蘭溫泉文化的代表場域。若家人想在返家前稍作休息，可安排泡腳或散步，舒緩兩天移動與走路疲勞。不過週日下午礁溪交通容易壅塞，須評估是否會拖慢返家。","30－90分鐘","自駕、火車","停車、人潮與溫泉設施開放狀況需確認。","https://travel.yilan.tw/zh-tw/attraction/details/32"],
+      ["頭城老街","頭城","老街屋、開蘭歷史與慢步調。","頭城老街是宜蘭開發史的重要場景之一，保留街屋、廟宇與地方生活痕跡。若滿山望海早餐後還有短暫時間，可安排小分隊散步，感受頭城從港口、商街到觀光小鎮的轉變。大型團體不建議久留，因停車與集合較不方便。","30－60分鐘","自駕後步行","夏季日曬與店家營業時間需確認。","https://travel.yilan.tw/zh-tw/attraction/details/31"]
+    ];
+
+    const desserts = [
+      ["滿山望海","巴克斯乳酪蛋糕、手沖咖啡","頭城","海景窗景與南洋感空間，適合 Day 1 開場。","上午或下午茶","https://marsfood.tw/manshan/"],
+      ["諾貝爾奶凍","奶凍捲","羅東","羅東代表甜點，適合買回 Villa 分享。","午餐後或採購時段","https://www.google.com/maps/search/?api=1&query=諾貝爾奶凍羅東"],
+      ["奕順軒","奶凍捲、桂圓蛋糕","宜蘭／羅東","宜蘭伴手禮名店，也可當下午茶點心。","回程前","https://www.google.com/maps/search/?api=1&query=奕順軒宜蘭"],
+      ["小亀有かき冰","日式刨冰","宜蘭市","夏季消暑甜點，適合小分隊。","炎熱午後","https://www.google.com/maps/search/?api=1&query=小亀有かき冰宜蘭"],
+      ["小揭商行","咖啡、甜點","宜蘭市","老屋風格咖啡館，適合喜歡安靜空間的家人。","下午茶","https://www.google.com/maps/search/?api=1&query=小揭商行宜蘭"],
+      ["散步 Cafe Sanpo","咖啡、蛋糕","宜蘭市","慢步調咖啡館，可作為雨天備案。","下午","https://www.google.com/maps/search/?api=1&query=散步Cafe宜蘭"],
+      ["冰雪礁溪店","雪花冰、冰品","礁溪","回程經礁溪可短暫消暑。","午後或返家前","https://www.google.com/maps/search/?api=1&query=冰雪礁溪"],
+      ["白水豆花","麥芽糖花生粉豆花","礁溪","礁溪人氣甜品，口感細緻。","午後","https://www.google.com/maps/search/?api=1&query=白水豆花礁溪"],
+      ["黑宅咖啡","咖啡、甜點","頭城","黑色建築與海岸旅行氛圍，適合喜歡拍照的家人。","下午茶","https://www.google.com/maps/search/?api=1&query=黑宅咖啡頭城"],
+      ["合盛太平 Cafe Story","咖啡、甜點","宜蘭市","歷史老屋改造咖啡空間，兼具甜點與建築故事。","午後雨備","https://www.google.com/maps/search/?api=1&query=合盛太平CafeStory宜蘭"]
+    ];
+
+    const dailyRoutes = [
+      {
+        day:"Day 1",
+        title:"頭城看海早餐 → 羅東懷舊午餐 → 採購 → 冬山 Villa",
+        origin:"滿山望海",
+        destination:"雲舞間 Villa",
+        waypoints:["駿懷舊餐廳","喜互惠超市 羅東店"],
+        mode:"driving",
+        transport:"自駕／包車為主，採購組可分車行動",
+        range:"頭城海岸、羅東市區、冬山 Villa 生活圈",
+        focus:"先遠後近，上午看海，中午團體合菜，下午把人流收回 Villa。",
+        note:"若 36 人分車，建議每車建立 LINE 即時定位；採購車先確認冰品與冷藏空間。"
+      },
+      {
+        day:"Day 2",
+        title:"冬山 Villa → 三星蔥體驗 → 甲富哥海鮮 → 返家",
+        origin:"雲舞間 Villa",
+        destination:"甲富哥活海產",
+        waypoints:["初咪體驗農場 東興路13號"],
+        mode:"driving",
+        transport:"自駕／包車，午後返家採分流",
+        range:"冬山、三星、羅東周邊",
+        focus:"上午農村手作，午餐以海鮮聚餐收尾，15:00 前後避開部分尖峰。",
+        note:"週日暑假車潮可能集中在礁溪、雪隧與國五，建議飯後不再追加遠點。"
+      }
+    ];
+
+    const risks = [
+      ["info","資訊版本","米其林 Guide Taiwan 官方最新可查版本為 2025，本行程指定宜蘭餐廳未確認為星級、Bib Gourmand 或 Selected Restaurants，因此均以在地推薦或使用者指定標示。"],
+      ["high","暑假交通","8/8、8/9 為週末暑假，國五、雪隧、礁溪與羅東市區可能壅塞；36人建議分車、分批與設定共同集合點。"],
+      ["medium","排隊與訂位","滿山望海、駿懷舊餐廳、初咪體驗農場、甲富哥活海產皆需出發前再次確認訂位、時段、桌數、停車與團體接待能力。"],
+      ["medium","初咪體驗方案","Klook 頁面列有 DIY蔥勁派（蔥油餅）、DIY創意蔥麵包、導覽、拔1株三星蔥與洗蔥等不同方案；實際可訂日期、價格、集合地址與團體名額需出發前再次確認。"],
+      ["medium","體力安排","長輩與孩子不宜過度移動，Day 1 入住後以 Villa 活動為主，Day 2 午餐後直接返家，避免行程過滿。"],
+      ["high","水域與泳池安全","雲舞間 Villa 戲水池需安排成人輪值看顧，孩童不可單獨戲水；雨後地面濕滑，跑跳需限制。"],
+      ["medium","預算變動","海鮮時價、桌菜、體驗費、停車費、採購費可能變動；建議建立公基金與記帳窗口。"],
+      ["info","替代方案","若午後雷雨，戶外散步取消，改為 Villa 桌遊、合照、長輩聊天、室內下午茶或初咪室內 DIY。"],
+      ["medium","營業時間","店家營業日、最後點餐、體驗梯次、Villa 入退房規定均可能調整，所有資訊出發前需再次確認。"],
+      ["info","治安與財物","宜蘭整體旅遊友善，但夜市與停車場仍需注意貴重物品、兒童走失與車內勿放顯眼包包。"],
+      ["high","臨時休館與天候","颱風、豪雨、道路積水或山區落石可能影響三星、冬山與回程交通；必要時取消支線、提早返家。"]
+    ];
+
+    const clothes = [
+      "上身穿搭：8月宜蘭炎熱潮濕，建議透氣排汗短袖或薄襯衫，長輩可準備吸汗內搭。",
+      "下身穿搭：以輕薄長褲、寬鬆褲或及膝短褲為主；農場體驗建議避免過長裙襬。",
+      "外套或防風層：車內冷氣、餐廳冷氣與夜間溫差可準備薄外套或防曬外套。",
+      "雨具或防水裝備：8月午後雷陣雨機率高，折傘、輕便雨衣、防水袋不可少。",
+      "步行鞋款：滿山望海、農場與採購皆需走動，建議防滑運動鞋或好走涼鞋。",
+      "襪子與足部保護：農場體驗建議穿襪子與包覆鞋，避免泥土、蚊蟲與摩擦起水泡。",
+      "帽子、墨鏡或防曬：海邊與農田日曬強，寬邊帽、太陽眼鏡、防曬乳需隨身。",
+      "晚餐或正式場合服裝：駿懷舊餐廳與家族合照可準備整齊上衣，兼顧舒適與拍照。",
+      "溫差備品：小孩與長輩可帶薄毯、披肩或備用衣，避免汗濕後吹冷氣著涼。",
+      "當地文化或宗教場合：若臨時順遊廟宇或傳統場域，避免過度暴露服裝並保持安靜禮貌。"
+    ];
+
+    function byId(id){return document.getElementById(id);}
+    function isHL(name,list){return list.some(x=>name.includes(x)||x.includes(name));}
+    function suggestNearestDay(item){
+      const text = Array.isArray(item)?item.join(" "):JSON.stringify(item);
+      if(text.includes("初咪")||text.includes("甲富哥")||text.includes("三星")) return "Day 2";
+      return "Day 1";
+    }
+    function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));}
+    function hl(s){
+      let out=esc(s);
+      trip.highlightNames.forEach(n=>{
+        out=out.replaceAll(esc(n),'<span class="hl-red">'+esc(n)+'</span>');
+      });
+      return out;
+    }
+    function buildGoogleMapsRoute(dayRoute){
+      const origin=encodeURIComponent(dayRoute.origin);
+      const destination=encodeURIComponent(dayRoute.destination);
+      const waypoints=encodeURIComponent(dayRoute.waypoints.join("|"));
+      return `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&waypoints=${waypoints}&travelmode=${dayRoute.mode}`;
+    }
+    function showSection(id){
+      document.querySelectorAll("main section").forEach(s=>s.classList.remove("active"));
+      byId(id).classList.add("active");
+      document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.target===id));
+      window.scrollTo({top:byId("nav").offsetTop-8,behavior:"smooth"});
+    }
+    function backToTop(){window.scrollTo({top:0,behavior:"smooth"});}
+    function renderHeader(){
+      byId("pageHeader").innerHTML=`
+        <h1>${esc(trip.title)}</h1>
+        <div class="subtitle">${esc(trip.subtitle)}</div>
+        <div class="chips">
+          <span class="chip">目的地：${esc(trip.destination)}</span>
+          <span class="chip">日期：${esc(trip.dates)}</span>
+          <span class="chip">住宿：${esc(trip.stay)}</span>
+          <span class="chip">${esc(trip.people)}</span>
+        </div>
+        <p class="note" style="color:#eef9ff;margin-top:16px;max-width:840px">${esc(trip.theme)}。</p>`;
+      byId("nav").innerHTML=trip.nav.map((n,i)=>`<button class="${i===0?"active":""}" data-target="${n[0]}" onclick="showSection('${n[0]}')">${n[1]}</button>`).join("");
+    }
+    function renderItinerary(){
+      byId("itinerary").innerHTML=`<h2 class="section-title">每日行程</h2>
+      <div class="grid">${
+        trip.days.map(day=>`
+          <article class="card day-card">
+            <div class="day-head">
+              <div><h3>${day.day}｜${day.date}</h3><div class="meta">${day.title}<br>${day.area}</div></div>
+              <span class="badge" style="background:#e9f5e9;color:#315b36">${day.events.length} 段行程</span>
+            </div>
+            <div class="timeline">
+              ${day.events.map(e=>`
+                <div class="event">
+                  <div class="time">${e.time}</div>
+                  <div>
+                    <h4>${hl(e.place)}</h4>
+                    <p>${hl(e.activity)}</p>
+                    <div class="meta"><b>交通：</b>${esc(e.transport)}｜<b>預估費用：</b>${esc(e.cost)}<br><b>備註：</b>${hl(e.note)}</div>
+                  </div>
+                </div>`).join("")}
+            </div>
+          </article>`).join("")}</div>
+      <h2 class="section-title">房間配置表</h2>
+      <article class="card">
+        <p class="note">入住日 2026/8/8，房號與家庭成員依使用者提供資料建立；實際床型、衛浴位置、加床、寢具與退房整理規則請於入住前與雲舞間 Villa 再次確認。</p>
+        <div class="room-grid">${trip.rooms.map(r=>`
+          <div class="room-card">
+            <div class="room-no">${esc(r[0])}</div>
+            <div class="room-family">${esc(r[1])}</div>
+          </div>`).join("")}</div>
+      </article>
+      <h2 class="section-title">初咪體驗農場活動介紹</h2>
+      <article class="card">
+        <h3>${hl("Day 2｜初咪體驗農場：DIY創意蔥麵包 & 蔥勁派（蔥油餅）")}</h3>
+        <p>${hl("Klook 頁面介紹此活動為宜蘭最新三星蔥體驗，內容包含全台首創造型蔥麵包 DIY、蔥勁派（蔥油餅）、返鄉青農導覽、拔1株三星蔥與洗蔥體驗。活動特色是把三星蔥田、室內冷氣烘焙教室與天送埤地方文化故事串在一起，讓孩子、長輩與大人都能在動手做、下田看、現場聽故事的過程中認識宜蘭農村。")}</p>
+        <div class="feature-list">
+          <div class="feature"><b>親子友善：</b>Klook 介紹提到可體驗拔蔥、洗蔥、農村活動與抓泥鰍，並提供防水青蛙裝，適合孩子拍照與放電。</div>
+          <div class="feature"><b>文化導覽：</b>活動會分享三星天送埤三大遺產，包括砌石文化、草垺與管流，讓行程不只吃蔥，也理解地方生活智慧。</div>
+          <div class="feature"><b>預訂提醒：</b>Klook 頁面顯示評分 4.9/5、146 則評價、8K+ 人參加過，方案價自 NT$120 起；實際價格、可預訂日期與團體名額仍需再次確認。</div>
+        </div>
+        <p style="margin-top:14px"><a href="https://www.klook.com/zh-TW/activity/75848-yilan-diy-creative-scallion-bread-experience/" target="_blank" rel="noopener">查看 Klook 初咪體驗農場預訂頁</a></p>
+      </article>`;
+    }
+    function renderFood(){
+      const heads=["店名","區域","類型","推薦來源","年度","招牌菜","預估費用","安排日","連結","備註"];
+      byId("food").innerHTML=`<h2 class="section-title">米其林與在地美食</h2>
+      <div class="card"><p class="note">米其林身分僅以 Michelin Guide 官方最新可查資料為準；無法確認者不標示星級、Bib Gourmand 或入選狀態。本表共 20 項，使用者指定店名以紅字標示。</p>
+      <table><thead><tr>${heads.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${food.map(r=>`<tr>${r.map((c,i)=>`<td data-label="${heads[i]}">${i===0?hl(c):i===8?`<a href="${c}" target="_blank" rel="noopener">參考連結</a>`:hl(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+    }
+    function renderSouvenirs(){
+      const heads=["品項或店家","區域","推薦品","預估價格","適合購買日","文化意義","備註"];
+      byId("souvenirs").innerHTML=`<h2 class="section-title">伴手禮建議</h2><div class="card">
+      <table><thead><tr>${heads.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${souvenirs.map(r=>`<tr>${r.map((c,i)=>`<td data-label="${heads[i]}">${hl(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+    }
+    function renderAttractions(){
+      byId("attractions-wall").innerHTML=`<h2 class="section-title">景點導覽牆</h2><div class="grid">${
+        attractions.map(a=>`
+          <article class="card">
+            <h3>${hl(a[0])}</h3>
+            <div><span class="pill">${esc(a[1])}</span><span class="pill">${esc(a[2])}</span></div>
+            <p>${hl(a[3])}</p>
+            <p class="meta"><b>建議停留：</b>${esc(a[4])}<br><b>交通方式：</b>${esc(a[5])}<br><b>注意事項：</b>${hl(a[6])}</p>
+            <a href="${a[7]}" target="_blank" rel="noopener">查看參考連結</a>
+          </article>`).join("")}</div>`;
+    }
+    function renderDesserts(){
+      const heads=["店名","招牌甜點","區域","特色","推薦時段","連結"];
+      byId("desserts").innerHTML=`<h2 class="section-title">下午茶甜點特輯</h2><div class="card">
+      <table><thead><tr>${heads.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${desserts.map(r=>`<tr>${r.map((c,i)=>`<td data-label="${heads[i]}">${i===5?`<a href="${c}" target="_blank" rel="noopener">參考連結</a>`:hl(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+    }
+    function renderDailyRoutes(){
+      byId("daily-routes").innerHTML=`<h2 class="section-title">每日 Google 路線圖</h2><div class="grid">${
+        dailyRoutes.map(r=>`
+          <article class="route-card">
+            <h3>${esc(r.day)}｜${esc(r.title)}</h3>
+            <p class="route-flow">${hl([r.origin,...r.waypoints,r.destination].join(" → "))}</p>
+            <p class="meta"><b>建議交通方式：</b>${esc(r.transport)}<br><b>預估旅遊範圍：</b>${esc(r.range)}<br><b>動線重點：</b>${esc(r.focus)}<br><b>備註：</b>${esc(r.note)}</p>
+            <a href="${buildGoogleMapsRoute(r)}" target="_blank" rel="noopener">開啟 Google Maps 當日路線</a>
+          </article>`).join("")}</div>`;
+    }
+    function renderTransportStay(){
+      byId("transport-stay").innerHTML=`<h2 class="section-title">交通與住宿</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>主要交通安排</h3>
+          <p>本次行程以自駕或包車最適合，因人數約 36 人，且路線橫跨頭城、羅東、冬山與三星。建議每車配置車長與副車長，建立即時通訊群組，並將每日 Google Maps 路線先分享給駕駛。</p>
+          <p class="meta"><b>航班或大眾運輸：</b>未提供，標示待補充。若有人自行搭台鐵，可約羅東車站或宜蘭轉運站會合。<br><b>城市內交通：</b>自駕、包車、計程車小分隊。<br><b>交通銜接提醒：</b>採購組與漫遊隊 Day 1 午後分流，需約定 Villa 集合時間。</p>
+        </article>
+        <article class="card">
+          <h3>住宿資訊</h3>
+          <p>${hl("飯店／民宿名稱：雲舞間 Villa。使用者提供：別墅 Check-In、10間房、迎賓下午茶、別墅泳池。官方介紹包含綠意棕櫚、泡泡帳篷、神殿帳篷、戲水池與拍照區。")}</p>
+          <p class="meta"><b>入住：</b>2026/8/8 15:00，出發前需再次確認。<br><b>退房：</b>2026/8/9，時間待補充，出發前需再次確認。<br><b>待確認事項：</b>房型分配、停車數、廚房設備、烤肉規範、泳池使用、垃圾分類、押金、門禁、寵物與噪音規定。</p>
+          <a href="https://yunwujianvilla.yibnb.net/" target="_blank" rel="noopener">雲舞間 Villa 官方參考</a>
+        </article>
+      </div>
+      <h2 class="section-title">房間配置表</h2>
+      <article class="card">
+        <table>
+          <thead><tr><th>房號</th><th>入住家庭／成員</th><th>備註</th></tr></thead>
+          <tbody>${trip.rooms.map(r=>`<tr><td data-label="房號">${esc(r[0])}</td><td data-label="入住家庭／成員">${esc(r[1])}</td><td data-label="備註">床型、加床、浴室與寢具數量出發前需再次確認。</td></tr>`).join("")}</tbody>
+        </table>
+      </article>`;
+    }
+    function renderRisks(){
+      byId("risks").innerHTML=`<h2 class="section-title">假設與風險</h2>
+      <div class="weather-box">
+        <h3>當地天氣評估｜宜蘭 8 月</h3>
+        <p>行程期間為 2026/8/8－8/9，屬宜蘭盛夏。依宜蘭 8 月氣候常態，白天高溫約 31－33°C、低溫約 25－27°C，悶熱潮濕，午後雷陣雨與颱風外圍環流皆需留意。日夜溫差通常不大，但室內冷氣與戶外高溫落差明顯；海邊與農田日曬強，短暫強降雨會影響拍照、停車、戶外排隊與行車視線。</p>
+        <p class="meta"><b>雨備：</b>滿山望海與 Villa 室內休息、初咪室內 DIY、桌遊、家族合照。<br><b>高溫備案：</b>縮短戶外停留、車上備水、避免長輩與幼兒正午曝曬。<br><b>提醒：</b>颱風、豪雨特報、道路與店家營業皆須出發前需再次確認。</p>
+      </div>
+      <div class="grid">${risks.map(r=>`<article class="card risk ${r[0]}"><h3>${r[1]}｜${r[0].toUpperCase()}</h3><p>${hl(r[2])}</p></article>`).join("")}</div>
+      <h3 class="section-title" style="font-size:24px">衣著建議 10 項</h3>
+      <div class="clothes">${clothes.map(c=>`<div>${esc(c)}</div>`).join("")}</div>`;
+    }
+    function mount(){
+      renderHeader();
+      renderItinerary();
+      renderFood();
+      renderSouvenirs();
+      renderAttractions();
+      renderDesserts();
+      renderDailyRoutes();
+      renderTransportStay();
+      renderRisks();
+    }
+    mount();
+  </script>
+</body>
+</html>
