@@ -1,955 +1,324 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>115年桃園市雙連長跑－馬武督探索森林親子健走暨烤肉聯誼</title>
-    <style>
-        :root {
-            /* 森林系色彩計畫 */
-            --primary: #2d5a27;       /* 深沉森林綠 */
-            --primary-light: #4caf50; /* 活力草綠 */
-            --secondary: #f0a500;     /* 溫暖陽光橘（烤肉/歡聚） */
-            --bg-body: #f8fcf8;       /* 極淺綠底色 */
-            --bg-card: #ffffff;
-            --text-main: #2c3e50;
-            --text-muted: #5c6a79;
-            --border-radius: 16px;
-            --shadow-sm: 0 4px 12px rgba(45, 90, 39, 0.08);
-            --shadow-md: 0 12px 24px rgba(45, 90, 39, 0.12);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>桃園市雙連長跑｜馬武督探索森林親子健走行程表</title>
+  <style>
+    :root {
+      --forest: #1f5f4a;
+      --forest-dark: #12392d;
+      --leaf: #77b255;
+      --mist: #eef7f0;
+      --paper: #fffdf7;
+      --text: #24352f;
+      --muted: #6a7b73;
+      --line: #d8e6dc;
+      --accent: #f3b64b;
+      --shadow: 0 20px 50px rgba(18, 57, 45, .16);
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    * { box-sizing: border-box; }
 
-        body {
-            font-family: 'PingFang TC', 'Helvetica Neue', '微軟正黑體', Arial, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(119,178,85,.28), transparent 34rem),
+        linear-gradient(135deg, #eaf5ec 0%, #f8f3e8 45%, #e6f2ed 100%);
+      line-height: 1.7;
+    }
 
-        img { max-width: 100%; height: auto; }
-        ul { list-style: none; }
-        a { text-decoration: none; color: inherit; }
+    .page {
+      width: min(980px, calc(100% - 32px));
+      margin: 40px auto;
+      background: rgba(255,253,247,.94);
+      border: 1px solid rgba(216,230,220,.9);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
 
-        /* 排版容器 */
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 80px 0;
-        }
+    header {
+      position: relative;
+      padding: 42px 44px 36px;
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(18,57,45,.96), rgba(31,95,74,.9)),
+        radial-gradient(circle at 85% 20%, rgba(243,182,75,.7), transparent 13rem);
+    }
 
-        /* 共用標題模組 */
-        .section-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        .section-header h2 {
-            font-size: 32px;
-            color: var(--primary);
-            font-weight: 800;
-            margin-bottom: 12px;
-            position: relative;
-            display: inline-block;
-        }
-        .section-header h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background-color: var(--secondary);
-            border-radius: 2px;
-        }
-        .section-header p {
-            color: var(--text-muted);
-            font-size: 16px;
-            margin-top: 20px;
-        }
+    header::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 8px;
+      background: linear-gradient(90deg, var(--leaf), var(--accent), var(--leaf));
+      opacity: .95;
+    }
 
-        /* 按鈕系統 */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 14px 36px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 18px;
-            transition: var(--transition);
-            cursor: pointer;
-            border: none;
-        }
-        .btn-primary {
-            background-color: var(--secondary);
-            color: #fff;
-            box-shadow: 0 6px 16px rgba(240, 165, 0, 0.4);
-        }
-        .btn-primary:hover {
-            background-color: #d99400;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 24px rgba(240, 165, 0, 0.5);
-        }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      font-weight: 700;
+      letter-spacing: .08em;
+      font-size: 14px;
+    }
 
-        /* 標籤設計 */
-        .badge-tbd {
-            display: inline-block;
-            font-size: 13px;
-            background-color: #f1f3f5;
-            color: #868e96;
-            padding: 4px 10px;
-            border-radius: 4px;
-            border: 1px dashed #ced4da;
-            margin-top: 8px;
-        }
+    h1 {
+      margin: 18px 0 8px;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.12;
+      letter-spacing: .02em;
+    }
 
-        /* 1. Hero 主視覺區 */
-        .hero {
-            position: relative;
-            background: linear-gradient(135deg, rgba(30, 75, 27, 0.85) 0%, rgba(76, 175, 80, 0.7) 100%), 
-                        url('https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-            padding: 140px 20px 100px;
-            text-align: center;
-            color: #fff;
-            min-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .hero-tags {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-        }
-        .hero-tag {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-        .hero h1 {
-            /* 嚴格控制單行不換行 */
-            font-size: clamp(20px, 4vw, 48px);
-            font-weight: 900;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto 20px;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        .hero .subtitle {
-            font-size: clamp(16px, 2vw, 22px);
-            font-weight: 400;
-            max-width: 800px;
-            margin: 0 auto;
-            opacity: 0.95;
-            line-height: 1.5;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
+    .subtitle {
+      margin: 0;
+      color: rgba(255,255,255,.86);
+      font-size: 18px;
+    }
 
-        /* 2. 核心資訊浮動卡 */
-        .core-info {
-            max-width: 1000px;
-            margin: -60px auto 40px;
-            background: var(--bg-card);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-md);
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            position: relative;
-            z-index: 10;
-            padding: 30px 20px;
-            gap: 20px;
-        }
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 0 15px;
-            border-right: 1px solid #eee;
-        }
-        .info-item:last-child { border-right: none; }
-        .info-icon {
-            font-size: 32px;
-            width: 50px;
-            height: 50px;
-            background: var(--bg-body);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            color: var(--primary);
-        }
-        .info-content h4 {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .info-content p {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
 
-        /* 3. 企劃主軸與重點區 (雙欄佈局) */
-        .planning-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-        .intro-box {
-            background: #fff;
-            padding: 40px;
-            border-radius: var(--border-radius);
-            border-left: 6px solid var(--primary);
-            box-shadow: var(--shadow-sm);
-        }
-        .intro-box h3 {
-            font-size: 24px;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-        .intro-box p {
-            margin-bottom: 16px;
-            color: var(--text-muted);
-            text-align: justify;
-        }
-        .concept-list {
-            display: grid;
-            gap: 20px;
-        }
-        .concept-item {
-            display: flex;
-            gap: 15px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-        }
-        .concept-item:hover { transform: translateX(10px); }
-        .concept-icon {
-            font-size: 28px;
-            background: #e8f5e9;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-        .concept-text h4 { font-size: 18px; color: var(--primary); margin-bottom: 6px; }
-        .concept-text p { font-size: 14px; color: var(--text-muted); }
+    .meta-card {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.18);
+    }
 
-        /* 4. 活動特色卡片區 */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 30px;
-        }
-        .feature-card {
-            background: #fff;
-            border-radius: var(--border-radius);
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            border-top: 4px solid transparent;
-        }
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-top-color: var(--secondary);
-            box-shadow: var(--shadow-md);
-        }
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            display: inline-block;
-        }
-        .feature-card h3 {
-            font-size: 20px;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-        .feature-card p {
-            font-size: 15px;
-            color: var(--text-muted);
-        }
+    .meta-card span {
+      display: block;
+      color: rgba(255,255,255,.72);
+      font-size: 13px;
+      letter-spacing: .12em;
+      margin-bottom: 4px;
+    }
 
-        /* 5. 參加收穫區 */
-        .takeaways-section {
-            background-color: var(--primary);
-            color: #fff;
-            padding: 80px 0;
-            border-radius: 30px;
-            margin: 40px auto;
-            width: 95%;
-            max-width: 1400px;
-        }
-        .takeaways-section .section-header h2 { color: #fff; }
-        .takeaways-section .section-header h2::after { background-color: var(--secondary); }
-        .takeaways-section .section-header p { color: #dcedc8; }
-        .takeaways-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .takeaway-item {
-            text-align: center;
-        }
-        .takeaway-number {
-            font-size: 48px;
-            font-weight: 900;
-            color: rgba(255,255,255,0.2);
-            margin-bottom: -20px;
-        }
-        .takeaway-item h4 {
-            font-size: 22px;
-            margin-bottom: 12px;
-            color: var(--secondary);
-        }
-        .takeaway-item p {
-            font-size: 15px;
-            color: #e8f5e9;
-        }
+    .meta-card strong {
+      font-size: 18px;
+    }
 
-        /* 6. 完整時間安排區 (時間軸) */
-        .schedule-wrapper { background: #fff; padding: 60px; border-radius: var(--border-radius); box-shadow: var(--shadow-sm); }
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 120px;
-            height: 100%; width: 3px;
-            background: #e8f5e9;
-        }
-        .time-block {
-            display: flex;
-            margin-bottom: 40px;
-            position: relative;
-        }
-        .time-block:last-child { margin-bottom: 0; }
-        .time-label {
-            width: 100px;
-            flex-shrink: 0;
-            text-align: right;
-            padding-right: 30px;
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 18px;
-            padding-top: 5px;
-        }
-        .time-dot {
-            width: 15px;
-            height: 15px;
-            background: var(--secondary);
-            border-radius: 50%;
-            position: absolute;
-            left: 114px;
-            top: 10px;
-            box-shadow: 0 0 0 4px #fff;
-        }
-        .time-content {
-            padding-left: 50px;
-            flex-grow: 1;
-        }
-        .time-content h3 {
-            font-size: 20px;
-            color: var(--text-main);
-            margin-bottom: 8px;
-        }
-        .time-content p {
-            color: var(--text-muted);
-            font-size: 15px;
-        }
+    main {
+      padding: 40px 44px 44px;
+    }
 
-        /* 7. 地圖與導引區 */
-        .map-section {
-            display: flex;
-            background: #fff;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-        }
-        .map-info {
-            flex: 1;
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .map-info h3 { font-size: 24px; color: var(--primary); margin-bottom: 20px; }
-        .map-info p { color: var(--text-muted); margin-bottom: 15px; }
-        .map-iframe { flex: 1.2; min-height: 400px; }
-        .map-iframe iframe { width: 100%; height: 100%; border: none; }
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 16px;
+    }
 
-        /* 8. 三欄後勤資訊 (交通/餐食/注意事項) */
-        .logistics-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-        .logistic-card {
-            background: #fff;
-            padding: 35px 25px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-sm);
-        }
-        .logistic-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f1f3f5;
-        }
-        .logistic-header .icon { font-size: 24px; }
-        .logistic-header h3 { font-size: 18px; color: var(--primary); }
-        .logistic-list li {
-            position: relative;
-            padding-left: 24px;
-            margin-bottom: 12px;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-        .logistic-list li::before {
-            content: '✦';
-            position: absolute;
-            left: 0; top: 0;
-            color: var(--secondary);
-        }
+    h2 {
+      margin: 0;
+      color: var(--forest-dark);
+      font-size: clamp(24px, 4vw, 34px);
+    }
 
-        /* 9. 報名費用與資格區 */
-        .registration-box {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            border: 2px solid var(--primary-light);
-            border-radius: 24px;
-            padding: 50px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .reg-badge {
-            position: absolute;
-            top: 20px; right: -35px;
-            background: #e53935;
-            color: white;
-            padding: 8px 40px;
-            transform: rotate(45deg);
-            font-weight: bold;
-            font-size: 14px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 30px 0;
-        }
-        .price-card {
-            background: var(--bg-body);
-            padding: 30px;
-            border-radius: 16px;
-        }
-        .price-title { font-size: 18px; color: var(--text-muted); margin-bottom: 10px; }
-        .price-amount { font-size: 40px; font-weight: 800; color: var(--primary); }
-        .price-amount.free { color: var(--secondary); }
-        .price-desc { font-size: 13px; color: #888; margin-top: 10px; }
-        .reg-note {
-            background: #fff8e1;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: left;
-            margin-bottom: 30px;
-            font-size: 14px;
-            color: #555;
-        }
+    .note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      text-align: right;
+    }
 
-        /* 10. FAQ 區塊 */
-        .faq-wrapper { max-width: 800px; margin: 0 auto; }
-        .faq-item {
-            background: #fff;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            overflow: hidden;
-        }
-        .faq-q {
-            padding: 20px 25px;
-            font-weight: 700;
-            color: var(--text-main);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-        .faq-q::after {
-            content: '+';
-            font-size: 24px;
-            color: var(--primary-light);
-            transition: transform 0.3s;
-        }
-        .faq-item.active .faq-q::after { transform: rotate(45deg); }
-        .faq-a {
-            padding: 0 25px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease;
-            color: var(--text-muted);
-            font-size: 15px;
-            background: #fafafa;
-        }
-        .faq-item.active .faq-a {
-            padding: 20px 25px;
-            max-height: 500px;
-            border-top: 1px solid #eee;
-        }
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 18px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
 
-        /* Footer & Mobile CTA */
-        .footer {
-            background: var(--text-main);
-            color: #fff;
-            text-align: center;
-            padding: 60px 20px;
-            margin-top: 60px;
-        }
-        .footer p { opacity: 0.7; font-size: 14px; margin-top: 10px; }
-        
-        .floating-cta {
-            position: fixed;
-            bottom: 0; left: 0; width: 100%;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            padding: 15px;
-            box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
-            z-index: 100;
-            display: none;
-            text-align: center;
-        }
-        .floating-cta .btn { width: 90%; max-width: 400px; }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 90px;
+      top: 10px;
+      bottom: 10px;
+      width: 3px;
+      background: linear-gradient(var(--leaf), var(--accent), var(--leaf));
+      border-radius: 99px;
+    }
 
-        /* 響應式設計 */
-        @media (max-width: 992px) {
-            .core-info { grid-template-columns: 1fr 1fr; margin-top: 0; border-radius: 0; box-shadow: none; border-bottom: 1px solid #eee;}
-            .info-item { border-right: none; border-bottom: 1px solid #eee; padding: 15px 0; }
-            .planning-section { grid-template-columns: 1fr; }
-            .takeaways-grid { grid-template-columns: 1fr; gap: 40px; }
-            .map-section { flex-direction: column; }
-            .logistics-grid { grid-template-columns: 1fr; }
-        }
+    .item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
 
-        @media (max-width: 768px) {
-            .hero { padding-top: 100px; min-height: 60vh; }
-            .timeline::before { left: 20px; }
-            .time-block { flex-direction: column; padding-left: 45px; }
-            .time-label { text-align: left; width: auto; padding-right: 0; margin-bottom: 5px; font-size: 16px; }
-            .time-dot { left: 14px; top: 5px; }
-            .time-content { padding-left: 0; }
-            .pricing-grid { grid-template-columns: 1fr; gap: 15px; }
-            .registration-box { padding: 30px 20px; }
-            .floating-cta { display: block; }
-            body { padding-bottom: 80px; }
-        }
-    </style>
+    .time {
+      position: relative;
+      z-index: 1;
+      align-self: start;
+      padding: 11px 10px;
+      border-radius: 16px;
+      background: var(--forest);
+      color: #fff;
+      text-align: center;
+      font-weight: 900;
+      font-size: 20px;
+      letter-spacing: .03em;
+      box-shadow: 0 10px 24px rgba(31,95,74,.22);
+    }
+
+    .content {
+      padding: 20px 22px;
+      border-radius: 22px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 28px rgba(18,57,45,.07);
+    }
+
+    .content h3 {
+      margin: 0 0 8px;
+      color: var(--forest-dark);
+      font-size: 22px;
+      line-height: 1.35;
+    }
+
+    .content p {
+      margin: 0;
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    .remark {
+      margin-top: 10px !important;
+      color: var(--muted) !important;
+      font-size: 14px !important;
+      border-left: 4px solid var(--accent);
+      padding-left: 10px;
+    }
+
+    footer {
+      padding: 22px 44px 30px;
+      background: var(--mist);
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 720px) {
+      .page { margin: 18px auto; border-radius: 22px; }
+      header, main, footer { padding-left: 22px; padding-right: 22px; }
+      .meta { grid-template-columns: 1fr; }
+      .section-title { display: block; }
+      .note { text-align: left; margin-top: 6px; }
+      .timeline::before { left: 18px; }
+      .item { grid-template-columns: 1fr; gap: 10px; padding-left: 44px; }
+      .time { width: 92px; font-size: 18px; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page { margin: 0; width: 100%; box-shadow: none; border: none; }
+      .content { break-inside: avoid; }
+    }
+  </style>
 </head>
 <body>
-
-    <!-- 1. Hero 主視覺區 -->
-    <header class="hero">
-        <div class="hero-tags">
-            <span class="hero-tag">🌲 專屬會員家庭日</span>
-            <span class="hero-tag">🔥 限量 40 席位</span>
-            <span class="hero-tag">🚌 雙點接駁免開車</span>
-        </div>
-        <!-- 活動主旨，嚴格維持單行 -->
-        <h1 title="115年桃園市雙連長跑－馬武督探索森林親子健走暨烤肉聯誼">115年桃園市雙連長跑－馬武督探索森林親子健走暨烤肉聯誼</h1>
-        <p class="subtitle">放下配速的執著，牽起家人的雙手！在綠光森林深呼吸，享受專屬跑者的無憂烤肉派對。</p>
+  <article class="page">
+    <header>
+      <div class="badge">桃園市雙連長跑｜行程表</div>
+      <h1>馬武督探索森林<br>親子健走暨烤肉聯誼</h1>
+      <p class="subtitle">從早晨到午後，流暢無壓的家庭日節奏</p>
+      <section class="meta" aria-label="活動基本資訊">
+        <div class="meta-card"><span>活動日期</span><strong>115年 6月 21日（日）</strong></div>
+        <div class="meta-card"><span>活動地點</span><strong>新竹馬武督探索森林</strong></div>
+        <div class="meta-card"><span>社團名稱</span><strong>桃園市雙連長跑</strong></div>
+      </section>
     </header>
 
-    <!-- 2. 核心資訊卡 -->
-    <div class="core-info">
-        <div class="info-item">
-            <div class="info-icon">📅</div>
-            <div class="info-content">
-                <h4>活動日期</h4>
-                <p>115年 6月 21日 (日)</p>
-            </div>
-        </div>
-        <div class="info-item">
-            <div class="info-icon">📍</div>
-            <div class="info-content">
-                <h4>活動地點</h4>
-                <p>新竹馬武督探索森林</p>
-            </div>
-        </div>
-        <div class="info-item">
-            <div class="info-icon">👥</div>
-            <div class="info-content">
-                <h4>參加資格</h4>
-                <p>跑團會員與親友眷屬</p>
-            </div>
-        </div>
-        <div class="info-item">
-            <div class="info-icon">⏳</div>
-            <div class="info-content">
-                <h4>報名截止</h4>
-                <p>5月22日 (額滿即止)</p>
-            </div>
-        </div>
-    </div>
+    <main>
+      <div class="section-title">
+        <h2>完整時程安排</h2>
+        <p class="note">請依集合時間準時報到，實際返程時間依當日路況調整。</p>
+      </div>
 
-    <!-- 3. 企劃主軸與重點區 -->
-    <section class="container" id="about">
-        <div class="section-header">
-            <h2>寫給跑團家人的一封信</h2>
-            <p>為什麼今年，我們選擇走進森林？</p>
-        </div>
-        <div class="planning-section">
-            <div class="intro-box">
-                <h3>停下腳步，是為了走得更長遠</h3>
-                <p>平時在賽道上揮灑汗水、追求 PB 的我們，有多久沒有好好陪伴在背後支持我們的家人，一起走一段輕鬆寫意的路了？</p>
-                <p>「雙連長跑」不僅是一個精進跑姿的社團，更是一個充滿溫度的大家庭。這次的家庭日，我們特別選在生態豐富、坡度平緩的「馬武督探索森林」，為大家卸下所有後勤準備的重擔。</p>
-                <p>不用查地圖、不用找停車位、不用採買生火。您唯一需要準備的，就是帶著輕鬆愉快的心情，與最愛的家人一起享受充滿芬多精與烤肉香的美好週末！</p>
-            </div>
-            <div class="concept-list">
-                <div class="concept-item">
-                    <div class="concept-icon">🛡️</div>
-                    <div class="concept-text">
-                        <h4>安全至上的封閉場域</h4>
-                        <p>園區步道完善、無車輛干擾，長輩能安心漫步，孩子能盡情奔跑，打造最放心的親子同樂空間。</p>
-                    </div>
-                </div>
-                <div class="concept-item">
-                    <div class="concept-icon">✨</div>
-                    <div class="concept-text">
-                        <h4>零煩惱的尊榮後勤</h4>
-                        <p>從雙點遊覽車接駁，到套裝烤肉食材與用具全包，我們替您搞定所有繁瑣細節，真正達到「人到就好」的放鬆境界。</p>
-                    </div>
-                </div>
-                <div class="concept-item">
-                    <div class="concept-icon">🤝</div>
-                    <div class="concept-text">
-                        <h4>深化交流的慢節奏</h4>
-                        <p>沒有趕場行程，保留充足的烤肉與午後泡茶時間，讓平時只在水站匆匆一瞥的跑友們，能坐下來好好聊聊天。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      <ol class="timeline">
+        <li class="item">
+          <div class="time">07:00</div>
+          <section class="content">
+            <h3>第一站：UNIQLO 楊梅中山北路店集合</h3>
+            <p>工作人員協助點名報到，發放活力愛心早餐與礦泉水，準備展開美好的一天。</p>
+            <p class="remark">遊覽車停靠點與車號：326 桃園市楊梅區瑞塘里中山北路二段 345 號。</p>
+          </section>
+        </li>
 
-    <!-- 4. 活動特色卡片區 -->
-    <section class="container" style="padding-top: 0;" id="highlights">
-        <div class="section-header">
-            <h2>活動四大亮點</h2>
-            <p>精心策劃，給您最豐富的體驗</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🌳</div>
-                <h3>秘境森林芬多精</h3>
-                <p>探訪偶像劇「綠光小學」取景地，沿途林相豐富，漫步至虹橋與馬武督雙瀑布，洗滌身心疲憊。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🥩</div>
-                <h3>免裝備豪華烤肉</h3>
-                <p>10人一組的豪華烤肉套組，涵蓋精選肉品、海鮮與小農時蔬，生火烤肉零負擔，吃喝玩樂最盡興。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🐷</div>
-                <h3>總召驚喜大加碼</h3>
-                <p>除了豐盛套餐，活動特別斥資加碼「原木現烤全豬」！現場切片分享，將歡聚氣氛推向最高潮。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🚌</div>
-                <h3>專車接駁睡到飽</h3>
-                <p>楊梅與平鎮雙點發車，搭乘檢驗合格舒適大客車。免去假日塞車找車位之苦，上車補眠下車玩。</p>
-            </div>
-        </div>
-    </section>
+        <li class="item">
+          <div class="time">07:25</div>
+          <section class="content">
+            <h3>第二站：平鎮高中集合</h3>
+            <p>第二站點名，全員到齊後快樂啟程。車上將進行行程說明、分組確認與安全宣導。</p>
+          </section>
+        </li>
 
-    <!-- 5. 參加收穫區 -->
-    <div class="takeaways-section">
-        <div class="section-header">
-            <h2>您與家人將帶走什麼？</h2>
-            <p>這不只是一場活動，更是一次質感的週末充電</p>
-        </div>
-        <div class="takeaways-grid">
-            <div class="takeaway-item">
-                <div class="takeaway-number">01</div>
-                <h4>綠色療癒力</h4>
-                <p>遠離都市叢林與3C產品，在負離子與芬多精的包圍下，讓緊繃的神經徹底放鬆，重啟健康活力。</p>
-            </div>
-            <div class="takeaway-item">
-                <div class="takeaway-number">02</div>
-                <h4>無價親子回憶</h4>
-                <p>透過一起健走流汗、分工合作生火烤肉的過程，創造屬於家庭專屬的歡樂相簿與革命情感。</p>
-            </div>
-            <div class="takeaway-item">
-                <div class="takeaway-number">03</div>
-                <h4>強大社團向心力</h4>
-                <p>認識跑友的另一半與孩子，將賽道上的革命情感延伸至生活中，讓雙連長跑成為真正溫暖的大家庭。</p>
-            </div>
-        </div>
-    </div>
+        <li class="item">
+          <div class="time">09:00</div>
+          <section class="content">
+            <h3>抵達馬武督：相見歡大合照</h3>
+            <p>抵達園區，於「綠光小學」木造教室前集合，拍攝團體紀念照，並由領隊帶領暖身操。</p>
+          </section>
+        </li>
 
-    <!-- 6. 完整時間安排區 -->
-    <section class="container" id="schedule">
-        <div class="section-header">
-            <h2>完整時程安排</h2>
-            <p>從早晨到午後，流暢無壓的完美節奏</p>
-        </div>
-        <div class="schedule-wrapper">
-            <div class="timeline">
-                <div class="time-block">
-                    <div class="time-label">07:00</div>
-                    <div class="time-dot"></div>
-                    <div class="time-content">
-                        <h3>📍 第一站：UNIQLO 楊梅中山北路店 集合</h3>
-                        <p>早安！工作人員協助點名報到，發放活力愛心早餐與礦泉水，準備展開美好的一天。</p>
-                        <div class="badge-tbd">※ 遊覽車停靠點與車號：326桃園市楊梅區瑞塘里中山北路二段345號</div>
-                    </div>
-                </div>
-                <div class="time-block">
-                    <div class="time-label">07:25</div>
-                    <div class="time-dot"></div>
-                    <div class="time-content">
-                        <h3>📍 第二站：平鎮高中 集合</h3>
-                        <p>第二站點名，全員到齊後快樂啟程。車上將進行行程說明、分組確認與安全宣導。</p>
-                    </div>
-                </div>
-                <div class="time-block">
-                    <div class="time-label">09:00</div>
-                    <div class="time-dot"></div>
-                    <div class="time-content">
-                        <h3>📸 抵達馬武督：相見歡大合照</h3>
-                        <p>抵達園區，於著名的「綠光小學」木造教室前集合，拍攝充滿活力的團體紀念照，並由領隊帶領暖身操。</p>
-                    </div>
-                </div>
-                <div class="time-block">
-                    <div class="time-label">09:30</div>
-                    <div class="time-dot"></div>
-                    <div class="time-content">
-                        <h3>🚶‍♀️ 綠光森林親子健走</h3>
-                        <p>踏上平緩的林間步道，途經虹橋瀑布與馬武督瀑布。依個人體力漫步，呼吸高濃度負離子。</p>
-                    </div>
-                </div>
-                <div class="time-block">
-                    <div class="time-label">11:30</div>
-                    <div class="time-content">
-                        <h3>🔥 森林烤肉派對 & 烤乳豬秀</h3>
-                        <p>於遮雨棚烤肉區就位，各組領取豐盛食材。一邊享受自己烤肉的樂趣，一邊品嚐總召加碼現切的香脆烤乳豬！</p>
-                        <div class="badge-tbd">※ 最終確認版烤肉食材內容：依主辦單位後續公告為主</div>
-                    </div>
-                </div>
-                <div class="time-block">
-                    <div class="time-label">14:00</div>
-                    <div class="time-dot"></div>
-                    <div class="time-content">
-                        <h3>☕ 午後放鬆與場地復原</h3>
-                        <p>餐後的悠閒時光，可自行泡茶、聊天交流。隨後請各組協助落實垃圾分類，恢復場地整潔，展現跑團好素養。</p>
-                    </div>
-                </div>
-                <div class="time-block">
-                    <div class="time-label">15:00</div>
-                    <div class="time-dot"></div>
-                    <div class="time-content">
-                        <h3>🚌 滿載回憶，快樂賦歸</h3>
-                        <p>停車場集合上車。預計 16:00 抵達平鎮高中，16:30 抵達楊梅戶政事務所，期待下次再聚！</p>
-                        <div class="badge-tbd">※ 實際抵達時間將依當日路況為主</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        <li class="item">
+          <div class="time">09:30</div>
+          <section class="content">
+            <h3>綠光森林親子健走</h3>
+            <p>踏上平緩的林間步道，途經虹橋瀑布與馬武督瀑布。依個人體力漫步，呼吸高濃度負離子。</p>
+          </section>
+        </li>
 
-    <!-- 7. 地圖與導引區 -->
-    <section class="container" style="padding-top: 0;" id="map">
-        <div class="section-header">
-            <h2>活動地點指引</h2>
-            <p>探索泰雅族秘境，體驗大自然之美</p>
-        </div>
-        <div class="map-section">
-            <div class="map-info">
-                <h3>🌲 馬武督探索森林</h3>
-                <p><strong>地址：</strong>新竹縣關西鎮錦山里12鄰138-3號</p>
-                <p style="margin-bottom: 25px;"><strong>場域介紹：</strong>以泰雅族語「武督」(物資匯集處) 命名。園區保留了低海拔原始林貌，擁有壯麗的雙瀑布與充滿童話氣息的木造校舍，是極佳的避暑與健走聖地。</p>
-                <a href="https://www.google.com/maps/search/?api=1&query=馬武督探索森林+新竹縣關西鎮" target="_blank" class="btn btn-primary" style="align-self: flex-start; padding: 10px 24px; font-size: 16px;">開啟 Google Maps 導航</a>
-            </div>
-            <div class="map-iframe">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.535824961557!2d121.27581731500057!3d24.786523981442123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346841b9e0239103%3A0xc07c4583155f9a65!2z6aas5q2m552j5o6i57Si5qOu5p6X!5e0!3m2!1szh-TW!2stw!4v1714545000000!5m2!1szh-TW!2stw" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-        </div>
-    </section>
+        <li class="item">
+          <div class="time">11:30</div>
+          <section class="content">
+            <h3>森林烤肉派對 &amp; 烤乳豬秀</h3>
+            <p>於遮雨棚烤肉區就位，各組領取豐盛食材。一邊享受烤肉樂趣，一邊品嚐總召加碼現切的香脆烤乳豬。</p>
+            <p class="remark">最終確認版烤肉食材內容：依主辦單位後續公告為主。</p>
+          </section>
+        </li>
 
-    <!-- 8. 行前準備與後勤資訊 -->
-    <section class="container" style="padding-top: 0;" id="logistics">
-        <div class="section-header">
-            <h2>行前必讀資訊</h2>
-            <p>掌握細節，讓旅程更加完美</p>
-        </div>
-        <div class="logistics-grid">
-            <div class="logistic-card">
-                <div class="logistic-header">
-                    <div class="icon">🍽️</div>
-                    <h3>餐食安排</h3>
-                </div>
-                <ul class="logistic-list">
-                    <li>提供車上早點與瓶裝水。</li>
-                    <li>午餐為 10 人份豐盛烤肉組（肉類、海鮮、蔬菜、吐司、烤肉醬全包）。</li>
-                    <li>現場備有額外冷飲與酒水同歡。</li>
-                    <li><strong>特殊飲食：</strong>如需全素食，請於報名時務必備註，大會將另備素食餐。</li>
-                </ul>
-            </div>
-            <div class="logistic-card">
-                <div class="logistic-header">
-                    <div class="icon">🚌</div>
-                    <h3>交通與停車</h3>
-                </div>
-                <ul class="logistic-list">
-                    <li><strong>本活動禁止自行開車：</strong>為確保活動流暢與人員安全，一律搭乘大會專車。</li>
-                    <li><strong>停車提醒：</strong>請於楊梅或平鎮集合點周邊，自行尋找合法停車格停放您的愛車，切勿違規停車。</li>
-                    <li>請準時抵達集合點，遊覽車逾時不候。</li>
-                </ul>
-            </div>
-            <div class="logistic-card">
-                <div class="logistic-header">
-                    <div class="icon">🎒</div>
-                    <h3>注意事項與攜帶物</h3>
-                </div>
-                <ul class="logistic-list">
-                    <li><strong>穿著：</strong>排汗運動服飾、好走的運動鞋。</li>
-                    <li><strong>建議攜帶：</strong>薄外套、防蚊液、個人常備藥品、毛巾。</li>
-                    <li><strong>環保：</strong>建議自備環保水壺與環保餐具。</li>
-                    <li><strong>氣候：</strong>遇小雨照常舉行（烤肉有遮雨棚）；若遇颱風等惡劣天氣，將依公告延期或取消。</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+        <li class="item">
+          <div class="time">14:00</div>
+          <section class="content">
+            <h3>午後放鬆與場地復原</h3>
+            <p>餐後可自行泡茶、聊天交流。隨後請各組協助垃圾分類，恢復場地整潔，展現跑團好素養。</p>
+          </section>
+        </li>
 
-    <!-- 9. 報名費用與資格區 -->
-    <section class="container" style="padding-top: 0;" id="registration">
-        <div class="section-header">
-            <h2>報名方式與費用</h2>
-            <p>一部遊覽車，名額極限，請速報名</p>
-        </div>
-        <div class="registration-box">
-            <div class="reg-badge">限量 40 名</div>
-            <p style="font-size: 16px; color: var(--text-muted); margin-bottom: 20px;">本活動為雙連長跑內部社群專屬福利，額滿將自動列入候補名單。</p>
-            
-            <div class="pricing-grid">
-                <div class="price-card">
-                    <div class="price-title">跑團正式會員</div>
-                    <div class="price-amount free">免費</div>
-                    <div class="price-desc">感謝您平日對社團的付出<br>享優先保留席位</div>
-                </div>
-                <div class="price-card">
-                    <div class="price-title">親友眷屬</div>
-                    <div class="price-amount">NT$ 500</div>
-                    <div class="price-desc">包含：遊覽車資、園區門票<br>早午餐食、場地費與保險</div>
-                </div>
-            </div>
+        <li class="item">
+          <div class="time">15:00</div>
+          <section class="content">
+            <h3>滿載回憶，快樂賦歸</h3>
+            <p>停車場集合上車。預計 16:00 抵達平鎮高中，16:30 抵達楊梅戶政事務所，期待下次再聚。</p>
+            <p class="remark">實際抵達時間將依當日路況為主。</p>
+          </section>
+        </li>
+      </ol>
+    </main>
 
-            <div class="reg-note">
-                <ul class="logistic-list">
-                    <li><strong>報名流程：</strong>點擊下方按鈕填寫表單 ➔ 確認名額 ➔ (眷屬)向分區幹部繳費 ➔ 報名成功。</li>
-                    <li><strong>截止日期：</strong>5 月 22 日（或額滿提前關閉）。</li>
-                    <li><strong>候補機制：</strong>依主辦單位後續公告為主。</li>
-                </ul>
-            </div>
-
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfCy-iBbDJG2e-mO8HO4rchT6ORjZpqBU7sp9yvJmiXdQl_pQ/viewform" target="_blank" class="btn btn-primary">立即填寫線上報名表單</a>
-        </div>
-    </section>
-
-    <!-- 10. FAQ 區塊 -->
-    <section class="container" style="padding-top: 0;" id="faq">
-        <div class="section-header">
-            <h2>報名前常見問答 (FAQ)</h2>
-            <p>為您解答所有疑慮</p>
-        </div>
-        <div class="faq-wrapper">
-            <div class="faq-item">
-                <div class="faq-q">請問我可以自己開車過去馬武督森林會合嗎？</div>
-                <div class="faq-a">為方便活動整體的流程控管、保險作業，以及避免假日山區停車位難求導致延誤，本次活動「嚴格規定不開放自行開車」，請大家統一於楊梅或平鎮搭乘專屬遊覽車同樂喔！</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">家裡有長輩和幼稚園的小孩，適合參加健走嗎？</div>
-                <div class="faq-a">非常適合！馬武督探索森林前往綠光小學與瀑布區的步道，坡度平緩且有完善階梯與鋪面，是一條老少咸宜的散步路線。大家可以慢慢走，隨時休息，沒有任何配速與進度壓力。</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">我們家有人吃全素，請問午餐怎麼辦？</div>
-                <div class="faq-a">沒問題的！請您在填寫報名表時「務必註明素食人數」，大會將為您另外準備專屬的素食烤肉組或精緻素食餐盒，確保每位參加者都能開心享用午餐。</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-q">如果活動當天下雨怎麼辦？</div>
-                <div class="faq-a">園區的烤肉區設有大型完善的遮雨棚，因此一般小雨完全不影響烤肉與聚餐的進行；健走行程則會視現場雨勢，請大家在安全平坦的區域活動。若活動前發布颱風警報或豪雨特報，將於前一天統一公告延期或取消資訊。</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 11. Footer -->
-    <footer class="footer">
-        <h2 style="font-size: 28px; margin-bottom: 20px;">準備好與家人共創美好的綠色回憶了嗎？</h2>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfCy-iBbDJG2e-mO8HO4rchT6ORjZpqBU7sp9yvJmiXdQl_pQ/viewform" target="_blank" class="btn btn-primary" style="background: #fff; color: var(--primary);">前往報名卡位</a>
-        <p style="margin-top: 40px;">© 115 桃園市雙連長跑 - 活動企劃小組</p>
+    <footer>
+      資料來源：115年桃園市雙連長跑－馬武督探索森林親子健走暨烤肉聯誼活動頁。此檔案僅保留行程資訊，方便列印、轉傳與活動當日查閱。
     </footer>
-
-    <!-- 12. 手機版懸浮按鈕 -->
-    <div class="floating-cta">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfCy-iBbDJG2e-mO8HO4rchT6ORjZpqBU7sp9yvJmiXdQl_pQ/viewform" target="_blank" class="btn btn-primary">立即報名 (限量40名)</a>
-    </div>
-
-    <!-- 互動腳本 -->
-    <script>
-        // FAQ 手風琴效果
-        document.querySelectorAll('.faq-q').forEach(question => {
-            question.addEventListener('click', () => {
-                const item = question.parentElement;
-                const isActive = item.classList.contains('active');
-                
-                // 關閉其他開啟的 FAQ
-                document.querySelectorAll('.faq-item').forEach(el => {
-                    el.classList.remove('active');
-                });
-
-                // 若原本未開啟，則展開
-                if (!isActive) {
-                    item.classList.add('active');
-                }
-            });
-        });
-    </script>
+  </article>
 </body>
 </html>
