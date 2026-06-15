@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>【17Run活動企劃書】龜山島 401 高地攻頂 </title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #cbd5e1;
+      --brand: #0d9488;
+      --brand-dark: #115e59;
+      --brand-light: #ccfbf1;
+      --brand2: #0284c7;
+      --accent: #f97316;
+      --danger: #e11d48;
+      --soft-bg: #f1f5f9;
+      --green: #16a34a;
+      --blue: #2563eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+      line-height: 1.75;
+    }
+    a { color: var(--brand2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    
+    header {
+      background: linear-gradient(135deg, var(--brand-dark), var(--brand2));
+      color: #fff;
+      padding: 50px 24px 40px;
+      text-align: left;
+    }
+    .wrap { max-width: 960px; margin: auto; }
+    h1 {
+      font-size: clamp(26px, 4vw, 38px);
+      line-height: 1.2;
+      margin: 0 0 12px;
+      font-weight: 800;
+    }
+    .subtitle {
+      font-size: 17px;
+      max-width: 900px;
+      opacity: .9;
+      margin-bottom: 20px;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .badge {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .badge-accent {
+      background: var(--accent);
+      border: 1px solid transparent;
+      font-weight: 700;
+    }
+
+    main {
+      max-width: 960px;
+      margin: auto;
+      padding: 30px 20px 80px;
+    }
+    
+    section, .card {
+      background: var(--card);
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+    }
+    h2 {
+      margin: 0 0 18px;
+      font-size: 21px;
+      color: var(--brand-dark);
+      border-left: 6px solid var(--brand);
+      padding-left: 12px;
+      font-weight: 700;
+    }
+    h3 {
+      font-size: 18px;
+      margin: 24px 0 10px;
+      color: var(--ink);
+    }
+    .muted { color: var(--muted); }
+    .small { font-size: 13px; }
+    .lead { font-size: 16px; font-weight: 500; }
+    
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 4px 12px;
+      margin: 4px 6px 4px 0;
+      font-size: 13px;
+      font-weight: 700;
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+    .pill.warn { background: #fff7ed; color: #c2410c; }
+    .pill.ok { background: #dcfce7; color: #15803d; }
+    .pill.red { background: #fee2e2; color: #b91c1c; }
+    
+    .note, .okbox, .danger-box {
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0;
+      font-size: 14.5px;
+    }
+    .note { background: #fff7ed; border-left: 4px solid #f97316; color: #7c2d12; }
+    .okbox { background: #f0fdf4; border-left: 4px solid #16a34a; color: #14532d; }
+    .danger-box { background: #fef2f2; border-left: 4px solid #ef4444; color: #7f1d1d; }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: middle;
+      text-align: left;
+    }
+    th {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+    }
+    tr:last-child td { border-bottom: 0; }
+    .time { font-weight: 700; color: var(--brand2); white-space: nowrap; }
+    .money { font-weight: 700; color: var(--brand); text-align: right; }
+    .money-header { text-align: right; }
+    
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media(max-width: 760px) {
+      .two { grid-template-columns: 1fr; }
+    }
+    
+    .timeline {
+      position: relative;
+      margin: 15px 0 0;
+      padding-left: 24px;
+    }
+    .timeline:before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: #cbd5e1;
+    }
+    .tl { position: relative; margin: 0 0 24px; }
+    .tl:before {
+      content: "";
+      position: absolute;
+      left: -21px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      background: var(--brand);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px var(--brand-light);
+    }
+    .tl-title { font-weight: 700; font-size: 16px; color: var(--ink); }
+    
+    .checklist { columns: 2; column-gap: 30px; }
+    .checklist li { break-inside: avoid; margin-bottom: 8px; }
+    @media(max-width: 760px) { .checklist { columns: 1; } }
+    
+    .print {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      background: var(--brand);
+      color: white;
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 24px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(13, 148, 136, 0.4);
+      transition: background 0.2s;
+    }
+    .print:hover {
+      background: var(--brand-dark);
+    }
+    .footer { font-size: 13px; color: var(--muted); text-align: center; margin-top: 40px; border-top: 1px solid #cbd5e1; padding-top: 20px;}
+    .risk td:first-child { font-weight: 700; color: #991b1b; }
+    .text-center { text-align: center; }
+    .bg-highlight { background-color: #fffbeb; }
+    
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .field-tag {
+      background: #f1f5f9;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+    }
+    .field-tag span { font-weight: 700; color: var(--muted); }
+    
+    @media print {
+      .print { display: none; }
+      body { background: #fff; }
+      section, .card { box-shadow: none; break-inside: avoid; border: 1px solid #ccc; }
+      header { background: var(--brand-dark) !important; color: #fff !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>宜蘭龜山島 401 高地攻頂與海洋生態體驗營</h1>
+    <div class="subtitle">【社團活動企劃書】新竹火車站集合出發．自駕車隊推進．早上 08:00 第一班熱門船班出航</div>
+    <div class="badges">
+      <span class="badge badge-accent">成團門檻：最低 20 人</span>
+      <span class="badge">交通方式：自駕車隊 (4人一車)</span>
+      <span class="badge">專案費用：NT$1,500/人 (船資+登頂)</span>
+      <span class="badge">出發時段：早上 08:00 船班</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <h2>一、 企劃摘要與活動宗旨</h2>
+    <p class="lead"><strong>本活動為社團自主性「海洋生態教育與自我極限挑戰」體驗營。</strong></p>
+    <p>透過挑戰每日僅限額 100 名登頂的「龜山島 401 高地」，鍛鍊團員堅毅意志、團隊互助精神；並於環繞島嶼時進行現場地質教育（火山島地貌、硫磺溫泉「牛奶海」成因說明），提升團員對於臺灣海洋國土與自然環境之保育意識。</p>
+    <p>為了避開午後的高溫曝曬及午後雷陣雨，本行程特別安排預約<strong>早上 08:00 出航之第一班船班</strong>。清晨氣溫適宜、視野開闊，是最適合攻頂 1,706 階梯的黃金時段。</p>
+    
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%;">項目</th>
+          <th>企劃執行細節</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>活動名稱</strong></td>
+          <td>【極限挑戰】宜蘭龜山島 401 高地攻頂與海洋生態體驗營（第一班船）</td>
+        </tr>
+        <tr>
+          <td><strong>主辦社團</strong></td>
+          <td>17 Run（團長：Eighteen Peaks Mountain Administrator 賢哥）</td>
+        </tr>
+        <tr>
+          <td><strong>成團限制</strong></td>
+          <td><strong>【最低 20 人成團】</strong>（已與船家達成包船與團體特惠預約，達 20 人即出航）</td>
+        </tr>
+        <tr>
+          <td><strong>活動時間</strong></td>
+          <td>單日往返：預計 15 至 16 小時（含清晨新竹出發與返程車程）</td>
+        </tr>
+        <tr>
+          <td><strong>活動目標</strong></td>
+          <td>
+            1. 鍛鍊體能：搶攻每日頭等清涼時段，攀登 398 米（加觀景台共 401 米）島頂。<br/>
+            2. 環境保育：島上生態解說，落實「無痕山林（Leave No Trace）」保育守則。
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div class="okbox">
+      <strong>成團與費用重要提示：</strong>
+      本活動為<strong>全額由團員自費自籌（無補助）</strong>之性質，特惠方案（搭船＋401高地登頂＝NT$1,500/人）需滿足<strong>最低 20 人</strong>報名門檻方能成團。若未達 20 人，本活動將自動取消。
+    </div>
+  </section>
+
+  <section>
+    <h2>二、 預算編列與經費規劃</h2>
+    <p>以下預算以 <strong>20 人成團（採 5 輛自駕車，4 人一車）</strong>為估算基礎。本活動採<strong>團員平攤自費，無社團及學校補助</strong>。幣別統一使用 <strong>新臺幣 (NTD)</strong>。</p>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>預算大類</th>
+          <th>項目名稱</th>
+          <th>規格說明與計算基準</th>
+          <th>單價 (元)</th>
+          <th>數量</th>
+          <th class="money-header">小計 (元)</th>
+          <th>備註</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-highlight">
+          <td><strong>活動主體費</strong></td>
+          <td>登島＋環繞島嶼＋401高地攻頂專案</td>
+          <td>特惠團體合約價（船票、專利登島證、領隊導覽、保險）</td>
+          <td class="money">1,500</td>
+          <td>20 人</td>
+          <td class="money">30,000</td>
+          <td><strong>成團關鍵項目</strong></td>
+        </tr>
+        <tr>
+          <td><strong>行政清潔費</strong></td>
+          <td>龜山島登島維護費</td>
+          <td>國家風景區收費，現場支付</td>
+          <td class="money">100</td>
+          <td>20 人</td>
+          <td class="money">2,000</td>
+          <td>現場另付項目</td>
+        </tr>
+        <tr>
+          <td><strong>交通與車資</strong></td>
+          <td>油資與過路費補貼</td>
+          <td>新竹-宜蘭往返約 350km，補貼每輛自駕車</td>
+          <td class="money">1,800</td>
+          <td>5 輛</td>
+          <td class="money">9,000</td>
+          <td>由乘客分攤車主負擔</td>
+        </tr>
+        <tr>
+          <td><strong>交通與車資</strong></td>
+          <td>烏石港當日停車費</td>
+          <td>每輛車單日停車補助費</td>
+          <td class="money">150</td>
+          <td>5 輛</td>
+          <td class="money">750</td>
+          <td>實支實付</td>
+        </tr>
+        <tr>
+          <td><strong>團員餐飲</strong></td>
+          <td>慶功晚餐</td>
+          <td>烏石港在地海鮮合菜（每桌 NT$5,000，共 2 桌）</td>
+          <td class="money">500</td>
+          <td>20 人</td>
+          <td class="money">10,000</td>
+          <td>攻頂後補充體力</td>
+        </tr>
+        <tr style="background-color: #f1f5f9; font-weight: bold;">
+          <td colspan="5">總預算金額（以 20 人成團估算）</td>
+          <td colspan="2" class="money" style="color: var(--danger); font-size: 16px;">NT$ 51,750 元</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>【平攤自費估計】</strong><br/>
+      依上述預算總計 NT$ 51,750 元，除以最低 20 人成團人數，<strong>每位團員預計平攤自費金額為 NT$ 2,588 元</strong>（內含登島專案、清潔費、車輛交通分攤、慶功海鮮晚餐）。不另設額外餐點或雜項開銷，其餘個人行動補給水、午餐麵包由團員自備。
+    </div>
+  </section>
+
+  <section>
+    <h2>三、 完整活動行程表（早班 8:00 船班黃金時間軸）</h2>
+    <p>為搭乘<strong>早上 08:00 出發的第一班船</strong>，全體行程採<strong>深夜集結、清晨推進、早晨攻頂</strong>原則，能有效避開午後的高溫烈日及雪山隧道假日塞車尖峰。</p>
+    
+    <div class="timeline">
+      <div class="tl">
+        <div class="time">04:00 – 04:30</div>
+        <div class="tl-title">新竹火車站集合（後站廣場）｜行前檢整</div>
+        <div class="muted">1. 由「安全聯絡官」核對 20 人身分證件（登島必備，未帶者無法上船）。<br/>2. 發放車載無線電、分發乘客上車、核對自駕車隊 5 輛車車況。</div>
+      </div>
+      <div class="tl">
+        <div class="time">04:30 – 07:00</div>
+        <div class="tl-title">國道車隊推進｜清晨自駕安全移動</div>
+        <div class="muted">路線：新竹交流道 → 國道三號 → 國道五號 → 頭城交流道 → 烏石港停車場。清晨車流順暢，預計 2.5 小時抵達。</div>
+      </div>
+      <div class="tl">
+        <div class="time">07:00 – 07:30</div>
+        <div class="tl-title">抵達烏石港、車隊集結與整裝</div>
+        <div class="muted">車隊停妥於烏石港停車場。確認個人裝備，團員攜帶個人準備之午餐行動糧、補水（建議 1.5L~2L）。進行登船前最後如廁。</div>
+      </div>
+      <div class="tl">
+        <div class="time">07:30 – 07:50</div>
+        <div class="tl-title">集合報到、核對名冊、安檢手續</div>
+        <div class="muted">至船家櫃檯完成報到、出示身分證件配合海巡署安檢，依序登船。</div>
+      </div>
+      <div class="tl">
+        <div class="time">08:00 – 08:30</div>
+        <div class="tl-title">乘風破浪｜烏石港航向龜山島（首班船出航）</div>
+        <div class="muted">航程約 30 分鐘。晨光柔和、海風清涼，容易暈船者請務必於 07:30 報到前服用個人暈船藥。</div>
+      </div>
+      <div class="tl">
+        <div class="time">08:30 – 09:00</div>
+        <div class="tl-title">登島、導覽行前簡報、體能暖身</div>
+        <div class="muted">抵達龜山島漁港碼頭。由當地專業導覽員進行島嶼環境簡介，全員進行攻頂前膝關節與下肢暖身。<strong>【高地上方無廁所，出發前務必在此如廁】</strong>。</div>
+      </div>
+      <div class="tl">
+        <div class="time">09:00 – 10:30</div>
+        <div class="tl-title">【清晨涼爽挑戰】1,706 階梯攻頂 401 高地</div>
+        <div class="muted">步道全長 1.3 公里，坡度陡峭。此時上午氣溫最為宜人、無陽光毒曬。隊伍採「最慢速團員」步伐為推進基準，每隔 200 階梯設置安全補水點。</div>
+      </div>
+      <div class="tl">
+        <div class="time">10:30 – 11:00</div>
+        <div class="tl-title">登頂成功！島冠 401 觀景台俯瞰</div>
+        <div class="muted">海拔 398m + 3m 觀景台。上午光線極佳，適合拍攝「龜首牛奶海」、「龜尾沙灘」地貌。山頂腹地有限，嚴禁跨越護欄或遺留垃圾。</div>
+      </div>
+      <div class="tl">
+        <div class="time">11:00 – 12:15</div>
+        <div class="tl-title">慢行下撤</div>
+        <div class="muted">注意陡降階梯，使用登山杖或放慢速度前行，防止膝蓋及關節運動傷害。</div>
+      </div>
+      <div class="tl">
+        <div class="time">12:15 – 13:30</div>
+        <div class="tl-title">島上歷史文化巡禮 & 享用自備午餐</div>
+        <div class="muted">參觀島上普陀巖（媽祖廟）、軍事防空坑道與龜尾湖生態步道。並於島上遊客服務中心陰涼處享用自備之野餐。</div>
+      </div>
+      <div class="tl">
+        <div class="time">13:30 – 15:00</div>
+        <div class="tl-title">搭船環繞龜山島、觀賞火山海底溫泉（牛奶海）</div>
+        <div class="muted">登船環繞島嶼，近距離觀察「眼鏡洞」、「龜山八景」及海底溫泉噴發形成的漸層藍色牛奶海，聆聽地質保育解說。</div>
+      </div>
+      <div class="tl">
+        <div class="time">15:00 – 15:30</div>
+        <div class="tl-title">返抵烏石港、清點人數及裝備</div>
+        <div class="muted">下船集結，檢查個人衣物與行囊，引導至港口洗手間更換因汗水濕透的衣物。</div>
+      </div>
+      <div class="tl">
+        <div class="time">15:30 – 16:30</div>
+        <div class="tl-title">港區休憩與自由活動</div>
+        <div class="muted">可於烏石港遊客中心、外澳沙灘旁散步，調整登山後的疲憊。</div>
+      </div>
+      <div class="tl">
+        <div class="time">16:30 – 18:00</div>
+        <div class="tl-title">社團慶功宴｜在地海鮮合菜交流</div>
+        <div class="muted">地點：烏石港海鮮餐廳。提早至 16:30 享用晚餐，可完美避開國五週日北上的嚴重回堵車潮。</div>
+      </div>
+      <div class="tl">
+        <div class="time">18:00 – 21:00</div>
+        <div class="tl-title">自駕車隊平安返航｜新竹火車站解散</div>
+        <div class="muted">自駕車隊由國五、國三返程，預計 21:00 前抵達新竹火車站，由總召確認全員到家並在群組回報後解散。</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>四、 交通車輛與共乘安排</h2>
+    <div class="two">
+      <div>
+        <h3>🚗 自駕車隊管理方案</h3>
+        <ul>
+          <li><strong>車輛編制：</strong>5 輛自駕車（每車搭乘 4 人，總計 20 人）。</li>
+          <li><strong>隨車通信：</strong>每車配發一支高功率雙頻無線電對講機，便於國道推進時溝通車況與變換車道。</li>
+          <li><strong>車隊行進：</strong>1 號車為前導車，5 號車為押後車。全員自駕前進，嚴禁中途脫隊。</li>
+        </ul>
+      </div>
+      <div>
+        <h3>⛽ 補貼與分攤原則</h3>
+        <ul>
+          <li>本活動無任何補助，車主提供車輛。</li>
+          <li>每輛車之油資、ETC 國道通行費與烏石港停車費，由該車之乘客 3 人平攤（或全體 20 人費用均攤），以感謝車主無私奉獻。</li>
+          <li>所有自駕駕駛需於出發前提交「駕駛執照」影本及車輛強制險保單至社團留存。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>五、 報名方式與表單建議欄位</h2>
+    <p>為收集 20 人名冊並進行<strong>船班保險投保與海巡安檢</strong>，報名表必須包含以下欄位，且填寫資訊需與身分證件百分之百吻合：</p>
+    
+    <div class="field-grid">
+      <div class="field-tag">真實姓名 <span>(必填)</span></div>
+      <div class="field-tag">身分證字號 <span>(船班安檢用)</span></div>
+      <div class="field-tag">出生年月日 <span>(保險安檢用)</span></div>
+      <div class="field-tag">手機號碼 <span>(必填)</span></div>
+      <div class="field-tag">緊急聯絡人姓名 <span>(必填)</span></div>
+      <div class="field-tag">緊急聯絡人電話 <span>(必填)</span></div>
+      <div class="field-tag">餐飲禁忌 <span>(素食/海鮮過敏)</span></div>
+      <div class="field-tag">自願駕駛/出車意願 <span>(可出車/僅乘車)</span></div>
+    </div>
+    
+    <div class="note">
+      <strong>隱私與個資聲明：</strong>
+      本活動收集之個人資料（身分證字號、生日等）僅限用於「龜山島登島申請」、「船家名冊安檢」及「旅行險投保」，活動結束後，所有電子與紙本個資名冊將依個人資料保護法予以銷毀。
+    </div>
+  </section>
+
+  <section class="risk">
+    <h2>六、 安全須知與風險應變計畫</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%;">潛在風險項目</th>
+          <th>預防性安全指引</th>
+          <th>突發應變方案與醫療處置</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>天候不佳 / 海象停航</strong></td>
+          <td>出發前一晚 18:00 與船家密切對接，確認浪高與降雨機率。</td>
+          <td><strong>啟動備案：</strong>取消登島。改前往礁溪林美石磐步道健行 + 蘭陽博物館室本內參訪，不予勉強出海。</td>
+        </tr>
+        <tr>
+          <td><strong>成團人數未達 20 人</strong></td>
+          <td>設定報名截止日期為出發前 21 天，並安排社團宣傳推廣。</td>
+          <td><strong>自動退費：</strong>若未達 20 人成團門檻，將不予扣除手續費，全額退回已繳款項，並取消本活動。</td>
+        </tr>
+        <tr>
+          <td><strong>嚴重暈船或高熱中暑</strong></td>
+          <td>
+            1. 行前宣導睡眠充足，避免早餐過油。<br/>
+            2. 401高地無遮蔭，要求每人攜帶 1.5L 至 2L 飲水，攜帶鹽糖。
+          </td>
+          <td>隨隊備有急救醫療箱，配備補水鹽片、退熱貼、冰袋。如島上遇熱衰竭，立即移往蔭涼處，並通知碼頭管理站協尋海巡後送。</td>
+        </tr>
+        <tr>
+          <td><strong>登山步道滑倒受傷</strong></td>
+          <td>強制團員穿著防滑運動鞋或登山鞋；隊伍行進不搶快。</td>
+          <td>配備生理食鹽水、優碘及彈性繃帶。如傷勢嚴重無法行走，請海巡協調船隻載回烏石港送往宜蘭陽明交通大學附設醫院。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section style="background-color: var(--soft-bg); text-align: center;">
+    <h3>💡 本企劃書由「社團活動規劃專家」提供之範本與安全提示</h3>
+    <p class="small muted">實際登島名額、船班班次與登頂申請，仍需請主辦人提早至「東北角及宜蘭海岸國家風景區管理處」網站在出發前 20 天完成團體名單送審核發。</p>
+    <p class="small muted">本案金額（船+登頂=NT$1,500）為團體20人成團合約特惠價。祝攻頂順利，安全返航！</p>
+  </section>
+
+  <p class="footer">
+    版本日期：2026-06-15 ｜ 社團活動企劃書範本（無補助、首班船版） ｜ 版權無限制．歡迎社團直接列印或修改使用
+  </p>
+</main>
+
+<button class="print" onclick="window.print()">列印 / 匯出 PDF 企劃書</button>
+
+<!--
+[Internal Checklist]
+- 結構已完整更新：移除 KPI 側欄與簽章家長同意書
+- 費用部分僅計算：交通補貼、車輛停車費、晚餐海鮮合菜、登島+環繞+401攻頂方案費、清潔維護費。無額外補助或雜項
+- 時間軸完全重寫：完美配合 08:00 第一班船出航（04:00 新竹出發）
+-->
+
+</body>
+</html>
