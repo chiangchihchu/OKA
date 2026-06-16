@@ -1,123 +1,317 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>2026 雙連那霸馬｜名單清單版</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 雙連那霸馬｜房間安排清單</title>
 <style>
-:root { --ink:#24313a; --muted:#667985; --line:#d9e3e8; --sea:#008f9a; --coral:#f26b4f; --sand:#fff8ed; --blue:#e8f7fa; }
-*{box-sizing:border-box} body{margin:0;background:#f7fbfc;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;line-height:1.5}
-.page{max-width:980px;margin:0 auto;padding:24px 18px 42px}
-.top{border-left:6px solid var(--coral);padding:4px 0 10px 14px;margin-bottom:14px}
-h1{font-size:24px;line-height:1.25;margin:0 0 4px;font-weight:800;letter-spacing:.02em}
-.sub{font-size:14px;color:var(--muted)}
-.summary{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}
-.pill{background:white;border:1px solid var(--line);border-radius:999px;padding:6px 11px;font-size:13px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.section-title{font-size:17px;margin:22px 0 10px;border-bottom:2px solid var(--line);padding-bottom:6px;color:#163842}
-.card{background:white;border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden;box-shadow:0 3px 10px rgba(28,78,92,.06)}
-.cardhead{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:linear-gradient(90deg,var(--blue),#fff);padding:10px 14px;border-bottom:1px solid var(--line)}
-.cardhead h3{margin:0;font-size:16px;color:#0d6470} .days{font-weight:800;color:var(--coral);font-size:14px} .warn{font-size:12px;color:#9a4b00;background:#fff3d9;border:1px solid #ffd589;border-radius:999px;padding:2px 8px}
-.dayblock h4{font-size:14px;margin:12px 14px 4px;color:#24515a}
-ul{list-style:none;padding:0;margin:0} .person{padding:10px 14px;border-top:1px solid #eef3f5} .dayblock ul .person:first-child{border-top:0}
-.main{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap} .num{min-width:28px;color:var(--muted);font-size:12px} strong{font-size:16px} .en{font-size:13px;color:var(--muted);letter-spacing:.02em}
-.meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px;padding-left:36px} .tag{font-size:12px;border-radius:999px;padding:2px 8px;background:#f3f7f8;border:1px solid #e0eaee;color:#536873} .tag.day{background:#fff3ee;border-color:#ffd5ca;color:#ad432e;font-weight:700} .tag.status{background:#eefaf1;border-color:#ccefd5;color:#27793b} .tag.rel{background:#f7f3ff;border-color:#ded2ff;color:#5f40a0}
-.note{background:var(--sand);border:1px solid #f2d8ad;border-radius:12px;padding:10px 14px;margin:14px 0;font-size:13px} .note ul{list-style:disc;margin:6px 0 0 20px}
-.footer{margin-top:22px;color:var(--muted);font-size:12px;text-align:right}
-@media print{body{background:white}.page{max-width:none;padding:12mm}.card{box-shadow:none;break-inside:avoid}}
+:root { --ink:#12333b; --muted:#5f747a; --line:#d9e5e8; --sea:#0f9aa7; --sun:#ff8a3d; --sand:#fff8ec; --bg:#f6fbfc; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,"Noto Sans TC",sans-serif; color:var(--ink); background:linear-gradient(180deg,#e9fbff 0%, var(--bg) 24%, #fff 100%); }
+main { max-width:1080px; margin:0 auto; padding:22px 18px 44px; }
+.header { display:flex; justify-content:space-between; gap:16px; align-items:flex-end; padding:10px 0 14px; border-bottom:3px solid var(--sea); margin-bottom:18px; }
+.header h1 { margin:0; font-size:25px; line-height:1.2; letter-spacing:.02em; }
+.header p { margin:6px 0 0; color:var(--muted); font-size:14px; }
+.badges { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+.badge { border:1px solid var(--line); background:#fff; border-radius:999px; padding:7px 10px; font-weight:700; font-size:13px; white-space:nowrap; }
+.badge strong { color:var(--sea); }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.room { background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:0 5px 16px rgba(18,51,59,.06); }
+.room.pending { border-color:#ffd6b8; }
+.room-head { display:flex; justify-content:space-between; gap:12px; padding:13px 14px; background:linear-gradient(90deg,rgba(15,154,167,.10),rgba(255,138,61,.10)); border-bottom:1px solid var(--line); }
+h2 { margin:0; font-size:18px; }
+.room-head p { margin:4px 0 0; color:var(--muted); font-size:13px; }
+.count { align-self:center; color:var(--sea); font-weight:800; font-size:13px; white-space:nowrap; }
+table { width:100%; border-collapse:collapse; }
+th, td { padding:9px 12px; border-bottom:1px solid #edf3f5; font-size:14px; text-align:left; vertical-align:middle; }
+th { color:var(--muted); font-size:12px; letter-spacing:.04em; background:#fbfdfe; }
+tr:last-child td { border-bottom:0; }
+.zh { font-weight:800; white-space:nowrap; }
+.name { font-weight:750; letter-spacing:.01em; }
+.runner { display:inline-block; background:var(--sun); color:white; border-radius:999px; padding:3px 9px; font-size:12px; font-weight:800; }
+.muted { color:#a4b1b5; }
+.note { margin-top:16px; padding:12px 14px; border-left:4px solid var(--sun); background:var(--sand); color:#5d4b34; border-radius:10px; font-size:14px; }
+@media (max-width:820px) { .header { display:block; } .badges { justify-content:flex-start; margin-top:12px; } .grid { grid-template-columns:1fr; } }
+@media print { body { background:#fff; } main { max-width:none; padding:10mm; } .room { break-inside:avoid; box-shadow:none; } }
 </style>
 </head>
-<body><main class="page">
-<div class="top"><h1>2026 雙連那霸馬名單</h1><div class="sub">請注意檢查英文拼音，旅遊天數及參賽與否等三項重要事項</div></div>
-<div class="summary"><span class="pill">總人數：19 人</span><span class="pill">5天：11人　4天：8人</span><span class="pill">參賽者：9 人</span></div>
+<body>
+<main>
+  <header class="header">
+    <div>
+      <h1>2026 雙連那霸馬｜房間安排清單</h1>
+      <p>中文姓名 · English name · travel days · race status</p>
+    </div>
+    <div class="badges">
+      <span class="badge">Total <strong>20</strong></span>
+      <span class="badge">Runner <strong>10</strong></span>
+      <span class="badge">5 days <strong>12</strong></span>
+      <span class="badge">4 days <strong>8</strong></span>
+    </div>
+  </header>
+  <div class="grid">
 
-<h2 class="section-title">親友同行組</h2>
-<section class="card relation">
-<div class="cardhead"><h3>彭吉英 親友組</h3><div class="days">5天</div></div>
-<div class="dayblock"><h4>5天</h4><ul><li class="person runner">
-<div class="main"><span class="num">1</span><strong>彭吉英</strong><span class="en">PENG CHI YING</span></div>
-<div class="meta"><span class="tag day">5天</span><span class="tag group">北勢</span><span class="tag status">參賽</span></div>
-</li>
-<li class="person runner">
-<div class="main"><span class="num">2</span><strong>林志忠</strong><span class="en">LIN ZHI -ZHONG</span></div>
-<div class="meta"><span class="tag day">5天</span><span class="tag group">親友或其他</span><span class="tag status">參賽</span><span class="tag rel">親友：彭吉英</span></div>
-</li>
-<li class="person">
-<div class="main"><span class="num">3</span><strong>楊碧娟</strong><span class="en">YANG PI  CHUAN</span></div>
-<div class="meta"><span class="tag day">5天</span><span class="tag group">親友或其他</span><span class="tag rel">親友：彭吉英</span></div>
-</li>
-<li class="person">
-<div class="main"><span class="num">4</span><strong>程道一</strong><span class="en">CHENG TAO-YI</span></div>
-<div class="meta"><span class="tag day">5天</span><span class="tag group">親友或其他</span><span class="tag rel">親友：彭吉英</span></div>
-</li>
-<li class="person">
-<div class="main"><span class="num">5</span><strong>彭玉森</strong><span class="en">PENG YU-SEN</span></div>
-<div class="meta"><span class="tag day">5天</span><span class="tag group">親友或其他</span><span class="tag rel">親友：彭吉英</span></div>
-</li>
-<li class="person">
-<div class="main"><span class="num">6</span><strong>呂玉美</strong><span class="en">LU YU-MEI</span></div>
-<div class="meta"><span class="tag day">5天</span><span class="tag group">親友或其他</span><span class="tag rel">親友：彭吉英</span></div>
-</li>
-</ul></div>
-</section><section class="card relation">
-<div class="cardhead"><h3>洪國明 親友組</h3><div class="days">4天</div></div>
-<div class="dayblock"><h4>4天</h4><ul><li class="person">
-<div class="main"><span class="num">7</span><strong>洪國明</strong><span class="en">HUNG KUO-MING</span></div>
-<div class="meta"><span class="tag day">4天</span><span class="tag group">LV</span></div>
-</li>
-<li class="person">
-<div class="main"><span class="num">8</span><strong>陳佳雯</strong><span class="en">CHEN CHIA-WEN</span></div>
-<div class="meta"><span class="tag day">4天</span><span class="tag group">LV</span><span class="tag rel">親友：洪國明</span></div>
-</li></ul></div>
-</section><section class="card relation">
-<div class="cardhead"><h3>巫聖炫 親友組</h3><div class="days">5天</div></div>
-<div class="dayblock"><h4>5天</h4><ul><li class="person runner">
-<div class="main"><span class="num">9</span><strong>巫聖炫</strong><span class="en">WU HSUAN SHENG</span></div>
-<div class="meta"><span class="tag day">5天</span><span class="tag group">楊梅</span><span class="tag status">參賽</span></div>
-</li>
-<li class="person runner">
-<div class="main"><span class="num">10</span><strong>陳文清</strong><span class="en">CHEN WENCHING</span></div>
-<div class="meta"><span class="tag day">5天</span><span class="tag group">親友或其他</span><span class="tag status">參賽</span><span class="tag rel">親友：巫聖炫</span></div>
-</li></ul></div>
-</section><section class="card relation">
-<div class="cardhead"><h3>邱康智 親友組</h3><div class="days">4天</div></div>
-<div class="dayblock"><h4>4天</h4><ul><li class="person runner">
-<div class="main"><span class="num">11</span><strong>邱康智</strong><span class="en">CHIU KANG-CHIH</span></div>
-<div class="meta"><span class="tag day">4天</span><span class="tag group">北勢</span><span class="tag status">參賽</span></div>
-</li>
-<li class="person">
-<div class="main"><span class="num">12</span><strong>黃千育</strong><span class="en">HUANG CHIEN-YU</span></div>
-<div class="meta"><span class="tag day">4天</span><span class="tag group">親友或其他</span><span class="tag rel">親友：邱康智</span></div>
-</li>
-<li class="person">
-<div class="main"><span class="num">13</span><strong>邱奕瑄</strong><span class="en">CHIU I-HSUAN</span></div>
-<div class="meta"><span class="tag day">4天</span><span class="tag group">親友或其他</span><span class="tag rel">親友：邱康智</span></div>
-</li>
-<li class="person">
-<div class="main"><span class="num">14</span><strong>邱世安</strong><span class="en">CHIU SHIH-AN</span></div>
-<div class="meta"><span class="tag day">4天</span><span class="tag group">親友或其他</span><span class="tag rel">親友：邱康智</span></div>
-</li></ul></div>
-</section><section class="card relation">
-<div class="cardhead"><h3>曾喜鈞 親友組</h3><div class="days">4天</div></div>
-<div class="dayblock"><h4>4天</h4><ul><li class="person runner">
-<div class="main"><span class="num">15</span><strong>曾喜鈞</strong><span class="en">TSENG HSI-CHUN</span></div>
-<div class="meta"><span class="tag day">4天</span><span class="tag group">北勢</span><span class="tag status">參賽</span></div>
-</li>
-<li class="person">
-<div class="main"><span class="num">16</span><strong>許靜儀</strong><span class="en">Hsu Ching-Yi</span></div>
-<div class="meta"><span class="tag day">4天</span><span class="tag group">0800</span><span class="tag rel">親友：曾喜鈞</span></div>
-</li></ul></div>
-</section>
-<h2 class="section-title">未綁定親友名單</h2>
-<section class="card free"><div class="cardhead"><h3>5天自由名單</h3><div class="days">3 人</div></div><ul><li class="person runner">
-<div class="main"><span class="num">17</span><strong>曾映仁</strong><span class="en">TSENG YING-JEN</span></div>
-<div class="meta"><span class="tag day">5天</span><span class="tag group">楊梅</span><span class="tag status">參賽</span></div>
-</li><li class="person runner">
-<div class="main"><span class="num">18</span><strong>沈奕辰</strong><span class="en">SHEN YI-CHEN</span></div>
-<div class="meta"><span class="tag day">5天</span><span class="tag group">楊梅</span><span class="tag status">參賽</span></div>
-</li><li class="person runner">
-<div class="main"><span class="num">19</span><strong>江支初</strong><span class="en">Chiang ChihChu</span></div>
-<div class="meta"><span class="tag day">5天</span><span class="tag group">楊梅</span><span class="tag status">參賽</span></div>
-</li></ul></section>
-<div class="footer">資料來源：2026 雙連那霸馬名單整理(2).xlsx</div>
-</main></body></html>
+  <section class="room">
+    <div class="room-head">
+      <div>
+        <h2>Room 1</h2>
+        <p>2人房 · 5 days</p>
+      </div>
+      <div class="count">2/2 Runner</div>
+    </div>
+    <table>
+      <thead><tr><th>中文姓名</th><th>English Name</th><th>Days</th><th>Race</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="zh">曾映仁</td>
+        <td class="name">TSENG YING-JEN</td>
+        <td>5 days</td>
+        <td><span class="runner">Runner</span></td>
+      </tr>
+      <tr>
+        <td class="zh">黃世賢</td>
+        <td class="name">HUANG SHIH-HSIEN</td>
+        <td>5 days</td>
+        <td><span class="runner">Runner</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="room">
+    <div class="room-head">
+      <div>
+        <h2>Room 2</h2>
+        <p>2人房 · 4 days</p>
+      </div>
+      <div class="count">1/2 Runner</div>
+    </div>
+    <table>
+      <thead><tr><th>中文姓名</th><th>English Name</th><th>Days</th><th>Race</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="zh">曾喜鈞</td>
+        <td class="name">TSENG HSI-CHUN</td>
+        <td>4 days</td>
+        <td><span class="runner">Runner</span></td>
+      </tr>
+      <tr>
+        <td class="zh">許靜儀</td>
+        <td class="name">HSU CHING-YI</td>
+        <td>4 days</td>
+        <td><span class="muted">—</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="room">
+    <div class="room-head">
+      <div>
+        <h2>Room 3</h2>
+        <p>2人房 · 5 days</p>
+      </div>
+      <div class="count">2/2 Runner</div>
+    </div>
+    <table>
+      <thead><tr><th>中文姓名</th><th>English Name</th><th>Days</th><th>Race</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="zh">巫聖炫</td>
+        <td class="name">WU HSUAN SHENG</td>
+        <td>5 days</td>
+        <td><span class="runner">Runner</span></td>
+      </tr>
+      <tr>
+        <td class="zh">陳文清</td>
+        <td class="name">CHEN WENCHING</td>
+        <td>5 days</td>
+        <td><span class="runner">Runner</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="room">
+    <div class="room-head">
+      <div>
+        <h2>Room 4</h2>
+        <p>4人房 · 4 days</p>
+      </div>
+      <div class="count">1/4 Runner</div>
+    </div>
+    <table>
+      <thead><tr><th>中文姓名</th><th>English Name</th><th>Days</th><th>Race</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="zh">邱康智</td>
+        <td class="name">CHIU KANG-CHIH</td>
+        <td>4 days</td>
+        <td><span class="runner">Runner</span></td>
+      </tr>
+      <tr>
+        <td class="zh">黃千育</td>
+        <td class="name">HUANG CHIEN-YU</td>
+        <td>4 days</td>
+        <td><span class="muted">—</span></td>
+      </tr>
+      <tr>
+        <td class="zh">邱奕瑄</td>
+        <td class="name">CHIU I-HSUAN</td>
+        <td>4 days</td>
+        <td><span class="muted">—</span></td>
+      </tr>
+      <tr>
+        <td class="zh">邱世安</td>
+        <td class="name">CHIU SHIH-AN</td>
+        <td>4 days</td>
+        <td><span class="muted">—</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="room">
+    <div class="room-head">
+      <div>
+        <h2>Room 5</h2>
+        <p>2人房 · 4 days</p>
+      </div>
+      <div class="count">0/2 Runner</div>
+    </div>
+    <table>
+      <thead><tr><th>中文姓名</th><th>English Name</th><th>Days</th><th>Race</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="zh">陳佳雯</td>
+        <td class="name">CHEN CHIA-WEN</td>
+        <td>4 days</td>
+        <td><span class="muted">—</span></td>
+      </tr>
+      <tr>
+        <td class="zh">洪國明</td>
+        <td class="name">HUNG KUO-MING</td>
+        <td>4 days</td>
+        <td><span class="muted">—</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="room">
+    <div class="room-head">
+      <div>
+        <h2>Room 6</h2>
+        <p>2人房 · 5 days</p>
+      </div>
+      <div class="count">1/2 Runner</div>
+    </div>
+    <table>
+      <thead><tr><th>中文姓名</th><th>English Name</th><th>Days</th><th>Race</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="zh">林志忠</td>
+        <td class="name">LIN ZHI -ZHONG</td>
+        <td>5 days</td>
+        <td><span class="runner">Runner</span></td>
+      </tr>
+      <tr>
+        <td class="zh">程道一</td>
+        <td class="name">CHENG TAO-YI</td>
+        <td>5 days</td>
+        <td><span class="muted">—</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="room">
+    <div class="room-head">
+      <div>
+        <h2>Room 7</h2>
+        <p>2人房 · 5 days</p>
+      </div>
+      <div class="count">1/2 Runner</div>
+    </div>
+    <table>
+      <thead><tr><th>中文姓名</th><th>English Name</th><th>Days</th><th>Race</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="zh">彭吉英</td>
+        <td class="name">PENG CHI YING</td>
+        <td>5 days</td>
+        <td><span class="runner">Runner</span></td>
+      </tr>
+      <tr>
+        <td class="zh">彭玉森</td>
+        <td class="name">PENG YU-SEN</td>
+        <td>5 days</td>
+        <td><span class="muted">—</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="room">
+    <div class="room-head">
+      <div>
+        <h2>Room 8</h2>
+        <p>2人房 · 5 days</p>
+      </div>
+      <div class="count">0/2 Runner</div>
+    </div>
+    <table>
+      <thead><tr><th>中文姓名</th><th>English Name</th><th>Days</th><th>Race</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="zh">楊碧娟</td>
+        <td class="name">YANG PI CHUAN</td>
+        <td>5 days</td>
+        <td><span class="muted">—</span></td>
+      </tr>
+      <tr>
+        <td class="zh">呂玉美</td>
+        <td class="name">LU YU-MEI</td>
+        <td>5 days</td>
+        <td><span class="muted">—</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="room">
+    <div class="room-head">
+      <div>
+        <h2>Room 9</h2>
+        <p>1人房 · 5 days</p>
+      </div>
+      <div class="count">1/1 Runner</div>
+    </div>
+    <table>
+      <thead><tr><th>中文姓名</th><th>English Name</th><th>Days</th><th>Race</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="zh">沈奕辰</td>
+        <td class="name">SHEN YI-CHEN</td>
+        <td>5 days</td>
+        <td><span class="runner">Runner</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="room pending">
+    <div class="room-head">
+      <div>
+        <h2>Room X｜待確認</h2>
+        <p>1人房 · 5 days</p>
+      </div>
+      <div class="count">1/1 Runner</div>
+    </div>
+    <table>
+      <thead><tr><th>中文姓名</th><th>English Name</th><th>Days</th><th>Race</th></tr></thead>
+      <tbody>
+      <tr>
+        <td class="zh">江支初</td>
+        <td class="name">CHIANG CHIHCHU</td>
+        <td>5 days</td>
+        <td><span class="runner">Runner</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  </div>
+</main>
+</body>
+</html>
