@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生殖醫學植入前分析與日程指引報告</title>
+  <style>
+    :root {
+      --primary-color: #1e3a8a;
+      --primary-light: #eff6ff;
+      --secondary-color: #0d9488;
+      --secondary-light: #f0fdfa;
+      --text-dark: #1e293b;
+      --text-muted: #64748b;
+      --bg-light: #f8fafc;
+      --border-color: #e2e8f0;
+      
+      --color-normal: #10b981;
+      --color-normal-bg: #ecfdf5;
+      --color-borderline: #f59e0b;
+      --color-borderline-bg: #fef3c7;
+      --color-abnormal: #ef4444;
+      --color-abnormal-bg: #fef2f2;
+      --color-info-bg: #f0fdf4;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-dark);
+      background-color: #f1f5f9;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .report-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .report-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #3b82f6 100%);
+      color: #ffffff;
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .report-header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .report-header p.report-subtitle {
+      margin: 10px 0 0 0;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .card {
+      padding: 30px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .card:last-child {
+      border-bottom: none;
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      color: var(--primary-color);
+      margin-top: 0;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 8px;
+    }
+
+    /* Grid layout */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .report-header {
+        padding: 30px 20px;
+      }
+      .card {
+        padding: 20px;
+      }
+    }
+
+    /* Meta data styling */
+    .meta-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 15px;
+    }
+
+    .meta-item {
+      background: var(--bg-light);
+      padding: 12px 15px;
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .meta-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .meta-value {
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    /* Table styling */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 15px;
+    }
+
+    .lab-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .lab-table th {
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+      padding: 12px 15px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .lab-table td {
+      padding: 14px 15px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    /* Tags styling */
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .tag.normal {
+      background-color: var(--color-normal-bg);
+      color: var(--color-normal);
+    }
+
+    .tag.borderline {
+      background-color: var(--color-borderline-bg);
+      color: var(--color-borderline);
+    }
+
+    .tag.abnormal {
+      background-color: var(--color-abnormal-bg);
+      color: var(--color-abnormal);
+    }
+
+    .tag.insufficient {
+      background-color: #f1f5f9;
+      color: #475569;
+    }
+
+    /* Detailed lab blocks */
+    .lab-item-block {
+      background: var(--bg-light);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 15px;
+      border: 1px solid var(--border-color);
+    }
+
+    .lab-item-block h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .lab-item-block ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .lab-item-block li {
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .lab-item-block li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Boxes */
+    .info-box, .warning-box, .alert-box, .tip-box {
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    .info-box {
+      background-color: var(--primary-light);
+      border-left: 5px solid var(--primary-color);
+    }
+
+    .warning-box {
+      background-color: var(--color-borderline-bg);
+      border-left: 5px solid var(--color-borderline);
+    }
+
+    .alert-box {
+      background-color: var(--color-abnormal-bg);
+      border-left: 5px solid var(--color-abnormal);
+    }
+
+    .tip-box {
+      background-color: var(--secondary-light);
+      border-left: 5px solid var(--secondary-color);
+    }
+
+    /* Success Probability Badge */
+    .chance-container {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(to right, #f0fdf4, #ecfdf5);
+      border-radius: 12px;
+      border: 1px dashed var(--color-normal);
+      margin-bottom: 25px;
+    }
+
+    .chance-label-text {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .chance-badge {
+      display: inline-block;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--color-normal);
+      background-color: #ffffff;
+      padding: 8px 24px;
+      border-radius: 50px;
+      box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+      border: 2px solid var(--color-normal);
+    }
+
+    /* Two Columns */
+    .two-column-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 640px) {
+      .two-column-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .good-factors-box, .risk-factors-box {
+      padding: 20px;
+      border-radius: 10px;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    .good-factors-box {
+      background-color: #f0fdf4;
+      border: 1px solid #bbf7d0;
+    }
+
+    .good-factors-box h3 {
+      color: #166534;
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+
+    .risk-factors-box {
+      background-color: #fffbeb;
+      border: 1px solid #fde68a;
+    }
+
+    .risk-factors-box h3 {
+      color: #92400e;
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+
+    .factor-list {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .factor-list li {
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    /* Timeline style */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+      margin-top: 20px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 9px;
+      top: 5px;
+      bottom: 5px;
+      width: 2px;
+      background-color: var(--border-color);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-badge {
+      position: absolute;
+      left: -30px;
+      top: 4px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      border: 4px solid var(--primary-color);
+      box-sizing: border-box;
+    }
+
+    .timeline-badge.highlight {
+      border-color: var(--secondary-color);
+    }
+
+    .timeline-date {
+      font-weight: 700;
+      color: var(--primary-color);
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+
+    .timeline-content {
+      background-color: var(--bg-light);
+      padding: 15px 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .timeline-content h4 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1rem;
+      color: var(--text-dark);
+    }
+
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .schedule-table td {
+      padding: 6px 8px;
+      font-size: 0.85rem;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .schedule-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .time-col {
+      width: 80px;
+      font-weight: 600;
+      color: var(--secondary-color);
+    }
+
+    /* Discussion questions style */
+    .question-box {
+      background-color: var(--bg-light);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .question-list {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .question-list li {
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .question-list li span {
+      font-weight: normal;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 2px;
+      font-size: 0.85rem;
+    }
+
+    /* Disclaimer and signature */
+    .disclaimer {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      padding-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="report-container">
+  <!-- Header -->
+  <header class="report-header">
+    <h1>🧬 生殖醫學植入前分析與日程指引</h1>
+    <p class="report-subtitle">精準內膜黃體同步化 ｜ 免疫不孕調控 ｜ 療程全紀錄</p>
+  </header>
+
+  <!-- Section 1: 個案摘要 -->
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要</h2>
+    <div class="info-box">
+      <strong>臨床評估現況：</strong><br>
+      個案目前處於胚胎植入準備階段。今日為 <strong>6月25日</strong>，經陰道超音波測量內膜厚度約為 <strong>6.7 - 7.0 mm</strong>，雌激素（E2）與黃體素（P4）抽血數值完全符合黃體啟動前的黃金標準。個案因涉及免疫相關因素（已施打過 4 次奔利生，今日施打第 5 次），採用高規格免疫不孕控制方案，預計於 <strong>7月1日（星期三）</strong> 植入兩顆優質的第5天（Day 5）4BC 囊胚，並搭配輔助孵化術（AH）與運寶寧（Atosiban）點滴以提高著床成功率。
+    </div>
+    <ul class="meta-list">
+      <li class="meta-item">
+        <span class="meta-label">目前日期</span>
+        <span class="meta-value">2026年 6月 25日</span>
+      </li>
+      <li class="meta-item">
+        <span class="meta-label">內膜厚度</span>
+        <span class="meta-value">6.7 ~ 7.0 mm (接近標準)</span>
+      </li>
+      <li class="meta-item">
+        <span class="meta-label">預定植入日期</span>
+        <span class="meta-value">2026年 7月 1日 (三)</span>
+      </li>
+      <li class="meta-item">
+        <span class="meta-label">植入胚胎規格</span>
+        <span class="meta-value">2顆 D5 4BC 囊胚</span>
+      </li>
+      <li class="meta-item">
+        <span class="meta-label">關鍵處置</span>
+        <span class="meta-value">輔助孵化(AH) / 運寶寧</span>
+      </li>
+      <li class="meta-item">
+        <span class="meta-label">今日特殊處置</span>
+        <span class="meta-value">施打奔利生 (第5劑)</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Section 2: 檢驗報告重點整理 -->
+  <section class="card highlight-card">
+    <h2>🔎 二、檢驗報告重點整理</h2>
+    <div class="table-container">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th>檢驗項目</th>
+            <th>檢驗值</th>
+            <th>單位</th>
+            <th>參考值範圍</th>
+            <th>狀態判定</th>
+            <th>臨床簡要判讀</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>E2 (雌二醇)</strong></td>
+            <td>438.0</td>
+            <td>pg/mL</td>
+            <td>通常建議 &gt; 200 - 300</td>
+            <td><span class="tag normal">極佳</span></td>
+            <td>內膜受雌激素刺激飽滿，利於著床準備。</td>
+          </tr>
+          <tr>
+            <td><strong>P4 (黃體素)</strong></td>
+            <td>&lt; 0.050</td>
+            <td>ng/mL</td>
+            <td>黃體啟動前需 &lt; 1.0 ~ 1.5</td>
+            <td><span class="tag normal">安全合格</span></td>
+            <td>確認黃體素未提早啟動，著床窗口未提早關閉。</td>
+          </tr>
+          <tr>
+            <td><strong>D-dimer (血栓/D-雙體)</strong></td>
+            <td>0.070</td>
+            <td>mg/L FEU</td>
+            <td>&lt; 0.55</td>
+            <td><span class="tag normal">正常且極低</span></td>
+            <td>無微血管血栓形成傾向，不需額外加用肝素針。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 3: 每一項檢驗數字的詳細說明 -->
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+    
+    <!-- E2 -->
+    <div class="lab-item-block">
+      <h3>雌二醇 (Estradiol, E2)：438.0 pg/mL <span class="tag normal">正常/高水平</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>E2是由卵泡、胎盤或人工雌激素藥物（如益斯得）分泌的雌激素指標，是評估子宮內膜增厚與接受度的核心激素。</li>
+        <li><strong>在生殖評估中的意義：</strong>在非自然週期的凍胚植入中，我們依靠外源性雌激素來增厚內膜。植入前 E2 水平穩定維持在 200~300 pg/mL 以上，代表內膜已受到足夠的雌激素刺激，具備良好的容受性基礎。</li>
+        <li><strong>本個案的可能解讀：</strong>個案數值達 438.0 pg/mL，顯示目前的益斯得（Estromon）劑量反應極佳，血液中雌激素濃度充裕，能有效維持內膜厚度並誘發內膜細胞上的黃體素受體，為即將進行的黃體啟動做完美鋪路。</li>
+        <li><strong>建議合併判讀項目：</strong>需與超音波內膜厚度（目前6.7-7.0 mm）及黃體素（P4）合併判讀。</li>
+      </ul>
+    </div>
+
+    <!-- P4 -->
+    <div class="lab-item-block">
+      <h3>黃體素 (Progesterone, P4)：&lt; 0.050 ng/mL <span class="tag normal">完美未啟動</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>黃體素主要由排卵後的黃體分泌。在胚胎植入前，黃體素的「啟動時間點」非常關鍵。</li>
+        <li><strong>在生殖評估中的意義：</strong>如果在黃體啟動藥物（大/小白球、快孕隆等）使用前，血液中的 P4 已經提早升高（例如 &gt; 1.0 ng/mL），代表發生了「提早黃體化」，這會導致子宮著床窗口（WOI）提早關閉，造成胚胎與內膜發育不同步。</li>
+        <li><strong>本個案的可能解讀：</strong>數值極低（&lt; 0.050 ng/mL），證實您的身體並未出現自主性的提早排卵或黃體化。這使得醫療團隊可以<strong>百分之百精準地</strong>主導黃體啟動時間（即 6月26日 23:00），以完美對齊 7月1日 的胚胎植入。</li>
+        <li><strong>建議合併判讀項目：</strong>植入當天（7月1日）需重新抽血追蹤 P4，確保其濃度在黃體藥物補充下已成功爬升至足夠高度（通常建議 &gt; 15-20 ng/mL）。</li>
+      </ul>
+    </div>
+
+    <!-- D-dimer -->
+    <div class="lab-item-block">
+      <h3>D-雙體 (D-dimer)：0.070 mg/L FEU <span class="tag normal">完美安全值</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>D-dimer 是纖維蛋白降解產物，為體內微血管血栓形成與纖維蛋白溶解活性的間接指標。</li>
+        <li><strong>在生殖評估中的意義：</strong>部分重症免疫或易栓症患者，其血液在植入期容易呈現高凝固狀態，導致胎盤絨毛膜形成微血栓，進而阻礙著床或造成早期流產。若 D-dimer 偏高（&gt; 0.55 mg/L），臨床常需介入抗凝血針劑（如肝素）。</li>
+        <li><strong>本個案的可能解讀：</strong>您的 D-dimer 僅有 0.070 mg/L FEU，遠低於標準值上限，顯示在口服安斯汀（Aspirin）與奎寧的控制下，目前您的凝血機制極為穩定，體內無任何血栓危險，<strong>「今天完全不需要加打血栓針/愛栓通」</strong>。</li>
+        <li><strong>是否需要追蹤：</strong>植入當天（7月1日）將再次抽血複查 D-dimer。因為黃體素與懷孕狀態可能會誘發凝血活性，當天報告出來後，賴醫師會根據數值再次評估後續是否需要微調抗凝血用藥。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section 4: 整體評估 -->
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體評估</h2>
+    <p>綜合所有數據與臨床溝通，此週期為<strong>「高規免疫控制型凍胚植入週期」</strong>。個案生理機能調控情況良好：</p>
+    <ul>
+      <li><strong>內膜接受度狀態：</strong>內膜厚度 6.7~7.0 mm 雖稍薄（理想為 &gt; 7~8mm），但已非常接近合格邊緣。且目前 E2 濃度充足（438 pg/mL），接下來配合 120 小時的黃體素浸潤，內膜細胞結構會進一步轉化，並可期望在植入當天達到更穩定的接受狀態。</li>
+      <li><strong>免疫防禦機制（重中之重）：</strong>個案體內 B 細胞活性可能較為狡猾、容易在胚胎進駐時群起攻擊。目前已採取「奔利生 + 復邁 + IVIG + 類固醇（康速龍） + 奎寧」的多重飽和免疫阻斷療法：
+        <ul>
+          <li><strong>奔利生 (Benlysta)：</strong>今日完成第 5 劑，強力壓制躲藏在骨髓中的 B 細胞。</li>
+          <li><strong>復邁 (Humira)：</strong>於 6月29日 施打，阻斷局部發炎因子。</li>
+          <li><strong>免疫球蛋白 (IVIG)：</strong>於 6月29日 點滴滴注（因缺貨，改以相同劑量之小瓶替代），預防自然殺手細胞（NK cells）或自體抗體攻擊胚胎。</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Section 5: 目前成功機率評估 -->
+  <section class="card chance-card">
+    <h2>📈 五、目前成功機率評估</h2>
+    <div class="chance-container">
+      <div class="chance-label-text">依據目前生理與免疫控制現況，成功機率定性評估：</div>
+      <div class="chance-badge">中等偏高</div>
+    </div>
+    
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面有利因素</h3>
+        <ul class="factor-list">
+          <li><strong>精準的窗口調控：</strong>黃體素提早值 &lt; 0.050，確保黃體啟動時間 100% 受醫療控管，無著床窗位移疑慮。</li>
+          <li><strong>極佳的抗血栓狀態：</strong>D-dimer (0.070) 非常漂亮，子宮微循環環境良好。</li>
+          <li><strong>強力的免疫護航：</strong>使用目前生殖醫學頂規的免疫合併療法（奔利生+復邁+IVIG+口服免疫藥），能將母體免疫排斥降到最低。</li>
+          <li><strong>雙胚胎植入與輔助：</strong>植入 2 顆 D5 4BC 囊胚，累積成功率提高，且胚胎特別加做「孵化術」協助破殼，植入當天搭配「運寶寧（Atosiban）」可有效安定子宮、防止子宮排斥性痙攣。</li>
+        </ul>
+      </div>
+      <div class="risk-factors-box">
+        <h3>⚠️ 可能降低成功率之因素</h3>
+        <ul class="factor-list">
+          <li><strong>內膜厚度：</strong>目前 6.7 - 7.0 mm 介於邊界，雖符合植入標準，但若能再稍微增厚，著床成功率會更為穩健。</li>
+          <li><strong>免疫細胞反撲風險：</strong>B細胞與免疫抗體較為狡猾，在胚胎著床之際可能出現局部的發炎波動（需依靠 6/29 的復邁與 IVIG 強力壓制）。</li>
+          <li><strong>囊胚級別：</strong>4BC 囊胚內細胞團與滋養層等級為中等，雖然並非頂級 AA，但仍是具有健康懷孕潛力的優良胚胎。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: 可能問題與風險分析 -->
+  <section class="card risk-card">
+    <h2>⚠️ 六、可能問題與風險分析</h2>
+    <ul>
+      <li><strong>多胞胎妊娠風險：</strong>由於本次決定「一次植入兩顆囊胚」，成功受孕時有一定機率發展為<strong>雙胞胎</strong>。多胞胎妊娠在懷孕中後期會增加妊娠高血壓、早產及胎兒體重過輕的風險。</li>
+      <li><strong>過度免疫抑制相關副作用：</strong>因使用了奔利生、復邁、IVIG 及類固醇等強效免疫調節劑，您目前的身體免疫防禦力會降得比一般人低。
+        <ul>
+          <li><strong>感染風險增加：</strong>請嚴格避免出入公共密閉場所，勤洗手、配戴口罩，防止呼吸道或腸胃道感染。</li>
+          <li><strong>代謝與作息影響：</strong>口服類固醇（康速龍）與免疫藥物可能引起胃部不適、輕微水腫或短暫失眠，若失眠嚴重應與醫師討論服藥時間。</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Section 7: 調研資料摘要 -->
+  <section class="card research-card">
+    <h2>📚 七、調研資料摘要</h2>
+    <div class="tip-box">
+      <strong>臨床共識與不孕症研究摘要：</strong><br>
+      <ul>
+        <li><strong>輔助孵化術（Assisted Hatching, AH）：</strong>臨床實務證實，對於冷凍復甦胚胎、胚胎外殼（透明帶）較厚或重複植入失敗之女性，以人工方式將透明帶進行微孔削薄（孵化術），能顯著提高胚胎自透明帶脫殼而出並順利著床於子宮內膜的成功率。</li>
+        <li><strong>運寶寧點滴（Atosiban）：</strong>Atosiban 是一種催產素受體拮抗劑。在胚胎植入前與植入期間滴注，能專一性抑制子宮肌肉收縮、降低子宮蠕動頻率。研究指出，這對於子宮高度敏感、易痙攣不適、或有子宮肌腺症的患者，能提供更平穩的宮腔環境，有利於胚胎穩定著床。</li>
+        <li><strong>B細胞與重複著床失敗：</strong>自體免疫不孕患者中，活躍的 B 細胞常在體內產生對抗胚胎的自體抗體。施打 BAFF 抑制劑（如奔利生）能減少異常 B 細胞的存活，而 IVIG 則可中和血液中潛在的毒性抗體。這兩者在臨床免疫不孕治療中已成為多重失敗個案的重要護航武器。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section 8: 建議補充檢查 -->
+  <section class="card next-step-card">
+    <h2>🧪 八、建議補充檢查</h2>
+    <div class="warning-box">
+      <strong>植入日當天（7月1日）必追蹤項目：</strong><br>
+      助理已安排您在植入日當天 <strong>11:00 報到</strong> 後立即抽血，這兩個項目對於當天的藥物調整至關重要：
+      <ol>
+        <li><strong>Progesterone (P4) 黃體素追蹤：</strong>確認自 6/26 啟動黃體素後，體內的黃體素濃度是否已順利爬升至 &gt; 15-20 ng/mL，以確保支持著床的黃體濃度足夠。</li>
+        <li><strong>D-dimer 血栓指數追蹤：</strong>因黃體素使用後體內凝血因子可能活躍，需監控此數值是否依然安全，若數值異常飆高，將由賴醫師在當天即時決定是否增開肝素針劑。</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Section 9: 步驟指引 (日程時間表) -->
+  <section class="card plan-card">
+    <h2>🪜 九、關鍵步驟日程表 (6/25 - 7/1)</h2>
+    <div class="timeline">
+      
+      <!-- 6月25日 -->
+      <div class="timeline-item">
+        <div class="timeline-badge"></div>
+        <div class="timeline-date">6 月 25 日 (四) ── 今日門診與點滴</div>
+        <div class="timeline-content">
+          <h4>今日處置：</h4>
+          <ul>
+            <li><strong>超音波與抽血完成：</strong>內膜 6.7~7.0mm。E2 (438.0)、P4 (&lt;0.050)、D-dimer (0.070) 均合格。</li>
+            <li><strong>免疫針劑施打：</strong>今日於院內施打 <strong>奔利生第 5 劑</strong>（加掛點滴），完成 B 細胞免疫控制。</li>
+            <li><strong>一般用藥照舊：</strong>照常服用益斯得、康速龍、IB克、奎寧、安斯平。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 6月26日 -->
+      <div class="timeline-item">
+        <div class="timeline-badge highlight"></div>
+        <div class="timeline-date">6 月 26 日 (五) ── 關鍵：黃體藥物啟動日</div>
+        <div class="timeline-content">
+          <h4>當日特殊任務：</h4>
+          <p style="color: var(--color-abnormal); font-weight: bold; margin-top:0;">⚠️ 晚上 11:00 準時啟動黃體藥物，不可延誤！</p>
+          <table class="schedule-table">
+            <tr>
+              <td class="time-col">白天期間</td>
+              <td>其餘常規藥物照常服用。</td>
+            </tr>
+            <tr>
+              <td class="time-col">晚上 23:00</td>
+              <td><strong>塞陰道大白球 1 顆</strong> (塞入一至兩個指節深) <strong>+ 口服小白球 2 顆</strong> (兩者前後差兩三分鐘即可)。</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 6月27日 至 28日 -->
+      <div class="timeline-item">
+        <div class="timeline-badge"></div>
+        <div class="timeline-date">6 月 27 日 (六) ～ 6 月 28 日 (日) ── 規律黃體浸潤期</div>
+        <div class="timeline-content">
+          <h4>每日黃體藥物與常規用藥：</h4>
+          <p>開始進入一天四次的小白球口服日程（時間間隔 4-6 小時，不超過 10 小時）：</p>
+          <table class="schedule-table">
+            <tr>
+              <td class="time-col">08:00 AM</td>
+              <td>口服小白球 2 顆 + 益斯得 2 顆 + 康速龍 1 顆 + 奎寧 1 顆 + 安斯平 1 顆 + IB克 1 顆。</td>
+            </tr>
+            <tr>
+              <td class="time-col">13:00 PM</td>
+              <td>口服小白球 2 顆 + 益斯得 2 顆 + 康速龍 1 顆。</td>
+            </tr>
+            <tr>
+              <td class="time-col">18:00 PM</td>
+              <td>口服小白球 2 顆。</td>
+            </tr>
+            <tr>
+              <td class="time-col">23:00 PM</td>
+              <td>口服小白球 2 顆 + 益斯得 2 顆 + 奎寧 1 顆 + 安斯平 1 顆 + IB克 1 顆。</td>
+            </tr>
+          </table>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">※ 註：禮拜六當天，醫院護理師會打電話通知您 6/29(一) 回院打針點滴的確切報到時間。</p>
+        </div>
+      </div>
+
+      <!-- 6月29日 -->
+      <div class="timeline-item">
+        <div class="timeline-badge"></div>
+        <div class="timeline-date">6 月 29 日 (一) ── 免疫抗體阻斷日 (回院)</div>
+        <div class="timeline-content">
+          <h4>當日任務：</h4>
+          <ul>
+            <li><strong>回診施打點滴：</strong>預計於下午 <strong>1:00 ~ 1:30 之前報到</strong>（需配合護理師通知），當天將施打 <strong>復邁 (Humira) 1 支</strong>，並吊掛 <strong>免疫球蛋白點滴 (IVIG)</strong>。</li>
+            <li><strong>點滴時間：</strong>由於免疫球蛋白點滴需緩慢滴注，請預留 <strong>3 到 4 小時</strong> 的院內停留時間。</li>
+            <li><strong>App任務：</strong>請於今天 <strong>下午 14:00 前</strong> 完成手機 App 植入當日餐點（濃湯/貝果）的點選。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 6月30日 -->
+      <div class="timeline-item">
+        <div class="timeline-badge"></div>
+        <div class="timeline-date">6 月 30 日 (二) ── 植入前最後準備日</div>
+        <div class="timeline-content">
+          <h4>當日任務：</h4>
+          <ul>
+            <li>維持日常 4 次服藥與黃體素補充（按 6/27 課表）。</li>
+            <li>保持心情愉悅、充足睡眠，避免提重物或劇烈運動。</li>
+            <li>準備好<strong>夫妻雙方的身分證正本</strong>。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 7月1日 -->
+      <div class="timeline-item">
+        <div class="timeline-badge highlight"></div>
+        <div class="timeline-date">7 月 1 日 (三) ── 胚胎植入日 (當天流程)</div>
+        <div class="timeline-content">
+          <h4>當日流程（預估在院時間 3-4 小時）：</h4>
+          <table class="schedule-table">
+            <tr>
+              <td class="time-col">08:00 AM</td>
+              <td>在家照常服用早上的所有口服藥物（含小白球、益斯得等）。</td>
+            </tr>
+            <tr>
+              <td class="time-col">11:00 AM</td>
+              <td><strong>準時院內報到。</strong>
+                <br>✓ 攜帶<strong>夫妻雙方身分證正本</strong>。
+                <br>✓ 繳交並簽署「胚胎解凍植入同意書」、「運寶寧點滴同意書」、「生物製劑施打同意書」。
+                <br>✓ <strong>立刻抽血：</strong>驗 P4 黃體素與 D-dimer 報告（需 1 小時出爐）。
+              </td>
+            </tr>
+            <tr>
+              <td class="time-col">12:00 PM</td>
+              <td><strong>進行解凍胚胎植入。</strong>
+                <br>✓ 植入 2 顆 D5 4BC 囊胚。
+                <br>✓ 胚胎特別安排「孵化術」協助孵出。
+                <br>✓ <strong>同步吊掛「運寶寧（Atosiban）點滴」</strong>防子宮痙攣。
+              </td>
+            </tr>
+            <tr>
+              <td class="time-col">植入完成後</td>
+              <td>賴醫師確認抽血報告並核對藥物，決定植入後至驗孕前的免疫與黃體調整，即可返家休息。</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 10: 生活與治療建議 -->
+  <section class="card advice-card">
+    <h2>💡 十、生活與治療建議</h2>
+    
+    <h3>💊 藥物管理細節說明：</h3>
+    <ul>
+      <li><strong>益斯得 (Estromon, 雌激素)：</strong>目前每次吃 2 顆、一天三次（共 6 顆）。主要作用為支持內膜，請勿自行漏藥。</li>
+      <li><strong>康速龍 (Prednisolone, 類固醇) 與 IB克：</strong>具免疫調節功能，能降低體內排斥細胞的活躍度。
+        <ul>
+          <li>類固醇容易引起輕微興奮感，故<strong>康速龍固定於 08:00 與 13:00 服用</strong>，避免深夜服用導致失眠。</li>
+          <li>IB克則維持早晚各 1 顆。</li>
+        </ul>
+      </li>
+      <li><strong>奎寧 (Plaquenil) 與 安斯汀 (Aspirin)：</strong>早晚各 1 顆。提供基礎抗發炎與抗血栓微血管保護。</li>
+      <li><strong>小白球 (黃體素口服) 與 大白球 (黃體素陰道塞劑)：</strong>
+        <ul>
+          <li><strong>啟動當晚（6/26）晚上 11:00 必須精準！</strong> 助理特別交代，塞大白球前，手部需徹底清潔，塞入約 1-2 指節深。塞完後接著口服小白球。</li>
+          <li>啟動後，小白球口服次數增為一日四次，請將時間平均分配，不宜產生過大時間差（例：8-13-18-23）。</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>🥦 日常生活起居建議：</h3>
+    <ul>
+      <li><strong>飲食方面：</strong>多補充優質蛋白質（魚、瘦肉、蛋），避免生冷、生魚片、未全熟蛋及易致敏食物。暫停任何具活血、中藥燉補、人參、或薑母鴨等補品，以避免誘發自體免疫攻擊。</li>
+      <li><strong>免疫防護：</strong>由於服用了大量免疫抑制藥，身體對抗病菌能力下降。請多戴口罩、避免前往人多擁擠的密閉空間。</li>
+      <li><strong>生活作息：</strong>保持每日 7-8 小時充足睡眠。睡眠時身體修復與子宮內循環最為穩定。</li>
+    </ul>
+  </section>
+
+  <!-- Section 11: 建議與醫師討論的關鍵問題 -->
+  <section class="card discussion-card">
+    <h2>🗣️ 十一、建議與醫師討論的關鍵問題 (7/1 植入當天提問)</h2>
+    <div class="question-box">
+      <p>在 7月1日 植入當天中午，賴醫師會看您的抽血報告。您可以把握時間，向賴醫師詢問並確認以下關鍵事項：</p>
+      <ol class="question-list">
+        <li>
+          <strong>「今天植入日的黃體素 (P4) 和 D-dimer 抽血報告數值是否都在理想安全範圍？」</strong>
+          <span>臨床用意：確認口服小白球與大白球的黃體吸收情況，以及黃體素是否有激發微血管血栓。</span>
+        </li>
+        <li>
+          <strong>「今天 D-dimer 數值需要讓我增加施打低分子量肝素 (LMWH) 針劑嗎？還是維持原本口服安斯平即可？」</strong>
+          <span>臨床用意：確認植入後的抗凝血方針是維持口服安斯平，還是要根據最新血栓指標加入肝素針。</span>
+        </li>
+        <li>
+          <strong>「這兩顆 4BC 的胚胎，在今天解凍復甦後的狀態如何？外殼孵化術執行順利嗎？」</strong>
+          <span>臨床用意：了解胚胎解凍後的存活率、膨脹率，以及輔助孵化（AH）的實際狀況。</span>
+        </li>
+        <li>
+          <strong>「我目前的內膜厚度（今天測量值）是否在黃體素浸潤後有達到您滿意的著床接受度？」</strong>
+          <span>臨床用意：確認內膜在黃體化後的厚度變化與轉化外觀（是否具備三線、或是已成功緻密化）。</span>
+        </li>
+        <li>
+          <strong>「在植入後到驗孕前的這段期間，我的免疫口服藥（康速龍、IB克、奎寧）和黃體素塞劑需要維持同樣劑量，還是需要調整？」</strong>
+          <span>臨床用意：確立植入後（Luteal Phase）的用藥維持方案，避免藥物缺漏。</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Section 12: 警示訊號 -->
+  <section class="card alert-card">
+    <h2>🚨 十二、高風險警示訊號</h2>
+    <div class="alert-box">
+      <strong>治療期特殊身體警訊：</strong><br>
+      在用藥期間、植入當天及植入後，若您的身體出現以下任何一項症狀，<strong>請勿等待、請立即與您的主治醫師團隊聯繫，或直接前往醫院急診尋求處理：</strong>
+      <ul>
+        <li><strong>劇烈腹痛：</strong>特別是單側劇烈撕裂痛、或伴隨下腹部異常腫脹、無法站立之痛感。</li>
+        <li><strong>陰道大量出血：</strong>出血量多於一般月經量，或伴隨大塊血塊。</li>
+        <li><strong>高燒不退：</strong>體溫高於 38.5°C 且伴隨畏寒、下腹疼痛，需排除盆腔感染或藥物過敏。</li>
+        <li><strong>嚴重呼吸困難或胸悶：</strong>少數高規格免疫藥物施打後若有嚴重心悸、呼吸喘促或過敏性休克前兆。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section 13: 重要聲明 -->
+  <section class="card disclaimer-card">
+    <div class="disclaimer">
+      <h2>📌 十三、重要聲明</h2>
+      <p><strong>非診斷性聲明：</strong>本報告乃依據個案提供之醫療討論錄音內容、助理用藥說明、以及上傳之局部血液檢驗數值（E2、P4、D-dimer）影像進行整理與臨床分析，旨在協助個案進行資訊整合、建立清晰易懂的服藥與回診日程表。本報告不構成任何正式的醫學診斷、處方指引或受孕成功率保證。所有臨床藥物劑量調整、點滴施打、手術操作及最終醫療決策，必須以您的主治醫師（賴醫師與許醫師團隊）之現場臨床評估、實驗室最新數據及實際醫囑為唯一依據。</p>
+    </div>
+  </section>
+</div>
+
+</body>
+</html>
