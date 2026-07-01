@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>送子鳥生殖中心・胚胎解凍與植入分析報告</title>
+  <style>
+    :root {
+      --primary-color: #0f172a;
+      --secondary-color: #0d9488;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-color: #334155;
+      --text-light: #64748b;
+      --border-color: #e2e8f0;
+      
+      --status-normal: #d1fae5;
+      --status-normal-text: #065f46;
+      --status-active: #dbeafe;
+      --status-active-text: #1e40af;
+      --status-warning: #fef3c7;
+      --status-warning-text: #92400e;
+      --status-danger: #fee2e2;
+      --status-danger-text: #991b1b;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .report-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .report-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #1e293b 100%);
+      color: #ffffff;
+      padding: 40px;
+      border-radius: 16px 16px 0 0;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      position: relative;
+    }
+
+    .report-header h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .report-subtitle {
+      margin: 10px 0 0 0;
+      font-size: 16px;
+      color: #94a3b8;
+    }
+
+    .institution-tag {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      background-color: rgba(13, 148, 136, 0.2);
+      border: 1px solid var(--secondary-color);
+      color: #2dd4bf;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      margin-top: 24px;
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Tags & Badges */
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .tag.normal {
+      background-color: var(--status-normal);
+      color: var(--status-normal-text);
+    }
+
+    .tag.active {
+      background-color: var(--status-active);
+      color: var(--status-active-text);
+    }
+
+    .tag.warning {
+      background-color: var(--status-warning);
+      color: var(--status-warning-text);
+    }
+
+    .chance-badge {
+      display: inline-block;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--secondary-color);
+      background-color: #f0fdfa;
+      padding: 10px 24px;
+      border-radius: 8px;
+      border: 1px dashed var(--secondary-color);
+      margin: 15px 0;
+    }
+
+    /* Tables */
+    .lab-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      text-align: left;
+    }
+
+    .lab-table th {
+      background-color: #f1f5f9;
+      color: var(--primary-color);
+      padding: 12px 16px;
+      font-weight: 600;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .lab-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 15px;
+    }
+
+    /* Grid layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .lab-item-block {
+      background-color: #f8fafc;
+      border-left: 4px solid var(--secondary-color);
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 20px;
+    }
+
+    .lab-item-block h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 18px;
+      color: var(--primary-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .lab-item-block ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .lab-item-block li {
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    /* Highlight boxes */
+    .box {
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .info-box {
+      background-color: #f0fdfa;
+      border-left: 4px solid var(--secondary-color);
+      color: #115e59;
+    }
+
+    .warning-box {
+      background-color: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      color: #92400e;
+    }
+
+    .alert-box {
+      background-color: #fef2f2;
+      border-left: 4px solid #ef4444;
+      color: #991b1b;
+    }
+
+    .two-column-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .good-factors-box {
+      background-color: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .good-factors-box h3 {
+      color: #065f46;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .risk-factors-box {
+      background-color: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .risk-factors-box h3 {
+      color: #92400e;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* List styling */
+    .custom-list {
+      padding-left: 20px;
+      margin: 10px 0;
+    }
+
+    .custom-list li {
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-2, .two-column-grid {
+        grid-template-columns: 1fr;
+      }
+      .institution-tag {
+        position: static;
+        display: inline-block;
+        margin-top: 15px;
+      }
+      .report-header {
+        padding: 30px 20px;
+      }
+      .card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="report-container">
+  
+  <!-- 報告主標題 -->
+  <header class="report-header">
+    <h1>🧬 胚胎解凍與植入分析報告</h1>
+    <p class="report-subtitle">專業判讀・解凍復甦監測・臨床步驟指引</p>
+    <div class="institution-tag">送子鳥生殖中心 新竹院</div>
+  </header>
+
+  <!-- 一、個案摘要 -->
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要</h2>
+    <table class="lab-table" style="margin-top: 0;">
+      <tbody>
+        <tr>
+          <td style="width: 25%; font-weight: 600;">評估院所</td>
+          <td>送子鳥生殖中心 新竹院</td>
+          <td style="width: 25%; font-weight: 600;">療程類型</td>
+          <td>凍胚植入療程 (Frozen Embryo Transfer, FET)</td>
+        </tr>
+        <tr>
+          <td style="font-weight: 600;">植入胚胎數量</td>
+          <td>2 顆高優質囊胚</td>
+          <td style="font-weight: 600;">胚胎發育階段</td>
+          <td>第 5 天 (Day 5) 囊胚</td>
+        </tr>
+        <tr>
+          <td style="font-weight: 600;">胚胎初始評級</td>
+          <td>4BB / 4BB (Gardner Grading)</td>
+          <td style="font-weight: 600;">當前狀態</td>
+          <td>解凍復甦完全，持續展開並積極孵化中</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 二、胚胎狀態總覽表 -->
+  <section class="card highlight-card">
+    <h2>🔎 二、植入胚胎狀態總覽</h2>
+    <p class="text-light" style="font-size: 14px; margin-top: -10px; margin-bottom: 20px;">
+      以下為本次解凍復甦程序中，兩顆第 5 天 4BB 囊胚的生理恢復指針：
+    </p>
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th>胚胎代號</th>
+          <th>初始評級</th>
+          <th>解凍即刻反應</th>
+          <th>植入前復甦狀態</th>
+          <th>透明帶孵化程度</th>
+          <th>顯微鏡特徵</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>第一顆 (上方胚胎)</strong></td>
+          <td>D5 4BB</td>
+          <td><span class="tag warning">正常皺縮</span></td>
+          <td><span class="tag active">完全展開</span></td>
+          <td>已啟動孵化 (小部分突出)</td>
+          <td>3D直立站姿，局部呈焦距外模糊</td>
+        </tr>
+        <tr>
+          <td><strong>第二顆 (下方/左側)</strong></td>
+          <td>D5 4BB</td>
+          <td><span class="tag warning">正常皺縮</span></td>
+          <td><span class="tag active">完全展開</span></td>
+          <td>顯著孵化 (突出比例較高)</td>
+          <td>平面展開，顯微鏡下結構清晰</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="info-box box">
+      💡 <strong>胚胎解凍生理學解密：</strong>
+      胚胎在急速冷凍過程中，會使用高濃度的冷凍保護劑置換掉細胞內的水分，以防結冰晶破壞細胞。因此，在解凍的「即刻」，細胞呈現皺縮是<strong>完全正常且健康的生理防禦現象</strong>。經過培養液環境的溫育，細胞水分重新吸入，囊胚腔再次「展開（擴張）」，即代表胚胎已成功復甦，活力極佳。
+    </div>
+  </section>
+
+  <!-- 三、每一項檢驗指標的詳細說明 -->
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、胚胎微觀評級與發育指標解析</h2>
+    
+    <div class="lab-item-block">
+      <h3>指標：Day 5 4BB 評級系統 <span class="tag normal">高優質囊胚</span></h3>
+      <ul>
+        <li><strong>數字/評級「4」代表什麼：</strong> 代表「擴張中囊胚 (Expanded Blastocyst)」。此時囊胚腔已完全充滿胚胎，且透明帶（外殼）開始變薄。這是一個高度成熟、即將孵化出殼的優良階段。</li>
+        <li><strong>第一個「B」代表什麼（內細胞團, ICM）：</strong> 內細胞團未來會發育為「胎兒本體」。評級 B 代表細胞數目適中、排列緊密，具備發育為健康胎兒的良好潛力。</li>
+        <li><strong>第二個「B」代表什麼（滋養外胚層, TE）：</strong> 滋養外胚層未來會發育為「胎盤與胎膜」。評級 B 代表細胞數目適中、結構完整，能提供足夠的著床黏附能力與胎盤支持。</li>
+        <li><strong>臨床整合判讀：</strong> 4BB 屬於臨床上公認的<strong>高評級優質胚胎</strong>。兩顆 4BB 同時植入，在子宮內膜環境配合下，擁有高度的著床成功率。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>指標：第一顆胚胎復甦與空間態樣 <span class="tag active">持續孵化中</span></h3>
+      <ul>
+        <li><strong>解凍生理反應：</strong> 解凍初期呈現細胞皺縮（正常脫水保護狀態），經培養後細胞完全再行展開，證實生命力旺盛。</li>
+        <li><strong>孵化行為 (Hatching)：</strong> 植入前，已觀察到小部分滋養層細胞突破透明帶外殼（Hatching out），開始往外孵化。</li>
+        <li><strong>顯微鏡成像特徵：</strong> 此胚胎在培養皿中的立體空間位置為「直立站姿（Vertical Positioning）」。由於高倍率顯微鏡景深極淺，直立的胚胎會造成局部（如頂端突起處）清晰，而底部（屁股縮著處）微糊的現象。<strong>此為純粹的物理光學焦距限制，胚胎本身結構極其健康。</strong></li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>指標：第二顆胚胎復甦與空間態樣 <span class="tag active">積極孵化中</span></h3>
+      <ul>
+        <li><strong>解凍生理反應：</strong> 同樣經歷「皺縮 ➡️ 完全展開」的優異復甦歷程，細胞張力極佳。</li>
+        <li><strong>孵化行為 (Hatching)：</strong> 相較於第一顆，此胚胎的孵化進度更為領先，已有更顯著比例的細胞突出於透明帶外。這代表它與子宮內膜接觸時，能更快速地進行著床黏附。</li>
+        <li><strong>顯微鏡成像特徵：</strong> 空間呈水平展開，能完整呈現在顯微鏡同一個焦距平面上，因此結構細節在畫面上顯得格外清晰、飽滿。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 四、整體評估 -->
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體胚胎學臨床判讀</h2>
+    <p>
+      根據本次新竹送子鳥生殖中心實驗室提供的即時影像及醫學解釋，這是一次<strong>近乎完美的凍胚解凍復甦</strong>。兩顆第 5 天的 4BB 囊胚皆展現了極強的生物活性：
+    </p>
+    <ul class="custom-list">
+      <li><strong>協同擴張：</strong> 兩顆胚胎在極短時間內完全恢復了囊胚腔體積，表示其細胞膜完整性與泵水功能極佳。</li>
+      <li><strong>雙重孵化驅動：</strong> 兩顆胚胎皆已自行啟動「孵化（Hatching）」程序。在生理上，唯有能量代謝正常、線粒體功能發達的胚胎，才能產生足夠的內壓突破透明帶。這兩顆胚胎的「主動出殼」行為，大幅縮短了植入後在子宮內尋求著床點的時間。</li>
+      <li><strong>空間多維性：</strong> 影像中出現的輕微模糊，已證實是由於胚胎在培養液中呈現立體直立姿態所致。這種「站立」的姿態更立體地展現了出殼部分（突起端）與主體的飽滿度。</li>
+    </ul>
+  </section>
+
+  <!-- 五、目前成功機率評估 -->
+  <section class="card chance-card">
+    <h2>📈 五、目前成功機率評估</h2>
+    <div style="text-align: center;">
+      <span class="chance-badge">中等偏高 (Medium-High) 至 偏高 (High)</span>
+    </div>
+    <p class="text-light" style="font-size: 14px; text-align: center; margin-bottom: 25px;">
+      *本評估依據解凍後胚胎復甦型態學指標進行推估，實際懷孕率仍受子宮內膜容受性與系統性因素影響。
+    </p>
+
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面原因（有利於成功的因素）</h3>
+        <ul style="padding-left: 20px; margin: 10px 0;">
+          <li style="margin-bottom: 8px;"><strong>頂級胚胎發育速度：</strong> D5 囊胚的著床率與臨床妊娠率顯著高於 D3 或 D6 胚胎。</li>
+          <li style="margin-bottom: 8px;"><strong>雙優質評級 (4BB + 4BB)：</strong> 內細胞團與滋養層結構發育均衡，屬於臨床上著床梯隊的第一陣營。</li>
+          <li style="margin-bottom: 8px;"><strong>出色的主動孵化：</strong> 兩顆胚胎皆已出殼，能顯著提升與子宮內膜「互作黏附」的效率。</li>
+          <li style="margin-bottom: 8px;"><strong>雙胚胎協同效應：</strong> 同時植入兩顆優質凍胚，能大幅提升單次療程的累積妊娠率。</li>
+        </ul>
+      </div>
+
+      <div class="risk-factors-box">
+        <h3>⚠️ 可能失敗原因（降低成功率之風險）</h3>
+        <ul style="padding-left: 20px; margin: 10px 0;">
+          <li style="margin-bottom: 8px;"><strong>子宮內膜窗口移位：</strong> 若存在植入窗口 (WOI) 偏移，優質胚胎亦可能錯過最佳著床時機。</li>
+          <li style="margin-bottom: 8px;"><strong>染色體非整倍體率：</strong> 若未進行 PGT-A（胚胎植入前遺傳學篩檢），外觀優質的 4BB 仍有一定比例存在染色體異常。</li>
+          <li style="margin-bottom: 8px;"><strong>多胞胎妊娠風險：</strong> 雙胚胎植入雖提高成功率，但同時極大幅度地增加了雙胞胎或多胞胎的妊娠風險，需注意後期母嬰併發症。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 六、可能問題與風險分析 -->
+  <section class="card risk-card">
+    <h2>⚠️ 六、植入後可能問題與風險分析</h2>
+    <div class="warning-box box">
+      <strong>1. 多胞胎妊娠風險 (Multiple Pregnancy)：</strong><br>
+      同時植入兩顆高活力的 D5 4BB 胚胎，若兩顆皆成功著床，雙胞胎妊娠機率極高。多胞胎易導致孕期高血壓、妊娠糖尿病、早產、低體重兒等產科併發症，後續需在產檢中由醫師嚴密評估。
+    </div>
+    <div class="warning-box box">
+      <strong>2. 胚胎萎縮與消失孿生兒 (Vanishing Twin)：</strong><br>
+      有時臨床上會出現早期兩顆皆著床，但隨後其中一顆自然停止發育（萎縮）的現象。此時常伴隨輕微陰道出血，需保持冷靜並即時回診確認。
+    </div>
+    <div class="warning-box box">
+      <strong>3. 子宮外孕 (Ectopic Pregnancy)：</strong><br>
+      雖然是直接將胚胎植入子宮腔，但胚胎在正式著床前仍會在游走 1-3 天。若子宮蠕動過度或輸卵管環境異常，仍有極低機率使胚胎游移至輸卵管著床。
+    </div>
+  </section>
+
+  <!-- 七、調研資料摘要 -->
+  <section class="card research-card">
+    <h2>📚 七、生殖醫學調研與文獻脈絡摘要</h2>
+    <ul class="custom-list">
+      <li><strong>Gardner 囊胚評級與懷孕率：</strong> 臨床生殖實務共識指出，第 5 天擴張中囊胚 (Grade 4) 且內細胞團與滋養外胚層皆達 B 級以上 (如 4BB、4AB) 的優質凍胚，在內膜厚度適中（建議 &ge; 8mm）的 FET 週期中，單次移植的臨床懷孕率通常落在 <strong>50% 至 65%</strong> 區間。</li>
+      <li><strong>解凍復甦動力學 (Thaw-Recovery Kinetics)：</strong> 生殖醫學研究表明，解凍後 2-4 小時內即展現「快速再擴張」與「主動孵化（Hatching）」的胚胎，其活產率（Live Birth Rate）顯著高於解凍後遲遲無法擴張或維持皺縮狀態的胚胎。這兩顆胚胎在植入前已呈現高度擴張與部分孵化，在胚胎活力評分上屬於最高等級。</li>
+    </ul>
+  </section>
+
+  <!-- 八、建議補充檢查 -->
+  <section class="card next-step-card">
+    <h2>🧪 八、植入後建議追蹤與監測指標</h2>
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th>監測項目</th>
+          <th>建議時間點</th>
+          <th>臨床目的</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>血清黃體素 (Progesterone, P4)</strong></td>
+          <td>植入當日 / 植入後第 3-5 天</td>
+          <td>評估黃體支持是否足夠，確保子宮內膜維持足夠的蛻膜化狀態以利著床。</td>
+        </tr>
+        <tr>
+          <td><strong>血清雌二醇 (E2)</strong></td>
+          <td>植入後第 3-5 天</td>
+          <td>協同黃體素監測內分泌環境平衡。</td>
+        </tr>
+        <tr>
+          <td><strong>&beta;-hCG 懷孕指數測定</strong></td>
+          <td>植入後第 10 - 14 天</td>
+          <td>確定胚胎是否成功著床與早期發育。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 九、步驟指引 -->
+  <section class="card plan-card">
+    <h2>🪜 九、植入後黃金守則與步驟指引</h2>
+    <div class="lab-item-block" style="border-left-color: #3b82f6;">
+      <h3>步驟一：嚴格執行黃體支持（植入後 1-14 天）</h3>
+      <p>不論是口服黃體素、陰道凝膠（塞劑）或是黃體油針，皆必須<strong>按時、按量施打與服用</strong>。黃體支持是凍胚移植成敗最關鍵的人為可控因素，不可任意漏藥或提早停藥。</p>
+    </div>
+    <div class="lab-item-block" style="border-left-color: #3b82f6;">
+      <h3>步驟二：植入當日與隔日的物理修養</h3>
+      <p>植入後無需絕對臥床（長期臥床反而會降低子宮血流並增加下肢靜脈血栓風險）。建議正常生活、散步、慢走，但應<strong>絕對避免提重物（&ge; 5公斤）、劇烈運動、腹部過度用力</strong>。</p>
+    </div>
+    <div class="lab-item-block" style="border-left-color: #3b82f6;">
+      <h3>步驟三：預防子宮收縮（植入後 1-7 天）</h3>
+      <p>避免任何可能引起子宮收縮的行為，包括：禁止性生活、避免憋尿、預防便秘、禁食活血與刺激性食物（如人參、麻油、酒、辛辣物）。</p>
+    </div>
+    <div class="lab-item-block" style="border-left-color: #3b82f6;">
+      <h3>步驟四：靜待開牌（植入後第 10-14 天）</h3>
+      <p>依照送子鳥生殖中心約定的時間回院抽血驗孕。不建議過早使用驗孕棒自我測試，以免因早期 hCG 濃度不足或受先前針劑干擾，造成不必要的心理壓力。</p>
+    </div>
+  </section>
+
+  <!-- 十、生活與治療建議 -->
+  <section class="card advice-card">
+    <h2>💡 十、生活型態與飲食調養建議</h2>
+    <ul class="custom-list">
+      <li><strong>營養支持：</strong> 建議多攝取優質蛋白質（魚、瘦肉、蛋、豆腐）與新鮮蔬菜。可補充葉酸、維生素D3。避免食用可能誘發過敏或腸胃不適的生食、路邊攤，防止因拉肚子引發子宮收縮。</li>
+      <li><strong>溫度管理：</strong> 胚胎對高度敏感。<strong>植入後請絕對避免泡溫泉、洗熱水澡過久、使用腹部暖暖包。</strong> 保持正常的身體核心溫度。</li>
+      <li><strong>水分與作息：</strong> 每日飲水應達 1800-2000 ml，預防因服用多種黃體素引起便秘。保持充足睡眠，夜間 11 點前入睡，有利於子宮內膜微環境的穩定。</li>
+      <li><strong>心理減壓：</strong> 著床期最忌焦慮與高壓。焦慮會促使身體分泌腎上腺素，引發血管收縮，減少子宮血流量。多觀看輕鬆的影音，保持平常心。</li>
+    </ul>
+  </section>
+
+  <!-- 十一、建議與醫師討論的關鍵問題 -->
+  <section class="card discussion-card">
+    <h2>🗣️ 十一、門診就診時建議與醫師討論的關鍵問題</h2>
+    <p class="text-light" style="font-size: 14px; margin-top: -10px; margin-bottom: 20px;">
+      在回診、抽血或驗孕門診時，您可以主動向主治醫師提出以下問題，以確保後續療程的最佳化管理：
+    </p>
+    <ol class="custom-list" style="padding-left: 20px;">
+      <li><strong>針對黃體支持：</strong>「醫師，請問我目前的黃體素藥物劑量是否足夠？是否需要加抽黃體素（P4）以確認體內濃度？」</li>
+      <li><strong>針對雙胚胎著床：</strong>「因為植入了兩顆優質的 4BB 胚胎，若後續兩顆都順利著床，我們診所對於雙胞胎孕期的追蹤與減胎評估（若有醫學必要）有什麼標準流程？」</li>
+      <li><strong>針對免疫與凝血：</strong>「以我目前的個人病史，在著床期間是否需要額外監測凝血功能（D-dimer）或相關免疫指標？」</li>
+      <li><strong>針對緊急出血處理：</strong>「如果在等待驗孕的這十幾天內，出現陰道微量出血或腹部悶痛，我應該如何調整藥物？在什麼情況下必須立刻回新竹院區急診？」</li>
+      <li><strong>針對胚胎儲備：</strong>「請問我們在實驗室中是否還有其他冷凍保存的胚胎？其等級和發育天數分別為何？」</li>
+    </ol>
+  </section>
+
+  <!-- 十二、警示訊號 -->
+  <section class="card alert-card">
+    <h2>🚨 十二、植入後危急與高風險警訊</h2>
+    <p>植入後若出現以下症狀，<strong>切勿等待</strong>，請立刻與送子鳥生殖中心聯絡，或直接前往新竹院區/急診就醫：</p>
+    <div class="alert-box box">
+      ⚠️ <strong>異常大量陰道出血：</strong> 出血量等同或大於經期第二天的量，或伴隨大量血塊。
+    </div>
+    <div class="alert-box box">
+      ⚠️ <strong>單側或雙側劇烈下腹撕裂痛：</strong> 突發性的單側劇痛，可能與卵巢扭轉、局部出血或高度懷疑的子宮外孕破裂相關。
+    </div>
+    <div class="alert-box box">
+      ⚠️ <strong>嚴重腹脹、尿量極度減少、呼吸困難：</strong> 若您在取卵後緊接著植入（新鮮週期），需高度警惕卵巢過度刺激綜合症 (OHSS)；即使是凍胚週期，若全身出現嚴重水腫與呼吸急促，亦需即刻就醫。
+    </div>
+    <div class="alert-box box">
+      ⚠️ <strong>高燒或嚴重骨盆腔感染徵象：</strong> 體溫高於 38°C，或陰道分泌物出現嚴重異味且伴隨下腹持續悶痛。
+    </div>
+  </section>
+
+  <!-- 十三、重要聲明 -->
+  <section class="card disclaimer-card" style="background-color: #f1f5f9; border-color: #cbd5e1;">
+    <h2>📌 十三、專業醫療聲明</h2>
+    <p style="font-size: 13px; color: var(--text-light); margin: 0; text-align: justify;">
+      本報告乃是基於您提供之新竹送子鳥生殖中心現場語音諮詢內容、胚胎學家與護理人員之口頭陳述，進行的結構化醫學轉譯與衛教整理。本報告中提及之所有胚胎發育狀況、著床成功率評估與生理特徵解讀，均屬依據臨床經驗之推估與卫教指南，<strong>不構成任何形式的正式醫療診斷、處方推薦或成功懷孕之絕對保證</strong>。實際療程管理、藥物劑量調整及突發狀況處置，請一律遵從送子鳥生殖中心主治醫師之臨床醫囑。
+    </p>
+  </section>
+
+</div>
+
+</body>
+</html>
