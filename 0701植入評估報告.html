@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生殖醫學胚胎植入評估報告</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #eff6ff;
+      --secondary: #0d9488;
+      --secondary-light: #f0fdfa;
+      --success: #10b981;
+      --success-bg: #ecfdf5;
+      --warning: #f59e0b;
+      --warning-bg: #fffbeb;
+      --danger: #ef4444;
+      --danger-bg: #fef2f2;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-700: #334155;
+      --slate-900: #0f172a;
+      --border-color: #e2e8f0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+      background-color: var(--slate-50);
+      color: var(--slate-900);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .report-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .report-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 40px 30px;
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .report-header::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+    }
+
+    .report-header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .report-subtitle {
+      margin: 10px 0 0 0;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 30px;
+      margin-top: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Summary Section */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .summary-item {
+      background-color: var(--slate-50);
+      padding: 15px;
+      border-radius: 12px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .summary-label {
+      font-size: 0.85rem;
+      color: var(--slate-700);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .summary-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--slate-900);
+    }
+
+    /* Table Styles */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 15px;
+    }
+
+    .lab-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .lab-table th {
+      background-color: var(--primary-light);
+      color: var(--primary);
+      padding: 12px 16px;
+      font-weight: 700;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .lab-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .tag.normal {
+      background-color: var(--success-bg);
+      color: var(--success);
+    }
+
+    .tag.borderline {
+      background-color: var(--warning-bg);
+      color: var(--warning);
+    }
+
+    .tag.abnormal {
+      background-color: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .tag.insufficient {
+      background-color: var(--slate-100);
+      color: var(--slate-700);
+    }
+
+    /* Detailed Lab Cards */
+    .lab-item-block {
+      background-color: var(--slate-50);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border-color);
+    }
+
+    .lab-item-block h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.15rem;
+      color: var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .lab-item-block ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .lab-item-block li {
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .lab-item-block li strong {
+      color: var(--slate-900);
+    }
+
+    /* Chance Level Badge */
+    .chance-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(to right, var(--primary-light), var(--secondary-light));
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .chance-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .chance-tag {
+      font-size: 1.6rem;
+      font-weight: 800;
+      padding: 8px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .chance-tag.high { background-color: #34d399; color: white; }
+    .chance-tag.mid-high { background-color: var(--secondary); color: white; }
+    .chance-tag.medium { background-color: var(--warning); color: white; }
+    .chance-tag.mid-low { background-color: #f97316; color: white; }
+    .chance-tag.low { background-color: var(--danger); color: white; }
+    .chance-tag.unknown { background-color: #94a3b8; color: white; }
+
+    /* Two Column Layout */
+    .two-column-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+    }
+
+    .good-factors-box, .risk-factors-box {
+      padding: 20px;
+      border-radius: 12px;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    .good-factors-box {
+      background-color: var(--success-bg);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .good-factors-box h3 {
+      color: var(--success);
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .risk-factors-box {
+      background-color: var(--danger-bg);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .risk-factors-box h3 {
+      color: var(--danger);
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .factors-list {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .factors-list li {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    /* Interactive SVG Illustration */
+    .illustration-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fdfdfd;
+      border: 1px dashed var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .uterus-illustration {
+      width: 100%;
+      max-width: 450px;
+      height: auto;
+    }
+
+    /* Steps */
+    .steps-timeline {
+      position: relative;
+      margin-left: 20px;
+      padding-left: 20px;
+      border-left: 2px solid var(--primary-light);
+    }
+
+    .step-node {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .step-node::before {
+      content: "";
+      position: absolute;
+      left: -31px;
+      top: 5px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: white;
+      border: 4px solid var(--primary);
+    }
+
+    .step-node.completed::before {
+      border-color: var(--secondary);
+      background-color: var(--secondary-light);
+    }
+
+    .step-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 0.95rem;
+      color: var(--slate-700);
+      margin: 0;
+    }
+
+    /* Boxes */
+    .info-box, .warning-box, .alert-box, .tip-box {
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    .info-box {
+      background-color: var(--primary-light);
+      border-left: 5px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .warning-box {
+      background-color: var(--warning-bg);
+      border-left: 5px solid var(--warning);
+      color: #92400e;
+    }
+
+    .alert-box {
+      background-color: var(--danger-bg);
+      border-left: 5px solid var(--danger);
+      color: #991b1b;
+    }
+
+    .tip-box {
+      background-color: var(--secondary-light);
+      border-left: 5px solid var(--secondary);
+      color: var(--secondary);
+    }
+
+    /* Discussion / Questions List */
+    .question-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .question-list li {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .question-list li::before {
+      content: "❓";
+      position: absolute;
+      left: 0;
+      top: 2px;
+    }
+
+    /* Disclaimer Section */
+    .disclaimer {
+      font-size: 0.85rem;
+      color: #64748b;
+      border-top: 1px solid var(--border-color);
+      padding-top: 20px;
+      margin-top: 40px;
+      text-align: justify;
+    }
+
+    @media (max-width: 768px) {
+      .report-header {
+        padding: 25px 20px;
+      }
+      .report-header h1 {
+        font-size: 1.6rem;
+      }
+      .card {
+        padding: 20px;
+      }
+      .two-column-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="report-container">
+  <!-- Header -->
+  <header class="report-header">
+    <h1>🧬 生殖醫學胚胎植入評估報告</h1>
+    <p class="report-subtitle">術後超音波即時影像分析・植入定位評估・黃金著床守則</p>
+  </header>
+
+  <!-- Section 1: Case Summary -->
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要與基礎資訊</h2>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="summary-label">生殖機構</div>
+        <div class="summary-value">送子鳥生殖中心<br>(Stork Ladies Clinic)</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">病患代號 (Patient ID)</div>
+        <div class="summary-value">94982</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">評估日期與時間</div>
+        <div class="summary-value">2026/07/01 12:40:14</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">評估項目</div>
+        <div class="summary-value">經腹部超音波即時導引<br>胚胎植入（ET）評估</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Laboratory and Ultrasound Key Parameters -->
+  <section class="card highlight-card">
+    <h2>🔎 二、檢驗與手術影像重點整理</h2>
+    <div class="table-container">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th>評估指標</th>
+            <th>觀測數值／狀態</th>
+            <th>單位／技術指標</th>
+            <th>臨床時間點</th>
+            <th>狀態標籤</th>
+            <th>臨床簡要判讀</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>DVA (聲學能量)</strong></td>
+            <td>$100\%$</td>
+            <td>百分比</td>
+            <td>即時手術中</td>
+            <td><span class="tag normal">優良</span></td>
+            <td>影像穿透度極佳，超音波結構顯影對比清晰。</td>
+          </tr>
+          <tr>
+            <td><strong>Frame Rate (幀率)</strong></td>
+            <td>$39\text{ Hz}$</td>
+            <td>赫茲</td>
+            <td>即時手術中</td>
+            <td><span class="tag normal">高流暢度</span></td>
+            <td>利於即時捕捉導管推移及胚胎培養液釋放。</td>
+          </tr>
+          <tr>
+            <td><strong>膀胱充盈度</strong></td>
+            <td>適度充盈 (Moderate)</td>
+            <td>超音波聲學透光窗</td>
+            <td>植入前與植入中</td>
+            <td><span class="tag normal">理想</span></td>
+            <td>成功壓迫並平緩子宮前/後傾角度，拉直植入通道。</td>
+          </tr>
+          <tr>
+            <td><strong>植入位置 (DIST)</strong></td>
+            <td>約 $1.5 \sim 2.0\text{ cm}$</td>
+            <td>距離子宮底 (Fundus)</td>
+            <td>胚胎釋放瞬間</td>
+            <td><span class="tag normal">黃金著床區</span></td>
+            <td>精準釋放於中上段子宮腔，著床率高且防子宮外孕。</td>
+          </tr>
+          <tr>
+            <td><strong>胚胎確認數</strong></td>
+            <td>顯微鏡確認（影片紀錄）</td>
+            <td>胚胎形態確認</td>
+            <td>植入導管裝載前</td>
+            <td><span class="tag normal">活性優良</span></td>
+            <td>囊胚（Blastocyst）膨脹狀態佳，滋養層細胞飽滿。</td>
+          </tr>
+          <tr>
+            <td><strong>植入光點 (Flash)</strong></td>
+            <td>亮白色高回音氣泡與培養液</td>
+            <td>超音波視覺化追蹤</td>
+            <td>胚胎釋放後即刻</td>
+            <td><span class="tag normal">成功定位</span></td>
+            <td>確認胚胎隨培養液精準注入預定內膜層，未滯留於導管。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 3: In-Depth Numerical Interpretation -->
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、每一項檢驗數字與影像指標之詳細說明</h2>
+    <div class="info-box">
+      本章節結合您上傳的靜態超音波照片 `S__217628686.jpg` 與連續紀錄影片 `804598739.413212.mp4`，針對超音波機器的科學指標、手術路徑和胚胎學形態進行多維度深度解讀。
+    </div>
+
+    <!-- 1. DVA -->
+    <div class="lab-item-block">
+      <h3>DVA：100% <span class="tag normal">正常且清晰</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>DVA（Acoustic Output Power）代表超音波探頭的聲波發射功率。$100\%$ 的輸出功率能在安全的聲學能量範圍（ALARA 原則）內，獲得最大程度的組織穿透力。</li>
+        <li><strong>在生殖評估中的意義：</strong>胚胎植入是一項極需精細操作的手術，高畫質與清晰對比的子宮內膜線是定位的關鍵。</li>
+        <li><strong>本個案的可能解讀：</strong>超音波顯影對比度佳，子宮內膜的三線型（Trilaminar pattern）中段分界清晰，利於醫師準確將軟導管（Soft catheter）送達內膜腔，而不會誤入子宮肌層或刺傷內膜。</li>
+      </ul>
+    </div>
+
+    <!-- 2. Frame Rate (39Hz) -->
+    <div class="lab-item-block">
+      <h3>Frame Rate：39Hz <span class="tag normal">即時高幀率</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>幀率指超音波螢幕每秒鐘更新影像的次數。$39\text{ Hz}$ 代表每秒刷新 $39$ 張畫面。</li>
+        <li><strong>在生殖評估中的意義：</strong>胚胎在釋放時是伴隨極微量（約 $10 \sim 20\ \mu\text{L}$）的培養液被推入宮腔，動態過程稍縱即逝。高幀率能讓臨床醫師與胚胎師「無延遲」地確認導管推進速度，避免釋放胚胎時產生手震或位移。</li>
+        <li><strong>本個案的可能解讀：</strong>影片中導管從子宮頸內口（Internal os）平順推移至宮腔中上段的過程極為順暢，醫師能在最佳視野下穩定執行定點釋放。</li>
+      </ul>
+    </div>
+
+    <!-- 3. DIST (植入點定位) -->
+    <div class="lab-item-block">
+      <h3>DIST 測量點 (距離子宮底 1.5 ~ 2.0 cm) <span class="tag normal">黃金植入區</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>即超音波中標註的 `+` 定位測量。生殖醫學臨床指引指出，最理想的胚胎釋放點（Embryo Transfer Point）應位於距離子宮腔最頂端（子宮底 Fundus）肌層外緣約 $1.5 \sim 2.0\text{ cm}$ 處。</li>
+        <li><strong>若太深（&lt; 1.0 cm）常見風險：</strong>過於接近子宮底可能刺激子宮底肌肉劇烈收縮，進而將胚胎排擠向下、甚至推入輸卵管導致子宮外孕（Ectopic pregnancy）。</li>
+        <li><strong>若太淺（&gt; 2.5 cm）常見風險：</strong>靠近子宮頸內口，該處內膜厚度與血流供應通常較差，著床率（Implantation rate）會顯著下降。</li>
+        <li><strong>本個案的可能解讀：</strong>如照片與影片所示，定點精準地位於宮腔的中上段，避開了子宮底物理性刺激，同時確保胚胎位於血流最豐富的子宮內膜「黃金著床區」。</li>
+      </ul>
+    </div>
+
+    <!-- 4. Microscope Embryo Verification -->
+    <div class="lab-item-block">
+      <h3>顯微鏡下胚胎確認 (影片 0:24-0:43) <span class="tag normal">擴張期優質囊胚</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>在導管吸取胚胎前，胚胎師透過高倍率顯微螢幕對培養皿中的胚胎進行最終形態確認與核對（影片中提及並指向特定的兩顆囊胚）。</li>
+        <li><strong>本個案的可能解讀：</strong>影像中呈現高度擴張（Expanded blastocyst）的優良形態，內細胞群（ICM）凝聚度佳（預發育為胎兒），滋養外胚層（TE）細胞排列緊密且對稱（預發育為胎盤），具有強大的著床與孵化活性。</li>
+      </ul>
+    </div>
+
+    <!-- 5. Transfer Flash -->
+    <div class="lab-item-block">
+      <h3>植入光點 (Transfer Flash - 影片 0:52 後) <span class="tag normal">成功釋放確認</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>植入管推注時，管內的微小氣泡與培養液在超音波高頻聲波照射下會產生一個短暫、明亮的「白色光點」。這個光點是胚胎已被精準送達預定腔體的物理性科學證據。</li>
+        <li><strong>臨床意義：</strong>植入術後，胚胎師會立即將植入空管帶回顯微鏡下檢查（影片結尾之回檢流程），確認胚胎無黏附殘留於導管內，搭配超音波下的「植入光點」，即為雙重成功植入的黃金證實。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section 4: Overall Evaluation -->
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體生殖功能與手術評估</h2>
+    <p>綜合靜態影像與動態植入影片，本次<strong>胚胎植入術（ET）的臨床技術評估表現極佳</strong>。主要評估亮點如下：</p>
+    <ul>
+      <li><strong>通道阻力極小（Easy Transfer）：</strong>影片中導管毫無阻礙地穿過子宮頸，未對子宮頸造成任何牽引或物理性創傷。此舉能最大程度防止前列腺素（Prostaglandins）的分泌，避免誘發強烈子宮收縮。</li>
+      <li><strong>聲學窗（Acoustic Window）建構完美：</strong>您的膀胱充盈度非常理想，既拉直了子宮頸與子宮體之間的夾角，又將腸管推開，提供了極為純淨的無回音（Anacoustic）超音波視野。</li>
+      <li><strong>定位零誤差：</strong>「植入光點」定位極佳，恰好落在子宮內膜的中上段，此處的內膜血流灌注最為充沛，提供胚胎著床所需的充足氧氣與養分。</li>
+    </ul>
+  </section>
+
+  <!-- Section 5: Success Probability Assessment -->
+  <section class="card chance-card">
+    <h2>📈 五、目前成功機率評估</h2>
+    <div class="chance-container">
+      <div class="chance-title">本期療程綜合成功機率預估</div>
+      <div class="chance-tag mid-high">中等偏高 (Medium-High)</div>
+      <p style="font-size: 0.9rem; color: var(--slate-700); margin-top: 10px;">（此評估基於胚胎品質優良、手術置入與定位精準、內膜對比度好等正面技術因子）</p>
+    </div>
+
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面原因</h3>
+        <ul class="factors-list">
+          <li><strong>精準定位：</strong>胚胎釋放位置距離子宮底 $1.5 \sim 2.0\text{ cm}$，落於黃金著床區。</li>
+          <li><strong>手術過程順利：</strong>導管置入路徑流暢無阻，子宮未因刺激產生痙攣，子宮內膜無出血跡象。</li>
+          <li><strong>胚胎活性極佳：</strong>囊胚擴張狀態優良，形態學評級高，著床潛能顯著。</li>
+          <li><strong>術後回檢無殘留：</strong>確認胚胎完全隨培養液注入宮腔中。</li>
+        </ul>
+      </div>
+
+      <div class="risk-factors-box">
+        <h3>⚠️ 可能失敗/影響因子</h3>
+        <ul class="factors-list">
+          <li><strong>母體免疫干擾：</strong>超音波無法排除體內自體免疫（如抗磷脂抗體、NK細胞活性過高）對胚胎的排斥。</li>
+          <li><strong>凝血機制阻礙：</strong>微細血管血栓可能影響子宮內膜局部微循環，干擾滋養層細胞建立血流連結。</li>
+          <li><strong>胚胎染色體非整倍體：</strong>若胚胎未進行 PGT-A（PGS）篩檢，外觀優良之胚胎仍存在染色體異常之隨機率。</li>
+          <li><strong>黃體支持窗口（WOI）：</strong>需持續依賴外源性黃體素（Progesterone）維持著床窗之開放。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Uterus & Implantation SVG Illustration -->
+  <section class="card">
+    <h2>🎨 六、植入位置與子宮解剖示意圖</h2>
+    <p style="font-size: 0.95rem; margin-bottom: 20px;">以下圖表根據您的即時超音波影像進行還原繪製，幫助您直觀理解胚胎在您子宮腔內的精準落點：</p>
+    <div class="illustration-container">
+      <svg viewBox="0 0 400 300" class="uterus-illustration">
+        <!-- Bladder background -->
+        <path d="M 40 130 Q 120 30 240 70 Q 160 150 40 130" fill="rgba(14, 165, 233, 0.12)" stroke="#0ea5e9" stroke-width="1.5" stroke-dasharray="4,4" />
+        <text x="70" y="80" fill="#0284c7" font-size="11" font-weight="bold">膀胱充盈 (良好聲學透光窗)</text>
+
+        <!-- Uterus outline -->
+        <path d="M 120 280 C 120 220, 150 160, 180 140 C 230 110, 310 110, 330 160 C 350 210, 280 280, 240 280 C 200 280, 120 280, 120 280 Z" fill="rgba(244, 63, 94, 0.04)" stroke="#fda4af" stroke-width="2" />
+        
+        <!-- Endometrium (Trilaminar) -->
+        <path d="M 180 280 Q 210 190 240 155 Q 260 150 270 165 Q 250 200 240 280 Z" fill="rgba(225, 29, 72, 0.12)" stroke="#e11d48" stroke-width="1.5" />
+        <text x="265" y="215" fill="#be123c" font-size="11" font-weight="bold">子宮內膜 (三線型)</text>
+
+        <!-- Catheter track -->
+        <path d="M 150 290 Q 195 270 225 210 Q 235 190 245 180" fill="none" stroke="#64748b" stroke-width="3.5" stroke-linecap="round" />
+        <path d="M 150 290 Q 195 270 225 210 Q 235 190 245 180" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-linecap="round" />
+        <text x="130" y="245" fill="#475569" font-size="10">植入軟導管路徑</text>
+
+        <!-- DIST Measurement Caliper -->
+        <line x1="245" y1="180" x2="255" y2="152" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,3" />
+        <path d="M 242 180 L 248 180 M 245 177 L 245 183" stroke="#eab308" stroke-width="1.5" />
+        <path d="M 252 162 L 258 162 M 255 159 L 255 165" stroke="#eab308" stroke-width="1.5" />
+        <text x="262" y="155" fill="#ca8a04" font-size="11" font-weight="bold">DIST: 1.5 cm (黃金定位點)</text>
+
+        <!-- Embryo Flash (Transfer point) -->
+        <g transform="translate(245, 180)">
+          <circle cx="0" cy="0" r="10" fill="rgba(234, 179, 8, 0.4)" />
+          <polygon points="0,-10 3,-3 10,-3 4,1 7,8 0,4 -7,8 -4,1 -10,-3 -3,-3" fill="#eab308" />
+        </g>
+        <text x="145" y="145" fill="#a16207" font-size="11" font-weight="bold">亮白植入光點 (Flash)</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Section 7: Scientific Digest -->
+  <section class="card research-card">
+    <h2>📚 七、生殖醫學調研與臨床共識摘要</h2>
+    <p>生殖醫學主流臨床實務與不孕症學術指南指出：</p>
+    <ul>
+      <li><strong>超音波導引之優勢：</strong>臨床統計顯示，相較於「盲植（Tactile sensation method）」，在**即時腹部超音波導引下**進行胚胎植入，其臨床懷孕率與活產率均有顯著提升，且能大幅減低異位妊娠（子宮外孕）發生率。</li>
+      <li><strong>植入深度與預後：</strong>大量研究證實，當胚胎釋放點定位於距離子宮底 $1.5 \sim 2.0\text{ cm}$ 區間時，著床成功率最高。若小於 $1.0\text{ cm}$（過深），子宮底肌肉收縮可能引發胚胎向下位移；若大於 $2.5\text{ cm}$（過淺），則由於血流灌注不足不利胚胎滋養層擴展。</li>
+      <li><strong>術後臥床共識：</strong>臨床實證研究指出，植入後**「立刻起床活動」與「臥床數小時」之懷孕率並無差異**。過度且長期的絕對臥床反而會降低下肢血液循環、增加深部靜脈血栓（DVT）風險，並大幅提升病患之心理焦慮感。</li>
+    </ul>
+  </section>
+
+  <!-- Section 8: Recommended Supplemental Examinations -->
+  <section class="card next-step-card">
+    <h2>🧪 八、後續建議補充檢查（備案規劃）</h2>
+    <div class="warning-box">
+      <strong>提示：</strong>本次植入之各項技術要素均近乎完美。若未來不幸未如期著床，在進行下一次植入前，建議可與您的醫師共同評估以下深度檢測，以排除結構與物理以外的干擾因子：
+    </div>
+    <ul>
+      <li><strong>子宮內膜受容性分析 (ERA)：</strong>檢測是否因體內黃體素窗口偏離，導致胚胎與內膜未同步（著床窗期偏移）。</li>
+      <li><strong>生殖免疫檢測：</strong>篩檢抗磷脂抗體（APA）、狼瘡抗凝血因子、抗甲狀腺抗體，以及血液中 NK 細胞活性，排除自體免疫攻擊胚胎的可能性。</li>
+      <li><strong>凝血功能篩檢：</strong>檢測 Protein S、Protein C、D-Dimer 等，確認是否存有微血栓傾向影響著床血液灌注。</li>
+      <li><strong>子宮內微生態/慢性子宮內膜炎檢測 (ALICE/EMMA)：</strong>排除慢性內膜發炎干擾。</li>
+    </ul>
+  </section>
+
+  <!-- Section 9: Step-by-Step Action Plan -->
+  <section class="card plan-card">
+    <h2>🪜 九、術後黃金週期步驟指引</h2>
+    <div class="steps-timeline">
+      <div class="step-node completed">
+        <div class="step-title">第一階段：植入後黃金 $72$ 小時（關鍵著床期）</div>
+        <p class="step-desc">此時為胚胎貼附、黏連並開始侵入內膜的關鍵時刻。請保持心情放鬆，按時服用/注射所有安胎及黃體素藥物，避免提重物（超過 $5\text{ kg}$）、跨大步或劇烈震動。</p>
+      </div>
+      <div class="step-node">
+        <div class="step-title">第二階段：植入後 $\text{Day } 4 \sim \text{Day } 9$（胚胎深入滋養期）</div>
+        <p class="step-desc">部分個案可能會出現極微量的「著床出血」（粉紅色或褐色微量分泌物）以及輕微下腹酸脹、胸部脹痛。此為黃體素支持及正常生理現象，請持續規律用藥，切勿擅自停藥或使用驗孕棒。</p>
+      </div>
+      <div class="step-node">
+        <div class="step-title">第三階段：植入後 $\text{Day } 10 \sim \text{Day } 14$（回診驗孕期）</div>
+        <p class="step-desc">此時胚胎滋養層分泌的 $\beta\text{-hCG}$ 已釋放至血液中。請依照送子鳥生殖中心預約之日期回診進行抽血驗孕。血液 $\text{hCG}$ 檢測為最科學、精準的唯一診斷標準。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 10: Lifestyle & Treatment Advice -->
+  <section class="card advice-card">
+    <h2>💡 十、日常照護與用藥守則建議</h2>
+    <div class="tip-box">
+      <strong>安胎核心守則：</strong>胚胎植入後，「規律且遵醫囑的黃體酮支持」是維持著床的最關鍵決定因素。
+    </div>
+    <ul>
+      <li><strong>用藥遵從性：</strong>不論是口服安胎藥、黃體素陰道栓劑（如快孕隆、優潔通）或是黃體素針劑，必須**每日按時、定量使用**，切勿因為任何輕微出血而自行停藥或減藥。</li>
+      <li><strong>日常活動：</strong>可正常步行、辦公、進行輕度家務。**嚴禁盆浴、泡溫泉、游泳**，避免陰道感染。</li>
+      <li><strong>飲食禁忌：</strong>
+        <ul>
+          <li>避免麻油、人參、薏仁、生冷食物、煙、酒及過量咖啡因（每日不超過 $200\text{ mg}$）。</li>
+          <li>多攝取高纖蔬菜與水果（如蘋果、香蕉），並補充足夠水分（每天約 $2000\text{ mL}$），以預防黃體素引起之腸胃蠕動減緩與便秘，避免解便時過度用力。</li>
+        </ul>
+      </li>
+      <li><strong>心態放鬆：</strong>焦慮與心理壓力會刺激人體交感神經釋放兒茶酚胺，導致子宮血管收縮。請嘗試聆聽輕音樂或適度散步，保持良好心情。</li>
+    </ul>
+  </section>
+
+  <!-- Section 11: Questions to Discuss with Your Doctor -->
+  <section class="card discussion-card">
+    <h2>🗣️ 十一、建議與醫師討論之關鍵問題</h2>
+    <p>在植入後的追蹤門診或驗孕回診時，您可以攜帶這份報告，向您的主治醫師詢問以下極具實用價值的專業問題：</p>
+    <ul class="question-list">
+      <li>本次植入的胚胎，其型態發育級別與染色體（是否進行 PGT-A）狀況具體為何？</li>
+      <li>根據我植入當天與術後的身體狀況，目前的黃體素（口服/針劑/陰道栓劑）劑量是否需要抽血動態檢測並調整？</li>
+      <li>我平時若有下腹輕微酸脹或分泌物增多，這是正常的藥物反應嗎？可以如何舒緩？</li>
+      <li>萬一術後在驗孕日前出現陰道少量褐色出血，我是否需要增加針劑（如打快孕隆或油針）？有無常備的緊急聯絡窗口？</li>
+      <li>除了目前服用的安胎藥物，我是否需要額外補充低劑量阿斯匹靈（Bokey）或低分子量肝素（LMWH）來增進內膜血流？</li>
+      <li>我的驗孕抽血排定在植入後第幾天？當天多久可以拿到報告？</li>
+    </ul>
+  </section>
+
+  <!-- Section 12: Warning Signals (Emergency Situations) -->
+  <section class="card alert-card">
+    <h2>🚨 十二、重要風險提醒與緊急就醫時機</h2>
+    <p>植入術後，若您出現以下任何一種「警示訊號」，請<strong>立即停止日常活動，與送子鳥生殖中心醫療團隊聯繫</strong>，或直接前往急診/醫院門診處理：</p>
+    <div class="alert-box">
+      <ul>
+        <li><strong>劇烈腹痛：</strong>出現單側、突發性或持續加劇的下腹撕裂樣疼痛，伴隨出冷汗或頭暈。</li>
+        <li><strong>陰道大量出血：</strong>陰道流出鮮紅色血液，且流量等同或大於月經第二天的量，或伴隨大型血塊。</li>
+        <li><strong>嚴重感染症狀：</strong>身體發燒（體溫 $\ge 38^\circ\text{C}$）、畏寒、陰道分泌物散發強烈異味。</li>
+        <li><strong>嚴重腹脹與少尿：</strong>下腹異常脹大、呼吸短促、無法平躺、且 $24$ 小時內尿量顯著減少（新鮮胚胎植入者需高度警惕卵巢過度刺激症候群 OHSS）。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section 13: Medical Disclaimer -->
+  <section class="card disclaimer-card">
+    <h2>📌 十三、重要聲明 (Disclaimer)</h2>
+    <div class="disclaimer">
+      本分析報告僅基於您所提供之局部超音波影像、即時動態影片、基本病歷資訊與一般生殖醫學常規共識進行轉譯與解讀，不代表送子鳥生殖中心或任何醫療機構的官方最終診斷。胚胎植入與著床為極具個體特異性之複雜生理過程，受全身免疫、微血栓、胚胎染色體及內分泌等多重微觀因子交互影響。本報告內容不具備處方、療效保證或保證妊娠成功之法律效力。所有醫療決策、用藥劑量調整與症狀處理，請務必遵照您的主治醫師之臨床醫囑與專業指引為唯一依據。
+    </div>
+  </section>
+</div>
+
+</body>
+</html>
