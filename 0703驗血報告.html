@@ -1,21 +1,21 @@
 <style>
 :root {
---primary-color: #1e3a8a;
---primary-light: #3b82f6;
---secondary-color: #0d9488;
---bg-color: #f8fafc;
+--primary-color: #1a365d;
+--primary-light: #2b6cb0;
+--secondary-color: #319795;
+--bg-color: #f7fafc;
 --card-bg: #ffffff;
---text-color: #334155;
---text-dark: #0f172a;
+--text-color: #4a5568;
+--text-dark: #1a202c;
 --border-color: #e2e8f0;
---normal-color: #10b981;
---normal-bg: #ecfdf5;
---borderline-color: #f59e0b;
---borderline-bg: #fffbeb;
---abnormal-color: #ef4444;
---abnormal-bg: #fef2f2;
---insufficient-color: #64748b;
---insufficient-bg: #f1f5f9;
+--normal-color: #38a169;
+--normal-bg: #f0fff4;
+--borderline-color: #dd6b20;
+--borderline-bg: #fffaf0;
+--abnormal-color: #e53e3e;
+--abnormal-bg: #fff5f5;
+--med-impact-color: #805ad5;
+--med-impact-bg: #faf5ff;
 }
 .report-container {
 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -24,45 +24,43 @@ color: var(--text-color);
 max-width: 900px;
 margin: 0 auto;
 padding: 24px;
-line-height: 1.6;
+line-height: 1.7;
 }
 .report-header {
 background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
 color: #ffffff;
-padding: 32px;
+padding: 35px;
 border-radius: 16px;
 text-align: center;
 margin-bottom: 24px;
-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 .report-header h1 {
 margin: 0;
-font-size: 28px;
+font-size: 26px;
 font-weight: 700;
 letter-spacing: 0.5px;
 }
 .report-subtitle {
-margin: 8px 0 0 0;
-font-size: 16px;
+margin: 10px 0 0 0;
+font-size: 15px;
 opacity: 0.9;
 }
 .card {
 background-color: var(--card-bg);
 border: 1px solid var(--border-color);
 border-radius: 12px;
-padding: 24px;
+padding: 26px;
 margin-bottom: 24px;
-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 .card h2 {
 color: var(--text-dark);
-font-size: 20px;
+font-size: 19px;
 margin-top: 0;
-margin-bottom: 16px;
+margin-bottom: 18px;
 border-bottom: 2px solid var(--border-color);
-padding-bottom: 8px;
-display: flex;
-align-items: center;
+padding-bottom: 10px;
 }
 .card h3 {
 color: var(--primary-color);
@@ -74,71 +72,74 @@ margin-bottom: 12px;
 width: 100%;
 border-collapse: collapse;
 margin-top: 12px;
-font-size: 14px;
+font-size: 13px;
 }
 .lab-table th, .lab-table td {
-padding: 12px;
+padding: 10px 12px;
 text-align: left;
 border-bottom: 1px solid var(--border-color);
 }
 .lab-table th {
-background-color: #f1f5f9;
+background-color: #edf2f7;
 color: var(--text-dark);
 font-weight: 600;
 }
 .lab-table tr:hover {
-background-color: #f8fafc;
+background-color: #f7fafc;
 }
 .tag {
 display: inline-block;
-padding: 2px 8px;
+padding: 2px 6px;
 border-radius: 4px;
-font-size: 12px;
+font-size: 11px;
 font-weight: 600;
 text-align: center;
 }
 .tag.normal { color: var(--normal-color); background-color: var(--normal-bg); }
 .tag.borderline { color: var(--borderline-color); background-color: var(--borderline-bg); }
 .tag.abnormal { color: var(--abnormal-color); background-color: var(--abnormal-bg); }
-.tag.insufficient { color: var(--insufficient-color); background-color: var(--insufficient-bg); }
+.tag.med-impact { color: var(--med-impact-color); background-color: var(--med-impact-bg); }
 .chance-tag {
 display: inline-block;
 padding: 6px 16px;
 border-radius: 20px;
-font-size: 18px;
+font-size: 16px;
 font-weight: 700;
 margin-bottom: 16px;
 }
-.chance-tag.high { color: #ffffff; background-color: var(--normal-color); }
-.chance-tag.mid-high { color: #ffffff; background-color: #34d399; }
-.chance-tag.medium { color: #ffffff; background-color: var(--primary-light); }
 .chance-tag.mid-low { color: #ffffff; background-color: var(--borderline-color); }
-.chance-tag.low { color: #ffffff; background-color: var(--abnormal-color); }
-.chance-tag.unknown { color: #ffffff; background-color: var(--insufficient-color); }
 .lab-item-block {
-background-color: #f8fafc;
+background-color: #f7fafc;
 border-left: 4px solid var(--primary-light);
-padding: 16px;
-margin-bottom: 16px;
+padding: 18px;
+margin-bottom: 18px;
 border-radius: 0 8px 8px 0;
 }
-.lab-item-block.danger {
-border-left-color: var(--abnormal-color);
-background-color: #fff5f5;
-}
+.lab-item-block.danger { border-left-color: var(--abnormal-color); background-color: #fff5f5; }
+.lab-item-block.med-alert { border-left-color: var(--med-impact-color); background-color: #faf5ff; }
 .lab-item-block h3 {
 margin-top: 0;
 display: flex;
 justify-content: space-between;
 align-items: center;
+font-size: 15px;
 }
 .lab-item-block ul {
 margin: 0;
 padding-left: 20px;
-font-size: 14px;
+font-size: 13.5px;
 }
 .lab-item-block li {
-margin-bottom: 6px;
+margin-bottom: 8px;
+}
+.med-highlight {
+background-color: var(--med-impact-bg);
+border: 1px dashed var(--med-impact-color);
+padding: 12px;
+border-radius: 6px;
+margin-top: 8px;
+color: #553c9a;
+font-size: 13px;
 }
 .two-column-grid {
 display: grid;
@@ -146,58 +147,48 @@ grid-template-columns: 1fr 1fr;
 gap: 16px;
 margin-top: 12px;
 }
-.good-factors-box, .risk-factors-box, .info-box, .warning-box, .alert-box, .tip-box, .success-box, .caution-box {
+.good-factors-box, .risk-factors-box, .info-box, .warning-box, .alert-box, .tip-box {
 padding: 16px;
 border-radius: 8px;
 margin-bottom: 16px;
-font-size: 14px;
+font-size: 13.5px;
 }
-.good-factors-box, .success-box { background-color: var(--normal-bg); border: 1px solid #a7f3d0; color: #065f46; }
-.risk-factors-box, .caution-box { background-color: var(--abnormal-bg); border: 1px solid #fca5a5; color: #991b1b; }
-.info-box { background-color: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
-.warning-box { background-color: var(--borderline-bg); border: 1px solid #fde68a; color: #92400e; }
-.alert-box { background-color: #fef2f2; border: 2px solid var(--abnormal-color); color: #991b1b; }
-.tip-box { background-color: #f0f9ff; border: 1px solid #bae6fd; color: #0369a1; }
-.good-factors-box h3, .risk-factors-box h3 { margin-top: 0; margin-bottom: 8px; }
+.good-factors-box { background-color: var(--normal-bg); border: 1px solid #c6f6d5; color: #22543d; }
+.risk-factors-box { background-color: var(--abnormal-bg); border: 1px solid #fed7d7; color: #742a2a; }
+.info-box { background-color: #ebf8ff; border: 1px solid #bee3f8; color: #2a4365; }
+.warning-box { background-color: var(--borderline-bg); border: 1px solid #feebc8; color: #744210; }
+.alert-box { background-color: #fff5f5; border: 2px solid var(--abnormal-color); color: #742a2a; }
+.tip-box { background-color: #e6fffa; border: 1px solid #b2f5ea; color: #234e52; }
+.good-factors-box h3, .risk-factors-box h3 { margin-top: 0; margin-bottom: 8px; font-size: 14px; }
 .timeline-compare {
-background-color: #f8fafc;
-border: 1px dashed var(--border-color);
+background-color: #f7fafc;
+border: 1px solid var(--border-color);
 padding: 16px;
 border-radius: 8px;
 margin-top: 12px;
+font-size: 13.5px;
 }
 @media (max-width: 768px) {
-.two-column-grid {
-grid-template-columns: 1fr;
-}
-.report-container {
-padding: 12px;
-}
-.report-header {
-padding: 20px;
-}
-.report-header h1 {
-font-size: 22px;
-}
+.two-column-grid { grid-template-columns: 1fr; }
+.report-container { padding: 12px; }
+.report-header { padding: 20px; }
 }
 </style>
 <div class="report-container">
 <header class="report-header">
 <h1>🧬 人工生殖免疫整合判讀報告</h1>
-<p class="report-subtitle">植入後 Day 2 免疫追蹤與歷程對比分析</p>
+<p class="report-subtitle">與歷史歷程交叉對比：動態用藥評估與植入後 Day 2 數據深層解讀</p>
 </header>
 <section class="card summary-card">
-<h2>📋 一、個案摘要與現況</h2>
-<p><strong>評估對象：</strong>生殖免疫不孕症調理個案</p>
-<p><strong>關鍵療程進度：</strong></p>
+<h2>📋 一、個案摘要與現況脈絡</h2>
+<p><strong>臨床現況：</strong> 本次冷凍胚胎解凍植入療程於 <strong>2026/07/01</strong> 完成。今日為 <strong>2026/07/03（植入後第二天，Day 2）</strong>。母體目前正處於極為關鍵的黃金著床窗口期（Window of Implantation）。</p>
+<p><strong>歷史歷程對比關鍵（5月失敗 vs. 7月本次）：</strong></p>
 <ul>
-<li><strong>2026年3月：</strong>完成取卵與受精療程，成功培育冷凍胚胎。</li>
-<li><strong>2026年4月底至5月中：</strong>進行第一次解凍植入療程（4/30植入），歷經密集免疫追蹤（Day 2 至 Day 12），最終於 <strong>05/13 因免疫波動或著床未預期而宣告療程終止（STOP）</strong>。</li>
-<li><strong>2026年7月1日：</strong>執行第二次冷凍胚胎解凍與植入療程。</li>
-<li><strong>2026年7月3日（今日）：</strong>為<strong>植入後第二天（Day 2）</strong>，進行常規生殖免疫與血球計數抽血追蹤。</li>
+<li><strong>5月份療程軌跡：</strong> 4/30 植入後歷經密集的免疫波動，最終在 <strong>05/13 因免疫指標異常或著床未如預期，由醫療團隊下達終止（STOP）指令</strong>。5月的教訓提示：母體具備高度活躍的發炎軸線與潛在的微血栓攻擊。</li>
+<li><strong>7月份本次策略：</strong> 針對5月的失敗，本次療程在植入前後皆有生殖免疫用藥（如皮質類固醇、免疫調節劑或自體免疫抑制劑、抗凝血劑等）的強力介入。今日的抽血即是為了即時檢視這些藥物是否成功「壓制發炎」並「維持內膜血流穩定」。</li>
 </ul>
 <div class="tip-box">
-<strong>💡 重點關注：</strong>本報告聚焦於今日（植入後 Day 2）的淋巴球群分析與腫瘤壞死因子（TNF-α）結果，並與 5 月份失敗的舊歷程進行橫向比對，評估現行抗免疫用藥（如類固醇、免疫調節劑或生物製劑）之臨床壓制效果，以預估本次植入的黃金著床期風險。
+<strong>💡 核心判讀邏輯：</strong> 解讀這份報告時，<strong>絕對不能只看單一數值的紅字或綠字</strong>。許多指標的波動（例如白血球與淋巴球絕對數量的上升）在生殖免疫中正是「藥物已經產生生物學效應」的直接證據；相反地，部分發炎因子的居高不下則代表現行藥物劑量可能需要面臨動態加碼。
 </div>
 </section>
 <section class="card highlight-card">
@@ -206,254 +197,293 @@ font-size: 22px;
 <thead>
 <tr>
 <th>檢驗項目</th>
-<th>檢驗值</th>
+<th>實際檢驗值</th>
 <th>單位</th>
-<th>參考值</th>
+<th>報告參考值</th>
 <th>狀態</th>
-<th>臨床簡要判讀</th>
+<th>結合用藥與歷史歷程之簡要判讀</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>WBC (白血球總數)</strong></td>
+<td><strong>WBC(IDM) 白血球總數</strong></td>
 <td>11.99</td>
-<td>e3/uL</td>
+<td>e3/ul</td>
 <td>3.5 ~ 10</td>
-<td><span class="tag abnormal">偏高</span></td>
-<td>符合免疫用藥（類固醇）常見生理反應。</td>
+<td><span class="tag med-impact">藥物反應/偏高</span></td>
+<td>高機率為口服類固醇（如伯松/Prednisolone）引起的邊緣池釋放現象，代表藥物已達生物濃度。</td>
 </tr>
 <tr>
-<td><strong>腫瘤壞死因子 (TNF-α)</strong></td>
+<td><strong>WBC count(IDM) 白血球絕對計數</strong></td>
+<td>11988</td>
+<td>uL</td>
+<td>< 14999</td>
+<td><span class="tag normal">正常(參考範圍內)</span></td>
+<td>雖在該實驗室最高上限內，但相較常規體檢基質已明顯呈現藥物性上升趨勢。</td>
+</tr>
+<tr>
+<td><strong>腫瘤壞死因子-a (TNF-α)</strong></td>
 <td>9.91</td>
 <td>pg/mL</td>
 <td>< 4</td>
-<td><span class="tag abnormal">明顯偏高</span></td>
-<td>全身性 Th1 發炎反應偏高，具胚胎毒性風險。</td>
+<td><span class="tag abnormal">顯著偏高</span></td>
+<td>核心警訊。Th1發炎反應仍處於高點，現行發炎抑制劑（如奎寧、類固醇或生物製劑）尚未將其完全馴服。</td>
 </tr>
 <tr>
-<td><strong>T cell (CD3%)</strong></td>
+<td><strong>NK cell (CD16+56%) 比例</strong></td>
+<td>8.5</td>
+<td>%</td>
+<td>< 14.9</td>
+<td><span class="tag normal">控制優異</span></td>
+<td>極佳綠字。代表專門針對 NK 細胞的免疫阻斷藥物（如類固醇、IVIG或脂肪乳）在比例上壓制得非常成功。</td>
+</tr>
+<tr>
+<td><strong>NK cell (CD16+56) 絕對計數</strong></td>
+<td>300</td>
+<td>ul</td>
+<td>< 299.9</td>
+<td><span class="tag borderline">緊貼上限</span></td>
+<td>受到總白血球基數（11.99）放大的影響，絕對數壓在邊界，但比例安全，實質威脅低。</td>
+</tr>
+<tr>
+<td><strong>B cell (CD19%) 比例</strong></td>
+<td>14.8</td>
+<td>%</td>
+<td>< 14.9</td>
+<td><span class="tag borderline">高標臨界</span></td>
+<td>處於正常範圍的最上限，暗示體液免疫、自體抗體軸線處於蠢蠢欲動的警戒狀態。</td>
+</tr>
+<tr>
+<td><strong>CD19 Absolute Count 絕對計數</strong></td>
+<td>525</td>
+<td>ul</td>
+<td>< 499.9</td>
+<td><span class="tag abnormal">偏高</span></td>
+<td>絕對總數超標。B細胞過多易在內膜局部誘發微血栓。需確認阿斯匹靈或肝素等抗凝血劑已足量覆蓋。</td>
+</tr>
+<tr>
+<td><strong>T cell (CD3%) 比例</strong></td>
 <td>74.6</td>
 <td>%</td>
 <td>50 ~ 84</td>
 <td><span class="tag normal">正常</span></td>
-<td>整體 T 淋巴球比例於正常範圍。</td>
+<td>整體 T 淋巴球群比例平穩，無極端異常偏離。</td>
 </tr>
 <tr>
-<td><strong>Helper cell (CD4%)</strong></td>
+<td><strong>CD3 Absolute Count 絕對計數</strong></td>
+<td>2611</td>
+<td>ul</td>
+<td>723 ~ 2737</td>
+<td><span class="tag normal">偏高上限</span></td>
+<td>總淋巴球基數因白血球效應而被同步拉高，接近上限。</td>
+</tr>
+<tr>
+<td><strong>Helper cell (CD4%) 比例</strong></td>
 <td>32</td>
 <td>%</td>
 <td>27 ~ 51</td>
 <td><span class="tag normal">正常</span></td>
-<td>輔助型 T 細胞比例穩定。</td>
+<td>輔助型 T 細胞比例中庸，未見急性極化。</td>
 </tr>
 <tr>
-<td><strong>Suppressor cell (CD8%)</strong></td>
+<td><strong>CD4 Absolute Count 絕對計數</strong></td>
+<td>1107</td>
+<td>ul</td>
+<td>404 ~ 1612</td>
+<td><span class="tag normal">正常</span></td>
+<td>絕對數量在標準安全區間內。</td>
+</tr>
+<tr>
+<td><strong>Suppressor cell (CD8%) 比例</strong></td>
 <td>39.7</td>
 <td>%</td>
 <td>15 ~ 44</td>
-<td><span class="tag borderline">邊緣偏高</span></td>
-<td>毒殺型 T 細胞比例壓制於正常上限內。</td>
+<td><span class="tag borderline">偏高範圍</span></td>
+<td>細胞毒性 T 細胞比例偏向中高，提示細胞免疫維持在較高警戒。</td>
 </tr>
 <tr>
-<td><strong>B cell (CD19%)</strong></td>
-<td>14.8</td>
-<td>%</td>
-<td>< 14.9</td>
-<td><span class="tag borderline">緊貼上限</span></td>
-<td>體液免疫與自身抗體潛在活躍點。</td>
+<td><strong>CD8 Absolute Count 絕對計數</strong></td>
+<td>1374</td>
+<td>ul</td>
+<td>220 ~ 1129</td>
+<td><span class="tag abnormal">偏高</span></td>
+<td>絕對數超標，呼應了整體發炎系統（TNF-α）的活躍。</td>
 </tr>
 <tr>
-<td><strong>NK cell (CD16+56%)</strong></td>
-<td>8.5</td>
+<td><strong>Active T cell (HLA-DR) 比例</strong></td>
+<td>4.4</td>
 <td>%</td>
-<td>< 14.9</td>
+<td>1.9 ~ 19.6</td>
 <td><span class="tag normal">正常</span></td>
-<td>自然殺手細胞比例控制良好，維持低活性比例。</td>
+<td>已活化的 T 細胞比例正常，代表免疫系統未全面陷入盲目暴動。</td>
 </tr>
 <tr>
-<td><strong>CD4/CD8 Ratio</strong></td>
+<td><strong>Active T cell absolute count 絕對數</strong></td>
+<td>152</td>
+<td>-</td>
+<td>報告未明確</td>
+<td><span class="tag normal">正常</span></td>
+<td>與比例相符，尚在可控範圍。</td>
+</tr>
+<tr>
+<td><strong>CD4/CD8 Ratio 比值</strong></td>
 <td>0.8</td>
 <td>-</td>
 <td>0.6 ~ 2.5</td>
 <td><span class="tag normal">正常</span></td>
-<td>比例正常，反映 CD8 偏高導致的比值偏低。</td>
-</tr>
-<tr>
-<td><strong>CD8 Absolute Count</strong></td>
-<td>1374</td>
-<td>/uL</td>
-<td>220 ~ 1129</td>
-<td><span class="tag abnormal">偏高</span></td>
-<td>絕對數量超出標準，需注意細胞毒性擴張。</td>
-</tr>
-<tr>
-<td><strong>CD19 Absolute Count</strong></td>
-<td>525</td>
-<td>/uL</td>
-<td>< 499.9</td>
-<td><span class="tag abnormal">偏高</span></td>
-<td>B細胞總數過高，易引發局部微血栓風險。</td>
-</tr>
-<tr>
-<td><strong>CD16+56 Absolute Count</strong></td>
-<td>300</td>
-<td>/uL</td>
-<td>< 299.9</td>
-<td><span class="tag borderline">微幅超標</span></td>
-<td>受白血球總數放大影響，絕對數量壓在邊界。</td>
+<td>比值偏低（因CD8絕對數較多），符合慢性免疫不孕常見的結構型態。</td>
 </tr>
 </tbody>
 </table>
 </section>
 <section class="card detailed-lab-card">
-<h2>🧾 三、每一項檢驗數字的詳細說明</h2>
-<div class="lab-item-block danger">
-<h3>腫瘤壞死因子-α (TNF-α): 9.91 pg/mL <span class="tag abnormal">明顯偏高</span></h3>
+<h2>🧾 三、每一項檢驗數字與用藥效應之深層解讀</h2>
+<div class="lab-item-block med-alert">
+<h3>1. WBC(IDM): 11.99 e3/ul <span class="tag med-impact">藥物誘發之預期性偏高</span></h3>
 <ul>
-<li><strong>這個數字代表什麼：</strong>TNF-α 是一種強效的促發炎細胞激素，主要由活化的巨噬細胞與 Th1 免疫細胞分泌。</li>
-<li><strong>在生殖評估中的意義：</strong>在母體與胚胎交介面，適度的發炎有助於血管新生，但過高的 TNF-α 會直接對滋養層細胞造成毒性，誘導胚胎細胞凋亡，並活化凝血機制，導致子宮內膜微循環血栓，妨礙著床。</li>
-<li><strong>若偏高常見代表：</strong>全身性免疫系統處於高度發炎（Th1 亢進）狀態，是引發慣性流產與反覆植入失敗（RIF）的頭號免疫因子。</li>
-<li><strong>本個案的可能解讀：</strong>9.91 pg/mL 已顯著高於常規要求的 <4 甚至生殖免疫嚴格標準的 <2.8。顯示即使進入植入階段，體內的發炎警報尚未被完全熄滅，是本次療程最核心的攻擊性風險。</li>
-<li> smoky <strong>建議合併判讀項目：</strong>需合併評估是否已使用抗 TNF-α 生物製劑（如復邁 Humira），並動態觀察 Day 4、Day 6 的續追趨勢。</li>
-</ul>
-</div>
-<div class="lab-item-block">
-<h3>WBC (白血球總數): 11.99 e3/uL <span class="tag abnormal">偏高</span></h3>
-<ul>
-<li><strong>這個數字代表什麼：</strong>血液中循環的免疫白血球總量。</li>
-<li><strong>在生殖評估中的意義：</strong>用於區分體內是否存在急性感染，或是因「藥物引導」導致的白血球邊緣池釋放。</li>
-<li><strong>若偏高常見代表：</strong>身體遭受感染、組織發炎，或是臨床上口服高劑量類固醇（如阿德 capsules/Prednisolone）所引起的預期生理反應。</li>
-<li><strong>本個案的可能解讀：</strong>在沒有發燒、感冒等感染症狀下，Day 2 的 11.99 偏高，極有可能是生殖醫學常規使用的口服類固醇造成的。類固醇會減少白血球附著於內皮細胞，使其在血液中循環數量上升。這屬於「用藥有效性」的間接證據，不需過度恐慌。</li>
-</ul>
-</div>
-<div class="lab-item-block">
-<h3>NK cell (CD16+56): 比例 8.5% <span class="tag normal">正常</span> / 絕對數 300 /uL <span class="tag borderline">微幅超標</span></h3>
-<ul>
-<li><strong>這個數字代表什麼：</strong>自然殺手細胞（NK cells），是子宮內膜與周邊血中最具攻擊性的先天免疫細胞。</li>
-<li><strong>在生殖評估中的意義：</strong>過高的 NK 細胞會將胚胎視為異物進行攻擊。其「比例」通常較「絕對總數」在臨床上更具指標性。</li>
-<li><strong>本個案的可能解讀：</strong>令人欣慰的是，NK 比例控制在 <strong>8.5%</strong>（遠低於不孕症高風險臨界值 12~14%）。雖然絕對數量（300/uL）因白血球總數放大而微幅超過 299.9，但整體比例安全，代表若個案有使用靜脈注射免疫球蛋白（IVIG）或脂肪乳（Intralipid），此藥物目前對 NK 細胞的壓制是成功的。</li>
+<li><strong>這個數字代表什麼：</strong> 周邊血中的白血球總濃度。</li>
+<li><strong>若偏高常見代表：</strong> 身體有急性發炎、感染，或者是受到特定的皮質類固醇藥物影響。</li>
+<li><strong>💡 關鍵用藥影響與個案意義：</strong> 在沒有感冒、發燒、骨盆腔感染的臨床前提下，植入後 Day 2 白血球衝到 11.99，<strong>這幾乎是口服免疫抑製劑類固醇（如 Prednisolone / 阿德糖衣錠）引起的經典副作用</strong>。類固醇會促使原本附著在血管內壁的白血球（邊緣池）游離到血液循環中，導致抽血數字看起來升高。這是一個<strong>正面訊號</strong>，證實藥物在體內已經開始發揮生物活性，不需要誤判為身體嚴重感染。</li>
 </ul>
 </div>
 <div class="lab-item-block danger">
-<h3>B cell (CD19): 比例 14.8% <span class="tag borderline">緊貼上限</span> / 絕對數 525 /uL <span class="tag abnormal">偏高</span></h3>
+<h3>2. 腫瘤壞死因子-a (TNF-α): 9.91 pg/mL <span class="tag abnormal">明顯超標 / 核心攻擊因子</span></h3>
 <ul>
-<li><strong>這個數字代表什麼：</strong>負責體液免疫、分泌抗體的 B 淋巴球。</li>
-<li><strong>在生殖評估中的意義：</strong>B 細胞過度活化常見於自體免疫異常者（如抗磷脂抗體綜合徵、乾燥症等），易產生攻擊胚胎或胎盤內皮的自身抗體。</li>
-<li><strong>本個案的可能解讀：</strong>比例（14.8%）與絕對數（525 /uL）皆在異常邊緣與超標狀態。這代表體內的自體免疫 B 細胞群較為活躍，容易在血管內膜誘發微小血栓。臨床上必須高度仰賴阿斯匹靈（Aspirin）或低分子量肝素（Clexane）來進行抗凝血保護。</li>
+<li><strong>這個數字代表什麼：</strong> 一種由 Th1 免疫系統主導的強效促發炎細胞激素。</li>
+<li><strong>在生殖評估中的意義：</strong> 胚胎對母體來說是帶有一半父親基因的「半異物」。過高的 TNF-α 會直接攻擊子宮內膜上的滋養層細胞，干擾胚胎血管新生，甚至在局部啟動凝血造成胚胎早期缺氧凋亡。</li>
+<li><strong>💡 關鍵用藥影響與個案意義：</strong> 9.91 pg/mL 遠大於常規標準的 <4，屬於顯著的紅字。這表明儘管使用了基底藥物（如類固醇、奎寧），體內促發炎的 Th1 軸線依然高度亢進。<strong>如果個案先前有施打抗 TNF-α 的生物製劑（如復邁 Humira），這個高數值有時可能反映了「已被藥物結合但尚未清除的總細胞激素總量」</strong>（某些商業檢驗試劑會同時抓到游離與結合態的 TNF-α），但若個案最近並未施打生物製劑，則 9.91 強烈暗示目前的口服發炎抑製劑劑量不足以對抗著床期的免疫反彈。這也是 5 月份療程之所以最終被迫停藥（STOP）的潛在元兇，必須在接下來的 Day 4 / Day 6 高度關注其趨勢。</li>
 </ul>
 </div>
 <div class="lab-item-block">
-<h3>CD8+ Suppressor T T cell: 比例 39.7% <span class="tag normal">正常</span> / 絕對數 1374 /uL <span class="tag abnormal">偏高</span></h3>
+<h3>3. NK cell (CD16+56): 比例 8.5% <span class="tag normal">控制極佳</span> / 絕對數 300 ul <span class="tag borderline">臨界</span></h3>
 <ul>
-<li><strong>這個數字代表什麼：</strong>毒殺型/抑制型 T 細胞。</li>
-<li><strong>本個案的可能解讀：</strong>雖然比例在安全範圍，但絕對計數高達 1374 /uL。CD8 細胞群的擴張往往與慢性發炎或 Th1 軸線亢進互為因果，呼應了 TNF-α 偏高的表現，提示整體 T 細胞系統處於高度警戒狀態。</li>
+<li><strong>這個數字代表什麼：</strong> 自然殺手細胞（Natural Killer Cells），是免疫系統中負責清除異物的第一線殺手。</li>
+<li><strong>💡 關鍵用藥影響與個案意義：</strong> 這是本報告中最振奮人心的部分！生殖免疫最擔心的就是 NK 比例飆高（超過 12% 甚至 15%）。目前個案的 NK 比例穩定壓在 <strong>8.5%</strong>，這說明個案如果有使用脂肪乳（Intralipid）、靜脈注射免疫球蛋白（IVIG）或現行的類固醇處方，<strong>在「壓制 NK 細胞攻擊力」這條防線上是完全達標且非常成功的</strong>。雖然絕對數 300 微幅超標，但那是因為總白血球基數被拉大（11.99）而造成的數學放大效應，其實質威脅極低。</li>
+</ul>
+</div>
+<div class="lab-item-block danger">
+<h3>4. B cell (CD19): 比例 14.8% <span class="tag borderline">緊貼上限</span> / 絕對數 525 ul <span class="tag abnormal">超標</span></h3>
+<ul>
+<li><strong>這個數字代表什麼：</strong> 負責體液免疫、產生自體抗體的 B 淋巴球群。</li>
+<li><strong>若偏高常見代表：</strong> 自體免疫敏感體質、抗磷脂抗體或乾燥症等因子的潛在活躍。</li>
+<li><strong>💡 關鍵用藥影響與個案意義：</strong> 比例 14.8% 已經頂到了正常值的最上限，而絕對計數 525 更是直接突破了 499.9 的天花板。B 細胞的過度擴張在生殖免疫中與「子宮微血栓」有極強的關聯。<strong>口服免疫調節劑（如奎寧 Plaquenil）通常需要 2 至 4 週以上才能真正穩定 B 細胞群</strong>，在植入後 Day 2 的此時，這個超標的數字提醒我們，必須確保<strong>現行的抗凝血用藥（如阿斯匹靈、低分子量肝素 Clexane）有足夠的劑量覆蓋</strong>，用來阻斷 B 細胞可能誘發的微細血管栓塞，保護胚胎血供。</li>
+</ul>
+</div>
+<div class="lab-item-block">
+<h3>5. CD8 Suppressor cell: 比例 39.7% <span class="tag borderline">高標</span> / 絕對數 1374 ul <span class="tag abnormal">超標</span></h3>
+<ul>
+<li><strong>這個數字代表什麼：</strong> 抑制型/毒殺型 T 細胞。</li>
+<li><strong>💡 關鍵用藥影響與個案意義：</strong> 絕對計數高達 1374，顯著高於 1129。這與 TNF-α 的高亢是一脈相承的，代表身體的 cellular immunity（細胞免疫）正處於高戒備狀態。這再次印證了現行類固醇與免疫抑制藥物正在與身體的發炎本能進行激烈的拉鋸戰。</li>
+</ul>
+</div>
+<div class="lab-item-block">
+<h3>6. 其他正常指標群 (CD3, CD4, HLA-DR, 比值)</h3>
+<ul>
+<li><strong>CD3% (74.6%) / CD4% (32%)：</strong> 處於完美的常態區間，顯示免疫系統的骨幹大框架並未因用藥而陷入完全癱瘓，維持了基本的抗病防禦力。</li>
+<li><strong>Active T cell (HLA-DR) (4.4%)：</strong> 這是一個非常好的綠字。HLA-DR 代表真正被完全活化、準備發動攻擊的 T 細胞。比例維持在 4.4% 的低位，顯示目前的藥物成功阻止了 T 細胞的「全面暴動化」。</li>
+<li><strong>CD4/CD8 Ratio (0.8)：</strong> 因為 CD8 絕對數被拉高，導致比值微幅降至 0.8。在生殖免疫中，這種稍微偏低的比例常見於免疫亢進個案，屬於可預期的結構表現。</li>
 </ul>
 </div>
 </section>
-<section class="card evaluation-card">
-<h2>🧠 四、整體評估與醫生用藥影響分析</h2>
-<h3>1. 現行用藥的臨床壓制成效評估</h3>
-<div class="timeline-compare">
-<p>根據數據交叉判讀，醫療團隊目前的免疫用藥已產生明顯的<strong>分流壓制效果</strong>：</p>
-<ul>
-<li><strong>NK 細胞線（成功壓制）：</strong>NK% 控制在 8.5% 的優異低點，顯示不論是類固醇或是可能使用的免疫球蛋白/脂肪乳，已成功築起保護防線，阻斷了 NK 細胞對胚胎的直接毒殺。</li>
-<li><strong>白血球反應（藥物達效）：</strong>WBC 11.99 證實類固醇已在體內達到足夠的生物學濃度，發揮抗發炎與免疫抑制的前線作用。</li>
-</ul>
+<div class="report-container">
 </div>
-<h3>2. 與 5 月份失敗歷程（STOP）之關鍵對比與警訊</h3>
-<p>5 月份的療程在密集監測後終止，通常代表著床期免疫發生了「爆發性反彈」或「血栓阻塞」。對比今日（7/3）Day 2 報告，我們發現一個需要高度警戒的臨床現象：</p>
-<div class="alert-box">
-<strong>⚠️ 核心危機－發炎軸線未歇：</strong>儘管 NK 細胞被壓制，但 <strong>TNF-α 依然高達 9.91 pg/mL</strong>，且伴隨 <strong>CD19 (B細胞) 與 CD8 (毒殺T細胞) 的絕對總數超標</strong>。這說明個案的免疫不孕機轉，主要並非走 NK 毒殺路線，而是走<strong>「Th1 高發炎細胞激素毒性」與「B細胞介導微血栓」</strong>的雙重路線。今日的數據顯示，這條高風險發炎軸線在植入後第二天依然蠢蠢欲動，極可能複製 5 月份導致失敗的病理環境。
+<section class="card evaluation-card">
+<h2>🧠 四、整體整合評估：藥物與免疫的生死對決</h2>
+<p>綜合所有數據，今日（植入 Day 2）的免疫戰況可以歸納為<strong>「一勝、一戒備、一隱憂」</strong>：</p>
+<div class="timeline-compare">
+<ul>
+<li><strong>【一勝】NK防線成功守住：</strong> 藥物成功將 NK 細胞比例壓制在 8.5%，胚胎在著床初期免受 NK 細胞的直接野蠻毒殺。</li>
+<li><strong>【一戒備】B細胞高血栓風險：</strong> CD19 絕對數（525）的超標，提示體液免疫蠢蠢欲動，子宮內膜微循環的抗凝血防禦必須極度嚴格執行。</li>
+<li><strong>【一隱憂】TNF-α 嚴重發炎逃逸：</strong> 9.91 pg/mL 的促發炎因子是目前最大的不確定因素。它代表 Th1 高發炎環境依然存在，現有口服藥物尚未能完全將其降至安全範圍。這與 5 月份導致 STOP 的病理風險高度同源。</li>
+</ul>
 </div>
 </section>
 <section class="card chance-card">
-<h2>📈 五、目前成功機率評估</h2>
-<div class="chance-tag mid-low">目前評估：中等偏低</div>
-<p><strong>適用情境：</strong>第二次冷凍胚胎解凍植入療程（植入後 Day 2 預估）</p>
+<h2>📈 五、目前成功機率評估與正反因分析</h2>
+<div class="chance-tag mid-low">目前整體評估：中等偏低（著床關鍵期受發炎因子壓制）</div>
+<p><strong>適用情境：</strong> 2026/07/01 植入解凍胚胎後之黃金著床期預估</p>
 <div class="two-column-grid">
 <div class="good-factors-box">
-<h3>✅ 正面原因（有利因素）</h3>
+<h3>✅ 正面原因（提高成功率因子）</h3>
 <ul>
-<li><strong>胚胎條件優良：</strong>3月份培育的冷凍胚胎質量優質，解凍復甦順利。</li>
-<li><strong>NK防線穩固：</strong>NK 細胞比例 8.5% 處於極佳著床窗口安全值。</li>
-<li><strong>精準用藥覆蓋：</strong>白血球反應證實對抗體系藥物已產生作用。</li>
+<li><strong>NK% 的完美控制：</strong> 8.5% 的表現提供了胚胎基礎的免死金牌，阻斷了第一線直接毒殺。</li>
+<li><strong>類固醇生物活性達標：</strong> WBC 11.99 證實藥物已在體內產生足夠濃度，並非無效吸收。</li>
+<li><strong>活化T細胞（HLA-DR）未暴動：</strong> 4.4% 顯示系統未陷入盲目失控。</li>
 </ul>
 </div>
 <div class="risk-factors-box">
-<h3>⚠️ 可能失敗原因（降低成功率因素）</h3>
+<h3>⚠️ 可能失敗原因（降低成功率因子）</h3>
 <ul>
-<li><strong>TNF-α 毒性居高不下：</strong>9.91 pg/mL 恐引發子宮局部內膜發炎，干擾胚胎滋養層延伸。</li>
-<li><strong>B細胞活化高血栓風險：</strong>CD19 絕對數超標，易在植入後黃金 72 小時內於內膜微血管形成血栓，斷絕胚胎血流。</li>
-<li><strong>歷史失敗軌跡複製：</strong>免疫亢進型態與 5 月份停藥（STOP）前夕高度相似。</li>
+<li><strong>TNF-α 的強烈胚胎毒性：</strong> 9.91 pg/mL 恐引發滋養層細胞凋亡，阻礙順利著床。</li>
+<li><strong>CD19 超標引發局部微血栓：</strong> 易在絨毛膜與內膜血管交接處形成血塞，斷絕胚胎後續發育的血供。</li>
+<li><strong>歷史失敗軌跡複製風險：</strong> 發炎型態與5月份終止（STOP）前高度相似，需提防後續反彈。</li>
 </ul>
 </div>
 </div>
+</section>
+<section class="card risk-card">
+<h2>⚠️ 六、可能問題與風險分層</h2>
+<div class="warning-box">
+<strong>● 當前首要風險：局部微循環障礙（血栓）與內膜非特異性發炎。</strong>
+
+B細胞（CD19）絕對數超標，結合高發炎因子，在臨床上極易誘發微血管內皮損傷。若此時抗凝血藥物（如肝素）劑量未能跟上，即使胚胎成功發出著床訊號，也可能在 Day 6 ~ Day 10 遭遇微血栓逆襲而發生萎縮或化學流產。
+</div>
+</section>
+<section class="card research-card">
+<h2>📚 七、生殖免疫臨床調研資料摘要</h2>
+<p>依據現行生殖免疫學主流臨床共識：</p>
+<ul>
+<li><strong>關於 TNF-α：</strong> 著床期周邊血 TNF-α 理想上應控制在 <4 pg/mL 甚至是更嚴格的 <2.8 pg/mL。若持續高於 8，臨床常規考慮引入抗腫瘤壞死因子生物製劑進行精準狙擊。</li>
+<li><strong>關於白血球反彈：</strong> 口服皮質類固醇引發的白血球上升，其結構通常以成熟中性粒細胞為主，淋巴球比例相對下降。若淋巴球絕對數（如CD8, CD19）不降反升，提示體內原發的免疫亢進力道極強。</li>
+</ul>
 </section>
 <section class="card next-step-card">
-<h2>🧪 六、後續動態追蹤與核心檢查建議</h2>
-<p>生殖免疫的特點在於「植入後隨荷爾蒙波動劇烈變化」，單憑 Day 2 無法全盤定論。為避免重蹈 5 月份覆轍，強烈建議進行以下密集監測：</p>
+<h2>🧪 八、建議動態補充之檢查指標</h2>
+<div class="alert-box">
+<strong>🚨 為了補足今日報告的盲點，下次抽血強烈建議同步追蹤以下項目：</strong>
 <ul>
-<li><strong>1. 密集免疫複檢（黃金期）：</strong>建議於 <strong>植入後 Day 4 (7/5) 或 Day 6 (7/7)</strong> 再次複查 <strong>TNF-α、CD3/CD4/CD8/CD19/CD16+56 淋巴球群</strong>，觀察 TNF-α 是否持續爬升或開始下降。</li>
-<li><strong>2. 追加血栓關鍵指標：</strong>今日報告缺乏血栓指標，強烈建議下次抽血務必同步追加 <strong>D-Dimer (D-雙合體)</strong> 與 <strong>Protein S (蛋白質S活性)</strong>。B細胞偏高時，D-Dimer 的動態翻倍往往是血栓形成的先兆。</li>
-<li><strong>3. 提前評估 HCG 著床訊號：</strong>可於常規植入後 Day 7-8 評估是否進行早期周邊血 β-HCG 微量偵測，以確認胚胎是否成功發出訊號，並作為免疫藥物加碼的依據。</li>
+<li><strong>1. D-Dimer（D-雙合體）：</strong> 評估體內凝血與纖溶系統的即時狀態。B細胞高的個案，D-Dimer 只要出現翻倍，即是需要加碼肝素（Clexane）的鋼鐵指標。</li>
+<li><strong>2. Protein S 活性：</strong> 確認母體天然抗凝血功能是否在著床期遭到過度消耗。</li>
+<li><strong>3. 密集追蹤點：</strong> 務必於 <strong>植入後 Day 4 (7/5) 或 Day 6 (7/7)</strong> 再次複查 TNF-α 與淋巴球群，觀察藥物調整後的動態斜率。</li>
 </ul>
+</div>
 </section>
 <section class="card plan-card">
-<h2>🪜 七、臨床具優先順序的步驟指引</h2>
+<h2>🪜 九、具優先順序的臨床指引步驟</h2>
 <ol>
-<li>
-<strong>第一步：立刻向生殖免疫主治醫師回報今日數據（即刻執行）</strong>
-<p>今日 TNF-α 9.91 與 CD19 絕對數超標為非預期高度活化，需立即讓醫師知悉，評估是否需要動態調整針劑。</p>
-</li>
-<li>
-<strong>第二步：與主治醫師討論是否加碼抗發炎/抗凝血處方（建議門診/即時諮詢）</strong>
-<p>探討是否需要提高口服類固醇劑量、提早施打復邁（Humira）補充劑，或評估低分子量肝素（Clexane）是否需要由天天一針調整為更精準的抗凝血方案。</p>
-</li>
-<li>
-<strong>第三步：嚴格執行每日定時用藥（不可中斷）</strong>
-<p>目前體內發炎與 NK 壓制正處於拉鋸戰，現有抗凝血與免疫調節藥物切勿漏服或自行減量。</p>
-</li>
+<li><strong>【立即執行】傳送報告給醫療團隊：</strong> 將今日這份含有 TNF-α 9.91 與 B細胞超標的報告即刻回傳給您的生殖免疫主治醫師。</li>
+<li><strong>【即時諮詢】討論藥物動態調整：</strong> 詢問醫師是否需要針對 9.91 的 TNF-α 進行「類固醇增量」或「評估生物製劑（如復邁）的施打時機」。</li>
+<li><strong>【持續落實】抗凝血藥物絕對不可漏服：</strong> 嚴格定時服用阿斯匹靈及施打低分子量肝素，確保內膜微循環不因 B 細胞活躍而阻塞。</li>
 </ol>
 </section>
-<section class="card discussion-card">
-<h2>🗣️ 八、建議與醫師討論的關鍵問題</h2>
-<div class="tip-box">
-建議您在明日回診或與免疫醫師聯絡時，直接出示此清單進行溝通：
-</div>
+<section class="card advice-card">
+<h2>💡 十、生活與治療常規建議</h2>
 <ul>
-<li>1. 醫師，我今日（植入 Day 2）的 <strong>TNF-α 達 9.91 pg/mL</strong>，明顯高於標準值，請問這是否會對剛植入的胚胎產生細胞毒性？是否需要立即加強生物製劑（如 Humira）或調整抗發炎藥物？</li>
-<li>2. 我的 <strong>CD19 (B細胞) 絕對計數超標（525 /uL）</strong>，這是否意味著我體內的自體抗體與微血栓風險正在上升？目前使用的阿斯匹靈或肝素劑量是否足夠應付這個數字？</li>
-<li>3. 對比我 <strong>5 月份終止（STOP）的那次歷程</strong>，當時的免疫走向和這次 Day 2 相比有改善嗎？我們該如何預防這次在 Day 6 之後發生同樣的反彈？</li>
-<li>4. 我的 WBC 升到 11.99，這可以確認是目前口服類固醇藥物所產生的預期效應嗎？目前的類固醇劑量需要維持還是調高？</li>
-<li>5. 請問我下一次的最佳抽血時間點是哪一天（Day 4 還是 Day 6）？除了複查免疫外，我們是否應該 <strong>加做 D-Dimer</strong> 來更嚴密地監控血栓風險？</li>
+<li><strong>嚴格禁絕促發炎飲食：</strong> 著床期嚴禁攝取任何進補藥膳（如麻油、人參、當歸、靈芝等，這些會瘋狂活化 B 細胞與 TNF-α）、炸物與高糖食物。</li>
+<li><strong>物理性抗炎：</strong> 維持充足睡眠。長期的心理焦慮會經由神經內分泌軸線刺激 macrophage 分泌更多 TNF-α，請盡可能安排放鬆活動。</li>
+</ul>
+</section>
+<section class="card discussion-card">
+<h2>🗣️ 十一、建議明日回診與醫師討論的關鍵問題</h2>
+<ul>
+<li>1. 醫師，我今日（植入 Day 2）的 <strong>TNF-α 依然高達 9.91 pg/mL</strong>，這代表體內 Th1 發炎強烈，請問我們需要立即調高口服類固醇（如伯松）的劑量，或者是評估施打恩博/復邁等生物製劑來緊急壓制嗎？</li>
+<li>2. 看到我的 <strong>WBC 升到 11.99</strong>，這是否可以證實我目前的類固醇藥物有成功吸收並產生積極的生物效應？</li>
+<li>3. 我的 <strong>CD19（B細胞）絕對數超標達到 525 ul</strong>，為了預防它複製 5 月份失敗療程的微血栓風險，我目前使用的阿斯匹靈或肝素（Clexane）劑量需要進行調整或提早加碼嗎？</li>
+<li>4. 雖然我的 <strong>NK細胞比例（8.5%）控制得非常完美</strong>，但針對發炎與 B 細胞這條軸線，我們在接下來的 <strong>Day 4 或 Day 6 抽血監測時，可以同步追加 D-Dimer 與 Protein S 嗎？</strong></li>
 </ul>
 </section>
 <section class="card alert-card">
-<h2>🚨 九、重要警示訊號（特殊就醫時機）</h2>
-<p>生殖免疫用藥（特別是抗凝血針劑與高劑量類固醇）期間，若出現以下症狀，切勿等待常規回診，必須<strong>立即前往急診或原不孕生殖中心</strong>處理：</p>
-<div class="two-column-grid">
-<div class="risk-factors-box">
-<strong>⚠️ 免疫與血栓極端警訊：</strong>
+<h2>🚨 十二、急診與特殊就醫警示訊號</h2>
+<p>在黃金著床期及高強度免疫用藥期間，如發生以下特殊病徵，請立即前往原不孕症生殖中心或大型醫院急診：</p>
 <ul>
-<li>單側下肢出現莫名劇烈腫脹、發熱、疼痛（深部靜脈血栓徵兆）。</li>
-<li>突發性呼吸困難、劇烈胸痛、或咳血（肺栓塞風險，需緊急急診）。</li>
-<li>突然出現視野模糊、半身無力或嚴重撕裂感頭痛。</li>
+<li><strong>微血栓極端急性警訊：</strong> 突發性單側下肢莫名劇烈腫脹、發熱與緊繃疼痛（深部靜脈血栓症兆）；或突發性呼吸困難、急性胸痛（肺栓塞風險）。</li>
+<li><strong>產科與術後警訊：</strong> 陰道突發大量鮮紅色出血（流量大於常規月經）；或伴隨無法忍受的單側下腹部持續性撕裂劇痛（需排除卵巢過度刺激、扭轉或異常著床）。</li>
 </ul>
-</div>
-<div class="risk-factors-box">
-<strong>🩸 植入與產科緊急警訊：</strong>
-<ul>
-<li>陰道排出鮮紅色鮮血，且流量等同或大於月經量（伴隨劇烈腹痛）。</li>
-<li>持續性下腹部單側撕裂般劇痛（排除腸胃問題，需提防異常著床或卵巢扭轉）。</li>
-<li>高燒超過 38.5°C 且伴隨畏寒（需排除盆腔急性感染）。</li>
-</ul>
-</div>
-</div>
 </section>
 <section class="card disclaimer-card">
-<h2>📌 十、重要聲明</h2>
-<p style="font-size: 13px; color: var(--insufficient-color); margin: 0;">
-本分析報告係依據使用者提供之周邊血液淋巴球群與 TNF-α 數位化影像/數據，結合生殖免疫學臨床實務脈絡所做出之推估。本系統非在診間親自診察患者，所提供之資訊（包括成功率定性預估與用藥評估）僅供學術探討與就醫前擬定問題之參考，<strong>絕不代表任何正式醫療診斷、處方保證、或懷孕成功之承諾</strong>。所有用藥劑量之增減與療程之變更，必須由您的生殖醫學主治醫師與生殖免疫專科醫師依據臨床現況最終裁決。
+<h2>📌 十三、重要醫學聲明</h2>
+<p style="font-size: 12px; color: var(--text-color); opacity: 0.8; margin: 0;">
+本分析報告係基於使用者提供之特定時間點（2026/07/03 植入後 Day 2）周邊血免疫檢驗數據，結合臨床生殖免疫學實務經驗所做出之推估與藥物效應探討。本系統並非醫學診間之親自診察，報告內所有關於成功機率之定性評估、藥物影響分析與調整建議，<strong>僅供個案就醫前結構化理解與擬定詢問清單之參考，絕不代表任何正式醫療診斷、處方變更或受孕成功之承諾</strong>。所有臨床用藥劑量之調整，必須由您的生殖醫學主治醫師與免疫專科醫師團隊依據實際複檢趨勢進行最終裁決。
 </p>
 </section>
 </div>
