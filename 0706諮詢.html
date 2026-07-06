@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生殖醫學分析與植入後免疫照護指引</title>
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-light: #f0fdfa;
+            --primary-dark: #115e59;
+            --secondary: #0284c7;
+            --secondary-light: #f0f9ff;
+            --success: #16a34a;
+            --success-light: #f0fdf4;
+            --warning: #ca8a04;
+            --warning-light: #fefce8;
+            --danger: #dc2626;
+            --danger-light: #fef2f2;
+            --slate-50: #f8fafc;
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+            --slate-900: #0f172a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            background-color: var(--slate-100);
+            color: var(--slate-800);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .report-container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        header.report-header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(15, 118, 110, 0.3);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header.report-header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .report-subtitle {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.95rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            margin-bottom: 2rem;
+            border: 1px solid var(--slate-200);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: var(--primary-dark);
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Tags and Statuses */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .tag.normal { background-color: var(--success-light); color: var(--success); }
+        .tag.borderline { background-color: var(--warning-light); color: var(--warning); }
+        .tag.abnormal { background-color: var(--danger-light); color: var(--danger); }
+        .tag.insufficient { background-color: var(--slate-100); color: var(--slate-700); }
+
+        .chance-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        .chance-badge.medium { background-color: var(--secondary-light); color: var(--secondary); border: 1px solid rgba(2, 132, 199, 0.3); }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .lab-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            margin: 1rem 0;
+        }
+
+        .lab-table th {
+            background-color: var(--slate-100);
+            color: var(--slate-700);
+            padding: 1rem;
+            font-weight: 600;
+            border-bottom: 2px solid var(--slate-200);
+        }
+
+        .lab-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--slate-200);
+            font-size: 0.95rem;
+        }
+
+        .lab-table tr:hover {
+            background-color: var(--slate-50);
+        }
+
+        /* Grid System */
+        .two-column-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .box {
+            padding: 1.5rem;
+            border-radius: 10px;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .box.success-box { background-color: var(--success-light); border: 1px solid rgba(22, 163, 74, 0.2); }
+        .box.caution-box { background-color: var(--warning-light); border: 1px solid rgba(202, 138, 4, 0.2); }
+        .box.info-box { background-color: var(--primary-light); border: 1px solid rgba(15, 118, 110, 0.2); }
+        .box.alert-box { background-color: var(--danger-light); border: 1px solid rgba(220, 38, 38, 0.2); }
+
+        .box h3 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .success-box h3 { color: var(--success); }
+        .caution-box h3 { color: var(--warning); }
+        .info-box h3 { color: var(--primary-dark); }
+        .alert-box h3 { color: var(--danger); }
+
+        /* Detailed Lab/Med Block */
+        .lab-item-block {
+            background-color: var(--slate-50);
+            border-left: 4px solid var(--primary);
+            padding: 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .lab-item-block h3 {
+            margin: 0 0 0.75rem 0;
+            font-size: 1.15rem;
+            color: var(--slate-900);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .lab-item-block ul {
+            margin: 0;
+            padding-left: 1.25rem;
+            font-size: 0.95rem;
+        }
+
+        .lab-item-block li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Timelines / Step guides */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--primary-light);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.25rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            border: 4px solid white;
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        .timeline-time {
+            font-weight: 700;
+            color: var(--primary-dark);
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-content {
+            background-color: var(--slate-50);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--slate-200);
+        }
+
+        /* Discussion cards */
+        .question-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .question-item {
+            background-color: var(--primary-light);
+            border: 1px solid rgba(15, 118, 110, 0.15);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .question-num {
+            background-color: var(--primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .question-text {
+            margin: 0;
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 0.95rem;
+        }
+
+        /* Warning text custom alert style */
+        .warning-text {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            header.report-header {
+                padding: 1.5rem 1rem;
+            }
+            header h1 {
+                font-size: 1.6rem;
+            }
+            .card {
+                padding: 1.25rem;
+            }
+            .two-column-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="report-container">
+    
+    <!-- HEADER -->
+    <header class="report-header">
+        <h1>🧬 生殖醫學分析與植入後免疫照護指引</h1>
+        <p class="report-subtitle">送子鳥生殖中心（新竹院）・個人化植入後黃體支持與免疫調節方案</p>
+        <div class="meta-grid">
+            <div class="meta-item">📅 <strong>今日評估日期：</strong> 2026 年 7 月 6 日</div>
+            <div class="meta-item">🏥 <strong>醫療機構：</strong> 新竹送子鳥生殖中心</div>
+            <div class="meta-item">🩺 <strong>主治醫師：</strong> 賴興華 醫師醫療團隊</div>
+            <div class="meta-item">🤰 <strong>當前階段：</strong> 胚胎植入後黃體與免疫支持期</div>
+        </div>
+    </header>
+
+    <!-- SECTION 1: CASE SUMMARY -->
+    <section class="card">
+        <h2>📋 一、個案摘要與臨床脈絡</h2>
+        <div class="box info-box">
+            <h3>個案現狀與治療特點</h3>
+            <p>本個案為<strong>胚胎植入後</strong>之受孕與保胎關鍵期患者。今日（7/6）於送子鳥新竹院區接受<strong>全安能（ClinOleic 20% 脂肪乳注射液）</strong>之靜脈滴注，及<strong>院內類固醇注射</strong>，旨在高強度調節母體免疫系統，降低子宮局部發炎與胚胎排斥反應。</p>
+            <p><strong>關鍵病史：</strong>患者先前曾因<strong>「B 細胞比例偏高 ($B \text{ cells} > \text{正常範圍}$）」</strong>導致明顯的子宮發炎性症狀，臨床表現為<strong>肚臍下方局部刺痛、強烈痙攣感（即子宮收縮）</strong>。因此，本次療程採取了極為積極的「抗凝血 + 免疫調節」合併保胎方案，以確保微血管灌流並阻斷免疫過度活化。</p>
+        </div>
+    </section>
+
+    <!-- SECTION 2: LAB/MEDICATION TABLE -->
+    <section class="card">
+        <h2>🔎 二、關鍵醫療排程與用藥核對總覽</h2>
+        <p>以下為今日（7/6）至下次回診日（7/8）之核心醫療計畫。所有藥物劑量與庫存已與護理人員核對無誤。</p>
+        <div class="table-responsive">
+            <table class="lab-table">
+                <thead>
+                    <tr>
+                        <th>醫療項目/藥物名稱</th>
+                        <th>今日狀況 (7/6)</th>
+                        <th>備藥與補充量 (兩天份)</th>
+                        <th>用法用量</th>
+                        <th>臨床首要目的</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>全安能 (ClinOleic 20%)</strong></td>
+                        <td><span class="tag abnormal">今日已完成</span></td>
+                        <td>無（院內施打）</td>
+                        <td>靜脈輸注（約30分鐘）</td>
+                        <td>降NK/B細胞活性、抑制免疫排斥</td>
+                    </tr>
+                    <tr>
+                        <td><strong>愛栓通 (Clexane)</strong></td>
+                        <td><span class="tag borderline">今日尚未施打</span></td>
+                        <td>帶回 <strong>3 支</strong> (含今日)</td>
+                        <td>每日 1 支 (皮下注射)</td>
+                        <td>低分子量肝素，防微血栓、助著床</td>
+                    </tr>
+                    <tr>
+                        <td><strong>黃體素油針 (Progesterone)</strong></td>
+                        <td><span class="tag normal">今日已完成</span></td>
+                        <td>帶回 <strong>1 支</strong> (7/8打)</td>
+                        <td>兩天一次 (Q2D)，每次3單位</td>
+                        <td>強效黃體支持，維持子宮內膜穩定</td>
+                    </tr>
+                    <tr>
+                        <td><strong>益斯得 (Estromon)</strong></td>
+                        <td><span class="tag normal">正常服用</span></td>
+                        <td>帶回 <strong>18 顆</strong></td>
+                        <td>三餐飯後，每次 3 顆</td>
+                        <td>補充雌激素，增厚與維持內膜</td>
+                    </tr>
+                    <tr>
+                        <td><strong>大豆凝膠 (雌激素/黃體素)</strong></td>
+                        <td><span class="tag normal">正常使用</span></td>
+                        <td>帶回 <strong>8 包</strong></td>
+                        <td>早晚每次 2 包</td>
+                        <td>局部經皮吸收，協同增強黃體支持</td>
+                    </tr>
+                    <tr>
+                        <td><strong>康速龍 (Methylprednisolone)</strong></td>
+                        <td><span class="tag normal">正常服用</span></td>
+                        <td>帶回 <strong>8 顆</strong></td>
+                        <td>早、下午飯後，每次 2 顆</td>
+                        <td>口服類固醇，全身性免疫抑制</td>
+                    </tr>
+                    <tr>
+                        <td><strong>紅色萊比妥 (Labetalol)</strong></td>
+                        <td><span class="tag normal">正常服用</span></td>
+                        <td>帶回 <strong>4 顆</strong></td>
+                        <td>早晚飯後，每次 1 顆</td>
+                        <td>預防因免疫/類固醇引起之血壓波動</td>
+                    </tr>
+                    <tr>
+                        <td><strong>伯基 (Bokey)</strong></td>
+                        <td><span class="tag normal">正常服用</span></td>
+                        <td>帶回 <strong>2 顆</strong></td>
+                        <td>每日 1 顆</td>
+                        <td>阿斯匹靈，抗血小板聚集、改進血流</td>
+                    </tr>
+                    <tr>
+                        <td><strong>小白球 (Utrogestan)</strong></td>
+                        <td><span class="tag normal">手邊餘10顆</span></td>
+                        <td>補帶 <strong>6 顆</strong> (湊足16顆)</td>
+                        <td>每日 4 次，每次 2 顆</td>
+                        <td>口服/陰道黃體素，全天候內膜保護</td>
+                    </tr>
+                    <tr>
+                        <td><strong>奎寧 (Plaquenil)</strong></td>
+                        <td><span class="tag normal">手邊足夠</span></td>
+                        <td>不帶藥</td>
+                        <td>早晚飯後，每次 1 顆</td>
+                        <td>針對 B 細胞與自身抗體之基礎調節</td>
+                    </tr>
+                    <tr>
+                        <td><strong>安斯平 (Astym)</strong></td>
+                        <td><span class="tag normal">手邊足夠</span></td>
+                        <td>不帶藥</td>
+                        <td>早晚每次 1 顆</td>
+                        <td>輔助末梢血流改進與抗炎</td>
+                    </tr>
+                    <tr>
+                        <td><strong>保斯康 (Buscopan)</strong></td>
+                        <td><span class="tag borderline">備用藥物</span></td>
+                        <td>手邊已有</td>
+                        <td>不舒服時，每次 1 顆 (PRN)</td>
+                        <td><strong>平滑肌解痙劑，專門對抗子宮收縮</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- SECTION 3: DETAILED EXPLANATION OF EACH ITEM -->
+    <section class="card">
+        <h2>🧾 三、重點藥物與臨床表徵詳細說明</h2>
+        
+        <div class="lab-item-block">
+            <h3>全安能 (ClinOleic 20% IV Drip) <span class="tag normal">當日重點治療</span></h3>
+            <ul>
+                <li><strong>作用機轉：</strong> 它是富含橄欖油之高純度靜脈脂肪乳劑。在生殖免疫學中，能顯著改變細胞膜脂質雙層結構，進而調節抑制過度活躍的自然殺手細胞 ($NK \text{ cells}$) 與 $B \text{ 細胞}$。</li>
+                <li><strong>對本案意義：</strong> 由於您具有高 $B \text{ 細胞}$ 活性病史，全安能滴注是保護胚胎免受母體發炎細胞攻擊的「防火牆」。</li>
+                <li><strong>注意事項：</strong> 滴注後半小時內若有呼吸急促、胸悶、發冷屬極少見副作用，若無則已安全耐受。</li>
+            </ul>
+        </div>
+
+        <div class="lab-item-block">
+            <h3>愛栓通 (Clexane Injection) <span class="tag abnormal">高度注意用法</span></h3>
+            <ul>
+                <li><strong>作用機轉：</strong> 低分子量肝素 ($LMWH$)。可阻斷凝血級聯反應，防止胎盤絨毛膜形成微小血栓，是目前預防著床後因血栓導致胚胎停止發育的一線首選。</li>
+                <li><strong>對本案意義：</strong> 配合下週三的血栓指標（$D\text{-dimer}$）檢驗，愛栓通是控制血栓風險的核心。</li>
+                <li><strong>‼️ 護理特別囑咐：</strong> <strong>今日（7/6）的劑量手邊原本沒有，故今日份尚未施打！</strong> 帶回後請盡快於今日完成第一次注射，隨後在 7/7、7/8 每日定時皮下注射 1 支。</li>
+            </ul>
+        </div>
+
+        <div class="lab-item-block">
+            <h3>子宮收縮症狀判別 (Uterine Contractions) <span class="tag borderline">關鍵症狀衛教</span></h3>
+            <ul>
+                <li><strong>如何判定宮縮：</strong> 宮縮的痛點必定在<strong>「肚臍下方（小腹部）」</strong>，會呈現持續性或陣發性的<strong>下腹緊繃、定點刺痛、痙攣或酸脹感</strong>。若是肚臍上方或胃部疼痛，則通常是腸胃問題。</li>
+                <li><strong>本案症狀解讀：</strong> 您過去有「刺痛及痙攣感」，賴醫師已明確指出這與您的 <strong>$B \text{ 細胞}$ 偏高</strong>（局部發炎反應活躍）直接相關。</li>
+                <li><strong>應對策略（保斯康 Buscopan）：</strong> 很多患者因為怕影響胚胎而不敢吃藥。但<strong>子宮痙攣收縮對著床胚胎的危害，遠大於安全級別的解痙藥</strong>。一旦感到肚臍下方有緊繃、刺痛或痙攣，請<strong>立刻服用 1 顆保斯康 (Buscopan)</strong>，並靜臥休息。若 30 至 60 分鐘內症狀明顯緩解，即證實該症狀為宮縮且已被藥物有效控制；若持續無改善且加劇，請立即聯絡送子鳥諮詢。</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- SECTION 4: GENERAL EVALUATION -->
+    <section class="card">
+        <h2>🧠 四、整體生殖與免疫功能評估</h2>
+        <div class="box info-box">
+            <p><strong>免疫排斥與血栓雙重高風險分層：</strong></p>
+            <p>本個案屬於典型的「生殖免疫失衡型」患者。$B \text{ 細胞}$ 的過度活化不僅會釋放非特異性抗體攻擊滋養層細胞，還常伴隨局部微血管內皮發炎，進而誘發微血栓（$D\text{-dimer}$ 上升）與子宮平滑肌異常收縮（宮縮）。</p>
+            <p>然而，得益於送子鳥醫療團隊精準的<strong>「標靶式多點免疫阻斷法」</strong>（全安能、奎寧、康速龍、愛栓通、伯基並用），此一發炎與凝血路徑在植入後已被多重封鎖。當前首要目標為：<strong>「抑制平滑肌收縮（預防宮縮）」</strong>，並於 7/8 回診日精準測量胚胎著床訊號與血栓動態。</p>
+        </div>
+    </section>
+
+    <!-- SECTION 5: SUCCESS PROBABILITY -->
+    <section class="card">
+        <h2>📈 五、目前成功機率評估</h2>
+        <div class="chance-badge medium">評估等級：中等 ⏳ (適用於：植入後保胎與早期著床階段)</div>
+        <p><em>註：此為生殖醫學專家依據現有病理與用藥控制脈絡之定性評估，臨床成功機率將在 7/8 (三) $\beta\text{-hCG}$ 抽血數據出爐後獲得高度精確的確診。</em></p>
+        
+        <div class="two-column-grid" style="margin-top: 1.5rem;">
+            <div class="box success-box">
+                <h3>✅ 正面支持因素</h3>
+                <ul>
+                    <li><strong>極為完備的免疫風暴控制鏈：</strong> 結合了全安能 (ClinOleic)、皮下低分子量肝素 (Clexane)、口服類固醇與奎寧，多管齊下，已最大程度阻斷了 $B \text{ 細胞}$ 對胚胎的排斥。</li>
+                    <li><strong>強效的黃體內膜保護：</strong> 益斯得、大豆凝膠、小白球加上兩天一次的黃體素油針，能提供全方位的黃體激素覆蓋，內膜容受性極佳。</li>
+                    <li><strong>早期收縮有明確對策：</strong> 備有 Buscopan 作為解痙盾牌，只要遵照醫囑服用，即可有效避免物理性宮縮干擾。</li>
+                </ul>
+            </div>
+            <div class="box caution-box">
+                <h3>⚠️ 可能干擾因子與失敗風險</h3>
+                <ul>
+                    <li><strong>潛在的子宮高敏感（宮縮）：</strong> 若患者未能及時服用解痙藥，持續的局部痙攣和刺痛（宮縮）將嚴重干擾絨毛膜與子宮內膜的結合，增加著床失敗或早期流產風險。</li>
+                    <li><strong>免疫系統的動態波動：</strong> 即使有藥物壓制，$B \text{ 細胞}$ 的活性仍可能隨身體壓力和情緒波動而產生反彈。</li>
+                    <li><strong>凝血機制異常（血栓）：</strong> 若 $D\text{-dimer}$ 在著床期意外飆高，微血管堵塞將阻礙胚胎早期營養供應。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: RISK ANALYSIS -->
+    <section class="card">
+        <h2>⚠️ 六、可能問題與風險分析</h2>
+        <div class="table-responsive">
+            <table class="lab-table">
+                <thead>
+                    <tr>
+                        <th>潛在風險項目</th>
+                        <th>臨床警示徵兆</th>
+                        <th>病理機制</th>
+                        <th>預防與應對機制</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>子宮收縮導致胚胎不穩</strong></td>
+                        <td>肚臍以下出現規律/頻繁的刺痛、下腹緊縮變硬。</td>
+                        <td>$B \text{ 細胞}$ 激發局部前列腺素，導致平滑肌痙攣。</td>
+                        <td><strong>立即口服 1 顆保斯康 (Buscopan)</strong>，就地平躺。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>微血管血栓形成</strong></td>
+                        <td>$D\text{-dimer}$ 數值大於 0.5 μg/mL 且持續上升。</td>
+                        <td>免疫性血管內皮炎觸發凝血機制，阻塞絨毛血管。</td>
+                        <td><strong>嚴格落實每日定時愛栓通 (Clexane) 注射</strong>。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>高血壓與水鈉滯留</strong></td>
+                        <td>每日血壓高於 140/90 mmHg，或出現嚴重下肢水腫。</td>
+                        <td>大劑量類固醇（康速龍）易引發暫時性血壓偏高與水腫。</td>
+                        <td>配合服用紅色萊比妥 (Labetalol) 進行血壓調控。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- SECTION 7: RESEARCH SUMMARY -->
+    <section class="card">
+        <h2>📚 七、臨床生殖免疫學調研摘要</h2>
+        <div class="box info-box">
+            <p>根據當前國際輔助生殖醫學界對於<strong>「反覆植入失敗 (RIF)」與「生殖免疫失調」</strong>的共識：</p>
+            <ul>
+                <li><strong>B 細胞與抗體生成：</strong> $B \text{ 細胞}$ 比例偏高的患者，易產生自體抗體（如抗磷脂抗體、抗甲狀腺抗體等），這些抗體會直接干擾滋養層細胞的侵入與胎盤建立。臨床上使用靜脈脂肪乳（全安能）及免疫球蛋白（IVIG / 伯尼特）能顯著降低發炎因子，提升活產率。</li>
+                <li><strong>子宮高敏感與解痙：</strong> 臨床研究證實，植入前後頻繁的子宮收縮（$>\text{每分鐘 } 3 \text{ 次}$）與著床成功率呈顯著負相關。及時使用 Buscopan 等平滑肌鬆弛劑，能有效降低收縮頻率，改善局部血流灌注。</li>
+                <li><strong>低分子量肝素的雙重角色：</strong> $LMWH$（愛栓通）除了具有抗凝血、防止毛細血管血栓功能外，最新醫學研究顯示其還具有「抗炎與抗補體活化」的作用，能直接保護早期胎盤結構。</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- SECTION 8: SUPPLEMENTARY CHECKS -->
+    <section class="card">
+        <h2>🧪 八、建議追蹤與評估指標</h2>
+        <p>下次回診（7/8 禮拜三）早上，診所將進行極為關鍵的抽血檢查。檢驗結果將在一小時內出爐，作為醫師調整下一步用藥的黃金依據：</p>
+        <div class="two-column-grid">
+            <div class="box info-box">
+                <h3>1. 懷孕指數 ($\beta\text{-hCG}$)</h3>
+                <p><strong>目的：</strong> 檢測胚胎是否順利著床並開始分泌 hCG 訊號。此數字的翻倍趨勢是評估胚胎發育速度的核心指標。</p>
+            </div>
+            <div class="box info-box">
+                <h3>2. 血栓數值 ($D\text{-dimer}$)</h3>
+                <p><strong>目的：</strong> 評估體內的凝血活躍度。若 $D\text{-dimer} \ge 0.5 \ \mu\text{g/mL}$，代表微血栓風險增加，醫師將評估是否調高愛栓通劑量或延長療程。</p>
+            </div>
+            <div class="box info-box">
+                <h3>3. 血液常規項目 (CBC)</h3>
+                <p><strong>目的：</strong> 監控白血球、紅血球及血小板基線。特別是確認有無全身性發炎反應或貧血現象。</p>
+            </div>
+            <div class="box info-box">
+                <h3>4. 決定是否施打「伯尼特」或「免疫球蛋白」</h3>
+                <p><strong>目的：</strong> 賴醫師將綜合您的 hCG 著床數據、血栓表現與發炎反應，定奪是否需要額外安排<strong>「伯尼特（Privigen）靜脈注射」</strong>。伯尼特為高效人類免疫球蛋白，能更強力地中和體內有害抗體，是生殖免疫界的一線保胎王牌。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 9: STEP-BY-STEP WORKFLOW -->
+    <section class="card">
+        <h2>🪜 九、精準步驟照護指引</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-time">第一步：今日 (7/6，週一) 補施打與定時服藥</div>
+                <div class="timeline-content">
+                    <p><strong>愛栓通補打：</strong> 護理確認今日份尚未施打，請於返家後盡快完成今日的 1 支愛栓通皮下注射。其餘口服藥物照常服用。</p>
+                    <p><strong>身體感知監控：</strong> 持續感受肚臍下方是否有「刺痛或痙攣性宮縮」。</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">第二步：明日 (7/7，週二) 穩定照護與防範宮縮</div>
+                <div class="timeline-content">
+                    <p><strong>定時用藥：</strong> 益斯得（三餐各3顆）、康速龍（早、下各2顆）、紅色萊比妥（早晚各1顆）、伯基（QD 1顆）、大豆凝膠（早晚各2包）、小白球（QID每次2顆）。</p>
+                    <p><strong>愛栓通注射：</strong> 進行第 2 支愛栓通注射（盡量與前一日相同時間）。</p>
+                    <p><strong>🚨 緊急解痙：</strong> 若下腹有任何痙攣刺痛，<strong>立刻口服 1 顆保斯康 (Buscopan)</strong>，並觀察其在 1 小時內的改善程度。</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">第三步：後天 (7/8，週三) 10:25 AM 關鍵回診</div>
+                <div class="timeline-content">
+                    <p><strong>上午 10:25 抵達診所：</strong> 準時抵達送子鳥新竹院區進行空腹/非空腹抽血（檢查 $\beta\text{-hCG}$、D-dimer、CBC）。</p>
+                    <p><strong>施打項目：</strong> 於院內施打第 3 支愛栓通，並完成當日的黃體素油針（3單位）。</p>
+                    <p><strong>對報告與決策：</strong> 抽血後 1 小時與賴興華醫師進行一對一面診，對過檢驗報告，並決定是否安排<strong>伯尼特（IVIG）</strong>注射計畫。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 10: LIFESTYLE ADVICE -->
+    <section class="card">
+        <h2>💡 十、日常生活保胎建議</h2>
+        <div class="two-column-grid">
+            <div class="box success-box">
+                <h3>🥦 飲食與日常作息</h3>
+                <ul>
+                    <li><strong>溫和抗炎飲食：</strong> 多攝取高纖蔬菜、優質蛋白質（如滴雞精、魚肉）。避免高糖、油炸及精緻澱粉，因高糖易加重體內發炎反應與 $B \text{ 細胞}$ 的敏感度。</li>
+                    <li><strong>水分攝取要充足：</strong> 由於正在使用類固醇與肝素，每日應補充足夠水分（約 2000 cc），有助於降低血液黏稠度，預防微血栓。</li>
+                    <li><strong>絕對禁忌：</strong> 嚴禁浸泡溫泉、熱水浴或使用暖暖包直貼腹部，高溫會影響胚胎發育；嚴禁提重物（大於 3 公斤）及劇烈腹部用力。</li>
+                </ul>
+            </div>
+            <div class="box info-box">
+                <h3>🧘 心理調適與休息</h3>
+                <ul>
+                    <li><strong>消除宮縮焦慮：</strong> 很多宮縮源自於神經系統過度緊繃。當感到腹部緊繃時，閉上眼進行深吸氣、慢吐氣的腹式呼吸，告訴自己這只是身體在適應孕期變化，並適時使用 Buscopan。</li>
+                    <li><strong>睡眠充足：</strong> 晚上 11 點前入睡，確保褪黑激素正常分泌，這對於穩定免疫系統、降低抗體活性極其關鍵。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 11: DISCUSSION QUESTIONS -->
+    <section class="card">
+        <h2>🗣️ 十一、下次回診 (7/8) 建議與醫師討論的關鍵問題</h2>
+        <p>在週三 10:25 AM 抽血、數值出來後，建議您在面診時逐一向賴醫師確認以下問題，這將使您的療程溝通更精準：</p>
+        <ul class="question-list">
+            <li class="question-item">
+                <div class="question-num">1</div>
+                <div>
+                    <p class="question-text">「賴醫師，我這兩天偶爾仍有肚臍下方刺痛/痙攣的感覺（疑似宮縮），保斯康我服用了 X 次。請問目前的子宮敏感度是否會影響著床？」</p>
+                </div>
+            </li>
+            <li class="question-item">
+                <div class="question-num">2</div>
+                <div>
+                    <p class="question-text">「今天抽血的 $\beta\text{-hCG}$ 懷孕指數結果如何？符合我們植入天數的預期標準嗎？翻倍狀況理想嗎？」</p>
+                </div>
+            </li>
+            <li class="question-item">
+                <div class="question-num">3</div>
+                <div>
+                    <p class="question-text">「目前的 $D\text{-dimer}$（血栓指標）是多少？愛栓通（Clexane）需要維持目前的每日 1 支，還是需要根據血栓數值進行增減劑量？」</p>
+                </div>
+            </li>
+            <li class="question-item">
+                <div class="question-num">4</div>
+                <div>
+                    <p class="question-text">「根據今天的發炎指標與著床數據，我是否需要立即安排『伯尼特（Privigen）』或『免疫球蛋白』的注射？這大約需要進行多久的療程？」</p>
+                </div>
+            </li>
+            <li class="question-item">
+                <div class="question-num">5</div>
+                <div>
+                    <p class="question-text">「我目前服用的抗發炎與抗凝血藥物（如康速龍、奎寧、紅色萊比妥、伯基），後續需要持續服用至孕期第幾週？」</p>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <!-- SECTION 12: WARNING SIGNS -->
+    <section class="card">
+        <h2>🚨 十二、保胎期緊急就醫與警示訊號</h2>
+        <div class="box alert-box">
+            <p><strong>若您在非診所營業時間出現以下任何一項症狀，切勿等待，請立即前往備有急診與生殖醫學科的醫學中心（或聯絡送子鳥緊急聯絡管道）處理：</strong></p>
+            <ul>
+                <li><span class="warning-text">陰道流血量大：</span> 出血量等同或大於經期第二天的量，或伴隨大量鮮紅色血塊。</li>
+                <li><span class="warning-text">劇烈下腹部撕裂劇痛：</span> 單側或全下腹部突發性、無法忍受的劇烈疼痛（需排除子宮外孕、黃體破裂或卵巢扭轉）。</li>
+                <li><span class="warning-text">嚴重呼吸困難與胸痛：</span> 由於注射愛栓通與免疫藥物，若突然出現喘不過氣、劇烈胸痛、單側下肢極度腫脹發熱，需警惕急性肺栓塞或深部靜脈血栓。</li>
+                <li><span class="warning-text">高燒不退：</span> 耳溫持續高於 38.5°C 且伴隨發冷、下腹壓痛，需警惕骨盆腔或子宮內感染。</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- SECTION 13: DISCLAIMER -->
+    <section class="card" style="opacity: 0.85; font-size: 0.9rem;">
+        <h2>📌 十三、重要醫學聲明</h2>
+        <p><strong>非正式診斷聲明：</strong> 本報告係根據患者提供之「新竹送子鳥生殖中心 7 月 6 日門診醫囑錄音與對話內容」進行之結構化醫學分析與衛教指引。報告內容（包含成功率評估與藥物解說）屬於生殖醫學實務之一般學術探討與照護指引，<strong>不能取代主治醫師賴興華醫師及其醫療團隊的當面診斷、處方與臨床決定</strong>。所有藥物調整、醫療處置、檢查排程均須以送子鳥生殖中心開立之正式處方與病歷記載為絕對準則。</p>
+    </section>
+
+</div>
+
+</body>
+</html>
