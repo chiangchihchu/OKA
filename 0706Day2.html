@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>植入後免疫與早期懷孕追蹤報告</title>
+  <style>
+    :root {
+      --primary-color: #1e3a8a;
+      --primary-light: #eff6ff;
+      --success-color: #10b981;
+      --success-light: #ecfdf5;
+      --warning-color: #f59e0b;
+      --warning-light: #fffbeb;
+      --danger-color: #ef4444;
+      --danger-light: #fef2f2;
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
+      --bg-main: #f8fafc;
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .report-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    header class="report-header" {
+      text-align: center;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .report-header h1 {
+      color: var(--primary-color);
+      font-size: 2rem;
+      margin: 0 0 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .report-subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      border: 1px solid var(--border-color);
+    }
+
+    .card h2 {
+      color: var(--primary-color);
+      font-size: 1.3rem;
+      margin-top: 0;
+      margin-bottom: 16px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 狀態標籤 */
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .tag.normal { background-color: var(--success-light); color: var(--success-color); }
+    .tag.borderline { background-color: var(--warning-light); color: var(--warning-color); }
+    .tag.abnormal { background-color: var(--danger-light); color: var(--danger-color); }
+    .tag.insufficient { background-color: #f3f4f6; color: #6b7280; }
+
+    /* 成功機率標籤 */
+    .chance-badge {
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .chance-badge.mid-high { background-color: var(--success-light); color: var(--success-color); border: 2px solid var(--success-color); }
+
+    /* 表格設計 */
+    .lab-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 0.95rem;
+    }
+
+    .lab-table th, .lab-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .lab-table th {
+      background-color: var(--primary-light);
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    /* 兩欄排版 */
+    .two-column-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    @media (min-width: 768px) {
+      .two-column-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .good-factors-box, .risk-factors-box {
+      border-radius: 8px;
+      padding: 16px;
+      height: 100%;
+    }
+    .good-factors-box {
+      background-color: var(--success-light);
+      border: 1px dashed var(--success-color);
+    }
+    .risk-factors-box {
+      background-color: var(--danger-light);
+      border: 1px dashed var(--danger-color);
+    }
+
+    .good-factors-box h3 { color: var(--success-color); margin-top: 0; display: flex; align-items: center; gap: 6px; }
+    .risk-factors-box h3 { color: var(--danger-color); margin-top: 0; display: flex; align-items: center; gap: 6px; }
+
+    /* 逐項說明區塊 */
+    .lab-item-block {
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 0;
+    }
+    .lab-item-block:last-child {
+      border-bottom: none;
+    }
+    .lab-item-block h3 {
+      font-size: 1.1rem;
+      color: var(--text-main);
+      margin-top: 0;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .lab-item-block ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--text-muted);
+    }
+    .lab-item-block li {
+      margin-bottom: 6px;
+    }
+
+    /* 步驟指引時程卡 */
+    .timeline-container {
+      position: relative;
+      padding-left: 20px;
+      border-left: 2px solid var(--primary-color);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -27px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      border: 2px solid var(--card-bg);
+    }
+    .timeline-date {
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 4px;
+    }
+
+    /* 警示與提示框 */
+    .info-box {
+      background-color: var(--primary-light);
+      border-left: 4px solid var(--primary-color);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+    }
+    .alert-box {
+      background-color: var(--danger-light);
+      border-left: 4px solid var(--danger-color);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+    }
+
+    .disclaimer {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: justify;
+      border-top: 1px solid var(--border-color);
+      padding-top: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="report-container">
+  <!-- 頁首標題 -->
+  <header class="report-header">
+    <h1>🧬 植入後免疫與早期懷孕追蹤報告</h1>
+    <p class="report-subtitle">送子鳥生殖中心 新竹院・診間重要醫囑與檢驗深度分析</p>
+  </header>
+
+  <!-- 一、個案摘要 -->
+  <section class="card">
+    <h2>📋 一、個案摘要</h2>
+    <table class="lab-table" style="margin: 0;">
+      <tr>
+        <td style="width: 25%; font-weight: bold;">評估對象</td>
+        <td>女性生殖與免疫追蹤患者</td>
+        <td style="width: 25%; font-weight: bold;">檢驗日期</td>
+        <td>2026 年 7 月 6 日 (星期一)</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold;">目前狀態</td>
+        <td><span class="tag normal">確認懷孕 (早期著床階段)</span></td>
+        <td style="font-weight: bold;">關鍵主訴</td>
+        <td>植入後第 4 天(或早期)放榜，HCG 呈現陽性，但合併 B 細胞絕對值與 NK 細胞活性異常偏高。</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- 二、檢驗報告重點整理 -->
+  <section class="card">
+    <h2>🔎 二、檢驗報告總覽</h2>
+    <div class="info-box">
+      <strong>💡 診間醫囑提示：</strong> 醫師確認 HCG 達 26.56 mIU/mL（只要大於 0 或大於 0.5 即代表成功著床懷孕）。然而，免疫指標中的 B 細胞與 NK 細胞偏高，必須啟動緊急免疫抗體調節（今日已安排類固醇急救注射），並於週三回診接受 IVIG 與奔力生治療。
+    </div>
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th>檢驗項目</th>
+          <th>實際數值</th>
+          <th>參考值區間</th>
+          <th>狀態評估</th>
+          <th>臨床意義簡述</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight: bold;">HCG - serum (血清絨毛膜激素)</td>
+          <td style="color: var(--success-color); font-weight: bold;">26.56 mIU/mL</td>
+          <td>&lt; 0.5 mIU/mL</td>
+          <td><span class="tag normal">成功懷孕</span></td>
+          <td>胚胎順利著床，正式進入早期懷孕階段。</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">血栓 (D-dimer / 凝血功能)</td>
+          <td>穩定下降</td>
+          <td>依各院參考範圍</td>
+          <td><span class="tag normal">正常</span></td>
+          <td>血栓狀況控制良好，呈現越來越低的趨勢，血流循環佳。</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">E2 (雌激素) & P4 (黃體素)</td>
+          <td>數值 OK</td>
+          <td>依各院參考範圍</td>
+          <td><span class="tag normal">正常</span></td>
+          <td>荷爾蒙環境穩定，足以支持早期胚胎發育。</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">TNF-α (腫瘤壞死因子)</td>
+          <td>數值 OK</td>
+          <td>依各院參考範圍</td>
+          <td><span class="tag normal">正常</span></td>
+          <td>促發炎細胞激素處於穩定範圍。</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">B 細胞比例 (B-Cell %)</td>
+          <td>數值 OK</td>
+          <td>依各院參考範圍</td>
+          <td><span class="tag normal">正常</span></td>
+          <td>外周血 B 細胞比例在安全區間。</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">B 細胞絕對值 (B-Cell Absolute)</td>
+          <td style="color: var(--danger-color); font-weight: bold;">100 多 (偏高)</td>
+          <td>依各院參考範圍</td>
+          <td><span class="tag abnormal">明顯異常</span></td>
+          <td>絕對值過高，易產生自體抗體攻擊胚胎，需即刻處理。</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">NK 細胞 (自然殺手細胞)</td>
+          <td style="color: var(--danger-color); font-weight: bold;">偏高</td>
+          <td>依各院參考範圍</td>
+          <td><span class="tag abnormal">明顯異常</span></td>
+          <td>母體免疫活性過強，有排斥受精卵或阻礙著床延續之風險。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 三、每一項檢驗數字的詳細說明 -->
+  <section class="card">
+    <h2>🧾 三、檢驗指標深度解讀</h2>
+
+    <div class="lab-item-block">
+      <h3>HCG 血清絨毛膜激素：26.56 mIU/mL <span class="tag normal">已著床懷孕</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> HCG 是胚胎著床後，由滋養層細胞分泌的激素。它是確認懷孕的最客觀指標。</li>
+        <li><strong>在本個案中的意義：</strong> 26.56 遠高於臨界值（0.5 mIU/mL），證實胚胎已成功著床。由於目前處於懷孕極早期（如植入後第 4-5 天），此數值非常合乎預期，關鍵在於後續每 48 小時的翻倍成長。</li>
+        <li><strong>後續建議：</strong> 週三（7/8）需再次抽血驗 HCG，觀察是否呈指數型增長（理想狀態為翻倍增長至 50 mIU/mL 以上）。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>B 細胞絕對值：&gt;100 (絕對值過高) <span class="tag abnormal">免疫風險高</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> B 細胞屬於體液免疫系統，負責產生抗體。當絕對值過高時，母體產生針對胚胎的「自體抗體」風險增加。</li>
+        <li><strong>在本個案中的意義：</strong> 雖然 B 細胞的比例（%）在正常範圍，但「絕對數量超過 100」屬於臨床顯著偏高。這意味著母體免疫大軍正處於活躍狀態，可能將胚胎視為外來異物並釋放抗體排斥，這是不孕、著床失敗或早期流產的常見免疫因素，必須進行醫療干預。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>NK 自然殺手細胞：偏高 <span class="tag abnormal">胚胎排斥風險</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> NK 細胞是母體子宮內與外周血中的核心免疫細胞。適度的 NK 細胞有助於血管重塑，但若活性與數量偏高，會直接攻擊胚胎滋養層，導致胎盤發育不良或胎停。</li>
+        <li><strong>在本個案中的意義：</strong> 與高 B 細胞絕對值形成「雙重免疫警訊」，是目前急需解決的瓶頸。這也是為何醫師今日給予類固醇急救，並安排週三施打 IVIG。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>血栓 (D-dimer)、E2、P4、TNF-α：穩定與正常 <span class="tag normal">非免疫因素安全</span></h3>
+      <ul>
+        <li><strong>臨床意義：</strong> 雌激素與黃體素充足，代表內分泌環境支持胎兒發育。血栓指標越來越低，顯示微循環良好，胎盤絨毛血管不易形成血栓。發炎因子 TNF-α 亦在正常範圍，排除了大部分的全身性急性發炎排斥。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 四、整體評估 -->
+  <section class="card">
+    <h2>🧠 四、整體臨床評估</h2>
+    <p>
+      目前患者呈現典型的<strong>「免疫活躍型早期懷孕」</strong>狀態。胚胎展現了強大的生命力，已成功在子宮內著床（HCG 26.56），且內分泌（E2、P4）與凝血機制（血栓持續下降）均給予了極佳的支持。
+    </p>
+    <p>
+      然而，母體的免疫防禦機制同時被異常觸發，表現為 <strong>B 細胞絕對值 &gt;100</strong> 以及 <strong>NK 細胞偏高</strong>。若不迅速進行免疫抑制，這兩股免疫勢力極可能在未來數天內對剛著床的胚胎發動攻擊。
+    </p>
+    <p>
+      <strong>核心策略：</strong> 醫師採用的「類固醇急救」+「IVIG 靜脈注射」+「奔力生 (Benlysta) 調節」是極為精準且多靶點的生殖免疫療法，旨在不傷害胎兒的前提下，迅速將 B 細胞與 NK 細胞的戰鬥力降下來，為胚胎撐開安全的保護傘。
+    </p>
+  </section>
+
+  <!-- 五、目前成功機率評估 -->
+  <section class="card">
+    <h2>📈 五、目前療程成功機率評估</h2>
+    <div style="text-align: center;">
+      <div class="chance-badge mid-high">整體成功機率：中等偏高 (Medium-High)</div>
+    </div>
+    <p style="font-size: 0.95rem; color: var(--text-muted); text-align: center; margin-top: -8px; margin-bottom: 20px;">
+      （備註：此評估針對目前「胚胎成功著床並延續早期懷孕」之可能性，前提是免疫療法需即時且精準到位）
+    </p>
+
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面原因 (有利因素)</h3>
+        <ul style="margin: 0; padding-left: 20px; font-size: 0.9rem; color: var(--text-main);">
+          <li><strong>著床成功：</strong>HCG 數值 26.56，已跨過著床門檻，證實胚胎品質佳。</li>
+          <li><strong>凝血正常：</strong>血栓指標越來越低，子宮微循環良好，有利於早期胎盤建立。</li>
+          <li><strong>發炎控制佳：</strong>TNF-α 數值正常，非全面性發炎暴走。</li>
+          <li><strong>內分泌支持：</strong>雌激素、黃體素充足，不需額外加重黃體油針。</li>
+        </ul>
+      </div>
+
+      <div class="risk-factors-box">
+        <h3>⚠️ 可能失敗原因 (潛在威脅)</h3>
+        <ul style="margin: 0; padding-left: 20px; font-size: 0.9rem; color: var(--text-main);">
+          <li><strong>自體抗體風險：</strong>高 B 細胞絕對值易製造抗體阻礙胚胎絨毛膜與子宮內膜融合。</li>
+          <li><strong>細胞毒性排斥：</strong>高活性 NK 細胞可能直接攻擊滋養層，造成早期胚胎萎縮（胎停）。</li>
+          <li><strong>免疫藥物銜接空窗：</strong>若 IVIG 與奔力生未如期在週三施打，保護力可能在 3 天後耗盡，免疫軍隊再度活躍。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 六、可能問題與風險分析 -->
+  <section class="card">
+    <h2>⚠️ 六、可能問題與藥物防禦機制</h2>
+    <div class="lab-table" style="border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; margin: 0;">
+      <table class="lab-table" style="margin: 0;">
+        <thead>
+          <tr style="background-color: #f1f5f9;">
+            <th style="width: 25%;">異常指標 / 潛在風險</th>
+            <th style="width: 35%;">臨床影響</th>
+            <th style="width: 40%;">精準用藥防禦防線</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight: bold; color: var(--danger-color);">B 細胞絕對值過高 (&gt;100)</td>
+            <td>產生自體抗體排斥胎盤，引發局部微栓塞或滋養層壞死。</td>
+            <td>
+              <strong>奔力生 (Benlysta)：</strong> 專一性抑制 B 淋巴細胞刺激因子 (BLyS)，降低 B 細胞絕對數量與抗體產生。
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; color: var(--danger-color);">NK 細胞偏高</td>
+            <td>釋放穿孔素直接破壞胚胎細胞，引發早期自發性流產。</td>
+            <td>
+              <strong>IVIG (免疫球蛋白)：</strong> 中和母體內的非特異性破壞性抗體，並顯著抑制 NK 細胞的細胞毒性活性。
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; color: var(--warning-color);">免疫急性攻擊</td>
+            <td>若免疫系統在 IVIG 施打前發動突襲，恐造成不可逆的著床失敗。</td>
+            <td>
+              <strong>口服/注射類固醇 (今日急救)：</strong> 快速非特異性抗炎，壓制當前免疫細胞活性，作為週三 IVIG 施打前的過渡「急救橋樑」。
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 七、調研資料摘要 -->
+  <section class="card">
+    <h2>📚 七、生殖免疫臨床醫學共識摘要</h2>
+    <ul>
+      <li><strong>IVIG 治療早期懷孕：</strong> 臨床共識指出，針對 NK 細胞偏高或反覆流產的生殖免疫患者，在著床早期（HCG 陽性當下）施打靜脈注射免疫球蛋白 (IVIG)，能有效提高持續妊娠率。其有效保護期通常為 7 至 10 天，因此需定期回診追加。</li>
+      <li><strong>Benlysta (奔力生) 與生殖：</strong> 奔力生多用於紅斑性狼瘡或 B 細胞過度活化的不孕患者。臨床觀察顯示，14 天施打一次可維持穩定的 B 細胞抑制效果，保障早期胚胎發育的免疫寬容環境。</li>
+      <li><strong>類固醇的急救角色：</strong> 類固醇能迅速穿過細胞膜調節基因表達，是臨床上壓制免疫細胞急性風暴、挽救早期著床危機最快速、最經濟的方案。</li>
+    </ul>
+  </section>
+
+  <!-- 八、建議補充與後續追蹤檢查 -->
+  <section class="card">
+    <h2>🧪 八、建議追蹤檢驗項目</h2>
+    <ol>
+      <li><strong>HCG 翻倍追蹤 (週三必做)：</strong> 這是評估胚胎發育速度的黃金標準，週三數值應較今日（26.56）有顯著上升（目標：雙倍以上）。</li>
+      <li><strong>血栓 (D-dimer) 追蹤：</strong> 雖然目前持續下降，但隨著雌激素在懷孕後大幅上升，仍需持續監控血栓，以滾動式調整抗凝血劑（肝素）劑量。</li>
+      <li><strong>B 細胞與 NK 細胞數量複查：</strong> 在週三施打 IVIG 與奔力生後，預計於下一次回診再度複查，確認免疫指標是否成功被壓制在安全範圍內。</li>
+    </ol>
+  </section>
+
+  <!-- 九、步驟指引與精準用藥時程安排 -->
+  <section class="card">
+    <h2>🪜 九、精準用藥與行動指引</h2>
+    <div class="timeline-container">
+      
+      <div class="timeline-item">
+        <div class="timeline-date">今天 7/6 (星期一)：免疫急救與維持穩定</div>
+        <ul style="margin: 0; padding-left: 20px;">
+          <li><strong>類固醇急救：</strong> 遵照醫師處方，今日立即施打/服用類固醇。這一步是為了解除高 B 細胞與 NK 細胞對胚胎的即時威脅。</li>
+          <li><strong>抗凝血劑 (肝素) 處理：</strong> 
+            <div class="alert-box" style="margin: 8px 0 0 0; padding: 8px 12px; font-size: 0.9rem;">
+              <strong>⚠️ 重要注意：</strong> 您提到今天還沒打抗凝血劑，因為手邊只有到昨天的份量。請立即聯絡送子鳥生殖中心諮詢是否需要提早回院拿藥，或者先維持現狀，於週三驗血時一併補齊並補打。在此期間，密切注意身體狀況。
+            </div>
+          </li>
+          <li><strong>作息：</strong> 保持心情平靜，多休息，吃飽睡飽，避免進行任何重體力勞動。</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">明天 7/7 (星期二)：靜養觀察期</div>
+        <ul style="margin: 0; padding-left: 20px;">
+          <li>持續服用日常口服安胎藥物與免疫藥物（如口服類固醇、奎寧等，依原處方）。</li>
+          <li>觀察是否有任何異常腹痛或陰道出血。</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">後天 7/8 (星期三)：關鍵回診日（放榜複查與主力免疫治療）</div>
+        <ul style="margin: 0; padding-left: 20px;">
+          <li><strong>1. 抽血複查：</strong> 進行 HCG 指數翻倍檢測，同時複查免疫相關指標與血栓。</li>
+          <li><strong>2. 施打 IVIG (2+5瓶)：</strong> 今日正好是上一次施打後的第 9 天（IVIG 保護期為 7-10 天，第 9 天施打完美銜接，完全來得及）。</li>
+          <li><strong>3. 施打奔力生 (Benlysta)：</strong> 今日為上一次施打後的第 13 天（奔力生 14 天打一次即可，第 13 天打完美銜接保護期）。</li>
+          <li><strong>4. 補齊藥物：</strong> 於診間補足並確認抗凝血劑（肝素）的每日施打時程與劑量。</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 十、生活與治療建議 -->
+  <section class="card">
+    <h2>💡 十、日常生活照護與衛教建議</h2>
+    <ul>
+      <li><strong>高純度休息與睡眠：</strong> 醫師強調「吃飽、睡飽」。足夠的睡眠能自然調節母體神經內分泌系統，對降低異常的 NK 細胞活性有顯著的輔助效果。</li>
+      <li><strong>嚴格避免免疫激活食物/補品：</strong> 
+        <div class="alert-box" style="margin: 8px 0; padding: 8px 12px; font-size: 0.9rem;">
+          <strong>❌ 絕對禁用：</strong> 滴雞精、靈芝、人參、黃耆、冬蟲夏草、蜂膠、燕窩等各類標榜「提升免疫力」的補品或中藥。這些會直接激化 B 細胞與 NK 細胞，摧毀安胎努力。
+        </div>
+      </li>
+      <li><strong>清淡低鈉飲食：</strong> 由於目前正在使用類固醇與安胎藥物，容易造成水鈉滯留（水腫）。請維持清淡飲食，避免過鹹、麻辣或高油食物，減少腎臟負擔。</li>
+      <li><strong>保持心情愉悅：</strong> 焦慮會釋放壓力皮質醇，進一步干擾母體對胚胎的免疫寬容。請信任送子鳥專業團隊的精準用藥時程。</li>
+    </ul>
+  </section>
+
+  <!-- 十一、建議與醫師討論的關鍵問題 -->
+  <section class="card" style="background-color: #f8fafc; border: 1.5px solid var(--primary-color);">
+    <h2 style="color: var(--primary-color);">🗣️ 十一、週三 (7/8) 回診建議詢問醫師之關鍵問題</h2>
+    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 16px;">
+      週三回診時，您會進行 HCG 抽血並施打多項針劑。建議您將以下問題直接出示給醫師或個案管理師討論：
+    </p>
+    <ul style="padding-left: 20px; font-size: 0.95rem; line-height: 1.8;">
+      <li><strong>關於抗凝血劑：</strong> 「醫生，我星期一因為抗凝血劑（肝素）藥量用完而漏打了一天，這對我目前的血栓控制與胚胎著床是否有影響？接下來肝素的每日施打劑量與時間需要調整嗎？」</li>
+      <li><strong>關於 HCG 翻倍：</strong> 「今天（週三）的 HCG 翻倍數值是否符合預期？後續預計每隔幾天需要再次抽血追蹤 HCG 的成長曲線？」</li>
+      <li><strong>關於免疫調節：</strong> 「今天順利施打 IVIG 和奔力生後，預計下一次複查 B 細胞絕對值和 NK 細胞活性是什麼時候？我們預計要把 B 細胞絕對值壓到多少以下才算進入安全區？」</li>
+      <li><strong>關於富脈 (Humira)：</strong> 「目前富脈（14天打一次）的時程安排是否需要配合今日施打的奔力生與 IVIG 進行滾動式調整？」</li>
+      <li><strong>關於類固醇用藥：</strong> 「星期一打的『急救類固醇』，後續需要調整口服類固醇（如 Prednisolone）的每日劑量嗎？是否需要定時、定點服用？」</li>
+      <li><strong>關於陰道分泌物或局部症狀：</strong> 「目前有使用陰道塞劑/安胎藥，如果出現少量粉紅色或咖啡色分泌物，是屬於著床期正常現象還是需要立刻回診急診？」</li>
+    </ul>
+  </section>
+
+  <!-- 十二、警示訊號 -->
+  <section class="card" style="border: 2px solid var(--danger-color); background-color: var(--danger-light);">
+    <h2 style="color: var(--danger-color);">🚨 十二、高風險警示訊號（若出現請立即就醫）</h2>
+    <p style="font-size: 0.95rem; margin-bottom: 12px;">
+      在早期懷孕與免疫活躍階段，若出現以下症狀，可能代表體內出現急性排斥、微栓塞或流產先兆，請勿等到週三，<strong>必須立即聯絡送子鳥生殖中心急診或至大醫院急診就醫</strong>：
+    </p>
+    <ul style="padding-left: 20px; font-size: 0.95rem; font-weight: bold; color: #991b1b;">
+      <li>🔴 陰道排出鮮紅色血液，且出血量如同月經第二天的量。</li>
+      <li>🔴 劇烈且持續性的單側或全腹部絞痛（需排除子宮外孕或卵巢過度刺激可能）。</li>
+      <li>🔴 發燒（體溫高於 38°C）伴隨畏寒，可能暗示急性免疫系統異常或感染。</li>
+      <li>🔴 呼吸困難、胸悶或單側下肢異常劇烈腫脹疼痛（防範突發性深部靜脈血栓栓塞）。</li>
+    </ul>
+  </section>
+
+  <!-- 十三、重要聲明 -->
+  <section class="card disclaimer">
+    <p>
+      <strong>📌 重要醫學聲明：</strong> 
+      本報告乃是基於您提供之送子鳥生殖中心檢驗數據（HCG = 26.56 mIU/mL）與診間醫師口頭醫囑錄音內容，進行之臨床邏輯整合與個人化資訊整理。本報告內容僅供參考與就診溝通輔助之用，不具備正式診斷、處方或醫療保證之效力。所有的用藥調整、針劑施打（IVIG、奔力生、肝素、類固醇等）均必須完全遵照送子鳥生殖中心主治醫師之臨床診斷與處方執行。若有任何身體不適，請立即尋求專業生殖中心或合格醫療機構之協助。
+    </p>
+  </section>
+</div>
+
+</body>
+</html>
