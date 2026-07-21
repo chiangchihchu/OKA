@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026那霸馬拉松親子跑旅4日行程規劃</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    :root {
+      --oki-teal-50: #ecfeff;
+      --oki-teal-100: #cffafe;
+      --oki-teal-200: #a5f3fc;
+      --oki-teal-500: #06b6d4;
+      --oki-blue-600: #0284c7;
+      --oki-blue-800: #075985;
+      --ryukyu-red: #d90429;
+      --ryukyu-red-bg: #fff1f2;
+      --sun-yellow: #f59e0b;
+      --sand-bg: #fafaf9;
+      --ink: #1e293b;
+      --card-bg: #ffffff;
+    }
+    
+    body {
+      background-color: var(--sand-bg);
+      background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20c-5.523 0-10-4.477-10-10S14.477 0 20 0s10 4.477 10 10-4.477 10-10 10zm0 20c-5.523 0-10-4.477-10-10S14.477 20 20 20s10 4.477 10 10-4.477 10-10 10zM0 20c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10S0 25.523 0 20zm40 0c0-5.523-4.477-10-10-10S20 14.477 20 20s4.477 10 10 10 10-4.477 10-10z' fill='%2306b6d4' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+      color: var(--ink);
+      line-height: 1.65;
+      font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+    }
+    
+    .main-container { max-width: 1280px; margin: auto; padding-bottom: 4rem; }
+    
+    .red-text { color: var(--ryukyu-red); font-weight: 700; }
+    .blue-text { color: var(--oki-blue-600); font-weight: 700; }
+    
+    section { display: none; }
+    section.active { display: block; animation: fadeIn 0.35s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .two-col { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1.25rem; }
+    @media (min-width: 768px) { .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    
+    .card {
+      background: var(--card-bg);
+      border-radius: 0.85rem;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.06);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      position: relative;
+    }
+    .card:hover { border-color: var(--oki-teal-200); box-shadow: 0 10px 20px rgba(2, 132, 199, 0.1); }
+    
+    .nav-bar { position: sticky; top: 0; z-index: 50; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-bottom: 2px solid var(--oki-teal-100); }
+    .nav-btn {
+      background: linear-gradient(180deg, #0284c7, #0369a1);
+      color: #ffffff; padding: 0.6rem 0.9rem; border-radius: 0.75rem;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 4px 8px rgba(2, 132, 199, 0.2);
+      transition: all 0.18s ease; font-weight: 700; font-size: 0.88rem; text-align: center;
+    }
+    .nav-btn:hover { transform: scale(1.04); background: linear-gradient(180deg, #38bdf8, #0284c7); }
+    .nav-btn:active { transform: scale(0.97); }
+    
+    .section-title { display: flex; align-items: center; gap: 0.6rem; font-size: 1.4rem; font-weight: 800; color: var(--oki-blue-800); margin-bottom: 1rem; }
+    
+    /* Timeline Structure */
+    .timeline { position: relative; margin-left: 1rem; padding-left: 0.5rem; }
+    .timeline::before { content: ""; position: absolute; left: 0.35rem; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, #cbd5e1, #06b6d4); }
+    .time-block { margin: 1.5rem 0; }
+    .time-block-header { font-size: 1.15rem; font-weight: 800; color: var(--oki-blue-800); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+    
+    .item {
+      display: flex; gap: 0.75rem; margin: 0.85rem 0; align-items: flex-start;
+      background: #ffffff; padding: 1rem; border-radius: 0.75rem;
+      border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .time-badge {
+      flex: 0 0 auto; background: var(--oki-teal-50); color: var(--oki-blue-800); border-radius: 0.5rem; padding: 0.3rem 0.5rem;
+      font-weight: 800; min-width: 5.2rem; text-align: center; font-size: 0.88rem; border: 1px solid var(--oki-teal-100);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .time-badge .duration { font-size: 0.72rem; color: var(--oki-blue-600); font-weight: 600; margin-top: 2px; }
+    .icon-slot { flex: 0 0 auto; width: 2.2rem; height: 2.2rem; display: flex; align-items: center; justify-content: center; color: var(--oki-blue-600); background: var(--oki-teal-50); border-radius: 0.5rem; font-size: 1.1rem; border: 1px solid var(--oki-teal-100); }
+    .text-slot { min-width: 0; flex: 1 1 auto; word-break: break-word; display: flex; flex-direction: column; gap: 0.35rem; }
+    
+    .transport {
+      background: #f0f9ff; border-left: 4px solid var(--oki-teal-500); padding: 0.65rem 1rem;
+      border-radius: 0 0.5rem 0.5rem 0; margin: 0.4rem 0 0.4rem 1.25rem; font-size: 0.85rem;
+      color: #0c4a6e; display: flex; flex-direction: column; gap: 0.2rem;
+    }
+    
+    .stack-vertical { display: flex; flex-direction: column; gap: 0.4rem; }
+    .day-tag { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 0.4rem; font-size: 0.78rem; font-weight: 700; width: fit-content; background: #e0f2fe; color: #0369a1; }
+    .day-tag-red { background: #ffe4e6; color: #d90429; }
+    
+    .copy-btn { background: #e0f2fe; color: #0369a1; border-radius: 0.35rem; padding: 0.15rem 0.5rem; font-size: 0.78rem; cursor: pointer; transition: all 0.2s; font-weight: 600; width: fit-content; }
+    .copy-btn:hover { background: #0284c7; color: #ffffff; }
+    
+    /* Dual Track split card for Day 2 */
+    .dual-track {
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    @media (min-width: 640px) {
+      .dual-track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .track-runner { background: #fff1f2; border: 1px solid #fecdd3; border-radius: 0.5rem; padding: 0.65rem; }
+    .track-family { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 0.5rem; padding: 0.65rem; }
+    
+    #backToTopBtn { position: fixed; bottom: 2rem; right: 2rem; background: var(--sun-yellow); color: #fff; width: 3rem; height: 3rem; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4); z-index: 99; cursor: pointer; }
+    
+    .minsa-pattern {
+      height: 8px; width: 100%;
+      background-image: linear-gradient(90deg, #ffffff 0, #ffffff 10px, transparent 10px, transparent 15px, #ffffff 15px, #ffffff 25px, transparent 25px, transparent 30px);
+      background-size: 30px 8px; opacity: 0.5; margin-top: 0.75rem;
+    }
+  </style>
+</head>
+<body class="font-sans">
+
+  <header class="py-8 px-4 text-white text-center relative overflow-hidden" style="background: linear-gradient(135deg, #075985, #0284c7, #06b6d4);">
+    <div class="main-container relative z-10">
+      <div class="section-title justify-center text-white mb-2">
+        <span class="icon-slot" style="background:rgba(255,255,255,0.2); color:#fff; border-color:rgba(255,255,255,0.4);"><i class="fa-solid fa-person-running"></i></span>
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-wide">2026那霸馬拉松親子跑旅4日行程</h1>
+      </div>
+      <p class="text-base md:text-lg opacity-95 font-semibold">
+        🌺 目的地：日本沖繩那霸 ｜ 🏃 人數：2大2國小學童 親子團 ｜ 📅 日期：2026/12/05 - 2026/12/08
+      </p>
+      <p class="text-sm mt-1 opacity-90">
+        🏨 住宿：<span class="red-text text-white underline">Almont Hotel Naha Omoromachi</span>（<span class="text-amber-200 font-bold">自理在地親子早餐</span>）
+      </p>
+      <div class="minsa-pattern max-w-xl mx-auto"></div>
+    </div>
+  </header>
+
+  <nav class="nav-bar shadow-md py-3 px-2">
+    <div class="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+      <button class="nav-btn" onclick="showPage('home')"><i class="fa-solid fa-house mr-1"></i> 首頁</button>
+      <button class="nav-btn" onclick="showPage('poi')">景點 POI (20)</button>
+      <button class="nav-btn" onclick="showPage('bib')">美食 (20)</button>
+      <button class="nav-btn" onclick="showPage('souvenir')">伴手禮 (20)</button>
+      <button class="nav-btn" onclick="showPage('photo-spots')">拍照聖地 (10)</button>
+      <button class="nav-btn" onclick="showPage('desserts')">甜點咖啡 (10)</button>
+      <button class="nav-btn" onclick="showPage('market')">超市 (5)</button>
+    </div>
+  </nav>
+
+  <main class="main-container px-4 space-y-8 mt-6">
+
+    <!-- HOME SECTION -->
+    <section id="home" class="active space-y-8">
+      
+      <!-- 行程總覽 × 每日重點（可收合） -->
+      <div class="space-y-4">
+        <div class="section-title">
+          <span class="icon-slot"><i class="fa-solid fa-calendar-week"></i></span>
+          <h2>行程總覽 × 每日重點（可收合）</h2>
+        </div>
+        <div class="two-col">
+          <details class="card cursor-pointer" open>
+            <summary class="font-bold text-lg text-blue-900 border-b pb-2 flex justify-between items-center">
+              <span>Day 1：12/05 (週六) 抵達沖繩與賽前報到 🛬</span>
+              <i class="fa-solid fa-chevron-down text-sm"></i>
+            </summary>
+            <div class="stack-vertical text-sm mt-3 pt-1 border-t border-gray-100">
+              <p><span class="red-text">✈️ 航班：去程 長榮航空 BR 112 (06:55 TPE → 09:15 OKA)</span></p>
+              <p><span class="red-text">🏃 馬拉松：奧武山公園那霸馬拉松前一日賽事報到</span></p>
+              <p><span class="red-text">🏨 住宿入住：Almont Hotel Naha Omoromachi</span></p>
+              <p>🍱 亮點：捷運直達會場領晶片物資、豬肉蛋飯糰與暖暮拉麵補給。</p>
+            </div>
+          </details>
+
+          <details class="card cursor-pointer" open>
+            <summary class="font-bold text-lg text-rose-900 border-b pb-2 flex justify-between items-center">
+              <span>Day 2：12/06 (週日) 跑者決戰馬拉松 × 親友應援遊玩 🏅</span>
+              <i class="fa-solid fa-chevron-down text-sm"></i>
+            </summary>
+            <div class="stack-vertical text-sm mt-3 pt-1 border-t border-gray-100">
+              <p><span class="red-text">🏃 跑者：2026 那霸馬拉松起跑 (09:00 起跑，限時6小時15分)</span></p>
+              <p><span class="blue-text">👨‍👩‍👧‍👦 親友：國際通賽道應援 ＋ 奧武山公園長溜滑梯親子同樂</span></p>
+              <p><span class="red-text">🥩 慶功饗宴：燒肉王 那霸新都心店 (18:30 慶功宴)</span></p>
+              <p>🍱 亮點：跑者完賽挑戰、親友熱情加油與公園放電、大快朵頤和牛燒肉。</p>
+            </div>
+          </details>
+
+          <details class="card cursor-pointer" open>
+            <summary class="font-bold text-lg text-blue-900 border-b pb-2 flex justify-between items-center">
+              <span>Day 3：12/07 (週一) 琉球神社與新都心購物巡禮 🌊</span>
+              <i class="fa-solid fa-chevron-down text-sm"></i>
+            </summary>
+            <div class="stack-vertical text-sm mt-3 pt-1 border-t border-gray-100">
+              <p><span class="red-text">⛩️ 景點：波上宮 參拜與波之上海灘踩水拍照</span></p>
+              <p><span class="red-text">🛍️ 購物：國際通商圈、DFS T GALLERIA OKINAWA、SAN-A 那霸 Main Place</span></p>
+              <p><span class="red-text">🍳 早餐：Komeda 珈琲店 歌町店 (厚片吐司親子早餐)</span></p>
+              <p>🍱 亮點：輕鬆逛街排乳酸、親子購物與免稅採買。</p>
+            </div>
+          </details>
+
+          <details class="card cursor-pointer" open>
+            <summary class="font-bold text-lg text-blue-900 border-b pb-2 flex justify-between items-center">
+              <span>Day 4：12/08 (週二) Outlet 血拚與滿載而歸 🛍️</span>
+              <i class="fa-solid fa-chevron-down text-sm"></i>
+            </summary>
+            <div class="stack-vertical text-sm mt-3 pt-1 border-t border-gray-100">
+              <p><span class="red-text">🍳 早餐：oHacorte Bakery 法式吐司早午餐</span></p>
+              <p><span class="red-text">🛍️ 購物：沖繩 ASHIBINAA Outlet 購物中心</span></p>
+              <p><span class="red-text">✈️ 航班：回程 長榮航空 BR 185 (20:10 OKA → 20:55 TPE)</span></p>
+              <p>🍱 亮點：Outlet為孩子添購跑鞋服飾、牧志市場海鮮與機場A&W漢堡。</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- 每日詳細行程 -->
+      <div class="space-y-6">
+        <div class="section-title">
+          <span class="icon-slot"><i class="fa-solid fa-route"></i></span>
+          <h2>每日詳細行程</h2>
+        </div>
+
+        <!-- Day 1 -->
+        <div class="day-section">
+          <div class="bg-sky-800 text-white p-3 rounded-lg font-bold text-lg flex items-center justify-between shadow-md">
+            <span><i class="fa-solid fa-plane-arrival mr-2"></i> Day 1 - 2026/12/05 (週六) 抵達沖繩與賽前報到</span>
+            <span class="text-xs bg-sky-600 px-2 py-1 rounded">飛行/報到日</span>
+          </div>
+          <div class="timeline">
+            <!-- Morning -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-sun text-amber-500"></i> 早晨 Morning</div>
+              <div class="item">
+                <div class="time-badge">06:55<span class="duration">約 2.3 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-plane"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">長榮航空 BR 112 啟程</h5>
+                  <div class="text-sm">從 臺灣桃園機場(TPE) 直飛前往 沖繩那霸機場(OKA)。機上享用兒童餐與早餐，全家興奮展開馬拉松跑旅。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div>交通方式：搭乘長榮航空直飛班機</div>
+                <div>出發時間：06:55 → 抵達時間：09:15</div>
+                <div>ETA: 2h 20m | Cost: 機票內含 | Transfers: 直飛</div>
+              </div>
+            </div>
+
+            <!-- Forenoon -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-cloud-sun text-amber-500"></i> 上午 Forenoon</div>
+              <div class="item">
+                <div class="time-badge">09:15<span class="duration">約 1.25 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-passport"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="blue-text">那霸機場入境與通關</h5>
+                  <div class="text-sm">辦理入境手續、提取行李。帶著兩位國小小朋友先至洗手間整理整備。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div>交通方式：沖繩都市單軌電車 (Yui Rail)</div>
+                <div>出發時間：10:30 → 抵達時間：10:55</div>
+                <div>ETA: 25m | Cost: JPY 270/人 | Transfers: 那霸機場站 至 奧武山公園站</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">11:00<span class="duration">約 1.5 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-award"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">那霸馬拉松 會場報到 (奧武山公園) (已排入行程)</h5>
+                  <div class="text-sm">抵達奧武山公園體育館進行賽前報到，領取晶片與號碼布。孩子可在體育館週邊摊位體驗活動與領取贊助贈品，感受全城嘉年華歡樂氣氛。</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Afternoon -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-utensils text-amber-600"></i> 午後 Afternoon</div>
+              <div class="item">
+                <div class="time-badge">12:30<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bowl-food"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">午餐：豬肉蛋飯糰 牧志本店 (已排入行程)</h5>
+                  <div class="text-sm">建議餐點：炸蝦豬肉蛋飯糰、苦瓜天婦羅飯糰、溫熱明太子飯糰。現做米飯提供優質賽前碳水化合物補充，小朋友非常喜愛。</div>
+                  <div class="text-xs text-gray-500">預算：JPY 600 - 1,000 / 人</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div>交通方式：單軌電車</div>
+                <div>出發時間：13:45 → 抵達時間：14:10</div>
+                <div>ETA: 25m | Cost: JPY 300/人 | Transfers: 壺川站 至 歌町站(Omoromachi)</div>
+              </div>
+              <div class="item">
+                <div class="time-badge">14:20<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-hotel"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">飯店 Check-in：Almont Hotel Naha Omoromachi (已排入行程)</h5>
+                  <div class="text-sm">辦理入住手續，放置隨身行李，讓兩位小朋友在房內稍微休息整備體力。</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Evening -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-cloud-moon text-indigo-500"></i> 傍晚 Evening</div>
+              <div class="item">
+                <div class="time-badge">15:30<span class="duration">約 2.5 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-store"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">國際通 賽前補給與親子散策 (已排入行程)</h5>
+                  <div class="text-sm">跑者採買能量膠與運動肌貼，孩子逛寶可夢與當地玩具紀念品店，親子同行輕鬆開胃漫步。</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Night -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-moon text-indigo-700"></i> 夜間 Night</div>
+              <div class="item">
+                <div class="time-badge">18:30<span class="duration">約 1.5 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">晚餐：暖暮拉麵 牧志店 (已排入行程)</h5>
+                  <div class="text-sm">建議餐點：豚骨拉麵加半熟蛋、一口餃子。高碳水優質熱湯拉麵，小朋友能輕鬆享用。</div>
+                  <div class="text-xs text-gray-500">預算：JPY 1,000 - 1,500 / 人</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">20:30<span class="duration">休養</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bed"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">返回住宿：Almont Hotel Naha Omoromachi</h5>
+                  <div class="text-sm">享受飯店人工溫泉大浴場泡湯舒緩，全家早早入睡，準備明日馬拉松大賽。</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 備註卡 -->
+            <div class="p-3 bg-blue-50 border-l-4 border-blue-500 rounded text-xs text-blue-900 mt-2">
+              <strong><i class="fa-solid fa-circle-info mr-1"></i> 資料不足原因說明：</strong> 本日為飛行抵達與賽前報到日，為保障跑者有足夠睡眠，故不安排密集行程。
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 2 (DUAL TRACK FOR RACE DAY) -->
+        <div class="day-section">
+          <div class="bg-rose-800 text-white p-3 rounded-lg font-bold text-lg flex items-center justify-between shadow-md">
+            <span><i class="fa-solid fa-person-running mr-2"></i> Day 2 - 2026/12/06 (週日) 跑者決戰馬拉松 × 親友應援遊玩</span>
+            <span class="text-xs bg-rose-600 px-2 py-1 rounded">賽事正日 (雙軌行程)</span>
+          </div>
+          <div class="timeline">
+            
+            <!-- Morning Dual Track -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-sun text-amber-500"></i> 早晨 Morning (分開行動)</div>
+              
+              <div class="item">
+                <div class="time-badge">05:30<span class="duration">約 2 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-users-line"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="blue-text">早晨分頭準備與早餐 (無飯店早餐，在地自理)</h5>
+                  <div class="dual-track">
+                    <div class="track-runner">
+                      <span class="font-bold red-text"><i class="fa-solid fa-person-running mr-1"></i> 🏃 跑者行程：</span>
+                      <p class="text-xs mt-1">05:30 起床。於超商購買飯糰、香蕉與能量飲，進行高碳水補充。06:30 搭乘單軌電車前往奧武山公園，07:15 前完成會場寄物與熱身組隊。</p>
+                    </div>
+                    <div class="track-family">
+                      <span class="font-bold text-emerald-800"><i class="fa-solid fa-child mr-1"></i> 👨‍👩‍👧‍👦 親友與孩子行程：</span>
+                      <p class="text-xs mt-1">07:30 輕鬆起床。前往飯店旁全家超商或歌町站周邊咖啡廳享用熱壓吐司、現作飯糰與鮮奶，悠閒準備加油道具。</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Forenoon Dual Track (Race & Cheering) -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-flag-checkered text-rose-600"></i> 上午 Forenoon (起跑與沿線應援)</div>
+              
+              <div class="item border-2 border-rose-400 bg-rose-50">
+                <div class="time-badge !bg-rose-200 !text-rose-900">09:00<span class="duration !text-rose-700">約 4.5 小時</span></div>
+                <div class="icon-slot !bg-rose-200 !text-rose-700"><i class="fa-solid fa-heart-pulse"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text text-lg">2026 那霸馬拉松正式起跑 🌺 (跑者 vs 親友加油)</h5>
+                  <div class="dual-track">
+                    <div class="track-runner">
+                      <span class="font-bold red-text"><i class="fa-solid fa-person-running mr-1"></i> 🏃 跑者挑戰：</span>
+                      <p class="text-xs mt-1">09:00 奧武山公園正式起跑！行經國際通、平和祈念公園，享受全沖繩熱情民眾提供的黑糖、冰棒與黑糖黑生薑私補，挑戰完賽。</p>
+                    </div>
+                    <div class="track-family">
+                      <span class="font-bold text-emerald-800"><i class="fa-solid fa-child mr-1"></i> 👨‍👩‍👧‍👦 親友與孩子應援遊玩：</span>
+                      <p class="text-xs mt-1">09:15 前往國際通沿線（或縣廳前站）為跑者狂熱加油！10:30 搭電車前往「奧武山公園兒童遊樂場」，孩子暢玩巨型複合溜滑梯與遊樂設施。</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Afternoon Dual Track (Finish & Recovery) -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-utensils text-amber-600"></i> 午後 Afternoon (會合與休養)</div>
+              
+              <div class="item">
+                <div class="time-badge">14:00<span class="duration">約 2 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-handshake"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="blue-text">奧武山體育場 會合完賽與屋台午餐</h5>
+                  <div class="dual-track">
+                    <div class="track-runner">
+                      <span class="font-bold red-text"><i class="fa-solid fa-trophy mr-1"></i> 🏃 跑者完賽：</span>
+                      <p class="text-xs mt-1">衝過終點線！領取琉球玻璃獎牌與完賽證書，於奧武山體育場草坪區與全家熱烈會合拍照記錄榮耀時刻。</p>
+                    </div>
+                    <div class="track-family">
+                      <span class="font-bold text-emerald-800"><i class="fa-solid fa-burger mr-1"></i> 👨‍👩‍👧‍👦 親友午餐：</span>
+                      <p class="text-xs mt-1">於會場屋台小吃攤品嚐現炸沖繩炒麵、熱湯與沖繩麵，給予完賽英雄最棒的擁抱。</p>
+                    </div>
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">午餐預算：JPY 800 - 1,200 / 人</div>
+                </div>
+              </div>
+
+              <div class="transport">
+                <div>交通方式：單軌電車</div>
+                <div>出發時間：16:00 → 抵達時間：16:25</div>
+                <div>ETA: 25m | Cost: JPY 270/人 | Transfers: 壺川站 至 歌町站(Omoromachi)</div>
+              </div>
+
+              <div class="item">
+                <div class="time-badge">16:30<span class="duration">約 1.5 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bath"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">返回 Almont Hotel 大浴場泡湯修養</h5>
+                  <div class="text-sm">跑者在大浴場進行冰敷與溫泉浸泡舒緩雙腿；孩子在房內觀賞電視卡通、享用點心，放鬆休息。</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Evening / Night (Celebration Dinner) -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-moon text-indigo-700"></i> 傍晚與夜間 Evening & Night (全家慶功)</div>
+              <div class="transport">
+                <div>交通方式：步行 8 分鐘</div>
+                <div>出發時間：18:15 → 抵達時間：18:25</div>
+                <div>ETA: 10m | Cost: JPY 0 | Transfers: 飯店 步行至 燒肉王那霸新都心店</div>
+              </div>
+              <div class="item border-2 border-amber-400 bg-amber-50">
+                <div class="time-badge !bg-amber-200 !text-amber-900">18:30<span class="duration !text-amber-800">約 2 小時</span></div>
+                <div class="icon-slot !bg-amber-200 !text-amber-800"><i class="fa-solid fa-fire"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text text-lg">燒肉慶功：燒肉王 那霸新都心店 (已排入行程)</h5>
+                  <div class="text-sm">地址：沖縄県那覇市上之屋1-1-1。建議餐點：國產牛放題吃到飽、極上炙燒牛舌、兒童鬆餅與聖代，全家高歌歡慶完賽！</div>
+                  <div class="text-xs text-gray-500">預算：JPY 3,500 - 4,500 / 人</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">21:00<span class="duration">休息</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bed"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">返回住宿：Almont Hotel Naha Omoromachi</h5>
+                  <div class="text-sm">充足睡眠修復體能，準備明日的豐富親子觀光行程。</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 備註卡 -->
+            <div class="p-3 bg-rose-50 border-l-4 border-rose-500 rounded text-xs text-rose-900 mt-2">
+              <strong><i class="fa-solid fa-circle-info mr-1"></i> 資料不足原因說明：</strong> 今日全天以馬拉松賽事與賽後恢復為絕對核心，故採取跑者與親友分開敘述，不另外堆疊高強度觀光行程。
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 3 (FULL DAY - 10 EVENT CARDS) -->
+        <div class="day-section">
+          <div class="bg-sky-700 text-white p-3 rounded-lg font-bold text-lg flex items-center justify-between shadow-md">
+            <span><i class="fa-solid fa-camera mr-2"></i> Day 3 - 2026/12/07 (週一) 琉球神社與新都心購物巡禮 (完整日)</span>
+            <span class="text-xs bg-emerald-600 px-2 py-1 rounded">完整觀光日 (10事件)</span>
+          </div>
+          <div class="timeline">
+
+            <!-- Morning -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-sun text-amber-500"></i> 早晨 Morning</div>
+              <!-- 1 -->
+              <div class="item">
+                <div class="time-badge">08:00<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-mug-saucer"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">早餐：Komeda 珈琲店 歌町店 (已排入行程)</h5>
+                  <div class="text-sm">建議餐點：點飲料送厚片吐司（雞蛋沙拉/紅豆泥）、現炸雞塊，深受國小小朋友喜愛的日式質感早點。</div>
+                  <div class="text-xs text-gray-500">預算：JPY 600 - 1,000 / 人</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div>交通方式：單軌電車</div>
+                <div>出發時間：09:10 → 抵達時間：09:30</div>
+                <div>ETA: 20m | Cost: JPY 270/人 | Transfers: 歌町站 至 縣廳前站 (步行10分)</div>
+              </div>
+              <!-- 2 -->
+              <div class="item">
+                <div class="time-badge">09:35<span class="duration">約 1.25 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-torii-gate"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">景點：波上宮 參拜 (已排入行程)</h5>
+                  <div class="text-sm">沖繩八社之首，懸崖上的朱紅神社，全家祈求健康平安，孩子可挑選特色小獅子御守。</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Forenoon -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-cloud-sun text-amber-500"></i> 上午 Forenoon</div>
+              <!-- 3 -->
+              <div class="item">
+                <div class="time-badge">10:55<span class="duration">約 45 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-camera"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">拍照：波之上海灘 踩水拍照 (已排入行程)</h5>
+                  <div class="text-sm">波上宮旁的市區海灘，小朋友可以開心踩水踩沙，拍攝歡樂海景合照。</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div>交通方式：計程車</div>
+                <div>出發時間：11:45 → 抵達時間：11:55</div>
+                <div>ETA: 10m | Cost: 約 JPY 800 | Transfers: 波上宮 至 國際通</div>
+              </div>
+              <!-- 4 -->
+              <div class="item">
+                <div class="time-badge">12:00<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">午餐：首里蕎麥麵 國際通分店 (已排入行程)</h5>
+                  <div class="text-sm">建議餐點：正宗沖繩爌肉蕎麥麵、炊飯(Jushi)，湯頭清香甘甜，非常適合孩子口味。</div>
+                  <div class="text-xs text-gray-500">預算：JPY 800 - 1,200 / 人</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Afternoon -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-bag-shopping text-amber-600"></i> 午後 Afternoon</div>
+              <!-- 5 -->
+              <div class="item">
+                <div class="time-badge">13:10<span class="duration">約 1.75 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-store"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">景點/購物：國際通 親子散策 (已排入行程)</h5>
+                  <div class="text-sm">參觀寶可夢專賣店、御菓子御殿紅芋塔觀光工廠玻璃櫥窗，採買雪鹽餅乾。</div>
+                </div>
+              </div>
+              <!-- 6 -->
+              <div class="item">
+                <div class="time-badge">15:00<span class="duration">約 45 分</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-ice-cream"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">甜點：Blue Seal 冰淇淋 國際通店 (已排入行程)</h5>
+                  <div class="text-sm">建議餐點：紅芋與雪鹽金楚糕雙球冰淇淋、香檸果昔，孩子們的最愛。</div>
+                  <div class="text-xs text-gray-500">預算：JPY 400 - 600 / 人</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div>交通方式：單軌電車</div>
+                <div>出發時間：15:50 → 抵達時間：16:05</div>
+                <div>ETA: 15m | Cost: JPY 240/人 | Transfers: 牧志站 至 歌町站(Omoromachi)</div>
+              </div>
+              <!-- 7 -->
+              <div class="item">
+                <div class="time-badge">16:10<span class="duration">約 1.25 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-gem"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">購物：DFS T GALLERIA OKINAWA (已排入行程)</h5>
+                  <div class="text-sm">歌町站直通，大人輕鬆瀏覽免稅精品與香氛保養品。</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Evening -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-cloud-moon text-indigo-500"></i> 傍晚 Evening</div>
+              <!-- 8 -->
+              <div class="item">
+                <div class="time-badge">17:30<span class="duration">約 1.5 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-cart-shopping"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">購物：SAN-A 那霸 Main Place (已排入行程)</h5>
+                  <div class="text-sm">大型複合式商場，有童裝專區、玩具角落與文具專賣店，極適合親子購物。</div>
+                </div>
+              </div>
+              <!-- 9 -->
+              <div class="item">
+                <div class="time-badge">19:05<span class="duration">約 1.25 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">晚餐：目利きの銀次 新都心本舗 (已排入行程)</h5>
+                  <div class="text-sm">建議餐點：鮮魚木桶盛合生魚片、海膽醬烤牡蠣、日式烤飯糰與小朋友喜歡的炒麵。</div>
+                  <div class="text-xs text-gray-500">預算：JPY 2,500 - 3,500 / 人</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Night -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-moon text-indigo-700"></i> 夜間 Night</div>
+              <!-- 10 -->
+              <div class="item">
+                <div class="time-badge">20:45<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-basket-shopping"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">超市補給：Naha Main Place San-A 超市 (已排入行程)</h5>
+                  <div class="text-sm">採買日本新鮮草莓、哈密瓜、黑糖鮮奶與小朋友明日點心。</div>
+                  <div class="text-xs text-gray-500">預算：JPY 1,000 - 2,000 / 戶</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">21:50<span class="duration">休養</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-bed"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">返回住宿：Almont Hotel Naha Omoromachi</h5>
+                  <div class="text-sm">散步返回飯店，大浴場泡湯放鬆，整理行李。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-section">
+          <div class="bg-sky-900 text-white p-3 rounded-lg font-bold text-lg flex items-center justify-between shadow-md">
+            <span><i class="fa-solid fa-plane-departure mr-2"></i> Day 4 - 2026/12/08 (週二) Outlet 血拚與滿載而歸</span>
+            <span class="text-xs bg-amber-600 px-2 py-1 rounded">返程/Outlet日</span>
+          </div>
+          <div class="timeline">
+            <!-- Morning -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-sun text-amber-500"></i> 早晨 Morning</div>
+              <div class="item">
+                <div class="time-badge">08:30<span class="duration">約 1 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">早餐：oHacorte Bakery (已排入行程)</h5>
+                  <div class="text-sm">建議餐點：現烤法式吐司拼盤、新鮮果汁與黑咖啡。辦理退房寄行李。</div>
+                  <div class="text-xs text-gray-500">預算：JPY 1,200 - 1,800 / 人</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div>交通方式：計程車</div>
+                <div>出發時間：09:40 → 抵達時間：10:15</div>
+                <div>ETA: 35m | Cost: 約 JPY 3,000 / 車 | Transfers: 飯店 至 ASHIBINAA Outlet</div>
+              </div>
+            </div>
+
+            <!-- Forenoon & Afternoon -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-bag-shopping text-amber-600"></i> 上午與午後 Forenoon & Afternoon</div>
+              <div class="item border-2 border-sky-400 bg-sky-50">
+                <div class="time-badge !bg-sky-200 !text-sky-900">10:20<span class="duration !text-sky-800">約 3.5 小時</span></div>
+                <div class="icon-slot !bg-sky-200 !text-sky-800"><i class="fa-solid fa-tags"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text text-lg">沖繩 ASHIBINAA Outlet 購物中心 (已排入行程)</h5>
+                  <div class="text-sm">希臘風 Outlet，Adidas、Nike 等運動跑鞋與童裝折扣超親民，全家齊添購戰利品。</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">14:00<span class="duration">約 1.25 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">午餐：第一牧志公設市場 海鮮饗宴 (已排入行程)</h5>
+                  <div class="text-sm">建議餐點：一樓挑選龍蝦與生魚片，二樓代客料理，孩子喜愛的香煎魚排。</div>
+                  <div class="text-xs text-gray-500">預算：JPY 2,500 - 4,000 / 人</div>
+                </div>
+              </div>
+              <div class="transport">
+                <div>交通方式：機場接駁巴士或計程車</div>
+                <div>出發時間：17:00 → 抵達時間：17:30</div>
+                <div>ETA: 30m | Cost: 約 JPY 1,500 / 車 | Transfers: 市區 至 那霸機場航站 I</div>
+              </div>
+            </div>
+
+            <!-- Evening & Night -->
+            <div class="time-block">
+              <div class="time-block-header"><i class="fa-solid fa-plane-departure text-indigo-700"></i> 傍晚與夜間 Evening & Night</div>
+              <div class="item">
+                <div class="time-badge">17:40<span class="duration">約 1.5 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-utensils"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">晚餐：A&W漢堡 那霸機場店 (已排入行程)</h5>
+                  <div class="text-sm">建議餐點：The A&W 招牌牛肉堡、麥根沙士(Root Beer)與圈圈薯條。</div>
+                  <div class="text-xs text-gray-500">預算：JPY 1,000 - 1,500 / 人</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="time-badge">20:10<span class="duration">約 1.75 小時</span></div>
+                <div class="icon-slot"><i class="fa-solid fa-plane"></i></div>
+                <div class="text-slot stack-vertical">
+                  <h5 class="red-text">長榮航空 BR 185 賦歸</h5>
+                  <div class="text-sm">那霸機場 航站 I 起飛 (20:10 OKA) → 20:55 抵達 臺灣桃園機場 航站 2 (TPE)，滿載歡樂回憶。</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 備註卡 -->
+            <div class="p-3 bg-blue-50 border-l-4 border-blue-500 rounded text-xs text-blue-900 mt-2">
+              <strong><i class="fa-solid fa-circle-info mr-1"></i> 資料不足原因說明：</strong> 本日為返程日，預留機場安檢與Outlet行李收拾彈性時間。
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 底部：風險評估與建議×注意（固定10條） -->
+      <div class="space-y-6 pt-6 border-t border-gray-200">
+        <div class="card border-l-4 border-rose-500">
+          <div class="section-title text-rose-800">
+            <span class="icon-slot text-rose-600"><i class="fa-solid fa-triangle-exclamation"></i></span>
+            <h3>風險評估：中高（全馬體能負荷與親子同行）</h3>
+          </div>
+          <p class="text-sm text-gray-700">
+            本行程包含「那霸馬拉松」全馬賽事，賽道起伏較多且時限6小時15分。賽後跑者可能出現肌肉痠痛，建議賽後兩日多利用計程車或電車減少徒步。隨行包含兩位國小學童，需注意12月沖繩海風與溫差，隨身帶備用保暖外套。
+          </p>
+        </div>
+
+        <div class="card border-l-4 border-sky-600">
+          <div class="section-title text-sky-800">
+            <span class="icon-slot text-sky-600"><i class="fa-solid fa-list-check"></i></span>
+            <h3>建議 × 注意（固定 10 條）</h3>
+          </div>
+          <ol class="list-decimal list-inside text-sm text-gray-700 space-y-1.5 font-medium">
+            <li><span class="red-text">賽事前一日報到</span>：務必於 12/05 19:00 前前往奧武山公園領取晶片與號碼布。</li>
+            <li><span class="red-text">燒肉慶功預約</span>：燒肉王 那霸新都心店熱門，建議提前網路訂位。</li>
+            <li><span class="blue-text">賽前高碳水飲食</span>：賽前一晚與當晨多補充飯糰與麵包，避免高纖維與過油食物。</li>
+            <li><span class="blue-text">兒童保暖防風</span>：12月初沖繩海邊風大，為孩子準備防風外套與帽子。</li>
+            <li><span class="blue-text">電車一日券使用</span>：Day 1與Day 3可購買 Yui Rail 單軌電車一日券(24小時制)較劃算。</li>
+            <li><span class="blue-text">賽後恢復準備</span>：飯店設有大浴場，賽後宜適度泡湯與冰敷舒緩腿部肌肉。</li>
+            <li><span class="blue-text">機場報到時間</span>：12/08 返程 BR 185 請於 18:10 前抵達那霸機場航站 I 櫃檯。</li>
+            <li><span class="blue-text">免稅退稅規定</span>：DFS 與 Outlet 採購時請隨身攜帶護照正本以利辦理免稅。</li>
+            <li><span class="blue-text">親子隨身應急藥品</span>：隨身準備兒童退燒感冒藥與跑者肌貼、止痛膠囊。</li>
+            <li><span class="blue-text">日幣現金備用</span>：部分傳統市場（如牧志公設市場）與屋台僅收現金，需備妥足額日幣。</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 六大推薦模組獨立分頁 1: 景點 POI (20) -->
+    <section id="poi" class="space-y-6">
+      <div class="section-title">
+        <span class="icon-slot"><i class="fa-solid fa-camera"></i></span>
+        <h2>景點 POI (20 筆)</h2>
+      </div>
+      <div class="two-col">
+        <!-- 1 -->
+        <div class="card">
+          <h4 class="font-bold text-base red-text">波上宮 <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 波上宮是沖繩八社之首，坐落於那霸市區高聳的懸崖之上，朱紅色的宮殿在蔚藍大海與天空襯托下格外莊嚴美麗。這裡自古以來就是當地人祈求航海安全、豐收與家庭平安的信仰中心。參拜後可購買獨特的紅型繪御守，並俯瞰崖下波之上海灘的絕美海景。</p>
+            <p><strong>亮點/門票：</strong> 懸崖上的神社、特色御守 ｜ 免費參拜</p>
+          </div>
+        </div>
+        <!-- 2 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">國際通商圈 <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 1, Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 國際通被稱為「奇蹟的一英里」，是那霸市最繁華熱鬧的繁華街道。全長約1.6公里，道路兩旁林立著各式土產店、沖繩料理餐廳、雜貨店與百貨公司。這裡能一次買齊紅芋塔、雪鹽與泡盛等伴手禮，沿途熱帶棕櫚樹與霓虹燈交織出濃郁的南國都市氛圍。</p>
+            <p><strong>亮點/門票：</strong> 熱鬧商圈、土產採購 ｜ 免費散策</p>
+          </div>
+        </div>
+        <!-- 3 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">DFS T GALLERIA OKINAWA <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> DFS T Galleria 位於那霸新都心（歌町站直駁），是日本唯一設於機場外的路面大型免稅購物中心。匯聚數百個國際知名奢侈品牌、高階化妝品與名錶香水。館內環境高雅寬敞，購物後可直接在離境時於那霸機場取貨，是免稅血拚的購物天堂。</p>
+            <p><strong>亮點/門票：</strong> 國際精品免稅、機場取貨 ｜ 免費入場</p>
+          </div>
+        </div>
+        <!-- 4 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">SAN-A 那霸 Main Place <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> SAN-A 那霸 Main Place 是那霸新都心區域最具代表性的綜合型大型購物中心。內含大型超市、流行服飾品牌、電子產品店、影城與各式美食餐廳。設施完善且室內空間寬敞，非常適合帶著小朋友的家庭顧客在此輕鬆悠閒地逛街購物。</p>
+            <p><strong>亮點/門票：</strong> 家庭購物複合商場 ｜ 免費入場</p>
+          </div>
+        </div>
+        <!-- 5 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">沖繩 ASHIBINAA Outlet 購物中心 <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 4</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> ASHIBINAA 是沖繩唯一的名牌折扣購物中心，建築風格採用古希臘神殿風格設計。聚集了超過百家日本與國際知名品牌，包括運動跑鞋、戶外服裝、精品包款與兒童服飾等。常年提供超值優惠，是離境前選購高CP值戰利品的絕佳據點。</p>
+            <p><strong>亮點/門票：</strong> 名牌折扣、運動跑鞋優惠 ｜ 免費入場</p>
+          </div>
+        </div>
+        <!-- 6 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">奧武山公園 <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 1, Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 奧武山公園是那霸市區廣闊的運動主題公園，交通極為便利，單軌電車奧武山公園站直達。公園內設有棒球場、田徑場與沖繩縣護國神社，也是那霸馬拉松的起終點與報到會場。公園內設有超長溜滑梯等兒童遊樂設施，適合親子同樂。</p>
+            <p><strong>亮點/門票：</strong> 馬拉松主會場、長溜滑梯 ｜ 免費</p>
+          </div>
+        </div>
+        <!-- 7 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">首里城公園</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 首里城是昔日琉球王國的政治、外交與文化中心，登錄為世界文化遺產。建築融合了中國與日本的獨特琉球風格。雖正殿於火災中重建中，但守禮門、歡會門與高聳城牆仍完美呈現了琉球王國的輝煌歲月，園內視野開闊，可俯瞰那霸市景。</p>
+            <p><strong>亮點/門票：</strong> 世界文化遺產、琉球王國歷史 ｜ 收費區域 JPY 400</p>
+          </div>
+        </div>
+        <!-- 8 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">瀨長島 Umikaji Terrace</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 瀨長島緊鄰那霸機場，島上的 Umikaji Terrace 擁有純白色階梯式建築，被喻為沖繩的希臘聖托里尼。進駐了數十家景觀咖啡廳、特色甜點與手作小店。顧客能一邊品嚐鬆餅，一邊近距離觀賞飛機起降與絕美的夕陽海景。</p>
+            <p><strong>亮點/門票：</strong> 純白地中海風、近觀飛機起降 ｜ 免費</p>
+          </div>
+        </div>
+        <!-- 9 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">沖繩美麗海水族館</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 美麗海水族館位於沖繩北部海洋博公園內，是全球頂級的巨大水族館。館內最著名的「黑潮之海」巨型水槽容積高達7,500立方公尺，飼育著巨大鯨鯊與鬼蝠魟。戶外還有免費的海豚表演，是親子遊沖繩絕不能錯過的首選景點。</p>
+            <p><strong>亮點/門票：</strong> 巨大黑潮水槽鯨鯊、海豚秀 ｜ 成人 JPY 2,180</p>
+          </div>
+        </div>
+        <!-- 10 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">美國村 美濱區</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 美國村位於北谷町美濱，利用早期美軍基地舊址改建，充滿鮮豔大膽的美式復古色彩。沿海步道散佈著美式餐廳、時裝店與酒吧，傍晚時分夕陽落入東海的景致無比浪漫，是體驗沖繩美陸文化融合的代表景點。</p>
+            <p><strong>亮點/門票：</strong> 異國風情街區、夕陽海景步道 ｜ 免費</p>
+          </div>
+        </div>
+        <!-- 11 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">沖繩世界文化王國・玉泉洞</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 沖繩南部最大型的主題樂園，園內擁有經歷30萬年形成、長達5公里的日本第二大鐘乳石洞「玉泉洞」。園區還保留了百年琉球古民家，提供工藝體驗與震撼人心的Eisa太鼓舞表演，非常適合親子共同深入探索在地文化。</p>
+            <p><strong>亮點/門票：</strong> 壯觀鐘乳石洞、太鼓表演 ｜ 成人 JPY 2,000</p>
+          </div>
+        </div>
+        <!-- 12 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">萬座毛</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 萬座毛位於恩納村，為隆起珊瑚礁形成的天然斷崖絕壁，名稱源自琉球國王讚嘆「可供萬人坐下的草原」。 Cliff 崖邊景觀宛如巨大象鼻深入湛藍海水中，搭配廣袤的青青草原與浩瀚太平洋，景色極具震撼力。</p>
+            <p><strong>亮點/門票：</strong> 天然象鼻岩、遼闊海景草原 ｜ 觀景台 JPY 100</p>
+          </div>
+        </div>
+        <!-- 13 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">古宇利島與古宇利大橋</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 古宇利島是沖繩北部的神話之島，經由長約2公里的古宇利大橋與本島相連。大橋橫跨於被譽為「古宇利藍」的清澈漸層海面上，開車宛如行駛於海中央。島上還有浪漫的心形岩與鮮美蝦飯，是極具人氣的觀光勝地。</p>
+            <p><strong>亮點/門票：</strong> 絕美跨海大橋、心形岩 ｜ 免費</p>
+          </div>
+        </div>
+        <!-- 14 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">壺屋 Yachimun 陶藝通</h4>
+          <span class="day-tag">近 Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 壺屋陶藝通離國際通不遠，是沖繩傳統陶瓷「Yachimun」發源地。古色古香的石板街道上，聚集了數十家老字號陶坊與文青風格藝廊。旅客可在寧靜氛圍中挑選精美的風獅爺與手作陶瓷器皿，感受獨特人文韻味。</p>
+            <p><strong>亮點/門票：</strong> 傳統陶藝街區、手作器皿 ｜ 免費</p>
+          </div>
+        </div>
+        <!-- 15 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">識名園</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 識名園是琉球王國王家的最大別邸，建於18世紀末，主要用於招待中國冊封使。庭園巧妙融合了日本迴遊式庭園與中國江南園林風格，配以琉球獨特的石灰岩建築與紅瓦御殿，名列世界文化遺產，幽靜宜人。</p>
+            <p><strong>亮點/門票：</strong> 世界文化遺產、琉球皇家庭園 ｜ 成人 JPY 400</p>
+          </div>
+        </div>
+        <!-- 16 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">DMM Kariyushi 水族館</h4>
+          <span class="day-tag">近 Day 4</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於豐見城市（近Outlet），是結合最新影像科技與真實海洋生物的新型沉浸式水族館。館內設有透明玻璃步道、光影互動區以及可近距離觀察樹懶與企鵝的亞熱帶森林區，交通便利，非常適合親子共遊。</p>
+            <p><strong>亮點/門票：</strong> 數位光影水族館、近距離動物互動 ｜ 成人 JPY 2,400</p>
+          </div>
+        </div>
+        <!-- 17 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">沖繩縣立博物館・美術館 (OkiMu)</h4>
+          <span class="day-tag">近 Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於那霸新都心，建築外觀以琉球城堡（Gusuku）為設計概念。博物館展示沖繩豐富的自然演化、琉球歷史與民俗文化；美術館則展出與沖繩相關的現代藝術作品，是快速且深度了解沖繩的文化據點。</p>
+            <p><strong>亮點/門票：</strong> 城郭建築設計、深度歷史藝術展 ｜ 常設展 JPY 530</p>
+          </div>
+        </div>
+        <!-- 18 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">港川外人住宅街 (浦添滿州)</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於浦添市，早期為美軍軍眷宿舍區。數十棟一樓美式平房如今改建為充滿美式雜貨風的咖啡館、烘焙甜點店與服飾店。街區塗鴉色彩豐富，氛圍優閒文青，非常適合拍照打卡與享用下午茶。</p>
+            <p><strong>亮點/門票：</strong> 美式美眷老屋、特色甜點雜貨 ｜ 免費</p>
+          </div>
+        </div>
+        <!-- 19 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">殘波岬</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 殘波岬位於讀谷村，為高達30公尺的隆起珊瑚礁斷崖綿延2公里的壯麗景色。崖頭矗立著沖繩著名的白色巨大燈塔（可登頂）。海水拍打峭壁激起驚濤駭浪，傍晚時更是欣賞夕陽紅霞的熱門景點。</p>
+            <p><strong>亮點/門票：</strong> 30米高斷崖、白色燈塔 ｜ 燈塔登頂 JPY 300</p>
+          </div>
+        </div>
+        <!-- 20 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">海中道路</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 全長約4.75公里，是連結沖繩本島與勝連半島周邊四個離島的海上堤道。道路兩側為清澈碧綠的淺海，開車馳騁其上猶如徜徉於海面。途中設有海洋驛站，可品嚐海藻小吃並購買在地農特產品。</p>
+            <p><strong>亮點/門票：</strong> 橫跨碧海道路、駕車賞景 ｜ 免費</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 六大推薦模組獨立分頁 2: 美食 (20) -->
+    <section id="bib" class="space-y-6">
+      <div class="section-title">
+        <span class="icon-slot"><i class="fa-solid fa-utensils"></i></span>
+        <h2>美食 (20 筆)</h2>
+      </div>
+      <div class="two-col">
+        <!-- 1 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">燒肉王 那霸新都心店 <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 2</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 日本超高人氣的燒肉吃到飽連鎖店，新都心店位置優越。採用觸控螢幕點餐，提供優質國產牛、厚切牛舌、石鍋拌飯與多樣甜點。出餐迅速且品質穩定，是馬拉松完賽後跑者補充大蛋白質與全家慶功的絕佳首選。</p>
+            <p><strong>推薦餐點：</strong> 國產牛吃到飽方案、炙燒厚切牛舌、石鍋拌飯</p>
+            <p><strong>地址：</strong> <span id="bib-1">沖縄県那覇市上之屋1-1-1</span> <button class="copy-btn" onclick="copyToClipboard('bib-1')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 3,500 - 4,500 / 人</p>
+          </div>
+        </div>
+        <!-- 2 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">暖暮拉麵 牧志店 <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 1</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 曾擊敗一蘭榮獲九州拉麵票選第一名的知名拉麵店。濃郁細緻的豚骨湯頭搭配特製辣醬，麵條彈牙且吸附湯汁。位於國際通周邊，交通極方便，是馬拉松賽前補給優質碳水化合物的超熱門拉麵店。</p>
+            <p><strong>推薦餐點：</strong> 豚骨拉麵加半熟蛋、一口餃子、烈火拉麵</p>
+            <p><strong>地址：</strong> <span id="bib-2">沖繩縣那霸市牧志2-16-10</span> <button class="copy-btn" onclick="copyToClipboard('bib-2')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 1,000 - 1,500 / 人</p>
+          </div>
+        </div>
+        <!-- 3 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">豬肉蛋飯糰 牧志本店 (Tomton) <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 1</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 沖繩代表性平民美食，將煎午餐肉與厚煎蛋包裹於香熱白飯與海苔中。牧志本店現點現做，炸蝦塔塔醬與苦瓜天婦羅口味更是香濃飽足，熱氣騰騰，是大人小孩都喜愛便利美味餐點。</p>
+            <p><strong>推薦餐點：</strong> 炸蝦塔塔醬豬肉蛋飯糰、苦瓜天婦羅飯糰</p>
+            <p><strong>地址：</strong> <span id="bib-3">沖繩縣那霸市松尾2-8-35</span> <button class="copy-btn" onclick="copyToClipboard('bib-3')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 600 - 1,000 / 人</p>
+          </div>
+        </div>
+        <!-- 4 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">首里蕎麥麵 <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 堅持傳統手工製麵的排隊名店。湯頭以鰹魚與豬骨澄清慢熬，甘甜清爽；麵條非常有嚼勁，配上慢火燉煮至入口即化的三層肉與軟骨排，搭配炊飯（Jushi），呈現最正宗清雅的琉球傳統好滋味。</p>
+            <p><strong>推薦餐點：</strong> 沖繩爌肉蕎麥麵、沖繩什錦炊飯(Jushi)</p>
+            <p><strong>地址：</strong> <span id="bib-4">沖繩縣那霸市首里赤田町1-7</span> <button class="copy-btn" onclick="copyToClipboard('bib-4')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 800 - 1,200 / 人</p>
+          </div>
+        </div>
+        <!-- 5 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">目利きの銀次 新都心本舗 <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 外觀宛如巨型木桶的超高CP值居酒屋。主打產地直送的極鮮海產，招牌產地直送生魚片木桶盛合僅需幾百日圓，海膽醬烤牡蠣與炭火串燒更是香氣四溢，深受遊客與當地人喜愛的熱鬧名店。</p>
+            <p><strong>推薦餐點：</strong> 生魚片木桶盛合、海膽醬烤牡蠣、炭火串燒</p>
+            <p><strong>地址：</strong> <span id="bib-5">沖繩縣那霸市天久1-9-19</span> <button class="copy-btn" onclick="copyToClipboard('bib-5')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 2,500 - 3,500 / 人</p>
+          </div>
+        </div>
+        <!-- 6 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">第一牧志公設市場 (二樓食堂代客料理) <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 4</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 有「沖繩廚房」之稱，一樓購買活龍蝦、夜光貝與阿古豬後，可帶至二樓食堂請店家代客料理。鮮美生魚片、清蒸海鮮與炒苦瓜現做現吃，充滿熱情的庶民市場氣息。</p>
+            <p><strong>推薦餐點：</strong> 夜光貝兩吃、清蒸龍蝦、燕食堂代客料理</p>
+            <p><strong>地址：</strong> <span id="bib-6">沖繩縣那霸市松尾2-10-1</span> <button class="copy-btn" onclick="copyToClipboard('bib-6')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 2,500 - 4,000 / 人</p>
+          </div>
+        </div>
+        <!-- 7 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">oHacorte Bakery <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 4</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 知名水果塔品牌旗下的烘焙早午餐店。空間充滿日式鄉村木質質感，提供新鮮現烤法式吐司、自家製麵包拼盤與濃郁濃湯，是享受優雅質感早餐的絕佳選處。</p>
+            <p><strong>推薦餐點：</strong> 法式吐司早午餐拼盤、自家製濃湯、黑咖啡</p>
+            <p><strong>地址：</strong> <span id="bib-7">沖繩縣那霸市泉崎1-4-10</span> <button class="copy-btn" onclick="copyToClipboard('bib-7')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 1,200 - 1,800 / 人</p>
+          </div>
+        </div>
+        <!-- 8 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">A&W漢堡 那霸機場店 <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 4</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 日本僅沖繩限定的美式美式速食連鎖品牌。招牌牛肉漢堡厚實多汁，搭配內店內可無限續杯的「麥根沙士(Root Beer)」與螺旋圈圈薯條，富有濃濃懷舊美式復古風情。</p>
+            <p><strong>推薦餐點：</strong> The A&W 招牌牛肉堡、麥根沙士、圈圈薯條</p>
+            <p><strong>地址：</strong> <span id="bib-8">沖繩縣那霸市鏡水150 那霸機場航站3F</span> <button class="copy-btn" onclick="copyToClipboard('bib-8')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 1,000 - 1,500 / 人</p>
+          </div>
+        </div>
+        <!-- 9 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">琉球之牛 那霸國際通店</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 沖繩頂級特選和牛燒肉名店。嚴選高品質沖繩縣產黑毛和牛，油花分布精美如雪花，入口即化。國際通店環境高雅精緻，適合講究燒肉肉質極致口感的饕客預約品嚐。</p>
+            <p><strong>推薦餐點：</strong> 頂級和牛套餐、炙燒和牛握壽司</p>
+            <p><strong>地址：</strong> <span id="bib-9">沖繩縣那霸市牧志3-2-3 3F</span> <button class="copy-btn" onclick="copyToClipboard('bib-9')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 6,000 - 10,000 / 人</p>
+          </div>
+        </div>
+        <!-- 10 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">通堂拉麵 小祿本店</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 首創以「男味（濃郁豚骨）」與「女味（清爽雞鹽）」區分湯頭的著名拉麵店。小祿本店鄰近單軌電車站，免費無限提供的辣豆芽菜極度開胃解膩，是沖繩最具代表性的在地拉麵之一。</p>
+            <p><strong>推薦餐點：</strong> 男味豚骨拉麵、女味雞鹽拉麵、辣豆芽菜</p>
+            <p><strong>地址：</strong> <span id="bib-10">沖繩縣那霸市金城5-4-6</span> <button class="copy-btn" onclick="copyToClipboard('bib-10')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 900 - 1,300 / 人</p>
+          </div>
+        </div>
+        <!-- 11 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">傑克牛排館 (Jack's Steak House)</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 創立於1953年、美軍管轄時期延續至今的美式老字號牛排館。復古店面飄散著濃厚昭和懷舊感，牛肉質地紮實多汁且價格親民，完美展現沖繩人深夜吃牛排收尾的獨特文化。</p>
+            <p><strong>推薦餐點：</strong> 特選紐約客牛排、特製漢堡排</p>
+            <p><strong>地址：</strong> <span id="bib-11">沖繩縣那霸市西1-7-3</span> <button class="copy-btn" onclick="copyToClipboard('bib-11')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 2,000 - 3,500 / 人</p>
+          </div>
+        </div>
+        <!-- 12 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">迴轉壽司市場 美濱店</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於美國村旁邊的高人氣迴轉壽司店，提供許多沖繩縣產新鮮海產與海葡萄軍艦。平實實惠的價格與多語言平板點餐，非常適合親子家庭大快朵頤最道地的日本壽司。</p>
+            <p><strong>推薦餐點：</strong> 沖繩產鮪魚壽司、海葡萄軍艦壽司</p>
+            <p><strong>地址：</strong> <span id="bib-12">沖繩縣北谷町美濱2-4-5</span> <button class="copy-btn" onclick="copyToClipboard('bib-12')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 2,000 - 3,000 / 人</p>
+          </div>
+        </div>
+        <!-- 13 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">花笠食堂</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 隱身於國際通平和通商店街內的老字號家庭食堂。主打份量巨大、價格便宜的沖繩傳統定食，如炒苦瓜、爌肉定食。隨餐附贈冰涼甜紅茶更是許多內行饕客的心頭好。</p>
+            <p><strong>推薦餐點：</strong> 琉球定食、沖繩苦瓜炒豆腐定食</p>
+            <p><strong>地址：</strong> <span id="bib-13">沖繩縣那霸市牧志3-2-48</span> <button class="copy-btn" onclick="copyToClipboard('bib-13')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 800 - 1,200 / 人</p>
+          </div>
+        </div>
+        <!-- 14 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">百年古家 大家 (Ufuya)</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於名護山林中，由百年百年琉球古民家移築改建的景觀餐廳。顧客可一邊聆聽庭園瀑布流水聲，一邊品嚐沖繩特產阿古豬（Agu豬）涮涮鍋，油脂香甜不膩，氣氛極佳。</p>
+            <p><strong>推薦餐點：</strong> 阿古豬涮涮鍋套餐、特製阿古豬沖繩麵</p>
+            <p><strong>地址：</strong> <span id="bib-14">沖繩縣名護市中山90</span> <button class="copy-btn" onclick="copyToClipboard('bib-14')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 2,500 - 4,500 / 人</p>
+          </div>
+        </div>
+        <!-- 15 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">岸本食堂 (きしもと食堂)</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於本部町創立於1905年的百年沖繩麵老店。堅持使用木灰水手工揉製麵條，口感堅韌有勁，搭配柴魚高湯與燉煮極其入味的厚切三層肉，是體驗沖繩麵百年傳承的極致美味。</p>
+            <p><strong>推薦餐點：</strong> 傳統手工沖繩麵、炊飯(Jushi)</p>
+            <p><strong>地址：</strong> <span id="bib-15">沖繩縣國頭郡本部町渡久地5</span> <button class="copy-btn" onclick="copyToClipboard('bib-15')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 800 - 1,000 / 人</p>
+          </div>
+        </div>
+        <!-- 16 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">琉球茶房 阿修羅 (Ashibiuna)</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於首里城附近，由琉球傳統宅邸改建而成。最吸引人之處在於可坐在日式長廊榻榻米上，面對著充滿禪意的枯山水庭園享用精緻琉球鄉土料理，愜意而優雅。</p>
+            <p><strong>推薦餐點：</strong> 墨魚汁炒麵定食、沖繩風定食</p>
+            <p><strong>地址：</strong> <span id="bib-16">沖繩縣那霸市首里當藏町2-13</span> <button class="copy-btn" onclick="copyToClipboard('bib-16')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 1,500 - 2,500 / 人</p>
+          </div>
+        </div>
+        <!-- 17 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">串角 久茂地店</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 沖繩在地經典的平價串燒居酒屋。提供各式現烤炭火雞肉串、豚肉捲與 Orion 啤酒暢飲方案。店內氣氛熱絡，是體驗沖繩夜晚熱情夜生活與串燒小酌的平價首選。</p>
+            <p><strong>推薦餐點：</strong> 綜合炭火串燒拼盤、Orion生啤酒暢飲</p>
+            <p><strong>地址：</strong> <span id="bib-17">沖繩縣那霸市久茂地2-24-19</span> <button class="copy-btn" onclick="copyToClipboard('bib-17')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 2,500 - 3,500 / 人</p>
+          </div>
+        </div>
+        <!-- 18 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">海產物餐廳 恩納之驛</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於恩納村公路休息站內的美食廣場，匯集多家特色海鮮小吃。這裡的海膽醬烤半龍蝦香氣濃郁爆汁，價格實惠，還有現切生魚片與海葡萄丼，是自駕遊西海岸絕佳的中途補給站。</p>
+            <p><strong>推薦餐點：</strong> 海膽醬烤半龍蝦、海鮮生魚片丼</p>
+            <p><strong>地址：</strong> <span id="bib-18">沖繩縣國頭郡恩納村仲泊1656-9</span> <button class="copy-btn" onclick="copyToClipboard('bib-18')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 1,500 - 2,500 / 人</p>
+          </div>
+        </div>
+        <!-- 19 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">康龍拉麵 那霸國際通店</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於國際通巷內客製化拉麵名店。顧客可自行選擇麵條硬度、湯頭濃淡與多款免費配料組合。豚骨湯頭醇厚不腥，營業至深夜，是國際通逛街後的熱門宵夜選擇。</p>
+            <p><strong>推薦餐點：</strong> 客製化豚骨拉麵、明太子拌飯</p>
+            <p><strong>地址：</strong> <span id="bib-19">沖繩縣那霸市牧志1-2-3</span> <button class="copy-btn" onclick="copyToClipboard('bib-19')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 900 - 1,200 / 人</p>
+          </div>
+        </div>
+        <!-- 20 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">島豚七輪燒 滿味</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於名護市的阿古豬（Agu豬）專賣燒肉店。使用炭火七輪烤肉，提供阿古豬各個稀有部位珍味，肉質鮮甜香嫩無多餘腥味，極具在地特色，深受老饕推崇。</p>
+            <p><strong>推薦餐點：</strong> 阿古豬特選燒肉拼盤、炭火烤豬里肌</p>
+            <p><strong>地址：</strong> <span id="bib-20">沖繩縣名護市伊差川251</span> <button class="copy-btn" onclick="copyToClipboard('bib-20')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 3,500 - 5,000 / 人</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 六大推薦模組獨立分頁 3: 伴手禮 (20) -->
+    <section id="souvenir" class="space-y-6">
+      <div class="section-title">
+        <span class="icon-slot"><i class="fa-solid fa-gift"></i></span>
+        <h2>伴手禮 (20 筆)</h2>
+      </div>
+      <div class="two-col">
+        <!-- 1 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">御菓子御殿 紅芋塔</h4>
+          <span class="day-tag">Day 1, Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 沖繩最經典熱銷的伴手禮第一名。選用100%沖繩在地產紫紅芋製作，搭配酥鬆的小船造型塔皮，口感綿密香甜而不油膩。無添加人工色素，大人小孩皆喜愛，是代表沖繩的極佳送禮選擇。</p>
+            <p><strong>推薦品項：</strong> 元祖紅芋塔 (6入/12入裝)</p>
+            <p><strong>在地幣值預算：</strong> JPY 800 - 1,600</p>
+          </div>
+        </div>
+        <!-- 2 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">宮古島雪鹽</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 萃取自宮古島地下海水，質地細緻如粉雪般而得名，曾榮獲金氏世界紀錄認證蘊含豐富礦物質。口味溫潤回甘，除了料理用雪鹽外，雪鹽餅乾與雪鹽冰淇淋周邊亦極具人氣。</p>
+            <p><strong>推薦品項：</strong> 宮古島雪鹽瓶裝、雪鹽調味粉</p>
+            <p><strong>在地幣值預算：</strong> JPY 600 - 1,200</p>
+          </div>
+        </div>
+        <!-- 3 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">雪鹽金楚糕 (Chinsuko)</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 傳承自琉球王國時期的傳統宮廷糕點。融入宮古島雪鹽後，微鹹的鹽味完美中和了傳統豬油餅乾的甜膩感，口感極其酥鬆入口即化，是搭配熱茶的絕佳伴手禮。</p>
+            <p><strong>推薦品項：</strong> 南風堂 雪鹽金楚糕 (大/小盒)</p>
+            <p><strong>在地幣值預算：</strong> JPY 600 - 1,200</p>
+          </div>
+        </div>
+        <!-- 4 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">波照間島純黑糖塊</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 沖繩太陽充足盛產甘蔗，其中波照間島產黑糖品質最為優異。保留豐富礦物質與微量元素，風味濃郁帶有些許焦香與大人感的回甘微苦，無論直接食用或沖泡飲用均佳。</p>
+            <p><strong>推薦品項：</strong> 沖繩波照間島純黑糖包</p>
+            <p><strong>在地幣值預算：</strong> JPY 400 - 800</p>
+          </div>
+        </div>
+        <!-- 5 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">邊銀食堂 石垣島辣油</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 曾引發全日本搶購狂潮的手工辣油。選用石垣島產島辣椒、大蒜、黑豆與山椒等多種辛香料精心熬製。香氣豐富飽滿且辣度溫和，拌麵、沾餃子或炒菜皆能大為增添風味。</p>
+            <p><strong>推薦品項：</strong> 原味石垣島辣油、大蒜辣油</p>
+            <p><strong>在地幣值預算：</strong> JPY 1,000 - 1,300</p>
+          </div>
+        </div>
+        <!-- 6 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">沖繩限定 LuLuLun 面膜</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 日本知名保養品牌推出的沖繩區域限定面膜。萃取在地香檸（金桔）、苦瓜與蘆薈保濕成分，香氣天然清新，保濕亮白效果優異，是女性親友間極受歡迎的伴手禮。</p>
+            <p><strong>推薦品項：</strong> 沖繩香檸透亮面膜 (7入x5包裝)</p>
+            <p><strong>在地幣值預算：</strong> JPY 1,600 - 2,000</p>
+          </div>
+        </div>
+        <!-- 7 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">35 COFFEE 珊瑚咖啡</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 沖繩獨有的環保理念咖啡品牌，利用當地風化死珊瑚石在200度高溫下烘焙咖啡豆。風味順口溫潤不酸澀，且品牌承諾將部分收益用於沖繩珊瑚植育移植，兼具美味與環保意涵。</p>
+            <p><strong>推薦品項：</strong> 35 COFFEE 濾掛式咖啡包</p>
+            <p><strong>在地幣值預算：</strong> JPY 1,000 - 1,500</p>
+          </div>
+        </div>
+        <!-- 8 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">沖繩泡盛 (泡盛古酒)</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 沖繩特有以泰國米與黑麴菌發酵釀造的蒸餾酒。陳釀3年以上的稱為「古酒」，酒香醇厚圓潤。適合加冰塊或氣泡水飲用，是送給喜愛品酒長輩與好友的最佳代表禮物。</p>
+            <p><strong>推薦品項：</strong> 殘波白泡盛、瑞泉古酒</p>
+            <p><strong>在地幣值預算：</strong> JPY 1,500 - 3,500</p>
+          </div>
+        </div>
+        <!-- 9 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">沖繩麵 泡麵版</h4>
+          <span class="day-tag">Day 3, Day 4</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 由日清與東洋水產等大廠推出的沖繩區域限定泡麵。完美還原了扁平粗麵條口感與鮮美柴魚高湯湯頭，附贈紅薑與乾燥豬肉片，讓人在家也能隨時回味沖繩美味。</p>
+            <p><strong>推薦品項：</strong> 日清沖繩麵碗裝 (5入組)</p>
+            <p><strong>在地幣值預算：</strong> JPY 600 - 1,000</p>
+          </div>
+        </div>
+        <!-- 10 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">琉球玻璃手工杯</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 戰後利用廢棄玻璃瓶重新熔煉發揚的手工工藝。特色為玻璃內部含有細小泡沫，色澤如沖繩大海般蔚藍鮮艷。每個杯子均獨一無二，拿來喝清涼飲料充滿南國渡假感。</p>
+            <p><strong>推薦品項：</strong> 琉球玻璃海藍水杯</p>
+            <p><strong>在地幣值預算：</strong> JPY 1,800 - 3,500</p>
+          </div>
+        </div>
+        <!-- 11 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Orion 啤酒聯名周邊T恤</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 沖繩在地 Orion 啤酒與各大品牌聯名的特色 T 恤。材質純綿吸汗透氣，印有三色經典 Orion 標誌與扶桑花圖騰，穿著在沖繩當地拍照極具活力與度假特色。</p>
+            <p><strong>推薦品項：</strong> Orion 經典Logo純棉T恤</p>
+            <p><strong>在地幣值預算：</strong> JPY 2,500 - 3,500</p>
+          </div>
+        </div>
+        <!-- 12 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">陶製風獅爺小擺飾 (Shisa)</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 風獅爺是沖繩傳統辟邪招福的守護神，一開口招福、一閉口守財。造型從小巧Q版彩繪到傳統陶藝應有盡有，非常適合擺放於家中玄關或辦公桌前當作可愛擺飾。</p>
+            <p><strong>推薦品項：</strong> 壺屋燒手作迷你風獅爺成對</p>
+            <p><strong>在地幣值預算：</strong> JPY 1,200 - 2,800</p>
+          </div>
+        </div>
+        <!-- 13 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">沖繩限定 巨大 Pocky (黑糖口味)</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 固力果專為沖繩地區推出的巨大版 Pocky 巧克力棒。濃郁黑糖包覆著酥脆餅乾棒，包裝印有滿滿沖繩風情，單條獨立包裝非常方便帶至辦公室分送給同事朋友。</p>
+            <p><strong>推薦品項：</strong> 沖繩限定黑糖巨大 Pocky 盒裝</p>
+            <p><strong>在地幣值預算：</strong> JPY 900 - 1,200</p>
+          </div>
+        </div>
+        <!-- 14 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">乾燥水雲海帶湯包 (Mozuku)</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 水雲是沖繩特產的海藻，富含褐藻糖膠與膳食纖維，為當地人長壽健康食材。即沖即食的乾燥海帶湯包熱量極低，口感滑順鮮美，是送給長輩與養生朋友的貼心好禮。</p>
+            <p><strong>推薦品項：</strong> 沖繩產水雲海鮮湯沖泡包 (10入裝)</p>
+            <p><strong>在地幣值預算：</strong> JPY 600 - 1,000</p>
+          </div>
+        </div>
+        <!-- 15 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">沖繩香檸果汁 (Shikuwasa 100%)</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 100% 使用沖繩勝山等地原產香檸（台灣稱扁實檸檬）壓榨的原汁。富含川陳皮素與維生素C，酸香醒腦。可稀釋調配蜂蜜水飲用，亦可作為沙拉醬汁與烤肉蘸醬調味。</p>
+            <p><strong>推薦品項：</strong> 勝山香檸 100% 濃縮原汁瓶裝</p>
+            <p><strong>在地幣值預算：</strong> JPY 1,000 - 1,800</p>
+          </div>
+        </div>
+        <!-- 16 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">沖繩香檸嗨啾軟糖</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 森永軟糖特別為沖繩開發的區域限定香檸與鳳梨風味。酸甜嚼勁十足，價格便宜且包裝色彩活潑，是買給小朋友或班上同學極具高CP值的超人氣零食。</p>
+            <p><strong>推薦品項：</strong> 沖繩限定香檸嗨啾軟糖 (5條裝)</p>
+            <p><strong>在地幣值預算：</strong> JPY 700 - 900</p>
+          </div>
+        </div>
+        <!-- 17 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">星砂許願玻璃小瓶</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 採集自沖繩離島海灘特有的星形有孔蟲外殼。小巧精緻的玻璃瓶裝著幸運星砂，搭配海洋色鑰匙圈，小巧可愛且帶有浪漫祝福寓意，深受學童喜愛。</p>
+            <p><strong>推薦品項：</strong> 沖繩星砂許願吊飾小瓶</p>
+            <p><strong>在地幣值預算：</strong> JPY 300 - 500</p>
+          </div>
+        </div>
+        <!-- 18 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">乾燥山苦瓜茶包</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 將沖繩特產山苦瓜連籽切片低溫烘焙而成的健康茶包。沖泡後帶有淡淡麥香與回甘微微苦味，具有清熱解毒降火氣功效，是注重健康的長輩最愛的養生茶飲。</p>
+            <p><strong>推薦品項：</strong> 沖繩山苦瓜養生茶包 (20包裝)</p>
+            <p><strong>在地幣值預算：</strong> JPY 800 - 1,400</p>
+          </div>
+        </div>
+        <!-- 19 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">雪鹽夾心法式薄餅 (Langue de Chat)</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 將宮古島雪鹽完美融入西式貓舌餅乾中，夾入濃郁白巧克力內餡。微鹹的雪鹽凸顯了白巧克力的濃郁奶香，酥脆高雅，是比傳統金楚糕更具現代感的西式精緻點心。</p>
+            <p><strong>推薦品項：</strong> 雪鹽法式牛奶夾心薄餅 (12入)</p>
+            <p><strong>在地幣值預算：</strong> JPY 1,200 - 1,800</p>
+          </div>
+        </div>
+        <!-- 20 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">名護鳳梨園 鳳梨千層派</h4>
+          <span class="day-tag">Day 3</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 選用沖繩北部名護產鮮甜鳳梨果肉熬煮成果醬，包裹於數百層酥脆千層派皮中。酸甜適口帶有濃郁熱帶水果香氣，配上熱紅茶即是一道優雅的下午茶良伴。</p>
+            <p><strong>推薦品項：</strong> 名護鳳梨千層派盒裝 (10入)</p>
+            <p><strong>在地幣值預算：</strong> JPY 1,000 - 1,500</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 六大推薦模組獨立分頁 4: 拍照聖地 (10) -->
+    <section id="photo-spots" class="space-y-6">
+      <div class="section-title">
+        <span class="icon-slot"><i class="fa-solid fa-camera-retro"></i></span>
+        <h2>拍照聖地 (10 筆)</h2>
+      </div>
+      <div class="two-col">
+        <!-- 1 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">波之上海灘 <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 3 Tag</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 那霸市內唯一的天然海灘，最大特色是背景可同時將高聳崖頂上的朱紅波上宮神社與跨海高架大橋一併入鏡。海水清澈見底、沙質潔白，是全家拍攝踩水嬉戲與經典海島風景照的絕佳場景。</p>
+            <p><strong>可複製完整地址：</strong> <span id="photo-1">沖繩縣那霸市若狹1-25-11</span> <button class="copy-btn" onclick="copyToClipboard('photo-1')">複製</button></p>
+          </div>
+        </div>
+        <!-- 2 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">國際通 繁華街景 <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 1, Day 3 Tag</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 那霸最熱鬧繁華的街道，兩側高聳的棕櫚樹與琳瑯滿目的彩繪店家招牌充滿都市熱帶活力。夜晚時霓虹燈亮起，站在街角或人行天橋上拍攝壓縮感街景，能完美捕捉沖繩獨特的南國都市魅力。</p>
+            <p><strong>可複製完整地址：</strong> <span id="photo-2">沖繩縣那霸市牧志1-1</span> <button class="copy-btn" onclick="copyToClipboard('photo-2')">複製</button></p>
+          </div>
+        </div>
+        <!-- 3 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">瀨長島 純白階梯與蔚藍海景</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 依山而建的階梯式純白建築，在晴朗藍天與漸層蔚藍大海襯托下宛如希臘小鎮。站在露天階梯或景觀平台，能以蔚藍太平洋為背景拍攝充滿渡假風的時尚大片，還能將起降飛機一併捕捉。</p>
+            <p><strong>可複製完整地址：</strong> <span id="photo-3">沖繩縣豐見城市瀨長174-6</span> <button class="copy-btn" onclick="copyToClipboard('photo-3')">複製</button></p>
+          </div>
+        </div>
+        <!-- 4 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">美國村 Depot Island 涂鴉街區</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 建築外牆充滿鮮豔繽紛的美式復古塗鴉、復古車輛與特色雕塑。漫步於海濱步道或巷弄樓梯間，隨處都是絕佳的網美打卡點。傍晚時分沿海落日夕陽餘暉渲染天空，景色更是絕美。</p>
+            <p><strong>可複製完整地址：</strong> <span id="photo-4">沖繩縣中頭郡北谷町美濱9-1</span> <button class="copy-btn" onclick="copyToClipboard('photo-4')">複製</button></p>
+          </div>
+        </div>
+        <!-- 5 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">首里城 守禮門</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 日本2000日圓紙鈔上的圖案原型，融合了中國牌坊樣式與琉球紅瓦屋頂。匾額上書寫「守禮之邦」代表琉球禮儀之邦傳統。在此拍攝合照是代表曾親臨琉球世界遺產的經典地標認證照。</p>
+            <p><strong>可複製完整地址：</strong> <span id="photo-5">沖繩縣那霸市首里金城町1-2</span> <button class="copy-btn" onclick="copyToClipboard('photo-5')">複製</button></p>
+          </div>
+        </div>
+        <!-- 6 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">萬座毛 象鼻奇岩</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 隆起珊瑚礁岩長年經波浪侵蝕，形成的狀似巨大象鼻的天然峭壁奇景。站在對面的木棧道觀景台上，將象鼻岩與深藍色的東海一同收入鏡頭，大自然鬼斧神工令人嘆為觀止。</p>
+            <p><strong>可複製完整地址：</strong> <span id="photo-6">沖繩縣國頭郡恩納村恩納2767</span> <button class="copy-btn" onclick="copyToClipboard('photo-6')">複製</button></p>
+          </div>
+        </div>
+        <!-- 7 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">古宇利大橋 橋頭景觀</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 筆直延伸於清澈透明「古宇利藍」海面上的跨海大橋。於橋頭南端沙灘或觀景台取景，能拍攝出公路延伸至藍天與無邊際大海中的宏偉壯麗畫面，極具海島駕車暢快感。</p>
+            <p><strong>可複製完整地址：</strong> <span id="photo-7">沖繩縣名護市濟井出</span> <button class="copy-btn" onclick="copyToClipboard('photo-7')">複製</button></p>
+          </div>
+        </div>
+        <!-- 8 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">金城町石疊道</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 日本百選名路之一，由首里石灰岩鋪設而成的古老坡道。兩旁保存著古樸的琉球石牆與紅瓦民家，充滿幽靜悠久的歷史韻味，穿著輕便夏裝或日式和服漫步其間拍照極具古風感。</p>
+            <p><strong>可複製完整地址：</strong> <span id="photo-8">沖繩縣那霸市首里金城町2-238</span> <button class="copy-btn" onclick="copyToClipboard('photo-8')">複製</button></p>
+          </div>
+        </div>
+        <!-- 9 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">港川外人住宅 繽紛彩繪街</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 美軍舊眷舍改建的小鎮，數十座美式平房漆上薄荷綠、粉紅與天藍等柔和色彩。每家烘焙小店的門口、復古門牌與花園皆經過細心布置，非常適合拍攝清新可愛的文青風美照。</p>
+            <p><strong>可複製完整地址：</strong> <span id="photo-9">沖繩縣浦添市港川2-18-3</span> <button class="copy-btn" onclick="copyToClipboard('photo-9')">複製</button></p>
+          </div>
+        </div>
+        <!-- 10 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">殘波岬 白色巨型燈塔</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 矗立於30公尺高隆起珊瑚礁斷崖邊的純白色巨大燈塔。蔚藍海天、黑色礁岩與潔白燈塔形成強烈色彩視覺對比，傍晚更是拍攝沖繩西海岸落日餘暉與晚霞的夢幻勝地。</p>
+            <p><strong>可複製完整地址：</strong> <span id="photo-10">沖繩縣中頭郡讀谷村宇座1922</span> <button class="copy-btn" onclick="copyToClipboard('photo-10')">複製</button></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 六大推薦模組獨立分頁 5: 甜點咖啡 (10) -->
+    <section id="desserts" class="space-y-6">
+      <div class="section-title">
+        <span class="icon-slot"><i class="fa-solid fa-ice-cream"></i></span>
+        <h2>甜點咖啡 (10 筆)</h2>
+      </div>
+      <div class="two-col">
+        <!-- 1 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">Blue Seal 冰淇淋 國際通店 <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <span class="day-tag day-tag-red">Day 3 Tag</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 誕生於美國、成長於沖繩的國民冰淇淋品牌。招牌紅芋、宮古島雪鹽金楚糕與沖繩香檸口味香濃消暑。美式復古風格店面更是打卡熱點，是小朋友在逛街途中最愛的冰涼甜點。</p>
+            <p><strong>可複製完整地址：</strong> <span id="des-1">沖繩縣那霸市牧志1-2-32</span> <button class="copy-btn" onclick="copyToClipboard('des-1')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 400 - 700 / 人</p>
+          </div>
+        </div>
+        <!-- 2 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">幸福鬆餅 (幸せのパンケーキ) 瀨長島店</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 超人氣現點現做的日式舒芙蕾鬆餅。質地蓬鬆如雲朵般入口即化，搭配特製紐西蘭紐麥福發酵奶油與發酵黑蜂蜜。露天海景座位區能一邊享用鬆餅一邊遠眺蔚藍大海，幸福感爆棚。</p>
+            <p><strong>可複製完整地址：</strong> <span id="des-2">沖繩縣豐見城市瀨長174-6 (Umikaji Terrace 32號)</span> <button class="copy-btn" onclick="copyToClipboard('des-2')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 1,300 - 1,800 / 人</p>
+          </div>
+        </div>
+        <!-- 3 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">oHacorte 港川本店 (水果塔專賣店)</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 沖繩極具盛名的法式水果塔專賣店。直徑7公分的精緻塔皮酥脆香濃，鋪滿當季新鮮採摘的水果與滑順卡士達醬。日式鄉村雜貨風老屋環境優雅，是享受優閒下午茶的夢幻名店。</p>
+            <p><strong>可複製完整地址：</strong> <span id="des-3">沖繩縣浦添市港川2-17-1</span> <button class="copy-btn" onclick="copyToClipboard('des-3')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 800 - 1,400 / 人</p>
+          </div>
+        </div>
+        <!-- 4 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">ZHYVAGO COFFEE WORKS OKINAWA</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於美濱美國村海濱沿岸的工業風特調咖啡館。充滿美式西海岸率性風格，自家烘焙咖啡豆香氣濃郁。坐在戶外露台區品嚐手沖黑咖啡或美式冰拿鐵，觀賞夕陽沉入海平面極具情調。</p>
+            <p><strong>可複製完整地址：</strong> <span id="des-4">沖繩縣北谷町美濱9-46</span> <button class="copy-btn" onclick="copyToClipboard('des-4')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 600 - 1,000 / 人</p>
+          </div>
+        </div>
+        <!-- 5 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">富士家 泊本店 (沖繩冰善哉)</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 沖繩特有甜品「冰善哉」的老字號代表名店。將煮大紅豆的甘甜湯汁凍成刨冰，搭配熬煮至軟爛香甜的金時豆與Q彈白玉湯圓。冰涼消暑，是體驗沖繩在地古早味冰品的最佳去處。</p>
+            <p><strong>可複製完整地址：</strong> <span id="des-5">沖繩縣那霸市泊2-10-9</span> <button class="copy-btn" onclick="copyToClipboard('des-5')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 500 - 800 / 人</p>
+          </div>
+        </div>
+        <!-- 6 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Ball Donut Park (一口球型甜甜圈)</h4>
+          <span class="day-tag">Day 3 Tag</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於那霸國際通巷弄內的時尚甜甜圈小店。現點現炸的一口大小球型甜甜圈，外皮微酥內裡如麻糬般Q彈。淋上鮮檸檬汁與檸檬糖霜，酸甜不油膩，包裝設計活潑文青，極受歡迎。</p>
+            <p><strong>可複製完整地址：</strong> <span id="des-6">沖繩縣那霸市牧志1-1-39</span> <button class="copy-btn" onclick="copyToClipboard('des-6')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 500 - 800 / 人</p>
+          </div>
+        </div>
+        <!-- 7 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">步 (歩のサーターアンダギー) 沖繩開口笑</h4>
+          <span class="day-tag">Day 4 Tag</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 隱身於第一牧志公設市場二樓，被譽為「沖繩最好吃」的傳統油炸麵蛋球（開口笑）。堅持不加一滴水，全用新鮮雞蛋與麵粉製作。外皮酥脆內裡紮實爆發濃郁蛋香，常開店即被秒殺。</p>
+            <p><strong>可複製完整地址：</strong> <span id="des-7">沖繩縣那霸市松尾2-10-1 2F</span> <button class="copy-btn" onclick="copyToClipboard('des-7')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 100 - 500 / 人</p>
+          </div>
+        </div>
+        <!-- 8 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">琉球布丁 (琉球プディング)</h4>
+          <span class="day-tag">獨立行程</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 專營融合沖繩在地食材的手工布丁名店。招牌「美啦海布丁」上層為夢幻蔚藍色的海洋果凍，下層為濃郁滑順的鮮奶布丁。還有宮古島雪鹽與黑糖口味，兼具視覺美感與滑順口感。</p>
+            <p><strong>可複製完整地址：</strong> <span id="des-8">沖繩縣那霸市曙2-11-17</span> <button class="copy-btn" onclick="copyToClipboard('des-8')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 400 - 650 / 人</p>
+          </div>
+        </div>
+        <!-- 9 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Kurtosh Kalach (東歐煙囪捲)</h4>
+          <span class="day-tag">Day 3 Tag</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於國際通附近的東歐傳統點心煙囪捲專賣店。將麵團纏繞於木棍上現烤，外層焦糖酥脆，內裡柔軟Q彈。中空煙囪造型獨特，出爐時肉桂與肉桂香氣四溢，是非常適合散步品嚐的甜點。</p>
+            <p><strong>可複製完整地址：</strong> <span id="des-9">沖繩縣那霸市松尾2-1-13</span> <button class="copy-btn" onclick="copyToClipboard('des-9')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 600 - 900 / 人</p>
+          </div>
+        </div>
+        <!-- 10 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">Cinnamon Café</h4>
+          <span class="day-tag">Day 3 Tag</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於國際通巷內浮島通上的老屋復古咖啡館。擺設乾燥花與古董木質家具，氣氛沉靜優雅。招牌手作濃郁起司蛋糕與現打果昔表現出色，是繁華熱鬧商圈中難得鬧中取靜的休息聖地。</p>
+            <p><strong>可複製完整地址：</strong> <span id="des-10">沖繩縣那霸市牧志1-4-59</span> <button class="copy-btn" onclick="copyToClipboard('des-10')">複製</button></p>
+            <p><strong>在地幣值預算：</strong> JPY 800 - 1,200 / 人</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 六大推薦模組獨立分頁 6: 超市清單 (5) -->
+    <section id="market" class="space-y-6">
+      <div class="section-title">
+        <span class="icon-slot"><i class="fa-solid fa-basket-shopping"></i></span>
+        <h2>超市清單 (5 筆)</h2>
+      </div>
+      <div class="two-col">
+        <!-- 1 -->
+        <div class="card">
+          <h4 class="font-bold text-lg red-text">SAN-A 那霸 Main Place 大型食品超市 <span class="text-xs font-normal border border-red-200 bg-red-50 px-1.5 py-0.5 rounded ml-1">已排入行程</span></h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於新都心購物中心1樓的大型本土旗艦超市，距離 Almont Hotel 步行僅需數分鐘。生鮮水果（日本草莓、哈密瓜）、熟食天婦羅、沖繩黑糖與限定泡麵品項極齊全，價格親民，是採買宵夜與伴手禮首選。</p>
+            <p><strong>完整地址：</strong> 沖繩縣那霸市おもろまち4-4-9</p>
+            <p><strong>營業時間：</strong> 09:00 - 23:00</p>
+          </div>
+        </div>
+        <!-- 2 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">AEON 那霸店 超市</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 直結單軌電車「小祿站」的大型 AEON 百貨超市。一樓超市佔地廣大，熟食區壽司與炸物選擇極豐富，晚間常有特價折扣。設有專門免稅櫃檯，採買日本零食與沖繩土產非常方便。</p>
+            <p><strong>完整地址：</strong> 沖繩縣那霸市金城5-10-2</p>
+            <p><strong>營業時間：</strong> 07:00 - 24:00 (超市區)</p>
+          </div>
+        </div>
+        <!-- 3 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">驚安殿堂 唐吉訶德 國際通店</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 位於國際通核心地帶的 24 小時營業大型折扣店。地下一樓為食品與藥妝超市，包含滿滿的大包裝日本零食、沖繩限定商品與飲料酒類，隨時皆可補貨且提供完善退稅服務。</p>
+            <p><strong>完整地址：</strong> 沖繩縣那霸市松尾2-8-19</p>
+            <p><strong>營業時間：</strong> 24 小時營業</p>
+          </div>
+        </div>
+        <!-- 4 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">MaxValu 牧志店</h4>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 隸屬於 AEON 集團的 24 小時營業連鎖超市，位於國際通牧志地區附近。對於住在市區的旅客來說，半夜隨時購買鮮奶、優格、飲料或水果非常方便，生活用品一應俱全。</p>
+            <p><strong>完整地址：</strong> 沖繩縣那霸市牧志2-10-1</p>
+            <p><strong>營業時間：</strong> 24 小時營業</p>
+          </div>
+        </div>
+        <!-- 5 -->
+        <div class="card">
+          <h4 class="font-bold text-lg blue-text">業務超市 (Gyomu Super) 新都心店</h4>
+          <span class="day-tag">資料不足</span>
+          <div class="stack-vertical text-sm text-gray-700">
+            <p><strong>100字介紹：</strong> 以大容量、超低價格著稱的日本連鎖業務超市。販售批發規格的零食、飲料、調味料與冷凍食品，極受日本主婦喜愛。若想大量採購便宜的日本零食與茶包，這裡是挖寶聖地。</p>
+            <p><strong>完整地址：</strong> 沖繩縣那霸市天久1-26-22</p>
+            <p><strong>營業時間：</strong> <span class="red-text">資料不足</span> (預估 09:00 - 21:00)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Back to top button -->
+  <button id="backToTopBtn" title="返回頂部"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <footer class="bg-slate-900 text-slate-400 py-8 text-center text-xs space-y-2 mt-12 border-t border-slate-800">
+    <div class="main-container space-y-2">
+      <p><span class="red-text">紅字＝使用者指定／已排入行程內容</span> ｜ <span class="blue-text">藍字＝系統推薦內容</span></p>
+      <p>免責聲明：本行程資料為 2026 那霸馬拉松親子跑旅客製化規劃，航班與店家資訊請以官方即時公告為準。</p>
+      <p>離線可用版 ｜ 版本 v2.1.0-familyFX ｜ Designed for Okinawa Marathon Runners</p>
+    </div>
+  </footer>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(id);
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function copyToClipboard(nodeId) {
+      const el = document.getElementById(nodeId);
+      if (!el) return;
+      const textToCopy = el.innerText.trim();
+      
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(textToCopy).then(() => showCopySuccess(el));
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = textToCopy;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showCopySuccess(el);
+      }
+    }
+
+    function showCopySuccess(el) {
+      const btn = el.nextElementSibling;
+      if (btn && btn.classList.contains('copy-btn')) {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '✅ 已複製';
+        btn.classList.add('bg-emerald-500', 'text-white');
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('bg-emerald-500', 'text-white');
+        }, 1500);
+      }
+    }
+
+    const backBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        backBtn.style.display = 'flex';
+      } else {
+        backBtn.style.display = 'none';
+      }
+    });
+
+    backBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
