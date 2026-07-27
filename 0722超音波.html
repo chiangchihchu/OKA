@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生殖醫學分析報告 - 雙胎超音波與血檢完整判讀</title>
+<style>
+  :root {
+    --primary: #1a56db;
+    --primary-dark: #1e429f;
+    --primary-light: #ebf5ff;
+    --secondary: #0e9f6e;
+    --secondary-light: #f3faf7;
+    --warning: #d97706;
+    --warning-light: #fffbe3;
+    --danger: #e02424;
+    --danger-light: #fde8e8;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-600: #4b5563;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+  }
+
+  body {
+    background-color: #f4f6f9;
+    color: var(--gray-800);
+    line-height: 1.6;
+    padding: 24px 16px;
+  }
+
+  .report-container {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* Header */
+  .report-header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%);
+    color: white;
+    padding: 32px 28px;
+    border-radius: 16px;
+    box-shadow: 0 10px 15px -3px rgba(30, 58, 138, 0.2);
+  }
+
+  .report-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .report-subtitle {
+    font-size: 1.05rem;
+    opacity: 0.9;
+    font-weight: 300;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.9rem;
+  }
+
+  .header-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Cards */
+  .card {
+    background: white;
+    border-radius: 14px;
+    padding: 28px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--gray-200);
+  }
+
+  .card h2 {
+    font-size: 1.35rem;
+    color: var(--gray-900);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--gray-100);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Status Tags */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .tag.normal {
+    background-color: #def7ec;
+    color: #03543f;
+  }
+
+  .tag.borderline {
+    background-color: #fef3c7;
+    color: #92400e;
+  }
+
+  .tag.abnormal {
+    background-color: #fde8e8;
+    color: #9b1c1c;
+  }
+
+  .tag.insufficient {
+    background-color: #f3f4f6;
+    color: #4b5563;
+  }
+
+  /* Chance Tags */
+  .chance-badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 12px 0 20px 0;
+  }
+
+  .chance-badge.mid-high {
+    background-color: #e1f5fe;
+    color: #0277bd;
+    border: 2px solid #81d4fa;
+  }
+
+  /* Table */
+  .lab-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.93rem;
+  }
+
+  .lab-table th {
+    background-color: var(--gray-50);
+    color: var(--gray-600);
+    font-weight: 600;
+    padding: 12px 14px;
+    border-bottom: 2px solid var(--gray-200);
+  }
+
+  .lab-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .lab-table tr:hover {
+    background-color: #f8fafc;
+  }
+
+  /* Canvas Containers */
+  .canvas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .canvas-card {
+    background: #fdfdfd;
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .canvas-card h4 {
+    font-size: 0.98rem;
+    color: var(--gray-800);
+    margin-bottom: 12px;
+  }
+
+  canvas {
+    max-width: 100%;
+    height: auto;
+    background: #ffffff;
+    border-radius: 8px;
+  }
+
+  /* Block lists for lab detail */
+  .lab-item-block {
+    background-color: #fafafa;
+    border: 1px solid var(--gray-200);
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+  }
+
+  .lab-item-block h3 {
+    font-size: 1.1rem;
+    color: var(--gray-900);
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .lab-item-block ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .lab-item-block li {
+    font-size: 0.92rem;
+    color: var(--gray-800);
+    padding-left: 18px;
+    position: relative;
+  }
+
+  .lab-item-block li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+  }
+
+  /* Two Column Layout */
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .two-column-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .good-factors-box {
+    background-color: var(--secondary-light);
+    border: 1px solid #a7f3d0;
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .good-factors-box h3 {
+    color: #065f46;
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+  }
+
+  .risk-factors-box {
+    background-color: var(--warning-light);
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .risk-factors-box h3 {
+    color: #92400e;
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+  }
+
+  .good-factors-box ul, .risk-factors-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.92rem;
+  }
+
+  /* Alert / Info Boxes */
+  .info-box {
+    background-color: #f0f9ff;
+    border-left: 4px solid #0284c7;
+    padding: 16px;
+    border-radius: 6px;
+    margin: 12px 0;
+    font-size: 0.93rem;
+  }
+
+  .alert-box {
+    background-color: var(--danger-light);
+    border-left: 4px solid var(--danger);
+    padding: 16px;
+    border-radius: 6px;
+    margin: 12px 0;
+    font-size: 0.93rem;
+    color: #9b1c1c;
+  }
+
+  /* Questions list */
+  .question-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .question-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 0.93rem;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .question-item .q-num {
+    background-color: var(--primary);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  /* Disclaimer */
+  .disclaimer-card {
+    background-color: #f8fafc;
+    border-top: 3px solid var(--gray-600);
+    font-size: 0.85rem;
+    color: var(--gray-600);
+  }
+</style>
+</head>
+<body>
+
+<div class="report-container">
+
+  <!-- Header -->
+  <header class="report-header">
+    <h1>🧬 生殖醫學完整分析報告</h1>
+    <p class="report-subtitle">試管嬰兒（IVF）植入後 6 週雙胎超音波、全套血檢與門診錄音醫談綜合診斷</p>
+    <div class="header-meta">
+      <div class="header-meta-item"><span>📅 最後經期 (LMP)：</span><strong>2026/06/15</strong></div>
+      <div class="header-meta-item"><span>🌱 胚胎植入日：</span><strong>2026/07/01 (Day 5)</strong></div>
+      <div class="header-meta-item"><span>🏥 檢查日期：</span><strong>2026/07/27</strong></div>
+      <div class="header-meta-item"><span>⏱️ 估算孕週：</span><strong>6 週 3 天 (6W3D)</strong></div>
+    </div>
+  </header>
+
+  <!-- 一、個案摘要 -->
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要與最新門診進展</h2>
+    <div class="info-box">
+      <strong>臨床歷程與門診醫談概要：</strong><br>
+      個案於 2026/07/27（植入後第 26 天，推算孕週 6W3D）至生殖中心複查。超音波確認為<strong>雙胞胎懷孕</strong>。醫師診察初期雖曾留意兩胚胎之發育時間差，經進一步檢視確認<strong>兩胚胎均具有活躍心脈跳動</strong>（較小胚胎心跳頻率活絡，整體成長發育「一路 OK」）。<br><br>
+      病史顯示於 <strong>07/22 及 07/24 晚間 8-9 點曾出現少量鮮紅色陰道出血</strong>。當日抽血顯示<strong>黃體素 (Progesterone, P4) 為 27 ng/mL</strong>，針對雙胎而言稍有不足。經醫患共同討論後，決議不冒風險，今日執行<strong>最後一輪 IVIG（靜脈注射免疫球蛋白）</strong>，並同步針對黃體支持與抗凝血藥物進行精準劑量微調。
+    </div>
+  </section>
+
+  <!-- 二、檢驗報告重點整理 -->
+  <section class="card highlight-card">
+    <h2>🔎 二、檢驗與超音波數據總覽</h2>
+    <div class="lab-table-wrapper">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th>檢查類別 / 項目</th>
+            <th>測量值</th>
+            <th>參考/對照標準</th>
+            <th>估算週數 / 狀態</th>
+            <th>綜合評估標籤</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>胎兒 A - 孕囊直徑 (GS 1)</strong></td>
+            <td>2.01 × 1.07 cm</td>
+            <td>平均 1.5 - 2.0 cm</td>
+            <td>6W3D 標準</td>
+            <td><span class="tag normal">發育良好</span></td>
+          </tr>
+          <tr>
+            <td><strong>胎兒 A - 頭臀長 (CRL 1)</strong></td>
+            <td>0.41 cm (4.1 mm)</td>
+            <td>0.4 - 0.6 cm</td>
+            <td>6W1D 符合</td>
+            <td><span class="tag normal">發育良好</span></td>
+          </tr>
+          <tr>
+            <td><strong>胎兒 A - 胎心率 (FHR 1)</strong></td>
+            <td>127 BPM</td>
+            <td>110 - 140 BPM</td>
+            <td>6W 強勁心跳</td>
+            <td><span class="tag normal">發育良好</span></td>
+          </tr>
+          <tr>
+            <td><strong>胎兒 B - 孕囊直徑 (GS 2)</strong></td>
+            <td>0.99 × 0.72 cm</td>
+            <td>平均 1.2 - 1.5 cm</td>
+            <td>5W3D 偏小</td>
+            <td><span class="tag borderline">需密切觀察</span></td>
+          </tr>
+          <tr>
+            <td><strong>胎兒 B - 頭臀長 (CRL 2)</strong></td>
+            <td>0.34 cm (3.4 mm)</td>
+            <td>0.3 - 0.5 cm</td>
+            <td>6W0D 醫師評估 OK</td>
+            <td><span class="tag normal">活絡跳動中</span></td>
+          </tr>
+          <tr>
+            <td><strong>胎兒 B - 胎心率 (FHR 2)</strong></td>
+            <td>101 BPM</td>
+            <td>> 110 BPM (差2天)</td>
+            <td>6W 剛啟動/頻率活絡</td>
+            <td><span class="tag normal">醫師確認OK</span></td>
+          </tr>
+          <tr>
+            <td><strong>黃體素 (Progesterone, P4)</strong></td>
+            <td>27.0 ng/mL</td>
+            <td>> 30 - 40 ng/mL (雙胎)</td>
+            <td>濃度稍顯不足</td>
+            <td><span class="tag borderline">處方已補強</span></td>
+          </tr>
+          <tr>
+            <td><strong>D-dimer (雙合體凝血)</strong></td>
+            <td>0.080 mg/L FEU</td>
+            <td>< 0.10 (雙胎高標)</td>
+            <td>血栓風險極低</td>
+            <td><span class="tag normal">完全正常</span></td>
+          </tr>
+          <tr>
+            <td><strong>WBC (白血球)</strong></td>
+            <td>10.72 × 10^3/uL</td>
+            <td>4.0 - 10.8 × 10^3/uL</td>
+            <td>孕期生理上升</td>
+            <td><span class="tag normal">正常上限</span></td>
+          </tr>
+          <tr>
+            <td><strong>Hb (血紅素)</strong></td>
+            <td>13.8 g/dL</td>
+            <td>11.5 - 15.5 g/dL</td>
+            <td>紅血球質優</td>
+            <td><span class="tag normal">完全正常</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Canvas 動態視覺化區塊 -->
+    <h3 style="margin-top: 24px; font-size: 1.1rem; color: var(--gray-800);">🎨 超音波與血液指標動態圖表 (Canvas Rendered)</h3>
+    <div class="canvas-grid">
+      <div class="canvas-card">
+        <h4>雙胎發育與心跳對比圖 (GS / CRL / FHR)</h4>
+        <canvas id="fhrChart" width="300" height="200"></canvas>
+      </div>
+      <div class="canvas-card">
+        <h4>全血球與凝血指標安全區間卡規</h4>
+        <canvas id="bloodChart" width="300" height="200"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- 三、每一項檢驗數字的詳細說明 -->
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、每一項檢驗數字與影像的詳細說明（含看診對談解析）</h2>
+
+    <div class="lab-item-block">
+      <h3>胎兒 A（較大胚胎）超音波數據 <span class="tag normal">發育良好</span></h3>
+      <ul>
+        <li><strong>孕囊直徑 (GS 1)：2.01 × 1.07 cm / CRL 1：0.41 cm / FHR 1：127 BPM</strong>
+          <br><em>臨床脈絡與對談診斷：</em> 胎兒 A 生長曲線非常健全，心拍數 127 BPM 顯示心臟電氣傳導良好，是支持雙胎順利發育的主力胚胎。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>胎兒 B（較小胚胎）超音波數據 <span class="tag normal">醫師確認活絡跳動</span></h3>
+      <ul>
+        <li><strong>孕囊直徑 (GS 2)：0.99 × 0.72 cm / CRL 2：0.34 cm / FHR 2：101 BPM</strong>
+          <br><em>臨床脈絡與對談診斷：</em> 雖然直徑與心跳數值落在邊界，但<strong>醫師於看診動態超音波中特別確認：「小的這顆心跳其實蠻快的，兩個目前都有，一路 OK！」</strong> 因發育時間約相差兩天，101 BPM 代表原始心管剛啟動跳動數小時至一天，屬正常生理現象，消除萎縮疑慮。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block" style="border-left-color: var(--warning);">
+      <h3>黃體素 (P4)：27.0 ng/mL <span class="tag borderline">需加強支持（已調整處方）</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong> 血清黃體素是維持子宮內膜穩定、防止子宮平滑肌收縮與出血的核心荷爾蒙。雙胞胎妊娠對黃體素之需求顯著高於單胎。</li>
+        <li><strong>門診醫談解讀：</strong> 醫師指出「27 ng/mL 的黃體素對於雙胞胎而言稍微偏低」，這也是 7/22 與 7/24 出現少量鮮紅色出血的主因。</li>
+        <li><strong>最新用藥對策：</strong> 
+          <br>1. <strong>加強快孕農（Crinone）：</strong> 改為每日睡前使用 1 支。快孕農雖無法完全反映於抽血 P4 數值上，但能直達子宮局部吸收，提供極佳的止血與安胎效果。
+          <br>2. <strong>黃體素油針（Gestone）：</strong> 採「打一天、停一天」維持給藥，減少肌肉注射疼痛。醫師設定目標：若下週（7W+）心跳達 160-180 BPM 且胚胎達 1cm，將再評估一步驟減量。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>D-dimer：0.080 mg/L FEU 與抗凝血劑（愛山濃/Clexane）調整 <span class="tag normal">極優異</span></h3>
+      <ul>
+        <li><strong>門診醫談解讀：</strong> 醫師說明「雙胞胎的 D-dimer 允許上限為 0.1 mg/L」，目前 0.080 表現相當優異，顯示微血管分流良好，無微血栓形成。</li>
+        <li><strong>愛山濃 (Clexane) 減量計畫：</strong> 考量凝血指標非常安全且有少量出血史，醫師指示愛山濃實施減量（採打兩天休一天或打一停一之防護性給藥），以降低出血傾向。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block" style="border-left-color: #8b5cf6;">
+      <h3>IVIG（靜脈注射免疫球蛋白）最後一輪施打決策 <span class="tag normal">今日執行完畢</span></h3>
+      <ul>
+        <li><strong>門診醫談解讀：</strong> 一般免疫安胎預計施打至孕期 7 週（目前距離 7 週僅剩約 7-9 天）。經醫療團隊與您充分討論後，基於「已經努力到這個階段、不冒任何風險」的正確價值觀，決議於今日（7/27）完成<strong>最後一輪 IVIG 注射</strong>，為胚胎免疫環境提供完整保險。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 新增：門診醫護對談與最新處方調整專區 -->
+  <section class="card consultation-card" style="border-top: 4px solid var(--primary);">
+    <h2>🎙️ 門診醫護對談與最新處方彙整 (2026/07/27)</h2>
+    <div class="two-column-grid">
+      <div style="background: #f0f9ff; padding: 18px; border-radius: 10px; border: 1px solid #bae6fd;">
+        <h3 style="color: #0369a1; font-size: 1.05rem; margin-bottom: 10px;">💉 最新精準安胎處方表</h3>
+        <ul style="font-size: 0.92rem; display: flex; flex-direction: column; gap: 8px;">
+          <li><strong>快孕農 (Crinone 8%)：</strong> 每天睡前 1 支（直接作用子宮，防止出血）。</li>
+          <li><strong>黃體素油針：</strong> 採「打一天、停一天」施打（減緩疼痛並維持基礎濃度）。</li>
+          <li><strong>愛山濃 (Clexane)：</strong> 開始減量，採「打二休一」（明日不打，後天打）。</li>
+          <li><strong>IVIG 免疫球蛋白：</strong> 7/27 今日施打最後一輪（完成階段性任務）。</li>
+        </ul>
+      </div>
+
+      <div style="background: #fefce8; padding: 18px; border-radius: 10px; border: 1px solid #fef08a;">
+        <h3 style="color: #a16207; font-size: 1.05rem; margin-bottom: 10px;">🎯 下週回診（7W+）評估目標</h3>
+        <ul style="font-size: 0.92rem; display: flex; flex-direction: column; gap: 8px;">
+          <li><strong>胎兒心跳目標：</strong> 兩胚胎心拍數上升至 <strong>160 - 180 BPM</strong>。</li>
+          <li><strong>胚胎大小目標：</strong> 頭臀長 (CRL) 成長至 <strong>1.0 cm</strong> 以上。</li>
+          <li><strong>減藥評估：</strong> 達標後醫師將協助一步驟調降黃體素油針劑量。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 六、可能問題與風險分析 -->
+  <!-- 五、目前持續妊娠成功機率評估 -->
+  <section class="card chance-card">
+    <h2>📈 五、目前持續妊娠成功機率評估</h2>
+    <div style="text-align: center;">
+      <span class="chance-badge mid-high">預後評估：高 / 穩定發展中 (High & Stable)</span>
+    </div>
+
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面有利原因（含醫談確認）</h3>
+        <ul>
+          <li><strong>雙胚胎均經超音波確認活躍心跳：</strong> 醫師現場確認胎兒 B 活力佳，兩顆均「一路 OK」。</li>
+          <li><strong>安胎處方精準補強：</strong> 針對 P4 27 補強快孕農，提供子宮直接吸收屏障。</li>
+          <li><strong>免疫與凝血防線完備：</strong> D-dimer 0.080 極優，且今日完成最後一輪 IVIG，排除免疫排斥。</li>
+          <li><strong>母體價值觀正確與高度配合：</strong> 積極遵照醫囑安胎與休息，為雙胎提供最佳基底。</li>
+        </ul>
+      </div>
+      <div class="risk-factors-box">
+        <h3>⚠️ 需密切注意之風險管理</h3>
+        <ul>
+          <li><strong>黃體素波動與出血預防：</strong> 07/22 與 07/24 曾有鮮紅出血，需嚴格平躺並觀察出血量變化。</li>
+          <li><strong>雙胞胎晚期早產風險 (Preterm Birth)：</strong> 醫師特別警示雙胞胎畢業後需面對早產考驗，需調整工作型態。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 十一、建議與醫師討論的關鍵問題 -->
+  <!-- 十、生活與治療建議 -->
+  <section class="card advice-card">
+    <h2>💡 十、日常護理、工作與早產預防建議</h2>
+    <div class="two-column-grid">
+      <div style="background: #f8fafc; padding: 16px; border-radius: 8px;">
+        <h3 style="font-size: 1rem; color: var(--primary); margin-bottom: 8px;">🛋️ 工作型態調整（醫師特別叮嚀）</h3>
+        <ul style="font-size: 0.9rem; padding-left: 18px;">
+          <li><strong>減少站立時間：</strong> 鑑於上午需站立、下午雙班之工作型態，請爭取短暫坐下或平躺休息機會。</li>
+          <li><strong>預防早產危害：</strong> 雙胞胎妊娠子宮張力較大，避免提重物、搬運物品或增加腹壓之動作。</li>
+        </ul>
+      </div>
+      <div style="background: #f8fafc; padding: 16px; border-radius: 8px;">
+        <h3 style="font-size: 1rem; color: var(--primary); margin-bottom: 8px;">💊 藥物使用細節</h3>
+        <ul style="font-size: 0.9rem; padding-left: 18px;">
+          <li>快孕農於睡前使用，擠入後可輕微平躺協助吸收。</li>
+          <li>油針採隔天一次，若注射部位出現硬塊可適度溫敷。</li>
+          <li>若再出現鮮紅色陰道出血，需立即拍照記錄並聯繫診所。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 十一、建議與醫師討論的關鍵問題 -->
+  <section class="card discussion-card">
+    <h2>🗣️ 十一、下週回診（7W+）與主治醫師討論之關鍵重點</h2>
+    <div class="question-list">
+      <div class="question-item">
+        <div class="q-num">1</div>
+        <div>醫師您好，今日超音波檢查兩胚胎 CRL 是否已達 1.0 cm，心跳是否均已提升至 160-180 BPM 目標？</div>
+      </div>
+      <div class="question-item">
+        <div class="q-num">2</div>
+        <div>目前睡前使用快孕農配合隔日油針後，陰道出血狀況已完全停止，請問油針劑量今日是否可開始調降？</div>
+      </div>
+      <div class="question-item">
+        <div class="q-num">3</div>
+        <div>愛山濃採「打二休一」後凝血與出血狀況均相當平穩，請問抗凝血藥物預計使用至第幾週？</div>
+      </div>
+      <div class="question-item">
+        <div class="q-num">4</div>
+        <div>因屬雙胞胎妊娠，考量工作需站立與雙班，請問醫師對於後續產檢與早產預防（如產假規劃或托腹帶使用）有何建議？</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 十二、警示訊號 -->
+  <section class="card alert-card">
+    <h2>🚨 十二、重要警示訊號與緊急就醫時機</h2>
+    <div class="alert-box">
+      <strong>若出現以下任一狀況，請勿等待預約回診，需立即至生殖中心或急診就醫：</strong>
+      <ul style="padding-left: 20px; margin-top: 8px;">
+        <li><strong>鮮紅色大量陰道出血：</strong> 出血量達到或超過衛生棉滿載程度。</li>
+        <li><strong>劇烈單側或全腹部陣痛：</strong> 服用止痛藥或平躺仍無法緩解之下腹劇痛。</li>
+        <li><strong>伴隨發燒與寒顫：</strong> 體溫高於 38.5°C 或伴隨異常惡臭陰道分泌物。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 十三、重要聲明 -->
+  <section class="card disclaimer-card">
+    <h2>📌 十三、重要非診斷聲明</h2>
+    <p>
+      本分析報告係依據您所提供之超音波影像數據（Hitachi Ultrasound, Stork Ladies Clinic）、CBC 血檢及 D-dimer 報告內容進行生殖醫學資訊整理與臨床邏輯判讀。本報告僅供健康資訊參考與門診溝通輔助，<strong>不可替代專業醫師之現場親診、臨床診斷與處方治療</strong>。所有的藥物調整、療程規劃與醫療決策，請務必與您的主治醫師進行充分討論並以醫囑為準。
+    </p>
+  </section>
+
+</div>
+
+<script>
+  // Canvas 圖表繪製指令
+  window.addEventListener('DOMContentLoaded', () => {
+    // Canvas 1: FHR & CRL Comparison Chart
+    const ctx1 = document.getElementById('fhrChart').getContext('2d');
+    ctx1.fillStyle = '#ffffff';
+    ctx1.fillRect(0, 0, 300, 200);
+
+    // Grid lines
+    ctx1.strokeStyle = '#f3f4f6';
+    ctx1.lineWidth = 1;
+    for(let y = 30; y < 180; y += 30) {
+      ctx1.beginPath();
+      ctx1.moveTo(30, y);
+      ctx1.lineTo(280, y);
+      ctx1.stroke();
+    }
+
+    // Bars for FHR
+    // FHR 1: 127
+    const h1 = (127 / 160) * 120;
+    ctx1.fillStyle = '#1a56db';
+    ctx1.fillRect(60, 160 - h1, 45, h1);
+    ctx1.fillStyle = '#1e293b';
+    ctx1.font = 'bold 12px sans-serif';
+    ctx1.fillText('127 BPM', 58, 150 - h1);
+    ctx1.fillText('胎兒 A', 63, 178);
+
+    // FHR 2: 101
+    const h2 = (101 / 160) * 120;
+    ctx1.fillStyle = '#d97706';
+    ctx1.fillRect(165, 160 - h2, 45, h2);
+    ctx1.fillStyle = '#1e293b';
+    ctx1.fillText('101 BPM', 163, 150 - h2);
+    ctx1.fillText('胎兒 B', 168, 178);
+
+    // Target Line (110 BPM)
+    const targetY = 160 - ((110 / 160) * 120);
+    ctx1.strokeStyle = '#ef4444';
+    ctx1.setLineDash([4, 4]);
+    ctx1.beginPath();
+    ctx1.moveTo(40, targetY);
+    ctx1.lineTo(260, targetY);
+    ctx1.stroke();
+    ctx1.fillStyle = '#ef4444';
+    ctx1.font = '10px sans-serif';
+    ctx1.fillText('6W 門檻 (110 BPM)', 150, targetY - 4);
+
+    // Canvas 2: Blood Gauge Chart
+    const ctx2 = document.getElementById('bloodChart').getContext('2d');
+    ctx2.fillStyle = '#ffffff';
+    ctx2.fillRect(0, 0, 300, 200);
+
+    // D-dimer gauge
+    ctx2.fillStyle = '#1e293b';
+    ctx2.font = 'bold 12px sans-serif';
+    ctx2.fillText('D-dimer (凝血指標): 0.080 mg/L', 20, 35);
+
+    ctx2.fillStyle = '#e5e7eb';
+    ctx2.fillRect(20, 45, 250, 16);
+    // Green safe zone
+    ctx2.fillStyle = '#10b981';
+    ctx2.fillRect(20, 45, 180, 16); 
+    // Marker
+    ctx2.fillStyle = '#1d4ed8';
+    ctx2.fillRect(20 + (0.08 / 0.55) * 180, 41, 4, 24);
+    ctx2.fillStyle = '#1d4ed8';
+    ctx2.font = 'bold 10px sans-serif';
+    ctx2.fillText('本案 (0.08)', 15, 80);
+    ctx2.fillStyle = '#6b7280';
+    ctx2.fillText('警戒值 (0.55)', 170, 80);
+
+    // Hb gauge
+    ctx2.fillStyle = '#1e293b';
+    ctx2.font = 'bold 12px sans-serif';
+    ctx2.fillText('Hb (血紅素): 13.8 g/dL', 20, 120);
+
+    ctx2.fillStyle = '#e5e7eb';
+    ctx2.fillRect(20, 130, 250, 16);
+    ctx2.fillStyle = '#10b981';
+    ctx2.fillRect(80, 130, 140, 16); // Normal 11.5 - 15.5
+    // Marker
+    const hbPos = 80 + ((13.8 - 11.5) / 4) * 140;
+    ctx2.fillStyle = '#1d4ed8';
+    ctx2.fillRect(hbPos, 126, 4, 24);
+    ctx2.font = 'bold 10px sans-serif';
+    ctx2.fillText('本案 (13.8)', hbPos - 20, 165);
+    ctx2.fillStyle = '#6b7280';
+    ctx2.fillText('標準區間 (11.5 - 15.5)', 80, 165);
+  });
+</script>
+
+</body>
+</html>
