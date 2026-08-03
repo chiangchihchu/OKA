@@ -1,0 +1,666 @@
+<style>
+  :root {
+    --primary-color: #1e3a8a;
+    --primary-light: #3b82f6;
+    --secondary-color: #0d9488;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --border-color: #e2e8f0;
+    
+    --tag-normal-bg: #dcfce7;
+    --tag-normal-color: #166534;
+    --tag-borderline-bg: #fef9c3;
+    --tag-borderline-color: #854d0e;
+    --tag-abnormal-bg: #fee2e2;
+    --tag-abnormal-color: #991b1b;
+    --tag-info-bg: #e0f2fe;
+    --tag-info-color: #075985;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 20px;
+  }
+
+  .report-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .report-header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #0d9488 100%);
+    color: white;
+    padding: 32px 24px;
+    border-radius: 16px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .report-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .report-subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+
+  .card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+
+  .card h2 {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card h3 {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    margin: 16px 0 10px 0;
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-left: 8px;
+  }
+  .tag.normal { background-color: var(--tag-normal-bg); color: var(--tag-normal-color); }
+  .tag.borderline { background-color: var(--tag-borderline-bg); color: var(--tag-borderline-color); }
+  .tag.abnormal { background-color: var(--tag-abnormal-bg); color: var(--tag-abnormal-color); }
+  .tag.info { background-color: var(--tag-info-bg); color: var(--tag-info-color); }
+
+  .chance-tag {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .chance-tag.mid-high { background-color: #dbeafe; color: #1e40af; }
+
+  /* Tables */
+  .table-responsive {
+    overflow-x: auto;
+    margin-top: 12px;
+  }
+
+  .lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    text-align: left;
+  }
+
+  .lab-table th {
+    background-color: #f1f5f9;
+    color: var(--text-primary);
+    padding: 12px;
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  .lab-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .lab-table tr:hover {
+    background-color: #f8fafc;
+  }
+
+  /* Detail Items */
+  .lab-item-block {
+    background-color: #f8fafc;
+    border-left: 4px solid var(--primary-light);
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 20px;
+  }
+
+  .lab-item-block h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .lab-item-block ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .lab-item-block li {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+
+  .lab-item-block li strong {
+    color: var(--text-primary);
+  }
+
+  /* Grid layouts */
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .two-column-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .good-factors-box {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .risk-factors-box {
+    background-color: #fff1f2;
+    border: 1px solid #fecdd3;
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  /* Callout boxes */
+  .info-box, .warning-box, .alert-box, .tip-box {
+    padding: 16px;
+    border-radius: 8px;
+    margin: 12px 0;
+    font-size: 0.95rem;
+  }
+  .info-box { background-color: #eff6ff; border-left: 4px solid #3b82f6; color: #1e40af; }
+  .warning-box { background-color: #fefce8; border-left: 4px solid #eab308; color: #854d0e; }
+  .alert-box { background-color: #fef2f2; border-left: 4px solid #ef4444; color: #991b1b; }
+  .tip-box { background-color: #f0fdf4; border-left: 4px solid #22c55e; color: #166534; }
+
+  .disclaimer-card {
+    background-color: #f1f5f9;
+    border: 1px dashed #94a3b8;
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+
+  .trend-up { color: #dc2626; font-weight: bold; }
+  .trend-down { color: #2563eb; font-weight: bold; }
+  .trend-stable { color: #4b5563; }
+</style>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>🧬 生殖醫學與免疫內分泌分析報告</h1>
+    <p class="report-subtitle">07/27 與 08/03 檢驗前後差異對比・專業臨床判讀・後續指引</p>
+  </header>
+
+  <!-- 一、個案摘要 -->
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要</h2>
+    <div class="info-box">
+      <p><strong>對象評估：</strong>備孕女性／生殖免疫與植入/黃體期追蹤</p>
+      <p><strong>檢驗日期：</strong>第一階段 2026/07/27（生殖激素 E2/P4、血栓指標 D-dimer、血球計數 CBC+DC、淋巴球免疫分析）；第二階段 2026/08/03（複查淋巴球免疫分析與白血球計數）。</p>
+      <p><strong>核心臨床表現：</strong>07/27 顯示極高的雌二醇（$E_2 = 563.3\text{ pg/mL}$）與黃體素（$P_4 = 27.90\text{ ng/mL}$），搭配 $D-dimer$ 完美正常（$0.080\text{ mg/L}$），提示良好的黃體功能或破卵/植入後高度支持狀態；免疫方面，NK細胞（CD16+56）與B細胞（CD19）均保持在理想安全範圍，但<strong>抑製/殺傷T細胞（CD8）計數持續偏高</strong>，且白血球（WBC）於 08/03 略微升至 $10.85\times10^3/\mu L$。</p>
+    </div>
+  </section>
+
+  <!-- 二、檢驗報告重點整理 -->
+  <section class="card highlight-card">
+    <h2>🔎 二、檢驗報告重點對比整理</h2>
+    <div class="table-responsive">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th>檢驗項目</th>
+            <th>07/27 結果</th>
+            <th>08/03 結果</th>
+            <th>參考範圍</th>
+            <th>趨勢變化</th>
+            <th>臨床狀態標籤</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>WBC (白血球)</strong></td>
+            <td>9.27 (CBC 10.72)</td>
+            <td>10.85</td>
+            <td>3.5 ~ 10 e3/uL</td>
+            <td><span class="trend-up">↑ 輕微上升</span></td>
+            <td><span class="tag borderline">臨界偏高</span></td>
+          </tr>
+          <tr>
+            <td><strong>CD3+ T cell (%)</strong></td>
+            <td>74.2 %</td>
+            <td>75.1 %</td>
+            <td>50 ~ 84 %</td>
+            <td><span class="trend-stable">→ 穩定</span></td>
+            <td><span class="tag normal">正常</span></td>
+          </tr>
+          <tr>
+            <td><strong>CD4+ Helper T (%)</strong></td>
+            <td>32.2 %</td>
+            <td>32.0 %</td>
+            <td>27 ~ 51 %</td>
+            <td><span class="trend-stable">→ 穩定</span></td>
+            <td><span class="tag normal">正常</span></td>
+          </tr>
+          <tr>
+            <td><strong>CD8+ Suppressor T (%)</strong></td>
+            <td>39.0 %</td>
+            <td>40.9 %</td>
+            <td>15 ~ 44 %</td>
+            <td><span class="trend-up">↑ 輕微微升</span></td>
+            <td><span class="tag normal">正常高標</span></td>
+          </tr>
+          <tr>
+            <td><strong>CD4 / CD8 Ratio</strong></td>
+            <td>0.8</td>
+            <td>0.8</td>
+            <td>0.6 ~ 2.5</td>
+            <td><span class="trend-stable">→ 穩定</span></td>
+            <td><span class="tag normal">正常低標</span></td>
+          </tr>
+          <tr>
+            <td><strong>CD19+ B cell (%)</strong></td>
+            <td>13.4 %</td>
+            <td>14.4 %</td>
+            <td>< 14.9 %</td>
+            <td><span class="trend-up">↑ 接近上限</span></td>
+            <td><span class="tag borderline">邊界注意</span></td>
+          </tr>
+          <tr>
+            <td><strong>CD16+56+ NK cell (%)</strong></td>
+            <td>9.2 %</td>
+            <td>8.5 %</td>
+            <td>< 14.9 %</td>
+            <td><span class="trend-down">↓ 輕微下降</span></td>
+            <td><span class="tag normal">良好正常</span></td>
+          </tr>
+          <tr>
+            <td><strong>HLA-DR+ Active T (%)</strong></td>
+            <td>4.3 %</td>
+            <td>4.9 %</td>
+            <td>1.9 ~ 19.6 %</td>
+            <td><span class="trend-stable">→ 穩定</span></td>
+            <td><span class="tag normal">正常</span></td>
+          </tr>
+          <tr>
+            <td><strong>CD8 Absolute Count</strong></td>
+            <td>1158 ul</td>
+            <td>1288 ul</td>
+            <td>220 ~ 1129 ul</td>
+            <td><span class="trend-up">↑ 持續上升</span></td>
+            <td><span class="tag abnormal">高於標準</span></td>
+          </tr>
+          <tr>
+            <td><strong>CD16+56 Absolute Count</strong></td>
+            <td>278 ul</td>
+            <td>268 ul</td>
+            <td>< 299.9 ul</td>
+            <td><span class="trend-down">↓ 穩定下降</span></td>
+            <td><span class="tag normal">正常</span></td>
+          </tr>
+          <tr>
+            <td><strong>Estradiol (E2)</strong></td>
+            <td>563.3 pg/mL</td>
+            <td>未檢測</td>
+            <td>依週期而定</td>
+            <td>-</td>
+            <td><span class="tag info">高濃度黃體支持</span></td>
+          </tr>
+          <tr>
+            <td><strong>Progesterone (P4)</strong></td>
+            <td>27.90 ng/mL</td>
+            <td>未檢測</td>
+            <td>依週期而定</td>
+            <td>-</td>
+            <td><span class="tag normal">優良黃體濃度</span></td>
+          </tr>
+          <tr>
+            <td><strong>D-dimer (血栓指標)</strong></td>
+            <td>0.080 mg/L FEU</td>
+            <td>未檢測</td>
+            <td>< 0.55 mg/L</td>
+            <td>-</td>
+            <td><span class="tag normal">非常理想</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 三、每一項檢驗數字的詳細說明 -->
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+
+    <!-- WBC -->
+    <div class="lab-item-block">
+      <h3>1. WBC (白血球總數) <span class="tag borderline">07/27: 9.27 -> 08/03: 10.85 e3/uL</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>全身免疫系統與發炎反應的基礎細胞總數量。</li>
+        <li><strong>在生殖評估中的意義：</strong>反映體內是否有急性發炎、感染，或生理性應激（如高黃體素狀態、使用類固醇藥物或懷孕初期）。</li>
+        <li><strong>若偏高常見代表：</strong>細菌/病毒感染、組織發炎、壓力、黃體素刺激或使用免疫調節劑（如安胎藥、類固醇）。</li>
+        <li><strong>若偏低常見代表：</strong>病毒感染、免疫抑製、骨髓造血低下。</li>
+        <li><strong>本個案的可能解讀：</strong>從 07/27 的 $9.27\times10^3/\mu L$ 升至 08/03 的 $10.85\times10^3/\mu L$（稍微超過參考上限 10.0），可能與高黃體素環境、黃體支持藥物或植入/著床期體內輕微的生理性免疫應答有關，暫無需過度焦慮。</li>
+        <li><strong>建議合併判讀項目：</strong>NEUT%（中性粒細胞）、C-反應蛋白（CRP）、黃體素藥物使用狀況。</li>
+        <li><strong>是否需要追蹤：</strong>建議下次回診門診順便複查血常規即可。</li>
+      </ul>
+    </div>
+
+    <!-- CD3 -->
+    <div class="lab-item-block">
+      <h3>2. T cell (CD3+) 比例與絕對計數 <span class="tag normal">07/27: 74.2% (2217) -> 08/03: 75.1% (2361)</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>CD3 是所有成熟 T 淋巴球的表面標記，代表細胞免疫系統的主力總量。</li>
+        <li><strong>在生殖評估中的意義：</strong>評估細胞免疫活性與整體免疫平衡的基礎。</li>
+        <li><strong>若偏高常見代表：</strong>慢性免疫激活、細胞免疫亢進。</li>
+        <li><strong>若偏低常見代表：</strong>免疫功能低下、淋巴球減少症。</li>
+        <li><strong>本個案的可能解讀：</strong>兩次檢測比例（74.2% $\rightarrow$ 75.1%）與絕對計數（2217 $\rightarrow$ 2361 $\mu L$）均在標準範圍（50-84%, 723-2737 $\mu L$）內，非常穩定，顯示整體 T 細胞池總量結構正常。</li>
+        <li><strong>建議合併判讀項目：</strong>CD4、CD8 細項分類。</li>
+        <li><strong>是否需要追蹤：</strong>持續隨生殖免疫常規定期評估即可。</li>
+      </ul>
+    </div>
+
+    <!-- CD4 -->
+    <div class="lab-item-block">
+      <h3>3. Helper T cell (CD4+) 輔助 T 細胞 <span class="tag normal">07/27: 32.2% (956) -> 08/03: 32.0% (1009)</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>免疫系統的「指揮官」，負責協調免疫反應、發同源訊號（Th1/Th2）。</li>
+        <li><strong>在生殖評估中的意義：</strong>過高的 CD4 活性可能誘導拒絕反應（Th1 偏向），正常範圍有利於母胎免疫耐受。</li>
+        <li><strong>若偏高常見代表：</strong>自體免疫亢進、輔助免疫過度激活。</li>
+        <li><strong>若偏低常見代表：</strong>免疫缺損、過度抑製。</li>
+        <li><strong>本個案的可能解讀：</strong>比例（32.2% $\rightarrow$ 32.0%）與絕對值（956 $\rightarrow$ 1009 $\mu L$）完全落在標準區間（27-51%），表現極佳且相當穩定，無過度激化的 Th1 轉化疑慮。</li>
+        <li><strong>建議合併判讀項目：</strong>CD8 數量與 CD4/CD8 比值。</li>
+        <li><strong>是否需要追蹤：</strong>保持現狀追蹤即可。</li>
+      </ul>
+    </div>
+
+    <!-- CD8 -->
+    <div class="lab-item-block">
+      <h3>4. Suppressor/Cytotoxic T cell (CD8+) 抑制/殺傷 T 細胞 <span class="tag abnormal">07/27: 39.0% (1158) -> 08/03: 40.9% (1288)</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>CD8+ T 細胞具有細胞毒性與抑制功能，能清除異物或受感染細胞。</li>
+        <li><strong>在生殖評估中的意義：</strong>在母胎界面中，CD8+ T 細胞對胚胎半異體抗原（來自父親）的識別與耐受扮演雙重角色。過高可能代表體內有細胞毒性活化的傾向。</li>
+        <li><strong>若偏高常見代表：</strong>慢性病毒感染、自體免疫反應、體內對異體抗原的應激。</li>
+        <li><strong>若偏低常見代表：</strong>免疫抑製力不足。</li>
+        <li><strong>本個案的可能解讀：</strong>百分比在正常上限內（39.0% $\rightarrow$ 40.9%），但<strong>絕對計數連續兩次高於參考值（1158 $\rightarrow$ 1288 $\mu L$，標準為 220-1129）</strong>。這是目前報告中最主要的微幅異常點，暗示體內 CD8 族群較豐富，需注意是否伴隨輕微發炎或體質調節反應。</li>
+        <li><strong>建議合併判讀項目：</strong>CD4/CD8 比值、HLA-DR 活化指標。</li>
+        <li><strong>是否需要追蹤：</strong>需於門診諮詢醫師是否需要微調免疫調節劑（如阿斯匹靈、羥氯喹或類固醇等，需由醫師決定）。</li>
+      </ul>
+    </div>
+
+    <!-- CD4/CD8 Ratio -->
+    <div class="lab-item-block">
+      <h3>5. CD4 / CD8 Ratio (輔助/抑製 T 細胞比值) <span class="tag normal">07/27: 0.8 -> 08/03: 0.8</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>CD4 與 CD8 的相對比例，是衡量免疫調節平衡的重要指標。</li>
+        <li><strong>在生殖評估中的意義：</strong>比值若過高（>2.5）常提示自體免疫過度激活；過低（<0.6）則常見於病毒感染或抑製性 T 細胞過多。</li>
+        <li><strong>若偏高常見代表：</strong>自體免疫疾病（如紅斑性狼瘡、類風濕）。</li>
+        <li><strong>若偏低常見代表：</strong>急性/慢性病毒感染、CD8 顯著增多。</li>
+        <li><strong>本個案的可能解讀：</strong>連續兩次皆為 0.8，處於正常範圍（0.6-2.5）偏低的邊界，主因是上述 CD8 數量較多所致。但整體仍維持平衡，未跌破 0.6 安全線。</li>
+        <li><strong>建議合併判讀項目：</strong>CD8 絕對值變化。</li>
+        <li><strong>是否需要追蹤：</strong>定期追蹤即可。</li>
+      </ul>
+    </div>
+
+    <!-- CD19 -->
+    <div class="lab-item-block">
+      <h3>6. B cell (CD19+) B 淋巴細胞 <span class="tag borderline">07/27: 13.4% (404) -> 08/03: 14.4% (454)</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>B 細胞負責產生抗體（體液免疫）。</li>
+        <li><strong>在生殖評估中的意義：</strong>B 細胞過度活躍容易產生自體抗體（如抗磷脂抗體、抗核抗體 ANA），影響胚胎著床或胎盤血液循環。</li>
+        <li><strong>若偏高常見代表：</strong>B 細胞高反應性、自體免疫抗體升高風險。</li>
+        <li><strong>若偏低常見代表：</strong>體液免疫低下。</li>
+        <li><strong>本個案的可能解讀：</strong>07/27 為 13.4%，08/03 升至 14.4%（參考值上限為 <14.9%）。雖仍在合格範圍內，但已臨近上限，且絕對計數從 404 增至 454 $\mu L$（上限 499.9）。這提示體液免疫有輕微上升趨勢。</li>
+        <li><strong>建議合併判讀項目：</strong>自體免疫抗體套組（ANA、APA 抗磷脂抗體、Anti-TPO 等）。</li>
+        <li><strong>是否需要追蹤：</strong>建議下次療程中再次複查，確認是否突破 15%。</li>
+      </ul>
+    </div>
+
+    <!-- CD16+56 NK cell -->
+    <div class="lab-item-block">
+      <h3>7. NK cell (CD16+56+) 自然殺傷細胞 <span class="tag normal">07/27: 9.2% (278) -> 08/03: 8.5% (268)</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>周邊血自然殺傷細胞（Natural Killer cells）的比例與數量。</li>
+        <li><strong>在生殖評估中的意義：</strong>生殖免疫學中最核心的指標之一。高毒性或高比例 NK 細胞（>12%~15%）可能攻擊胚胎、干擾滋養層細胞侵襲，導致重複著床失敗或流產。</li>
+        <li><strong>若偏高常見代表：</strong>胚胎著床排斥風險增加、NK 毒性過強。</li>
+        <li><strong>若偏低常見代表：</strong>正常生理耐受性佳。</li>
+        <li><strong>本個案的可能解讀：</strong>非常理想！比例從 9.2% 降至 8.5%（遠低於臨界值 14.9%），絕對數量（278 $\rightarrow$ 268 $\mu L$）亦完全正常（< 299.9）。這顯示<strong>目前體內的NK殺傷細胞並未受到不良激活，對胚胎著床極為有利</strong>。</li>
+        <li><strong>建議合併判讀項目：</strong>子宮內膜 NK 細胞（如若有做內膜切片）或 NK 細胞毒性測試。</li>
+        <li><strong>是否需要追蹤：</strong>繼續維持當前良好的免疫穩定狀態。</li>
+      </ul>
+    </div>
+
+    <!-- Active T cell HLA-DR -->
+    <div class="lab-item-block">
+      <h3>8. Active T cell (HLA-DR+) 活化 T 細胞 <span class="tag normal">07/27: 4.3% (128) -> 08/03: 4.9% (154)</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>表面帶有 HLA-DR 標記的活化狀態 T 細胞。</li>
+        <li><strong>在生殖評估中的意義：</strong>評估體內 T 細胞是否處於「正在發炎或攻擊狀態」的指標。</li>
+        <li><strong>若偏高常見代表：</strong>體內有活性發炎反應、免疫排斥正在進行。</li>
+        <li><strong>若偏低常見代表：</strong>免疫處於靜息平衡狀態。</li>
+        <li><strong>本個案的可能解讀：</strong>比例為 4.3% $\rightarrow$ 4.9%，遠低於參考上限 19.6%，說明 T 細胞雖然 CD8 數量偏多，但多數處於「非過度活化」的平靜狀態。</li>
+        <li><strong>建議合併判讀項目：</strong>CD8 絕對值。</li>
+        <li><strong>是否需要追蹤：</strong>常規追蹤即可。</li>
+      </ul>
+    </div>
+
+    <!-- Estradiol E2 -->
+    <div class="lab-item-block">
+      <h3>9. Estradiol (E2) 雌二醇 <span class="tag info">07/27: 563.3 pg/mL</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>主要由卵巢濾泡與黃體分泌的活性雌激素。</li>
+        <li><strong>在生殖評估中的意義：</strong>維持子宮內膜厚度、促進內膜血流與鬆弛，並協同黃體素支持胚胎著床。</li>
+        <li><strong>若偏高常見代表：</strong>卵巢刺激後（IVF取卵/破卵）、多濾泡發育、黃體期強效支持、懷孕早期。</li>
+        <li><strong>若偏低常見代表：</strong>卵巢功能衰退、內膜發育不良。</li>
+        <li><strong>本個案的可能解讀：</strong>$563.3\text{ pg/mL}$ 屬於非常充沛的濃度，符合排卵後黃體期高濃度支持或植入後藥物支持的良好反應，能提供子宮內膜良好的生長環境。</li>
+        <li><strong>建議合併判讀項目：</strong>P4（黃體素）、超音波內膜厚度。</li>
+        <li><strong>是否需要追蹤：</strong>依據主治醫師療程規劃定期抽血。</li>
+      </ul>
+    </div>
+
+    <!-- Progesterone P4 -->
+    <div class="lab-item-block">
+      <h3>10. Progesterone (P4) 黃體素 <span class="tag normal">07/27: 27.90 ng/mL</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>由黃體或外源性補充分泌的安胎關鍵荷爾蒙。</li>
+        <li><strong>在生殖評估中的意義：</strong>促使子宮內膜轉化為分泌期、關閉著床窗、抑制子宮收縮，是胚胎著床與保胎不可或缺的核心。</li>
+        <li><strong>若偏高常見代表：</strong>黃體功能極佳、外源補充充足、懷孕。</li>
+        <li><strong>若偏低常見代表：</strong>黃體功能不足（LFD），易導致早期出血或著床失敗。</li>
+        <li><strong>本個案的可能解讀：</strong>$27.90\text{ ng/mL}$ 是極為優秀的黃體素數值（臨床植入標準通常希望 > 10~15 ng/mL），代表內膜環境已經做好完全的著床準備或正受強效保護。</li>
+        <li><strong>建議合併判讀項目：</strong>E2、β-hCG（若已到驗孕日）。</li>
+        <li><strong>是否需要追蹤：</strong>依醫師指示維持補充或驗孕追蹤。</li>
+      </ul>
+    </div>
+
+    <!-- D-dimer -->
+    <div class="lab-item-block">
+      <h3>11. D-dimer (D-雙聚體/血栓指標) <span class="tag normal">07/27: 0.080 mg/L FEU</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>纖維蛋白分解產物，反映體內高凝血狀態或微血栓形成。</li>
+        <li><strong>在生殖評估中的意義：</strong>子宮胎盤血流若產生微小血栓，會影響胚胎供血導致著床失敗或胎停。高 E2 狀態易誘發血栓，故需嚴密監控。</li>
+        <li><strong>若偏高常見代表：</strong>高凝血傾向、微血栓形成、靜脈血栓风险。</li>
+        <li><strong>若偏低常見代表：</strong>凝血與纖溶平衡良好，無顯著血栓風險。</li>
+        <li><strong>本個案的可能解讀：</strong>$0.080\text{ mg/L}$（參考值 < 0.55）屬於<strong>極度優良且安全的低值</strong>！表明即使在 high E2 情況下，體內的凝血系統依然非常平穩，完全沒有子宮微血栓阻塞風險。</li>
+        <li><strong>建議合併判讀項目：</strong>血小板計數（PLT: 318 均正常）。</li>
+        <li><strong>是否需要追蹤：</strong>若確認懷孕可於孕中期再做例行抽血。</li>
+      </ul>
+    </div>
+
+    <!-- CBC 血常規補充 -->
+    <div class="lab-item-block">
+      <h3>12. Complete Blood Count (0727 血常規整體) <span class="tag normal">RBC 4.26 / Hb 13.8 / PLT 318</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>包含紅血球（RBC）、血紅素（Hb）、血小板（PLT）與白血球分類（NEUT% 61%, LYMPH% 32.8%）。</li>
+        <li><strong>在本個案的可能解讀：</strong>血紅素 $13.8\text{ g/dL}$ 無貧血現象；血小板 $318\times10^3/\mu L$ 數量充沛且無異常增多；白血球分類比例（中性粒與淋巴球）完全符合常態生理比例。整體造血功能極為健康。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 四、整體評估 -->
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體生殖免疫與內分泌整合評估</h2>
+    <div class="info-box">
+      <p>綜合 07/27 與 08/03 的跨時間數據，當前個案呈現出<strong>「內分泌與血流環境極佳、關鍵NK殺傷細胞安全，但背景存在輕度 T/B 免疫活躍」</strong>的特徵：</p>
+      <ol style="padding-left: 20px; margin-top: 10px;">
+        <li><strong>極佳的著床溫床（內分泌與凝血）：</strong>高 E2 ($563.3$) 與高 P4 ($27.90$) 配合低 D-dimer ($0.080$)，代表內膜滋養條件足夠，且沒有血管栓塞問題。</li>
+        <li><strong>NK細胞威脅極低：</strong>周邊血 NK 細胞降至 8.5%，這是非常有利於胚胎不被母體拒絕的黃金指標。</li>
+        <li><strong>需注意的免疫微調點：</strong>CD8 殺傷 T 細胞絕對值偏高（$1288\ \mu L$）以及 B 細胞比例拉近上限（$14.4\%$），加上 WBC 輕微升至 $10.85$，顯示體內有些許細胞免疫與體液免疫的輕度反應，建議持續配合主治醫師的免疫藥物調節（如適度抑製發炎）。</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 五、目前成功機率評估 -->
+  <section class="card chance-card">
+    <h2>📈 五、目前成功（著床/維持妊娠）機率評估</h2>
+    <div style="text-align: center; margin: 16px 0;">
+      <span class="chance-tag mid-high">預估相對成功率：中等偏高</span>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 6px;">（註：此評估為依據當前免疫與荷爾蒙數據之定性推估，實際成功率仍須結合胚胎品質與子宮結構判斷）</p>
+    </div>
+
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面有利原因</h3>
+        <ul>
+          <li>✔ <strong>NK 殺傷細胞比例極佳（8.5%）：</strong>胚胎受到免疫排斥的毒性攻擊風險低。</li>
+          <li>✔ <strong>黃體素與雌二醇十分充足：</strong>P4 $27.90\text{ ng/mL}$ 提供極強的子宮內膜支持。</li>
+          <li>✔ <strong>D-dimer 完美正常（0.080）：</strong>排除微血栓引起的內膜供血不良。</li>
+          <li>✔ <strong>無貧血與血小板異常：</strong>血紅素 $13.8\text{ g/dL}$ 造血機能健康。</li>
+        </ul>
+      </div>
+
+      <div class="risk-factors-box">
+        <h3>⚠️ 可能不利/失敗原因</h3>
+        <ul>
+          <li>✖ <strong>CD8+ T細胞持續高於標準（1288）：</strong>可能帶來輕微的細胞毒性發炎背景。</li>
+          <li>✖ <strong>B細胞（CD19）臨界上限（14.4%）：</strong>需防範自體抗體的干擾。</li>
+          <li>✖ <strong>WBC 微幅上升（10.85）：</strong>體內存在微弱應激或發炎訊號。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 六、可能問題與風險分析 -->
+  <section class="card risk-card">
+    <h2>⚠️ 六、可能問題與風險分析</h2>
+    <p>1. <strong>CD8 偏高導致的慢性免疫微發炎：</strong>雖然 NK 細胞正常，但 CD8 絕對計數偏高代表細胞免疫並非完全靜止。若缺乏適當調控，可能在胚胎侵襲內膜時引發局部過度發炎。</p>
+    <p>2. <strong>B 細胞活化與自體抗體風險：</strong>CD19% 靠近 14.9% 上限，若未來進一步升高，可能誘發體液免疫產生抗體（如抗心脂抗體等），進而影響早期胎盤血管發育。</p>
+  </section>
+
+  <!-- 七、調研資料摘要 -->
+  <section class="card research-card">
+    <h2>📚 七、臨床生殖免疫學調研摘要</h2>
+    <div class="info-box">
+      <p>根據當前生殖免疫學主流臨床共識：</p>
+      <ul>
+        <li><strong>NK 細胞與著床：</strong>周邊血 NK 細胞比例控制在 < 10%~12% 被認為是胚胎植入的良好視窗；過高的 NK 活性與重複著床失敗（RIF）有明確相關性。</li>
+        <li><strong>T細胞次群平衡：</strong>CD4/CD8 比值維持在 0.8~2.0 之間可維持耐受性，單純 CD8 升高若不伴隨 HLA-DR 高活化，臨床上多以低劑量免疫調節藥物控制即可獲得良好預後。</li>
+        <li><strong>D-dimer 與黃體素：</strong>高雌激素療程中，D-dimer < 0.55 mg/L 代表無顯著血栓風險，不需過度使用抗凝血強藥，能減少出血風險。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 八、建議補充檢查 -->
+  <section class="card next-step-card">
+    <h2>🧪 八、建議後續補充檢查（供醫師評估）</h2>
+    <ul>
+      <li>🔹 <strong>自體免疫抗體篩檢 (Autoantibody Panel)：</strong>若尚未檢測，可補充 ANA（抗核抗體）、APA（抗磷脂抗體）與 Anti-TPO（甲狀腺過氧化物酶抗體），以釐清 B 細胞臨界偏高之意義。</li>
+      <li>🔹 <strong>發炎指標：</strong>hs-CRP（高敏感度 C 反應蛋白），用以確認白血球 $10.85$ 是否伴隨全身性微發炎。</li>
+      <li>🔹 <strong>定期免疫複查：</strong>於植入後或確定懷孕第 4~5 週時，再次複查淋巴球次群（Lymphocyte Subsets）與 D-dimer。</li>
+    </ul>
+  </section>
+
+  <!-- 九、步驟指引 -->
+  <section class="card plan-card">
+    <h2>🪜 九、優先步驟指引</h2>
+    <ol style="padding-left: 20px; line-height: 1.8;">
+      <li><strong>【第一優先：門診複診】</strong> 將 07/27 與 08/03 這兩張前後對比報告提供給您的生殖醫學/生殖免疫主治醫師。</li>
+      <li><strong>【第二優先：藥物按時遵循】</strong> 繼續維持現有的黃體補充（因 P4 $27.90$ 效果極佳）與醫師開立之免疫調節藥物，切勿自行停藥或加藥。</li>
+      <li><strong>【第三優先：監測臨床症狀】</strong> 觀察是否有發燒、骨盆腔劇痛或異常出血等症狀。</li>
+    </ol>
+  </section>
+
+  <!-- 十、生活與治療建議 -->
+  <section class="card advice-card">
+    <h2>💡 十、生活與日常照護建議</h2>
+    <div class="tip-box">
+      <ul>
+        <li>🌿 <strong>避免高強度刺激免疫之補充品：</strong>請暫停食用高劑量靈芝、蜂膠、滴雞精、冬蟲夏草或人蔘等可能激活 CD8 或 B 細胞之補品。</li>
+        <li>🥗 <strong>抗發炎飲食：</strong>多攝取富含 Omega-3 的地中海飲食、新鮮蔬菜，減少高糖、高油與加工食品。</li>
+        <li>🧘 <strong>壓力調控與充足睡眠：</strong>情緒緊張會導致皮質醇波動並刺激白血球及免疫系統激化，維持每日 7-8 小時優質睡眠。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 十一、建議與醫師討論的關鍵問題 -->
+  <section class="card discussion-card">
+    <h2>🗣️ 十一、建議與醫師討論的 6 個關鍵問題</h2>
+    <div class="warning-box">
+      <ol style="padding-left: 20px; line-height: 1.8;">
+        <li>「醫師，我的 CD8 絕對計數兩次都偏高（1158 $\rightarrow$ 1288），請問目前使用的免疫藥物劑量是否需要微調？」</li>
+        <li>「白血球總數從 9.27 升至 10.85，請問這是否為黃體素/類固醇藥物的正常反應，還是需要排查發炎？」</li>
+        <li>「我的 NK 細胞降至 8.5% 非常理想，請問這代表目前的免疫抑制方案有效嗎？」</li>
+        <li>「B 細胞（CD19）比例已達 14.4% 接近上限，請問是否需要補測自體免疫抗體（如抗磷脂抗體）？」</li>
+        <li>「我的 D-dimer 是 0.080 非常安全，請問阿斯匹靈或抗凝血藥物需維持現有劑量嗎？」</li>
+        <li>「請問下一次複查免疫套組（CD8/NK/D-dimer）的最佳時間點是驗孕前還是確定懷孕後？」</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 十二、警示訊號 -->
+  <section class="card alert-card">
+    <h2>🚨 十二、重要警示訊號（需立即就醫）</h2>
+    <div class="alert-box">
+      <p>若在備孕/植入後/懷孕初期出現以下任一症狀，請無視例行回診時間，立即前往急診或生殖中心就診：</p>
+      <ul>
+        <li>❗ <strong>劇烈下腹部單側或雙側急性疼痛</strong></li>
+        <li>❗ <strong>陰道鮮紅色大量出血（多於衛生棉浸濕量）</strong></li>
+        <li>❗ <strong>高燒（體溫 > 38.5°C）或伴隨嚴重寒顫</strong></li>
+        <li>❗ <strong>呼吸困難、胸痛或單側下肢急性腫脹疼痛（防範血栓事故）</strong></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 十三、重要聲明 -->
+  <section class="card disclaimer-card">
+    <h2>📌 十三、非診斷性聲明</h2>
+    <p>本報告係由醫療資訊系統根據您所提供之 2026/07/27 與 2026/08/03 檢驗數據進行之邏輯整合與學術演繹分析，旨在輔助您理解醫學名詞與數據趨勢。<strong>本報告不能替代專業醫師之現場診斷、醫療處方或治療決策。</strong>所有藥物調整、療程規劃與最終診斷，請務必與您的主治醫師進行面對面討論並遵照醫囑執行。</p>
+  </section>
+</div>
