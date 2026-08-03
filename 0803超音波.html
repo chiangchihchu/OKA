@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生殖醫學與免疫精準控管報告 - 7W3D</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        
+        :root {
+            --medical-blue: #1e3a8a;
+            --medical-teal: #0d9488;
+            --bg-main: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-main);
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            height: 280px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .status-tag {
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tag-normal { background-color: #dcfce7; color: #166534; }
+        .tag-warning { background-color: #fef9c3; color: #854d0e; }
+        .tag-alert { background-color: #fee2e2; color: #991b1b; }
+        .tag-info { background-color: #e0f2fe; color: #075985; }
+
+        .timeline-step {
+            position: relative;
+            padding-left: 32px;
+            padding-bottom: 24px;
+            border-left: 2px solid #cbd5e1;
+        }
+
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--medical-blue);
+            border: 3px solid white;
+        }
+
+        .med-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .med-item {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #f1f5f9;
+        }
+
+        @media (max-width: 640px) {
+            .chart-container { height: 220px; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-blue-900 to-teal-700 text-white p-8 rounded-3xl shadow-xl mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold flex items-center gap-2">🧬 生殖醫學追蹤分析報告</h1>
+                    <p class="opacity-90 mt-1 font-light italic">精準免疫護航計畫：雙胞胎自然淘汰後之單胎守護期</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur p-4 rounded-2xl border border-white/20">
+                    <div class="text-xs uppercase tracking-wider opacity-80">當前孕期進度</div>
+                    <div class="text-xl font-bold">植入 D14 + 19天 (約 7w3d)</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Section 1: Executive Summary -->
+        <section class="card border-l-8 border-blue-800">
+            <h2 class="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">📋 一、今日臨床摘要與處置重點</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="p-4 bg-slate-50 rounded-xl">
+                    <span class="text-xs text-slate-500 block">存活胚胎 (A) 狀態</span>
+                    <span class="font-bold text-blue-700">心跳 147 bpm / 0.84 cm</span>
+                    <span class="status-tag tag-warning block mt-2 text-center">指標邊際・需衝刺</span>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-xl">
+                    <span class="text-xs text-slate-500 block">萎縮胚胎 (B) 狀態</span>
+                    <span class="font-bold text-slate-600">確定停止發育</span>
+                    <span class="status-tag tag-normal block mt-2 text-center">自然淘汰・不影響 A</span>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-xl">
+                    <span class="text-xs text-slate-500 block">關鍵用藥調整</span>
+                    <span class="font-bold text-teal-700">愛栓通 改早晚各 1</span>
+                    <span class="status-tag tag-alert block mt-2 text-center">加強胎盤微循環</span>
+                </div>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed bg-blue-50 p-4 rounded-lg">
+                <strong>醫師評估：</strong>目前胚胎 A 心跳與長度比預期落後約 2 天（理想為 160bpm / 1.0cm）。由於今日已完成免疫抽血（B細胞/NK細胞/D-Dimer），今晚將決定明天是否回診施打生物製劑。重點在於**預防免疫反彈**干擾胚胎 A 的發育。
+            </p>
+        </section>
+
+        <!-- Section 2: Visual Comparison -->
+        <section class="card">
+            <h2 class="text-lg font-bold text-blue-900 mb-6 flex items-center gap-2">📈 二、胚胎發育指標：今日 vs. 週三目標</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="text-center">
+                    <p class="text-sm font-semibold text-slate-500 mb-2">胚胎心跳速率 (BPM)</p>
+                    <div class="chart-container">
+                        <canvas id="hrChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-4">週三目標需達 160 以上，確保發育動能</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-sm font-semibold text-slate-500 mb-2">胚胎頭臀長 (CRL cm)</p>
+                    <div class="chart-container">
+                        <canvas id="crlChart"></canvas>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-4">週三目標需接近 1.0 cm</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Lab Analysis Details -->
+        <section class="card">
+            <h2 class="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">🧾 三、各項檢驗數字深度判讀</h2>
+            
+            <div class="space-y-6">
+                <!-- HR & CRL -->
+                <div class="border-b pb-4">
+                    <h3 class="font-bold text-slate-700 flex justify-between">
+                        <span>胚胎 A 心跳與大小 (今日數據)</span>
+                        <span class="tag-warning status-tag">邊界值</span>
+                    </h3>
+                    <ul class="mt-2 text-sm text-slate-600 space-y-1">
+                        <li>• <strong>數字：</strong>147 bpm / 0.84 cm。</li>
+                        <li>• <strong>解讀：</strong>比上週有進步，但相對於孕 7W+ 的標準心跳 (160-180) 稍慢。</li>
+                        <li>• <strong>臨床意義：</strong>心跳與大小的微幅落後，通常與子宮動脈血流阻力或免疫干擾有關，故醫師立即將愛栓通改為 BID (早晚一次)。</li>
+                    </ul>
+                </div>
+
+                <!-- B-Cells/NK -->
+                <div class="border-b pb-4">
+                    <h3 class="font-bold text-teal-700 flex justify-between">
+                        <span>B細胞 與 殺手細胞 (NK Cell)</span>
+                        <span class="tag-info status-tag">今晚對報告</span>
+                    </h3>
+                    <ul class="mt-2 text-sm text-slate-600 space-y-1">
+                        <li>• <strong>目標：</strong>曾有高指標病史，目前靠奔力生與 IVIG 壓制。</li>
+                        <li>• <strong>本案意義：</strong>單胎萎縮後，母體免疫可能因發炎因子而「反彈」。</li>
+                        <li>• <strong>處置：</strong>今晚對報告。若數值上升，明天週二下午 1:30 前須回診補藥。</li>
+                    </ul>
+                </div>
+
+                <!-- D-Dimer -->
+                <div class="border-b pb-4">
+                    <h3 class="font-bold text-blue-700 flex justify-between">
+                        <span>D-Dimer 血栓指數</span>
+                        <span class="tag-info status-tag">目標 < 0.11</span>
+                    </h3>
+                    <ul class="mt-2 text-sm text-slate-600 space-y-1">
+                        <li>• <strong>現況：</strong>10 週以下需嚴控。</li>
+                        <li>• <strong>今日調整：</strong>因胚胎心跳尚未達標，採最嚴格控管，愛栓通改為「早晚各 1 支」。</li>
+                        <li>• <strong>監測：</strong>週三回診將再次抽血追蹤血栓、E2、P4。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Success Probability -->
+        <section class="card bg-slate-50">
+            <h2 class="text-lg font-bold text-blue-900 mb-6 flex items-center gap-2">📈 四、目前成功機率評估</h2>
+            <div class="text-center mb-6">
+                <div class="text-3xl font-black text-yellow-600 bg-yellow-100 inline-block px-8 py-2 rounded-full">中等 (Medium)</div>
+                <p class="text-xs text-slate-500 mt-2">評估基準：試管植入 7w3d 存活單胎持續妊娠率</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-green-100">
+                    <h4 class="text-green-700 font-bold text-sm mb-2">✅ 正面因素</h4>
+                    <ul class="text-xs space-y-1 text-slate-600">
+                        <li>• 胚胎 A 持續發育，心跳較上週成長。</li>
+                        <li>• E2、P4 水準充足，環境穩定。</li>
+                        <li>• 醫療干預及時，已加強抗凝血劑。</li>
+                        <li>• 無陰道出血或劇烈腹痛。</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-red-100">
+                    <h4 class="text-red-700 font-bold text-sm mb-2">⚠️ 風險挑戰</h4>
+                    <ul class="text-xs space-y-1 text-slate-600">
+                        <li>• 心跳速率與 CRL 未達絕對安全區間。</li>
+                        <li>• 免疫系統對萎縮胚胎的潛在反應。</li>
+                        <li>• 體重兩週內增加 2kg（藥物代謝壓力）。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Medication Checklist -->
+        <section class="card border-t-8 border-teal-600">
+            <h2 class="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">💊 五、精準用藥核對表 (今/明兩日)</h2>
+            <div class="med-grid">
+                <div class="med-item">
+                    <span class="block font-bold text-blue-800">益斯得 (E2)</span>
+                    <span class="text-xs">三餐飯後各 1 (共 3/天)</span>
+                </div>
+                <div class="med-item border-l-4 border-red-500">
+                    <span class="block font-bold text-red-700">愛栓通 (Clexane)</span>
+                    <span class="text-xs">早晚各 1 (BID) ── 關鍵修改</span>
+                </div>
+                <div class="med-item">
+                    <span class="block font-bold text-blue-800">快得隆 (凝膠)</span>
+                    <span class="text-xs">早晚各 2 包</span>
+                </div>
+                <div class="med-item">
+                    <span class="block font-bold text-blue-800">小白球</span>
+                    <span class="text-xs">一天 4 次，每次 2 顆 (共 8/天)</span>
+                </div>
+                <div class="med-item">
+                    <span class="block font-bold text-blue-800">伯基 (Bokey)</span>
+                    <span class="text-xs">早晚各 1 顆</span>
+                </div>
+                <div class="med-item">
+                    <span class="block font-bold text-blue-800">得胎隆</span>
+                    <span class="text-xs">早晚各 1 顆</span>
+                </div>
+                <div class="med-item">
+                    <span class="block font-bold text-blue-800">兩康素 (抗生素/類固醇)</span>
+                    <span class="text-xs">早晚各 2 (建議 08:00/13:00)</span>
+                </div>
+                <div class="med-item">
+                    <span class="block font-bold text-blue-800">油針 (Progesterone)</span>
+                    <span class="text-xs">今天已打，下次週三回診打</span>
+                </div>
+            </div>
+            <div class="mt-4 p-4 bg-orange-50 rounded-lg text-xs text-orange-800">
+                💡 提醒：安視頻 (Estradiol) 請繼續使用手邊剩餘的 15 顆，早晚各 1 顆。
+            </div>
+        </section>
+
+        <!-- Section 6: Action Timeline -->
+        <section class="card">
+            <h2 class="text-lg font-bold text-blue-900 mb-6 flex items-center gap-2">🪜 六、未來 48 小時行動指引</h2>
+            <div class="pl-4">
+                <div class="timeline-step">
+                    <h4 class="font-bold">今晚 (週一)：黃金對報告期</h4>
+                    <p class="text-xs text-slate-500">醫療團隊會主動致電或 APP 通知今日免疫結果。</p>
+                </div>
+                <div class="timeline-step">
+                    <h4 class="font-bold">週二 (4號)：緊急救援窗口 (若需要)</h4>
+                    <p class="text-xs text-slate-500">若今晚報告異常，下午 1 點半前須抵達醫院補打奔力生/IVIG。</p>
+                </div>
+                <div class="timeline-step">
+                    <h4 class="font-bold">週三 (5號)：09:00 全面複查回診</h4>
+                    <p class="text-xs text-slate-500">抽血 (E2, P4, 血栓, 血常規) + 超音波決戰觀察。醫師當日不在，將以報告形式判讀。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Discussion Questions -->
+        <section class="card bg-blue-50 border border-blue-100">
+            <h2 class="text-lg font-bold text-blue-900 mb-4 flex items-center gap-2">🗣️ 七、建議週三諮詢的問題</h2>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="bg-white p-3 rounded-lg border border-blue-200">Q1. 愛栓通改為早晚施打後，今日(週三)的 D-Dimer 是否已成功壓低至 0.11 以下？</li>
+                <li class="bg-white p-3 rounded-lg border border-blue-200">Q2. 胚胎 A 心跳是否已回升至 160 bpm 以上？CRL 是否有達到 1.0 cm 增長目標？</li>
+                <li class="bg-white p-3 rounded-lg border border-blue-200">Q3. 體重增加 2kg 伴隨偶爾頭痛，是否需監測血壓或調整類固醇劑量？</li>
+                <li class="bg-white p-3 rounded-lg border border-blue-200">Q4. 下一次施打免疫藥物（IVIG/奔力生）的排程建議為何？</li>
+            </ul>
+        </section>
+
+        <!-- Alert -->
+        <div class="card bg-red-800 text-white border-none flex items-start gap-4">
+            <span class="text-3xl">🚨</span>
+            <div>
+                <h4 class="font-bold text-lg">重要警訊提醒</h4>
+                <p class="text-sm opacity-90">因愛栓通加量，請密切觀察是否有：**不明原因劇烈頭痛、視力模糊、異常大量出血或嚴重腹痛**。若有上述狀況，請立即聯絡醫院或急診。</p>
+            </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <footer class="text-center text-xs text-slate-400 mt-8 mb-12">
+            <p>📌 聲明：本報告係依據您提供之醫囑紀錄進行邏輯整理，非取代醫師診斷。所有用藥調整請務必以主治醫師及護理師當面指示為準。</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Heart Rate Chart
+            const hrCtx = document.getElementById('hrChart').getContext('2d');
+            new Chart(hrCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['今日實測', '週三目標'],
+                    datasets: [{
+                        label: 'BPM',
+                        data: [147, 160],
+                        backgroundColor: ['#f59e0b', '#10b981'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { min: 100, max: 200 } }
+                }
+            });
+
+            // CRL Chart
+            const crlCtx = document.getElementById('crlChart').getContext('2d');
+            new Chart(crlCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['目前進度 (0.84cm)', '距目標差距 (0.16cm)'],
+                    datasets: [{
+                        data: [0.84, 0.16],
+                        backgroundColor: ['#1e3a8a', '#e2e8f0'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
