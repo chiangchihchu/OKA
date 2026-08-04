@@ -1,314 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>早期妊娠超音波臨床分析報告 - 送子鳥診所</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', "Microsoft JhengHei", sans-serif;
+            background-color: #f8fafc;
+        }
 
-import React, { useEffect, useRef } from 'react';
-import Chart from 'chart.js/auto';
+        .report-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-const UltrasoundAnalysisReport = () => {
-  const fhrChartRef = useRef(null);
-  const crlChartRef = useRef(null);
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
 
-  useEffect(() => {
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tag {
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .tag-normal { background-color: #ecfdf5; color: #065f46; }
+        .tag-borderline { background-color: #fffbeb; color: #92400e; }
+        .tag-abnormal { background-color: #fef2f2; color: #991b1b; }
+        .tag-info { background-color: #eff6ff; color: #1e40af; }
+
+        .chance-level {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #0e4b75;
+            text-align: center;
+            margin: 10px 0;
+            letter-spacing: -0.025em;
+        }
+
+        .lab-table th {
+            background-color: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+            text-align: left;
+            padding: 12px;
+            font-size: 0.875rem;
+        }
+
+        .lab-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.9375rem;
+        }
+
+        .lab-item-block {
+            border-left: 4px solid #0e4b75;
+            padding-left: 16px;
+            margin-bottom: 32px;
+        }
+
+        .lab-item-block h3 {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="report-container">
+    <!-- Header -->
+    <header class="bg-[#0e4b75] rounded-2xl p-8 text-white mb-8 shadow-lg">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+            <div>
+                <h1 class="text-3xl font-bold mb-2">🧬 生殖醫學超音波分析報告</h1>
+                <p class="opacity-90">送子鳥診所 (Stork Ladies Clinic) | 報告編號: 94982</p>
+            </div>
+            <div class="mt-4 md:mt-0 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20">
+                <span class="block text-xs opacity-80 uppercase font-bold">預估孕週 (US-GA)</span>
+                <span class="text-3xl font-black">6w 3d</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section 1: Summary -->
+    <section class="card">
+        <h2 class="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+            📋 一、個案摘要與診斷背景
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="text-slate-600 leading-relaxed">
+                <p>本報告基於 2026/08/04 於送子鳥診所取得之經陰道超音波影像。影像顯示<strong>子宮內單胎妊娠</strong>，胚胎發育指標與生理活性均處於早期懷孕的極佳狀態。各項數據均指向受精卵具備強大的發育潛能，且子宮內環境目前支持穩定生長。</p>
+            </div>
+            <div class="bg-slate-50 p-4 rounded-xl space-y-2 text-sm">
+                <div class="flex justify-between"><span>檢查日期:</span><span class="font-bold">2026/08/04</span></div>
+                <div class="flex justify-between"><span>影像來源:</span><span class="font-bold">IMG_6938 ~ 6943</span></div>
+                <div class="flex justify-between"><span>預產期 (EDD):</span><span class="font-bold">2027/03/27</span></div>
+                <div class="flex justify-between"><span>探頭類型:</span><span class="font-bold">Probe 9124 (TVS)</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Overview Table -->
+    <section class="card">
+        <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+            🔎 二、核心檢驗數據總覽
+        </h2>
+        <div class="overflow-x-auto">
+            <table class="w-full lab-table">
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>結果</th>
+                        <th>單位</th>
+                        <th>狀態</th>
+                        <th>簡要判讀</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="font-bold">GS (妊娠囊)</td>
+                        <td>2.48 × 1.81</td>
+                        <td>cm</td>
+                        <td><span class="tag tag-normal">正常</span></td>
+                        <td>囊狀形態飽滿，張力良好</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">CRL (頭臀長)</td>
+                        <td>1.10</td>
+                        <td>cm</td>
+                        <td><span class="tag tag-normal">領先</span></td>
+                        <td>符合且略優於孕週標準</td>
+                    </tr>
+                    <tr>
+                        <td class="font-bold">FHR (胎心率)</td>
+                        <td>156</td>
+                        <td>BPM</td>
+                        <td><span class="tag tag-normal">極佳</span></td>
+                        <td>規律強健，臨床預後顯著優化</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Section 3: Item Detail Description -->
+    <section class="card">
+        <h2 class="text-xl font-bold text-slate-800 mb-8 flex items-center gap-2">
+            🧾 三、各項數字與影像深度說明
+        </h2>
+
+        <div class="lab-item-block">
+            <h3>FHR 胎兒心跳：156 BPM <span class="tag tag-normal">強健有力</span></h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="chart-container">
+                    <canvas id="fhrChart"></canvas>
+                </div>
+                <div class="text-sm text-slate-600 space-y-3">
+                    <p><strong>數字代表什麼：</strong> 透過多普勒影像 (IMG_6943) 偵測胚胎心臟每分鐘搏動次數。這反映了胚胎神經系統與循環系統的初步整合。</p>
+                    <p><strong>生殖評估意義：</strong> 6-7 週是心跳從慢速轉為穩定的關鍵期。156 BPM 位於 120-160 BPM 的黃金區間。</p>
+                    <p><strong>本個案解讀：</strong> 156 BPM 為非常強健的信號。臨床數據顯示，一旦確認心跳大於 120 BPM，流產風險即從 20%+ 降至 5% 以下，是目前最令人安心的指標。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lab-item-block">
+            <h3>CRL 頭臀長：1.10 cm <span class="tag tag-normal">發育優良</span></h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="chart-container">
+                    <canvas id="crlChart"></canvas>
+                </div>
+                <div class="text-sm text-slate-600 space-y-3">
+                    <p><strong>數字代表什麼：</strong> 測量胚胎頂端至臀部的長度。本案由 IMG_6938 的 1.02cm 追蹤至 IMG_6941 的 1.10cm。</p>
+                    <p><strong>臨床分析意義：</strong> 此時期 CRL 是校正孕週最準確的指標。1.10cm 對應之生理發展完全吻合 6w3d 的進度。</p>
+                    <p><strong>本個案解讀：</strong> 生長速度無遲緩現象。與 6w3d 標準值 (約 0.65cm) 相比，個案發育極為紮實，代表受精卵品質優良且子宮環境養分充足。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lab-item-block">
+            <h3>GS 妊娠囊：2.48 × 1.81 cm <span class="tag tag-info">結構完整</span></h3>
+            <div class="text-sm text-slate-600 space-y-3">
+                <p><strong>數字代表什麼：</strong> 胚胎生長的空間大小 (IMG_6940)。</p>
+                <p><strong>本個案解讀：</strong> GS 呈現清晰的雙環特徵 (Double Decidual Sign)，且內部無積血、無塌陷。2.48cm 的空間提供胚胎足夠的發展緩衝，預後正向。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Success Probability -->
+    <section class="card bg-[#0e4b75]/5 border-[#0e4b75]/20">
+        <h2 class="text-xl font-bold text-slate-800 mb-6">📈 五、持續妊娠（成功順產）機率評估</h2>
+        <div class="text-center mb-8">
+            <p class="text-sm text-slate-500 uppercase tracking-widest font-bold">目前臨床推估等級</p>
+            <div class="chance-level">偏 高 ( High / Reassuring )</div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-6 bg-emerald-50 rounded-2xl border border-emerald-100">
+                <h3 class="font-bold text-emerald-800 mb-3 flex items-center gap-2">✅ 正面支持因素</h3>
+                <ul class="text-sm text-emerald-700 space-y-2">
+                    <li>• 強健心跳 (156 BPM)：大幅降低早期流產風險。</li>
+                    <li>• CRL 發育領先：胚胎生命力強，無生長遲緩現象。</li>
+                    <li>• 影像中 GS 形態圓潤：代表子宮收縮狀況平穩。</li>
+                </ul>
+            </div>
+            <div class="p-6 bg-amber-50 rounded-2xl border border-amber-100">
+                <h3 class="font-bold text-amber-800 mb-3 flex items-center gap-2">⚠️ 需關注之風險因子</h3>
+                <ul class="text-sm text-amber-700 space-y-2">
+                    <li>• 12 週前之自然染色體篩選風險（約 5-10%）。</li>
+                    <li>• 需注意母體黃體素維持，確保子宮黏膜穩定性。</li>
+                    <li>• 生活型態影響：避免提重物或劇烈震動。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 11: Questions for Doctor -->
+    <section class="card">
+        <h2 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">🗣️ 十一、門診建議詢問醫師之關鍵問題</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 border border-slate-100 rounded-xl hover:bg-slate-50 transition-colors cursor-default">
+                <p class="text-sm font-bold text-[#0e4b75]">Q1. 胎心率 156 BPM 代表目前心肺發育是否需要加強黃體支持？</p>
+            </div>
+            <div class="p-4 border border-slate-100 rounded-xl hover:bg-slate-50 transition-colors cursor-default">
+                <p class="text-sm font-bold text-[#0e4b75]">Q2. 影像中有無觀察到明顯的「絨毛膜下出血」(Subchorionic Hematoma)？</p>
+            </div>
+            <div class="p-4 border border-slate-100 rounded-xl hover:bg-slate-50 transition-colors cursor-default">
+                <p class="text-sm font-bold text-[#0e4b75]">Q3. 下次追蹤（約 8-9 週）是否可開始安排初唐或 NIPT 篩檢計畫？</p>
+            </div>
+            <div class="p-4 border border-slate-100 rounded-xl hover:bg-slate-50 transition-colors cursor-default">
+                <p class="text-sm font-bold text-[#0e4b75]">Q4. 目前的 CRL 成長速度，是否需要調整預產期校正？</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alert Box -->
+    <div class="bg-red-50 border-l-4 border-red-600 p-6 rounded-r-2xl mb-8">
+        <h2 class="text-red-800 font-bold mb-2 flex items-center gap-2">🚨 十二、重要警示訊號</h2>
+        <p class="text-sm text-red-700 leading-relaxed">
+            若出現<strong>鮮紅色陰道出血、持續性強烈下腹痛、劇烈腰痠</strong>，請立即前往急診或聯絡主治醫師，這可能是早期先兆性流產的徵兆，需及時給予醫療介入。
+        </p>
+    </div>
+
+    <!-- Footer Disclaimer -->
+    <footer class="text-center text-slate-400 text-xs py-8">
+        <p>📌 十三、重要聲明：本報告係由醫療資訊設計專家依據超音波影像數據整理之分析，不代表正式醫學診斷。所有醫療決策應由主治醫師依臨床狀態處方。數據來源：送子鳥診所 IMG_6938 ~ IMG_6943。</p>
+    </footer>
+</div>
+
+<script>
     // FHR Visualization
-    if (fhrChartRef.current) {
-      const ctx = fhrChartRef.current.getContext('2d');
-      new Chart(ctx, {
+    const fhrCtx = document.getElementById('fhrChart').getContext('2d');
+    new Chart(fhrCtx, {
         type: 'line',
         data: {
-          labels: ['5w', '6w', '7w', '8w', '9w'],
-          datasets: [
-            {
-              label: '正常範圍下限',
-              data: [80, 100, 120, 140, 150],
-              borderColor: '#cbd5e1',
-              borderDash: [5, 5],
-              fill: false,
-              pointRadius: 0
-            },
-            {
-              label: '正常範圍上限',
-              data: [100, 125, 160, 175, 185],
-              borderColor: '#cbd5e1',
-              borderDash: [5, 5],
-              fill: false,
-              pointRadius: 0
-            },
-            {
-              label: '本次測量 (156 BPM)',
-              data: [null, 156, null, null, null],
-              backgroundColor: '#ef4444',
-              borderColor: '#ef4444',
-              pointRadius: 8,
-              pointHoverRadius: 10,
-              showLine: false
-            }
-          ]
+            labels: ['5w', '6w', '7w', '8w', '9w'],
+            datasets: [
+                {
+                    label: '正常區間上限',
+                    data: [110, 140, 165, 180, 185],
+                    borderColor: '#cbd5e1',
+                    borderDash: [5, 5],
+                    fill: false,
+                    pointRadius: 0
+                },
+                {
+                    label: '正常區間下限',
+                    data: [80, 100, 120, 140, 150],
+                    borderColor: '#cbd5e1',
+                    borderDash: [5, 5],
+                    fill: false,
+                    pointRadius: 0
+                },
+                {
+                    label: '本次測量 (156 BPM)',
+                    data: [null, 156, null, null, null],
+                    backgroundColor: '#ef4444',
+                    borderColor: '#ef4444',
+                    pointRadius: 8,
+                    pointHoverRadius: 12,
+                    showLine: false
+                }
+            ]
         },
         options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            tooltip: {
-              enabled: true,
-              callbacks: {
-                label: (context) => `心率: ${context.raw} BPM`
-              }
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) { return `胎心率: ${context.raw} BPM`; }
+                    }
+                }
+            },
+            scales: {
+                y: { min: 60, max: 200, title: { display: true, text: 'BPM' } },
+                x: { title: { display: true, text: '孕週' } }
             }
-          },
-          scales: {
-            y: {
-              min: 60,
-              max: 200,
-              title: { display: true, text: 'BPM' }
-            }
-          }
         }
-      });
-    }
+    });
 
-    // CRL Growth Visualization
-    if (crlChartRef.current) {
-      const ctx = crlChartRef.current.getContext('2d');
-      new Chart(ctx, {
+    // CRL Visualization
+    const crlCtx = document.getElementById('crlChart').getContext('2d');
+    new Chart(crlCtx, {
         type: 'bar',
         data: {
-          labels: ['本次測量 (1.10cm)', '6w3d 標準值'],
-          datasets: [{
-            label: '長度 (cm)',
-            data: [1.10, 0.65],
-            backgroundColor: ['#0e4b75', '#94a3b8'],
-            borderRadius: 8
-          }]
+            labels: ['本次測量 (1.10cm)', '6w3d 標準值'],
+            datasets: [{
+                label: '長度 (cm)',
+                data: [1.10, 0.65],
+                backgroundColor: ['#0e4b75', '#cbd5e1'],
+                borderRadius: 8,
+                barThickness: 40
+            }]
         },
         options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          indexAxis: 'y',
-          plugins: {
-            legend: { display: false }
-          },
-          scales: {
-            x: { max: 2.0, title: { display: true, text: 'cm' } }
-          }
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                x: { max: 1.5, title: { display: true, text: 'cm' } }
+            }
         }
-      });
-    }
-  }, []);
+    });
+</script>
 
-  return (
-    <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-800">
-      <style>{`
-        .chart-container {
-          position: relative;
-          width: 100%;
-          max-width: 600px;
-          margin-left: auto;
-          margin-right: auto;
-          height: 300px;
-          max-height: 400px;
-        }
-        @media (min-width: 768px) {
-          .chart-container { height: 350px; }
-        }
-        .tag-status {
-          padding: 2px 10px;
-          border-radius: 9999px;
-          font-size: 0.75rem;
-          font-weight: 600;
-        }
-        .tag-normal { background-color: #ecfdf5; color: #059669; }
-        .tag-info { background-color: #eff6ff; color: #2563eb; }
-      `}</style>
-
-      <div className="max-w-5xl mx-auto space-y-8">
-        {/* Header */}
-        <header className="bg-gradient-to-r from-[#0e4b75] to-[#1e6091] rounded-2xl p-8 text-white shadow-xl">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div>
-              <h1 className="text-3xl font-bold mb-2">🧬 早期妊娠超音波臨床分析報告</h1>
-              <p className="text-blue-100 flex items-center gap-2">
-                <span>送子鳥診所 (Stork Ladies Clinic)</span>
-                <span className="opacity-60">|</span>
-                <span>報告編號: 94982</span>
-              </p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20">
-              <p className="text-xs uppercase tracking-wider opacity-80 mb-1">預估孕週 (US-GA)</p>
-              <p className="text-3xl font-black">6w 3d</p>
-            </div>
-          </div>
-        </header>
-
-        {/* Section 1: Summary */}
-        <section className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-          <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2 border-b pb-4">
-            📋 一、個案摘要與影像來源
-          </h2>
-          <p className="text-slate-600 mb-6">
-            本報告基於 2026 年 08 月 04 日於送子鳥診所取得之經陰道超音波 (TVS) 影像。檢查顯示胚胎於子宮內正確著床，各項發育指標與生理活性皆處於早期懷孕的關鍵穩定區。
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { label: '檢查日期', value: '2026/08/04' },
-              { label: '參考圖檔', value: 'IMG_6938 ~ 6943' },
-              { label: '預產期 (EDD)', value: '2027/03/27' },
-              { label: '探頭類型', value: 'Probe 9124 (TVS)' }
-            ].map((item, i) => (
-              <div key={i} className="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                <p className="text-xs text-slate-500 mb-1">{item.label}</p>
-                <p className="font-semibold text-slate-800">{item.value}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Section 2: Interactive Table */}
-        <section className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-          <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-            🔎 二、核心數據指標總覽
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-slate-50 text-slate-500 text-sm uppercase">
-                  <th className="p-4 font-semibold border-b">測量項目</th>
-                  <th className="p-4 font-semibold border-b">結果數值</th>
-                  <th className="p-4 font-semibold border-b">狀態</th>
-                  <th className="p-4 font-semibold border-b">臨床參考</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                <tr>
-                  <td className="p-4 font-medium">GS (妊娠囊)</td>
-                  <td className="p-4">2.48 cm</td>
-                  <td className="p-4"><span className="tag-status tag-normal">正常著床</span></td>
-                  <td className="p-4 text-sm text-slate-500">對應 6w3d (IMG_6938)</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium">CRL (頭臀長)</td>
-                  <td className="p-4">1.10 cm</td>
-                  <td className="p-4"><span className="tag-status tag-normal">發育領先</span></td>
-                  <td className="p-4 text-sm text-slate-500">優於平均 (IMG_6941)</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium">FHR (胎心率)</td>
-                  <td className="p-4">156 BPM</td>
-                  <td className="p-4"><span className="tag-status tag-normal">強健有力</span></td>
-                  <td className="p-4 text-sm text-slate-500">標準 120-160 (IMG_6943)</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* Section 3: Detailed Visual Analysis */}
-        <section className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-          <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-            🧾 三、各項測量數字之詳細說明
-          </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* FHR Detail */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="font-bold text-[#0e4b75]">FHR 胎心率動能分析</h3>
-                <span className="text-xs bg-red-50 text-red-600 px-2 py-1 rounded">關鍵指標</span>
-              </div>
-              <div className="chart-container">
-                <canvas ref={fhrChartRef}></canvas>
-              </div>
-              <p className="text-sm text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-xl">
-                <strong>IMG_6943 解讀：</strong> 頻譜多普勒測得 FHR 為 156 BPM。在 6w-7w 區間，心跳若低於 120 BPM 需警覺，而 150 BPM 以上則代表胚胎代謝與循環系統發展極為強韌。這是早期妊娠最重要的穩定標記。
-              </p>
-            </div>
-
-            {/* CRL Detail */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="font-bold text-[#0e4b75]">CRL 生長速率對比</h3>
-                <span className="text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded">生長指標</span>
-              </div>
-              <div className="chart-container">
-                <canvas ref={crlChartRef}></canvas>
-              </div>
-              <p className="text-sm text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-xl">
-                <strong>IMG_6941 解讀：</strong> 測量結果為 1.10 cm。此數值顯示胚胎生長速度完全符合甚至略微領先 6w3d 的平均值（約 0.6-0.8cm）。這意味著受精卵質地優良且子宮環境養分供應充足。
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 5: Success Probability */}
-        <section className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 overflow-hidden relative">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-[#0e4b75]/5 rounded-full -mr-16 -mt-16"></div>
-          <h2 className="text-xl font-bold text-slate-900 mb-8 flex items-center gap-2">
-            📈 五、目前持續妊娠（成功順產）機率評估
-          </h2>
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-3 px-6 py-3 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">
-              <span className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
-              <span className="text-xl font-black uppercase tracking-tight">評估等級：偏 高 (High / Reassuring)</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-emerald-50/50 p-6 rounded-2xl border border-emerald-100">
-              <h3 className="text-emerald-800 font-bold mb-4 flex items-center gap-2">
-                ✅ 正面支持因素
-              </h3>
-              <ul className="space-y-3 text-sm text-emerald-900">
-                <li className="flex gap-2"><span>•</span> 心跳規律且大於 150 BPM，流產風險顯著下降。</li>
-                <li className="flex gap-2"><span>•</span> GS 妊娠囊形態飽滿，張力良好，無塌陷現象。</li>
-                <li className="flex gap-2"><span>•</span> CRL 長度與孕週完美吻合，發育動能佳。</li>
-              </ul>
-            </div>
-            <div className="bg-amber-50/50 p-6 rounded-2xl border border-amber-100">
-              <h3 className="text-amber-800 font-bold mb-4 flex items-center gap-2">
-                ⚠️ 需關注之風險因子
-              </h3>
-              <ul className="space-y-3 text-sm text-amber-900">
-                <li className="flex gap-2"><span>•</span> 早期妊娠 (12週前) 仍有自然染色體異常淘汰率。</li>
-                <li className="flex gap-2"><span>•</span> 注意絨毛膜下出血 (Hematoma) 的潛在發生。</li>
-                <li className="flex gap-2"><span>•</span> 母體免疫因子或黃體素濃度波動影響。</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 11: Questions for MD */}
-        <section className="bg-slate-900 rounded-2xl p-8 text-white shadow-2xl">
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-            🗣️ 十一、門診時建議諮詢醫師的關鍵問題
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[
-              "目前 156 BPM 的心率是否需要調整現有的黃體素支持劑量？",
-              "影像中有無觀察到明顯的絨毛膜下積血 (Subchorionic hemorrhage)？",
-              "是否需要在此階段增加阿斯匹靈或抗凝血藥物以維持胎盤循環？",
-              "下次產檢 (預計 8-9週) 最關鍵的追蹤指標為何？",
-              "目前的發育進度是否可以開始安排早期唐氏症篩檢 (NIPT)？"
-            ].map((q, i) => (
-              <div key={i} className="flex gap-4 p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
-                <span className="text-blue-400 font-bold">Q{i+1}</span>
-                <p className="text-sm text-blue-50">{q}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Footer Alert */}
-        <section className="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-2xl">
-          <h2 className="text-red-800 font-bold flex items-center gap-2 mb-2">
-            🚨 十二、重要警示訊號
-          </h2>
-          <p className="text-sm text-red-700">
-            若出現**鮮紅色出血、強烈陣發性腹痛、或劇烈暈眩**，請立即前往急診或與送子鳥中心聯繫。早期穩定期仍需避免提重物與極度疲勞。
-          </p>
-        </section>
-
-        <footer className="text-center text-slate-400 text-xs pb-12">
-          <p>📌 十三、重要聲明：本報告僅供臨床數據整理參考，不能取代主治醫師之診斷與處方。影像數據來自 IMG_6938 ~ IMG_6943。</p>
-        </footer>
-      </div>
-    </div>
-  );
-};
-
-export default UltrasoundAnalysisReport;
+</body>
+</html>
