@@ -1,0 +1,583 @@
+<style>
+  :root {
+    --primary-color: #1e3a8a;
+    --primary-light: #eff6ff;
+    --secondary-color: #0d9488;
+    --secondary-light: #f0fdf4;
+    --warning-color: #d97706;
+    --warning-light: #fffbe2;
+    --alert-color: #dc2626;
+    --alert-light: #fef2f2;
+    --text-main: #1f2937;
+    --text-muted: #4b5563;
+    --bg-body: #f8fafc;
+    --card-bg: #ffffff;
+    --border-color: #e2e8f0;
+    
+    --tag-normal-bg: #dcfce7;
+    --tag-normal-text: #15803d;
+    --tag-borderline-bg: #fef9c3;
+    --tag-borderline-text: #a16207;
+    --tag-abnormal-bg: #fee2e2;
+    --tag-abnormal-text: #b91c1c;
+    --tag-info-bg: #e0f2fe;
+    --tag-info-text: #0369a1;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text-main);
+    background-color: var(--bg-body);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px 10px;
+  }
+
+  .report-container {
+    max-width: 920px;
+    margin: 0 auto;
+    background: transparent;
+  }
+
+  .report-header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #0d9488 100%);
+    color: white;
+    padding: 28px 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 24px;
+  }
+
+  .report-header h1 {
+    margin: 0 0 8px 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .report-subtitle {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 0.95rem;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid var(--border-color);
+  }
+
+  .card h2 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+
+  .summary-item {
+    background: #f8fafc;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary-color);
+  }
+
+  .summary-label {
+    font-size: 0.825rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .summary-value {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.925rem;
+  }
+
+  .lab-table th, .lab-table td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .lab-table th {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.785rem;
+    font-weight: 600;
+  }
+
+  .tag.normal { background-color: var(--tag-normal-bg); color: var(--tag-normal-text); }
+  .tag.borderline { background-color: var(--tag-borderline-bg); color: var(--tag-borderline-text); }
+  .tag.abnormal { background-color: var(--tag-abnormal-bg); color: var(--tag-abnormal-text); }
+  .tag.info { background-color: var(--tag-info-bg); color: var(--tag-info-text); }
+
+  .lab-item-block {
+    background: #fafafa;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+
+  .lab-item-block h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    color: #1e293b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .lab-item-block ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  .lab-item-block li {
+    margin-bottom: 8px;
+    font-size: 0.925rem;
+  }
+
+  .med-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 0.9rem;
+  }
+
+  .med-table th, .med-table td {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+  }
+
+  .med-table th {
+    background-color: #f1f5f9;
+    color: var(--primary-color);
+  }
+
+  .chance-level-box {
+    text-align: center;
+    padding: 18px;
+    background: var(--secondary-light);
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  .chance-tag {
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .chance-tag.high { background-color: #bbf7d0; color: #15803d; }
+  .chance-tag.mid-high { background-color: #d9f99d; color: #3f6212; }
+
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .two-column-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .good-factors-box, .risk-factors-box {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .good-factors-box {
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+  }
+
+  .risk-factors-box {
+    background-color: #fff7ed;
+    border: 1px solid #fed7aa;
+  }
+
+  .good-factors-box h3 { color: #166534; margin-top:0; font-size: 1rem; }
+  .risk-factors-box h3 { color: #9a3412; margin-top:0; font-size: 1rem; }
+
+  .info-box {
+    background-color: #f0f9ff;
+    border-left: 4px solid #0284c7;
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 16px;
+    font-size: 0.925rem;
+  }
+
+  .warning-box {
+    background-color: var(--warning-light);
+    border-left: 4px solid var(--warning-color);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 16px;
+    font-size: 0.925rem;
+  }
+
+  .alert-box {
+    background-color: var(--alert-light);
+    border-left: 4px solid var(--alert-color);
+    padding: 14px 16px;
+    border-radius: 0 8px 8px 0;
+    color: #991b1b;
+    font-weight: 500;
+  }
+
+  .disclaimer-card {
+    background-color: #f1f5f9;
+    border-color: #cbd5e1;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  ol, ul {
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 6px;
+  }
+</style>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>🧬 生殖醫學／產科胎兒超音波與生殖免疫整合分析報告</h1>
+    <p class="report-subtitle">超音波結構判讀・血栓與免疫指標解讀・門診減藥計畫與護理指引</p>
+  </header>
+
+  <!-- 一、個案摘要 -->
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要</h2>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="summary-label">檢查與看診日期</div>
+        <div class="summary-value">2026-08-10 08:33</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">醫療機構</div>
+        <div class="summary-value">Stork Ladies Clinic（送子鳥生殖中心）</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">評估項目</div>
+        <div class="summary-value">經陰道超音波 (TVS) + 免疫/血栓抽血評估</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">預估超音波週數 (US-GA)</div>
+        <div class="summary-value">8w0d (8週0天)</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">臨床背景與主訴</div>
+        <div class="summary-value">生殖免疫個案、雙孕囊演變追蹤、血栓控制與安胎藥物階段性調整</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 二、檢驗報告重點整理 -->
+  <section class="card highlight-card">
+    <h2>🔎 二、檢驗與看診重點總攬</h2>
+    <div class="info-box">
+      <strong>看診綜合摘要：</strong><br>
+      1. <strong>胎兒發育優異：</strong>心跳強勁達到 <strong>171 BPM</strong>（常規標準為 160-180），頭臀長 <strong>1.72 cm</strong>（精準符合 8 週）。肢體已有手芽、腳芽之明顯亮點。<br>
+      2. <strong>血栓指數偏高之原因：</strong>今日血栓指數（D-Dimer）升高，主要因今日尚未施打肝素抗凝血劑（上一劑於週日用完）。醫師特別指示：打完針後指數即可平穩下降，至第 10 週前仍需維持每日兩針抗凝血劑以防止意外風險。<br>
+      3. <strong>免疫與發炎反應：</strong>B 細胞與 NK 細胞呈現波動（蠢蠢欲動），乃因免疫系統攻擊胎盤組織引發輕微發炎反應。目前狀況已通過 7 週關鍵關卡，趨於穩定，採取密切觀察。<br>
+      4. <strong>階段性減藥計畫：</strong>無出血狀況下，即日起停用「扎達愛」與「黃體油針」，「康速龍」劑量減半（改為早一粒、下午一粒）。
+    </div>
+
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th>項目名稱</th>
+          <th>測定結果</th>
+          <th>目標/參考區間</th>
+          <th>狀態判讀</th>
+          <th>臨床處置與意義摘要</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>FHR (胎兒心率)</strong></td>
+          <td>171 BPM</td>
+          <td>160 – 180 BPM</td>
+          <td><span class="tag normal">非常優秀</span></td>
+          <td>自上次105顯著提升，達到8週最佳穩定高點</td>
+        </tr>
+        <tr>
+          <td><strong>CRL (頭臀長)</strong></td>
+          <td>1.72 cm</td>
+          <td>8w0d (EDD: 2027/03/22)</td>
+          <td><span class="tag normal">正常符合</span></td>
+          <td>成長曲線順利，胎兒發育穩定且結構分化正常</td>
+        </tr>
+        <tr>
+          <td><strong>GS (孕囊直徑)</strong></td>
+          <td>2.97 cm</td>
+          <td>7w0d (差距 1.25 cm)</td>
+          <td><span class="tag borderline">邊界留意</span></td>
+          <td>比例尚可，空間無明顯壓迫，隨週數增加會自行擴張</td>
+        </tr>
+        <tr>
+          <td><strong>D-Dimer (血栓指數)</strong></td>
+          <td>偏高 (未注射)</td>
+          <td>&lt; 0.1 mg/L (10週前目標)</td>
+          <td><span class="tag abnormal">需注射控制</span></td>
+          <td>因今日尚未施打肝素導致上升，補打後即可控制，維持每日2針至第10週</td>
+        </tr>
+        <tr>
+          <td><strong>免疫細胞 (B/NK)</strong></td>
+          <td>活性上升/波動</td>
+          <td>穩定抑制狀態</td>
+          <td><span class="tag borderline">持續觀察</span></td>
+          <td>免疫系統攻擊胎盤造成發炎反應，目前過7週後漸趨穩定，暫觀察不加藥</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 三、每一項檢驗與看診數字詳細說明 -->
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、每一項檢驗數字與看診細節詳細說明</h2>
+
+    <div class="lab-item-block">
+      <h3>FHR (胎兒心率)：171 BPM <span class="tag normal">正常強健</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>胎兒每分鐘心跳次數（Beats Per Minute）。</li>
+        <li><strong>看診紀錄與臨床意義：</strong>上次檢查為 105 BPM（剛起跳期），醫師指出此階段心跳理想值為 160–180 BPM。本次達到 171 BPM，代表胎兒心臟與血液循環發育極為穩定良好。</li>
+        <li><strong>偏高/偏低代表意義：</strong>此週數達到 170 以上屬於強健發育的高峰期；若低於 120 BPM 則需警惕發育遲緩或胚胎缺氧。</li>
+        <li><strong>後續處置：</strong>無須特別處理，保持常規追蹤即可。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>CRL (胎兒頭臀長)：1.72 cm <span class="tag normal">發育精準</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>胎兒頭頂至臀部的直線長度。</li>
+        <li><strong>看診紀錄與臨床意義：</strong>1.72 cm 精確對應 8w0d 週數。影像中已可清晰看見頭部、軀幹以及雙手芽、雙腳芽（極小亮點），成長速度完全跟上進度。</li>
+        <li><strong>偏高/偏低代表意義：</strong>符合預期週數代表胎盤血液養分輸送充足，未受到免疫或血栓阻礙。</li>
+        <li><strong>後續處置：</strong>1-2週後回診再次確認成長曲線。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>D-Dimer (血栓指數) 與抗凝血劑（肝素）使用策略 <span class="tag abnormal">需嚴格施打</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>血液中纖維蛋白溶解產物，用以評估體內凝血功能與微血栓形成風險。</li>
+        <li><strong>看診紀錄與臨床意義：</strong>主治醫師特別指出「今天血栓比較高，這個週數希望小於 0.1 比較好」。詢問後確定原因為「今日藥用完、抽血前尚未施打肝素」。醫師強調「等一下打了藥就會下去了」。</li>
+        <li><strong>偏高代表意義：</strong>血栓偏高易導致子宮胎盤微血管栓塞，影響胚胎養分供給，嚴重的可能引發胚胎停育。</li>
+        <li><strong>後續處置與醫囑：</strong>
+          <br>1. <strong>持續施打：</strong>維持一天兩次（一天兩針）肝素/抗凝血劑，不可隨意中斷。
+          <br>2. <strong>時程規劃：</strong>再堅持兩個禮拜至第 10 週；滿 10 週後若指數超過 0.1 影響較小。
+        </li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>生殖免疫指標（B細胞 / NK細胞 / 發炎反應）<span class="tag borderline">密切觀察</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>母體免疫系統（如 NK 自然殺手細胞、B 淋巴細胞）之活性與發炎反應。</li>
+        <li><strong>看診紀錄與臨床意義：</strong>醫師解讀「免疫細胞在攻擊胎盤胚胎，造成發炎指數上升。B 細胞掉下去後又上來一點，有蠢蠢欲動的感覺」。但評估過往經驗，7 週過後胚胎穩定度提升，因此決定「先用觀察的即可」，暫不增加免疫球蛋白（IVIG）或昂貴藥物。</li>
+        <li><strong>偏高代表意義：</strong>免疫排斥反應可能影響胎盤著床深度或引發出血。</li>
+        <li><strong>後續處置：</strong>下次回診密切觀察胎兒生長狀況，暫不加藥。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>第二孕囊結構（萎縮空囊）<span class="tag info">自然吸收中</span></h3>
+      <ul>
+        <li><strong>這個數字與影像表現：</strong>上方存在一較大但無心跳亮點之孕囊。</li>
+        <li><strong>看診紀錄與臨床意義：</strong>確診為「消失的雙胞胎（Vanishing Twin）」。醫師確認「主要養分與發育集中於下方的健康胚胎」，且活性胚胎的居住空間並無嚴重受擠壓狀況，會隨著週數自行長大擴張。</li>
+        <li><strong>後續處置：</strong>不需特殊治療，等待母體自然吸收。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 四、門診藥物調整計畫 -->
+  <section class="card med-card">
+    <h2>💊 四、門診處方減藥與用藥計畫調整</h2>
+    <p>因胎兒心跳強勁（171 BPM）且無出血狀況，醫師依據臨床經驗實施「階段性減藥計畫」：</p>
+    <table class="med-table">
+      <thead>
+        <tr>
+          <th>藥物名稱</th>
+          <th>原使用方式/狀況</th>
+          <th>調整後指示</th>
+          <th>臨床說明與注意事項</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>扎達愛 (Zadaxin)</strong></td>
+          <td>6天前（週三）施打過</td>
+          <td><span class="tag abnormal" style="background:#fee2e2; color:#b91c1c;">停止使用</span></td>
+          <td>免疫調節針劑，評估目前胚胎已穩定，即日起停藥。</td>
+        </tr>
+        <tr>
+          <td><strong>黃體油針 (Progesterone Oil)</strong></td>
+          <td>常規施打安胎</td>
+          <td><span class="tag abnormal" style="background:#fee2e2; color:#b91c1c;">停止使用</span></td>
+          <td>因無陰道出血且黃體支持足夠，停止施打油針以減少肌肉負擔。</td>
+        </tr>
+        <tr>
+          <td><strong>康速龍 (Cortisone / 類固醇)</strong></td>
+          <td>原較高劑量抑制免疫</td>
+          <td><span class="tag borderline" style="background:#fef9c3; color:#a16207;">減量使用</span></td>
+          <td>調整為<strong>早上 1 顆、下午 1 顆</strong>，降低劑量同時維持基礎免疫抑制。</td>
+        </tr>
+        <tr>
+          <td><strong>肝素 / 抗凝血劑 (Heparin)</strong></td>
+          <td>常規每日施打</td>
+          <td><span class="tag normal" style="background:#dcfce7; color:#15803d;">嚴格維持每日 2 針</span></td>
+          <td><strong>極重要！</strong>血栓指數偏高，必須維持一天兩次注射，持續至第 10 週。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 五、整體評估 -->
+  <section class="card evaluation-card">
+    <h2>🧠 五、整體生殖與妊娠狀況評估</h2>
+    <p>綜合超音波、血栓抽血與醫師對話分析，個案目前處於 <strong>8 週高活力、穩定發育中但需嚴格控制血栓之單胎妊娠</strong>：</p>
+    <ul>
+      <li><strong>胎兒結構與心律：</strong>心率 171 BPM 極優，CRL 1.72 cm 精確，四肢芽點清晰，已完全通過 7 週胚胎流產高風險期。</li>
+      <li><strong>免疫與血栓控制：</strong>雖然 B 細胞與 NK 細胞有輕微發炎波動，但在減藥後整體控制良好；主要關卡為<strong>血栓（D-Dimer）</strong>控制，必須依醫囑每日完成兩針肝素注射，直至滿 10 週。</li>
+      <li><strong>安全性評估：</strong>無陰道出血徵象，減藥（停油針、停扎達愛、類固醇減半）屬於積極且安全的臨床過渡處置。</li>
+    </ul>
+  </section>
+
+  <!-- 六、目前成功機率評估 -->
+  <section class="card chance-card">
+    <h2>📈 六、目前持續妊娠成功機率評估</h2>
+    <div class="chance-level-box">
+      <div class="summary-label" style="margin-bottom:8px;">根據現有超音波與生殖免疫指標推估之定性級別</div>
+      <span class="chance-tag high">中等偏高至偏高 (High Confidence)</span>
+      <p style="font-size:0.875rem; color:var(--text-muted); margin-top:8px; margin-bottom:0;">
+        （通過 7 週關卡，心跳達 171 BPM 且無出血，若血栓控制得當，抱胎順利過關之機率極高）
+      </p>
+    </div>
+
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面有利因素</h3>
+        <ul>
+          <li><strong>心率表現超乎預期：</strong>FHR 171 BPM 位於極佳區間，心臟傳導極為強健。</li>
+          <li><strong>跨越關鍵穩定門檻：</strong>醫師指出 7 週後胚胎發育趨於穩定，已啟動安全減藥。</li>
+          <li><strong>無臨床出血症狀：</strong>子宮內無明顯血腫或陰道出血，支持停用黃體油針。</li>
+          <li><strong>胚胎生長軌跡精準：</strong>CRL 1.72 cm 無任何發育遲緩跡象。</li>
+        </ul>
+      </div>
+      <div class="risk-factors-box">
+        <h3>⚠️ 可能潛在風險 / 失敗因素</h3>
+        <ul>
+          <li><strong>血栓波動風險：</strong>若漏打肝素抗凝血劑，D-Dimer 指數容易迅速升高，影響胎盤血流。</li>
+          <li><strong>免疫細胞活性（B/NK）：</strong>免疫系統仍有攻擊胎盤之發炎反應，需持續密切監測。</li>
+          <li><strong>萎縮孕囊吸收期：</strong>第二孕囊吸收過程中需注意是否有引發邊緣出血之狀況。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 七、調研與生殖醫學實務摘要 -->
+  <section class="card research-card">
+    <h2>📚 七、調研與生殖醫學實務摘要</h2>
+    <ul>
+      <li><strong>生殖免疫與血栓管理：</strong>對於有免疫排斥或易血栓體質之孕婦，第一孕期（前10週）透過低分子量肝素（LMWH）控制 D-Dimer 小於 0.1 mg/L 能有效降低胎盤微血栓形成，確保胚胎養分輸送。</li>
+      <li><strong>懷孕 8 週之減藥時機：</strong>當胎兒心跳超過 160 BPM 且 CRL 符合週數、無出血徵象時，適度減少黃體素針劑與免疫抑制劑（如類固醇、扎達愛）能降低母體肝腎負擔，同時預防過度用藥風險。</li>
+      <li><strong>10 週血栓門檻：</strong>懷孕 10 週後，胎盤血管構造發育基本完成，體內凝血機制的生理性容忍度提升，此時 D-Dimer 稍微超過 0.1 mg/L 之臨床風險相對顯著降低。</li>
+    </ul>
+  </section>
+
+  <!-- 八、步驟指引與護理計畫 -->
+  <section class="card plan-card">
+    <h2>🪜 八、後續行動步驟與護理指引</h2>
+    <div class="summary-grid" style="grid-template-columns: 1fr;">
+      <div class="summary-item" style="border-left-color: #22c55e;">
+        <div class="summary-label" style="color:#15803d; font-weight:bold;">🟢 第一階段：每日按時執行 (現階段 – 滿10週)</div>
+        <div class="summary-value" style="font-size:0.925rem; font-weight:normal;">
+          1. <strong>肝素注射：</strong>每日嚴格完成 2 針抗凝血劑施打，不可再次漏打。<br>
+          2. <strong>口服藥調整：</strong>康速龍改為「早 1 顆、下午 1 顆」；停止使用黃體油針與扎達愛。<br>
+          3. <strong>生活作息：</strong>保持充分休息，醫師囑咐「今晚回去可以好好睡覺」，避免劇烈運動與提重物。
+        </div>
+      </div>
+      <div class="summary-item" style="border-left-color: #3b82f6;">
+        <div class="summary-label" style="color:#1d4ed8; font-weight:bold;">🔵 第二階段：下次回診追蹤 (1-2 週內)</div>
+        <div class="summary-value" style="font-size:0.925rem; font-weight:normal;">
+          依預約時間回診複查超音波（監測 9-10 週 CRL 成長）與免疫/血栓抽血評估，準備討論滿 10 週後的肝素停藥或減量計畫。
+        </div>
+      </div>
+      <div class="summary-item" style="border-left-color: #ef4444;">
+        <div class="summary-label" style="color:#b91c1c; font-weight:bold;">🔴 第三階段：緊急就醫時機 (隨時備查)</div>
+        <div class="summary-value" style="font-size:0.925rem; font-weight:normal;">
+          若出現持續性鮮紅色陰道出血、劇烈單側下腹絞痛或嚴重頭暈，請立即回診或至急診處理。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 九、建議與醫師討論的關鍵問題 -->
+  <section class="card discussion-card">
+    <h2>🗣️ 九、建議下次回診與醫師討論的關鍵問題</h2>
+    <ol>
+      <li><strong>關於肝素注射時程：</strong>目前預計維持一天兩針至滿 10 週，請問 10 週後是否需要再次抽血檢測 D-Dimer 以決定是否減量或停針？</li>
+      <li><strong>關於康速龍減藥反應：</strong>類固醇劑量調降至早一、下午一之後，是否有需要特別注意的免疫反彈症狀（如發炎或皮膚搔癢）？</li>
+      <li><strong>關於免疫細胞監測：</strong>下次回診抽血是否會繼續追蹤 B 細胞與 NK 細胞的活性指數？</li>
+      <li><strong>關於媽媽手冊與產篩：</strong>下次（約 9-10 週）回診時是否可以正式領取「媽媽手冊」並規劃 11-13 週的 NIPT 或早期唐氏症篩檢？</li>
+    </ol>
+  </section>
+
+  <!-- 十、重要警示訊號 -->
+  <section class="card alert-card">
+    <h2>🚨 十、重要警示訊號與緊急就醫時機</h2>
+    <p>安胎與免疫調理期間，若出現以下任一狀況，請立即聯繫送子鳥生殖中心或至婦產科急診：</p>
+    <ul>
+      <li><strong>陰道大量鮮血：</strong>出血量多於衛生棉滿滲或伴隨血塊流出。</li>
+      <li><strong>持續性劇烈腹痛：</strong>腹部持續陣痛、硬塊感或下墜重壓感。</li>
+      <li><strong>嚴重注射部位異常：</strong>肝素施打處出現嚴重大面積瘀血擴散、紅腫熱痛或硬塊感染徵象。</li>
+    </ul>
+  </section>
+
+  <!-- 十一、重要聲明 -->
+  <section class="card disclaimer-card">
+    <h2>📌 十一、重要醫療聲明</h2>
+    <p>
+      本分析報告係綜合您所提供之超音波影像（2026/08/10 送子鳥診所）及門診看診診察記錄進行醫學邏輯整理與資訊翻譯，<strong>非為正式醫療診斷或處方簽發</strong>。所有藥物調整（如肝素、康速龍、扎達愛等）與安胎處方，請嚴格遵循您的主治醫師門診醫囑執行。
+    </p>
+  </section>
+</div>
