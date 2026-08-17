@@ -57,8 +57,8 @@
   }
 
   .report-subtitle {
-    font-size: 1rem;
-    opacity: 0.9;
+    font-size: 0.98rem;
+    opacity: 0.95;
     font-weight: 300;
   }
 
@@ -118,7 +118,7 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 12px;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
   }
 
   .lab-table th, .lab-table td {
@@ -137,7 +137,7 @@
     background-color: #f1f5f9;
   }
 
-  /* Status & Chance Tags */
+  /* Status Tags */
   .tag {
     display: inline-block;
     padding: 4px 10px;
@@ -192,7 +192,7 @@
 
   .lab-item-block h3 {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--primary);
   }
 
@@ -203,7 +203,7 @@
 
   .lab-item-block li {
     margin-bottom: 8px;
-    font-size: 0.93rem;
+    font-size: 0.92rem;
     padding-left: 18px;
     position: relative;
   }
@@ -253,7 +253,7 @@
     padding: 14px 18px;
     border-radius: 8px;
     margin-top: 12px;
-    font-size: 0.93rem;
+    font-size: 0.92rem;
   }
 
   .info-box { background-color: var(--info-bg); color: var(--info-text); border-left: 4px solid #0284c7; }
@@ -261,21 +261,22 @@
   .alert-box { background-color: var(--alert-bg); color: var(--alert-text); border-left: 4px solid #ef4444; }
   .tip-box { background-color: #f3e8ff; color: #6b21a8; border-left: 4px solid #a855f7; }
 
-  /* Timeline Table */
-  .timeline-table {
+  /* Timeline & Screening Tables */
+  .timeline-table, .med-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 12px;
     font-size: 0.9rem;
   }
 
-  .timeline-table th, .timeline-table td {
+  .timeline-table th, .timeline-table td,
+  .med-table th, .med-table td {
     padding: 10px 12px;
     border: 1px solid var(--border-color);
     vertical-align: top;
   }
 
-  .timeline-table th {
+  .timeline-table th, .med-table th {
     background-color: #f1f5f9;
     color: var(--text-dark);
   }
@@ -285,7 +286,6 @@
     border: 2px solid #3b82f6 !important;
   }
 
-  /* List Styling */
   .styled-list {
     padding-left: 20px;
     margin-top: 8px;
@@ -293,10 +293,22 @@
 
   .styled-list li {
     margin-bottom: 8px;
-    font-size: 0.93rem;
+    font-size: 0.92rem;
   }
 
-  /* Responsive */
+  /* Medication Pill Badges */
+  .med-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-right: 6px;
+  }
+  .med-badge.stop { background-color: #fee2e2; color: #991b1b; }
+  .med-badge.keep { background-color: #dcfce7; color: #166534; }
+  .med-badge.adjust { background-color: #fef9c3; color: #854d0e; }
+
   @media (max-width: 768px) {
     body { padding: 10px; }
     .card { padding: 16px; }
@@ -310,8 +322,8 @@
   
   <!-- Header -->
   <header class="report-header">
-    <h1>🧬 生殖醫學超音波與胎兒發育評估報告</h1>
-    <p class="report-subtitle">試管囊胚植入後早期懷孕追蹤・超音波數據判讀・發育週數時程表</p>
+    <h1>🧬 生殖醫學超音波與胎兒發育綜合評估報告</h1>
+    <p class="report-subtitle">試管囊胚植入後早期懷孕追蹤・超音波數據判讀・門診會議紀錄整合與自費篩檢評估</p>
   </header>
 
   <!-- Section 1: Summary -->
@@ -331,7 +343,7 @@
         <div class="value">2026 年 06 月 12 日</div>
       </div>
       <div class="summary-item">
-        <div class="label">本次檢查日期</div>
+        <div class="label">本次檢查與診間紀錄日</div>
         <div class="value">2026 年 08 月 17 日</div>
       </div>
       <div class="summary-item">
@@ -347,19 +359,20 @@
         <div class="value">2027 年 03 月 23 日</div>
       </div>
       <div class="summary-item">
-        <div class="label">檢查地點與儀器</div>
-        <div class="value">送子鳥診所 / Hitachi TVS</div>
+        <div class="label">重要進展與醫療註記</div>
+        <div class="value">發放媽媽手冊 / 免疫抽血送檢</div>
       </div>
     </div>
     
     <div class="info-box">
-      <strong>💡 懷孕週數推算說明：</strong> 試管嬰兒（IVF）療程中，D5 囊胚植入日相當於懷孕 2 週 5 天（2w5d）。因此自 7/1 植入日推算至 8/17 檢查當天，精確臨床週數為 <strong>9 週 3 天</strong>。超音波測得 CRL 相當於 8 週 6 天，兩者相差僅 4 天（在正負 5 到 7 天的許正常誤差範圍內），發育非常符合預期。
+      <strong>💡 懷孕週數與診間紀錄綜整：</strong> 
+      自 7/1 D5 囊胚植入日推算至 8/17 檢查當天，臨床精確週數為 <strong>9 週 3 天</strong>。超音波測量 CRL 為 2.42 cm（對應 8w6d），差距僅 4 天（低於 1 週正常誤差範圍）。本次診間同時完成媽媽手冊發放、免疫抽血送檢、停用快孕隆並微調保胎與免疫用藥，且進行血壓居家監測衛教。
     </div>
   </section>
 
-  <!-- Section 2: Lab Overview -->
+  <!-- Section 2: Lab & Clinical Data Overview -->
   <section class="card highlight-card">
-    <h2>🔎 二、超音波檢查數據總覽</h2>
+    <h2>🔎 二、超音波與門診生命徵象/檢驗總覽</h2>
     <div class="table-wrapper" style="overflow-x: auto;">
       <table class="lab-table">
         <thead>
@@ -387,7 +400,7 @@
             <td>BPM (次/分)</td>
             <td>Doppler 多普勒波形測量</td>
             <td><span class="tag normal">極佳正常</span></td>
-            <td>心跳節律整齊強勁，處於 8-9 週理想範圍內。</td>
+            <td>心跳強勁節律整齊，處於 8-9 週理想峰值範圍。</td>
           </tr>
           <tr>
             <td><strong>GS (妊娠囊大小)</strong></td>
@@ -395,15 +408,39 @@
             <td>cm (公分)</td>
             <td>宮腔超音波截面測量</td>
             <td><span class="tag normal">空間充裕</span></td>
-            <td>胎囊空間足夠，平均直徑 (MSD) 約 3.45 cm。</td>
+            <td>平均直徑 (MSD) 約 3.45 cm，發育空間充足。</td>
           </tr>
           <tr>
-            <td><strong>卵黃囊 / 宮腔微細結構</strong></td>
+            <td><strong>附屬結構 / 卵黃囊</strong></td>
             <td>0.6 x 0.7</td>
             <td>cm (公分)</td>
-            <td>胎囊內部/邊緣局部結構</td>
+            <td>胎囊內部/邊緣特寫標記</td>
             <td><span class="tag normal">狀態穩定</span></td>
-            <td>卵黃囊大小正常（通常小於 0.6 cm），周邊無明顯大血腫。</td>
+            <td>邊界清晰，卵黃囊形態完整無變形。</td>
+          </tr>
+          <tr>
+            <td><strong>門診收縮血壓 (SBP)</strong></td>
+            <td>約 120</td>
+            <td>mmHg</td>
+            <td>08/17 診間現場量測</td>
+            <td><span class="tag borderline">臨界面</span></td>
+            <td>高於既往基礎值 (110 mmHg左右)，需自主居家紀錄。</td>
+          </tr>
+          <tr>
+            <td><strong>早期體重控制幅度</strong></td>
+            <td>孕期目標增加 10以內</td>
+            <td>kg (公斤)</td>
+            <td>08/17 門診衛教說明</td>
+            <td><span class="tag normal">觀念正確</span></td>
+            <td>孕早期宜體重平穩，「前期胖媽媽、後期胖寶寶」。</td>
+          </tr>
+          <tr>
+            <td><strong>免疫相關血檢</strong></td>
+            <td>送檢中</td>
+            <td>檢體送驗</td>
+            <td>08/17 診間抽血</td>
+            <td><span class="tag info">追蹤中</span></td>
+            <td>若藥物或點滴需額外調整，院方會主動聯繫。</td>
           </tr>
         </tbody>
       </table>
@@ -412,7 +449,7 @@
 
   <!-- Section 3: Detailed Parameter Analysis -->
   <section class="card detailed-lab-card">
-    <h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+    <h2>🧾 三、每一項檢驗數字與生理指標的詳細說明</h2>
 
     <!-- Item 1: CRL -->
     <div class="lab-item-block">
@@ -421,13 +458,13 @@
         <span class="tag normal">標準範圍內</span>
       </header>
       <ul>
-        <li><strong>這個數字代表什麼：</strong> 胎兒從頭頂最高點到臀部最低點的直線距離，是第一孕期（13 週前）最客觀且精準的胎兒發育成長指標。</li>
-        <li><strong>在生殖評估中的意義：</strong> 用於校正與評估胚胎著床後的實際生長速度。第 8 至 9 週期間，胚胎以每天約 1 mm (0.1 cm) 的速度快速成長。</li>
-        <li><strong>若偏高常見代表：</strong> 胚胎著床時間較早、生長速度充沛或個體發育超前。</li>
-        <li><strong>若偏低常見代表：</strong> 著床時間較晚（晚著床）、胚胎生長遲緩、染色體異常風險增加或週數計算偏差。若低於預期週數 2 週以上需特別警惕。</li>
-        <li><strong>本個案的可能解讀：</strong> 測量值 2.42 cm 對應超音波 GA 為 8w6d。與囊胚植入推算週數 9w3d 僅相差 4 天（小於 1 週誤差範圍），顯示囊胚順利著床並持續穩定成長，無發育遲緩跡象。</li>
+        <li><strong>這個數字代表什麼：</strong> 胎兒頭頂至臀部的直線距離，為第一孕期評估胚胎成長最精確的指標。</li>
+        <li><strong>在生殖評估中的意義：</strong> 校正囊胚著床後的成長進度。此階段胎兒以每日約 1 mm 速度快速成長。</li>
+        <li><strong>若偏高常見代表：</strong> 著床時間較早、生長力道充沛。</li>
+        <li><strong>若偏低常見代表：</strong> 著床偏晚、發育遲緩或染色體異常風險增加。若低於預期週數 2 週以上需特別警惕。</li>
+        <li><strong>本個案的可能解讀：</strong> 測量值 2.42 cm 相當於 8w6d，與植入算得之 9w3d 僅相差 4 天，落在正常正負 5 至 7 天誤差內，顯示胚胎持續穩定發育。</li>
         <li><strong>建議合併判讀項目：</strong> 胎兒心跳率 (FHR)、妊娠囊大小 (GS)。</li>
-        <li><strong>是否需要追蹤：</strong> 建議 2 至 3 週後（約 11-13 週時）結合 NT（頸部透明帶）超音波再次追蹤發育曲線。</li>
+        <li><strong>是否需要追蹤：</strong> 建議於 11 至 13 週產檢時進行 NT (頸部透明帶) 超音波進一步比對生長曲線。</li>
       </ul>
     </div>
 
@@ -438,13 +475,13 @@
         <span class="tag normal">心跳強勁極佳</span>
       </header>
       <ul>
-        <li><strong>這個數字代表什麼：</strong> 胎兒每分鐘的心跳次數。8-9 週為胎兒心臟發育並加速跳動的鼎盛期。</li>
-        <li><strong>在生殖評估中的意義：</strong> 第一孕期胎兒心跳是評估胚胎存活率（Viability）最重要的指標。出現穩定強勁的心跳代表早期流產風險大幅下降。</li>
-        <li><strong>若偏高常見代表：</strong> 8 至 9 週時心跳達到全孕期峰值，168 BPM 屬於此階段的理想高點（正常範圍 140 - 180 BPM），不代表心律不整。</li>
-        <li><strong>若偏低常見代表：</strong> 8 週後若心跳低於 120 BPM 為心動過緩（Bradycardia），低於 100 BPM 則提示染色體異常或即將停胎的極高風險。</li>
-        <li><strong>本個案的可能解讀：</strong> 168 BPM 心跳強勁且波形規則整齊，顯示胎兒心血管系統運作極佳，血液循環良好，大幅減低早期胚胎萎縮風險。</li>
+        <li><strong>這個數字代表什麼：</strong> 胎兒每分鐘心跳次數。8-9 週為心臟發育並加速脈動的黃金峰值期。</li>
+        <li><strong>在生殖評估中的意義：</strong> 為評估胚胎存活率 (Viability) 的核心指標，出現穩定強勁心跳表示早期流產風險大幅下降。</li>
+        <li><strong>若偏高常見代表：</strong> 8-9 週達到全孕期最高點，168 BPM 屬於理想強勁區間 (140-180 BPM)。</li>
+        <li><strong>若偏低常見代表：</strong> 8 週後若低於 120 BPM 提示心動過緩，低於 100 BPM 則屬停胎極高風險。</li>
+        <li><strong>本個案的可能解讀：</strong> 心跳波形整齊強勁，血液循環狀況極佳，早期胚胎萎縮風險大幅降低。</li>
         <li><strong>建議合併判讀項目：</strong> 多普勒血流波形、CRL 生長速度。</li>
-        <li><strong>是否需要追蹤：</strong> 每次產檢常規監測心跳即可。</li>
+        <li><strong>是否需要追蹤：</strong> 每次常規產檢持續監測即可。</li>
       </ul>
     </div>
 
@@ -455,42 +492,51 @@
         <span class="tag normal">空間充足</span>
       </header>
       <ul>
-        <li><strong>這個數字代表什麼：</strong> 孕婦宮腔內包覆胎兒與羊水的囊狀結構長寬尺寸。平均直徑 (MSD) 約為 3.45 cm。</li>
-        <li><strong>在生殖評估中的意義：</strong> 提供胚胎發育所需的營養環境與生長空間。健全的妊娠囊應呈現邊界清晰、張力良好的圓形或橢圓形。</li>
-        <li><strong>若偏高常見代表：</strong> 羊水充裕、胎囊發育良好；若異常過大且無胚胎則需注意空胚囊疑慮（本案已排除）。</li>
-        <li><strong>若偏低常見代表：</strong> 若 MSD 與 CRL 的差值小於 5 mm（小胎囊症候群 Small Sac Syndrome），可能增加流產機率。</li>
-        <li><strong>本個案的可能解讀：</strong> 胎囊 MSD 達 3.45 cm，與 CRL 2.42 cm 相比，兩者差值達 1.03 cm (10.3 mm)，空間非常充裕，張力良好，有利於胎兒活動與羊水累積。</li>
-        <li><strong>建議合併判讀項目：</strong> 囊壁邊界張力、有無絨毛膜下血腫 (SCH)。</li>
-        <li><strong>是否需要追蹤：</strong> 下次超音波持續評估宮腔空間與胎盤附著狀況。</li>
+        <li><strong>這個數字代表什麼：</strong> 宮腔內包覆胎兒與羊水的囊狀結構尺寸，平均直徑 (MSD) 為 3.45 cm。</li>
+        <li><strong>在生殖評估中的意義：</strong> 提供胚胎發育與羊水累積之空間。</li>
+        <li><strong>若偏高常見代表：</strong> 羊水充沛，空間足夠；需確認是否包含胚胎構造（本案已明確含胎兒）。</li>
+        <li><strong>若偏低常見代表：</strong> 若 MSD 與 CRL 差值小於 0.5 cm，稱為小胎囊症候群，增加流產風險。</li>
+        <li><strong>本個案的可能解讀：</strong> MSD 3.45 cm 與 CRL 2.42 cm 差值達 1.03 cm (10.3 mm)，空間非常充裕，有利胎兒活動。</li>
+        <li><strong>建議合併判讀項目：</strong> 絨毛膜周邊有無血腫 (SCH)。</li>
+        <li><strong>是否需要追蹤：</strong> 每次產檢監測宮腔空間與胎盤附著狀況。</li>
       </ul>
     </div>
 
-    <!-- Item 4: Yolk Sac / Microstructure -->
+    <!-- Item 4: Blood Pressure -->
     <div class="lab-item-block">
       <header>
-        <h3>4. 卵黃囊與附屬結構測量：0.6 cm x 0.7 cm</h3>
-        <span class="tag normal">邊界清晰穩定</span>
+        <h3>4. 門診血壓監測：收縮壓約 120 mmHg</h3>
+        <span class="tag borderline">臨界邊界值</span>
       </header>
       <ul>
-        <li><strong>這個數字代表什麼：</strong> 宮腔影像中特寫之附屬微細結構（如卵黃囊或局部超音波標記區）。</li>
-        <li><strong>在生殖評估中的意義：</strong> 卵黃囊在胎盤建立前提供胚胎養分與造血功能。正常直徑應介於 0.3 cm 至 0.6 cm 之間。</li>
-        <li><strong>若偏高常見代表：</strong> 卵黃囊直徑大於 0.7 cm 可能與染色體異常或預後不良相關。</li>
-        <li><strong>若偏低常見代表：</strong> 卵黃囊過小（小於 0.2 cm）或缺失提示胚胎發育受阻。</li>
-        <li><strong>本個案的可能解讀：</strong> 影像顯示該結構約 0.6 cm，形態完整、環狀結構清晰，無過大畸形或變形塌陷，發育功能正常。</li>
-        <li><strong>建議合併判讀項目：</strong> 絨毛膜周邊有無出血陰影。</li>
-        <li><strong>是否需要追蹤：</strong> 隨著 10-12 週胎盤逐漸形成，卵黃囊會自然萎縮消失，為正常生理現象。</li>
+        <li><strong>這個數字代表什麼：</strong> 門診量測之收縮壓數據。個人既往基礎值約 110 mmHg 左右。</li>
+        <li><strong>在生殖評估中的意義：</strong> 早期懷孕因免疫藥物（如類固醇、奎寧）、黃體素荷爾蒙變化及血管張力調節，需密切注意血壓基礎變化，預防妊娠高血壓。</li>
+        <li><strong>若偏高常見代表：</strong> 雖然醫療院所通用的診斷臨界值多定在 135-140 mmHg，但個人數據由 110 mmHg 升至 120 mmHg 屬於相對高點，可能與緊張、白袍效應、血管張力或藥物相關。</li>
+        <li><strong>若偏低常見代表：</strong> 孕早期血管擴張常導致血壓稍微偏低，若過低可能引發姿勢性頭暈。</li>
+        <li><strong>本個案的可能解讀：</strong> 目前未達到高血壓診斷標準，但已進入臨界監測區。門診已衛教準備家用血壓計進行天天固定時間紀錄。</li>
+        <li><strong>建議合併判讀項目：</strong> 尿蛋白、有無頭痛、眼窩脹痛、視力模糊等症狀。</li>
+        <li><strong>是否需要追蹤：</strong> 建議每天早晚定時量測並記錄於血壓日誌，回診時供醫師評估。</li>
       </ul>
     </div>
   </section>
 
-  <!-- Section 4: Overall Clinical Evaluation -->
+  <!-- Section 4: Comprehensive Medical Evaluation -->
   <section class="card evaluation-card">
-    <h2>🧠 四、整體生殖發育評估</h2>
-    <p>綜合囊胚植入日與本次 8w6d 至 9w3d 之超音波影像資料，判讀結果如下：</p>
+    <h2>🧠 四、整體生殖發育與藥物調整評估</h2>
+    <p>綜合囊胚植入日、8/17 超音波影像與門診醫護諮詢紀錄，醫療評估如下：</p>
     <ul class="styled-list">
-      <li><strong>著床與發育進度同步：</strong> 5 天囊胚於 7/1 植入後順利著床，胎兒個體（CRL 2.42 cm）與心跳（FHR 168 BPM）皆完全符合第 8 至 9 週之標準生理指標。</li>
-      <li><strong>早期流產風險顯著降低：</strong> 臨床數據顯示，試管療程在確認強勁胎兒心跳（FHR >= 140 BPM）且 CRL 達 2 cm 以上後，持續妊娠並順利進入第二孕期的成功率高達 90% 至 95% 以上。</li>
-      <li><strong>子宮內環境穩定：</strong> 妊娠囊空間充裕，胎盤前身（絨毛膜）附著良好，影像中未見大規模絨毛膜下出血或剝離現象。</li>
+      <li><strong>胎兒生長穩定且已具備轉診基礎：</strong> 5 天囊胚順利著床，CRL 2.42 cm 與心跳 168 BPM 完全符合正常孕期標準。診間已順利發放「媽媽健康手冊」與「衛教手冊」，象徵步入穩定懷孕中期階段。</li>
+      <li><strong>黃體與保胎藥物階段性調整：</strong> 
+        <br>• <span class="med-badge stop">停用</span> <strong>快孕隆 (Crinone / 陰道塞劑)</strong>：因黃體功能逐漸由胎盤接管，依醫囑停用陰道塞劑。
+        <br>• <span class="med-badge keep">維持</span> <strong>小白球 (Utrogestan / 口服黃體素)</strong>：每日 8 顆（總共帶 56 顆/7天份），維持口服黃體支持。
+        <br>• <span class="med-badge adjust">微調</span> <strong>康速龍 (Prednisolone)</strong>：調整為每日 1 顆（帶 7 顆/7天份）。
+      </li>
+      <li><strong>高階免疫與保胎治療組合：</strong>
+        <br>• <strong>艾酸痛 (Inhixa / 肝素抗凝血劑)</strong>：維持高劑量每日早晚各 1 支（共 15 支）。打藥前需確認無頭痛、眼窩脹痛等不適。
+        <br>• <strong>奎寧 (Plaquenil)</strong>：預計服藥至懷孕 24 週，本次一次拿取 30 天份（一盒 60 顆），維持免疫抑制。
+        <br>• <strong>伯基 (Bokey / 阿斯匹靈)</strong> 與 <strong>艾貝克 (Abec)</strong>：維持每日早晚各 1 顆（各帶 14 顆/7天份）。
+        <br>• <strong>安西平 (Ansyne)</strong>：維持使用至 10-12 週，配合現有儲備從 8/21 起帶 5 天份（共 10 顆）。
+      </li>
     </ul>
   </section>
 
@@ -499,27 +545,27 @@
     <h2>📈 五、目前懷孕持續與活產成功機率評估</h2>
     
     <div class="chance-level-badge">
-      <div class="title">依目前臨床數據綜合定性評估</div>
+      <div class="title">依目前超音波與門診數據綜合定性評估</div>
       <div class="status">偏高 (High Probability)</div>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">（說明：已跨越早期心跳關卡，胎兒發展與週數高度吻合）</p>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">（說明：胎兒發展完全吻合週數，心跳強勁，免疫藥物持續精準控制中）</p>
     </div>
 
     <div class="two-column-grid">
       <div class="good-factors-box">
         <h3>✅ 正面有利因素</h3>
         <ul style="padding-left: 18px; font-size: 0.9rem;">
-          <li><strong>胎兒心跳強勁：</strong> FHR 168 BPM 屬於 8-9 週黃金優良指標。</li>
-          <li><strong>生長指標精確：</strong> CRL 2.42 cm 與植入週數完全相符，無發展遲緩。</li>
-          <li><strong>胎囊空間充裕：</strong> MSD 與 CRL 比例合理，提供健全發育環境。</li>
-          <li><strong>優質囊胚來源：</strong> 經過人工選擇之 Day 5 囊胚，著床潛力佳。</li>
+          <li><strong>心跳與個體發育優良：</strong> FHR 168 BPM 與 CRL 2.42 cm 完全符合第 8-9 週發育指標。</li>
+          <li><strong>已發放媽媽手冊：</strong> 代表臨床上胚胎極為穩定，已順利通過早期停胎高風險期。</li>
+          <li><strong>高強度免疫保護網：</strong> 奎寧、肝素（艾酸痛）、伯基與類固醇聯用，有效預防免疫攻擊或微血栓。</li>
+          <li><strong>妊娠囊空間充足：</strong> MSD 3.45 cm 結構完整，無大面積絨毛膜下血腫。</li>
         </ul>
       </div>
       <div class="risk-factors-box">
-        <h3>⚠️ 需關注之風險因素</h3>
+        <h3>⚠️ 可能風險與關注因素</h3>
         <ul style="padding-left: 18px; font-size: 0.9rem;">
-          <li><strong>黃體支持藥物戒斷期：</strong> 9-11 週為胎盤接管黃體素的過渡期，需依醫囑平穩調整藥物。</li>
-          <li><strong>染色體結構未明：</strong> 若先前囊胚未做 PGT-A (PGS) 篩檢，仍需於 11-14 週進行 NIPT 或頸部透明帶評估。</li>
-          <li><strong>早期子宮收縮風險：</strong> 孕婦若過度勞累或黃體素波動，仍可能出現微量出血。</li>
+          <li><strong>血壓進入臨界監測區：</strong> 收縮壓 120 mmHg 高於基礎值，需防範高劑量藥物與血管張力改變。</li>
+          <li><strong>免疫血檢尚待報告：</strong> 8/17 抽血項目送檢中，若有波動可能需要調整劑量或補充點滴。</li>
+          <li><strong>高劑量肝素副反應：</strong> 使用每日 2 支艾酸痛期間，需嚴密觀察有無劇烈頭痛、眼窩脹痛或出血傾向。</li>
         </ul>
       </div>
     </div>
@@ -529,32 +575,60 @@
   <section class="card risk-card">
     <h2>⚠️ 六、可能問題與風險分析</h2>
     <div class="warning-box">
-      <strong>1. 胎盤功能接管期（孕期 9 - 12 週）：</strong><br>
-      目前正處於卵巢黃體轉交由胎盤分泌黃體素（Progesterone）的過渡階段。在此期間，部分孕婦可能因體內荷爾蒙波動而出現褐色分泌物或點狀出血，絕大多數為正常生理現象，但需遵循生殖中心指示不可自行停用黃體素。
+      <strong>1. 血壓張力與血管波動風險：</strong><br>
+      診間測得血壓約 120 mmHg，相較於過往 110 mmHg 有上升趨勢。懷孕中期血管阻力改變，加之免疫藥物使用，需每天固定時間（建議早晚靜坐 5 分鐘後）量測血壓，若收縮壓持續超過 135 mmHg 或舒張壓超過 85 mmHg 需提早回診。
     </div>
     <div class="info-box" style="margin-top: 10px;">
-      <strong>2. 染色體與結構異常風險：</strong><br>
-      超音波確認心跳代表「構造與生長正常」，但無法完全排除微小基因染色體異常。需規劃於 11 週至 13 週進一步接受第一孕期唐氏症篩檢或非侵入性胎兒染色體基因檢測 (NIPT)。
+      <strong>2. 高劑量抗凝血藥物（艾酸痛）施打安全：</strong><br>
+      每日早晚各施打 1 支艾酸痛屬於高劑量控制。注射前必須確認自身無異常頭痛、眼窩脹痛、視力模糊或全身出血點（如牙齦大量出血、紫斑）。如有上述症狀需暫緩並回報醫療團隊。
     </div>
   </section>
 
-  <!-- Section 7: Research & Clinical Standards Summary -->
+  <!-- Section 7: Screening & Research Summary -->
   <section class="card research-card">
-    <h2>📚 七、臨床醫學標準與調研摘要</h2>
-    <p style="font-size: 0.93rem; color: var(--text-dark);">
-      根據國際生殖醫學（ASRM / ESHRE）與產婦醫學學會之臨床共識：
+    <h2>📚 七、門診自費基因篩檢需求評估與臨床共識</h2>
+    <p style="font-size: 0.92rem; color: var(--text-dark); margin-bottom: 10px;">
+      針對診間討論之自費產檢項目，依據生殖醫學與產前診斷學會之臨床指引評估如下：
     </p>
-    <ul class="styled-list">
-      <li><strong>8w - 9w 胎兒發育標準：</strong> 胎兒手腳芽開始分化，微小身體可出現不自主動態；CRL 標準平均約介於 2.0 cm 至 2.7 cm 之間。</li>
-      <li><strong>心跳正常頻率曲線：</strong> 胎兒心跳自 6 週約 110 BPM 開始快速上升，至 8-9 週達到最高峰（160 - 180 BPM），隨後於 12 週後逐漸穩定於 120 - 160 BPM。</li>
-      <li><strong>畢業與轉婦產科時機：</strong> 試管嬰兒療程通常於 8 至 10 週超音波確認心跳與 CRL 發育正常後，即可由生殖醫學中心「畢業」，轉診至一般婦產科開立母子健康手冊進行常規產檢。</li>
-    </ul>
+    
+    <div class="table-wrapper" style="overflow-x: auto;">
+      <table class="timeline-table">
+        <thead>
+          <tr>
+            <th>自費篩檢項目</th>
+            <th>個案目前狀態 / 建議</th>
+            <th>檢測原理與臨床意義</th>
+            <th>優點與限制</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>脊髓性肌肉萎縮症 (SMA)<br>X染色體脆折症 (FXS)</strong></td>
+            <td><span class="tag normal">免重複施作</span></td>
+            <td>帶因者基因篩檢。女方過往療程中已完成檢測且無異常。</td>
+            <td>終生只需檢測一次，本胎無需重複花費。</td>
+          </tr>
+          <tr>
+            <td><strong>NIPT<br>(非侵入性胎兒染色體檢測)</strong></td>
+            <td><span class="tag info">優先考慮選項</span></td>
+            <td>於孕期 10-11 週後抽取母體靜脈血，分離微量游離胎兒 DNA (cfDNA) 進行高通量定序。</td>
+            <td><strong>優點：</strong> 安全無流產風險，對唐氏症 (T21)、愛德華氏症 (T18)、帕陶氏症 (T13) 準確率大於 99%。<br><strong>限制：</strong> 屬篩檢性質，若出現高風險仍需羊水確診。</td>
+          </tr>
+          <tr>
+            <td><strong>羊膜穿刺 (Amniocentesis)<br>+ 羊水晶片 (aCGH)</strong></td>
+            <td><span class="tag borderline">評估選項</span></td>
+            <td>於 16-20 週在超音波指引下穿刺抽取羊水，直接培養胎兒細胞分析染色體結構與微片段缺失。</td>
+            <td><strong>優點：</strong> 產前診斷之金標準，結果最為精確診斷。<br><strong>限制：</strong> 具千分之 1 至 3 的破水或感染等侵入性風險。若無高齡或高風險因子可先做 NIPT。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- Section 8: Timeline & Growth Standards -->
   <section class="card next-step-card">
     <h2>🧪 八、胎兒完整週期發育時程表與檢查標準</h2>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">（依 7/1 植入 D5 囊胚校正計算之完整推算表）</p>
+    <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 10px;">（依 7/1 植入 D5 囊胚校正計算之完整孕期推算表）</p>
     
     <div class="table-wrapper" style="overflow-x: auto;">
       <table class="timeline-table">
@@ -588,26 +662,26 @@
           <tr class="current-stage-row">
             <td><strong>第 9 - 10 週 ⭐</strong><br>(目前所在階段)</td>
             <td>08/07 - 08/20<br><strong>(本日: 08/17)</strong></td>
-            <td><strong>胎兒型態基本形成，手指腳趾區分，可見微小胎動。生殖中心畢業關卡。</strong></td>
-            <td><strong>CRL: 2.2 - 3.2 cm (本案 2.42 cm)<br>FHR: 150 - 180 BPM (本案 168 BPM)</strong></td>
+            <td><strong>胎兒型態基本形成，手指腳趾區分。領取媽媽手冊，免疫抽血送檢與藥物微調。</strong></td>
+            <td><strong>CRL: 2.2 - 3.2 cm (本案 2.42 cm)<br>FHR: 150 - 180 BPM (本案 168 BPM)<br>收縮血壓: &lt; 135 mmHg (本案 120 mmHg)</strong></td>
           </tr>
           <tr>
             <td><strong>第 11 - 13 週</strong><br>(第一孕期尾聲)</td>
             <td>08/21 - 09/10</td>
-            <td>胎兒身長快速增加，顏面骨骼形成，器官持續發育。</td>
-            <td>領取媽媽手冊。進行 NIPT 早期染色體篩檢 / 頸部透明帶 (NT) 檢查 (NT < 2.5 mm)。</td>
+            <td>胎兒身長快速增加，顏面骨骼形成，器官持續發育。安西平逐步停藥。</td>
+            <td>完成 NIPT 早期染色體抽血篩檢 / 頸部透明帶 (NT) 檢查 (NT &lt; 2.5 mm)。初次媽媽手冊例行產檢。</td>
           </tr>
           <tr>
             <td><strong>第 14 - 20 週</strong><br>(第二孕期/中期)</td>
             <td>09/11 - 10/22</td>
-            <td>器官結構成熟，可確認性別，孕婦開始感受到胎動。</td>
-            <td>中期唐氏症篩檢、羊膜穿刺（若需要）。BPD、AC、FL 骨骼測量。</td>
+            <td>器官結構成熟，可確認性別，孕婦開始感受胎動。奎寧服藥至 24 週。</td>
+            <td>中期唐氏症篩檢、羊膜穿刺（若 NIPT 異常或高齡）。BPD、AC、FL 骨骼測量。</td>
           </tr>
           <tr>
             <td><strong>第 21 - 24 週</strong><br>(高層次超音波)</td>
             <td>10/23 - 11/19</td>
             <td>全身解剖結構發展完整（心臟四腔室、腦部器官、手指腳趾）。</td>
-            <td>高層次超音波 (Level II Ultrasound) 進行全身排畸檢查。</td>
+            <td>高層次超音波 (Level II Ultrasound) 進行全身排畸檢查。評估奎寧停藥時機。</td>
           </tr>
           <tr>
             <td><strong>第 25 - 28 週</strong><br>(後期代謝評估)</td>
@@ -619,48 +693,114 @@
             <td><strong>第 29 - 36 週</strong><br>(第三孕期/成長期)</td>
             <td>12/18 - 2027/02/11</td>
             <td>體重快速增加，脂肪堆積，胎位逐漸轉固定（頭位）。</td>
-            <td>每兩週產檢，估算胎兒體重 (EFW)，監測胎動與血壓。</td>
+            <td>每兩週產檢，估算胎兒體重 (EFW)，監測血壓與胎動。</td>
           </tr>
           <tr>
             <td><strong>第 37 - 40 週</strong><br>(足月生產)</td>
             <td>2027/02/12 - 03/23</td>
             <td>胎兒發育成熟，隨時準備發動生產。</td>
-            <td>預產期 2027/03/23。每週產檢，監視胎兒心率曲線 (NST) 與子宮收縮。</td>
+            <td>預產期 2027/03/23。每週產檢，監視胎兒心律曲線 (NST) 與子宮收縮。</td>
           </tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- Section 9: Step Guide -->
+  <!-- Section 9: Step Guide & Medication Plan -->
   <section class="card plan-card">
-    <h2>🪜 九、具優先順序的後續步驟指引</h2>
-    <ol class="styled-list" style="padding-left: 20px;">
-      <li><strong>第一優先（當前 - 10 週前）：</strong> 持續按時服用與使用生殖中心開立之黃體素（口服/快孕隆/塞劑/針劑），切勿自行減藥。</li>
-      <li><strong>第二優先（10 - 11 週）：</strong> 與醫師確認「生殖中心畢業」開立轉診單，並至預定生產之婦產科醫院領取「母子健康手冊（媽媽手冊）」。</li>
-      <li><strong>第三優先（11 - 13 週）：</strong> 預約並完成自費早期染色體篩檢（可選擇 NIPT 非侵入性基因檢測或第一孕期唐氏症雙指標篩檢 + NT 超音波）。</li>
-      <li><strong>第四優先（20 - 24 週）：</strong> 提早預約 21-24 週之「高層次超音波檢查」（各院所名額較緊湊，建議領冊後即預約）。</li>
+    <h2>🪜 九、具優先順序的後續步驟與用藥指引</h2>
+    
+    <h3>💊 當前用藥帶藥清單管理（自 08/17 門診起算）：</h3>
+    <div class="table-wrapper" style="overflow-x: auto;">
+      <table class="med-table">
+        <thead>
+          <tr>
+            <th>藥物名稱</th>
+            <th>目前狀態</th>
+            <th>用法用量</th>
+            <th>本次開立數量與說明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>快孕隆 (Crinone)</strong></td>
+            <td><span class="med-badge stop">已停用</span></td>
+            <td>無須再使用</td>
+            <td>診間指示即日起停用陰道塞劑。</td>
+          </tr>
+          <tr>
+            <td><strong>艾酸痛 (Inhixa)</strong></td>
+            <td><span class="med-badge keep">維持高劑量</span></td>
+            <td>每日早晚各 1 支 (皮下注射)</td>
+            <td>本次開立 15 支。打藥前確認無頭痛或眼窩脹痛。</td>
+          </tr>
+          <tr>
+            <td><strong>奎寧 (Plaquenil)</strong></td>
+            <td><span class="med-badge keep">長期使用</span></td>
+            <td>每日固定服藥</td>
+            <td>一次開立 30 天份（一盒 60 顆），預計吃至孕期 24 週。</td>
+          </tr>
+          <tr>
+            <td><strong>小白球 (Utrogestan)</strong></td>
+            <td><span class="med-badge keep">維持口服</span></td>
+            <td>每日共 8 顆</td>
+            <td>本次開立 7 天份（共 56 顆）。</td>
+          </tr>
+          <tr>
+            <td><strong>伯基 (Bokey)</strong></td>
+            <td><span class="med-badge keep">維持</span></td>
+            <td>每日早晚各 1 顆</td>
+            <td>本次開立 7 天份（共 14 顆）。</td>
+          </tr>
+          <tr>
+            <td><strong>艾貝克 (Abec)</strong></td>
+            <td><span class="med-badge keep">維持</span></td>
+            <td>每日早晚各 1 顆</td>
+            <td>本次開立 7 天份（共 14 顆）。</td>
+          </tr>
+          <tr>
+            <td><strong>康速龍 (Prednisolone)</strong></td>
+            <td><span class="med-badge adjust">微調降量</span></td>
+            <td>每日 1 顆</td>
+            <td>本次開立 7 天份（共 7 顆）。</td>
+          </tr>
+          <tr>
+            <td><strong>安西平 (Ansyne)</strong></td>
+            <td><span class="med-badge keep">銜接開藥</span></td>
+            <td>每日 2 顆 (手邊藥服至 8/20)</td>
+            <td>自 8/21 起帶 5 天份（共 10 顆，預計吃至 10-12 週）。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top: 18px;">🗓️ 優先行動步驟：</h3>
+    <ol class="styled-list">
+      <li><strong>第一優先（即刻執行）：</strong> 家中自備血壓計，每日早晚定時測量血壓並記錄。正確按時使用調整後之口服藥物與艾酸痛針劑。</li>
+      <li><strong>第二優先（08/24 下週一回診）：</strong> 預約 08:00 門診報到。檢視 08/17 免疫抽血檢測報告，並與醫師確認藥物銜接狀況。</li>
+      <li><strong>第三優先（11 - 13 週）：</strong> 持媽媽健康手冊至婦產科進行例行產檢，並完成自費 NIPT 抽血篩檢及 NT 超音波。</li>
+      <li><strong>第四優先（20 - 24 週）：</strong> 提前預約高層次超音波檢查；奎寧持續服用至 24 週後由醫師評估停藥時機。</li>
     </ol>
   </section>
 
   <!-- Section 10: Lifestyle & Care Recommendations -->
   <section class="card advice-card">
-    <h2>💡 十、生活與日常衛教建議</h2>
+    <h2>💡 十、生活、衛教與居家紀錄建議</h2>
     <div class="two-column-grid">
       <div>
-        <h3>💊 補充劑與用藥</h3>
+        <h3>🩸 血壓監測與血栓預防</h3>
         <ul style="padding-left: 18px; font-size: 0.9rem;">
-          <li>葉酸 (Folic Acid)：每日補足 600 - 800 mcg，預防神經管缺陷。</li>
-          <li>維生素 D3：每日 1000 - 2000 IU，協助免疫調節與骨骼發育。</li>
-          <li>遵醫囑藥物：黃體素等保胎藥物須維持定時定點使用。</li>
+          <li>每日早晚於安靜休息 5 分鐘後量測血壓，並記錄於手冊或手機 APP 中。</li>
+          <li>施打艾酸痛皮下針劑時，輪流更換腹部兩側注射部位，避免局部瘀血過重。</li>
+          <li>注意有無異常頭痛、眼窩脹痛、視力模糊或異常出血現象。</li>
         </ul>
       </div>
       <div>
-        <h3>🧘 生活作息與活動</h3>
+        <h3>🧘 體重管理與生活作息</h3>
         <ul style="padding-left: 18px; font-size: 0.9rem;">
-          <li>避免劇烈運動、搬重物與腹部提壓。</li>
-          <li>暫緩溫泉、泡澡與過熱水浴，避免體溫過高。</li>
-          <li>飲食清淡，多攝取高纖蔬果預防黃體素引起的腸胃蠕動減緩（便秘）。</li>
+          <li>孕早期體重宜平穩，整個孕期增加控制在 10 公斤內為佳。</li>
+          <li>葉酸每日補足 600 - 800 mcg，維生素 D3 每日 1000 - 2000 IU。</li>
+          <li>媽媽手冊與衛教手冊可作為睡前讀物，雙方共同閱讀了解產檢流程。</li>
         </ul>
       </div>
     </div>
@@ -669,13 +809,13 @@
   <!-- Section 11: Clinical Questions for Doctor -->
   <section class="card discussion-card">
     <h2>🗣️ 十一、建議與醫師討論的關鍵問題</h2>
-    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px;">可在下次門診回診時向您的主治醫師請教：</p>
+    <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">下週一 (08/24) 回診門診時可向主治醫師請教：</p>
     <ul class="styled-list">
-      <li>「請問目前的黃體素藥物預計使用到第幾週？隨後該如何逐步減量？」</li>
-      <li>「依目前 8w6d 至 9w3d 的發育狀態，下次回診是否可順利領取媽媽手冊並轉診婦產科？」</li>
-      <li>「針對染色體篩檢，醫師建議選擇 NIPT 非侵入性檢測還是傳統 NT 唐氏症篩檢？」</li>
-      <li>「日常出現微量褐色分泌物時，是否有備用黃體素（如口服小白球）可自行加強？」</li>
-      <li>「高層次超音波（21-24 週）建議什麼時間點開始預約？」</li>
+      <li>「請問 8/17 抽血的免疫相關檢驗報告數值是否正常？是否需要調整艾酸痛或奎寧劑量？」</li>
+      <li>「我這幾天居家記錄的血壓數值如下，請問目前的血壓趨勢是否需要微調用藥？」</li>
+      <li>「關於自費染色體篩檢，考量過往已做過 SMA 與脆折症，醫師是否建議我們直接選擇 NIPT 篩檢即可？」</li>
+      <li>「安西平預計服用至 10-12 週，下週回診時藥物劑量是否維持不變？」</li>
+      <li>「奎寧預計服藥至 24 週，請問在中期孕期是否有需要定期追蹤的眼科或血液指標？」</li>
     </ul>
   </section>
 
@@ -685,10 +825,10 @@
     <div class="alert-box">
       <strong>若出現以下任何症狀，請勿等待預約回診，應立即至醫療院所急診評估：</strong>
       <ul style="padding-left: 20px; margin-top: 6px;">
-        <li><strong>鮮紅色大量陰道出血：</strong> 出血量達到或超過日常月經第二天的量。</li>
-        <li><strong>劇烈單側或下腹陣痛：</strong> 伴隨宮縮感、發冷或頭暈目眩。</li>
-        <li><strong>嚴重急性發燒：</strong> 體溫高於 38.5 度或伴隨嚴重寒顫。</li>
-        <li><strong>嚴重嘔吐無法進食水：</strong> 導致脫水或尿量顯著減少（疑似妊娠劇吐）。</li>
+        <li><strong>高血壓警訊症狀：</strong> 靜止血壓持續收縮壓 大於等於 140 mmHg 或舒張壓 大於等於 90 mmHg，並伴隨劇烈頭痛、視力模糊、視幻光點或上腹部劇痛。</li>
+        <li><strong>鮮紅色大量陰道出血：</strong> 出血量達到或超過日常月經第二天的量，或伴隨排出組織塊。</li>
+        <li><strong>劇烈下腹陣痛：</strong> 伴隨強烈子宮收縮感、發冷、寒顫或頭暈目眩。</li>
+        <li><strong>抗凝血藥物嚴重副反應：</strong> 嚴重眼窩脹痛、無法緩解之偏頭痛、全身出現大面積紫斑或鼻腔/牙齦出血不止。</li>
       </ul>
     </div>
   </section>
@@ -697,17 +837,8 @@
   <section class="card disclaimer-card">
     <h2>📌 十三、重要非診斷聲明</h2>
     <div class="tip-box">
-      本報告係根據使用者提供之最後經期、囊胚植入日期與影像測量數據（CRL 2.42cm、FHR 168BPM、GS 4.2x2.7cm）進行生殖醫學資訊整理與臨床邏輯分析，內容僅供健康資訊參考與溝通準備之用，<strong>不構成任何正式醫療診斷、開立處方或療效保證</strong>。實際診斷、用藥調整與醫療決策，請務必以您的主治醫師現場親自診察與醫囑為準。
+      本報告係根據使用者提供之最後經期、囊胚植入日期、超音波影像數據（CRL 2.42cm、FHR 168BPM、GS 4.2x2.7cm）及 08/17 門診對話紀錄進行生殖醫學資訊整理與臨床邏輯分析。內容僅供健康資訊參考、個人紀錄與門診溝通準備之用，<strong>不構成任何正式醫療診斷、處方開立或療效保證</strong>。實際診斷、用藥調整與產檢決策，請務必以您的主治醫師現場親自診察與醫囑為準。
     </div>
   </section>
 
 </div>
-```
-
----
-
-### 報告解讀摘要說明
-
-1. **核心結論**：您於 **7/1** 植入的 Day 5 囊胚目前發展非常順利！**8/17** 檢查時，胎兒頭臀長 **2.42 cm**（相當於 8w6d），與植入日精算週數 **9w3d** 高度吻合（誤差僅 4 天，屬於正常範圍）。
-2. **關鍵指標**：胎兒心跳率 **168 BPM**，強勁且極為穩定，妊娠囊空間充足，整體懷孕持續成功率評估為**偏高**。
-3. **後續建議**：請繼續按時使用黃體素藥物，並於 10-11 週準備自生殖中心畢業、開立轉診與領取媽媽手冊。
