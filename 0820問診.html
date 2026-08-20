@@ -1,0 +1,620 @@
+<style>
+  :root {
+    --primary-color: #1e3a8a;
+    --primary-light: #eff6ff;
+    --secondary-color: #0d9488;
+    --secondary-light: #f0fdf4;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --bg-main: #f8fafc;
+    --card-bg: #ffffff;
+    --border-color: #e2e8f0;
+    
+    --status-normal-bg: #dcfce7;
+    --status-normal-text: #15803d;
+    --status-borderline-bg: #fef9c3;
+    --status-borderline-text: #a16207;
+    --status-abnormal-bg: #fee2e2;
+    --status-abnormal-text: #b91c1c;
+    --status-info-bg: #e0f2fe;
+    --status-info-text: #0369a1;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+  }
+
+  .report-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .report-header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #0d9488 100%);
+    color: #ffffff;
+    padding: 32px 24px;
+    border-radius: 16px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .report-header h1 {
+    margin: 0 0 8px 0;
+    font-size: 1.85rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .report-subtitle {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.9;
+    font-weight: 300;
+  }
+
+  .card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+
+  .card h2 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    font-size: 1.35rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card h3 {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-top: 16px;
+    margin-bottom: 10px;
+  }
+
+  /* 標籤 Tag 樣式 */
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .tag.normal { background-color: var(--status-normal-bg); color: var(--status-normal-text); }
+  .tag.borderline { background-color: var(--status-borderline-bg); color: var(--status-borderline-text); }
+  .tag.abnormal { background-color: var(--status-abnormal-bg); color: var(--status-abnormal-text); }
+  .tag.insufficient { background-color: var(--status-info-bg); color: var(--status-info-text); }
+
+  /* 成功機率等級徽章 */
+  .chance-badge-container {
+    text-align: center;
+    margin: 16px 0 24px 0;
+  }
+  .chance-badge {
+    display: inline-block;
+    padding: 10px 28px;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  }
+  .chance-badge.mid-high {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+  }
+
+  /* 表格樣式 */
+  .lab-table-wrapper {
+    overflow-x: auto;
+  }
+  .lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.95rem;
+  }
+  .lab-table th, .lab-table td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .lab-table th {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+  .lab-table tr:hover {
+    background-color: #f1f5f9;
+  }
+
+  /* 逐項檢驗說明區塊 */
+  .lab-item-block {
+    background-color: #f8fafc;
+    border-left: 4px solid var(--primary-color);
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 0 8px 8px 0;
+  }
+  .lab-item-block.abnormal-block {
+    border-left-color: #ef4444;
+    background-color: #fef2f2;
+  }
+  .lab-item-block h3 {
+    margin-top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .lab-item-block ul {
+    margin: 8px 0 0 0;
+    padding-left: 20px;
+  }
+  .lab-item-block li {
+    margin-bottom: 6px;
+    font-size: 0.93rem;
+  }
+
+  /* 網格雙欄 layout */
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 768px) {
+    .two-column-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .good-factors-box {
+    background-color: var(--secondary-light);
+    border: 1px solid #a7f3d0;
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .good-factors-box h3 { color: #047857; margin-top: 0; }
+
+  .risk-factors-box {
+    background-color: #fff1f2;
+    border: 1px solid #fecdd3;
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .risk-factors-box h3 { color: #be123c; margin-top: 0; }
+
+  /* 提示框 */
+  .info-box, .warning-box, .alert-box, .tip-box {
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 0.95rem;
+  }
+  .info-box { background-color: #e0f2fe; border-left: 4px solid #0284c7; color: #0369a1; }
+  .warning-box { background-color: #fef3c7; border-left: 4px solid #f59e0b; color: #92400e; }
+  .alert-box { background-color: #fee2e2; border-left: 4px solid #ef4444; color: #991b1b; }
+  .tip-box { background-color: #f0fdf4; border-left: 4px solid #10b981; color: #166534; }
+
+  .disclaimer-card {
+    background-color: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  /* 列表樣式 */
+  ul, ol {
+    padding-left: 20px;
+  }
+  li {
+    margin-bottom: 8px;
+  }
+</style>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>🧬 生殖醫學與免疫孕期檢驗分析報告</h1>
+    <p class="report-subtitle">臨床指標深度解讀・胎兒發育評估・免疫與凝血風險分層</p>
+  </header>
+
+  <!-- 一、個案摘要 -->
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要</h2>
+    <div class="two-column-grid">
+      <div>
+        <p><strong>評估對象：</strong>孕婦門診追蹤個案</p>
+        <p><strong>妊娠週數：</strong>預估約 9 週 6 天（近 10 週）</p>
+        <p><strong>超音波結果：</strong>頂臀長 (CRL) 2.79 cm（約 9w2d-9w3d），胎兒心跳 177 bpm，子宮頸長度 3.5 cm</p>
+        <p><strong>主訴與症狀：</strong>後腦勺緊重感、後頸後頭部陣發性及持續性緊繃感（診斷為張力性頭痛 Tension Headache）；伴隨焦慮不安、睡眠品質差（淺眠、多夢、睡不沉）</p>
+      </div>
+      <div>
+        <p><strong>檢驗日期：</strong>2026 年 8 月 20 日</p>
+        <p><strong>既往病史／背景：</strong>曾有多次孕期失敗／不孕流產經驗（具有生殖免疫關聯背景）</p>
+        <p><strong>目前用藥療程：</strong>愛栓 (Clexane / 肝素類抗凝血劑) 每日 2 支；復脈 (Humira / 抗 TNF-α 生物製劑) 控制中；黃體素補充（近期有微幅減量）</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 二、檢驗報告重點整理 -->
+  <section class="card highlight-card">
+    <h2>🔎 二、檢驗報告重點整理</h2>
+    <div class="lab-table-wrapper">
+      <table class="lab-table">
+        <thead>
+          <tr>
+            <th>檢驗項目</th>
+            <th>檢驗值</th>
+            <th>單位</th>
+            <th>參考範圍</th>
+            <th>狀態</th>
+            <th>簡要判讀</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>腫瘤壞死因子-a (TNF-α)</strong></td>
+            <td>40.8</td>
+            <td>pg/mL</td>
+            <td>&lt; 4.0</td>
+            <td><span class="tag abnormal">高於標準</span></td>
+            <td>Th1發炎因子升高，但生物製劑(Humira)治療下&lt;60尚屬可控</td>
+          </tr>
+          <tr>
+            <td><strong>D-Dimer (院內)</strong></td>
+            <td>0.125</td>
+            <td>mg/L FEU</td>
+            <td>&lt; 0.55</td>
+            <td><span class="tag normal">正常</span></td>
+            <td>凝血微血栓風險低，孕初期小於10週屬於安全範圍</td>
+          </tr>
+          <tr>
+            <td><strong>NK cell (CD16+56) 比例</strong></td>
+            <td>9.2</td>
+            <td>%</td>
+            <td>&lt; 14.9</td>
+            <td><span class="tag normal">正常</span></td>
+            <td>自然殺手細胞比例正常，未見顯著過高攻擊性</td>
+          </tr>
+          <tr>
+            <td><strong>NK cell (CD16+56) 絕對數</strong></td>
+            <td>230</td>
+            <td>ul</td>
+            <td>&lt; 299.9</td>
+            <td><span class="tag normal">正常</span></td>
+            <td>NK細胞絕對數量穩定落在安全界限內</td>
+          </tr>
+          <tr>
+            <td><strong>B cell (CD19) 比例</strong></td>
+            <td>12.3</td>
+            <td>%</td>
+            <td>&lt; 14.9</td>
+            <td><span class="tag normal">正常</span></td>
+            <td>B細胞比例正常，自體抗體反應活躍度正常</td>
+          </tr>
+          <tr>
+            <td><strong>CD19 絕對計數</strong></td>
+            <td>307</td>
+            <td>ul</td>
+            <td>&lt; 499.9</td>
+            <td><span class="tag normal">正常</span></td>
+            <td>B細胞絕對數量正常</td>
+          </tr>
+          <tr>
+            <td><strong>T cell (CD3) 比例</strong></td>
+            <td>76.0</td>
+            <td>%</td>
+            <td>50 ~ 84</td>
+            <td><span class="tag normal">正常</span></td>
+            <td>整體T淋巴細胞比例穩定</td>
+          </tr>
+          <tr>
+            <td><strong>Helper cell (CD4) 比例</strong></td>
+            <td>33.3</td>
+            <td>%</td>
+            <td>27 ~ 51</td>
+            <td><span class="tag normal">正常</span></td>
+            <td>輔助性T細胞比例正常</td>
+          </tr>
+          <tr>
+            <td><strong>Suppressor cell (CD8) 比例</strong></td>
+            <td>40.8</td>
+            <td>%</td>
+            <td>15 ~ 44</td>
+            <td><span class="tag normal">正常</span></td>
+            <td>抑制性/毒性T細胞比例正常</td>
+          </tr>
+          <tr>
+            <td><strong>CD4/CD8 比值</strong></td>
+            <td>0.8</td>
+            <td>-</td>
+            <td>0.6 ~ 2.5</td>
+            <td><span class="tag normal">正常</span></td>
+            <td>免疫調節比值適當，未見細胞免疫失衡</td>
+          </tr>
+          <tr>
+            <td><strong>Active T cell (HLA-DR) 比例</strong></td>
+            <td>5.9</td>
+            <td>%</td>
+            <td>1.9 ~ 19.6</td>
+            <td><span class="tag normal">正常</span></td>
+            <td>活化T細胞比例正常，全身性免疫過度活化低</td>
+          </tr>
+          <tr>
+            <td><strong>WBC (白血球計數)</strong></td>
+            <td>7.74</td>
+            <td>e3/ul</td>
+            <td>3.5 ~ 10.0</td>
+            <td><span class="tag normal">正常</span></td>
+            <td>總白血球數正常，無急慢性感染或過度發炎血象</td>
+          </tr>
+          <tr>
+            <td><strong>雌性素 (E2)</strong></td>
+            <td>上升趨勢</td>
+            <td>-</td>
+            <td>臨床動態評估</td>
+            <td><span class="tag normal">正常良好</span></td>
+            <td>動態持續上升，支持胚胎發育與胎盤形成</td>
+          </tr>
+          <tr>
+            <td><strong>黃體素 (P4)</strong></td>
+            <td>輕微波動下降</td>
+            <td>-</td>
+            <td>臨床動態評估</td>
+            <td><span class="tag borderline">觀察中</span></td>
+            <td>因減藥引起微幅下降，屬預期內，配合E2上升仍算安全</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 三、每一項檢驗數字的詳細說明 -->
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+
+    <!-- TNF-a -->
+    <div class="lab-item-block abnormal-block">
+      <h3>腫瘤壞死因子-a (TNF-α)：40.8 pg/mL <span class="tag abnormal">高於一般參考值，但在生物製劑控制範圍</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>TNF-α 是一種重要的前發炎細胞激素（Th1 免疫反應指標），反映體內免疫細胞發炎反應的活躍度。</li>
+        <li><strong>在生殖評估中的意義：</strong>孕期過高的 TNF-α 可能會引發胎盤局部發炎、子宮內膜血管內皮損傷，增加著床失敗或早期流產風險。</li>
+        <li><strong>偏高/偏低代表意義：</strong>偏高代表 Th1 發炎免疫反應偏強；偏低通常無臨床病理意義。一般無孕期標準目標為 &lt; 4.0 pg/mL。</li>
+        <li><strong>本個案的可能解讀：</strong>數值為 40.8 pg/mL，雖高於正常無孕參考值 (&lt;4)，但在生殖免疫門診中，由於您正施打復脈 (Humira)，醫師認定在治療下數值維持在 60 pg/mL 以下即屬安全可接受範圍。目前 40.8 顯示發炎反應正被藥物有效抑制中，無須過度恐慌。</li>
+        <li><strong>合併判讀與追蹤：</strong>需結合 D-Dimer 及 NK 細胞動態。建言定期（1~2 週）追蹤評估藥物施打劑量與頻率。</li>
+      </ul>
+    </div>
+
+    <!-- D-Dimer -->
+    <div class="lab-item-block">
+      <h3>D-Dimer (院內)：0.125 mg/L FEU <span class="tag normal">正常穩定</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>D-Dimer 是纖維蛋白降解產物，為體內凝血系統活化與微血栓形成的敏感指標。</li>
+        <li><strong>在生殖評估中的意義：</strong>孕期高凝血狀態或微血栓會阻塞子宮胎盤循環，導致胚胎缺血、缺氧甚至停止心跳。</li>
+        <li><strong>偏高/偏低代表意義：</strong>偏高提示體內有凝血活化或血栓形成傾向；偏低代表凝血狀態平穩，無微血栓威脅。</li>
+        <li><strong>本個案的可能解讀：</strong>數值 0.125 mg/L FEU，遠低於標準上限 0.55 mg/L FEU。在妊娠 10 週以下的標準中，醫師評估小於 0.1~0.25 均屬極為安全的綠色區間，代表愛栓 (Clexane) 的抗凝血預防成效非常理想，胎盤微循環暢通。</li>
+        <li><strong>合併判讀與追蹤：</strong>隨週數增加（如滿 10 週後標準可放寬至 0.2~0.3），需配合超音波胎兒心跳及發育速度持續監測。</li>
+      </ul>
+    </div>
+
+    <!-- NK Cell CD16+56 -->
+    <div class="lab-item-block">
+      <h3>NK Cell (CD16+56)：比例 9.2 % / 絕對數 230 /ul <span class="tag normal">正常理想</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>CD16+CD56+ 自然殺手細胞 (NK cells) 是周邊血中具有細胞毒性作用的免疫細胞。</li>
+        <li><strong>在生殖評估中的意義：</strong>過高或過度活化的周邊血 NK 細胞，可能過度攻擊胚胎組織或干擾滋養層細胞侵襲。</li>
+        <li><strong>偏高/偏低代表意義：</strong>比例 &gt;14.9% 或數量超過 300 /ul 常提示 NK 細胞攻擊性偏高；過低則一般無特別生殖不良影響。</li>
+        <li><strong>本個案的可能解讀：</strong>比例 9.2%（參考值 &lt;14.9%）、絕對計數 230 /ul（參考值 &lt;299.9 /ul），且與先前數值相比（從 500 多降至目前 230）有明顯下降與穩定趨勢。這表明免疫系統對胎兒的細胞毒性攻擊已被有效壓制，是極具正面價值的訊號。</li>
+        <li><strong>合併判讀與追蹤：</strong>與 HLA-DR 活化 T 細胞一同參照，目前顯示細胞免疫處於穩定狀態。</li>
+      </ul>
+    </div>
+
+    <!-- B Cell CD19 -->
+    <div class="lab-item-block">
+      <h3>B Cell (CD19)：比例 12.3 % / 絕對數 307 /ul <span class="tag normal">正常</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>CD19 為 B 淋巴細胞的表面特徵標誌，主導體液免疫與自體抗體的產生。</li>
+        <li><strong>在生殖評估中的意義：</strong>B 細胞異常增生或活化常與自體免疫抗體（如抗磷脂抗體、抗核抗體等）的生成相關。</li>
+        <li><strong>偏高/偏低代表意義：</strong>偏高提示體液免疫過度活躍；偏低則代表體液免疫功能相對受抑制。</li>
+        <li><strong>本個案的可能解讀：</strong>比例 12.3%（參考值 &lt;14.9%）、數量 307 /ul（參考值 &lt;499.9 /ul），完全在標準規範內，說明體內 B 細胞無異常激增，自體免疫抗體攻擊風險低。</li>
+        <li><strong>合併判讀與追蹤：</strong>繼續維持當前免疫調節藥物，常規追蹤即可。</li>
+      </ul>
+    </div>
+
+    <!-- T Cell Subsets (CD3, CD4, CD8, Ratio) -->
+    <div class="lab-item-block">
+      <h3>T 淋巴細胞群 (CD3, CD4, CD8, CD4/CD8 Ratio) <span class="tag normal">全面正常平衡</span></h3>
+      <ul>
+        <li><strong>詳細數值：</strong>CD3 76.0% (1921 /ul)；CD4 33.3% (850 /ul)；CD8 40.8% (1041 /ul)；CD4/CD8 Ratio 0.8。</li>
+        <li><strong>這個數字代表什麼：</strong>分析整體細胞免疫的系統平衡。CD4 為輔助性 T 細胞，CD8 為抑制性/細胞毒性 T 細胞。</li>
+        <li><strong>在生殖評估中的意義：</strong>CD4/CD8 比值異常倒置或過高，常反映全身性免疫功能失調。適度的免疫耐受性是順利妊娠的關鍵。</li>
+        <li><strong>本個案的可能解讀：</strong>CD4/CD8 比值為 0.8（正常範圍 0.6~2.5），CD3、CD4、CD8 絕對數值均在參考區間內，證明整體 T 細胞免疫架構非常平衡，未出現免疫系統亂飆或異常排斥狀況。</li>
+        <li><strong>合併判讀與追蹤：</strong>穩定維持，無須額外調整 T 細胞針對性療程。</li>
+      </ul>
+    </div>
+
+    <!-- Active T Cell (HLA-DR) -->
+    <div class="lab-item-block">
+      <h3>Active T Cell (HLA-DR)：5.9 % (絕對數 151 /ul) <span class="tag normal">正常</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>HLA-DR 是 T 細胞活化的標誌，反映體內處於「作戰/活化狀態」的 T 細胞比例。</li>
+        <li><strong>在生殖評估中的意義：</strong>活化 T 細胞過高提示體內存在持續的免疫發炎反應，可能對胚胎造成排斥。</li>
+        <li><strong>本個案的可能解讀：</strong>比例為 5.9%（參考區間 1.9~19.6%），處於極佳的低活化狀態，證實身體沒有因為懷孕而引發異常的 T 細胞免疫警報。</li>
+      </ul>
+    </div>
+
+    <!-- WBC & Hormones -->
+    <div class="lab-item-block">
+      <h3>白血球 (WBC) 與 孕期荷爾蒙 (E2 / P4) <span class="tag normal">整體表現優良</span></h3>
+      <ul>
+        <li><strong>WBC (7.74 e3/ul)：</strong>完全落在 3.5~10.0 的標準區間，排除全身性細菌感染或極端應激發炎反應。</li>
+        <li><strong>雌性素 (E2)：</strong>對話紀錄顯示 E2 數值持續穩定上升。E2 是支持子宮內膜血流與胎盤發育的核心荷爾蒙，上升代表胚胎發育動力充足。</li>
+        <li><strong>黃體素 (P4)：</strong>因近期遵醫囑進行減藥，數值出現輕微掉落。醫師診斷明確指出：只要 E2 持續上升且 P4 僅為微幅波動，且無陰道出血或劇烈腹痛，屬安全適應範圍，無須焦慮。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 四、整體評估 -->
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體評估</h2>
+    <p>綜合對話臨床紀錄、超音波影像數據及各項免疫凝血血清學指標，本評估得出以下四大核心結論：</p>
+    <ol>
+      <li><strong>胎兒生命徵象極佳：</strong>妊娠 9 週 6 天，胎兒頂臀長 (CRL)達 2.79 cm，心跳為強而有力的 177 bpm（處於 160-180 bpm 之標準黃金區間）。子宮頸長度 3.5 cm，遠高於 2.5 cm 的安全警戒線，子宮結構穩定，無出血徵象。</li>
+      <li><strong>凝血機制控制完善：</strong>D-Dimer 僅 0.125 mg/L FEU，說明愛栓 (Clexane) 的抗凝血保護非常到位，胎盤微血管無微血栓阻塞風險，胎兒血流供應充足。</li>
+      <li><strong>細胞免疫平穩，發炎反應在控：</strong>NK 細胞 (CD16+56) 數量已從過去高點回落至 230 /ul 的正常範圍；TNF-α 雖高於無孕標準 (40.8 pg/mL)，但在復脈 (Humira) 生物製劑的保護下，仍穩妥控制於安全目標 (&lt;60 pg/mL) 內，暫時無法對已發育至 10 週大小的胎兒構成實質威脅。</li>
+      <li><strong>精神緊張引發張力性頭痛：</strong>您所感受到的後腦勺持續性緊重感、抖動抽緊感，經臨床確定為<strong>張力性頭痛 (Tension Headache)</strong>。主因源自於過去失敗經驗造成的強烈焦慮、心理壓力，以及連續睡眠品質佳度不良（睡眠時間少、多夢淺眠），導致頭皮與後頸肌肉持續收縮，與打針處疼痛或胎兒異常無關。</li>
+    </ol>
+  </section>
+
+  <!-- 五、目前成功機率評估 -->
+  <section class="card chance-card">
+    <h2>📈 五、目前成功機率評估</h2>
+    
+    <div class="chance-badge-container">
+      <div class="chance-badge mid-high">預後評估：中等偏高</div>
+    </div>
+    
+    <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: -15px;">（註：此為基於目前 10 週臨床超音波與檢驗數據之定性估算，適用於當前保胎療程）</p>
+
+    <div class="two-column-grid" style="margin-top: 20px;">
+      <div class="good-factors-box">
+        <h3>✅ 正面有利原因</h3>
+        <ul>
+          <li><strong>胎兒發育強健：</strong>胎心音 177 bpm 相當健康，頭臀長度符合預期週數。</li>
+          <li><strong>凝血完全達標：</strong>D-Dimer (0.125) 遠低於危險門檻，胎盤血供流暢。</li>
+          <li><strong>器官已具規模：</strong>胚胎已發育至接近 10 週，對細胞毒性免疫排斥的抵禦能力已遠高於早期 5-6 週階段。</li>
+          <li><strong>關鍵 NK 細胞下降：</strong>殺手細胞數量降至 230 /ul，免疫攻擊力大幅減弱。</li>
+          <li><strong>荷爾蒙 E2 強勢上升：</strong>支持胎盤與子宮環境持續成長。</li>
+        </ul>
+      </div>
+
+      <div class="risk-factors-box">
+        <h3>⚠️ 可能失敗/風險原因</h3>
+        <ul>
+          <li><strong>TNF-α 發炎因子仍偏高：</strong>40.8 pg/mL 提示體內 Th1 發炎底色仍在，需持續施打生物製劑壓制。</li>
+          <li><strong>情緒與自律神經失調：</strong>長期高度焦慮、睡眠剝奪引起的全身肌肉緊張與應激荷爾蒙上升，可能間接引發子宮收縮。</li>
+          <li><strong>減藥期間荷爾蒙波動：</strong>黃體素調藥過程中可能帶來的短暫數值波動。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 六、可能問題與風險分析 -->
+  <section class="card risk-card">
+    <h2>⚠️ 六、可能問題與風險分析</h2>
+    <div class="warning-box">
+      <strong>重點風險警告：心理應激與焦慮循環</strong><br>
+      您目前的後腦勺頭痛主要為「張力性頭痛」。因為擔心報告異常，產生恐懼與睡眠障礙，導致頭皮與頸部肌肉緊繃，進而產生頭痛；頭痛又進一步加重了「是不是免疫又壞掉、寶寶是不是有危險」的恐懼。這種惡性循環是目前最大的不適來源，極易引發假性子宮收縮。
+    </div>
+    <ul>
+      <li><strong>發炎因子潛在波動風險：</strong>TNF-α 雖在藥物控制中，但若隨週數增加體內免疫狀態改變，仍有反彈可能，需持續依醫囑使用復脈。</li>
+      <li><strong>微血栓滯後風險：</strong>孕期凝血功能隨週數增加會自然呈高凝狀態，D-Dimer 隨時有向上波動可能，不可自行停用愛栓 (Clexane)。</li>
+    </ul>
+  </section>
+
+  <!-- 七、調研資料摘要 -->
+  <section class="card research-card">
+    <h2>📚 七、調研資料摘要</h2>
+    <p>依據生殖免疫學與產科臨床實務共識整理：</p>
+    <ul>
+      <li><strong>第一孕期 D-Dimer 監測：</strong>生殖免疫學界普遍認為，在妊娠 12 週以前，D-Dimer 保持在 0.2~0.55 mg/L FEU 以下能有效降低抗磷脂抗體症候群或易血栓體質所致的胎盤微循環梗塞事件。</li>
+      <li><strong>TNF-α 與生物製劑應用：</strong>腫瘤壞死因子 (TNF-α) 是導致 Th1/Th2 免疫失衡的核心因子。在生殖免疫療程中使用 Adalimumab (Humira) 能顯著降低子宮內膜發炎反應。研究與臨床實務顯示，只要將 TNF-α 控制在特定臨床警戒線（如 &lt;60 pg/mL）以下，即可大幅保護胎盤安全。</li>
+      <li><strong>胎兒心跳與週數預後：</strong>妊娠 9-10 週時，胎兒心跳速率正常落在 160-180 bpm。此階段若超音波確認心跳強健且 CRL 發育符合週數，早期流產之風險將呈斷崖式下降。</li>
+    </ul>
+  </section>
+
+  <!-- 八、建議補充檢查 -->
+  <section class="card next-step-card">
+    <h2>🧪 八、建議補充檢查</h2>
+    <ul>
+      <li><strong>門診例行追蹤（下週一）：</strong>持續追蹤超音波（確認 CRL 成長速率與胎心音）及 D-Dimer 血清數值。</li>
+      <li><strong>定期免疫與凝血追蹤（每 1~2 週）：</strong>繼續追蹤 TNF-α 及 D-Dimer，評估愛栓與復脈之劑量維持。</li>
+      <li><strong>第一孕期產前篩檢規劃（11-13 週）：</strong>可開始與產科醫師討論 NIPT（非侵入性胎兒染色體基因檢測）或早期唐氏症篩檢（頸部透明帶超音波）。</li>
+    </ul>
+  </section>
+
+  <!-- 九、步驟指引 -->
+  <section class="card plan-card">
+    <h2>🪜 九、步驟指引（按優先順序）</h2>
+    <ol>
+      <li><strong>第一優先（立即執行）：心理賦能與解焦慮</strong><br>明確認知目前的血液報告與寶寶狀況「非常安全與優秀」。後腦勺頭痛是肌肉緊張所致，請放寬心，避免因不必要的恐慌影響睡眠。</li>
+      <li><strong>第二優先（藥物遵囑執行）：穩定施打針劑</strong><br>愛栓 (Clexane) 依醫師建議時間（如下午 6:00-6:30）定時施打，穩定壓制凝血風險；黃體素與生物製劑切勿自行停用或加減量。</li>
+      <li><strong>第三優先（生活調整）：頸部熱敷與放鬆</strong><br>今晚可針對後頸部進行溫熱敷（15分鐘），做輕柔的頸部拉伸，減緩張力性頭痛，並爭取今晚充裕睡眠。</li>
+      <li><strong>第四優先（定期門診）：下週一依約回診</strong><br>按時回生殖免疫門診複查，讓醫師進行例行性超音波與血檢確認。</li>
+    </ol>
+  </section>
+
+  <!-- 十、生活與治療建議 -->
+  <section class="card advice-card">
+    <h2>💡 十、生活與治療建議</h2>
+    <div class="tip-box">
+      <strong>🌿 緩解張力性頭痛與舒壓技巧：</strong>
+      <ul>
+        <li><strong>熱敷與按摩：</strong>用熱毛巾敷於後頸部與肩膀，請家人協助輕柔按壓風池穴與肩井穴，舒緩緊繃肌肉。</li>
+        <li><strong>調整打針時間點：</strong>若醫師建議提早打愛栓，可將時間微調至下午 6 點左右，有助於晚間血流更平穩。</li>
+        <li><strong>建立睡前儀式：</strong>睡前 1 小時關閉手機與通訊軟體，避免重複刷看報告或搜尋資訊。可聽輕音樂或進行深呼吸冥想。</li>
+        <li><strong>適度水分補充：</strong>每日維持 1800-2000 ml 水分攝取，有助於血液循環與預防血液濃縮。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 十一、建議與醫師討論的關鍵問題 -->
+  <section class="card discussion-card">
+    <h2>🗣️ 十一、建議與醫師討論的關鍵問題</h2>
+    <p>下週一（或下次門診）時，您可以直接詢問主治醫師以下實用問題：</p>
+    <ul>
+      <li>❓ <strong>關於愛栓劑量：</strong>目前 D-Dimer 為 0.125，請問愛栓（Clexane）需要維持目前每日 2 支，還是有需要根據滿 10 週後的體重與數據進行微調？</li>
+      <li>❓ <strong>關於 TNF-α 與 Humira：</strong>目前 TNF-α 40.8 pg/mL 控制良好，請問下一劑復脈 (Humira) 的施打間隔時間是否維持原樣？</li>
+      <li>❓ <strong>關於黃體素調整：</strong>上週減藥後 P4 有微幅波動，目前 E2 狀況良好，請問黃體素劑量是否繼續維持現狀？</li>
+      <li>❓ <strong>關於頭痛緩解：</strong>如果張力性頭痛發作嚴重影響睡眠，請問是否有孕婦安全的肌肉鬆弛或止痛藥物（如普拿疼 Acetaminophen）可以備用？</li>
+      <li>❓ <strong>產檢轉介時間點：</strong>請問預計幾週時會進行生殖中心畢業並轉介至一般婦產科進行第一孕期大產檢（如 NIPT 或頸部透明帶）？</li>
+    </ul>
+  </section>
+
+  <!-- 十二、警示訊號 -->
+  <section class="card alert-card">
+    <h2>🚨 十二、警示訊號與緊急就醫時機</h2>
+    <div class="alert-box">
+      <strong>若出現以下任何症狀，請勿等待預約門診，需立即前往急診或聯繫生殖中心：</strong>
+      <ul>
+        <li>🔴 <strong>陰道出血：</strong>出現鮮紅色陰道出血或伴隨血塊。</li>
+        <li>🔴 <strong>劇烈腹痛：</strong>持續性單側或全腹部劇烈陣痛、痙攣性劇痛。</li>
+        <li>🔴 <strong>異常頭痛與視力改變：</strong>頭痛形態改變（如前額劇痛、伴隨視野模糊、閃光或噁心噴射狀嘔吐）。</li>
+        <li>🔴 <strong>嚴重發燒或感染症狀：</strong>體溫超過 38°C 或伴隨嚴重寒顫。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 十三、重要聲明 -->
+  <section class="card disclaimer-card">
+    <h2>📌 十三、重要聲明</h2>
+    <p>本報告係由生殖醫學諮詢系統根據您所提供之對話內容、超音波數據及血清學檢驗單（包含 TNF-a、D-Dimer、淋巴細胞亞群分析）所整合生成之<strong>輔助資訊與臨床衛教建議</strong>，<strong>不代表正式醫療診斷或處方</strong>。所有藥物劑量調整（如愛栓、復脈、黃體素等）與治療策略，必須由您的主治醫師（生殖醫學科/生殖免疫科醫師）親自評估並開立醫囑執行。</p>
+  </section>
+</div>
+```
+
+---
+
+### 報告產出摘要說明
+1. **數據逐項深度解讀**：報告中已將您提供的三張報告單（CD3/CD4/CD8/CD19/NK 細胞亞群、TNF-α 40.8、D-Dimer 0.125）以及對話中提到的 E2/P4、超音波數據（CRL 2.79cm、FHR 177bpm）完整拆解，並針對個別項目的「偏高/偏低臨床意義」與「在您個案中的實際安全狀況」做逐項分析。
+2. **疑慮澄清**：
+   - **頭痛**：確認為壓力與睡眠差引發的**張力性頭痛 (Tension Headache)**，非免疫惡化或胚胎異常徵象。
+   - **免疫與凝血**：NK 細胞數值已下降至安全標準（230 ul），D-Dimer (0.125) 非常漂亮，TNF-α 40.8 在 Humira 治療下屬於合格控制區間 (&lt;60 pg/mL)，請您放寬心。
+3. **成功率評估**：目前定性評估為**中等偏高**，胎兒發育狀況極為強健。
+4. **準備就診**：報告末端已為您整理出 5 個具體問題，方便您在下週一回診時直接與醫師討論。
