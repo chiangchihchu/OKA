@@ -1,558 +1,813 @@
-<style>
-  :root {
-    --primary-color: #1e3a8a;
-    --primary-light: #eff6ff;
-    --secondary-color: #0d9488;
-    --secondary-light: #ccfbf1;
-    --text-color: #1f2937;
-    --text-muted: #4b5563;
-    --bg-main: #f8fafc;
-    --card-bg: #ffffff;
-    --border-color: #e2e8f0;
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>超音波與生殖免疫驗血綜合對比報告</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chosen Palette: Warm Clinical Neutral (Navy, Teal, Emerald, Amber, Crimson) -->
+  <!-- Application Structure Plan: Tabbed Interactive Dashboard approach. Designed into 4 primary views: 1. 總覽與對比儀表板 (Dashboard overview with core metrics and growth comparison), 2. 胚胎發育與荷爾蒙動態 (Ultrasound growth charts & Hormone protection status), 3. 生殖免疫與全血球詳細解讀 (Interactive filterable tab for 20+ blood lab items with granular clinical explanations), 4. 成功率評估與行動指南 (Success probability, risks, doctor discussion checklist). Users can filter lab parameters by status/category, interact with dynamic Chart.js charts, and toggle clinical insights. -->
+  <!-- Visualization & Content Choices: 1. Embryo Growth & Heart Rate Chart (Chart.js dual-axis line/bar chart for CRL & FHR). 2. Immunology vs Hormone Balance Chart (Chart.js relative safety metric bar chart). 3. Interactive Filterable Lab Data Table. 4. Interactive Checklist for Doctor Questions. NO SVG / NO Mermaid JS used. -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+  <style>
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 320px;
+      max-height: 400px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 360px;
+      }
+    }
+    .tab-btn.active {
+      border-bottom: 3px solid #0d9488;
+      color: #0f766e;
+      font-weight: 700;
+      background-color: #f0fdf4;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed min-h-screen">
 
-    --tag-normal-bg: #dcfce7;
-    --tag-normal-text: #15803d;
-    --tag-border-bg: #fef9c3;
-    --tag-border-text: #a16207;
-    --tag-abnormal-bg: #fee2e2;
-    --tag-abnormal-text: #b91c1c;
-    --tag-info-bg: #e0f2fe;
-    --tag-info-text: #0369a1;
+  <div class="max-w-6xl mx-auto px-4 py-6">
 
-    --box-info-bg: #f0f9ff;
-    --box-info-border: #0284c7;
-    --box-warning-bg: #fefce8;
-    --box-warning-border: #ca8a04;
-    --box-alert-bg: #fef2f2;
-    --box-alert-border: #dc2626;
-    --box-success-bg: #f0fdf4;
-    --box-success-border: #16a34a;
-  }
-
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
-    background-color: var(--bg-main);
-    margin: 0;
-    padding: 20px;
-  }
-
-  .report-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    background-color: transparent;
-  }
-
-  .report-header {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    padding: 30px 25px;
-    border-radius: 12px;
-    margin-bottom: 25px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  }
-
-  .report-header h1 {
-    margin: 0 0 10px 0;
-    font-size: 1.8rem;
-    font-weight: 700;
-  }
-
-  .report-subtitle {
-    margin: 0;
-    opacity: 0.9;
-    font-size: 1rem;
-  }
-
-  .card {
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    padding: 25px;
-    margin-bottom: 25px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  }
-
-  .card h2 {
-    color: var(--primary-color);
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.35rem;
-    border-bottom: 2px solid var(--primary-light);
-    padding-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .card h3 {
-    color: var(--text-color);
-    font-size: 1.1rem;
-    margin-top: 15px;
-    margin-bottom: 10px;
-  }
-
-  .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
-  }
-
-  .info-item {
-    background-color: var(--bg-main);
-    padding: 12px 15px;
-    border-radius: 8px;
-    border-left: 4px solid var(--secondary-color);
-  }
-
-  .info-label {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    display: block;
-    margin-bottom: 3px;
-  }
-
-  .info-value {
-    font-weight: 600;
-    font-size: 1.05rem;
-  }
-
-  .lab-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    font-size: 0.95rem;
-  }
-
-  .lab-table th, .lab-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .lab-table th {
-    background-color: var(--primary-light);
-    color: var(--primary-color);
-    font-weight: 600;
-  }
-
-  .lab-table tr:hover {
-    background-color: #f1f5f9;
-  }
-
-  .tag {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-  }
-
-  .tag.normal { background-color: var(--tag-normal-bg); color: var(--tag-normal-text); }
-  .tag.borderline { background-color: var(--tag-border-bg); color: var(--tag-border-text); }
-  .tag.abnormal { background-color: var(--tag-abnormal-bg); color: var(--tag-abnormal-text); }
-  .tag.insufficient { background-color: var(--tag-info-bg); color: var(--tag-info-text); }
-
-  .chance-tag {
-    display: inline-block;
-    padding: 6px 16px;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    font-weight: 700;
-  }
-
-  .chance-tag.high { background-color: #dcfce7; color: #15803d; border: 1px solid #86efac; }
-  .chance-tag.mid-high { background-color: #e0f2fe; color: #0369a1; border: 1px solid #7dd3fc; }
-  .chance-tag.medium { background-color: #fef9c3; color: #a16207; border: 1px solid #fde047; }
-  .chance-tag.mid-low { background-color: #ffedd5; color: #c2410c; border: 1px solid #fdba74; }
-  .chance-tag.low { background-color: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
-
-  .lab-item-block {
-    background-color: #fdfdfd;
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 18px;
-    margin-bottom: 18px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
-  }
-
-  .lab-item-block h3 {
-    margin-top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px dashed var(--border-color);
-    padding-bottom: 10px;
-  }
-
-  .lab-item-block ul {
-    margin: 10px 0 0 0;
-    padding-left: 20px;
-  }
-
-  .lab-item-block li {
-    margin-bottom: 8px;
-  }
-
-  .two-column-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 15px;
-  }
-
-  .good-factors-box {
-    background-color: var(--box-success-bg);
-    border-left: 5px solid var(--box-success-border);
-    padding: 18px;
-    border-radius: 8px;
-  }
-
-  .risk-factors-box {
-    background-color: var(--box-warning-bg);
-    border-left: 5px solid var(--box-warning-border);
-    padding: 18px;
-    border-radius: 8px;
-  }
-
-  .info-box {
-    background-color: var(--box-info-bg);
-    border-left: 5px solid var(--box-info-border);
-    padding: 15px 18px;
-    border-radius: 8px;
-    margin: 15px 0;
-  }
-
-  .alert-box {
-    background-color: var(--box-alert-bg);
-    border-left: 5px solid var(--box-alert-border);
-    padding: 15px 18px;
-    border-radius: 8px;
-    margin: 15px 0;
-    color: #7f1d1d;
-  }
-
-  .step-list {
-    counter-reset: step-counter;
-    list-style: none;
-    padding: 0;
-  }
-
-  .step-list li {
-    position: relative;
-    padding-left: 45px;
-    margin-bottom: 15px;
-  }
-
-  .step-list li::before {
-    counter-increment: step-counter;
-    content: counter(step-counter);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 30px;
-    height: 30px;
-    background-color: var(--primary-color);
-    color: white;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 30px;
-    font-weight: bold;
-    font-size: 0.9rem;
-  }
-
-  @media (max-width: 768px) {
-    body { padding: 10px; }
-    .card { padding: 15px; }
-    .lab-table { font-size: 0.85rem; }
-    .lab-table th, .lab-table td { padding: 8px; }
-    .two-column-grid { grid-template-columns: 1fr; }
-  }
-</style>
-
-<div class="report-container">
-  <header class="report-header">
-    <h1>🧬 早期妊娠超音波動態進度評估與跨期分析報告</h1>
-    <p class="report-subtitle">追蹤日期：2026/08/20 vs 前次對比：2026/08/17 | 禾馨婦產科/Stork Ladies Clinic</p>
-  </header>
-
-  <!-- 一、個案摘要 -->
-  <section class="card summary-card">
-    <h2>📋 一、個案摘要</h2>
-    <div class="info-grid">
-      <div class="info-item">
-        <span class="info-label">檢查日期</span>
-        <span class="info-value">2026年08月20日</span>
+    <!-- Header Block -->
+    <header class="bg-gradient-to-r from-blue-900 via-teal-800 to-indigo-900 text-white rounded-2xl p-6 sm:p-8 mb-6 shadow-lg">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <span class="inline-block bg-teal-500/30 text-teal-200 text-xs px-3 py-1 rounded-full font-semibold tracking-wider mb-2">
+            禾馨婦產科 Stork Ladies Clinic 跨期追蹤分析
+          </span>
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">🧬 早期妊娠超音波動態對比與生殖免疫/血清數據綜合評估報告</h1>
+          <p class="text-blue-100 text-sm sm:text-base mt-2 opacity-90">
+            追蹤比對區間：2026/08/17 (8w3d) ➔ 2026/08/20 (9w3d) | 孕期進度：9週3天 | 預產期：2027/03/22
+          </p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 text-center min-w-[180px]">
+          <span class="text-xs text-blue-200 block uppercase font-medium">整體妊娠成功評估</span>
+          <span class="inline-block bg-emerald-500 text-white text-sm font-bold px-3 py-1 rounded-full mt-1 shadow-sm">
+            偏高 (極佳)
+          </span>
+          <span class="text-xs text-emerald-200 block mt-1">胚胎強勁 / 黃體極穩</span>
+        </div>
       </div>
-      <div class="info-item">
-        <span class="info-label">超音波估計孕週 (US-GA)</span>
-        <span class="info-value">9週3天 (9w3d)</span>
-      </div>
-      <div class="info-item">
-        <span class="info-label">預產期估算 (EDD)</span>
-        <span class="info-value">2027年03月22日</span>
-      </div>
-      <div class="info-item">
-        <span class="info-label">比較基準</span>
-        <span class="info-value">2026/08/17 (相隔 3 天)</span>
-      </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- 二、檢驗報告重點整理 -->
-  <section class="card highlight-card">
-    <h2>🔎 二、超音波與產檢指標數據動態對比總覽</h2>
-    <p>以下為 2026/08/20 門診超音波影像與 2026/08/17 產檢紀錄之對比分析：</p>
-    <table class="lab-table">
-      <thead>
-        <tr>
-          <th>測量項目</th>
-          <th>8/17 數值</th>
-          <th>8/20 最新數值</th>
-          <th>單位</th>
-          <th>3天動態變化量</th>
-          <th>評估狀態</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>CRL (頭臀長)</strong></td>
-          <td>2.42</td>
-          <td><strong>2.79</strong></td>
-          <td>cm</td>
-          <td><span style="color:#16a34a; font-weight:bold;">+0.37 cm (+3.7 mm)</span></td>
-          <td><span class="tag normal">發育極佳</span></td>
-        </tr>
-        <tr>
-          <td><strong>FHR (胎兒心跳率)</strong></td>
-          <td>168</td>
-          <td><strong>177</strong></td>
-          <td>BPM (次/分)</td>
-          <td><span style="color:#16a34a; font-weight:bold;">+9 BPM</span></td>
-          <td><span class="tag normal">強勁正常</span></td>
-        </tr>
-        <tr>
-          <td><strong>GS / 囊腔結構切面</strong></td>
-          <td>4.2 x 2.7</td>
-          <td><strong>4.36 x 1.34</strong></td>
-          <td>cm</td>
-          <td>長軸微增/型態隨子宮張力改變</td>
-          <td><span class="tag normal">空間足夠</span></td>
-        </tr>
-        <tr>
-          <td><strong>附屬/囊泡結構 (卵黃囊/黃體/周邊)</strong></td>
-          <td>0.6 x 0.7</td>
-          <td><strong>0.98 / 0.86 / 0.67</strong></td>
-          <td>cm</td>
-          <td>多方位切面量測 (囊泡/黃體)</td>
-          <td><span class="tag normal">狀態穩定</span></td>
-        </tr>
-        <tr>
-          <td><strong>下段/宮頸相關距離測量</strong></td>
-          <td>未特別標註</td>
-          <td><strong>3.50</strong></td>
-          <td>cm</td>
-          <td>子宮下段/宮頸構造安全距離</td>
-          <td><span class="tag normal">結構穩定</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+    <!-- Navigation Tabs -->
+    <nav class="flex border-b border-slate-200 bg-white rounded-xl shadow-sm mb-6 overflow-x-auto">
+      <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn active px-5 py-3.5 text-sm font-medium text-slate-600 hover:text-teal-700 whitespace-nowrap transition-all flex items-center gap-2">
+        <span>📋</span> 綜合總覽與跨期對比
+      </button>
+      <button onclick="switchTab('ultrasound')" id="tab-ultrasound" class="tab-btn px-5 py-3.5 text-sm font-medium text-slate-600 hover:text-teal-700 whitespace-nowrap transition-all flex items-center gap-2">
+        <span>📈</span> 超音波發育與荷爾蒙動態
+      </button>
+      <button onclick="switchTab('blood')" id="tab-blood" class="tab-btn px-5 py-3.5 text-sm font-medium text-slate-600 hover:text-teal-700 whitespace-nowrap transition-all flex items-center gap-2">
+        <span>🧾</span> 免疫與全血球逐項解讀
+      </button>
+      <button onclick="switchTab('plan')" id="tab-plan" class="tab-btn px-5 py-3.5 text-sm font-medium text-slate-600 hover:text-teal-700 whitespace-nowrap transition-all flex items-center gap-2">
+        <span>🪜</span> 風險評估與門診問答
+      </button>
+    </nav>
 
-  <!-- 三、每一項檢驗數字的詳細說明 -->
-  <section class="card detailed-lab-card">
-    <h2>🧾 三、每一項檢驗數字與影像指標的詳細說明</h2>
+    <!-- SECTION 1: OVERVIEW TAB -->
+    <main id="content-overview" class="space-y-6">
 
-    <div class="lab-item-block">
-      <h3>1. CRL (胎兒頭臀長)：2.79 cm <span class="tag normal">成長極為理想</span></h3>
-      <ul>
-        <li><strong>這個數字代表什麼：</strong>CRL（Crown-Rump Length）是指胎兒從頭頂至臀部的直徑長度，是早期妊娠（13週前）評估胚胎發育速度與核算實際孕週最客觀且精準的指標。</li>
-        <li><strong>在生殖與產檢評估中的意義：</strong>正常早期胚胎的成長速率約為每日增加 1.0 mm 至 1.2 mm。</li>
-        <li><strong>若偏高/偏低常見代表：</strong>偏高或成長迅速代表營養供應良好、胚胎染色體與細胞分裂旺盛；若連續追蹤顯著偏低或停滯，則需警惕發育遲緩或胚胎停育風險。</li>
-        <li><strong>本個案的動態對比解讀：</strong>8/17 測量值為 2.42 cm，8/20 達到 2.79 cm，在短短 3 天內淨增長了 <strong>0.37 cm (3.7 mm)</strong>，平均每日生長約 <strong>1.23 mm</strong>，完美符合並略高於標準生長曲線！超音波自動換算孕週為 <strong>9週3天 (9w3d)</strong>，推算預產期為 2027年3月22日，顯示胎兒正在快速成長。</li>
-        <li><strong>建議合併判讀項目：</strong>應與胎兒心跳（FHR）及妊娠囊空間（GS）結合評估。</li>
-        <li><strong>是否需要追蹤：</strong>持續保持定期產檢即可。</li>
-      </ul>
-    </div>
+      <!-- Section Intro -->
+      <section class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm">
+        <h2 class="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">
+          <span>📋</span> 一、個案摘要與臨床比對背景
+        </h2>
+        <p class="text-sm text-slate-600 leading-relaxed">
+          本區塊彙整了 2026/08/17 與 2026/08/20 兩次產檢關鍵指標。本案的核心臨床表現為：**「超音波胚胎結構發育超速成長，黃體素支持極佳，成功對抗高濃度 TNF-α 免疫發炎因子」**。以下卡片顯示最新的關鍵妊娠資訊與比對亮點。
+        </p>
 
-    <div class="lab-item-block">
-      <h3>2. FHR (胎兒心跳率)：177 BPM <span class="tag normal">心跳強勁有力</span></h3>
-      <ul>
-        <li><strong>這個數字代表什麼：</strong>FHR（Fetal Heart Rate）為每分鐘胎兒心搏次數，由多普勒（Doppler）超音波測量其心臟收縮頻率。</li>
-        <li><strong>在生殖與產檢評估中的意義：</strong>在孕期第 8 至 9 週時，胎兒心跳會達到整個孕期的高峰期，正常生理範圍約在 140 至 180 BPM 之間。</li>
-        <li><strong>若偏高/偏低常見代表：</strong>心跳小於 100-120 BPM 稱為心跳過緩（Bradycardia），為早期胚胎預後不良或缺氧的重要警示；偏高（>180 BPM）若為暫時性通常為生理性波動。</li>
-        <li><strong>本個案的動態對比解讀：</strong>8/17 為 168 BPM，8/20 上升至 <strong>177 BPM</strong>。此數值完全落在 9 週胎兒正常生理峰值範圍內，多普勒波形顯示心律非常規則、收縮有力，代表胎兒心血管系統發育非常健全且供血供氧十分充足。</li>
-        <li><strong>建議合併判讀項目：</strong>結合 CRL 生長速率一同確認胎兒活力。</li>
-        <li><strong>是否需要追蹤：</strong>常規產檢監測即可。</li>
-      </ul>
-    </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
+          <div class="bg-slate-50 border-l-4 border-blue-600 p-3 rounded-r-lg">
+            <span class="text-xs text-slate-500 block">推算孕週 (US-GA)</span>
+            <span class="text-lg font-bold text-blue-900">9週 3天</span>
+            <span class="text-xs text-emerald-600 block mt-0.5">3天成長 +3.7 mm</span>
+          </div>
+          <div class="bg-slate-50 border-l-4 border-teal-600 p-3 rounded-r-lg">
+            <span class="text-xs text-slate-500 block">胎兒心跳率 (FHR)</span>
+            <span class="text-lg font-bold text-teal-900">177 BPM</span>
+            <span class="text-xs text-emerald-600 block mt-0.5">較08/17上升 +9 BPM</span>
+          </div>
+          <div class="bg-slate-50 border-l-4 border-emerald-600 p-3 rounded-r-lg">
+            <span class="text-xs text-slate-500 block">黃體素 (P4)</span>
+            <span class="text-lg font-bold text-emerald-900">23.03 ng/mL</span>
+            <span class="text-xs text-emerald-600 block mt-0.5">高於安全標準 15~20</span>
+          </div>
+          <div class="bg-slate-50 border-l-4 border-amber-600 p-3 rounded-r-lg">
+            <span class="text-xs text-slate-500 block">TNF-α (發炎因子)</span>
+            <span class="text-lg font-bold text-amber-900">40.8 pg/mL</span>
+            <span class="text-xs text-amber-700 block mt-0.5">顯著偏高 (參考<4.0)</span>
+          </div>
+        </div>
+      </section>
 
-    <div class="lab-item-block">
-      <h3>3. GS / 宮腔展延測量：1Dist 4.36 cm / 2Dist 1.34 cm <span class="tag normal">展延良好</span></h3>
-      <ul>
-        <li><strong>這個數字代表什麼：</strong>GS（Gestational Sac）為妊娠囊大小。在 8/20 切面中，醫師針對囊腔進行了兩軸長度標記（4.36 cm 與 1.34 cm）。</li>
-        <li><strong>在生殖與產檢評估中的意義：</strong>妊娠囊提供胚胎發育所需的羊水空間與屏障，隨著孕週增加會呈現橢圓或長條狀展延。</li>
-        <li><strong>若偏高/偏低常見代表：</strong>若妊娠囊過小且與 CRL 差值小於 5 mm（GS-CRL < 5mm），臨床上可能增加早期流產風險；若囊腔形狀規則且空間寬敞則屬良好預後。</li>
-        <li><strong>本個案的動態對比解讀：</strong>對比 8/17 的 4.2 x 2.7 cm，8/20 的囊腔長軸伸展至 4.36 cm。超音波影像中可清晰看到胚胎在囊腔內有極為充裕的活動與生長空間，未受宮腔擠壓，環境優良。</li>
-        <li><strong>建議合併判讀項目：</strong>觀察是否有囊腔外出血（絨毛膜下血腫）。</li>
-        <li><strong>是否需要追蹤：</strong>正常追蹤。</li>
-      </ul>
-    </div>
+      <!-- Section 2: lab summary table with interactive filter -->
+      <section class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <span>🔎</span> 二、超音波與 08/17 vs 08/20 驗血跨期對比總覽
+            </h2>
+            <p class="text-xs text-slate-500 mt-1">點選下方標籤可快速篩選不同類別的數據或異常項目：</p>
+          </div>
+          <div class="flex flex-wrap gap-2 text-xs">
+            <button onclick="filterTable('all')" class="table-filter-btn active bg-slate-800 text-white px-3 py-1.5 rounded-lg">全部項目</button>
+            <button onclick="filterTable('us')" class="table-filter-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-1.5 rounded-lg">超音波</button>
+            <button onclick="filterTable('imm')" class="table-filter-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-1.5 rounded-lg">免疫數據</button>
+            <button onclick="filterTable('hor')" class="table-filter-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-1.5 rounded-lg">荷爾蒙與血球</button>
+            <button onclick="filterTable('abnormal')" class="table-filter-btn bg-amber-100 text-amber-800 hover:bg-amber-200 px-3 py-1.5 rounded-lg font-semibold">僅顯示關注項目</button>
+          </div>
+        </div>
 
-    <div class="lab-item-block">
-      <h3>4. 附屬與囊泡結構測量：0.98 cm, 0.86 cm, 0.64 cm, 0.67 cm <span class="tag normal">結構清晰</span></h3>
-      <ul>
-        <li><strong>這個數字代表什麼：</strong>在 8/20 超音波影像（IMG_7125）右側切面中，標註了數個圓形無回音/低回音囊泡結構，尺寸分別為 0.98 cm、0.86 cm、0.64 cm 與 0.67 cm。</li>
-        <li><strong>在生殖與產檢評估中的意義：</strong>此類結構在 9 週超音波中通常包含：(1) <strong>卵黃囊 (Yolk Sac)</strong>（正常約 0.3-0.6 cm，8/17 標註為 0.6x0.7 cm）；(2) <strong>卵巢黃體 (Corpus Luteum)</strong>（維持早期黃體素分泌的重要結構，常呈現 1-2 cm 左右囊腫）；(3) 周邊微小血管或輕微液體腔隙。</li>
-        <li><strong>若偏高/偏低常見代表：</strong>黃體的存在是早期妊娠維持極為健康的表現；卵黃囊過大（> 7mm）或過小需密切觀察，但本案影像中囊邊清晰、形狀圓潤。</li>
-        <li><strong>本個案的動態對比解讀：</strong>這些測量值反映了卵巢黃體支持結構與卵黃囊均維持在非常穩定且功能健全的狀態，能為胎兒提供持續且充足的黃體素與早期營養供給。</li>
-        <li><strong>建議合併判讀項目：</strong>門診臨床補充黃體素藥物使用情況。</li>
-        <li><strong>是否需要追蹤：</strong>隨常規超音波檢查即可。</li>
-      </ul>
-    </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs sm:text-sm text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
+                <th class="p-3 font-semibold">分類 / 檢驗項目</th>
+                <th class="p-3 font-semibold">08/17 數值</th>
+                <th class="p-3 font-semibold">08/20 數值</th>
+                <th class="p-3 font-semibold">單位</th>
+                <th class="p-3 font-semibold">參考範圍 (Ref)</th>
+                <th class="p-3 font-semibold">狀態與趨勢解讀</th>
+              </tr>
+            </thead>
+            <tbody id="lab-table-body" class="divide-y divide-slate-200">
+              <!-- US Items -->
+              <tr class="lab-row us-row hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">CRL (頭臀長)</td>
+                <td class="p-3">2.42</td>
+                <td class="p-3 font-bold text-blue-700">2.79</td>
+                <td class="p-3">cm</td>
+                <td class="p-3 text-slate-500">日增 ~1.0 mm</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">發育強勁</span> 3天淨增 3.7 mm (1.23mm/日)</td>
+              </tr>
+              <tr class="lab-row us-row hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">FHR (胎兒心跳率)</td>
+                <td class="p-3">168</td>
+                <td class="p-3 font-bold text-blue-700">177</td>
+                <td class="p-3">BPM</td>
+                <td class="p-3 text-slate-500">140 ~ 180 (9週頂峰)</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">規律強勁</span> 上升 9 BPM，達到生理最高峰</td>
+              </tr>
+              <tr class="lab-row us-row hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">GS (妊娠囊截面)</td>
+                <td class="p-3">4.2 x 2.7</td>
+                <td class="p-3 font-bold text-blue-700">4.36 x 1.34</td>
+                <td class="p-3">cm</td>
+                <td class="p-3 text-slate-500">宮腔展延順暢</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">空間充裕</span> 截面形態良好，無張力壓迫</td>
+              </tr>
+              <tr class="lab-row us-row hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">宮頸安全距離 (+Dist)</td>
+                <td class="p-3 text-slate-400">未特別標註</td>
+                <td class="p-3 font-bold text-blue-700">3.50</td>
+                <td class="p-3">cm</td>
+                <td class="p-3 text-slate-500">> 3.0 cm</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">位置優良</span> 遠離子宮頸內口，著床深安</td>
+              </tr>
 
-    <div class="lab-item-block">
-      <h3>5. 下段結構距離測量 (+Dist)：3.50 cm <span class="tag normal">安全屏障充裕</span></h3>
-      <ul>
-        <li><strong>這個數字代表什麼：</strong>在 8/20 超音波影像（IMG_7123）中，醫師於子宮下段/宮頸區域劃定並測量了一段長度為 3.50 cm 的距離。</li>
-        <li><strong>在生殖與產檢評估中的意義：</strong>在早期妊娠中，此測量常用於評估孕囊著床位置距離子宮頸內口的安全性、子宮肌層厚度或是子宮頸長度的初步保護屏障。</li>
-        <li><strong>若偏高/偏低常見代表：</strong>若距離過短或著床過低（接近宮頸內口），可能增加低位著床或出血風險；距離 > 3.0 cm 代表著床位置優良且宮頸閉鎖完好。</li>
-        <li><strong>本個案的動態對比解讀：</strong>3.50 cm 的安全距離顯示妊娠囊位於子宮腔內相當安全且穩固的位置，遠離宮頸開口，為胚胎提供了厚實的肌肉層保護，顯著降低了出血或先兆性流產的物理性風險。</li>
-        <li><strong>建議合併判讀項目：</strong>門診確認是否有自覺腹痛或出血症狀。</li>
-        <li><strong>是否需要追蹤：</strong>正常常規追蹤。</li>
-      </ul>
-    </div>
-  </section>
+              <!-- Hormone Items -->
+              <tr class="lab-row hor-row hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">P4 (Progesterone, 黃體素)</td>
+                <td class="p-3 text-slate-400">未抽</td>
+                <td class="p-3 font-bold text-teal-700">23.03</td>
+                <td class="p-3">ng/mL</td>
+                <td class="p-3 text-slate-500">> 15 ~ 20 (孕早期)</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">非常充裕</span> 安胎屏障完備，穩定子宮內膜</td>
+              </tr>
+              <tr class="lab-row hor-row hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">E2 (Estradiol, 雌二醇)</td>
+                <td class="p-3 text-slate-400">未抽</td>
+                <td class="p-3 font-bold text-teal-700">460.2</td>
+                <td class="p-3">pg/mL</td>
+                <td class="p-3 text-slate-500">持續上升曲線</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">符合孕週</span> 滋養層與卵巢黃體分泌良好</td>
+              </tr>
 
-  <!-- 四、整體評估 -->
-  <section class="card evaluation-card">
-    <h2>🧠 四、整體生殖與妊娠發育評估</h2>
-    <div class="info-box">
-      <p><strong>臨床綜合判讀結論：</strong>綜合 2026/08/17 與 2026/08/20 的兩次超音波影像數據，目前妊娠處於<strong>高度健康且強勁發育的狀態</strong>。</p>
-      <ul>
-        <li><strong>發育速度比對：</strong>3天內 CRL 增加 3.7 mm，達到平均每天 1.23 mm 的理想生長速度，無任何發育遲緩迹象。</li>
-        <li><strong>心血管與生命徵象：</strong>心跳率維持在 177 BPM 的黃金峰值，波形極為穩定，心肌收縮力強。</li>
-        <li><strong>著床與宮腔環境：</strong>妊娠囊空間充足、著床位置安全（距離宮頸下段 3.5 cm），周邊黃體與營養結構維繫良好。</li>
-      </ul>
-    </div>
-  </section>
+              <!-- Immunology Items -->
+              <tr class="lab-row imm-row abnormal-row bg-amber-50/50 hover:bg-amber-50">
+                <td class="p-3 font-medium text-amber-950">TNF-α (腫瘤壞死因子-α)</td>
+                <td class="p-3 font-bold text-amber-800">40.8</td>
+                <td class="p-3 text-slate-400">未複檢</td>
+                <td class="p-3">pg/mL</td>
+                <td class="p-3 text-slate-500">< 4.0</td>
+                <td class="p-3"><span class="bg-red-100 text-red-800 text-xs px-2 py-0.5 rounded-full font-semibold">顯著偏高</span> 提示全身/局部微環境發炎訊號高</td>
+              </tr>
+              <tr class="lab-row imm-row hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">NK cell (CD16+56) 比例</td>
+                <td class="p-3 font-bold text-teal-700">9.2</td>
+                <td class="p-3 text-slate-400">未複檢</td>
+                <td class="p-3">%</td>
+                <td class="p-3 text-slate-500">< 14.9 %</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">完全正常</span> 殺手細胞比例未爆發，細胞毒性低</td>
+              </tr>
+              <tr class="lab-row imm-row hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">NK Absolute Count (絕對計數)</td>
+                <td class="p-3 font-bold text-teal-700">230</td>
+                <td class="p-3 text-slate-400">未複檢</td>
+                <td class="p-3">/uL</td>
+                <td class="p-3 text-slate-500">< 299.9</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">完全正常</span> 殺手細胞總數落在安全範圍</td>
+              </tr>
+              <tr class="lab-row imm-row hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">CD19 (B細胞) 比例 / 數值</td>
+                <td class="p-3 font-bold text-teal-700">12.3% / 307</td>
+                <td class="p-3 text-slate-400">未複檢</td>
+                <td class="p-3">% | /uL</td>
+                <td class="p-3 text-slate-500">< 14.9% | < 499.9</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">完全正常</span> B細胞體液免疫體系穩定</td>
+              </tr>
+              <tr class="lab-row imm-row hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">CD4 / CD8 比值</td>
+                <td class="p-3 font-bold text-teal-700">0.8</td>
+                <td class="p-3 text-slate-400">未複檢</td>
+                <td class="p-3">Ratio</td>
+                <td class="p-3 text-slate-500">0.6 ~ 2.5</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">和諧平衡</span> T輔助與抑制細胞比例無失衡</td>
+              </tr>
 
-  <!-- 五、目前成功機率評估 -->
-  <section class="card chance-card">
-    <h2>📈 五、目前持續妊娠成功機率評估</h2>
-    <div style="text-align: center; margin: 15px 0;">
-      <span class="info-label" style="font-size: 1rem; margin-bottom: 8px;">目前階段 (9週+) 持續順利妊娠之臨床評估等級：</span>
-      <span class="chance-tag high">偏高 (極佳)</span>
-    </div>
+              <!-- CBC Items -->
+              <tr class="lab-row hor-row hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">WBC (白血球計數)</td>
+                <td class="p-3 font-bold text-slate-700">7.74</td>
+                <td class="p-3 font-bold text-teal-700">6.94</td>
+                <td class="p-3">10^3/uL</td>
+                <td class="p-3 text-slate-500">3.5/4.0 ~ 10.0/10.8</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">微幅下降</span> 均處於非常健康區間，無急性感染</td>
+              </tr>
+              <tr class="lab-row hor-row hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">Hb (血紅素)</td>
+                <td class="p-3 text-slate-400">未附 CBC</td>
+                <td class="p-3 font-bold text-teal-700">14.0</td>
+                <td class="p-3">g/dL</td>
+                <td class="p-3 text-slate-500">11.5 ~ 15.5</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">優異帶氧</span> 帶氧能力滿分，無孕期貧血</td>
+              </tr>
+              <tr class="lab-row hor-row hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">MCV (紅血球平均體積)</td>
+                <td class="p-3 text-slate-400">未附 CBC</td>
+                <td class="p-3 font-bold text-teal-700">92.1</td>
+                <td class="p-3">fL</td>
+                <td class="p-3 text-slate-500">80 ~ 99</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">完全正常</span> 排除地中海型貧血或缺鐵疑慮</td>
+              </tr>
+              <tr class="lab-row hor-row hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">PLT (血小板計數)</td>
+                <td class="p-3 text-slate-400">未附 CBC</td>
+                <td class="p-3 font-bold text-teal-700">321</td>
+                <td class="p-3">10^3/uL</td>
+                <td class="p-3 text-slate-500">130 ~ 399</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold">凝血正常</span> 無異常血小板消耗或過高風險</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-    <div class="two-column-grid">
-      <div class="good-factors-box">
-        <h3>✅ 正面支持原因</h3>
-        <ul>
-          <li><strong>心跳極為強勁：</strong>9週胎心率達 177 BPM，醫學統計顯示 8-9 週後若能確認強勁胎心，流產率將大幅降低至 2-3% 以下。</li>
-          <li><strong>胚胎生長速率優異：</strong>CRL 3 天增長 3.7 mm，完全符合甚至微幅超越標準生理曲線。</li>
-          <li><strong>解剖位置安全：</strong>子宮下段測量達 3.5 cm，著床穩固且宮腔展延空間充裕。</li>
-          <li><strong>黃體功能支持良好：</strong>超音波下相關附屬囊泡與黃體結構明確。</li>
+      <!-- Overall Clinical Judgment Card -->
+      <section class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <span>🧠</span> 四、整體生殖、免疫與妊娠發育綜合評估
+        </h2>
+        <div class="bg-blue-50/80 border-l-4 border-blue-600 p-4 rounded-r-xl space-y-3">
+          <p class="text-sm text-blue-950 font-semibold leading-relaxed">
+            臨床綜合評估結論：交叉對比 08/17 生殖免疫/超音波與 08/20 荷爾蒙/全血球/超音波後，展現出典型「胚胎活力強勁、荷爾蒙防護堅固，成功壓制局部免疫發炎干擾」的臨床表現：
+          </p>
+          <ul class="list-disc pl-5 text-xs sm:text-sm text-blue-900 space-y-1.5">
+            <li><strong>極佳的生理發育力：</strong> CRL 3 天淨長 3.7 mm（每日 1.23 mm，高於臨床標準 1.0 mm），心跳 177 BPM 穩定達 9 週最高峰，代表胚胎心血管供血與生長極其充沛。</li>
+            <li><strong>穩固的安胎荷爾蒙護航：</strong> P4 達 23.03 ng/mL（> 20 ng/mL），能轉化子宮微環境為 Th2 抗發炎傾向，提供極佳的內膜安定力，大幅抵消了發炎因子的威脅。</li>
+            <li><strong>免疫發炎因子 (TNF-α 40.8) 之臨床觀點：</strong> 雖然 TNF-α 顯著高於參考值 (<4.0)，但 NK 細胞 (9.2%) 與 CD19 (12.3%) 完全正常。最關鍵的是：**此發炎因子並未對胚胎生長產生任何抑制作用**。這說明現有治療或黃體支持方案非常成功，未來重點只需保持此一平衡。</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <!-- SECTION 2: ULTRASOUND & HORMONE CHART TAB -->
+    <main id="content-ultrasound" class="space-y-6 hidden">
+      <section class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <h2 class="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">
+          <span>📈</span> 超音波發育與胎兒心跳成長對比圖表
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 mb-4">
+          下圖展示 08/17 至 08/20 間，胎兒頭臀長 (CRL) 與心跳率 (FHR) 之成長曲線。雙軸圖表顯示，胚胎在短短 3 天內不僅長度大幅展延，心跳亦拉升至第 9 週的生理黃金頂峰。
+        </p>
+
+        <!-- Chart Container 1 -->
+        <div class="chart-container">
+          <canvas id="usGrowthChart"></canvas>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h3 class="font-bold text-slate-900 text-sm mb-2 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-blue-600"></span> CRL (頭臀長) 成長分析
+            </h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              08/17 為 2.42 cm，08/20 提升至 <strong>2.79 cm</strong>。3 天淨增 0.37 cm (3.7 mm)，平均日增長達 1.23 mm/日，高於常態的 1.0 mm/日。推算孕週達 9w3d，預產期確定為 2027/03/22。
+            </p>
+          </div>
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h3 class="font-bold text-slate-900 text-sm mb-2 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-teal-600"></span> FHR (胎兒心跳率) 表現
+            </h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              心跳從 08/17 的 168 BPM 上升至 08/20 的 <strong>177 BPM</strong>。第 9 週為胎兒心跳率最高峰，多普勒波形規律整齊，顯示胚胎心臟幫浦功能與絨毛膜供血系統運作非常優異。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hormone & Immune Balance Visualizer -->
+      <section class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <h2 class="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">
+          <span>🛡️</span> 生殖荷爾蒙與免疫指標相對安全基準評估
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 mb-4">
+          此圖表將主要生殖荷爾蒙（黃體素 P4）與免疫標誌（NK細胞、TNF-α）進行相對安全門檻之比例標準化呈現，協助理解安胎保護力與免疫指數之相對關係。
+        </p>
+
+        <!-- Chart Container 2 -->
+        <div class="chart-container">
+          <canvas id="immuneHormoneChart"></canvas>
+        </div>
+
+        <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-xl mt-6">
+          <h4 class="font-bold text-emerald-900 text-sm">圖表解讀摘要：</h4>
+          <p class="text-xs text-emerald-800 mt-1 leading-relaxed">
+            黃體素 P4 (23.03 ng/mL) 達安全門檻的 115%，提供充足的免疫保護效應；NK 殺手細胞 (9.2%) 遠低於安全上限 14.9% (僅占上限的 61%)，說明殺手細胞無總量氾濫；TNF-α (40.8) 雖高於基準，但因有強勁黃體素及臨床用藥雙重護航，未對胚胎造成干擾。
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- SECTION 3: DETAILED LAB BREAKDOWN TAB -->
+    <main id="content-blood" class="space-y-6 hidden">
+      <section class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <h2 class="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">
+          <span>🧾</span> 三、每一項檢驗數字與影像指標的詳細說明
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 mb-6">
+          本區塊依據臨床生殖醫學邏輯，對 08/17 與 08/20 的所有檢驗項目進行**逐項、逐數字、逐臨床意義**的深度解讀：
+        </p>
+
+        <div class="space-y-4">
+
+          <!-- Item 1: TNF-a -->
+          <div class="border border-red-200 bg-red-50/30 rounded-xl p-5">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-red-200 pb-3 gap-2">
+              <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                <span>1. TNF-α (腫瘤壞死因子-α)</span>
+                <span class="text-xs bg-red-100 text-red-800 px-2.5 py-0.5 rounded-full font-bold">40.8 pg/mL (08/17)</span>
+              </h3>
+              <span class="text-xs text-slate-500">參考值：&lt; 4.0 pg/mL | 狀態：<span class="text-red-700 font-bold">顯著偏高</span></span>
+            </div>
+            <ul class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 list-disc pl-5">
+              <li><strong>這個數字代表什麼：</strong> TNF-α 是一種重要的促發炎細胞激素（Pro-inflammatory cytokine），主要由活化的巨噬細胞與 T 細胞分泌，用以衡量體內的發炎與免疫反應強度。</li>
+              <li><strong>在生殖評估中的意義：</strong> 生殖免疫學中，適度的免疫容忍（Immune Tolerance）是胚胎著床與胎盤血管形成的關鍵；若 TNF-α 異常升高，可能代表母體免疫系統對胚胎滋養層細胞產生較高的發炎攻擊傾向。</li>
+              <li><strong>偏高可能代表什麼：</strong> 可能與慢性發炎、子宮內膜異位症、自體免疫活性偏高，或母體對胚胎異體抗原（Paternal Antigens）反應較強有關。</li>
+              <li><strong>本個案的可能解讀與極關鍵觀察：</strong> 08/17 測得 40.8 pg/mL（高出參考值約 10 倍）。然而，**對照 08/17 至 08/20 的超音波，胚胎完全未受發炎因子抑制，反而展現極強的生長力（CRL 3天大 3.7mm，心跳達 177 BPM，P4達 23.03 ng/mL）**。這代表現有的免疫調節/安胎用藥或高濃度黃體素已成功發揮了臨床保護作用！</li>
+              <li><strong>建議合併判讀項目：</strong> NK 細胞活性、CD4/CD8 比值、超音波胚胎心跳及血流。</li>
+              <li><strong>是否需要追蹤：</strong> 需要！建議於門診與生殖免疫專科醫師討論，評估是否需要追蹤 TNF-α 降幅或適度調整免疫調節藥物。</li>
+            </ul>
+          </div>
+
+          <!-- Item 2: NK cell -->
+          <div class="border border-slate-200 bg-white rounded-xl p-5">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 pb-3 gap-2">
+              <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                <span>2. NK cell (CD16+56) 自然殺手細胞</span>
+                <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">9.2% / 230 /uL (08/17)</span>
+              </h3>
+              <span class="text-xs text-slate-500">參考值：&lt; 14.9% | &lt; 299.9 /uL | 狀態：<span class="text-emerald-700 font-bold">完全正常</span></span>
+            </div>
+            <ul class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 list-disc pl-5">
+              <li><strong>這個數字代表什麼：</strong> NK 細胞（Natural Killer cells）是週邊血液與子宮內膜重要的先天免疫細胞。</li>
+              <li><strong>在生殖評估中的意義：</strong> 週邊血 NK 比例標準通常以 &lt; 14.9%（絕對計數 &lt; 299.9 /μL）為安全基準。若 NK 比例過高（如 &gt; 15-18%），常被認為具有細胞毒性過強、可能破壞滋養層之疑慮。</li>
+              <li><strong>本個案的解讀：</strong> 測得 9.2% 與 230 /uL，均落在非常理想的正常安全區間之內！這是一個非常令人安心的訊息，說明您體內的**殺手細胞數量與比例並未爆發**，TNF-α 的升高主要偏向細胞激素微環境訊號，而非 NK 細胞總量氾濫。</li>
+            </ul>
+          </div>
+
+          <!-- Item 3: CD19 & T cells -->
+          <div class="border border-slate-200 bg-white rounded-xl p-5">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 pb-3 gap-2">
+              <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                <span>3. CD19 (B細胞) 與 CD4/CD8 比值</span>
+                <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">12.3% / Ratio 0.8 (08/17)</span>
+              </h3>
+              <span class="text-xs text-slate-500">CD19 &lt; 14.9% | CD4/CD8: 0.6~2.5 | 狀態：<span class="text-emerald-700 font-bold">和諧平衡</span></span>
+            </div>
+            <ul class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 list-disc pl-5">
+              <li><strong>數字意義：</strong> CD19 代表 B 淋巴細胞（負責抗體產生）；CD4/CD8 比值代表輔助 T 細胞與抑制/細胞毒性 T 細胞的平衡度。</li>
+              <li><strong>本個案解讀：</strong> CD19 為 12.3% (307 /uL)，CD4/CD8 為 0.8，完全落在標準區間。顯示整體 T 細胞與 B 細胞的免疫架構非常穩定且和諧，無大規模自體抗體攻擊跡象。</li>
+            </ul>
+          </div>
+
+          <!-- Item 4: P4 Progesterone -->
+          <div class="border border-slate-200 bg-white rounded-xl p-5">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 pb-3 gap-2">
+              <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                <span>4. P4 (黃體素)</span>
+                <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">23.03 ng/mL (08/20)</span>
+              </h3>
+              <span class="text-xs text-slate-500">參考值：&gt; 15 ~ 20 ng/mL | 狀態：<span class="text-emerald-700 font-bold">非常充裕</span></span>
+            </div>
+            <ul class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 list-disc pl-5">
+              <li><strong>臨床解讀：</strong> 08/20 測得 23.03 ng/mL。早期懷孕安全門檻通常為 &gt; 15 - 20 ng/mL。黃體素能有效抑制子宮平滑肌收縮，並轉化子宮內膜免疫環境為 Th2 抗發炎傾向，對抵消 TNF-α (40.8) 之發炎效應扮演了極為關鍵的保護角色！</li>
+            </ul>
+          </div>
+
+          <!-- Item 5: E2 Estradiol -->
+          <div class="border border-slate-200 bg-white rounded-xl p-5">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 pb-3 gap-2">
+              <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                <span>5. E2 (雌二醇)</span>
+                <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">460.2 pg/mL (08/20)</span>
+              </h3>
+              <span class="text-xs text-slate-500">參考值：持續上升曲線 | 狀態：<span class="text-emerald-700 font-bold">發展良好</span></span>
+            </div>
+            <ul class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 list-disc pl-5">
+              <li><strong>臨床解讀：</strong> 08/20 測得 460.2 pg/mL，顯示胎盤滋養層與卵巢黃體分泌強勁，持續為胚胎供給優良的血管生長與養分輸送。</li>
+            </ul>
+          </div>
+
+          <!-- Item 6: CRL -->
+          <div class="border border-slate-200 bg-white rounded-xl p-5">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 pb-3 gap-2">
+              <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                <span>6. CRL (頭臀長) 跨期對比</span>
+                <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">2.42cm ➔ 2.79cm (+3.7mm)</span>
+              </h3>
+              <span class="text-xs text-slate-500">標準：日增 ~1.0mm | 狀態：<span class="text-emerald-700 font-bold">每日 +1.23mm (超速成長)</span></span>
+            </div>
+            <ul class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 list-disc pl-5">
+              <li><strong>臨床解讀：</strong> 從 08/17 的 2.42 cm 成長至 08/20 的 2.79 cm，短短 3 天淨增加 3.7 mm，日平均成長達 1.23 mm/日。這直接證明胚胎發育完全未受到任何免疫發炎因子的抑制，生命力非常雄厚！</li>
+            </ul>
+          </div>
+
+          <!-- Item 7: FHR -->
+          <div class="border border-slate-200 bg-white rounded-xl p-5">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 pb-3 gap-2">
+              <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                <span>7. FHR (胎兒心跳率) 跨期對比</span>
+                <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">168 BPM ➔ 177 BPM (+9 BPM)</span>
+              </h3>
+              <span class="text-xs text-slate-500">參考值：140 ~ 180 BPM | 狀態：<span class="text-emerald-700 font-bold">生理最高峰</span></span>
+            </div>
+            <ul class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 list-disc pl-5">
+              <li><strong>臨床解讀：</strong> 心跳率由 168 BPM 進一步提升至 177 BPM。第 9 週是胎兒心臟發育生理頻率最高峰，多普勒心音波形極其規律清晰，心血管供血功能絕佳。</li>
+            </ul>
+          </div>
+
+          <!-- Item 8: CBC -->
+          <div class="border border-slate-200 bg-white rounded-xl p-5">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 pb-3 gap-2">
+              <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                <span>8. 全血球計數 (CBC + DC) 動態</span>
+                <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">WBC: 6.94 | Hb: 14.0 | PLT: 321</span>
+              </h3>
+              <span class="text-xs text-slate-500">狀態：<span class="text-emerald-700 font-bold">非常健康</span></span>
+            </div>
+            <ul class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 list-disc pl-5">
+              <li><strong>臨床解讀：</strong> WBC 由 08/17 的 7.74 微調至 08/20 的 6.94 x 10^3/uL，代表體內無急性感染。Hb 14.0 g/dL 帶氧力極高，MCV 92.1 fL 排除地中海型貧血，血小板 321 凝血正常，母體造血系統滿分。</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <!-- SECTION 4: SUCCESS PROBABILITY, RISK & CLINICAL ACTION PLAN TAB -->
+    <main id="content-plan" class="space-y-6 hidden">
+
+      <!-- Section 5: Success Probability Assessment -->
+      <section class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <h2 class="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">
+          <span>📈</span> 五、目前持續妊娠成功機率評估
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 mb-4">
+          綜合 9週3天 之超音波發育速度、心跳表現、黃體素保護力與生殖免疫指標，進行臨床定性評估：
+        </p>
+
+        <div class="text-center py-4 bg-emerald-50 rounded-xl border border-emerald-200 mb-6">
+          <span class="text-xs text-emerald-700 block font-semibold uppercase tracking-wider">目前階段 (9週3天) 持續順利妊娠之評估等級</span>
+          <span class="text-2xl font-extrabold text-emerald-800 mt-1 inline-block">偏高 (極佳)</span>
+          <p class="text-xs text-emerald-600 mt-1">早期流產風險已降至 2% ~ 3% 以下</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Good Factors -->
+          <div class="bg-emerald-50/60 border border-emerald-200 p-4 rounded-xl">
+            <h3 class="font-bold text-emerald-900 text-sm mb-2 flex items-center gap-2">
+              <span>✅</span> 正面支持原因 (優勢強勁)
+            </h3>
+            <ul class="text-xs sm:text-sm text-emerald-950 space-y-1.5 list-disc pl-5">
+              <li><strong>胎心率強勁達頂峰 (177 BPM)：</strong> 滿 9 週且心跳穩定高於 160 BPM，為胚胎存活力最高指標。</li>
+              <li><strong>超音波發育超速：</strong> CRL 每日生長 1.23 mm，證明完全未受免疫發炎干擾。</li>
+              <li><strong>黃體素 (P4 &gt; 23 ng/mL) 非常足夠：</strong> 提供子宮內膜安定性並轉化抗發炎環境。</li>
+              <li><strong>殺手細胞 (NK 9.2%) 正常：</strong> 無 NK 細胞氾濫或細胞毒性暴增問題。</li>
+              <li><strong>母體帶氧力極佳 (Hb 14.0, MCV 92.1)：</strong> 血液循環與養分輸送品質極優。</li>
+            </ul>
+          </div>
+
+          <!-- Risk Factors -->
+          <div class="bg-amber-50/60 border border-amber-200 p-4 rounded-xl">
+            <h3 class="font-bold text-amber-900 text-sm mb-2 flex items-center gap-2">
+              <span>⚠️</span> 可能不確定因素與風險提醒
+            </h3>
+            <ul class="text-xs sm:text-sm text-amber-950 space-y-1.5 list-disc pl-5">
+              <li><strong>TNF-α (40.8 pg/mL) 發炎指數偏高：</strong> 若未來黃體素或免疫調節藥物驟然中斷，發炎因子可能對胎盤微循環造成干擾。</li>
+              <li><strong>第一孕期器官形成與胎盤銜接期：</strong> 前 12 週仍為胎盤與母體免疫建立平衡關鍵期，需持續維持現有安胎與免疫用藥計畫。</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 7: Medical Literature Summary -->
+      <section class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <span>📚</span> 七、臨床醫學觀點與實務摘要
+        </h2>
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-xs sm:text-sm text-slate-700">
+          <p><strong>• TNF-α 在生殖免疫學中的角色：</strong> 主流生殖醫學共識指出，TNF-α 等 Th1 促發炎細胞激素過高，可能影響子宮血管內皮功能。臨床常以低劑量阿斯匹靈 (Aspirin)、黃體素或免疫調節劑進行對抗與保護。</p>
+          <p><strong>• NK 細胞與 TNF-α 之分工判讀：</strong> NK 細胞比例正常（&lt; 14.9%）代表殺手細胞無總量氾濫；TNF-α 單獨偏高則代表微環境發炎訊號較強，兩者分開判讀能更精準定位臨床用藥方向。</p>
+          <p><strong>• 黃體素 (P4) 的免疫調節效應：</strong> 高濃度的 P4（如本案 23.03 ng/mL）能誘導產生黃體素誘導阻斷因子（PIBF），有助於抑制 Th1 促發炎細胞激素（包含 TNF-α）對胚胎的干擾。</p>
+        </div>
+      </section>
+
+      <!-- Section 8 & 9: Action Steps & Next Steps -->
+      <section class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <h2 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <span>🪜</span> 八與九、後續行動步驟與補充檢查指引
+        </h2>
+        <ol class="space-y-3 text-xs sm:text-sm text-slate-700">
+          <li class="flex items-start gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200">
+            <span class="bg-blue-800 text-white font-bold w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs">1</span>
+            <div>
+              <strong>維持現有安胎與免疫用藥計畫：</strong> 按醫囑定時服用黃體素及相關藥物，高 P4 (23.03) 是對抗 TNF-α (40.8) 的最強屏障，切勿擅自停藥。
+            </div>
+          </li>
+          <li class="flex items-start gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200">
+            <span class="bg-blue-800 text-white font-bold w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs">2</span>
+            <div>
+              <strong>諮詢生殖免疫門診專科醫師：</strong> 攜帶 08/17 的 TNF-α (40.8) 報告至免疫科或原診所，確認現有用藥是否足夠涵蓋全第一孕期，並評估是否需要追蹤 TNF-α 降幅。
+            </div>
+          </li>
+          <li class="flex items-start gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200">
+            <span class="bg-blue-800 text-white font-bold w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs">3</span>
+            <div>
+              <strong>預約 11~13 週產檢與領取媽媽手冊：</strong> 目前 9w3d 胚胎發育與心跳極優，可於下次產檢安排領取媽媽手冊，並規劃 NIPT (非侵入性基因檢測) 或早期頸部透明帶 (NT) 篩檢。
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Section 10: Lifestyle -->
+      <section class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <h2 class="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">
+          <span>💡</span> 十、日常生活與養胎建議
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs sm:text-sm">
+          <div class="bg-blue-50/50 p-3 rounded-lg border border-blue-100">
+            <strong class="text-blue-900 block mb-1">🥗 抗發炎飲食管理</strong>
+            減少精緻糖、高油炸及加工食品攝取，多補充富含 Omega-3 (如深海魚油) 與抗氧化食物，輔助降低體內發炎反應。
+          </div>
+          <div class="bg-teal-50/50 p-3 rounded-lg border border-teal-100">
+            <strong class="text-teal-900 block mb-1">😴 睡眠與壓力調控</strong>
+            心理壓力與睡眠不足會刺激皮質醇分泌並加重 TNF-α 等發炎因子波動，保持每日 7-8 小時優質睡眠。
+          </div>
+          <div class="bg-emerald-50/50 p-3 rounded-lg border border-emerald-100">
+            <strong class="text-emerald-900 block mb-1">💧 水分與高纖補充</strong>
+            受高 E2 與 P4 影響腸胃蠕動較慢，每日維持 2000 mL 水分與蔬菜攝取，預防便秘與腹脹。
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 11: Interactive Questions for Doctor -->
+      <section class="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
+        <h2 class="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">
+          <span>🗣️</span> 十一、建議門診與醫師討論的關鍵問題 (可勾選紀錄)
+        </h2>
+        <p class="text-xs text-slate-500 mb-4">就診時可直接提示醫師以下問題，點選核取方塊可協助您準備諮詢：</p>
+
+        <div class="space-y-2 text-xs sm:text-sm">
+          <label class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg hover:bg-slate-100 cursor-pointer transition-colors">
+            <input type="checkbox" class="mt-1 w-4 h-4 text-teal-600 rounded">
+            <span>「請問醫師，08/17 驗出 TNF-α 為 40.8 pg/mL（參考值&lt;4），目前使用的安胎或免疫藥物是否需要維持原劑量或進行調整？」</span>
+          </label>
+          <label class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg hover:bg-slate-100 cursor-pointer transition-colors">
+            <input type="checkbox" class="mt-1 w-4 h-4 text-teal-600 rounded">
+            <span>「雖然 TNF-α 偏高，但 08/20 超音波 CRL 2.79cm (每日長1.23mm)、心跳 177 BPM 且 P4 有 23.03，這是否代表現有的保護方案非常有效？」</span>
+          </label>
+          <label class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg hover:bg-slate-100 cursor-pointer transition-colors">
+            <input type="checkbox" class="mt-1 w-4 h-4 text-teal-600 rounded">
+            <span>「請問 TNF-α 建議在第幾週安排抽血複查，以確認發炎指數是否下降？」</span>
+          </label>
+          <label class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg hover:bg-slate-100 cursor-pointer transition-colors">
+            <input type="checkbox" class="mt-1 w-4 h-4 text-teal-600 rounded">
+            <span>「目前 NK 細胞 (9.2%) 與 CD19 (12.3%) 完全正常，今天 9w3d 狀況穩定，請問是否可以安排領取媽媽手冊並預約 NIPT 篩檢？」</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Section 12: Alert Box -->
+      <section class="bg-red-50 border-l-4 border-red-600 p-5 rounded-xl">
+        <h2 class="text-base font-bold text-red-900 mb-2 flex items-center gap-2">
+          <span>🚨</span> 十二、重要警示訊號（需立即就醫時機）
+        </h2>
+        <p class="text-xs sm:text-sm text-red-800 leading-relaxed mb-2">
+          若在下次預定產檢前出現以下狀況，應立即至婦產科門診或急診就醫：
+        </p>
+        <ul class="list-disc pl-5 text-xs sm:text-sm text-red-800 space-y-1">
+          <li><strong>鮮紅色大量陰道出血：</strong> 出血量達到衛生棉沾濕程度。</li>
+          <li><strong>劇烈或持續性下腹陣痛：</strong> 出現類似嚴重經痛或持續性子宮收縮疼痛。</li>
+          <li><strong>發燒（&gt; 38°C）、嚴重頭暈或異常惡臭分泌物。</strong></li>
         </ul>
-      </div>
+      </section>
 
-      <div class="risk-factors-box">
-        <h3>⚠️ 需注意之不確定因素與風險</h3>
-        <ul>
-          <li><strong>尚未滿 12 週器官形成期：</strong>早期妊娠（前 12 週）仍屬於胚胎主要器官形成與胎盤建立階段，需維持情緒與作息穩定。</li>
-          <li><strong>母體內分泌與免疫波動：</strong>需持續確保黃體素補充（若醫師有開立）不隨意停藥，並留意是否有過度勞累或劇烈宮收。</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+    </main>
 
-  <!-- 六、可能問題與風險分析 -->
-  <section class="card risk-card">
-    <h2>⚠️ 六、可能問題與風險分析</h2>
-    <p>雖然目前影像數據表現完美，但在早期妊娠過程中仍需注意以下潛在風險：</p>
-    <ul>
-      <li><strong>絨毛膜下微血管出血風險：</strong>胚胎快速侵入子宮內膜建立血管網時，少數孕婦可能出現微血管破裂（咖啡色分泌物），需密切觀察。</li>
-      <li><strong>黃體素波動引起之子宮收縮：</strong>若日常活動量過大或壓力增加，可能誘發輕微下腹抽痛或宮縮。</li>
-    </ul>
-  </section>
+    <!-- Footer Disclaimer -->
+    <footer class="mt-8 border-t border-slate-200 pt-6 text-center text-xs text-slate-500 space-y-2">
+      <p>📌 <strong>非診斷聲明：</strong> 本報告係依據使用者提供之禾馨婦產科 2026/08/17 與 2026/08/20 之超音波影像、全血球、生殖荷爾蒙及生殖免疫數據進行之綜合臨床邏輯分析與衛教解讀，內容僅供醫療資訊參考與就診溝通輔助，不能替代主治醫師之現場診斷、醫療處方或正式處置。所有用藥調整與產檢安排，均應以主治醫師門診診斷為準。</p>
+      <p>© 2026 生殖醫學專科臨床判讀儀表板系統</p>
+    </footer>
 
-  <!-- 七、調研資料摘要 -->
-  <section class="card research-card">
-    <h2>📚 七、臨床醫學觀點與實務摘要</h2>
-    <div class="info-box">
-      <ul>
-        <li><strong>CRL 生長指標：</strong>臨床共識指出，妊娠 6-11 週期間，CRL 每日平均增長約 1.0 - 1.2 mm。本個案 3 天成長 3.7 mm，顯示細胞增殖與營養吸收狀況非常活躍。</li>
-        <li><strong>胎心率 (FHR) 曲線：</strong>胎心率隨孕週增加，於 9 週左右達到約 160-180 BPM 的高峰，隨後在 12 週後逐漸趨緩至 120-160 BPM。177 BPM 是 9w3d 極具生命力的健康表現。</li>
-        <li><strong>早期流產率驟降點：</strong>臨床統計表明，一旦胚胎發育至 CRL > 2.5 cm 且伴隨正常胎心音，後續順利進入中孕期（12週後）的機率高達 95% 以上。</li>
-      </ul>
-    </div>
-  </section>
+  </div>
 
-  <!-- 八、建議補充檢查 -->
-  <section class="card next-step-card">
-    <h2>🧪 八、建議後續規劃與補充檢查</h2>
-    <ul>
-      <li><strong>第一孕期唐氏症篩檢 (NIPT 或 常規頸部透明帶超音波)：</strong>建議於 11週 - 13週+6天 期間安排。</li>
-      <li><strong>常規產檢抽血（第一孕期）：</strong>血型、Rh因子、貧血指標、梅毒、愛滋病、SMA 脊髓性肌肉萎縮症基因篩檢、X染色體脆折症等（若尚未檢驗）。</li>
-      <li><strong>黃體素血清濃度（必要時）：</strong>若過去有少量出血或下腹疼痛史，可由門診醫師評估是否需要追加抽血檢測 Progesterone。</li>
-    </ul>
-  </section>
+  <!-- JavaScript Logic -->
+  <script>
+    // Tab Switcher
+    function switchTab(tabId) {
+      const tabs = ['overview', 'ultrasound', 'blood', 'plan'];
+      tabs.forEach(t => {
+        const content = document.getElementById(`content-${t}`);
+        const btn = document.getElementById(`tab-${t}`);
+        if (t === tabId) {
+          content.classList.remove('hidden');
+          btn.classList.add('active');
+        } else {
+          content.classList.add('hidden');
+          btn.classList.remove('active');
+        }
+      });
+    }
 
-  <!-- 九、步驟指引 -->
-  <section class="card plan-card">
-    <h2>🪜 九、後續行動步驟指引</h2>
-    <ol class="step-list">
-      <li><strong>按時用藥與順利銜接：</strong>若門診有開立口服或陰道黃體素（快孕隆、小白球等），請嚴格遵照醫囑按時使用，切勿自行停藥。</li>
-      <li><strong>規劃下次常規產檢（約 2-4 週後）：</strong>下次檢查重點將放在胚胎整體外觀形態、媽媽手冊發放（若本次已領取則進行常規第一次產檢）與初期篩檢項目預約。</li>
-      <li><strong>預約重大早期篩檢：</strong>可開始向診所諮詢並預約 11-13 週的 NIPT（非侵入性胎兒染色體基因檢測）或早期早期頸部透明帶（NT）超音波。</li>
-    </ol>
-  </section>
+    // Filter Lab Table
+    function filterTable(category) {
+      const rows = document.querySelectorAll('#lab-table-body tr');
+      const btns = document.querySelectorAll('.table-filter-btn');
+      
+      btns.forEach(b => {
+        b.classList.remove('active', 'bg-slate-800', 'text-white');
+        b.classList.add('bg-slate-100', 'text-slate-700');
+      });
 
-  <!-- 十、生活與治療建議 -->
-  <section class="card advice-card">
-    <h2>💡 十、日常生活與養胎建議</h2>
-    <ul>
-      <li><strong>葉酸補充：</strong>每日補充 400 - 800 mcg 葉酸，有助於胎兒神經管發育。</li>
-      <li><strong>避免劇烈運動與提重物：</strong>妊娠未滿 12 週前，避免久站、搬重物（> 5公斤）或進行高強度無氧運動。</li>
-      <li><strong>水分與高纖飲食：</strong>黃體素增加易導致腸胃蠕動變慢，宜多補充水分與膳食纖維，預防便秘與腹壓過高。</li>
-      <li><strong>充足休息：</strong>維持每日 7-8 小時充足睡眠，避免熬夜與情緒波動。</li>
-    </ul>
-  </section>
+      event.target.classList.remove('bg-slate-100', 'text-slate-700');
+      event.target.classList.add('active', 'bg-slate-800', 'text-white');
 
-  <!-- 十一、建議與醫師討論的關鍵問題 -->
-  <section class="card discussion-card">
-    <h2>🗣️ 十一、建議門診與醫師討論的關鍵問題</h2>
-    <div class="info-box">
-      <ol>
-        <li>「請問以目前 CRL 2.79cm (9w3d) 的發育速度，預產期是否正式鎖定在 2027/03/22？」</li>
-        <li>「請問目前使用的黃體素支持藥物，預計需要補充到第幾週可以開始減量或停藥？」</li>
-        <li>「請問今天超音波影像中，絨毛膜下是否有觀察到任何出血點或積血情況？」</li>
-        <li>「建議安排在第幾週進行 NIPT 抽血或是早期頸部透明帶 (NT) 篩檢？」</li>
-        <li>「請問今天是否可以領取媽媽手冊並進行第一次正式孕婦產檢登記？」</li>
-      </ol>
-    </div>
-  </section>
+      rows.forEach(row => {
+        if (category === 'all') {
+          row.style.display = '';
+        } else if (category === 'us') {
+          row.style.display = row.classList.contains('us-row') ? '' : 'none';
+        } else if (category === 'imm') {
+          row.style.display = row.classList.contains('imm-row') ? '' : 'none';
+        } else if (category === 'hor') {
+          row.style.display = row.classList.contains('hor-row') ? '' : 'none';
+        } else if (category === 'abnormal') {
+          row.style.display = row.classList.contains('abnormal-row') ? '' : 'none';
+        }
+      });
+    }
 
-  <!-- 十二、警示訊號 -->
-  <section class="card alert-card">
-    <h2>🚨 十二、重要警示訊號（需立即就醫時機）</h2>
-    <div class="alert-box">
-      <p><strong>若在下次預定產檢前出現以下任何狀況，請勿等待，應立即至急診或婦產科門診就醫：</strong></p>
-      <ul>
-        <li><strong>鮮紅色大量陰道出血：</strong>出血量達到或超過衛生棉沾濕程度。</li>
-        <li><strong>劇烈或持續性下腹陣痛：</strong>出現類似嚴重經痛、單側劇烈撕裂痛或子宮持續硬挺收縮。</li>
-        <li><strong>嚴重頭暈、心悸、昏厥：</strong>伴隨大量出血或急性腹痛。</li>
-        <li><strong>發燒與異常發冷：</strong>體溫 > 38°C 且伴隨陰道異常惡臭分泌物。</li>
-      </ul>
-    </div>
-  </section>
+    // Initialize Chart.js
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // Chart 1: Ultrasound Growth Dual-Axis
+      const ctx1 = document.getElementById('usGrowthChart').getContext('2d');
+      new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: ['08/17 (8w3d)', '08/20 (9w3d)'],
+          datasets: [
+            {
+              label: 'CRL 頭臀長 (cm)',
+              data: [2.42, 2.79],
+              backgroundColor: 'rgba(30, 58, 138, 0.75)',
+              borderColor: 'rgba(30, 58, 138, 1)',
+              borderWidth: 1,
+              yAxisID: 'yCRL',
+              barThickness: 45
+            },
+            {
+              label: 'FHR 心跳率 (BPM)',
+              data: [168, 177],
+              type: 'line',
+              borderColor: 'rgba(13, 148, 136, 1)',
+              backgroundColor: 'rgba(13, 148, 136, 0.2)',
+              borderWidth: 3,
+              pointRadius: 6,
+              pointBackgroundColor: 'rgba(13, 148, 136, 1)',
+              yAxisID: 'yFHR',
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top' },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.dataset.label + ': ' + context.raw;
+                }
+              }
+            }
+          },
+          scales: {
+            yCRL: {
+              type: 'linear',
+              position: 'left',
+              title: { display: true, text: 'CRL (cm)' },
+              min: 2.0,
+              max: 3.2
+            },
+            yFHR: {
+              type: 'linear',
+              position: 'right',
+              title: { display: true, text: 'FHR (BPM)' },
+              min: 140,
+              max: 190,
+              grid: { drawOnChartArea: false }
+            }
+          }
+        }
+      });
 
-  <!-- 十三、重要聲明 -->
-  <section class="card disclaimer-card">
-    <h2>📌 十三、重要醫療聲明</h2>
-    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">
-      <strong>非診斷聲明：</strong>本報告係依據使用者提供之禾馨婦產科（Stork Ladies Clinic）2026/08/17 與 2026/08/20 超音波影像與數據資料進行之綜合臨床邏輯分析與衛教解讀，內容僅供醫療資訊參考與就診溝通輔助之用，不能替代主治醫師之現場診斷、醫療處方或正式醫療處置。所有關於妊娠週數、預產期及用藥調整之最終決策，均應以您的主治醫師門診診斷為準。
-    </p>
-  </section>
-</div>
+      // Chart 2: Immune & Hormone Benchmark %
+      const ctx2 = document.getElementById('immuneHormoneChart').getContext('2d');
+      new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: ['P4 黃體素 (安胎門檻)', 'NK 細胞比例 (安全上限)', 'CD19 B細胞 (安全上限)', 'TNF-α (正常上限)'],
+          datasets: [{
+            label: '實測值相當於基準之百分比 (%)',
+            data: [115, 61, 82, 1020],
+            backgroundColor: [
+              'rgba(16, 185, 129, 0.75)',
+              'rgba(14, 165, 233, 0.75)',
+              'rgba(99, 102, 241, 0.75)',
+              'rgba(239, 68, 68, 0.75)'
+            ],
+            borderColor: [
+              'rgba(16, 185, 129, 1)',
+              'rgba(14, 165, 233, 1)',
+               me='rgba(99, 102, 241, 1)',
+              'rgba(239, 68, 68, 1)'
+            ],
+            borderWidth: 1,
+            barThickness: 35
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return '相當於參考基準: ' + context.raw + '%';
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              type: 'logarithmic',
+              title: { display: true, text: '對數比率 (%) [100% = 門檻基準]' },
+              min: 10,
+              max: 2000
+            }
+          }
+        }
+      });
+
+    });
+  </script>
+</body>
+</html>
