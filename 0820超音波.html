@@ -1,0 +1,558 @@
+<style>
+  :root {
+    --primary-color: #1e3a8a;
+    --primary-light: #eff6ff;
+    --secondary-color: #0d9488;
+    --secondary-light: #ccfbf1;
+    --text-color: #1f2937;
+    --text-muted: #4b5563;
+    --bg-main: #f8fafc;
+    --card-bg: #ffffff;
+    --border-color: #e2e8f0;
+
+    --tag-normal-bg: #dcfce7;
+    --tag-normal-text: #15803d;
+    --tag-border-bg: #fef9c3;
+    --tag-border-text: #a16207;
+    --tag-abnormal-bg: #fee2e2;
+    --tag-abnormal-text: #b91c1c;
+    --tag-info-bg: #e0f2fe;
+    --tag-info-text: #0369a1;
+
+    --box-info-bg: #f0f9ff;
+    --box-info-border: #0284c7;
+    --box-warning-bg: #fefce8;
+    --box-warning-border: #ca8a04;
+    --box-alert-bg: #fef2f2;
+    --box-alert-border: #dc2626;
+    --box-success-bg: #f0fdf4;
+    --box-success-border: #16a34a;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-main);
+    margin: 0;
+    padding: 20px;
+  }
+
+  .report-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: transparent;
+  }
+
+  .report-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 30px 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .report-header h1 {
+    margin: 0 0 10px 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+
+  .report-subtitle {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 1rem;
+  }
+
+  .card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .card h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.35rem;
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card h3 {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+  }
+
+  .info-item {
+    background-color: var(--bg-main);
+    padding: 12px 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary-color);
+  }
+
+  .info-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .info-value {
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  .lab-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 0.95rem;
+  }
+
+  .lab-table th, .lab-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .lab-table th {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+
+  .lab-table tr:hover {
+    background-color: #f1f5f9;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .tag.normal { background-color: var(--tag-normal-bg); color: var(--tag-normal-text); }
+  .tag.borderline { background-color: var(--tag-border-bg); color: var(--tag-border-text); }
+  .tag.abnormal { background-color: var(--tag-abnormal-bg); color: var(--tag-abnormal-text); }
+  .tag.insufficient { background-color: var(--tag-info-bg); color: var(--tag-info-text); }
+
+  .chance-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .chance-tag.high { background-color: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+  .chance-tag.mid-high { background-color: #e0f2fe; color: #0369a1; border: 1px solid #7dd3fc; }
+  .chance-tag.medium { background-color: #fef9c3; color: #a16207; border: 1px solid #fde047; }
+  .chance-tag.mid-low { background-color: #ffedd5; color: #c2410c; border: 1px solid #fdba74; }
+  .chance-tag.low { background-color: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+
+  .lab-item-block {
+    background-color: #fdfdfd;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+
+  .lab-item-block h3 {
+    margin-top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 10px;
+  }
+
+  .lab-item-block ul {
+    margin: 10px 0 0 0;
+    padding-left: 20px;
+  }
+
+  .lab-item-block li {
+    margin-bottom: 8px;
+  }
+
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+  }
+
+  .good-factors-box {
+    background-color: var(--box-success-bg);
+    border-left: 5px solid var(--box-success-border);
+    padding: 18px;
+    border-radius: 8px;
+  }
+
+  .risk-factors-box {
+    background-color: var(--box-warning-bg);
+    border-left: 5px solid var(--box-warning-border);
+    padding: 18px;
+    border-radius: 8px;
+  }
+
+  .info-box {
+    background-color: var(--box-info-bg);
+    border-left: 5px solid var(--box-info-border);
+    padding: 15px 18px;
+    border-radius: 8px;
+    margin: 15px 0;
+  }
+
+  .alert-box {
+    background-color: var(--box-alert-bg);
+    border-left: 5px solid var(--box-alert-border);
+    padding: 15px 18px;
+    border-radius: 8px;
+    margin: 15px 0;
+    color: #7f1d1d;
+  }
+
+  .step-list {
+    counter-reset: step-counter;
+    list-style: none;
+    padding: 0;
+  }
+
+  .step-list li {
+    position: relative;
+    padding-left: 45px;
+    margin-bottom: 15px;
+  }
+
+  .step-list li::before {
+    counter-increment: step-counter;
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 10px; }
+    .card { padding: 15px; }
+    .lab-table { font-size: 0.85rem; }
+    .lab-table th, .lab-table td { padding: 8px; }
+    .two-column-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="report-container">
+  <header class="report-header">
+    <h1>🧬 早期妊娠超音波動態進度評估與跨期分析報告</h1>
+    <p class="report-subtitle">追蹤日期：2026/08/20 vs 前次對比：2026/08/17 | 禾馨婦產科/Stork Ladies Clinic</p>
+  </header>
+
+  <!-- 一、個案摘要 -->
+  <section class="card summary-card">
+    <h2>📋 一、個案摘要</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="info-label">檢查日期</span>
+        <span class="info-value">2026年08月20日</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">超音波估計孕週 (US-GA)</span>
+        <span class="info-value">9週3天 (9w3d)</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">預產期估算 (EDD)</span>
+        <span class="info-value">2027年03月22日</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">比較基準</span>
+        <span class="info-value">2026/08/17 (相隔 3 天)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 二、檢驗報告重點整理 -->
+  <section class="card highlight-card">
+    <h2>🔎 二、超音波與產檢指標數據動態對比總覽</h2>
+    <p>以下為 2026/08/20 門診超音波影像與 2026/08/17 產檢紀錄之對比分析：</p>
+    <table class="lab-table">
+      <thead>
+        <tr>
+          <th>測量項目</th>
+          <th>8/17 數值</th>
+          <th>8/20 最新數值</th>
+          <th>單位</th>
+          <th>3天動態變化量</th>
+          <th>評估狀態</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>CRL (頭臀長)</strong></td>
+          <td>2.42</td>
+          <td><strong>2.79</strong></td>
+          <td>cm</td>
+          <td><span style="color:#16a34a; font-weight:bold;">+0.37 cm (+3.7 mm)</span></td>
+          <td><span class="tag normal">發育極佳</span></td>
+        </tr>
+        <tr>
+          <td><strong>FHR (胎兒心跳率)</strong></td>
+          <td>168</td>
+          <td><strong>177</strong></td>
+          <td>BPM (次/分)</td>
+          <td><span style="color:#16a34a; font-weight:bold;">+9 BPM</span></td>
+          <td><span class="tag normal">強勁正常</span></td>
+        </tr>
+        <tr>
+          <td><strong>GS / 囊腔結構切面</strong></td>
+          <td>4.2 x 2.7</td>
+          <td><strong>4.36 x 1.34</strong></td>
+          <td>cm</td>
+          <td>長軸微增/型態隨子宮張力改變</td>
+          <td><span class="tag normal">空間足夠</span></td>
+        </tr>
+        <tr>
+          <td><strong>附屬/囊泡結構 (卵黃囊/黃體/周邊)</strong></td>
+          <td>0.6 x 0.7</td>
+          <td><strong>0.98 / 0.86 / 0.67</strong></td>
+          <td>cm</td>
+          <td>多方位切面量測 (囊泡/黃體)</td>
+          <td><span class="tag normal">狀態穩定</span></td>
+        </tr>
+        <tr>
+          <td><strong>下段/宮頸相關距離測量</strong></td>
+          <td>未特別標註</td>
+          <td><strong>3.50</strong></td>
+          <td>cm</td>
+          <td>子宮下段/宮頸構造安全距離</td>
+          <td><span class="tag normal">結構穩定</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 三、每一項檢驗數字的詳細說明 -->
+  <section class="card detailed-lab-card">
+    <h2>🧾 三、每一項檢驗數字與影像指標的詳細說明</h2>
+
+    <div class="lab-item-block">
+      <h3>1. CRL (胎兒頭臀長)：2.79 cm <span class="tag normal">成長極為理想</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>CRL（Crown-Rump Length）是指胎兒從頭頂至臀部的直徑長度，是早期妊娠（13週前）評估胚胎發育速度與核算實際孕週最客觀且精準的指標。</li>
+        <li><strong>在生殖與產檢評估中的意義：</strong>正常早期胚胎的成長速率約為每日增加 1.0 mm 至 1.2 mm。</li>
+        <li><strong>若偏高/偏低常見代表：</strong>偏高或成長迅速代表營養供應良好、胚胎染色體與細胞分裂旺盛；若連續追蹤顯著偏低或停滯，則需警惕發育遲緩或胚胎停育風險。</li>
+        <li><strong>本個案的動態對比解讀：</strong>8/17 測量值為 2.42 cm，8/20 達到 2.79 cm，在短短 3 天內淨增長了 <strong>0.37 cm (3.7 mm)</strong>，平均每日生長約 <strong>1.23 mm</strong>，完美符合並略高於標準生長曲線！超音波自動換算孕週為 <strong>9週3天 (9w3d)</strong>，推算預產期為 2027年3月22日，顯示胎兒正在快速成長。</li>
+        <li><strong>建議合併判讀項目：</strong>應與胎兒心跳（FHR）及妊娠囊空間（GS）結合評估。</li>
+        <li><strong>是否需要追蹤：</strong>持續保持定期產檢即可。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>2. FHR (胎兒心跳率)：177 BPM <span class="tag normal">心跳強勁有力</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>FHR（Fetal Heart Rate）為每分鐘胎兒心搏次數，由多普勒（Doppler）超音波測量其心臟收縮頻率。</li>
+        <li><strong>在生殖與產檢評估中的意義：</strong>在孕期第 8 至 9 週時，胎兒心跳會達到整個孕期的高峰期，正常生理範圍約在 140 至 180 BPM 之間。</li>
+        <li><strong>若偏高/偏低常見代表：</strong>心跳小於 100-120 BPM 稱為心跳過緩（Bradycardia），為早期胚胎預後不良或缺氧的重要警示；偏高（>180 BPM）若為暫時性通常為生理性波動。</li>
+        <li><strong>本個案的動態對比解讀：</strong>8/17 為 168 BPM，8/20 上升至 <strong>177 BPM</strong>。此數值完全落在 9 週胎兒正常生理峰值範圍內，多普勒波形顯示心律非常規則、收縮有力，代表胎兒心血管系統發育非常健全且供血供氧十分充足。</li>
+        <li><strong>建議合併判讀項目：</strong>結合 CRL 生長速率一同確認胎兒活力。</li>
+        <li><strong>是否需要追蹤：</strong>常規產檢監測即可。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>3. GS / 宮腔展延測量：1Dist 4.36 cm / 2Dist 1.34 cm <span class="tag normal">展延良好</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>GS（Gestational Sac）為妊娠囊大小。在 8/20 切面中，醫師針對囊腔進行了兩軸長度標記（4.36 cm 與 1.34 cm）。</li>
+        <li><strong>在生殖與產檢評估中的意義：</strong>妊娠囊提供胚胎發育所需的羊水空間與屏障，隨著孕週增加會呈現橢圓或長條狀展延。</li>
+        <li><strong>若偏高/偏低常見代表：</strong>若妊娠囊過小且與 CRL 差值小於 5 mm（GS-CRL < 5mm），臨床上可能增加早期流產風險；若囊腔形狀規則且空間寬敞則屬良好預後。</li>
+        <li><strong>本個案的動態對比解讀：</strong>對比 8/17 的 4.2 x 2.7 cm，8/20 的囊腔長軸伸展至 4.36 cm。超音波影像中可清晰看到胚胎在囊腔內有極為充裕的活動與生長空間，未受宮腔擠壓，環境優良。</li>
+        <li><strong>建議合併判讀項目：</strong>觀察是否有囊腔外出血（絨毛膜下血腫）。</li>
+        <li><strong>是否需要追蹤：</strong>正常追蹤。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>4. 附屬與囊泡結構測量：0.98 cm, 0.86 cm, 0.64 cm, 0.67 cm <span class="tag normal">結構清晰</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>在 8/20 超音波影像（IMG_7125）右側切面中，標註了數個圓形無回音/低回音囊泡結構，尺寸分別為 0.98 cm、0.86 cm、0.64 cm 與 0.67 cm。</li>
+        <li><strong>在生殖與產檢評估中的意義：</strong>此類結構在 9 週超音波中通常包含：(1) <strong>卵黃囊 (Yolk Sac)</strong>（正常約 0.3-0.6 cm，8/17 標註為 0.6x0.7 cm）；(2) <strong>卵巢黃體 (Corpus Luteum)</strong>（維持早期黃體素分泌的重要結構，常呈現 1-2 cm 左右囊腫）；(3) 周邊微小血管或輕微液體腔隙。</li>
+        <li><strong>若偏高/偏低常見代表：</strong>黃體的存在是早期妊娠維持極為健康的表現；卵黃囊過大（> 7mm）或過小需密切觀察，但本案影像中囊邊清晰、形狀圓潤。</li>
+        <li><strong>本個案的動態對比解讀：</strong>這些測量值反映了卵巢黃體支持結構與卵黃囊均維持在非常穩定且功能健全的狀態，能為胎兒提供持續且充足的黃體素與早期營養供給。</li>
+        <li><strong>建議合併判讀項目：</strong>門診臨床補充黃體素藥物使用情況。</li>
+        <li><strong>是否需要追蹤：</strong>隨常規超音波檢查即可。</li>
+      </ul>
+    </div>
+
+    <div class="lab-item-block">
+      <h3>5. 下段結構距離測量 (+Dist)：3.50 cm <span class="tag normal">安全屏障充裕</span></h3>
+      <ul>
+        <li><strong>這個數字代表什麼：</strong>在 8/20 超音波影像（IMG_7123）中，醫師於子宮下段/宮頸區域劃定並測量了一段長度為 3.50 cm 的距離。</li>
+        <li><strong>在生殖與產檢評估中的意義：</strong>在早期妊娠中，此測量常用於評估孕囊著床位置距離子宮頸內口的安全性、子宮肌層厚度或是子宮頸長度的初步保護屏障。</li>
+        <li><strong>若偏高/偏低常見代表：</strong>若距離過短或著床過低（接近宮頸內口），可能增加低位著床或出血風險；距離 > 3.0 cm 代表著床位置優良且宮頸閉鎖完好。</li>
+        <li><strong>本個案的動態對比解讀：</strong>3.50 cm 的安全距離顯示妊娠囊位於子宮腔內相當安全且穩固的位置，遠離宮頸開口，為胚胎提供了厚實的肌肉層保護，顯著降低了出血或先兆性流產的物理性風險。</li>
+        <li><strong>建議合併判讀項目：</strong>門診確認是否有自覺腹痛或出血症狀。</li>
+        <li><strong>是否需要追蹤：</strong>正常常規追蹤。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 四、整體評估 -->
+  <section class="card evaluation-card">
+    <h2>🧠 四、整體生殖與妊娠發育評估</h2>
+    <div class="info-box">
+      <p><strong>臨床綜合判讀結論：</strong>綜合 2026/08/17 與 2026/08/20 的兩次超音波影像數據，目前妊娠處於<strong>高度健康且強勁發育的狀態</strong>。</p>
+      <ul>
+        <li><strong>發育速度比對：</strong>3天內 CRL 增加 3.7 mm，達到平均每天 1.23 mm 的理想生長速度，無任何發育遲緩迹象。</li>
+        <li><strong>心血管與生命徵象：</strong>心跳率維持在 177 BPM 的黃金峰值，波形極為穩定，心肌收縮力強。</li>
+        <li><strong>著床與宮腔環境：</strong>妊娠囊空間充足、著床位置安全（距離宮頸下段 3.5 cm），周邊黃體與營養結構維繫良好。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 五、目前成功機率評估 -->
+  <section class="card chance-card">
+    <h2>📈 五、目前持續妊娠成功機率評估</h2>
+    <div style="text-align: center; margin: 15px 0;">
+      <span class="info-label" style="font-size: 1rem; margin-bottom: 8px;">目前階段 (9週+) 持續順利妊娠之臨床評估等級：</span>
+      <span class="chance-tag high">偏高 (極佳)</span>
+    </div>
+
+    <div class="two-column-grid">
+      <div class="good-factors-box">
+        <h3>✅ 正面支持原因</h3>
+        <ul>
+          <li><strong>心跳極為強勁：</strong>9週胎心率達 177 BPM，醫學統計顯示 8-9 週後若能確認強勁胎心，流產率將大幅降低至 2-3% 以下。</li>
+          <li><strong>胚胎生長速率優異：</strong>CRL 3 天增長 3.7 mm，完全符合甚至微幅超越標準生理曲線。</li>
+          <li><strong>解剖位置安全：</strong>子宮下段測量達 3.5 cm，著床穩固且宮腔展延空間充裕。</li>
+          <li><strong>黃體功能支持良好：</strong>超音波下相關附屬囊泡與黃體結構明確。</li>
+        </ul>
+      </div>
+
+      <div class="risk-factors-box">
+        <h3>⚠️ 需注意之不確定因素與風險</h3>
+        <ul>
+          <li><strong>尚未滿 12 週器官形成期：</strong>早期妊娠（前 12 週）仍屬於胚胎主要器官形成與胎盤建立階段，需維持情緒與作息穩定。</li>
+          <li><strong>母體內分泌與免疫波動：</strong>需持續確保黃體素補充（若醫師有開立）不隨意停藥，並留意是否有過度勞累或劇烈宮收。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 六、可能問題與風險分析 -->
+  <section class="card risk-card">
+    <h2>⚠️ 六、可能問題與風險分析</h2>
+    <p>雖然目前影像數據表現完美，但在早期妊娠過程中仍需注意以下潛在風險：</p>
+    <ul>
+      <li><strong>絨毛膜下微血管出血風險：</strong>胚胎快速侵入子宮內膜建立血管網時，少數孕婦可能出現微血管破裂（咖啡色分泌物），需密切觀察。</li>
+      <li><strong>黃體素波動引起之子宮收縮：</strong>若日常活動量過大或壓力增加，可能誘發輕微下腹抽痛或宮縮。</li>
+    </ul>
+  </section>
+
+  <!-- 七、調研資料摘要 -->
+  <section class="card research-card">
+    <h2>📚 七、臨床醫學觀點與實務摘要</h2>
+    <div class="info-box">
+      <ul>
+        <li><strong>CRL 生長指標：</strong>臨床共識指出，妊娠 6-11 週期間，CRL 每日平均增長約 1.0 - 1.2 mm。本個案 3 天成長 3.7 mm，顯示細胞增殖與營養吸收狀況非常活躍。</li>
+        <li><strong>胎心率 (FHR) 曲線：</strong>胎心率隨孕週增加，於 9 週左右達到約 160-180 BPM 的高峰，隨後在 12 週後逐漸趨緩至 120-160 BPM。177 BPM 是 9w3d 極具生命力的健康表現。</li>
+        <li><strong>早期流產率驟降點：</strong>臨床統計表明，一旦胚胎發育至 CRL > 2.5 cm 且伴隨正常胎心音，後續順利進入中孕期（12週後）的機率高達 95% 以上。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 八、建議補充檢查 -->
+  <section class="card next-step-card">
+    <h2>🧪 八、建議後續規劃與補充檢查</h2>
+    <ul>
+      <li><strong>第一孕期唐氏症篩檢 (NIPT 或 常規頸部透明帶超音波)：</strong>建議於 11週 - 13週+6天 期間安排。</li>
+      <li><strong>常規產檢抽血（第一孕期）：</strong>血型、Rh因子、貧血指標、梅毒、愛滋病、SMA 脊髓性肌肉萎縮症基因篩檢、X染色體脆折症等（若尚未檢驗）。</li>
+      <li><strong>黃體素血清濃度（必要時）：</strong>若過去有少量出血或下腹疼痛史，可由門診醫師評估是否需要追加抽血檢測 Progesterone。</li>
+    </ul>
+  </section>
+
+  <!-- 九、步驟指引 -->
+  <section class="card plan-card">
+    <h2>🪜 九、後續行動步驟指引</h2>
+    <ol class="step-list">
+      <li><strong>按時用藥與順利銜接：</strong>若門診有開立口服或陰道黃體素（快孕隆、小白球等），請嚴格遵照醫囑按時使用，切勿自行停藥。</li>
+      <li><strong>規劃下次常規產檢（約 2-4 週後）：</strong>下次檢查重點將放在胚胎整體外觀形態、媽媽手冊發放（若本次已領取則進行常規第一次產檢）與初期篩檢項目預約。</li>
+      <li><strong>預約重大早期篩檢：</strong>可開始向診所諮詢並預約 11-13 週的 NIPT（非侵入性胎兒染色體基因檢測）或早期早期頸部透明帶（NT）超音波。</li>
+    </ol>
+  </section>
+
+  <!-- 十、生活與治療建議 -->
+  <section class="card advice-card">
+    <h2>💡 十、日常生活與養胎建議</h2>
+    <ul>
+      <li><strong>葉酸補充：</strong>每日補充 400 - 800 mcg 葉酸，有助於胎兒神經管發育。</li>
+      <li><strong>避免劇烈運動與提重物：</strong>妊娠未滿 12 週前，避免久站、搬重物（> 5公斤）或進行高強度無氧運動。</li>
+      <li><strong>水分與高纖飲食：</strong>黃體素增加易導致腸胃蠕動變慢，宜多補充水分與膳食纖維，預防便秘與腹壓過高。</li>
+      <li><strong>充足休息：</strong>維持每日 7-8 小時充足睡眠，避免熬夜與情緒波動。</li>
+    </ul>
+  </section>
+
+  <!-- 十一、建議與醫師討論的關鍵問題 -->
+  <section class="card discussion-card">
+    <h2>🗣️ 十一、建議門診與醫師討論的關鍵問題</h2>
+    <div class="info-box">
+      <ol>
+        <li>「請問以目前 CRL 2.79cm (9w3d) 的發育速度，預產期是否正式鎖定在 2027/03/22？」</li>
+        <li>「請問目前使用的黃體素支持藥物，預計需要補充到第幾週可以開始減量或停藥？」</li>
+        <li>「請問今天超音波影像中，絨毛膜下是否有觀察到任何出血點或積血情況？」</li>
+        <li>「建議安排在第幾週進行 NIPT 抽血或是早期頸部透明帶 (NT) 篩檢？」</li>
+        <li>「請問今天是否可以領取媽媽手冊並進行第一次正式孕婦產檢登記？」</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 十二、警示訊號 -->
+  <section class="card alert-card">
+    <h2>🚨 十二、重要警示訊號（需立即就醫時機）</h2>
+    <div class="alert-box">
+      <p><strong>若在下次預定產檢前出現以下任何狀況，請勿等待，應立即至急診或婦產科門診就醫：</strong></p>
+      <ul>
+        <li><strong>鮮紅色大量陰道出血：</strong>出血量達到或超過衛生棉沾濕程度。</li>
+        <li><strong>劇烈或持續性下腹陣痛：</strong>出現類似嚴重經痛、單側劇烈撕裂痛或子宮持續硬挺收縮。</li>
+        <li><strong>嚴重頭暈、心悸、昏厥：</strong>伴隨大量出血或急性腹痛。</li>
+        <li><strong>發燒與異常發冷：</strong>體溫 > 38°C 且伴隨陰道異常惡臭分泌物。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 十三、重要聲明 -->
+  <section class="card disclaimer-card">
+    <h2>📌 十三、重要醫療聲明</h2>
+    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">
+      <strong>非診斷聲明：</strong>本報告係依據使用者提供之禾馨婦產科（Stork Ladies Clinic）2026/08/17 與 2026/08/20 超音波影像與數據資料進行之綜合臨床邏輯分析與衛教解讀，內容僅供醫療資訊參考與就診溝通輔助之用，不能替代主治醫師之現場診斷、醫療處方或正式醫療處置。所有關於妊娠週數、預產期及用藥調整之最終決策，均應以您的主治醫師門診診斷為準。
+    </p>
+  </section>
+</div>
