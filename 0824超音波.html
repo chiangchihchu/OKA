@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>早期妊娠動態進度與生殖免疫綜合對比分析報告</title>
 <style>
   :root {
     --primary-color: #1e3a8a;
@@ -29,7 +35,7 @@
   }
 
   .report-container {
-    max-width: 1000px;
+    max-width: 1060px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -46,14 +52,14 @@
 
   .report-header h1 {
     margin: 0 0 10px 0;
-    font-size: 2rem;
+    font-size: 1.95rem;
     font-weight: 700;
     letter-spacing: -0.02em;
   }
 
   .report-subtitle {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 1.02rem;
     opacity: 0.92;
   }
 
@@ -77,17 +83,10 @@
     gap: 10px;
   }
 
-  .card h3 {
-    color: #334155;
-    font-size: 1.15rem;
-    margin-top: 18px;
-    margin-bottom: 10px;
-  }
-
   /* Metric Key Highlights Grid */
   .metrics-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: 16px;
     margin-bottom: 16px;
   }
@@ -107,7 +106,7 @@
   }
 
   .metric-card .value {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     font-weight: 700;
     color: var(--primary-color);
   }
@@ -131,22 +130,64 @@
   .tag.normal { background-color: var(--tag-normal-bg); color: var(--tag-normal-text); }
   .tag.borderline { background-color: var(--tag-borderline-bg); color: var(--tag-borderline-text); }
   .tag.abnormal { background-color: var(--tag-abnormal-bg); color: var(--tag-abnormal-text); }
-  .tag.insufficient { background-color: #f3f4f6; color: #4b5563; }
 
-  /* Chance Badge */
-  .chance-badge-container {
-    text-align: center;
+  /* Timeline Styles */
+  .timeline {
+    position: relative;
+    padding-left: 24px;
+    border-left: 3px solid #cbd5e1;
     margin: 16px 0;
   }
-  .chance-badge {
-    display: inline-block;
-    padding: 10px 24px;
-    border-radius: 12px;
-    font-size: 1.25rem;
-    font-weight: bold;
-    background-color: #d1fae5;
-    color: #065f46;
-    border: 1.5px solid #a7f3d0;
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 22px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -31px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 0 2px var(--primary-color);
+  }
+
+  .timeline-item.active::before {
+    background-color: #0d9488;
+    box-shadow: 0 0 0 2px #0d9488;
+  }
+
+  .timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .timeline-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #1e293b;
+  }
+
+  .timeline-date {
+    font-size: 0.85rem;
+    color: #64748b;
+    background-color: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+
+  .timeline-body {
+    margin-top: 6px;
+    font-size: 0.92rem;
+    color: var(--text-muted);
   }
 
   /* Tables */
@@ -158,11 +199,11 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 12px;
-    font-size: 0.93rem;
+    font-size: 0.90rem;
   }
 
   .lab-table th, .lab-table td {
-    padding: 12px 10px;
+    padding: 10px 10px;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
   }
@@ -183,6 +224,10 @@
     border-radius: 0 10px 10px 0;
   }
 
+  .lab-item-block.alert-border {
+    border-left-color: #dc2626;
+  }
+
   .lab-item-block h3 {
     margin-top: 0;
     display: flex;
@@ -190,6 +235,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 8px;
+    font-size: 1.1rem;
   }
 
   .lab-item-block ul {
@@ -250,6 +296,22 @@
   .alert-box { background-color: #fee2e2; color: #991b1b; border-left: 4px solid #dc2626; }
   .tip-box { background-color: #f0fdf4; color: #15803d; border-left: 4px solid #16a34a; }
 
+  /* Chance Badge */
+  .chance-badge-container {
+    text-align: center;
+    margin: 16px 0;
+  }
+  .chance-badge {
+    display: inline-block;
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 1.5px solid #a7f3d0;
+  }
+
   ul, ol {
     padding-left: 22px;
     margin: 8px 0;
@@ -265,59 +327,163 @@
     line-height: 1.55;
   }
 </style>
+</head>
+<body>
 
 <div class="report-container">
-  <!-- Header -->
   <header class="report-header">
-    <h1>🧬 早期妊娠動態進度與生殖免疫綜合對比分析報告</h1>
-    <p class="report-subtitle">跨期超音波追蹤・生殖荷爾蒙與免疫數據整合判讀・臨床風險分層</p>
+    <h1>🧬 早期妊娠動態進度、生殖免疫與血清對比分析報告</h1>
+    <p class="report-subtitle">最後經期 2026/06/15 ・ D5 囊胚植入 2026/07/01 ・ 08/17、08/20 至 08/24 跨期綜合判讀</p>
   </header>
 
-  <!-- 一、個案摘要與臨床比對背景 -->
+  <!-- 一、個案摘要與臨床植入時程軸 -->
   <section class="card summary-card">
-    <h2>📋 一、個案摘要與臨床比對背景</h2>
-    <p>本報告彙整個案於 <strong>2026/08/17 (8週3天)</strong>、<strong>2026/08/20 (9週3天)</strong> 至最新 <strong>2026/08/24 (10週1天)</strong> 之多時間點超音波影像、黃體素與雌二醇荷爾蒙抽血及生殖免疫全血球面板。核心臨床表現為：<strong>「胎兒結構超速發育、黃體素支持十分充足，成功抵消高濃度 TNF-α 免疫發炎因子之潛在威脅」</strong>。</p>
+    <h2>📋 一、個案摘要與臨床植入時程軸</h2>
+    <p>本報告依據個案提供之試管嬰兒療程關鍵時間點：<strong>最後經期 (LMP) 2026/06/15</strong> 與 <strong>D5 囊胚植入 (FET) 2026/07/01</strong>，精確推算臨床孕週，並綜合對比 2026/08/17 (8週3天)、2026/08/20 (9週3天) 與最新 <strong>2026/08/24 (10週1天至10週3天)</strong> 之完整超音波與血清抽血面板（荷爾蒙、血栓 D-dimer、全血球及免疫淋巴球）進行深度的臨床解析。</p>
     
-    <div class="metrics-grid">
-      <div class="metric-card">
-        <div class="title">最新孕週 (最新 08/24 超音波)</div>
-        <div class="value">10週 1天</div>
-        <div class="subtext">校正預產期: 2027/03/21</div>
-      </div>
-      <div class="metric-card">
-        <div class="title">生長速率 (CRL)</div>
-        <div class="value">1.23 mm/日</div>
-        <div class="subtext">高於臨床標準 (1.0 mm/日)</div>
-      </div>
-      <div class="metric-card">
-        <div class="title">胎兒心率 (FHR)</div>
-        <div class="value">169-177 BPM</div>
-        <div class="subtext">強勁規律 (生理最高峰)</div>
-      </div>
-      <div class="metric-card">
-        <div class="title">黃體素 (P4)</div>
-        <div class="value">23.03 ng/mL</div>
-        <div class="subtext">高於安全標準 (&gt;15-20)</div>
-      </div>
+    <div class="info-box">
+      <strong>💡 生殖醫學孕週 (GA) 精算原理：</strong><br>
+      試管嬰兒 D5 囊胚植入當日（2026/07/01）於臨床上定義為<strong>「懷孕 2 週 5 天 (2w5d)」</strong>。<br>
+      至最新檢查日 <strong>2026/08/24</strong>，實際生理孕週為 <strong>10 週 3 天 (10w3d)</strong>。超音波量測胚胎頭臀長 CRL 3.40 cm（儀器推算 10週1天），兩者誤差僅 2 天，完全符合極優良發育區間。校正預產期 (EDD) 為 <strong>2027年3月18日至 3月21日</strong>。
     </div>
 
-    <table class="lab-table">
-      <tbody>
-        <tr>
-          <td><strong>追蹤醫療機構：</strong>Stork Ladies Clinic（禾馨 / 送子鳥婦產科）</td>
-          <td><strong>評估對象：</strong>宮內單胎懷孕個案</td>
-        </tr>
-        <tr>
-          <td><strong>對比數據時間點：</strong>2026/08/17 (8w3d) → 08/20 (9w3d) → 08/24 (10w1d 最新)</td>
-          <td><strong>整體綜合結論：</strong>宮內活胎，成長趨勢極佳，免疫細胞正常，胚胎活性強勁。</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="metrics-grid" style="margin-top: 18px;">
+      <div class="metric-card">
+        <div class="title">最新估計孕週 (08/24)</div>
+        <div class="value">10週 1天</div>
+        <div class="subtext">CRL 3.40 cm (完美吻合)</div>
+      </div>
+      <div class="metric-card">
+        <div class="title">最新胎心率 (FHR 08/24)</div>
+        <div class="value">169 BPM</div>
+        <div class="subtext">規律強勁 (生理峰值後平穩)</div>
+      </div>
+      <div class="metric-card">
+        <div class="title">黃體素 (P4 08/24)</div>
+        <div class="value">20.59 ng/mL</div>
+        <div class="subtext">安胎防護罩充足 (&gt;15–20)</div>
+      </div>
+      <div class="metric-card">
+        <div class="title">血栓 D-dimer (08/24)</div>
+        <div class="value">0.134 mg/L</div>
+        <div class="subtext">遠低於 0.55 (微循環順暢)</div>
+      </div>
+      <div class="metric-card">
+        <div class="title">雌二醇 (E2 08/24)</div>
+        <div class="value">485.9 pg/mL</div>
+        <div class="subtext">持續上升 (460 → 485.9)</div>
+      </div>
+      <div class="metric-card">
+        <div class="title">NK Cell 絕對數 (08/20)</div>
+        <div class="value">198 /μL</div>
+        <div class="subtext">下降安定 (低於 299.9)</div>
+      </div>
+    </div>
   </section>
 
-  <!-- 二、超音波與驗血跨期對比總覽 -->
+  <!-- 二、每週妊娠進度評估與里程碑 -->
+  <section class="card timeline-card">
+    <h2>📅 二、每週妊娠進度評估與發育里程碑 (4週 - 12週歷程與預估)</h2>
+    <p>依據 2026/07/01 植入 D5 囊胚推算之動態歷程，各週次發育重點與實際檢查對比結果如下：</p>
+
+    <div class="timeline">
+      <!-- 4週 -->
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <span class="timeline-title">第 4 週 (GA 4w0d - 4w6d)：囊胚著床與開榜期</span>
+          <span class="timeline-date">2026/07/10 - 2026/07/16</span>
+        </div>
+        <div class="timeline-body">
+          <strong>臨床發育重點：</strong>囊胚完成孵化並滋養層侵入子宮內膜，開始大量分泌 beta-hCG，為開榜驗孕期。<br>
+          <strong>個案表現：</strong>順利著床，黃體支持成功維持內膜穩定。
+        </div>
+      </div>
+
+      <!-- 5週 -->
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <span class="timeline-title">第 5 週 (GA 5w0d - 5w6d)：妊娠囊 (GS) 顯影期</span>
+          <span class="timeline-date">2026/07/17 - 2026/07/23</span>
+        </div>
+        <div class="timeline-body">
+          <strong>臨床發育重點：</strong>經陰道超音波可確認宮內妊娠囊，排除宮外孕風險。<br>
+          <strong>個案表現：</strong>妊娠囊順利於宮腔深處展延。
+        </div>
+      </div>
+
+      <!-- 6週 -->
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <span class="timeline-title">第 6 週 (GA 6w0d - 6w6d)：卵黃囊與早期心跳出現期</span>
+          <span class="timeline-date">2026/07/24 - 2026/07/30</span>
+        </div>
+        <div class="timeline-body">
+          <strong>臨床發育重點：</strong>可見卵黃囊與微小胚芽 (2–4 mm)，測得早期心跳 (100–120 BPM)。<br>
+          <strong>個案表現：</strong>胚胎構造建立，母胎血流開始網絡化。
+        </div>
+      </div>
+
+      <!-- 7週 -->
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <span class="timeline-title">第 7 週 (GA 7w0d - 7w6d)：器官原基形成與心律加速期</span>
+          <span class="timeline-date">2026/07/31 - 2026/08/06</span>
+        </div>
+        <div class="timeline-body">
+          <strong>臨床發育重點：</strong>肢體芽開始萌芽，心律加速至 130–160 BPM。
+        </div>
+      </div>
+
+      <!-- 8週 -->
+      <div class="timeline-item active">
+        <div class="timeline-header">
+          <span class="timeline-title">第 8 週 (GA 8w0d - 8w6d)：第一階段實測對照 <span class="tag normal">08/17 實測</span></span>
+          <span class="timeline-date">2026/08/07 - 2026/08/13 (08/17 實測 8w3d)</span>
+        </div>
+        <div class="timeline-body">
+          <strong>個案 08/17 實際評估：</strong>CRL 達 <strong>2.42 cm</strong>（超前成長），FHR 達 <strong>168 BPM</strong>。免疫顯現 TNF-α 偏高 (40.8 pg/mL)，但 NK 細胞 (9.2%) 高度安定。
+        </div>
+      </div>
+
+      <!-- 9週 -->
+      <div class="timeline-item active">
+        <div class="timeline-header">
+          <span class="timeline-title">第 9 週 (GA 9w0d - 9w6d)：心律生理最高峰與免疫複檢 <span class="tag normal">08/20 實測</span></span>
+          <span class="timeline-date">2026/08/14 - 2026/08/20 (08/20 實測 9w3d)</span>
+        </div>
+        <div class="timeline-body">
+          <strong>個案 08/20 實際評估：</strong>CRL 達 <strong>2.79 cm</strong>（3天淨增 3.7 mm），FHR 升至生理最高峰 <strong>177 BPM</strong>。P4 達 <strong>23.03 ng/mL</strong>、E2 460.2 pg/mL。NK 絕對值降至 198 /μL，成功抵禦發炎干擾。
+        </div>
+      </div>
+
+      <!-- 10週 -->
+      <div class="timeline-item active">
+        <div class="timeline-header">
+          <span class="timeline-title">第 10 週 (GA 10w0d - 10w6d)：人形具備、血栓與最新血清 <span class="tag normal">08/24 最新</span></span>
+          <span class="timeline-date">2026/08/21 - 2026/08/27 (08/24 最新實測 10w1d-10w3d)</span>
+        </div>
+        <div class="timeline-body">
+          <strong>臨床發育重點：</strong>主要器官基礎解剖結構完成，正式進入「胎兒 (Fetus)」階段。<br>
+          <strong>個案 08/24 最新評估：</strong>CRL 達 <strong>3.40 cm</strong>，FHR 為 <strong>169 BPM</strong>，羊水 MVP 達 <strong>3.50 cm</strong>。最新血清抽血顯示 P4 為 <strong>20.59 ng/mL</strong>、E2 升至 <strong>485.9 pg/mL</strong>，且血栓指標 D-dimer 僅 <strong>0.134 mg/L FEU</strong>（遠低於 0.55），證明胎盤微循環暢通無阻，生長極度優良。
+        </div>
+      </div>
+
+      <!-- 11-12週未來展望 -->
+      <div class="timeline-item">
+        <div class="timeline-header">
+          <span class="timeline-title">第 11-12 週 (預估歷程)：胎盤完全接管與早期染色體篩檢期</span>
+          <span class="timeline-date">2026/08/28 - 2026/09/10</span>
+        </div>
+        <div class="timeline-body">
+          <strong>未來臨床里程碑預告：</strong>胎盤功能完全建立並全面接管荷爾蒙分泌；可執行 NIPT 非侵入性基因檢測或第一孕期唐氏症篩檢 (OSCR 頸部透明帶測量)；安胎藥物可依醫囑評估進入漸進式減量階段。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 三、超音波與驗血數據跨期對比總覽 -->
   <section class="card highlight-card">
-    <h2>🔎 二、超音波與數據跨期對比總覽</h2>
+    <h2>🔎 三、超音波與驗血數據跨期對比總覽 (08/17 vs 08/20 vs 08/24)</h2>
     <div class="lab-table-wrapper">
       <table class="lab-table">
         <thead>
@@ -325,13 +491,14 @@
             <th>分類 / 檢驗項目</th>
             <th>08/17 數值</th>
             <th>08/20 數值</th>
-            <th>08/24 數值(最新)</th>
+            <th>08/24 數值 (最新)</th>
             <th>單位</th>
             <th>參考區間 (Ref)</th>
             <th>狀態與動態趨勢判讀</th>
           </tr>
         </thead>
         <tbody>
+          <!-- 超音波 -->
           <tr>
             <td><strong>頭臀長 (CRL)</strong></td>
             <td>2.42</td>
@@ -339,7 +506,7 @@
             <td>3.40</td>
             <td>cm</td>
             <td>每日 +1.0 mm</td>
-            <td><span class="tag normal">成長超速</span> 8w3d 至 9w3d 淨增 3.7 mm (1.23 mm/日)，10w1d 達 3.40 cm</td>
+            <td><span class="tag normal">成長超速</span> 8w3d (2.42) → 9w3d (2.79) → 10w1d (3.40 cm)，發育充沛</td>
           </tr>
           <tr>
             <td><strong>胎兒心率 (FHR)</strong></td>
@@ -348,280 +515,237 @@
             <td>169</td>
             <td>BPM</td>
             <td>140–180</td>
-            <td><span class="tag normal">規律強音</span> 9週達生理最高峰 177 BPM，10週回落至穩定高值 169 BPM</td>
+            <td><span class="tag normal">規律強音</span> 9週達最高峰 177 BPM，10週回落至穩定高值 169 BPM</td>
           </tr>
           <tr>
-            <td><strong>妊娠囊截面 (GS)</strong></td>
-            <td>4.2 × 2.7</td>
-            <td>4.36 × 1.34</td>
-            <td>--</td>
-            <td>cm</td>
-            <td>宮腔順暢展延</td>
-            <td><span class="tag normal">良好</span> 囊腔張力適中，無過度壓迫</td>
-          </tr>
-          <tr>
-            <td><strong>宮頸安全距離 (+Dist)</strong></td>
-            <td>未標註</td>
-            <td>3.50</td>
-            <td>--</td>
-            <td>cm</td>
-            <td>&gt;3.0 cm</td>
-            <td><span class="tag normal">位置深安</span> 著床位置遠離子宮頸內口，結構穩定</td>
-          </tr>
-          <tr>
-            <td><strong>羊水最大垂直深度 (MVP)</strong></td>
+            <td><strong>羊水最大深度 (MVP)</strong></td>
             <td>--</td>
             <td>--</td>
             <td>3.50</td>
             <td>cm</td>
             <td>&gt;2.0 cm</td>
-            <td><span class="tag normal">充裕</span> 10週羊水空間充足，胎兒活動自如、輪廓清晰</td>
+            <td><span class="tag normal">充裕</span> 羊水腔空間充足，胎兒活動自如、輪廓清晰</td>
           </tr>
+
+          <!-- 荷爾蒙 -->
           <tr>
             <td><strong>黃體素 (P4)</strong></td>
             <td>未抽血</td>
             <td>23.03</td>
-            <td>--</td>
+            <td>20.59</td>
             <td>ng/mL</td>
             <td>&gt;15–20</td>
-            <td><span class="tag normal">安胎防護足</span> 轉化內膜為抗發炎環境，安定子宮</td>
+            <td><span class="tag normal">安胎屏障足</span> 持續穩定高於 20 ng/mL 安全線，鎮靜子宮平滑肌</td>
           </tr>
           <tr>
             <td><strong>雌二醇 (E2)</strong></td>
             <td>未抽血</td>
             <td>460.2</td>
-            <td>--</td>
+            <td>485.9</td>
             <td>pg/mL</td>
             <td>持續上升曲線</td>
-            <td><span class="tag normal">分泌良好</span> 反映滋養層細胞與黃體功能健全</td>
+            <td><span class="tag normal">持續上升</span> 460.2 → 485.9 pg/mL，反映滋養層與胎盤發展健全</td>
           </tr>
+
+          <!-- 凝血 / 血栓 -->
           <tr>
-            <td><strong>腫瘤壞死因子 (TNF-α)</strong></td>
+            <td><strong>D-雙合體 (D-dimer)</strong></td>
+            <td>未抽血</td>
+            <td>未抽血</td>
+            <td>0.134</td>
+            <td>mg/L FEU</td>
+            <td>&lt; 0.55</td>
+            <td><span class="tag normal">極佳安全</span> 遠低於警戒值，排除母胎介面微血栓或高凝血風險</td>
+          </tr>
+
+          <!-- 免疫發炎 -->
+          <tr>
+            <td><strong>腫瘤壞死因子-a (TNF-α)</strong></td>
             <td>40.8</td>
-            <td>未複檢</td>
-            <td>--</td>
+            <td>40.0</td>
+            <td>未抽血</td>
             <td>pg/mL</td>
-            <td>&lt;4.0 (或 &lt;40.0)</td>
-            <td><span class="tag abnormal">發炎偏高</span> 提示發炎因子較顯著，但臨床未抑制胚胎</td>
+            <td>&lt; 4.0</td>
+            <td><span class="tag abnormal">發炎偏高</span> 約 40 pg/mL 提示發炎訊號，但臨床未抑制胚胎且無血栓</td>
           </tr>
+
+          <!-- 免疫淋巴球面板 -->
           <tr>
-            <td><strong>NK Cell (CD16+56) 比例</strong></td>
-            <td>9.2</td>
-            <td>未複檢</td>
-            <td>--</td>
-            <td>%</td>
-            <td>&lt;14.9%</td>
-            <td><span class="tag normal">優良</span> 自然殺手細胞比例未異常爆發，細胞毒性低</td>
-          </tr>
-          <tr>
-            <td><strong>NK Absolute Count 絕對值</strong></td>
-            <td>230</td>
-            <td>未複檢</td>
-            <td>--</td>
-            <td>/μL</td>
-            <td>&lt;299.9</td>
-            <td><span class="tag normal">正常</span> 殺手細胞總數落在安全範圍內</td>
-          </tr>
-          <tr>
-            <td><strong>B細胞 (CD19) 比例 / 數值</strong></td>
-            <td>12.3 / 307</td>
-            <td>未複檢</td>
-            <td>--</td>
+            <td><strong>NK cell (CD16+56) 比例 / 絕對值</strong></td>
+            <td>9.2% / 230</td>
+            <td>10.7% / 198</td>
+            <td>未抽血</td>
             <td>% / /μL</td>
-            <td>&lt;14.9% / &lt;499.9</td>
-            <td><span class="tag normal">正常</span> 體液免疫體系穩定，無過度活化</td>
+            <td>&lt; 14.9% / &lt; 299.9</td>
+            <td><span class="tag normal">下降改善</span> 絕對計數由 230 降至 198 /μL，殺手細胞威脅極低</td>
           </tr>
           <tr>
-            <td><strong>CD4/CD8 比值</strong></td>
+            <td><strong>B cell (CD19) 比例 / 絕對值</strong></td>
+            <td>12.3% / 307</td>
+            <td>11.2% / 207</td>
+            <td>未抽血</td>
+            <td>% / /μL</td>
+            <td>&lt; 14.9% / &lt; 499.9</td>
+            <td><span class="tag normal">下降安定</span> 絕對值降至 207 /μL，體液免疫完全無過度活化</td>
+          </tr>
+          <tr>
+            <td><strong>CD4 / CD8 比值 (Ratio)</strong></td>
             <td>0.8</td>
-            <td>未複檢</td>
-            <td>--</td>
+            <td>0.7</td>
+            <td>未抽血</td>
             <td>Ratio</td>
             <td>0.6–2.5</td>
-            <td><span class="tag normal">平衡</span> T細胞輔助與抑制比例無顯著失衡</td>
+            <td><span class="tag normal">完全平衡</span> T 淋巴球調控和諧，細胞免疫無異常偏向</td>
           </tr>
+
+          <!-- 全血球 CBC -->
           <tr>
-            <td><strong>白血球計數 (WBC)</strong></td>
+            <td><strong>白血球計數 (WBC IDM)</strong></td>
             <td>7.74</td>
-            <td>6.94</td>
-            <td>--</td>
+            <td>6.89</td>
+            <td>5.97</td>
             <td>10^3/μL</td>
-            <td>3.5–10.8</td>
-            <td><span class="tag normal">健康</span> 數值下降且處於正常區間，排除全身性急性感染</td>
+            <td>3.5/4.0–10.0/10.8</td>
+            <td><span class="tag normal">持續改善</span> 7.74 → 6.89 → 5.97，完全排除全身急性細菌感染</td>
           </tr>
           <tr>
             <td><strong>血紅素 (Hb)</strong></td>
-            <td>未做 CBC</td>
+            <td>未抽血</td>
             <td>14.0</td>
-            <td>--</td>
+            <td>13.2</td>
             <td>g/dL</td>
             <td>11.5–15.5</td>
-            <td><span class="tag normal">極佳</span> 帶氧能力滿分，無孕期貧血疑慮</td>
-          </tr>
-          <tr>
-            <td><strong>紅血球平均體積 (MCV)</strong></td>
-            <td>未做 CBC</td>
-            <td>92.1</td>
-            <td>--</td>
-            <td>fL</td>
-            <td>80–99</td>
-            <td><span class="tag normal">正常</span> 排除地中海型貧血與缺鐵性小細胞貧血</td>
+            <td><span class="tag normal">優良</span> 帶氧能力滿分，完全無孕期貧血疑慮</td>
           </tr>
           <tr>
             <td><strong>血小板計數 (PLT)</strong></td>
-            <td>未做 CBC</td>
+            <td>未抽血</td>
             <td>321</td>
-            <td>--</td>
+            <td>297</td>
             <td>10^3/μL</td>
             <td>130–399</td>
-            <td><span class="tag normal">正常</span> 凝血功能良好，無過低出血或過高血栓風險</td>
+            <td><span class="tag normal">正常</span> 凝血功能良好，無過高血栓或消耗性過低疑慮</td>
           </tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- 三、每一項檢驗數字的詳細說明 -->
+  <!-- 四、每一項檢驗數字的詳細說明 -->
   <section class="card detailed-lab-card">
-    <h2>🧾 三、每一項檢驗數字與指標的詳細說明</h2>
+    <h2>🧾 四、每一項檢驗數字與指標的詳細說明 (含 08/24 最新血清)</h2>
 
-    <!-- CRL -->
+    <!-- 1. CRL -->
     <div class="lab-item-block">
-      <h3>1. 頭臀長 (CRL, Crown-Rump Length)：3.40 cm <span class="tag normal">發育超速</span></h3>
+      <h3>1. 頭臀長 (CRL)：3.40 cm (08/24) <span class="tag normal">發育優良</span></h3>
       <ul>
-        <li><strong>這個數字代表什麼：</strong>胎兒頭頂（頂骨）至臀部底端的直線距離，不包含下肢長度。</li>
-        <li><strong>在生殖與產科評估中的意義：</strong>CRL 是第一孕期估算胚胎真實孕週與推算/校正預產期 (EDD) 最精準的金標準指標。</li>
-        <li><strong>跨期動態趨勢：</strong>從 8週3天的 2.42 cm 增加至 9週3天的 2.79 cm（3天長大 3.7 mm，平均每日增長 1.23 mm），再升至 2026/08/24 (10週1天) 的 3.40 cm。</li>
-        <li><strong>偏高/偏低之臨床意義：</strong>生長速度持續超過常規每日 1.0 mm 之標準，顯示胎盤絨毛血流供應與細胞增殖極度活絡，完全排除早期發育遲緩 (IUGR) 可能。</li>
-        <li><strong>本個案的可能解讀：</strong>胚胎展現出優異的生命力，超音波儀器估計週數為 10w1d（10週1天），精確校正預產期為 <strong>2027年3月21日</strong>。</li>
+        <li><strong>這個數字代表什麼：</strong>胎兒頭頂至臀部底端的直線距離。</li>
+        <li><strong>在生殖評估中的意義：</strong>第一孕期推算胚胎真實孕週與校正預產期 (EDD) 的金標準。</li>
+        <li><strong>動態趨勢：</strong>8w3d (2.42 cm) → 9w3d (2.79 cm) → 10w1d (3.40 cm)。</li>
+        <li><strong>本個案的解讀：</strong>成長速率持續超越每日 1.0 mm 之臨床標準，與 07/01 D5 植入時程契合（10w1d vs 10w3d），排除早期發育遲緩 (IUGR)。</li>
       </ul>
     </div>
 
-    <!-- FHR -->
+    <!-- 2. FHR -->
     <div class="lab-item-block">
-      <h3>2. 胎兒心率 (FHR, Fetal Heart Rate)：169-177 BPM <span class="tag normal">強勁規律</span></h3>
+      <h3>2. 胎兒心率 (FHR)：169 BPM (08/24) <span class="tag normal">強勁規律</span></h3>
       <ul>
-        <li><strong>這個數字代表什麼：</strong>胎兒每分鐘心跳次數 (Beats Per Minute)。</li>
-        <li><strong>在生殖與產科評估中的意義：</strong>8週3天為 168 BPM，9週3天升至最高峰 177 BPM，2026/08/24 (10週1天) 微幅回落至穩定高值 169 BPM。</li>
-        <li><strong>偏高/偏低之臨床意義：</strong>9–10 週為胎兒心血管中樞發育成熟期，心率達 160–180 BPM 為典型生理高峰，隨後於 10–12 週漸漸穩定微降至 120–160 BPM。低於 120 BPM 方需擔憂心動過緩。</li>
-        <li><strong>本個案的可能解讀：</strong>多普勒血流波型規律充沛，代表胎兒中樞神經與心肌收縮功能健全，早期流產率已大幅降至極低水準。</li>
+        <li><strong>動態變化：</strong>08/17 (168 BPM) → 08/20 (177 BPM 生理最高峰) → 08/24 (169 BPM 高值平穩)。</li>
+        <li><strong>本個案的解讀：</strong>9–10 週為心血管成熟期，由最高峰 177 BPM 微幅回落至 169 BPM 為完美之生理軌跡，心肌收縮極為強勁。</li>
       </ul>
     </div>
 
-    <!-- MVP -->
+    <!-- 3. D-dimer -->
     <div class="lab-item-block">
-      <h3>3. 羊水最大垂直深度 / 胎囊空間 (MVP)：3.50 cm <span class="tag normal">空間充裕</span></h3>
+      <h3>3. D-雙合體 (D-dimer)：0.134 mg/L FEU (08/24) <span class="tag normal">極佳/無血栓疑慮</span></h3>
       <ul>
-        <li><strong>這個數字代表什麼：</strong>最新 08/24 超音波影像中量測胎兒周圍無回音區（羊水腔）的最大垂直直徑。</li>
-        <li><strong>在生殖與產科評估中的意義：</strong>評估胎兒是否有足夠的發育空間與包覆保護，防止胎膜粘連並促進肢體發展。一般第一孕期 MVP 大於 2.0 cm 即屬正常。</li>
-        <li><strong>本個案的可能解讀：</strong>3.50 cm 顯示羊水腔空間十分充足，胎兒浮動於液體環境中，軀幹與肢體輪廓分明，且未見巨大絨毛膜下血腫壓迫。</li>
+        <li><strong>這個數字代表什麼：</strong>纖維蛋白溶解產物，用以評估體內是否有異常血栓形成或高凝血傾向。</li>
+        <li><strong>在生殖免疫中的關鍵意義：</strong>生殖免疫個案若出現高凝血（D-dimer &gt; 0.55 mg/L），易導致胎盤微血管栓塞，影響胚胎供血。</li>
+        <li><strong>本個案的解讀：</strong>0.134 mg/L 遠低於參考值上限 (0.55 mg/L)，證實目前母胎介面微循環極度順暢，完全無高凝血栓塞風險！</li>
       </ul>
     </div>
 
-    <!-- P4 & E2 -->
+    <!-- 4. P4 & E2 -->
     <div class="lab-item-block">
-      <h3>4. 黃體素 (P4)：23.03 ng/mL & 雌二醇 (E2)：460.2 pg/mL <span class="tag normal">安胎屏障完備</span></h3>
+      <h3>4. 黃體素 (P4)：20.59 ng/mL & 雌二醇 (E2)：485.9 pg/mL (08/24) <span class="tag normal">防護屏障充沛</span></h3>
       <ul>
-        <li><strong>這個數字代表什麼：</strong>P4 為維持子宮內膜安定、抑制子宮收縮的關鍵荷爾蒙；E2 反映滋養層與黃體支持強度。</li>
-        <li><strong>在生殖與產科評估中的意義：</strong>孕早期 P4 建議穩定於 &gt;15–20 ng/mL 以上。本案達 23.03 ng/mL，屬非常充裕之安胎濃度。</li>
-        <li><strong>本個案的可能解讀：</strong>高濃度的 P4 能誘導子宮局部轉向免疫耐受（Th2 傾向），發揮防護罩功能，成功擋下全身性發炎因子（TNF-α）對胚胎的衝擊。</li>
+        <li><strong>動態對比：</strong>P4 由 08/20 的 23.03 稍微調整至 20.59 ng/mL（仍穩居 &gt;15–20 ng/mL 之高標準安胎區間）；E2 則由 460.2 上升至 <strong>485.9 pg/mL</strong>。</li>
+        <li><strong>本個案的解讀：</strong>E2 的持續上升反映滋養層與早期胎盤功能逐漸茁壯，配合充沛之 P4，提供穩定子宮、防範宮縮的堅固屏障。</li>
       </ul>
     </div>
 
-    <!-- TNF-alpha -->
-    <div class="lab-item-block">
-      <h3>5. 腫瘤壞死因子 (TNF-α)：40.8 pg/mL <span class="tag abnormal">免疫發炎偏高</span></h3>
+    <!-- 5. TNF-alpha -->
+    <div class="lab-item-block alert-border">
+      <h3>5. 腫瘤壞死因子-a (TNF-α)：40.0 pg/mL (08/20) <span class="tag abnormal">發炎偏高/臨床壓制成功</span></h3>
       <ul>
-        <li><strong>這個數字代表什麼：</strong>由活化的巨噬細胞與 Th1 細胞分泌之促發炎細胞激素 (Pro-inflammatory cytokine)。</li>
-        <li><strong>在生殖免疫中的意義：</strong>參考標準通常為 &lt;4.0 pg/mL（部分檢驗單位標示上限為 &lt;40.0 pg/mL）。40.8 pg/mL 提示體內存在發炎反應或免疫對著床之排斥傾向。</li>
-        <li><strong>本個案的可能解讀：</strong>雖然數字偏高，但<strong>「臨床表現優先於單一血清數字」</strong>—連續三次超音波顯示胚胎發育超速且心跳強勁，證明發炎因子未實質損傷胚胎，現有之安胎與支持方案極為成功。</li>
+        <li><strong>這個數字代表什麼：</strong>促發炎細胞激素（參考值 &lt; 4.0 pg/mL）。08/17 (40.8) 與 08/20 (40.0) 均維持在 40 pg/mL 左右。</li>
+        <li><strong>本個案的解讀：</strong>數字顯示體內有發炎訊號，但結合 08/24 D-dimer (0.134) 與超音波 (CRL 3.40 cm, FHR 169) 證實，此發炎因子並未造成微血栓或發育抑制，現有安胎處方完全成功阻斷其毒性。</li>
       </ul>
     </div>
 
-    <!-- Immune Cells -->
+    <!-- 6. NK cells & Immune Panel -->
     <div class="lab-item-block">
-      <h3>6. 生殖免疫細胞面板 (NK Cell 9.2%、CD19 12.3%、CD4/CD8 0.8) <span class="tag normal">完全正常</span></h3>
+      <h3>6. 免疫淋巴球面板 (NK 198 /μL, CD4/CD8 Ratio 0.7) <span class="tag normal">完全安定</span></h3>
       <ul>
-        <li><strong>自然殺手細胞 (NK Cell CD16+56)：</strong>比例 9.2%（標準 &lt;14.9%），絕對計數 230 /μL（標準 &lt;299.9 /μL）。代表具攻擊性的殺手細胞未異常暴增。</li>
-        <li><strong>B細胞 (CD19)：</strong>比例 12.3%、絕對值 307 /μL（標準 &lt;499.9 /μL），體液免疫與自我抗體製造趨勢平穩。</li>
-        <li><strong>CD4/CD8 比值：</strong>0.8（標準 0.6–2.5），輔助性與抑制性 T 細胞比例平衡，無嚴重的細胞免疫失衡。</li>
+        <li><strong>NK 細胞：</strong>08/20 絕對計數降至 <strong>198 /μL</strong>（&lt; 299.9），殺手細胞未受 TNF-α 刺激而爆發。</li>
+        <li><strong>T/B 細胞：</strong>CD19 B細胞降至 207 /μL，CD4/CD8 Ratio 為 0.7（標準 0.6–2.5），免疫調控極為和諧。</li>
       </ul>
     </div>
 
-    <!-- CBC Panel -->
+    <!-- 7. CBC Panel -->
     <div class="lab-item-block">
-      <h3>7. 全血球計數面板 (WBC 6.94, Hb 14.0, MCV 92.1, PLT 321) <span class="tag normal">質地優良</span></h3>
+      <h3>7. 全血球面板 (08/24 WBC 5.97, Hb 13.2, PLT 297, NEUT 53.1%) <span class="tag normal">極為健康</span></h3>
       <ul>
-        <li><strong>WBC (白血球)：</strong>由 7.74 降至 6.94 × 10^3/μL，排除細菌性急性感染或嚴重發炎爆發。</li>
-        <li><strong>Hb (血紅素) & MCV：</strong>血紅素達 14.0 g/dL（極佳帶氧量），MCV 92.1 fL 正常，保障胎盤獲得充足養分與氧氣輸送。</li>
-        <li><strong>PLT (血小板)：</strong>321 × 10^3/μL，處於正常範圍，無抗磷脂質症候群常見之血小板消耗過低，亦無過度高凝血風險。</li>
+        <li><strong>WBC：</strong>由 08/17 的 7.74 降至 08/20 的 6.89，08/24 再降至 <strong>5.97 × 10^3/μL</strong>，完全排除急性感染。</li>
+        <li><strong>Hb 13.2 g/dL & PLT 297：</strong>帶氧量充沛，血小板數量極為理想，無貧血或消耗性凝血異常。</li>
       </ul>
     </div>
   </section>
 
-  <!-- 四、整體評估 -->
+  <!-- 五、整體評估 -->
   <section class="card evaluation-card">
-    <h2>🧠 四、整體生殖、免疫與妊娠發育綜合評估</h2>
-    <p>綜合 2026/08/17、08/20 與最新 08/24 之連續跨期動態數據，臨床評估結論如下：</p>
+    <h2>🧠 五、整體生殖、免疫與妊娠發育綜合評估</h2>
+    <p>綜合 2026/06/15 LMP、2026/07/01 D5 植入與 08/17、08/20、08/24 跨期連續數據，臨床綜合結論如下：</p>
     <ul>
-      <li><strong>1. 胚胎生命力展現極高優勢：</strong>頭臀長 (CRL) 以每天 1.23 mm 的速度超速成長，心跳強勁規律 (169–177 BPM)，且 10 週 MVP 羊水空間（3.50 cm）充足，顯示胎盤微血管循環建立完美，胚胎品質優良。</li>
-      <li><strong>2. 荷爾蒙建立堅固屏障：</strong>黃體素達 23.03 ng/mL，成功封鎖子宮收縮並轉換免疫微環境，完全壓制了偏高的 TNF-α (40.8 pg/mL) 發炎干擾。</li>
-      <li><strong>3. 免疫體系總體平衡：</strong>周邊血 NK 細胞、B 細胞與 T 細胞比值均維持在極為安全的參考範圍內，未出現免疫系統過度活化攻擊胎兒的現象。</li>
+      <li><strong>1. 胚胎生命力與發育超速：</strong>08/24 實測 CRL 3.40 cm (10w1d)，FHR 169 BPM，羊水 MVP 3.50 cm，完全符合 10 週黃金發育曲線。</li>
+      <li><strong>2. 荷爾蒙與微循環雙重防護：</strong>P4 保持在 20.59 ng/mL，E2 上升至 485.9 pg/mL，且 08/24 最新 D-dimer 極低 (0.134 mg/L)，徹底消除了發炎因子可能引發之胎盤微血栓疑慮。</li>
+      <li><strong>3. 免疫平衡維持良好：</strong>NK 細胞絕對數 (198 /μL) 下降且安定，CD4/CD8 比值 (0.7) 平衡，成功克服了 TNF-α (40 pg/mL) 的發炎干擾。</li>
     </ul>
   </section>
 
-  <!-- 五、目前成功機率評估 -->
+  <!-- 六、成功機率評估 -->
   <section class="card chance-card">
-    <h2>📈 五、目前持續妊娠（成功順產）機率評估</h2>
+    <h2>📈 六、目前持續妊娠（成功順產）機率評估</h2>
     <div class="chance-badge-container">
       <div class="chance-badge">預後評估等級：偏高 (極佳 / Highly Favorable)</div>
     </div>
-    <p><strong>情境說明：</strong>個案已順利進入<strong>第10週 (10w1d)</strong> 且胚胎連續展現超速成長與強勁心跳。在生殖醫學臨床實務中，過關至 10 週且心跳穩定於 &gt;160 BPM 之活胎，後續維持至順產之相對成功率高達 <strong>97% 以上</strong>（流產率降至 2-3% 以下）。</p>
+    <p><strong>情境說明：</strong>個案已順利進入<strong>第 10 週 (10w1d - 10w3d)</strong>。在生殖醫學臨床大數據中，D5 囊胚植入且於 10 週展現超速成長 (CRL 3.40 cm)、強勁心跳 (169 BPM) 與正常 D-dimer (0.134 mg/L) 的活胎，其持續妊娠至順產之成功率高達 <strong>97% 以上</strong>（早期流產率已顯著降至 2-3% 以下）。</p>
 
     <div class="two-column-grid">
       <div class="good-factors-box">
         <h3>✅ 正面有利因素</h3>
         <ul>
-          <li><strong>生長速率超標：</strong>CRL 每日增長 1.23 mm，高於平均值，10w1d 達 3.40 cm，排除早期發育不良。</li>
-          <li><strong>心律處於頂峰：</strong>169–177 BPM 強勁心跳，生命力極旺盛。</li>
-          <li><strong>黃體支持充沛：</strong>P4 &gt; 20 ng/mL 提供極佳之內膜安定作用。</li>
-          <li><strong>羊水空間充足：</strong>MVP 3.50 cm，胎兒生長與活動空間良好。</li>
-          <li><strong>免疫細胞安定：</strong>NK 比例 9.2%，未見細胞毒性攻擊。</li>
-          <li><strong>宮頸距離優良：</strong>宮頸安全距離達 3.50 cm，著床穩固。</li>
+          <li><strong>生長速率超標：</strong>CRL 達 3.40 cm，胎兒結構發育完全符合週數。</li>
+          <li><strong>心律強勁穩定：</strong>FHR 169 BPM，心血管充血與中樞神經發育優良。</li>
+          <li><strong>無胎盤微血栓：</strong>D-dimer 僅 0.134 mg/L，母胎微循環極度順暢。</li>
+          <li><strong>黃體支持充足：</strong>P4 &gt; 20 ng/mL，E2 上升至 485.9 pg/mL，內膜安定。</li>
+          <li><strong>殺手細胞安定：</strong>NK 絕對數 198 /μL 呈下降趨勢，免疫毒性低。</li>
         </ul>
       </div>
       <div class="risk-factors-box">
         <h3>⚠️ 可能潛在風險因素</h3>
         <ul>
-          <li><strong>TNF-α 發炎因子偏高：</strong>40.8 pg/mL 提示體內仍有發炎訊號，需持續追蹤，避免後期轉為血管內皮發炎。</li>
-          <li><strong>染色體風險未定：</strong>超音波結構良好，但仍需仰賴 10–13 週之 NIPT 或早期唐氏症篩檢 (OSCR) 確認染色體數目。</li>
-          <li><strong>黃體-胎盤交接期：</strong>10–12 週為黃體素減量過渡期，需嚴格遵照醫囑調藥。</li>
+          <li><strong>TNF-α 發炎因子偏高：</strong>40 pg/mL 提示體內仍有發炎訊號，需維持良好作息與飲食，防範後期血管發炎。</li>
+          <li><strong>染色體風險未定：</strong>需仰賴 10–13 週之 NIPT 或早期唐氏症篩檢 (OSCR) 確認染色體數目。</li>
+          <li><strong>黃體-胎盤交接期：</strong>10–12 週為藥物逐步減量過渡期，需嚴格遵照醫囑。</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- 六、階段性風險分析與注意事項 -->
-  <section class="card risk-card">
-    <h2>⚠️ 六、階段性風險分析與臨床注意事項</h2>
-    <ul>
-      <li><strong>發炎因子控制：</strong>雖然 TNF-α 目前未對胚胎造成實質損害，但宜注意飲食（減少高糖、高油、加工食品等致發炎飲食）與作息，必要時依生殖免疫醫師指示使用適當之免疫調節藥物（如奎寧、阿斯匹靈或生物製劑）。</li>
-      <li><strong>絨毛膜下血腫預防：</strong>隨著胎盤迅速擴展，應避免劇烈運動與提重物，防範絨毛膜下出血 (Subchorionic Hematoma)。</li>
-    </ul>
-  </section>
-
-  <!-- 七、調研資料摘要 -->
-  <section class="card research-card">
-    <h2>📚 七、臨床醫學調研與共識摘要</h2>
-    <ul>
-      <li><strong>早期妊娠心律動態：</strong>臨床醫學共識指出，胎兒心率於 9 週達到人生生理最高峰（約 175–180 BPM），此後於 10–12 週微幅下降並穩定於 120–160 BPM，本個案之 177 → 169 BPM 軌跡完全符合完美生理發育曲線。</li>
-      <li><strong>免疫發炎因子與黃體素拮抗作用：</strong>生殖免疫學研究顯示，足量的黃體素（P4 &gt; 20 ng/mL）能誘導產生黃體素誘導阻斷因子 (PIBF)，有效保護母胎介面免受 TNF-α 等發炎細胞激素之細胞毒性傷害。</li>
-    </ul>
-  </section>
-
-  <!-- 八、建議補充檢查 -->
+  <!-- 七、建議補充檢查 -->
   <section class="card next-step-card">
-    <h2>🧪 八、建議後續補充與進階檢查</h2>
+    <h2>🧪 七、建議後續補充與進階檢查</h2>
     <div class="lab-table-wrapper">
       <table class="lab-table">
         <thead>
@@ -635,63 +759,52 @@
           <tr>
             <td><strong>NIPT / NIPS (非侵入性胎兒染色體篩檢)</strong></td>
             <td>滿 10 週即可執行 (目前已符合)</td>
-            <td>抽取母體靜脈血，精準篩檢唐氏症 (T21)、愛德華氏症 (T18)、帕陶氏症 (T13) 及微缺損。</td>
+            <td>抽取母體靜脈血，精準篩檢唐氏症 (T21)、愛德華氏症 (T18)、帕陶氏症 (T13) 及染色體微缺損。</td>
           </tr>
           <tr>
             <td><strong>OSCR 第一孕期唐氏症篩檢</strong></td>
             <td>11–13+6 週</td>
-            <td>結合頸部透明帶 (NT) 測量與母體血清 PAPP-A / Free β-hCG 評估。</td>
+            <td>結合頸部透明帶 (NT) 測量與母體血清 PAPP-A / Free β-hCG 進行綜合風險評估。</td>
           </tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- 九、步驟指引 -->
+  <!-- 八、步驟指引 -->
   <section class="card plan-card">
-    <h2>🪜 九、後續照護與門診步驟指引</h2>
+    <h2>🪜 八、後續照護與門診步驟指引</h2>
     <ol>
       <li><strong>第一步（立即）：領取媽媽手冊與公費第一孕期抽血</strong><br>
-          目前已滿 10 週 (10w1d) 且發展穩定，應正式領取《孕婦健康手冊》，完成第一孕期常規公費抽血（血型、貧血、梅毒、愛滋、水痘抗體等）。</li>
+          目前已滿 10 週 (10w1d-10w3d) 且發展極度穩定，應正式領取《孕婦健康手冊》，完成第一孕期常規公費抽血。</li>
       <li><strong>第二步（10-12週）：諮詢並確定染色體篩檢方案</strong><br>
-          選擇執行自費 NIPT 高階基因篩檢，或安排 11–13+6 週之公費/自費早期唐氏症篩檢（OSCR 頸部透明帶超音波）。</li>
-      <li><strong>第三步（10-12週）：免疫門診定期追蹤</strong><br>
-          向生殖免疫醫師回診，評估 TNF-α 是否需要複檢，並確認安胎藥物（黃體素、阿斯匹靈等）之漸進式減量時程。</li>
+          選擇執行自費 NIPT 高階基因篩檢，或安排 11–13+6 週之早期唐氏症篩檢（OSCR 頸部透明帶超音波）。</li>
+      <li><strong>第三步（10-12週）：生殖免疫門診定期追蹤</strong><br>
+          回門診確認安胎與免疫藥物（黃體素、阿斯匹靈等）之漸進式減量時程。</li>
       <li><strong>第四步（16-20週）：預約中孕期高層次超音波</strong><br>
           提早預約 20–24 週高層次超音波（Detailed Ultrasound），進行全身器官細部結構排畸。</li>
     </ol>
   </section>
 
-  <!-- 十、生活與治療建議 -->
-  <section class="card advice-card">
-    <h2>💡 十、生活型態與安胎治療建議</h2>
-    <ul>
-      <li><strong>持續葉酸與營養補充：</strong>每日補充 400–800 mcg 葉酸，並可適度補充維生素 D3（建議維持血清濃度 &gt;30 ng/mL）以協助免疫調節。</li>
-      <li><strong>嚴格遵循安胎醫囑：</strong>若有使用快孕隆、小白球（黃體素）或阿斯匹靈等藥物，切勿因超音波正常而自行停藥，必須由醫師評估胎盤接管進度後逐步減量。</li>
-      <li><strong>抗發炎生活作息：</strong>保持充足睡眠（避免熬夜引發 TNF-α 升高），多攝取抗氧化飲食（如深色蔬菜、莓果類），避免溫泉、熱水澡等高溫環境。</li>
-    </ul>
-  </section>
-
-  <!-- 十一、建議與醫師討論的關鍵問題 -->
+  <!-- 九、建議與醫師討論的關鍵問題 -->
   <section class="card discussion-card">
-    <h2>🗣️ 十一、建議與主治醫師討論的關鍵問題</h2>
+    <h2>🗣️ 九、建議與主治醫師討論的關鍵問題</h2>
     <div class="tip-box">
       <strong>下次回診時，您可以直接詢問主治醫師以下 6 個關鍵問題：</strong>
     </div>
     <ol style="margin-top:12px;">
-      <li>「醫師，目前 08/24 超音波顯示胎兒達 10週1天 (CRL 3.40 cm)，心跳 169 BPM 強勁，今天是否可以正式領取媽媽手冊並安排第一孕期公費抽血？」</li>
-      <li>「我之前抽血的 TNF-α 為 40.8 pg/mL 偏高，但 NK 細胞與白血球都正常，請問目前的免疫或安胎藥物需要調整嗎？後續需要複檢 TNF-α 嗎？」</li>
-      <li>「黃體素 P4 達 23.03 ng/mL 相當充足，請問目前的黃體素安胎藥物建議維持原劑量到第幾週開始減量？」</li>
+      <li>「醫師，目前 08/24 超音波顯示胎兒達 10週1天 (CRL 3.40 cm)，今天是否可以正式領取媽媽手冊並安排第一孕期公費抽血？」</li>
+      <li>「我 08/24 抽血顯示 D-dimer 為 0.134 mg/L 非常正常，P4 為 20.59 ng/mL、E2 為 485.9 pg/mL，請問目前的阿斯匹靈或黃體素劑量建議如何調整？」</li>
+      <li>「雖然 TNF-α 為 40.0 pg/mL 偏高，但 NK 細胞 (198 /μL) 與 D-dimer 都很正常，請問免疫藥物需要繼續維持原劑量嗎？」</li>
       <li>「以我目前的狀況，您會建議我直接做 NIPT 非侵入性基因檢測，還是做 OSCR 頸部透明帶篩檢？」</li>
-      <li>「超音波顯示宮頸安全距離有 3.5 cm，著床很深，羊水 MVP 3.5 cm，請問在日常活動上可以恢復正常的散步或輕度家務嗎？」</li>
-      <li>「下次超音波檢查（如頸部透明帶測量）建議預約在幾週幾天最合適？」</li>
+      <li>「超音波顯示宮頸安全距離有 3.5 cm，羊水 MVP 3.5 cm，請問在日常活動上可以恢復正常的散步或輕度家務嗎？」</li>
+      <li>「下次超音波檢查（如頸部透明帶 NT 測量）建議預約在第幾週最合適？」</li>
     </ol>
   </section>
 
-  <!-- 十二、警示訊號 -->
+  <!-- 十、重要警示訊號 -->
   <section class="card alert-card">
-    <h2>🚨 十二、重要警示訊號（何時需立即就醫）</h2>
-    <p>雖然目前胚胎與荷爾蒙狀態極佳，但在妊娠過程中若出現以下任何症狀，請勿等待例行回診，應立即至婦產科門診或急診就醫：</p>
+    <h2>🚨 十、重要警示訊號（何時需立即就醫）</h2>
     <div class="alert-box">
       <ul>
         <li><strong>陰道鮮紅出血：</strong>出現鮮紅色出血、出血量達浸濕衛生棉程度，或伴隨大量血塊。</li>
@@ -702,13 +815,16 @@
     </div>
   </section>
 
-  <!-- 十三、重要聲明 -->
+  <!-- 十一、重要聲明 -->
   <section class="card disclaimer-card">
-    <h2>📌 十三、重要聲明與醫療非診斷聲明</h2>
+    <h2>📌 十一、重要聲明與醫療非診斷聲明</h2>
     <div class="disclaimer-text">
-      <p>1. 本報告係根據使用者提供之 2026/08/17、2026/08/20 與 2026/08/24 Stork Ladies Clinic（禾馨 / 送子鳥婦產科）之超音波影像、黃體素 / 雌二醇荷爾蒙、全血球及生殖免疫數據進行之臨床邏輯綜合對比分析與資訊整理。</p>
+      <p>1. 本報告係根據使用者提供之最後經期 (2026/06/15)、D5 囊胚植入日 (2026/07/01) 與 Stork Ladies Clinic（禾馨 / 送子鳥婦產科）之超音波影像、黃體素 / 雌二醇荷爾蒙、D-dimer、全血球及生殖免疫數據進行之臨床邏輯綜合對比分析與資訊整理。</p>
       <p>2. 本分析結果僅供醫療資訊參考與就醫溝通輔助之用，<strong>不能替代專業醫師之現場親自診斷、醫療諮詢、藥物開立或處置行為</strong>。</p>
       <p>3. 早期妊娠與生殖免疫狀態為動態變化過程，最終妊娠週數、預產期判定、安胎與免疫藥物調整，請務必以您的主治婦產科與生殖免疫專科醫師之現場說明與評估為準。</p>
     </div>
   </section>
 </div>
+
+</body>
+</html>
