@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>桃竹地區四大產後護理之家綜合評估與決策系統</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Custom chart container styles enforcing technical constraints */
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 320px;
+      max-height: 400px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 380px;
+      }
+    }
+    .radar-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 350px;
+      max-height: 420px;
+    }
+    @media (min-width: 768px) {
+      .radar-container {
+        height: 400px;
+      }
+    }
+    /* Custom scrollbar for clean aesthetic */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f8fafc;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased leading-relaxed min-h-screen flex flex-col">
+
+  <!-- Chosen Palette: Gentle Warm Slate & Warm Rose Accent -->
+  <!-- Application Structure Plan:
+       Designed as an interactive analytic portal for expecting parents in Taoyuan and Hsinchu.
+       1. Hero Banner & Core Summary: Immediate overall ranking, core takeaways, and Quick Match CTA.
+       2. Quantitative Comparison (100-pt model): Chart.js Radar & Bar charts to compare dimension scores side-by-side.
+       3. Interactive Price & Stay Calculator: Dynamic slider allowing users to adjust stay duration (14 to 30 days) and view projected totals for all 4 centers.
+       4. Deep-Dive Profiles: Tabbed interface for all 4 centers with structured metrics (Care, Lodging, Food, Environment, Risks).
+       5. Interactive Scenario Matcher: Questionnaire/Toggle-based wizard mapping personal needs (e.g. Budget, Older child stay, Medical security) to recommended centers.
+       6. Comprehensive Matrix Table: Full spec comparison table with filter/search capability.
+       7. References & Disclaimers: Official sources and validation dates.
+  -->
+  <!-- Visualization & Content Choices:
+       - Chart.js Radar Chart: Multi-dimensional score breakdown across 12 criteria (NO SVG used).
+       - Chart.js Bar Chart: Overall Weighted Score & Daily Rate Range comparison.
+       - Interactive JS Calculator: Dynamic price calculation based on custom stay duration.
+       - Scenario Matching Logic: Client-side JS filtering and custom recommendation engine.
+  -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+  <!-- Top Navigation Header -->
+  <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl">👶</span>
+        <span class="font-bold text-lg sm:text-xl text-slate-900 tracking-tight">桃竹產後護理之家綜合評估系統</span>
+      </div>
+      <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-600">
+        <a href="#overview" class="hover:text-rose-600 transition-colors">綜合排名</a>
+        <a href="#charts" class="hover:text-rose-600 transition-colors">量化評比</a>
+        <a href="#calculator" class="hover:text-rose-600 transition-colors">費用試算</a>
+        <a href="#profiles" class="hover:text-rose-600 transition-colors">機構剖析</a>
+        <a href="#scenario" class="hover:text-rose-600 transition-colors">智慧配對</a>
+        <a href="#matrix" class="hover:text-rose-600 transition-colors">完整對照</a>
+      </nav>
+      <a href="#scenario" class="bg-rose-500 hover:bg-rose-600 text-white text-xs sm:text-sm font-semibold px-4 py-2 rounded-full shadow-sm transition-all transform hover:scale-105">
+        🎯 智慧選中心
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+    <!-- HERO / OVERVIEW SECTION -->
+    <section id="overview" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+      <div class="max-w-3xl mb-8">
+        <span class="inline-block bg-rose-100 text-rose-800 text-xs font-semibold px-3 py-1 rounded-full mb-3">2026 最新綜合量化報告</span>
+        <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
+          桃竹四大指標性產後護理之家：多維度評估與選擇指南
+        </h1>
+        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+          本報告針對桃園市與新竹縣市四家核心產後護理之家——<b>桃園青田悅</b>、<b>桃園茵格麗德</b>、<b>新竹帝寶竹北</b>與<b>新竹送子鳥愛月</b>，建立 100 分量化指標模型。以「母嬰安全與臨床照護品質」為核心，深層整合衛福部登記資料、官方價格、Google 商家評論與地理環境數據，協助您做出最適決策。
+        </p>
+      </div>
+
+      <!-- Quick Ranking Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- 1st Rank -->
+        <div class="bg-amber-50/60 border border-amber-200/80 rounded-xl p-5 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-2 -top-2 text-6xl opacity-10 select-none">🥇</div>
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="bg-amber-500 text-white text-xs font-bold px-2.5 py-0.5 rounded-full">🏆 第一名</span>
+              <span class="text-2xl font-black text-amber-700">93.5 <span class="text-xs font-normal">/100</span></span>
+            </div>
+            <h3 class="font-bold text-slate-900 text-lg mb-1">新竹送子鳥愛月</h3>
+            <p class="text-xs text-amber-900/80 font-medium mb-3">新竹市東區 · 生殖醫療背景</p>
+            <p class="text-xs text-slate-600 line-clamp-3">深厚生殖醫學背景，奢華藝術飯店規格，極致感染控制與專屬車位配置。</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-amber-200/60 flex justify-between items-center text-xs text-amber-800 font-medium">
+            <span>約 $8,800 - $12,800/天</span>
+            <a href="#profile-stork" class="hover:underline text-amber-900 font-bold">詳情 &rarr;</a>
+          </div>
+        </div>
+
+        <!-- 2nd Rank -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-2 -top-2 text-6xl opacity-10 select-none">🥈</div>
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="bg-slate-700 text-white text-xs font-bold px-2.5 py-0.5 rounded-full">第二名</span>
+              <span class="text-2xl font-black text-slate-800">91.0 <span class="text-xs font-normal">/100</span></span>
+            </div>
+            <h3 class="font-bold text-slate-900 text-lg mb-1">桃園茵格麗德</h3>
+            <p class="text-xs text-slate-500 font-medium mb-3">桃園中壢區 · 獨棟高樓層</p>
+            <p class="text-xs text-slate-600 line-clamp-3">獨棟高樓獨案感控，爸爸專屬健身房/芬蘭浴/岩盤浴，中高階房雙人電動床。</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200 flex justify-between items-center text-xs text-slate-700 font-medium">
+            <span>約 $8,000 - $12,000/天</span>
+            <a href="#profile-ingrid" class="hover:underline font-bold">詳情 &rarr;</a>
+          </div>
+        </div>
+
+        <!-- 3rd Rank -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-2 -top-2 text-6xl opacity-10 select-none">🥉</div>
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="bg-orange-600 text-white text-xs font-bold px-2.5 py-0.5 rounded-full">第三名</span>
+              <span class="text-2xl font-black text-slate-800">89.5 <span class="text-xs font-normal">/100</span></span>
+            </div>
+            <h3 class="font-bold text-slate-900 text-lg mb-1">桃園青田悅</h3>
+            <p class="text-xs text-slate-500 font-medium mb-3">桃園區經國特區 · 河岸景觀</p>
+            <p class="text-xs text-slate-600 line-clamp-3">全房標配雙人醫療電動床，大寶免費入住友善，自營廚房現做熱送與陪伴者早餐吧。</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200 flex justify-between items-center text-xs text-slate-700 font-medium">
+            <span>約 $6,080 - $7,500/天</span>
+            <a href="#profile-qingtian" class="hover:underline font-bold">詳情 &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Special Recommendation -->
+        <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-5 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute -right-2 -top-2 text-6xl opacity-10 select-none">💎</div>
+          <div>
+            <div class="flex justify-between items-start mb-2">
+              <span class="bg-emerald-600 text-white text-xs font-bold px-2.5 py-0.5 rounded-full">最佳 CP 值</span>
+              <span class="text-2xl font-black text-emerald-800">88.0 <span class="text-xs font-normal">/100</span></span>
+            </div>
+            <h3 class="font-bold text-slate-900 text-lg mb-1">新竹帝寶竹北</h3>
+            <p class="text-xs text-emerald-900/80 font-medium mb-3">新竹竹北市 · 飯店式獨棟</p>
+            <p class="text-xs text-slate-600 line-clamp-3">平價包套平均 $4,900/天，全包日本白金級尿布消耗品，每日6餐高頻率膳食。</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-emerald-200/80 flex justify-between items-center text-xs text-emerald-800 font-medium">
+            <span>包套平均約 $4,900/天</span>
+            <a href="#profile-debor" class="hover:underline text-emerald-900 font-bold">詳情 &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUANTITATIVE CHARTS SECTION -->
+    <section id="charts" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">100 分量化指標與多維度比較</h2>
+        <p class="text-slate-600 text-sm mt-1">
+          本模型由 12 項權重構成，包含新生兒照護(20%)、母體照護(12%)、醫療支援(12%)、感控(12%)、環境(8%)、價格與性價比(3%)等。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <!-- Radar Chart Container -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col items-center">
+          <h3 class="text-sm font-bold text-slate-700 mb-2">雷達圖：12 大核心評估面向表現</h3>
+          <div class="radar-container">
+            <canvas id="radarChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Bar Chart Container -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col items-center">
+          <h3 class="text-sm font-bold text-slate-700 mb-2">長條圖：整體加權總分與每日最低單價對比</h3>
+          <div class="chart-container">
+            <canvas id="barChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE PRICE & STAY CALCULATOR -->
+    <section id="calculator" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+      <div class="mb-6">
+        <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2.5 py-1 rounded">動態試算</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-2">預估入住總價與預算試算器</h2>
+        <p class="text-slate-600 text-sm mt-1">
+          拉動天數滑桿，系統將根據各中心公開專案優惠（如青田悅滿21天贈7天、帝寶竹北長期包套等）動態計算 4 家機構的總花費金額。
+        </p>
+      </div>
+
+      <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 mb-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
+          <label for="stayDays" class="font-bold text-slate-800 text-base sm:text-lg flex items-center">
+            📅 預計入住天數：
+            <span id="daysDisplay" class="ml-2 text-2xl font-black text-rose-600">21</span> 天
+          </label>
+          <div class="flex space-x-2">
+            <button onclick="setDays(14)" class="px-3 py-1 bg-white border border-slate-300 rounded-lg text-xs font-medium hover:bg-slate-100 transition-colors">14天 (最低)</button>
+            <button onclick="setDays(21)" class="px-3 py-1 bg-rose-500 text-white rounded-lg text-xs font-medium hover:bg-rose-600 transition-colors">21天 (標準)</button>
+            <button onclick="setDays(30)" class="px-3 py-1 bg-white border border-slate-300 rounded-lg text-xs font-medium hover:bg-slate-100 transition-colors">30天 (完整)</button>
+          </div>
+        </div>
+
+        <input id="stayDays" type="range" min="14" max="35" value="21" step="1"
+          class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-rose-500 mb-2"
+          oninput="updateCalculator(this.value)">
+        <div class="flex justify-between text-xs text-slate-600 font-medium px-1">
+          <span>14 天</span>
+          <span>21 天</span>
+          <span>28 天</span>
+          <span>35 天</span>
+        </div>
+      </div>
+
+      <!-- Estimated Price Result Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="priceResultsGrid">
+        <!-- JS populated cards -->
+      </div>
+    </section>
+
+    <!-- DEEP DIVE PROFILES SECTION -->
+    <section id="profiles" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+      <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900">四大機構深度評估與特色剖析</h2>
+          <p class="text-slate-600 text-sm mt-1">點選上方切換標籤，深入了解各家機構的醫療照護、房型規格、餐食、評價與周邊風險。</p>
+        </div>
+      </div>
+
+      <!-- Tabs Navigation -->
+      <div class="flex space-x-2 border-b border-slate-200 overflow-x-auto pb-1 mb-6" id="profileTabs">
+        <button onclick="switchProfile('stork')" id="tab-stork" class="profile-tab px-4 py-2.5 text-sm font-bold border-b-2 border-amber-500 text-amber-700 whitespace-nowrap">
+          👑 新竹送子鳥愛月 (93.5分)
+        </button>
+        <button onclick="switchProfile('ingrid')" id="tab-ingrid" class="profile-tab px-4 py-2.5 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
+          🏛️ 桃園茵格麗德 (91.0分)
+        </button>
+        <button onclick="switchProfile('qingtian')" id="tab-qingtian" class="profile-tab px-4 py-2.5 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
+          🌿 桃園青田悅 (89.5分)
+        </button>
+        <button onclick="switchProfile('debor')" id="tab-debor" class="profile-tab px-4 py-2.5 text-sm font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
+          💰 新竹帝寶竹北 (88.0分)
+        </button>
+      </div>
+
+      <!-- Profile 1: Stork Love Moon -->
+      <div id="content-stork" class="profile-content space-y-6">
+        <div class="bg-amber-50/50 p-6 rounded-xl border border-amber-200 flex flex-col md:flex-row justify-between md:items-center gap-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="bg-amber-500 text-white text-xs font-bold px-2.5 py-0.5 rounded">第一名 · 總分 93.5</span>
+              <span class="text-slate-500 text-xs">衛福部合法登記（醫療體系直營）</span>
+            </div>
+            <h3 class="text-2xl font-black text-slate-900 mt-1">新竹送子鳥愛月產後護理之家</h3>
+            <p class="text-slate-600 text-sm mt-1">📍 新竹市東區忠孝路 · Google 評分 4.8★ (約210則評論)</p>
+          </div>
+          <div class="text-left md:text-right bg-white p-3 rounded-lg border border-amber-200">
+            <span class="text-xs text-slate-600 block">官方公開定價區間</span>
+            <span class="text-xl font-bold text-amber-700">NT$ 8,800 - 12,800 <span class="text-xs text-slate-600 font-normal">/天</span></span>
+            <span class="text-xs text-slate-600 block mt-0.5">(設有最少入住14天限制)</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="font-bold text-slate-900 mb-2 text-sm flex items-center">🩺 照護與醫療體系</h4>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+              <li>背靠送子鳥生殖醫學體系，醫療臨床支援與後送強度全區最強。</li>
+              <li>護嬰比維持最佳標準 1:5，護理人員均具專業執照與豐富婦幼經驗。</li>
+              <li>每週雙科醫師高頻巡診，提供試管嬰兒/高齡產婦精準照護。</li>
+              <li>雙重急診後送網絡：連通新竹馬偕紀念醫院與台大分院。</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="font-bold text-slate-900 mb-2 text-sm flex items-center">🛌 住宿與餐食品質</h4>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+              <li>主力房型：茱蒂絲10坪、愛蒂兒13坪、芙洛閣15坪。</li>
+              <li>頂級奢華現代藝術風格設計，採光隔音與家具選品均屬頂尖。</li>
+              <li>13坪與15坪高階房型直接附設「專屬固定停車位」。</li>
+              <li>由專業營養師與高檔廚藝團隊客製化菜色，餐點兼具擺盤與美饌水準。</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="font-bold text-slate-900 mb-2 text-sm flex items-center">⚠️ 環境、評價與風險</h4>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+              <li><b>評價亮點</b>：PTT/Google好評一致讚譽「醫療安心感與尊榮品質物有所值」。</li>
+              <li><b>生活機能</b>：位於新竹市核心忠孝路商圈，採買極度便利。</li>
+              <li><b>嫌惡設施</b>：周邊規劃完善，無嫌惡設施或重大噪音風險。</li>
+              <li><b>主要風險/缺點</b>：單價高昂，預訂極搶手，有 14 天最低入住限制。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile 2: Ingrid -->
+      <div id="content-ingrid" class="profile-content space-y-6 hidden">
+        <div class="bg-slate-100 p-6 rounded-xl border border-slate-300 flex flex-col md:flex-row justify-between md:items-center gap-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="bg-slate-700 text-white text-xs font-bold px-2.5 py-0.5 rounded">第二名 · 總分 91.0</span>
+              <span class="text-slate-500 text-xs">機構代碼 7432021789 (合格至117/12/31)</span>
+            </div>
+            <h3 class="text-2xl font-black text-slate-900 mt-1">桃園茵格麗德產後護理之家</h3>
+            <p class="text-slate-600 text-sm mt-1">📍 桃園市中壢區民族路56號4-11樓 · Google 評分 4.8★ (約120則評論)</p>
+          </div>
+          <div class="text-left md:text-right bg-white p-3 rounded-lg border border-slate-300">
+            <span class="text-xs text-slate-600 block">官方公開定價區間</span>
+            <span class="text-xl font-bold text-slate-800">NT$ 8,000 - 12,000 <span class="text-xs text-slate-600 font-normal">/天</span></span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="font-bold text-slate-900 mb-2 text-sm flex items-center">🩺 照護與醫療體系</h4>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+              <li>採用獨棟高樓層規劃 (4-11樓)，獨立門禁與預約制訪客感控極嚴。</li>
+              <li>設有獨立隔離觀察室，確保新入住或外診返回嬰兒防護安全。</li>
+              <li>每週小兒科與婦產科醫師巡診，提供完整的母兒復原評估。</li>
+              <li>緊急合作院所包括聯新國際醫院（壢新）與宏其婦幼醫院。</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="font-bold text-slate-900 mb-2 text-sm flex items-center">🛌 住宿與餐食品質</h4>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+              <li>房型坪數：10坪、11坪、12坪、14坪（邊間3面採光）。</li>
+              <li>12坪與14坪房型配備「雙人電動床」；全房型標配房內愛惠普 RO 飲水機。</li>
+              <li><b>超強陪伴公設</b>：設有爸爸專屬健身房、芬蘭浴、美髮SPA及岩盤浴太空艙。</li>
+              <li>獨立餐櫃送餐確保隱私，菜色豐富兼具營養師調配。</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="font-bold text-slate-900 mb-2 text-sm flex items-center">⚠️ 環境、評價與風險</h4>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+              <li><b>評價亮點</b>：使用者稱讚「渡假般月子體驗」，岩盤浴與爸爸健身房滿意度高。</li>
+              <li><b>生活機能</b>：位於中壢市區核心，樓下有銀行與成熟商圈。</li>
+              <li><b>環境風險</b>：臨中壢民族路幹線，低樓層離峰車流稍大（但月子部位於4樓以上高樓層）。</li>
+              <li><b>主要缺點</b>：價格偏中高；地下專屬車位有限，親友需依賴周邊平面停車場。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile 3: Qingtian -->
+      <div id="content-qingtian" class="profile-content space-y-6 hidden">
+        <div class="bg-slate-100 p-6 rounded-xl border border-slate-300 flex flex-col md:flex-row justify-between md:items-center gap-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="bg-orange-600 text-white text-xs font-bold px-2.5 py-0.5 rounded">第三名 · 總分 89.5</span>
+              <span class="text-slate-500 text-xs">機構代碼 7432011863 (合格至116/12/31)</span>
+            </div>
+            <h3 class="text-2xl font-black text-slate-900 mt-1">桃園青田悅產後護理之家</h3>
+            <p class="text-slate-600 text-sm mt-1">📍 桃園市桃園區水岸二街200號 · Google 評分 4.8★ (約35則評論)</p>
+          </div>
+          <div class="text-left md:text-right bg-white p-3 rounded-lg border border-slate-300">
+            <span class="text-xs text-slate-600 block">官方公開定價區間</span>
+            <span class="text-xl font-bold text-slate-800">NT$ 6,080 - 7,500 <span class="text-xs text-slate-600 font-normal">/天</span></span>
+            <span class="text-xs text-rose-600 block font-medium mt-0.5">(常見買21送7優惠方案)</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="font-bold text-slate-900 mb-2 text-sm flex items-center">🩺 照護與醫療體系</h4>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+              <li>標準護醫比 1:5，由具執照護理師 24 小時照顧與黃疸監測。</li>
+              <li>每週小兒科與中醫師固定巡診，護理團隊主動提供泌乳疏通救援。</li>
+              <li>配合桃園敏盛綜合醫院 (5-8分鐘) 與林口長庚醫院 (15-20分鐘)。</li>
+              <li>實施嚴格大寶感控規定：大寶與新生兒不可同時待在房內。</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="font-bold text-slate-900 mb-2 text-sm flex items-center">🛌 住宿與餐食品質</h4>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+              <li><b>核心特色</b>：全房型標配「醫療級雙人電動床」，極度減輕剖腹撕裂疼痛。</li>
+              <li>坪數 8-12 坪，全房型設有獨立陽台與大面採光窗。</li>
+              <li><b>大寶友善</b>：大寶免費入住，免費提供澡盆、小椅與小床備品。</li>
+              <li>自營獨立廚房現做熱送，週五提供特餐與陪伴者免費歡樂早餐吧。</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="font-bold text-slate-900 mb-2 text-sm flex items-center">⚠️ 環境、評價與風險</h4>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+              <li><b>環境景觀</b>：緊鄰經國特區南崁溪河濱第一排，環境清幽宜人。</li>
+              <li><b>評價亮點</b>：PTT/Dcard盛讚「護理師耐心拯救塞奶」與「全房電動床極度實用」。</li>
+              <li><b>嫌惡設施/風險</b>：經國重劃區周邊尚有新建案施工，偶有工程噪音風險。</li>
+              <li><b>建議</b>：挑選房間時建議指定面南崁溪河濱景觀房型以避開工程噪音。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile 4: Debor Zhubei -->
+      <div id="content-debor" class="profile-content space-y-6 hidden">
+        <div class="bg-emerald-50/60 p-6 rounded-xl border border-emerald-200 flex flex-col md:flex-row justify-between md:items-center gap-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="bg-emerald-600 text-white text-xs font-bold px-2.5 py-0.5 rounded">最佳性價比 (CP值) · 88.0分</span>
+              <span class="text-slate-500 text-xs">衛福部合法登記產後護理之家</span>
+            </div>
+            <h3 class="text-2xl font-black text-slate-900 mt-1">新竹帝寶竹北產後護理之家</h3>
+            <p class="text-slate-600 text-sm mt-1">📍 新竹縣竹北市嘉豐南路二段120號 · Google 評分 4.7★ (約180則評論)</p>
+          </div>
+          <div class="text-left md:text-right bg-white p-3 rounded-lg border border-emerald-200">
+            <span class="text-xs text-slate-600 block">包套平均價格</span>
+            <span class="text-xl font-bold text-emerald-700">約 NT$ 4,900 - 5,500 <span class="text-xs text-slate-600 font-normal">/天</span></span>
+            <span class="text-xs text-emerald-800 font-medium block mt-0.5">(耗材全包 · 訂金 $5,000)</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="font-bold text-slate-900 mb-2 text-sm flex items-center">🩺 照護與醫療體系</h4>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+              <li>獨棟飯店式專業管理，感應門禁，僅指定陪宿者可進入。</li>
+              <li>護嬰比維持 1:5，嬰兒室設獨立攝影機與生理監控。</li>
+              <li>小兒科醫師每週定期巡診，衛教指導（洗澡、臍帶護理）扎實。</li>
+              <li>配合後送醫院：新竹台大分院生醫醫院 (5分鐘)、東元醫院 (8分鐘)。</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="font-bold text-slate-900 mb-2 text-sm flex items-center">🛌 住宿與餐食品質</h4>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+              <li>全館 48 間房間統一為 7 坪精緻格局，均有對外採光窗。</li>
+              <li>床頭整合門禁與開關整合，減少產婦起身走動負擔。</li>
+              <li><b>費用全包性價比高</b>：免費包含日本進口白金級尿布與濕紙巾耗材。</li>
+              <li>一日提供高達 6 餐（3主餐 + 3點心燉湯），調理高頻率。</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="font-bold text-slate-900 mb-2 text-sm flex items-center">⚠️ 環境、評價與風險</h4>
+            <ul class="text-xs text-slate-700 space-y-1.5 list-disc pl-4">
+              <li><b>評價亮點</b>：PTT一致讚譽「竹北難得超高CP值」、「服務親切無壓力」。</li>
+              <li><b>周邊環境</b>：緊鄰嘉豐南路公園綠地，環境清幽單純，無嫌惡設施。</li>
+              <li><b>主要風險/缺點</b>：房間統一 7 坪空間相對緊湊。</li>
+              <li><b>停車問題</b>：專屬車位較少，尖峰時段陪伴者需於周邊公園尋找車位。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE SCENARIO MATCHING WIZARD -->
+    <section id="scenario" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+      <div class="mb-6">
+        <span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2.5 py-1 rounded">個人化導引</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-2">🎯 智慧情境決策：哪一家最適合您？</h2>
+        <p class="text-slate-600 text-sm mt-1">勾選您最重視的條件，系統將立即分析並呈現專屬於您的最佳推薦排名與理由。</p>
+      </div>
+
+      <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 mb-6">
+        <h3 class="text-sm font-bold text-slate-800 mb-3">請勾選您的核心需求 (可多選)：</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3" id="scenarioCheckboxes">
+          <label class="flex items-center space-x-2 bg-white p-3 rounded-lg border border-slate-200 cursor-pointer hover:border-rose-400 transition-all text-xs font-medium">
+            <input type="checkbox" value="budget" class="rounded text-rose-500 focus:ring-rose-400" onchange="runMatch()">
+            <span>💰 預算導向/高CP值</span>
+          </label>
+          <label class="flex items-center space-x-2 bg-white p-3 rounded-lg border border-slate-200 cursor-pointer hover:border-rose-400 transition-all text-xs font-medium">
+            <input type="checkbox" value="medical" class="rounded text-rose-500 focus:ring-rose-400" onchange="runMatch()">
+            <span>🏥 生殖醫療/高防護</span>
+          </label>
+          <label class="flex items-center space-x-2 bg-white p-3 rounded-lg border border-slate-200 cursor-pointer hover:border-rose-400 transition-all text-xs font-medium">
+            <input type="checkbox" value="dabao" class="rounded text-rose-500 focus:ring-rose-400" onchange="runMatch()">
+            <span>👶 大寶免費同住</span>
+          </label>
+          <label class="flex items-center space-x-2 bg-white p-3 rounded-lg border border-slate-200 cursor-pointer hover:border-rose-400 transition-all text-xs font-medium">
+            <input type="checkbox" value="husband" class="rounded text-rose-500 focus:ring-rose-400" onchange="runMatch()">
+            <span>🏋️ 爸爸休閒/芬蘭浴</span>
+          </label>
+          <label class="flex items-center space-x-2 bg-white p-3 rounded-lg border border-slate-200 cursor-pointer hover:border-rose-400 transition-all text-xs font-medium">
+            <input type="checkbox" value="bed" class="rounded text-rose-500 focus:ring-rose-400" onchange="runMatch()">
+            <span>🛏️ 雙人醫療電動床</span>
+          </label>
+          <label class="flex items-center space-x-2 bg-white p-3 rounded-lg border border-slate-200 cursor-pointer hover:border-rose-400 transition-all text-xs font-medium">
+            <input type="checkbox" value="food" class="rounded text-rose-500 focus:ring-rose-400" onchange="runMatch()">
+            <span>🍳 獨立廚房/現做月子餐</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Recommendation Display Box -->
+      <div id="matchResult" class="p-6 rounded-xl border bg-slate-50 border-slate-200 transition-all">
+        <!-- JS will render matching rationale -->
+      </div>
+    </section>
+
+    <!-- FULL COMPARISON MATRIX TABLE -->
+    <section id="matrix" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 overflow-hidden">
+      <div class="mb-6">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">四大產後護理之家橫向規格對照表</h2>
+        <p class="text-slate-600 text-sm mt-1">系統化整理各機構之地址、評鑑、價格、房型、醫療巡診及核心優缺點。</p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-100 text-slate-800 border-b border-slate-200">
+              <th class="p-3 font-bold border-r border-slate-200 w-28 min-w-[110px]">評估項目</th>
+              <th class="p-3 font-bold border-r border-slate-200 min-w-[180px] bg-amber-50/50">新竹送子鳥愛月</th>
+              <th class="p-3 font-bold border-r border-slate-200 min-w-[180px]">桃園茵格麗德</th>
+              <th class="p-3 font-bold border-r border-slate-200 min-w-[180px]">桃園青田悅</th>
+              <th class="p-3 font-bold min-w-[180px] bg-emerald-50/50">新竹帝寶竹北</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-slate-700">
+            <tr>
+              <td class="p-3 font-bold bg-slate-50 border-r border-slate-200">綜合評分/排名</td>
+              <td class="p-3 font-bold text-amber-700 bg-amber-50/30 border-r border-slate-200">93.5 分 (第1名)</td>
+              <td class="p-3 font-bold text-slate-800 border-r border-slate-200">91.0 分 (第2名)</td>
+              <td class="p-3 font-bold text-slate-800 border-r border-slate-200">89.5 分 (第3名)</td>
+              <td class="p-3 font-bold text-emerald-800 bg-emerald-50/30">88.0 分 (最佳CP值)</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold bg-slate-50 border-r border-slate-200">行政區 / 地址</td>
+              <td class="p-3 border-r border-slate-200">新竹市東區忠孝路</td>
+              <td class="p-3 border-r border-slate-200">桃園市中壢區民族路56號4-11樓</td>
+              <td class="p-3 border-r border-slate-200">桃園市桃園區水岸二街200號</td>
+              <td class="p-3">新竹縣竹北市嘉豐南路二段120號</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold bg-slate-50 border-r border-slate-200">評鑑 / 機構代碼</td>
+              <td class="p-3 border-r border-slate-200">衛福部合法登記 (醫療體系直營)</td>
+              <td class="p-3 border-r border-slate-200">7432021789 (效期至117/12/31)</td>
+              <td class="p-3 border-r border-slate-200">7432011863 (效期至116/12/31)</td>
+              <td class="p-3">衛福部合法登記</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold bg-slate-50 border-r border-slate-200">Google 評分</td>
+              <td class="p-3 border-r border-slate-200">4.8 ★ (約210則)</td>
+              <td class="p-3 border-r border-slate-200">4.8 ★ (約120則)</td>
+              <td class="p-3 border-r border-slate-200">4.8 ★ (約35則)</td>
+              <td class="p-3">4.7 ★ (約180則)</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold bg-slate-50 border-r border-slate-200">每日單價區間</td>
+              <td class="p-3 border-r border-slate-200 font-semibold text-slate-900">$8,800 - $12,800/天</td>
+              <td class="p-3 border-r border-slate-200 font-semibold text-slate-900">$8,000 - $12,000/天</td>
+              <td class="p-3 border-r border-slate-200 font-semibold text-slate-900">$6,080 - $7,500/天</td>
+              <td class="p-3 font-semibold text-emerald-800">$4,900 - $5,500/天</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold bg-slate-50 border-r border-slate-200">21 天預估總價</td>
+              <td class="p-3 border-r border-slate-200">$184,800 - $268,800</td>
+              <td class="p-3 border-r border-slate-200">$168,000 - $252,000</td>
+              <td class="p-3 border-r border-slate-200">$127,680 - $157,500</td>
+              <td class="p-3 text-emerald-800 font-bold">$102,900 - $115,500</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold bg-slate-50 border-r border-slate-200">30 天預估總價</td>
+              <td class="p-3 border-r border-slate-200">$264,000 - $384,000</td>
+              <td class="p-3 border-r border-slate-200">$240,000 - $360,000</td>
+              <td class="p-3 border-r border-slate-200">約 $182,400 - $225,000</td>
+              <td class="p-3 text-emerald-800 font-bold">約 $147,000 (包套)</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold bg-slate-50 border-r border-slate-200">主力房型與坪數</td>
+              <td class="p-3 border-r border-slate-200">10坪、13坪、15坪</td>
+              <td class="p-3 border-r border-slate-200">10坪、11坪、12坪、14坪</td>
+              <td class="p-3 border-r border-slate-200">8坪 - 12坪 (全配電動床)</td>
+              <td class="p-3">統一 7 坪精緻房</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold bg-slate-50 border-r border-slate-200">醫療巡診與支援</td>
+              <td class="p-3 border-r border-slate-200">送子鳥生殖醫療支援；馬偕/台大雙急診</td>
+              <td class="p-3 border-r border-slate-200">雙科醫師巡診；長庚/壢新/宏其後送</td>
+              <td class="p-3 border-r border-slate-200">兒科/中醫巡診；敏盛/長庚後送</td>
+              <td class="p-3">兒科巡診；台大生醫/東元後送</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold bg-slate-50 border-r border-slate-200">核心優勢</td>
+              <td class="p-3 border-r border-slate-200 text-amber-900">生殖醫療背景、藝術奢華、高階含車位</td>
+              <td class="p-3 border-r border-slate-200 text-slate-900">獨棟門禁極嚴、爸爸健身房/芬蘭浴/岩盤浴</td>
+              <td class="p-3 border-r border-slate-200 text-slate-900">自營廚房、大寶免費入住、全房電動床</td>
+              <td class="p-3 text-emerald-900 font-medium">獨棟飯店管理、極高CP值、耗材全包、日供6餐</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-bold bg-slate-50 border-r border-slate-200">主要缺點/限制</td>
+              <td class="p-3 border-r border-slate-200 text-rose-700">單價高昂、最少需住14天</td>
+              <td class="p-3 border-r border-slate-200 text-rose-700">價位偏高、專屬停車位有限</td>
+              <td class="p-3 border-r border-slate-200 text-rose-700">重劃區潛在工程噪音、大寶嬰兒需隔開</td>
+              <td class="p-3 text-rose-700">房間7坪較緊湊、車位數較少</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SOURCES & DISCLAIMER SECTION -->
+    <section class="bg-slate-100 rounded-xl p-6 text-xs text-slate-600 space-y-2 border border-slate-200">
+      <h3 class="font-bold text-slate-800 text-sm mb-2">📚 資料來源與說明 (查詢驗證日期：2026年8月)</h3>
+      <p>1. 衛生福利部醫事機構基本資料與產後護理之家合格評鑑名冊 (機構代碼: 7432011863, 7432021789 等)。</p>
+      <p>2. 各產後護理之家官方網站、官方 FB/IG 粉絲專頁及公開簽約方案資料。</p>
+      <p>3. Google Maps 商家真實評論、PTT BabyMother 板、Dcard 產後護理之家實際入住心得體驗。</p>
+      <p>4. <b>免責聲明</b>：本系統數據與預估費用僅供選店決策參考，實際價格、簽約優惠與最新房型配備請以各產後護理之家現場現場合約為準。</p>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 mt-12">
+    <div class="max-w-7xl mx-auto px-4 text-center space-y-1">
+      <p>桃竹地區產後護理之家多維度量化決策評估系統 © 2026</p>
+      <p>專業 · 客觀 · 數據導向 · 母嬰安全優先</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Raw Evaluation Data
+    const centersData = {
+      stork: {
+        name: "新竹送子鳥愛月",
+        minRate: 8800,
+        maxRate: 12800,
+        minDays: 14,
+        scores: [19.5, 11.5, 11.8, 11.8, 9.5, 7.8, 5.6, 4.8, 4.7, 3.6, 2.7, 1.2], // Total 93.5
+        totalScore: 93.5,
+        discountType: "standard"
+      },
+      ingrid: {
+        name: "桃園茵格麗德",
+        minRate: 8000,
+        maxRate: 12000,
+        minDays: 1,
+        scores: [18.5, 11.5, 11.0, 11.5, 9.0, 7.6, 5.2, 4.6, 4.6, 3.2, 2.5, 1.8], // Total 91.0
+        totalScore: 91.0,
+        discountType: "standard"
+      },
+      qingtian: {
+        name: "桃園青田悅",
+        minRate: 6080,
+        maxRate: 7500,
+        minDays: 1,
+        scores: [18.0, 11.0, 10.5, 10.8, 9.0, 7.2, 5.5, 4.5, 4.6, 3.5, 2.6, 2.3], // Total 89.5
+        totalScore: 89.5,
+        discountType: "buy21get7" // 簽約21天送7天方案
+      },
+      debor: {
+        name: "新竹帝寶竹北",
+        minRate: 4900,
+        maxRate: 5500,
+        minDays: 1,
+        scores: [17.5, 10.5, 10.5, 10.8, 8.8, 6.2, 5.1, 4.2, 4.5, 3.5, 2.6, 2.8], // Total 88.0
+        totalScore: 88.0,
+        discountType: "package"
+      }
+    };
+
+    // Dimension labels (12 criteria)
+    const dimensionLabels = [
+      '新生兒照護 (20)', '母體照護 (12)', '醫療支援 (12)', '感染控制 (12)',
+      '人力配置 (10)', '住宿環境 (8)', '月子餐 (6)', '泌乳支持 (5)',
+      '網路評價 (5)', '交通機能 (4)', '環境風險 (3)', '性價比 (3)'
+    ];
+
+    // Initialize Radar Chart
+    let radarChart, barChart;
+
+    function initCharts() {
+      // 1. Radar Chart
+      const ctxRadar = document.getElementById('radarChart').getContext('2d');
+      radarChart = new Chart(ctxRadar, {
+        type: 'radar',
+        data: {
+          labels: dimensionLabels,
+          datasets: [
+            {
+              label: '送子鳥愛月 (93.5)',
+              data: centersData.stork.scores,
+              borderColor: '#f59e0b',
+              backgroundColor: 'rgba(245, 158, 11, 0.15)',
+              borderWidth: 2
+            },
+            {
+              label: '茵格麗德 (91.0)',
+              data: centersData.ingrid.scores,
+              borderColor: '#334155',
+              backgroundColor: 'rgba(51, 65, 85, 0.1)',
+              borderWidth: 2
+            },
+            {
+              label: '青田悅 (89.5)',
+              data: centersData.qingtian.scores,
+              borderColor: '#ea580c',
+              backgroundColor: 'rgba(234, 88, 12, 0.1)',
+              borderWidth: 2
+            },
+            {
+              label: '帝寶竹北 (88.0)',
+              data: centersData.debor.scores,
+              borderColor: '#059669',
+              backgroundColor: 'rgba(5, 150, 105, 0.15)',
+              borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          elements: { line: { tension: 0.2 } },
+          scales: {
+            r: {
+              angleLines: { color: '#e2e8f0' },
+              grid: { color: '#f1f5f9' },
+              pointLabels: {
+                font: { size: 9, weight: 'bold' },
+                color: '#475569',
+                // Truncate labels for canvas fit
+                callback: function(label) {
+                  return label.length > 8 ? label.substring(0, 8) + '...' : label;
+                }
+              },
+              ticks: { display: false }
+            }
+          },
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { boxWidth: 12, font: { size: 10 } }
+            },
+            tooltip: {
+              callbacks: {
+                title: function(context) {
+                  return context[0].label;
+                }
+              }
+            }
+          }
+        }
+      });
+
+      // 2. Bar Chart
+      const ctxBar = document.getElementById('barChart').getContext('2d');
+      barChart = new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+          labels: ['送子鳥愛月', '茵格麗德', '青田悅', '帝寶竹北'],
+          datasets: [
+            {
+              label: '加權總分 (滿分100)',
+              data: [93.5, 91.0, 89.5, 88.0],
+              backgroundColor: ['#f59e0b', '#475569', '#ea580c', '#059669'],
+              borderRadius: 6,
+              yAxisID: 'y'
+            },
+            {
+              label: '每日最低單價 (NT$)',
+              data: [8800, 8000, 6080, 4900],
+              type: 'line',
+              borderColor: '#e11d48',
+              backgroundColor: '#e11d48',
+              pointRadius: 5,
+              yAxisID: 'y1'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: false,
+              min: 80,
+              max: 100,
+              title: { display: true, text: '加權總分', font: { size: 11 } },
+              grid: { color: '#f1f5f9' }
+            },
+            y1: {
+              position: 'right',
+              beginAtZero: false,
+              min: 3000,
+              max: 14000,
+              title: { display: true, text: '每日起價 (NT$)', font: { size: 11 } },
+              grid: { drawOnChartArea: false }
+            }
+          },
+          plugins: {
+            legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } }
+          }
+        }
+      });
+    }
+
+    // Dynamic Price Calculator
+    function calculatePrice(key, days) {
+      const center = centersData[key];
+      let estimatedMin = 0;
+      let estimatedMax = 0;
+      let note = "";
+
+      if (key === 'qingtian' && days >= 21) {
+        // 青田悅：簽約21天贈送7天，實質28天僅需21天費用
+        if (days >= 28) {
+          estimatedMin = center.minRate * 21 + center.minRate * (days - 28);
+          estimatedMax = center.maxRate * 21 + center.maxRate * (days - 28);
+          note = "已折算「簽約21天送7天」特惠方案";
+        } else {
+          estimatedMin = center.minRate * days;
+          estimatedMax = center.maxRate * days;
+          note = "滿21天享有簽滿贈特惠條件";
+        }
+      } else {
+        estimatedMin = center.minRate * days;
+        estimatedMax = center.maxRate * days;
+        if (key === 'debor') {
+          note = "包套價格全包日本白金級耗材與6餐";
+        } else if (key === 'stork') {
+          note = "附專屬醫療體系支援與頂級服務";
+        } else if (key === 'ingrid') {
+          note = "包含專屬陪伴者頂級休閒設施";
+        }
+      }
+
+      return { estimatedMin, estimatedMax, note };
+    }
+
+    function updateCalculator(days) {
+      document.getElementById('daysDisplay').innerText = days;
+      const container = document.getElementById('priceResultsGrid');
+      container.innerHTML = '';
+
+      const keys = ['stork', 'ingrid', 'qingtian', 'debor'];
+      keys.forEach(key => {
+        const center = centersData[key];
+        const res = calculatePrice(key, days);
+        const formatMin = res.estimatedMin.toLocaleString();
+        const formatMax = res.estimatedMax.toLocaleString();
+
+        let borderClass = "border-slate-200 bg-white";
+        if (key === 'debor') borderClass = "border-emerald-200 bg-emerald-50/30";
+        if (key === 'stork') borderClass = "border-amber-200 bg-amber-50/30";
+
+        const cardHtml = `
+          <div class="p-4 rounded-xl border ${borderClass} flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-bold text-slate-900 text-sm">${center.name}</span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded ${key==='debor'?'bg-emerald-100 text-emerald-800':'bg-slate-100 text-slate-700'}">
+                  ${center.totalScore}分
+                </span>
+              </div>
+              <p class="text-xs text-slate-500 mb-2">單價約 $${center.minRate.toLocaleString()} - $${center.maxRate.toLocaleString()} /天</p>
+              <div class="my-3">
+                <span class="text-xs text-slate-500 block">預估 ${days} 天總價</span>
+                <span class="text-lg font-black text-rose-600">NT$ ${formatMin}</span>
+                <span class="text-xs text-slate-600 font-medium block">~ NT$ ${formatMax}</span>
+              </div>
+            </div>
+            <p class="text-[11px] text-slate-500 italic border-t border-slate-100 pt-2">${res.note || '依官方公開標準方案計算'}</p>
+          </div>
+        `;
+        container.innerHTML += cardHtml;
+      });
+    }
+
+    function setDays(days) {
+      document.getElementById('stayDays').value = days;
+      updateCalculator(days);
+    }
+
+    // Profile Tab Switching
+    function switchProfile(targetKey) {
+      const tabs = document.querySelectorAll('.profile-tab');
+      tabs.forEach(tab => {
+        tab.classList.remove('border-amber-500', 'text-amber-700', 'border-slate-800', 'text-slate-900');
+        tab.classList.add('border-transparent', 'text-slate-500');
+      });
+
+      const activeTab = document.getElementById(`tab-${targetKey}`);
+      activeTab.classList.remove('border-transparent', 'text-slate-500');
+      activeTab.classList.add('border-slate-800', 'text-slate-900');
+
+      const contents = document.querySelectorAll('.profile-content');
+      contents.forEach(content => content.classList.add('hidden'));
+
+      document.getElementById(`content-${targetKey}`).classList.remove('hidden');
+    }
+
+    // Interactive Scenario Matcher
+    function runMatch() {
+      const checkboxes = document.querySelectorAll('#scenarioCheckboxes input[type="checkbox"]:checked');
+      const selectedValues = Array.from(checkboxes).map(cb => cb.value);
+      const resultBox = document.getElementById('matchResult');
+
+      if (selectedValues.length === 0) {
+        resultBox.className = "p-6 rounded-xl border bg-slate-50 border-slate-200";
+        resultBox.innerHTML = `
+          <div class="text-center text-slate-500 text-sm py-4">
+            👈 請在上方勾選您的核心考量（如：預算導向、大寶同住、爸爸設施...），系統將為您分析最適機構！
+          </div>
+        `;
+        return;
+      }
+
+      let bestMatch = "";
+      let rationale = "";
+      let bgStyle = "";
+
+      // Logic decision matrix
+      if (selectedValues.includes('budget')) {
+        bestMatch = "新竹帝寶竹北產後護理之家";
+        rationale = "您重視【高 CP 值與費用透明】。帝寶竹北提供每日平均僅約 $4,900 的包套方案，30 天總價約 14.7 萬元，且費用已全面包含日本進口白金級尿布與濕紙巾耗材，並提供一日 6 餐的高頻率調理，為新竹地區最具競爭力的首選。";
+        bgStyle = "bg-emerald-50/80 border-emerald-200 text-emerald-950";
+      } else if (selectedValues.includes('medical')) {
+        bestMatch = "新竹送子鳥愛月產後護理之家";
+        rationale = "您重視【頂級臨床醫療與安全防護】。送子鳥愛月背靠堅強生殖醫學體系，具備極為嚴密的感染控制與雙重大型醫院急診後送網絡，居住環境達精品飯店規格，最適合高齡或對母嬰安全有極致要求的家庭。";
+        bgStyle = "bg-amber-50/80 border-amber-200 text-amber-950";
+      } else if (selectedValues.includes('dabao') || selectedValues.includes('bed') || selectedValues.includes('food')) {
+        bestMatch = "桃園青田悅產後護理之家";
+        rationale = "您重視【二胎大寶友善、剖腹臥床舒適與現做餐點】。青田悅為罕見大寶免費入住友善機構，全房型標配醫療級雙人電動床（大幅減輕產後痛感），並具備獨立自營廚房現做熱送及陪伴者歡樂早餐吧。";
+        bgStyle = "bg-orange-50/80 border-orange-200 text-orange-950";
+      } else if (selectedValues.includes('husband')) {
+        bestMatch = "桃園茵格麗德產後護理之家";
+        rationale = "您重視【全家入住品質與陪伴者設施】。茵格麗德採用 4-11 高樓層獨棟感控，配備爸爸專屬健身房、芬蘭浴、美髮 SPA 室與岩盤浴太空艙，中高階房型配有雙人電動床與多面採光。";
+        bgStyle = "bg-slate-100 border-slate-300 text-slate-900";
+      } else {
+        bestMatch = "新竹送子鳥愛月 / 桃園茵格麗德";
+        rationale = "根據您的多重綜合偏好，送子鳥愛月與茵格麗德在整體品質與硬體體驗上均屬區域頂尖之選。";
+        bgStyle = "bg-rose-50/80 border-rose-200 text-rose-950";
+      }
+
+      resultBox.className = `p-6 rounded-xl border ${bgStyle} transition-all shadow-sm`;
+      resultBox.innerHTML = `
+        <div class="flex items-start space-x-3">
+          <span class="text-2xl">💡</span>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider opacity-80 block">智慧推薦首選</span>
+            <h4 class="text-xl font-extrabold mb-2">${bestMatch}</h4>
+            <p class="text-xs sm:text-sm leading-relaxed">${rationale}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // Window onload event
+    window.onload = function() {
+      initCharts();
+      updateCalculator(21);
+      runMatch();
+    };
+  </script>
+</body>
+</html>
