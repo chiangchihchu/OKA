@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026/08/31 早期妊娠動態進度與生殖免疫綜合對比儀表板</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Minimal Chart Container Control */
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 320px;
+      max-height: 380px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 350px;
+      }
+    }
+    /* Custom scrollbar for tab panels */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+<!-- Chosen Palette: Slate & Teal Harmony (Warm neutral background #F8FAFC, Primary #1E3A8A, Secondary #0F766E, Accent Emerald #059669, Alert #DC2626) -->
+
+<!-- Application Structure Plan:
+  Designed as an interactive multi-tab medical dashboard tailored for maternal-fetal and reproductive immunology tracking:
+  1. Top Header & GA Milestone Progress Bar: Instantly orienting the user at GA 11w0d with key status tags.
+  2. Tabbed Navigation Menu:
+     - 📊 歷次動態趨勢 (Dynamic Trends & Interactive Chart.js)
+     - 💊 處方減藥與階段計畫 (Medication Roadmap & Tapering Matrix)
+     - 🧬 指標深度解析 (Detailed Indicator Breakdown & Reference Guide)
+     - 📈 預後評估與風險管理 (Favorable Factors & Risk Analysis)
+     - 🥣 衛教生活與燕窩解答 (Lifestyle Guidance & Dietary QA)
+     - 📋 篩檢排程與診後對話 (Screening Timeline & Interactive Doctor Checklist)
+  3. Persistent Alert Banner for Emergency Signals & Medical Disclaimer.
+  This interactive flow converts text-heavy medical documentation into a clear, comforting, and actionable health visualizer.
+-->
+
+<!-- Visualization & Content Choices:
+  - Dynamic Trends -> Chart.js Line Charts (CRL, FHR, D-dimer, P4, WBC across 08/17 - 08/31) -> Clear visual proof of baby growth & immune stability -> Chart.js Canvas
+  - Medication Matrix -> Filterable Pill Badges (Discontinued, Active, Planned) -> Clear safety demarcation -> HTML/Tailwind JS Filter
+  - Lab Drill-down -> Interactive Modal/Accordion view for each indicator -> Comprehensive context without clutter -> Vanilla JS
+  - Dietary QA (Bird's Nest) -> Interactive Decision Card -> Answers exact doctor recommendations clearly -> Interactive Toggle
+  - Doctor Visit Questions -> Interactive Checkbox Checklist -> Empowers patient for 12w visit -> Local state DOM management
+  CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+-->
+
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+  <!-- Top Announcement / Green Light Banner -->
+  <header class="bg-gradient-to-r from-slate-900 via-indigo-950 to-teal-900 text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="bg-emerald-500 text-slate-900 text-xs font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">雙綠燈安心狀態</span>
+            <span class="text-slate-300 text-xs sm:text-sm">追蹤日期：2026/08/31</span>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight mt-1 text-white">
+            早期妊娠動態進度與生殖免疫綜合對比報告
+          </h1>
+          <p class="text-xs sm:text-sm text-teal-200 mt-0.5">
+            週數 GA 11w0d ｜ 預產期 2027/03/22 ｜ 胚胎著床日：2026/07/01 (D5胚胎)
+          </p>
+        </div>
+        
+        <!-- Milestone Counter Badge -->
+        <div class="flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-2 text-right">
+          <div>
+            <div class="text-xs text-slate-300">目前妊娠進度 (週數)</div>
+            <div class="text-lg font-bold text-teal-300">第 11 週 0 天 (11w0d)</div>
+          </div>
+          <div class="ml-3 text-2xl">👶</div>
+        </div>
+      </div>
+
+      <!-- Gestational Timeline Progress Bar -->
+      <div class="mt-4 pt-3 border-t border-white/10">
+        <div class="flex justify-between text-xs text-slate-300 mb-1">
+          <span>植入/受孕 (07/01)</span>
+          <span class="font-bold text-teal-300">📍 目前位置 (11w0d)</span>
+          <span>滿12週減藥 (12w)</span>
+          <span>第一孕期畢業 (14w)</span>
+          <span>足月生產 (40w)</span>
+        </div>
+        <div class="w-full bg-slate-800/80 rounded-full h-2.5 overflow-hidden flex">
+          <div class="bg-gradient-to-r from-teal-400 to-emerald-400 h-2.5 rounded-full transition-all duration-500" style="width: 27.5%"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+    
+    <!-- Executive Summary Card -->
+    <section class="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-slate-200/80 mb-6">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-800 flex items-center justify-center font-bold text-lg">📋</div>
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900">個案核心診斷與門診結論</h2>
+      </div>
+      <p class="text-slate-600 text-sm leading-relaxed mb-4">
+        本門診分析綜合 08/31 最新超音波與血清數據，比較 08/17 (9w0d)、08/20 (9w3d)、08/24 (10w1d) 之歷史軌跡。主治醫師評估結論：
+        <strong class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">「胎兒生長與生殖免疫/血栓兩大關鍵指標均持續往好的方向發展，雙綠燈安心，進入安全減藥階段。」</strong>
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs sm:text-sm">
+        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+          <div class="text-slate-500 font-medium">胎兒發育 (CRL)</div>
+          <div class="text-base font-bold text-slate-800 mt-1">4.30 cm (40.2 mm)</div>
+          <div class="text-emerald-600 font-medium mt-0.5">✅ 完全符合 11w0d 週數</div>
+        </div>
+        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+          <div class="text-slate-500 font-medium">胎兒心跳 (FHR)</div>
+          <div class="text-base font-bold text-slate-800 mt-1">163 - 165 BPM</div>
+          <div class="text-emerald-600 font-medium mt-0.5">✅ 正常生理性回落</div>
+        </div>
+        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+          <div class="text-slate-500 font-medium">血栓與免疫 (D-dimer/WBC)</div>
+          <div class="text-base font-bold text-slate-800 mt-1">0.228 mg/L ｜ 5.64</div>
+          <div class="text-emerald-600 font-medium mt-0.5">✅ 處於極佳安全區 (＜0.55)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <div class="border-b border-slate-200 mb-6 overflow-x-auto no-scrollbar">
+      <nav class="flex space-x-2 sm:space-x-6 min-w-max" aria-label="Tabs">
+        <button onclick="switchTab('trends')" id="tab-btn-trends" class="tab-btn pb-3 px-3 font-semibold text-sm border-b-2 border-teal-600 text-teal-700 flex items-center gap-2">
+          <span>📊</span> 歷次數據趨勢圖
+        </button>
+        <button onclick="switchTab('meds')" id="tab-btn-meds" class="tab-btn pb-3 px-3 font-medium text-sm text-slate-500 border-b-2 border-transparent hover:text-slate-700 hover:border-slate-300 flex items-center gap-2">
+          <span>💊</span> 處方減藥與計畫
+        </button>
+        <button onclick="switchTab('lab-details')" id="tab-btn-lab-details" class="tab-btn pb-3 px-3 font-medium text-sm text-slate-500 border-b-2 border-transparent hover:text-slate-700 hover:border-slate-300 flex items-center gap-2">
+          <span>🧬</span> 檢驗項目深度說明
+        </button>
+        <button onclick="switchTab('prognosis')" id="tab-btn-prognosis" class="tab-btn pb-3 px-3 font-medium text-sm text-slate-500 border-b-2 border-transparent hover:text-slate-700 hover:border-slate-300 flex items-center gap-2">
+          <span>📈</span> 順利生產成功率評估
+        </button>
+        <button onclick="switchTab('lifestyle')" id="tab-btn-lifestyle" class="tab-btn pb-3 px-3 font-medium text-sm text-slate-500 border-b-2 border-transparent hover:text-slate-700 hover:border-slate-300 flex items-center gap-2">
+          <span>🥣</span> 燕窩與飲食免疫衛教
+        </button>
+        <button onclick="switchTab('checklist')" id="tab-btn-checklist" class="tab-btn pb-3 px-3 font-medium text-sm text-slate-500 border-b-2 border-transparent hover:text-slate-700 hover:border-slate-300 flex items-center gap-2">
+          <span>📋</span> 12週門診問診與檢查清單
+        </button>
+      </nav>
+    </div>
+
+    <!-- TAB CONTENT 1: DYNAMIC TRENDS & CHARTS -->
+    <section id="tab-trends" class="tab-content space-y-6">
+      <div class="bg-indigo-50/60 border border-indigo-100 rounded-xl p-4 text-xs sm:text-sm text-indigo-900 flex items-start gap-3">
+        <span class="text-xl">💡</span>
+        <div>
+          <strong class="font-bold">本區塊目的：</strong>將 08/17、08/20、08/24 至 08/31 共四次看診之數據趨勢圖像化。您可以點擊下方按鈕切換不同視角（胎兒成長、荷爾蒙交接、免疫血栓指標），觀察生理數據之穩定改善。
+        </div>
+      </div>
+
+      <!-- Chart Controls -->
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-xl border border-slate-200">
+        <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">選擇圖表檢視類別：</span>
+        <div class="inline-flex rounded-lg p-1 bg-slate-100">
+          <button onclick="renderSelectedChart('growth')" id="chart-btn-growth" class="px-3 py-1.5 rounded-md text-xs font-semibold bg-white text-teal-800 shadow-sm transition">👶 胎兒頭臀長與心跳</button>
+          <button onclick="renderSelectedChart('immune')" id="chart-btn-immune" class="px-3 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition">🩸 血栓(D-dimer)與白血球</button>
+          <button onclick="renderSelectedChart('hormone')" id="chart-btn-hormone" class="px-3 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition">🧪 黃體素(P4)與羊水(MVP)</button>
+        </div>
+      </div>
+
+      <!-- Main Dynamic Chart Container -->
+      <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-slate-200">
+        <h3 id="chart-title" class="text-base font-bold text-slate-800 mb-1 flex items-center gap-2">
+          <span>👶</span> 胎兒頭臀長 (CRL) 與 心跳速率 (FHR) 成長軌跡
+        </h3>
+        <p id="chart-subtitle" class="text-xs text-slate-500 mb-4">
+          展現頭臀長穩定增長與心跳生理性回落趨勢
+        </p>
+
+        <div class="chart-container">
+          <canvas id="dynamicReportChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Comprehensive Data Table -->
+      <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+        <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center gap-2">
+          <span>📋</span> 歷次看診完整超音波與血清數據動態對比表
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
+                <th class="p-3 font-semibold">檢查項目</th>
+                <th class="p-3 font-semibold">08/17 (9w)</th>
+                <th class="p-3 font-semibold">08/20 (9w3d)</th>
+                <th class="p-3 font-semibold">08/24 (10w1d)</th>
+                <th class="p-3 font-semibold bg-teal-50/80 text-teal-900">08/31 (11w0d) 最新</th>
+                <th class="p-3 font-semibold">狀態評估</th>
+                <th class="p-3 font-semibold">臨床意義趨勢</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">頭臀長 (CRL)</td>
+                <td class="p-3">2.28 cm</td>
+                <td class="p-3">3.40 cm</td>
+                <td class="p-3">4.10 cm</td>
+                <td class="p-3 bg-teal-50/40 font-bold text-teal-900">4.30 cm (40.2mm)</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-semibold">發育優異</span></td>
+                <td class="p-3 text-xs text-slate-500">符合 11w0d 週數規範，成長曲線標準。</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">胎心音 (FHR)</td>
+                <td class="p-3">177 BPM</td>
+                <td class="p-3">180 BPM</td>
+                <td class="p-3">169 BPM</td>
+                <td class="p-3 bg-teal-50/40 font-bold text-teal-900">163 - 165 BPM</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-semibold">正常趨勢</span></td>
+                <td class="p-3 text-xs text-slate-500">心跳自高點平緩下降，符合滿12週降至160以下規律。</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">羊水深度 (MVP)</td>
+                <td class="p-3">3.40 cm</td>
+                <td class="p-3">2.50 cm</td>
+                <td class="p-3">2.40 cm</td>
+                <td class="p-3 bg-teal-50/40 font-bold text-teal-900">3.50 cm</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-semibold">充沛綠燈</span></td>
+                <td class="p-3 text-xs text-slate-500">羊水量顯著回升（>2.0cm標準），胎兒發育空間極佳。</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">D-dimer (血栓)</td>
+                <td class="p-3">0.230 mg/L</td>
+                <td class="p-3">0.134 mg/L</td>
+                <td class="p-3">0.134 mg/L</td>
+                <td class="p-3 bg-teal-50/40 font-bold text-teal-900">0.228 mg/L FEU</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-semibold">優良 (&lt;0.55)</span></td>
+                <td class="p-3 text-xs text-slate-500">穩定維持於安全範圍，10週後稍增屬於安全生理現象。</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">黃體素 (P4)</td>
+                <td class="p-3">40.80 ng/mL</td>
+                <td class="p-3">20.59 ng/mL</td>
+                <td class="p-3">20.59 ng/mL</td>
+                <td class="p-3 bg-teal-50/40 font-bold text-teal-900">22.60 ng/mL</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-semibold">胎盤接管</span></td>
+                <td class="p-3 text-xs text-slate-500">穩定維持於 &gt;20 ng/mL，代表胎盤已成功自主分泌。</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">雌二醇 (E2)</td>
+                <td class="p-3 text-slate-400">未紀錄</td>
+                <td class="p-3 text-slate-400">未紀錄</td>
+                <td class="p-3 text-slate-400">未紀錄</td>
+                <td class="p-3 bg-teal-50/40 font-bold text-teal-900">635.8 pg/mL</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-semibold">正常</span></td>
+                <td class="p-3 text-xs text-slate-500">反映胎盤與妊娠囊內分泌功能健康運作。</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">白血球 (WBC)</td>
+                <td class="p-3">23.0 10^3/uL</td>
+                <td class="p-3 text-slate-400">未抽血</td>
+                <td class="p-3">10.0 10^3/uL</td>
+                <td class="p-3 bg-teal-50/40 font-bold text-teal-900">5.64 10^3/uL</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-semibold">完全正常</span></td>
+                <td class="p-3 text-xs text-slate-500">顯著下降至標準值（4.0-10.8），發炎免疫平息。</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">血小板 (PLT)</td>
+                <td class="p-3">274 10^3/uL</td>
+                <td class="p-3 text-slate-400">未抽血</td>
+                <td class="p-3 text-slate-400">未抽血</td>
+                <td class="p-3 bg-teal-50/40 font-bold text-teal-900">310 10^3/uL</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-semibold">正常</span></td>
+                <td class="p-3 text-xs text-slate-500">血小板數量正常，凝血機制安定。</td>
+              </tr>
+              <tr class="hover:bg-slate-50">
+                <td class="p-3 font-medium text-slate-900">子宮頸長度 (CX)</td>
+                <td class="p-3 text-slate-400">未量測</td>
+                <td class="p-3 text-slate-400">未量測</td>
+                <td class="p-3 text-slate-400">未量測</td>
+                <td class="p-3 bg-teal-50/40 font-bold text-teal-900">1.6 cm + 1.6 cm</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded text-xs font-semibold">結構穩定</span></td>
+                <td class="p-3 text-xs text-slate-500">宮頸結構密合良好，無鬆弛跡象。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB CONTENT 2: MEDICATION TAPERING ROADMAP -->
+    <section id="tab-meds" class="tab-content hidden space-y-6">
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-xs sm:text-sm text-emerald-900 flex items-start gap-3">
+        <span class="text-xl">💊</span>
+        <div>
+          <strong class="font-bold">本區塊目的：</strong>清楚指引 08/31 主治醫師門診處方的「梯式安全減藥計畫」。因胎盤已接管荷爾蒙且免疫指標綠燈，適當減藥能減輕母體肝腎負擔與藥物心理焦慮。
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Discontinued Meds Card -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border-t-4 border-t-red-500 border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold bg-red-100 text-red-800 px-2.5 py-1 rounded-full">🚫 即日起全數停用</span>
+              <span class="text-xl">🛑</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">已安全停用之藥品</h3>
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-700">
+              <li class="p-2.5 bg-red-50/50 rounded-lg border border-red-100">
+                <strong class="text-red-900 block">1. 黃體素小白球 (Progesterone)</strong>
+                <span class="text-xs text-slate-600">口服/陰塞全停。因血清 P4 (22.6) 證實胎盤已自主接管。</span>
+              </li>
+              <li class="p-2.5 bg-red-50/50 rounded-lg border border-red-100">
+                <strong class="text-red-900 block">2. 小孩球 / 奎寧 (Plaquenil)</strong>
+                <span class="text-xs text-slate-600">全數停用。白血球 (5.64) 與發炎指標已完全安定。</span>
+              </li>
+              <li class="p-2.5 bg-red-50/50 rounded-lg border border-red-100">
+                <strong class="text-red-900 block">3. 昂視平 / 昂絲妥</strong>
+                <span class="text-xs text-slate-600">全數停用。完成階段性免疫調節任務。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Retained Active Meds Card -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border-t-4 border-t-teal-500 border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold bg-teal-100 text-teal-800 px-2.5 py-1 rounded-full">✅ 現階段持續使用</span>
+              <span class="text-xl">🛡️</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">維持常規使用之藥品</h3>
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-700">
+              <li class="p-2.5 bg-teal-50/50 rounded-lg border border-teal-100">
+                <strong class="text-teal-900 block">1. 阿司匹靈 / 伯基 (Bokey 100mg)</strong>
+                <span class="text-xs text-slate-600">每日早上 1 顆。預防微血栓形成，維持胎盤微血管暢通。</span>
+              </li>
+              <li class="p-2.5 bg-teal-50/50 rounded-lg border border-teal-100">
+                <strong class="text-teal-900 block">2. 艾山通 (Clexane 肝素皮下針劑)</strong>
+                <span class="text-xs text-slate-600">每日 1 支。持續穩定血栓指標 D-dimer (目前 0.228)。</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Pending Tapering Meds Card -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border-t-4 border-t-amber-500 border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full">⏳ 下週 (12w) 預備減量</span>
+              <span class="text-xl">📉</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2">下一階段擬減量藥品</h3>
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-700">
+              <li class="p-2.5 bg-amber-50/50 rounded-lg border border-amber-100">
+                <strong class="text-amber-900 block">昂斯通 / 艾爽 針劑</strong>
+                <span class="text-xs text-slate-600">預計於下週回診 (12w) 評估。若超音波與血清持續安定，將調整為<strong>「打兩天停一天」</strong>漸進式減量。</span>
+              </li>
+            </ul>
+            <div class="mt-4 p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600">
+              📌 <strong>減藥叮嚀：</strong>停用小白球後若有極少許咖啡色分泌物多為適應過程，保持平躺即可；如有鮮紅出血請隨時聯繫門診。
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB CONTENT 3: LAB DETAILS DRILL-DOWN -->
+    <section id="tab-lab-details" class="tab-content hidden space-y-6">
+      <div class="bg-slate-100 border border-slate-200 rounded-xl p-4 text-xs sm:text-sm text-slate-800 flex items-start gap-3">
+        <span class="text-xl">🧬</span>
+        <div>
+          <strong class="font-bold">本區塊目的：</strong>針對 08/31 報告中的每一項數據提供專業臨床解讀。點擊各個項目卡片可查看其代表意義、異常風險及本個案之獨特解讀。
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Lab Accordion 1: CRL -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:border-teal-500 transition">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded">胎兒發育指標</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">胎兒頭臀長 (CRL)</h3>
+            </div>
+            <span class="text-lg font-bold text-teal-800">4.30 cm (40.2 mm)</span>
+          </div>
+          <ul class="text-xs sm:text-sm text-slate-600 space-y-1.5 mt-3 pt-3 border-t border-slate-100">
+            <li><strong>什麼意思：</strong>超音波測量胎兒頭頂至臀部之直線距離，為前三個月核算週數與預產期最精準指標。</li>
+            <li><strong>個案解讀：</strong>自 08/17 (2.28cm) 穩定成長至 08/31 (4.30cm)，完全吻合 11w0d 週數標準，無發育遲緩。</li>
+          </ul>
+        </div>
+
+        <!-- Lab Accordion 2: FHR -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:border-teal-500 transition">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded">胎兒活力指標</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">胎兒心跳速率 (FHR)</h3>
+            </div>
+            <span class="text-lg font-bold text-teal-800">163 - 165 BPM</span>
+          </div>
+          <ul class="text-xs sm:text-sm text-slate-600 space-y-1.5 mt-3 pt-3 border-t border-slate-100">
+            <li><strong>什麼意思：</strong>每分鐘胎兒心跳次數，反映心血管與中樞神經系統發育。</li>
+            <li><strong>個案解讀：</strong>心跳自 9 週的高峰 (180 BPM) 開始規律回落至 163-165 BPM。醫師說明滿12週後會自然降至160以下，這是完全正常的生理發展規律。</li>
+          </ul>
+        </div>
+
+        <!-- Lab Accordion 3: MVP -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:border-teal-500 transition">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded">子宮環境指標</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">羊水最大垂直深度 (MVP)</h3>
+            </div>
+            <span class="text-lg font-bold text-teal-800">3.50 cm</span>
+          </div>
+          <ul class="text-xs sm:text-sm text-slate-600 space-y-1.5 mt-3 pt-3 border-t border-slate-100">
+            <li><strong>什麼意思：</strong>評估胎盤血流灌流與胎兒水份代謝之安全指標，安全範圍為 2.0 cm - 8.0 cm。</li>
+            <li><strong>個案解讀：</strong>由前次 2.40cm 顯著回升至 3.50cm，醫師總結「風水量夠、綠燈」，顯示胎兒生長空間充沛。</li>
+          </ul>
+        </div>
+
+        <!-- Lab Accordion 4: D-dimer -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:border-teal-500 transition">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded">生殖免疫血栓</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">D-dimer (血栓分解產物)</h3>
+            </div>
+            <span class="text-lg font-bold text-emerald-700">0.228 mg/L FEU</span>
+          </div>
+          <ul class="text-xs sm:text-sm text-slate-600 space-y-1.5 mt-3 pt-3 border-t border-slate-100">
+            <li><strong>什麼意思：</strong>評估體內微血栓風險。生殖免疫異常若導致血管微血栓，會阻礙胚胎營養吸收。</li>
+            <li><strong>個案解讀：</strong>數值 0.228 完全在 &lt;0.55 的安全參考值內。超過 10 週後微幅上升 0.1~0.3 為正常生理變化，處於極佳狀態。</li>
+          </ul>
+        </div>
+
+        <!-- Lab Accordion 5: P4 -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:border-teal-500 transition">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded">荷爾蒙接管</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">黃體素 (Progesterone, P4)</h3>
+            </div>
+            <span class="text-lg font-bold text-teal-800">22.60 ng/mL</span>
+          </div>
+          <ul class="text-xs sm:text-sm text-slate-600 space-y-1.5 mt-3 pt-3 border-t border-slate-100">
+            <li><strong>什麼意思：</strong>穩定內膜、防止子宮收縮的核心荷爾蒙。9-10週後由卵巢轉為胎盤自主分泌。</li>
+            <li><strong>個案解讀：</strong>維持於 &gt;20 ng/mL 濃度，證實胎盤已成功獨立接管分泌，為停用小白球提供堅實數據支持。</li>
+          </ul>
+        </div>
+
+        <!-- Lab Accordion 6: WBC -->
+        <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:border-teal-500 transition">
+          <div class="flex justify-between items-start mb-2">
+            <div>
+              <span class="text-xs font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded">發炎與免疫</span>
+              <h3 class="text-base font-bold text-slate-900 mt-1">白血球計數 (WBC)</h3>
+            </div>
+            <span class="text-lg font-bold text-emerald-700">5.64 10^3/uL</span>
+          </div>
+          <ul class="text-xs sm:text-sm text-slate-600 space-y-1.5 mt-3 pt-3 border-t border-slate-100">
+            <li><strong>什麼意思：</strong>評估全身性發炎反應或免疫系統緊張程度。</li>
+            <li><strong>個案解讀：</strong>由 08/17 的 23.0 大幅降至完全正常的 5.64（標準值 4.0-10.8），顯示發炎反應已完全平息。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB CONTENT 4: PROGNOSIS & SUCCESS RATE -->
+    <section id="tab-prognosis" class="tab-content hidden space-y-6">
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-emerald-200 pb-4 mb-4">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-full">臨床預後定性評估</span>
+            <h2 class="text-xl font-extrabold text-emerald-950 mt-1">持續妊娠與活產成功率：偏高（極佳 / Highly Favorable）</h2>
+          </div>
+          <div class="bg-emerald-600 text-white font-extrabold text-2xl sm:text-3xl px-4 py-2 rounded-xl text-center shadow">
+            95% - 97%+
+          </div>
+        </div>
+        <p class="text-xs sm:text-sm text-emerald-900 leading-relaxed">
+          <strong>臨床共識說明：</strong>進入懷孕第 11 週 (GA 11w0d)，在頭臀長 (CRL 4.3cm) 符合週數、胎心音 (163-165 BPM) 規律且 D-dimer/免疫指標持續綠燈的前提下，根據生殖醫學臨床統計，胚胎順利跨越第一孕期並持續妊娠至健康活產的成功率高達 95% - 97% 以上。
+        </p>
+      </div>
+
+      <!-- Good Factors vs Risk Factors Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Good Factors Box -->
+        <div class="bg-white rounded-2xl p-5 border border-emerald-200 shadow-sm">
+          <h3 class="text-base font-bold text-emerald-800 mb-3 flex items-center gap-2">
+            <span>✅</span> 正面有利因素（綠燈指標）
+          </h3>
+          <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>生長速率極佳：</strong>CRL 達 4.3 cm，完美符合 11w0d，無發育遲緩跡象。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>心跳規律回落：</strong>FHR 163-165 BPM，符合滿12週前自高點回落之正常生理脈絡。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>羊水環境充沛：</strong>MVP 3.5 cm，胎盤營養灌流與胎兒代謝極佳。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>血栓與免疫控制優異：</strong>D-dimer (0.228) 與 WBC (5.64) 全數達標。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-500 font-bold">✓</span>
+              <span><strong>宮頸結構密合：</strong>宮頸長度良好，無早期鬆弛風險。</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Risk Factors & Monitoring Box -->
+        <div class="bg-white rounded-2xl p-5 border border-amber-200 shadow-sm">
+          <h3 class="text-base font-bold text-amber-800 mb-3 flex items-center gap-2">
+            <span>⚠️</span> 減藥期過渡與關注事項
+          </h3>
+          <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700">
+            <li class="flex items-start gap-2">
+              <span class="text-amber-500 font-bold">!</span>
+              <span><strong>減藥過渡期觀察：</strong>停用奎寧與小白球後，需注意有無突破性微量出血或內膜適應。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-amber-500 font-bold">!</span>
+              <span><strong>飲食免疫穩定度：</strong>需避免食用特殊補品或罕見萃取物，防止誘發免疫起伏。</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-amber-500 font-bold">!</span>
+              <span><strong>染色體篩檢排檢：</strong>尚待執行 11w-13w 之 NIPT/NIPS 或 OSCR 第一孕期早期唐氏症篩檢。</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB CONTENT 5: LIFESTYLE & BIRD'S NEST QA -->
+    <section id="tab-lifestyle" class="tab-content hidden space-y-6">
+      <!-- Special Q&A Box for Bird's Nest -->
+      <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-5 sm:p-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="text-2xl">🥣</span>
+          <div>
+            <span class="text-xs font-bold bg-amber-200 text-amber-900 px-2 py-0.5 rounded">門診諮詢專屬解答</span>
+            <h3 class="text-lg font-bold text-amber-950 mt-0.5">關於「我可以吃燕窩嗎？」的門診醫師權威回答</h3>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl p-4 border border-amber-200 text-xs sm:text-sm text-slate-800 space-y-3">
+          <p class="font-extrabold text-red-700 text-base">
+            ❌ 門診主治醫師明確建議：不建議特別食用燕窩或特殊補品！
+          </p>
+          <div class="space-y-2 text-slate-700">
+            <p><strong>1. 為什麼不能吃燕窩？（免疫學原因）：</strong></p>
+            <p class="pl-3 border-l-2 border-amber-400">
+              燕窩含有豐富的大分子蛋白質與特殊生物活性因子。對於生殖免疫較為敏感（曾有免疫不孕或血栓傾向）的孕婦，平時不常接觸的特殊補品容易被母體免疫系統識別為異物，進而誘發免疫過度活化（即醫師俗稱的<strong>「免疫咬起來」</strong>）。
+            </p>
+            <p><strong>2. 孕期黃金飲食原則：</strong></p>
+            <p class="pl-3 border-l-2 border-amber-400">
+              只要是人類日常常規食用、新鮮、未過度加工的原型食物（如蔬菜、優質肉類、蛋類、米飯、水果），適量攝取都非常安全。<strong>「不要吃太特別的補品，就是對胎兒最好的免疫保護。」</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- General Lifestyle Advice Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+          <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <span>🚶‍♀️</span> 運動與日常活動指南
+          </h3>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+            <li>• <strong>避免劇烈運動：</strong>禁止跑跳、提拿重物或高強度家務。</li>
+            <li>• <strong>溫和散步：</strong>可進行短時間平路散步，促進血液循環。</li>
+            <li>• <strong>充足休息：</strong>每日維持 8 小時以上睡眠，避免熬夜與過度勞累。</li>
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+          <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <span>🩸</span> 減藥期間出血觀察指引
+          </h3>
+          <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+            <li>• <strong>咖啡色微量分泌物：</strong>多為停用小白球後內膜適應過程，請保持平躺休息。</li>
+            <li>• <strong>鮮紅色出血或腹痛：</strong>若出現鮮紅血液或陣發性下腹劇痛，請隨時回診檢查。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB CONTENT 6: SCREENING ROADMAP & DOCTOR CHECKLIST -->
+    <section id="tab-checklist" class="tab-content hidden space-y-6">
+      <div class="bg-teal-50 border border-teal-200 rounded-xl p-4 text-xs sm:text-sm text-teal-900 flex items-start gap-3">
+        <span class="text-xl">📋</span>
+        <div>
+          <strong class="font-bold">本區塊目的：</strong>協助您規劃第 11-14 週之核心檢查排程，並提供下一次（12週）門診建議與醫師討論的關鍵問題清單。您可以直接勾選完成項目！
+        </div>
+      </div>
+
+      <!-- Recommended Tests Table -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+        <h3 class="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <span>🧪</span> 第 11-14 週建議進階檢查項目
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs sm:text-sm border-collapse">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700">
+                <th class="p-3 font-semibold">檢查項目</th>
+                <th class="p-3 font-semibold">建議時機</th>
+                <th class="p-3 font-semibold">檢查目的與意義</th>
+                <th class="p-3 font-semibold">優先度</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-700">
+              <tr>
+                <td class="p-3 font-bold text-slate-900">NIPT / NIPS 基因檢測</td>
+                <td class="p-3">11w - 13w (即日起)</td>
+                <td class="p-3">抽母體血檢測胎兒 T21, T18, T13 及染色體微片段缺失。</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">高優先</span></td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-slate-900">OSCR 早期唐氏症與子癲前症篩檢</td>
+                <td class="p-3">11w - 13w6d</td>
+                <td class="p-3">結合頸部透明帶 (NT) 與血清 PAPP-A/PlGF，評估唐氏症與子癲前症風險。</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">高優先</span></td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-slate-900">領取媽媽手冊與公費第一產檢</td>
+                <td class="p-3">11w - 12w (下次回診)</td>
+                <td class="p-3">進行公費基本產檢項目（血型、貧血、梅毒、愛滋、水痘抗體等）。</td>
+                <td class="p-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">高優先</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Interactive Doctor Questions Checklist -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <span>🗣️</span> 下次回診 (12w) 建議問診準備清單
+          </h3>
+          <span class="text-xs text-slate-500">（點擊方框即可標記討論進度）</span>
+        </div>
+
+        <div class="space-y-3">
+          <label class="flex items-start gap-3 p-3 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer border border-slate-200 transition">
+            <input type="checkbox" class="mt-1 h-4 w-4 text-teal-600 rounded border-slate-300 focus:ring-teal-500">
+            <div class="text-xs sm:text-sm text-slate-800">
+              <strong class="block text-slate-900 font-bold">問診 1：關於昂斯通減量</strong>
+              「醫師，停掉小白球與奎寧後狀況都很穩定，今天 12 週的昂斯通/艾爽是按計畫調整為『打兩天停一天』嗎？」
+            </div>
+          </label>
+
+          <label class="flex items-start gap-3 p-3 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer border border-slate-200 transition">
+            <input type="checkbox" class="mt-1 h-4 w-4 text-teal-600 rounded border-slate-300 focus:ring-teal-500">
+            <div class="text-xs sm:text-sm text-slate-800">
+              <strong class="block text-slate-900 font-bold">問診 2：關於伯基與肝素時程</strong>
+              「請問伯基與艾山通（肝素）預計會維持使用到第幾週？需要配合定期抽血 D-dimer 再決定嗎？」
+            </div>
+          </label>
+
+          <label class="flex items-start gap-3 p-3 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer border border-slate-200 transition">
+            <input type="checkbox" class="mt-1 h-4 w-4 text-teal-600 rounded border-slate-300 focus:ring-teal-500">
+            <div class="text-xs sm:text-sm text-slate-800">
+              <strong class="block text-slate-900 font-bold">問診 3：關於染色體篩檢安排</strong>
+              「我們預計選做 NIPT/NIPS（或 OSCR 頸部透明帶），請問今天可以順便抽血排檢，還是需要預約特定診別？」
+            </div>
+          </label>
+
+          <label class="flex items-start gap-3 p-3 bg-slate-50 hover:bg-slate-100 rounded-xl cursor-pointer border border-slate-200 transition">
+            <input type="checkbox" class="mt-1 h-4 w-4 text-teal-600 rounded border-slate-300 focus:ring-teal-500">
+            <div class="text-xs sm:text-sm text-slate-800">
+              <strong class="block text-slate-900 font-bold">問診 4：關於媽媽手冊與畢業時程</strong>
+              「請問今天是否可以正式領取媽媽手冊？預計滿 14 週畢業時會協助轉介婦產科常規產檢嗎？」
+            </div>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Emergency Red Flags Banner -->
+    <section class="mt-8 bg-red-50 border-2 border-red-200 rounded-2xl p-5 shadow-sm">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="text-2xl">🚨</span>
+        <h3 class="text-base sm:text-lg font-bold text-red-950">重要警示訊號（何時需立即就醫）</h3>
+      </div>
+      <p class="text-xs sm:text-sm text-red-900 mb-3">
+        在減藥過渡期或日常生活中，若出現以下任一症狀，請勿等待預約回診，應立即前往急診或生殖中心門診：
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm font-semibold text-red-800">
+        <div class="bg-white p-3 rounded-xl border border-red-200 shadow-sm">
+          ❌ 陰道鮮紅色大量出血（單小時浸濕滿1片衛生棉）
+        </div>
+        <div class="bg-white p-3 rounded-xl border border-red-200 shadow-sm">
+          ❌ 劇烈下腹痙攣陣痛（平躺休息後無法緩解）
+        </div>
+        <div class="bg-white p-3 rounded-xl border border-red-200 shadow-sm">
+          ❌ 陰道無預警流出大量清澈水狀液體（早期破水）
+        </div>
+        <div class="bg-white p-3 rounded-xl border border-red-200 shadow-sm">
+          ❌ 持續高燒（&gt;38°C）、嚴重寒顫或呼吸急促
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer & Disclaimer -->
+  <footer class="bg-slate-900 text-slate-400 py-6 text-xs border-t border-slate-800 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
+      <p>
+        <strong>📌 醫療非診斷聲明：</strong>本報告係由生殖醫學分析系統根據使用者提供之 2026/08/31 門診紀錄、超音波影像及血清檢驗報告進行之綜合邏輯整理。內容僅供個人健康管理與門診溝通參考，不可取代專業醫師之現場診察、診斷與處方。所有用藥調整（小白球、奎寧、肝素等）必須嚴格遵照主治醫師之醫囑執行。
+      </p>
+      <div class="flex justify-between items-center text-slate-500 pt-2 border-t border-slate-800">
+        <span>報告產出日期：2026/08/31</span>
+        <span>系統版本：ReproImmuno v2026.8</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // Tab Switching Logic
+    function switchTab(tabId) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      // Remove active styles from all tab buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('border-teal-600', 'text-teal-700', 'font-semibold');
+        btn.classList.add('border-transparent', 'text-slate-500', 'font-medium');
+      });
+
+      // Show selected tab
+      const selectedTab = document.getElementById('tab-' + tabId);
+      if(selectedTab) selectedTab.classList.remove('hidden');
+
+      // Highlight active button
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      if(activeBtn) {
+        activeBtn.classList.add('border-teal-600', 'text-teal-700', 'font-semibold');
+        activeBtn.classList.remove('border-transparent', 'text-slate-500');
+      }
+    }
+
+    // Chart.js Setup
+    let reportChartInstance = null;
+
+    const chartDataSets = {
+      growth: {
+        title: '👶 胎兒頭臀長 (CRL) 與 心跳速率 (FHR) 成長軌跡',
+        subtitle: '展現頭臀長穩定增長 (4.3cm) 與心跳規律回落 (163 BPM) 趨勢',
+        labels: ['08/17 (9w0d)', '08/20 (9w3d)', '08/24 (10w1d)', '08/31 (11w0d)'],
+        datasets: [
+          {
+            label: '頭臀長 CRL (cm)',
+            data: [2.28, 3.40, 4.10, 4.30],
+            borderColor: '#0f766e',
+            backgroundColor: 'rgba(15, 118, 110, 0.15)',
+            yAxisID: 'y1',
+            tension: 0.3,
+            fill: true,
+            pointRadius: 5
+          },
+          {
+            label: '胎兒心跳 FHR (BPM)',
+            data: [177, 180, 169, 164],
+            borderColor: '#2563eb',
+            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+            yAxisID: 'y2',
+            borderDash: [5, 5],
+            tension: 0.3,
+            pointRadius: 5
+          }
+        ],
+        scales: {
+          y1: {
+            type: 'linear',
+            position: 'left',
+            title: { display: true, text: '頭臀長 (cm)', color: '#0f766e' },
+            min: 0,
+            max: 6
+          },
+          y2: {
+            type: 'linear',
+            position: 'right',
+            title: { display: true, text: '胎心音 (BPM)', color: '#2563eb' },
+            min: 100,
+            max: 200,
+            grid: { drawOnChartArea: false }
+          }
+        }
+      },
+      immune: {
+        title: '🩸 血栓指標 (D-dimer) 與 白血球 (WBC) 免疫穩定度',
+        subtitle: 'D-dimer 穩定維持在 0.228 (<0.55)，白血球回降至 5.64 正常區',
+        labels: ['08/17 (9w0d)', '08/20 (9w3d)', '08/24 (10w1d)', '08/31 (11w0d)'],
+        datasets: [
+          {
+            label: 'D-dimer (mg/L)',
+            data: [0.230, 0.134, 0.134, 0.228],
+            borderColor: '#059669',
+            backgroundColor: 'rgba(5, 150, 105, 0.15)',
+            yAxisID: 'y1',
+            tension: 0.3,
+            fill: true,
+            pointRadius: 5
+          },
+          {
+            label: '白血球 WBC (10^3/uL)',
+            data: [23.0, null, 10.0, 5.64],
+            borderColor: '#d97706',
+            backgroundColor: 'rgba(217, 119, 6, 0.1)',
+            yAxisID: 'y2',
+            spanGaps: true,
+            tension: 0.3,
+            pointRadius: 5
+          }
+        ],
+        scales: {
+          y1: {
+            type: 'linear',
+            position: 'left',
+            title: { display: true, text: 'D-dimer (mg/L)', color: '#059669' },
+            min: 0,
+            max: 0.8
+          },
+          y2: {
+            type: 'linear',
+            position: 'right',
+            title: { display: true, text: '白血球 WBC (10^3/uL)', color: '#d97706' },
+            min: 0,
+            max: 30,
+            grid: { drawOnChartArea: false }
+          }
+        }
+      },
+      hormone: {
+        title: '🧪 黃體素 (P4) 與 羊水最大深度 (MVP) 動態變化',
+        subtitle: '黃體素維持 22.6 ng/mL 證實胎盤接管成功，羊水深度充沛 3.5cm',
+        labels: ['08/17 (9w0d)', '08/20 (9w3d)', '08/24 (10w1d)', '08/31 (11w0d)'],
+        datasets: [
+          {
+            label: '黃體素 P4 (ng/mL)',
+            data: [40.80, 20.59, 20.59, 22.60],
+            borderColor: '#7c3aed',
+            backgroundColor: 'rgba(124, 58, 237, 0.15)',
+            yAxisID: 'y1',
+            tension: 0.3,
+            fill: true,
+            pointRadius: 5
+          },
+          {
+            label: '羊水深度 MVP (cm)',
+            data: [3.40, 2.50, 2.40, 3.50],
+            borderColor: '#0284c7',
+            backgroundColor: 'rgba(2, 132, 199, 0.1)',
+            yAxisID: 'y2',
+            tension: 0.3,
+            pointRadius: 5
+          }
+        ],
+        scales: {
+          y1: {
+            type: 'linear',
+            position: 'left',
+            title: { display: true, text: '黃體素 P4 (ng/mL)', color: '#7c3aed' },
+            min: 0,
+            max: 50
+          },
+          y2: {
+            type: 'linear',
+            position: 'right',
+            title: { display: true, text: '羊水深度 MVP (cm)', color: '#0284c7' },
+            min: 0,
+            max: 6,
+            grid: { drawOnChartArea: false }
+          }
+        }
+      }
+    };
+
+    function renderSelectedChart(type) {
+      const config = chartDataSets[type];
+      if(!config) return;
+
+      // Update titles
+      document.getElementById('chart-title').innerText = config.title;
+      document.getElementById('chart-subtitle').innerText = config.subtitle;
+
+      // Update button active styles
+      ['growth', 'immune', 'hormone'].forEach(key => {
+        const btn = document.getElementById('chart-btn-' + key);
+        if(key === type) {
+          btn.className = "px-3 py-1.5 rounded-md text-xs font-semibold bg-white text-teal-800 shadow-sm transition";
+        } else {
+          btn.className = "px-3 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition";
+        }
+      });
+
+      const ctx = document.getElementById('dynamicReportChart').getContext('2d');
+      if(reportChartInstance) {
+        reportChartInstance.destroy();
+      }
+
+      reportChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: config.labels,
+          datasets: config.datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: 'index',
+            intersect: false,
+          },
+          plugins: {
+            tooltip: {
+              padding: 10,
+              callbacks: {
+                label: function(context) {
+                  return context.dataset.label + ': ' + context.parsed.y;
+                }
+              }
+            },
+            legend: {
+              position: 'top',
+              labels: {
+                boxWidth: 12,
+                font: { size: 12 }
+              }
+            }
+          },
+          scales: config.scales
+        }
+      });
+    }
+
+    // Initialize default chart on DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      renderSelectedChart('growth');
+    });
+  </script>
+</body>
+</html>
