@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>2026/09/10 妊娠追蹤、檢驗趨勢與看診整合報告</title>
+  <style>
+    :root{--navy:#12344a;--teal:#0f766e;--blue:#2873a7;--ink:#1c3443;--muted:#647682;--line:#d6e3e8;--soft:#f3f8fa;--white:#fff;--green:#e7f7ef;--green-ink:#17684f;--amber:#fff6dd;--amber-ink:#805600;--red:#fff0f0;--red-ink:#982a2a;--info:#edf6ff;--info-ink:#185c90;--violet:#f2efff;--shadow:0 12px 30px rgba(18,52,74,.08)}
+    *{box-sizing:border-box}body{margin:0;background:#edf4f6;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC",sans-serif;line-height:1.72}.report-container{max-width:1160px;margin:0 auto;padding:24px}.report-header{padding:32px;border-radius:24px;background:linear-gradient(135deg,#12344a 0%,#155d6d 58%,#0f766e 100%);color:#fff;box-shadow:var(--shadow)}.eyebrow{font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;font-weight:800;color:#a6ebe4}.report-header h1{font-size:clamp(1.55rem,4vw,2.35rem);line-height:1.22;margin:7px 0}.report-header p{margin:5px 0;color:#ddf1f1}.metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin-top:22px}.metric{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.1);border-radius:14px;padding:11px}.metric span{display:block;font-size:.73rem;color:#d7eaeb}.metric b{display:block;font-size:1rem;color:#fff}.card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:23px;margin-top:18px;box-shadow:var(--shadow)}h2{margin:0 0 14px;color:var(--navy);font-size:1.24rem}h3{margin:20px 0 9px;color:var(--navy);font-size:1.02rem}p{margin:8px 0}ul,ol{padding-left:1.25rem}.small{font-size:.83rem;color:var(--muted)}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}.lab-table{width:100%;min-width:900px;border-collapse:collapse;font-size:.85rem}.lab-table th{background:#e8f2f5;color:var(--navy);padding:10px;text-align:left;white-space:nowrap}.lab-table td{padding:10px;border-top:1px solid var(--line);vertical-align:top}.lab-table tbody tr:nth-child(even){background:#f8fbfc}.tag,.chance-tag,.evidence{display:inline-block;border-radius:999px;padding:3px 9px;font-size:.73rem;font-weight:800;white-space:nowrap}.tag.normal{background:var(--green);color:var(--green-ink)}.tag.borderline{background:var(--amber);color:var(--amber-ink)}.tag.abnormal{background:var(--red);color:var(--red-ink)}.tag.insufficient{background:#edf0f2;color:#53616b}.chance-tag.high,.chance-tag.mid-high{background:var(--green);color:var(--green-ink)}.chance-tag.medium{background:var(--info);color:var(--info-ink)}.chance-tag.mid-low,.chance-tag.low{background:var(--amber);color:var(--amber-ink)}.chance-tag.unknown{background:#edf0f2;color:#53616b}.evidence{background:#edf0f2;color:#53616b;padding:2px 7px}.info-box,.warning-box,.alert-box,.tip-box,.success-box,.caution-box{border-radius:14px;padding:14px 16px;margin:12px 0;border-left:5px solid}.info-box{background:var(--info);border-color:#4798d0}.warning-box,.caution-box{background:var(--amber);border-color:#d69b18}.alert-box{background:var(--red);border-color:#d84a4a}.tip-box{background:var(--violet);border-color:#7564c6}.success-box{background:var(--green);border-color:#3f9b75}.two-column-grid,.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.visit-point{border:1px solid var(--line);border-radius:13px;padding:13px;background:#fbfdfe}.visit-point b{color:var(--navy)}.delta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.delta-card{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fbfdfe}.delta-card span{display:block;font-size:.76rem;color:var(--muted)}.delta-card strong{display:block;font-size:1.08rem;color:var(--teal);margin:3px 0}.lab-item-block{background:#fbfdfe;border:1px solid var(--line);border-radius:15px;padding:16px;margin:12px 0}.lab-item-block h3{margin:0 0 8px}.lab-item-block dl{display:grid;grid-template-columns:120px 1fr;gap:6px 12px;margin:0;font-size:.89rem}.lab-item-block dt{font-weight:800;color:var(--teal)}.lab-item-block dd{margin:0}.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.figure{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#091117}.figure img{display:block;width:100%;height:auto}.figure figcaption{background:#fff;padding:9px 11px;color:var(--muted);font-size:.78rem}.current-cell{background:#e7f7ef!important;font-weight:800;color:#17684f}.footer-note{text-align:center;color:var(--muted);font-size:.81rem;padding:20px 0 8px}
+    .consult-banner{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}.consult-chip{border:1px solid #cfe2e6;border-radius:14px;padding:12px;background:#f5fbfb}.consult-chip span{display:block;color:var(--muted);font-size:.75rem}.consult-chip b{display:block;color:var(--navy);font-size:.98rem}.med-name{font-weight:800;color:var(--navy)}.schedule-on{background:#e7f7ef!important;color:#17684f;font-weight:800}.schedule-off{background:#fff6dd!important;color:#805600;font-weight:800}.privacy-note{font-size:.81rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px;margin-top:10px}
+    @media(max-width:850px){.report-container{padding:12px}.report-header,.card{padding:17px}.metrics{grid-template-columns:1fr 1fr}.two-column-grid,.visit-grid,.delta-grid,.gallery,.consult-banner{grid-template-columns:1fr}.lab-item-block dl{grid-template-columns:1fr}.lab-item-block dd{margin-bottom:8px}}
+    @media print{body{background:#fff}.report-container{max-width:none;padding:0}.card,.report-header{box-shadow:none}.gallery{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+<div class="report-container">
+  <header class="report-header">
+    <div class="eyebrow">Ultrasound · laboratory · clinical visit</div>
+    <h1>2026/09/10 妊娠追蹤、檢驗趨勢與看診整合報告</h1>
+    <p>以 9/10 原始影像與醫師看診錄音為主，銜接 6/25–9/7 已核對的歷史資料</p>
+    <div class="metrics">
+      <div class="metric"><span>影像孕週</span><b>12w6d</b></div>
+      <div class="metric"><span>CRL</span><b>6.5 cm</b></div>
+      <div class="metric"><span>FHR</span><b>154 BPM</b></div>
+      <div class="metric"><span>E2</span><b>1241 pg/mL</b></div>
+      <div class="metric"><span>P4</span><b>20.75 ng/mL</b></div>
+      <div class="metric"><span>D-dimer</span><b>0.125 mg/L FEU</b></div>
+    </div>
+  </header>
+
+  <section class="card" id="summary">
+    <h2>📋 一、個案摘要</h2>
+    <div class="success-box"><strong>今日可確認重點：</strong>9/10 超音波影像顯示 CRL 6.5 cm，儀器換算 12w6d、EDD 2027/03/19；FHR 154 BPM。另有兩筆標示 MVP 的量測 3.3 cm、3.5 cm，以及一筆標示 Cx 的 3.1 cm。醫師口頭表示「快 13 週」、「心跳 154 是 OK」、「羊水量夠、子宮頸也 OK」。</div>
+    <div class="info-box"><strong>抽血與看診結論：</strong>E2 1241 pg/mL、P4 20.75 ng/mL，影像未附參考值；兩者均較 9/7 上升。D-dimer 0.125 mg/L FEU，低於本張檢驗單參考上限 &lt;0.55，與 9/7 的 0.127 接近。醫師以「同步上來」、「血栓穩定」、「目前免疫算穩定，觀察」描述本次狀態。</div>
+    <p><strong>病程脈絡：</strong>既有報告記載為試管療程、D5 囊胚於 2026/07/01 植入。早期曾有兩組胚胎／孕囊量測；後續靜態影像無跨日胎兒 ID，本報告只沿用先前核對過的「目前胎兒主軌跡」，不宣稱能由照片完成跨日個體配對。</p>
+    <p><strong>今日症狀與行程：</strong>錄音提到偶爾頭暈、頭痛；預計赴日本 6 天。錄音沒有提到當下出血、劇烈腹痛、發燒或呼吸困難，但錄音不能取代完整症狀問診。</p>
+    <p><strong>資料缺口：</strong>孕婦年齡、正式超音波報告、NT／早期解剖結果、完整處方與每種藥的正式名稱／劑量、抽血時間、E2/P4 院方孕期參考範圍、錄音中數個藥名與減藥對象的書面確認。</p>
+  </section>
+
+  <section class="card" id="overview">
+    <h2>🔎 二、檢驗報告重點整理</h2>
+    <h3>9/10 超音波與驗血：原始影像逐筆</h3>
+    <div class="table-wrap"><table class="lab-table"><thead><tr><th>項目</th><th>結果</th><th>單位</th><th>日期／時間</th><th>提供的參考值</th><th>狀態</th><th>簡要說明</th></tr></thead><tbody>
+      <tr><td>CRL:CGMH</td><td>6.5；US-GA 12w6d；EDD 2027/03/19</td><td>cm</td><td>2026/09/10 08:04:24</td><td>未提供</td><td><span class="tag normal">較前增加</span></td><td>較 9/7 的 5.34／5.53 cm 增加 1.16／0.97 cm（計算值）。</td></tr>
+      <tr><td>FHR</td><td>154</td><td>BPM</td><td>2026/09/10 08:04:59</td><td>未提供</td><td><span class="tag normal">醫師稱 OK</span></td><td>較 9/7 的 164 低 10 BPM（計算值）；是否合宜以動態掃描判讀。</td></tr>
+      <tr><td>MVP（影像一）</td><td>3.3</td><td>cm</td><td>2026/09/10 08:05:17</td><td>未提供</td><td><span class="tag normal">醫師稱足夠</span></td><td>同日第一筆 MVP 標示值。</td></tr>
+      <tr><td>MVP（影像二）</td><td>3.5</td><td>cm</td><td>2026/09/10 08:05:49</td><td>未提供</td><td><span class="tag normal">醫師稱足夠</span></td><td>同日第二筆 MVP 標示值；不自行推定為不同胎兒。</td></tr>
+      <tr><td>Cx</td><td>3.1</td><td>cm</td><td>2026/09/10 08:06:32</td><td>未提供</td><td><span class="tag normal">醫師稱 OK</span></td><td>影像標示 Cx；量測途徑未提供。</td></tr>
+      <tr><td>E2（院）</td><td>1241</td><td>pg/mL</td><td>2026/09/10；圖上無時間</td><td>未提供</td><td><span class="tag borderline">依趨勢判讀</span></td><td>較 9/7 的 913.4 增加 327.6（+35.9%，計算值）。</td></tr>
+      <tr><td>P4（院）</td><td>20.75</td><td>ng/mL</td><td>2026/09/10；圖上無時間</td><td>未提供</td><td><span class="tag borderline">依趨勢判讀</span></td><td>較 9/7 的 15.68 增加 5.07（+32.3%，計算值）。</td></tr>
+      <tr><td>D-dimer（院）</td><td>0.125</td><td>mg/L FEU</td><td>2026/09/10；圖上無時間</td><td>&lt;0.55</td><td><span class="tag normal">院方範圍內</span></td><td>較 9/7 的 0.127 低 0.002（−1.6%，計算值），接近持平。</td></tr>
+    </tbody></table></div>
+
+    <h3>本次原始影像</h3>
+    <div class="gallery">
+      <figure class="figure"><img src="overall_visit_analysis_20260910_assets/IMG_7283.JPG" alt="9月10日CRL 6.5公分"><figcaption>CRL 6.5 cm｜12w6d｜EDD 2027/03/19</figcaption></figure>
+      <figure class="figure"><img src="overall_visit_analysis_20260910_assets/IMG_7285.JPG" alt="9月10日胎心率154"><figcaption>FHR 154 BPM｜醫師口頭稱 OK</figcaption></figure>
+      <figure class="figure"><img src="overall_visit_analysis_20260910_assets/IMG_7282.JPG" alt="9月10日MVP 3.3公分"><figcaption>MVP 3.3 cm｜08:05:17</figcaption></figure>
+      <figure class="figure"><img src="overall_visit_analysis_20260910_assets/IMG_7284.JPG" alt="9月10日MVP 3.5公分"><figcaption>MVP 3.5 cm｜08:05:49</figcaption></figure>
+      <figure class="figure"><img src="overall_visit_analysis_20260910_assets/IMG_7281.JPG" alt="9月10日子宮頸量測3.1公分"><figcaption>Cx 3.1 cm｜醫師口頭稱 OK</figcaption></figure>
+      <figure class="figure"><img src="overall_visit_analysis_20260910_assets/S__221282409_0.jpg" alt="9月10日E2與P4"><figcaption>E2 1241 pg/mL｜P4 20.75 ng/mL</figcaption></figure>
+      <figure class="figure"><img src="overall_visit_analysis_20260910_assets/S__221282408_0.jpg" alt="9月10日D-dimer"><figcaption>D-dimer 0.125 mg/L FEU｜參考 &lt;0.55</figcaption></figure>
+    </div>
+
+    <h3>歷史追蹤：胎兒生長與超音波</h3>
+    <div class="table-wrap"><table class="lab-table"><thead><tr><th>日期</th><th>CRL</th><th>影像孕週／EDD</th><th>FHR</th><th>MVP／Cx</th><th>與前次可比變化</th><th>證據</th></tr></thead><tbody>
+      <tr><td>08/03</td><td>0.84 cm</td><td>6w0d；EDD 2027/03/29</td><td>147 BPM</td><td>—</td><td>另有第二胚胎 0.58 cm／145 BPM；跨日身分未確認</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td>08/04</td><td>1.10 cm</td><td>換算週數未清楚輸出</td><td>156 BPM</td><td>—</td><td>CRL +0.26 cm；另見 0.51 cm 量測</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td>08/10</td><td>1.72 cm</td><td>8w0d；EDD 2027/03/22</td><td>171 BPM</td><td>—</td><td>CRL +0.62 cm</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td>08/17</td><td>2.42 cm</td><td>8w6d；EDD 2027/03/23</td><td>168 BPM</td><td>囊腔 4.2×2.7 cm；另見 0.6×0.7 cm 結構</td><td>CRL +0.70 cm；FHR −3</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td>08/20</td><td>2.79 cm</td><td>9w3d；EDD 2027/03/22</td><td>177 BPM</td><td>距離 3.5 cm，項目名未顯示</td><td>CRL +0.37 cm；FHR +9</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td>08/24</td><td>3.40 cm</td><td>10w1d；EDD 2027/03/21</td><td>169 BPM</td><td>MVP 3.50 cm</td><td>CRL +0.61 cm；FHR −8</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td>08/31</td><td>4.30 cm</td><td>11w0d；EDD 2027/03/22</td><td>163、165 BPM</td><td>MVP 3.50 cm；Cx 1.6+1.6 cm</td><td>CRL +0.90 cm；FHR −4至−6</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td>09/07</td><td>5.34、5.53 cm</td><td>11w6d／12w0d；EDD 2027/03/23、03/22</td><td>164 BPM</td><td>MVP 4.05 cm；Cx 3.2 cm</td><td>CRL +1.04至+1.23 cm</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td class="current-cell">09/10</td><td class="current-cell">6.5 cm</td><td class="current-cell">12w6d；EDD 2027/03/19</td><td class="current-cell">154 BPM</td><td class="current-cell">MVP 3.3、3.5 cm；Cx 3.1 cm</td><td class="current-cell">CRL +0.97至+1.16 cm；FHR −10；Cx −0.1 cm</td><td><span class="evidence">本次原圖</span></td></tr>
+    </tbody></table></div>
+    <p class="small">所有差值均由相鄰影像讀值計算，不是新的醫療檢驗。MVP 同日兩筆分列保留，不取平均、不推定胎兒身分。不同切面、操作者與量測方式會影響可比性。</p>
+
+    <h3>歷史追蹤：E2／P4</h3>
+    <div class="table-wrap"><table class="lab-table"><thead><tr><th>日期</th><th>E2 (pg/mL)</th><th>P4 (ng/mL)</th><th>逐次變化</th><th>證據</th></tr></thead><tbody>
+      <tr><td>06/25</td><td>438.0</td><td>&lt;0.050</td><td>療程早期值；不可直接與孕期停減藥後數值等同</td><td><span class="evidence">既有報告</span></td></tr>
+      <tr><td>07/01</td><td>—</td><td>27.4</td><td>植入日紀錄</td><td><span class="evidence">既有報告</span></td></tr>
+      <tr><td>07/03</td><td>909.4</td><td>&gt;60</td><td>外源性支持與抽血時點可能影響</td><td><span class="evidence">既有報告</span></td></tr>
+      <tr><td>07/10</td><td>769.9</td><td>47.09</td><td>兩項較 7/3 下降</td><td><span class="evidence">既有報告</span></td></tr>
+      <tr><td>07/13</td><td>712.9</td><td>22.91</td><td>P4 再下降</td><td><span class="evidence">既有報告</span></td></tr>
+      <tr><td>07/16</td><td>804.0</td><td>47.81</td><td>E2、P4 均較 7/13 回升</td><td><span class="evidence">既有報告</span></td></tr>
+      <tr><td>08/20</td><td>460.2</td><td>23.03</td><td>原始截圖重新確認</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td>08/24</td><td>485.9</td><td>20.59</td><td>E2 +25.7；P4 −2.44</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td>08/31</td><td>635.8</td><td>22.60</td><td>E2 +149.9；P4 +2.01</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td>09/07</td><td>913.4</td><td>15.68</td><td>E2 +277.6；P4 −6.92</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td class="current-cell">09/10</td><td class="current-cell">1241</td><td class="current-cell">20.75</td><td class="current-cell">E2 +327.6（+35.9%）；P4 +5.07（+32.3%）</td><td><span class="evidence">本次原圖</span></td></tr>
+    </tbody></table></div>
+    <p class="small">E2、P4 原圖未附孕期參考區間與採血時間；數值也可能受藥物、途徑與最後用藥時間影響。表格只描述歷史變化，不自行設定正常門檻。</p>
+
+    <h3>歷史追蹤：D-dimer／CBC</h3>
+    <div class="table-wrap"><table class="lab-table"><thead><tr><th>日期</th><th>D-dimer (mg/L FEU)</th><th>RBC</th><th>WBC</th><th>Hb</th><th>Hct</th><th>PLT</th><th>MCV</th><th>證據</th></tr></thead><tbody>
+      <tr><td>06/25</td><td>0.070</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="evidence">既有報告</span></td></tr>
+      <tr><td>07/01</td><td>0.160</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="evidence">既有報告</span></td></tr>
+      <tr><td>07/03</td><td>0.064</td><td>—</td><td>11.99</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="evidence">既有報告</span></td></tr>
+      <tr><td>07/16</td><td>0.047</td><td>—</td><td>10.41</td><td>13.5</td><td>—</td><td>315</td><td>—</td><td><span class="evidence">既有報告</span></td></tr>
+      <tr><td>07/27</td><td>0.080</td><td>4.26</td><td>10.72</td><td>13.8</td><td>40.1</td><td>318</td><td>94.1</td><td><span class="evidence">既有報告</span></td></tr>
+      <tr><td>08/20</td><td>0.125</td><td>4.30</td><td>6.94</td><td>14.0</td><td>39.6</td><td>321</td><td>92.1</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td>08/24</td><td>0.134</td><td>4.03</td><td>5.97</td><td>13.2</td><td>37.8</td><td>297</td><td>93.8</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td>08/31</td><td>0.228</td><td>4.20</td><td>5.64</td><td>13.8</td><td>38.5</td><td>310</td><td>91.7</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td>09/07</td><td>0.127</td><td>4.11</td><td>5.63</td><td>13.3</td><td>37.7</td><td>297</td><td>91.7</td><td><span class="evidence">原始影像</span></td></tr>
+      <tr><td class="current-cell">09/10</td><td class="current-cell">0.125</td><td colspan="6">本次未提供 CBC 新值</td><td><span class="evidence">本次原圖</span></td></tr>
+    </tbody></table></div>
+    <p class="small">9/10 D-dimer 低於影像提供的 &lt;0.55；這不等同排除血栓，也不能單獨證明免疫或胎盤灌流狀態。錄音提到其他項目「穩定」，但未提供其名稱與數值，故未新增到表格。</p>
+  </section>
+
+  <section class="card" id="details">
+    <h2>🧾 三、每一項檢驗數字的詳細說明</h2>
+    <div class="lab-item-block"><h3>CRL:CGMH｜6.5 cm（12w6d；EDD 2027/03/19）</h3><dl><dt>代表與用途</dt><dd>頭臀長用於第一孕期核對孕週與連續追蹤胎兒生長。</dd><dt>高低方向</dt><dd>比預期大或小都需結合植入日、量測平面與後續重複測量；單次差異不能獨立定論。</dd><dt>本案意義</dt><dd>較 9/7 的兩筆值均增加，且醫師口頭判讀為 12 週 6 天、快 13 週。</dd><dt>合併／追蹤</dt><dd>與 FHR、正式早孕結構掃描及後續生物測量合看。</dd></dl></div>
+    <div class="lab-item-block"><h3>FHR｜154 BPM</h3><dl><dt>代表與用途</dt><dd>量測當下每分鐘胎兒心搏次數。</dd><dt>高低方向</dt><dd>過快或過慢要按孕週、節律、胎動與母體狀態由動態掃描判讀；數字不是越高越好。</dd><dt>本案意義</dt><dd>較 9/7 低 10 BPM；醫師明確說「154 是 OK 的」。靜態影像不能完整評估節律與結構。</dd><dt>合併／追蹤</dt><dd>每次產檢依醫師動態確認。</dd></dl></div>
+    <div class="lab-item-block"><h3>MVP｜3.3 cm、3.5 cm</h3><dl><dt>代表與用途</dt><dd>影像標示 MVP，通常用於記錄最大垂直羊水池；本案保留原始縮寫。</dd><dt>高低方向</dt><dd>偏高或偏低的意義要依孕週、量測方法及正式報告判讀，本張影像沒有提供參考值。</dd><dt>本案意義</dt><dd>同日兩次量測均被醫師口頭概括為羊水量夠；不把此數值延伸成胎盤功能保證。</dd><dt>合併／追蹤</dt><dd>後續超音波持續看羊水與胎兒結構；若有大量水樣液體流出需及時就醫。</dd></dl></div>
+    <div class="lab-item-block"><h3>Cx｜3.1 cm</h3><dl><dt>代表與用途</dt><dd>影像標示 Cx，依既有脈絡為子宮頸相關量測。</dd><dt>高低方向</dt><dd>意義受經腹／經陰道方式、膀胱狀態及量測平面影響；本次未提供院方界線。</dd><dt>本案意義</dt><dd>較 9/7 的 3.2 cm 少 0.1 cm；醫師口頭表示 OK。這個小差異不能脫離方法直接解讀為真正縮短。</dd><dt>合併／追蹤</dt><dd>以正式報告與醫師安排的中期標準化量測為準。</dd></dl></div>
+    <div class="lab-item-block"><h3>E2（院）｜1241 pg/mL（未附參考值）</h3><dl><dt>代表與用途</dt><dd>雌二醇反映妊娠與荷爾蒙支持狀態的一部分，會受孕週、藥物與採血時間影響。</dd><dt>高低方向</dt><dd>沒有本院孕期參考範圍時，不以單一固定線判斷偏高或偏低。</dd><dt>本案意義</dt><dd>由 9/7 的 913.4 升至 1241；醫師口頭稱數值「上來、綠燈、同步上來」。這是趨勢與醫師當次判讀，不是獨立的胎盤功能證明。</dd><dt>合併／追蹤</dt><dd>與 P4、用藥時間、症狀及超音波一起依門診計畫追蹤。</dd></dl></div>
+    <div class="lab-item-block"><h3>P4（院）｜20.75 ng/mL（未附參考值）</h3><dl><dt>代表與用途</dt><dd>黃體素參與維持妊娠，血值受孕週、外源性支持、給藥途徑及最後用藥時間影響。</dd><dt>高低方向</dt><dd>上升或下降都不能離開治療背景、症狀與超音波判讀；單一值不能診斷妊娠結果。</dd><dt>本案意義</dt><dd>由 9/7 的 15.68 回升至 20.75；與醫師所說「從 15 變 20、同步上來」一致。</dd><dt>合併／追蹤</dt><dd>依醫師減藥計畫追蹤；不可根據本報告自行加減黃體素或其他藥物。</dd></dl></div>
+    <div class="lab-item-block"><h3>D-dimer（院）｜0.125 mg/L FEU（參考 &lt;0.55）</h3><dl><dt>代表與用途</dt><dd>纖維蛋白形成與分解的非特異性指標。</dd><dt>高低方向</dt><dd>升高有多種原因且孕期也會影響；低於參考上限不能單獨排除靜脈血栓。</dd><dt>本案意義</dt><dd>在影像提供的院方範圍內，與 9/7 的 0.127 接近；醫師描述為「穩定、持平」。</dd><dt>合併／追蹤</dt><dd>是否調整抗凝或抗血小板相關治療，須依原適應症、症狀、其他凝血資料與主治醫師處方。</dd></dl></div>
+  </section>
+
+  <section class="card" id="integration">
+    <h2>🧠 四、整體評估</h2>
+    <div class="visit-grid">
+      <div class="visit-point"><b>胎兒成長</b><br>CRL 6.5 cm，較 9/7 增加；影像換算 12w6d。</div>
+      <div class="visit-point"><b>胎心與超音波環境</b><br>FHR 154；MVP 3.3／3.5 cm；Cx 3.1 cm。醫師均給予 OK／足夠的口頭結論。</div>
+      <div class="visit-point"><b>荷爾蒙</b><br>E2、P4 均較 9/7 上升，符合醫師「同步上來」的當次描述；兩者未附院方參考值。</div>
+      <div class="visit-point"><b>D-dimer</b><br>0.125 mg/L FEU，低於影像上限並與 9/7 接近；單項不能涵蓋完整血栓評估。</div>
+    </div>
+    <p><strong>整合判讀：</strong>本次影像與錄音呈現的可確認方向，是胎兒持續長大、仍有胎心、羊水與子宮頸獲醫師口頭肯定；上次需要短期追蹤的 P4 已由 15.68 升至 20.75，E2 也由 913.4 升至 1241。這些是當次正面追蹤訊號，但不取代正式 11–14 週結構／染色體篩檢，也不等於已排除後續孕期風險。</p>
+    <h3>醫師看診錄音：可辨識內容</h3>
+    <ul>
+      <li>9/10 影像約 12w6d、快 13 週；FHR 154，羊水與子宮頸均被認為 OK。</li>
+      <li>E2 與 P4 較前次同步上升；D-dimer 及醫師看到的其他項目被描述為穩定，目前觀察。</li>
+      <li>一項口服藥在錄音中被指示改為「一天一顆」；後續護理諮詢的音近名稱為「艾賓克／艾…」，正式品名與劑量需以藥袋確認，不能直接等同奎寧。</li>
+      <li>另一種目前每日一針的針劑，醫師指示改為「打兩天、休一天」；若下週仍 OK，再考慮「一天打、一天休」。藥名在錄音中不清楚。</li>
+      <li>其他治療「目前不變」，下週再評估。</li>
+      <li>日本行程 6 天；討論重點是旅行期間若出血的備援。現有黃體油針約兩支，醫師口頭認為足夠，並提到攜帶「小白」與奎寧。</li>
+      <li>目前提到的身體不適為偶爾頭暈、頭痛；醫師建議短距離行程，不要走太遠。</li>
+    </ul>
+    <div class="caution-box"><strong>錄音轉錄限制：</strong>「國際找安」、「IB課」、「愛山東／愛酸痛」、「艾賓克」、「搏擊」等藥名／劑量片段無法可靠還原。本報告沒有替它們指定正式學名、劑量或用途；實際執行前應逐項對照藥袋或向診所確認。</div>
+  </section>
+
+  <section class="card" id="travel-medication-consultation">
+    <h2>🧑‍⚕️ 9/10 旅行諮詢與用藥指引（單獨整理）</h2>
+    <div class="consult-banner">
+      <div class="consult-chip"><span>旅行日期</span><b>9/11–9/17</b></div>
+      <div class="consult-chip"><span>目的地</span><b>日本</b></div>
+      <div class="consult-chip"><span>下次回診</span><b>9/21 08:00</b></div>
+      <div class="consult-chip"><span>預留時間</span><b>約 2–3 小時</b></div>
+    </div>
+    <div class="info-box"><strong>本章定位：</strong>以下是診所護理諮詢的個案化交代，為方便攜帶與核對而整理；不是本報告另行開立的處方。正式藥名、每顆／每針劑量、保存條件與最終發藥數量，仍以藥袋、針盒及診所證明為準。</div>
+
+    <h3>一、針劑「打二休一」逐日表</h3>
+    <p>錄音稱針劑名稱近似「愛酸痛／愛栓通」，無法由轉錄可靠確認正式品名。診所先以 9/10 已注射一支為起點，將先前連續每日注射視為已完成兩天，從 9/11 開始休一天。</p>
+    <div class="table-wrap"><table class="lab-table"><thead><tr><th>日期</th><th>地點／情境</th><th>診所口頭節奏</th><th>備註</th></tr></thead><tbody>
+      <tr><td>9/10</td><td>出國前</td><td class="schedule-on">已打一支</td><td>作為本輪第 2 個連續注射日。</td></tr>
+      <tr><td>9/11</td><td>旅行第 1 天</td><td class="schedule-off">休息，不打</td><td>護理人員明確重述「明天休一天」。</td></tr>
+      <tr><td>9/12</td><td>日本</td><td class="schedule-on">打一支</td><td>旅行攜帶針劑第 1 支。</td></tr>
+      <tr><td>9/13</td><td>日本</td><td class="schedule-on">打一支</td><td>旅行攜帶針劑第 2 支。</td></tr>
+      <tr><td>9/14</td><td>日本</td><td class="schedule-off">休息，不打</td><td>完成打二休一。</td></tr>
+      <tr><td>9/15</td><td>日本</td><td class="schedule-on">打一支</td><td>旅行攜帶針劑第 3 支。</td></tr>
+      <tr><td>9/16</td><td>日本</td><td class="schedule-on">打一支</td><td>旅行攜帶針劑第 4 支。</td></tr>
+      <tr><td>9/17</td><td>返程日</td><td class="schedule-off">休息，不打</td><td>錄音列為休息日。</td></tr>
+      <tr><td>9/18</td><td>返台後</td><td class="schedule-on">打一支</td><td>依相同節奏延續。</td></tr>
+      <tr><td>9/19</td><td>返台後</td><td class="schedule-on">打一支</td><td>依相同節奏延續。</td></tr>
+      <tr><td>9/20</td><td>回診前一日</td><td class="schedule-off">休息，不打</td><td>錄音列為休息日。</td></tr>
+      <tr><td>9/21</td><td>08:00 回診</td><td class="schedule-on">抽血前先打一支</td><td>錄音中護理人員再次確認。</td></tr>
+    </tbody></table></div>
+    <div class="alert-box"><strong>執行前必要核對：</strong>請確認藥盒上的正式名稱確實就是要採「打二休一」的那支針，並向診所確認 9/21 是否仍為「抽血前先打」。若實際藥袋或診所書面說明與上表不同，以診所最新書面指示為準。</div>
+
+    <h3>二、出國攜帶針劑與證明</h3>
+    <div class="two-column-grid">
+      <div class="tip-box"><strong>診所安排</strong><ul><li>9/11–9/17 旅程預計攜帶上述針劑 4 支，對應 9/12、9/13、9/15、9/16。</li><li>另外攜帶黃體油針 2 支／2 組作備用；包裝單位在錄音中有「兩隻／兩組」兩種說法，取藥時核對。</li><li>含針頭的品項由診所開立針劑攜帶證明。</li><li>診所表示證明工本費 100 元。</li><li>開證明需要護照英文姓名與護照號碼；本報告不重載該號碼。</li></ul></div>
+      <div class="warning-box"><strong>攜帶方式與數量</strong><ul><li>護理人員建議針劑隨身手提，不放托運行李。</li><li>證明上的品項與數量最好和實際攜帶相符。</li><li>依錄音說明，實際攜帶少於證明數量通常較無疑義；多於證明數量可能有問題。</li><li>以上是診所行政經驗說明，不是航空公司或日本海關的正式保證；出發前仍應核對承運航空公司與入境規定。</li></ul></div>
+    </div>
+
+    <h3>三、口服藥與備用藥：分項核對</h3>
+    <div class="table-wrap"><table class="lab-table"><thead><tr><th>錄音中的名稱</th><th>診所口頭指引</th><th>攜帶／數量</th><th>需要確認的疑義</th></tr></thead><tbody>
+      <tr><td><span class="med-name">口服藥，音近「搏擊」</span></td><td>錄音可辨識為「早晚各一顆」。</td><td>發藥份數／天數片段不清。</td><td>不得僅因既有報告曾出現 Bokey 就自行視為同一藥；正式名稱與劑量需看藥袋。</td></tr>
+      <tr><td><span class="med-name">口服藥，音近「艾賓克／艾…」</span></td><td>9/10 當天早晚照原方式服用、晚上吃完一顆；9/11 起改為一天一顆。</td><td>依診所本次發藥。</td><td>此藥與錄音稱「奎寧」者似為不同項目；正式品名不清。</td></tr>
+      <tr><td><span class="med-name">錄音稱「奎寧」</span></td><td>後段護理諮詢清楚重述「一樣早晚各一顆」。</td><td>再開一個月份；另有從 9/20 開至 10/19 的日期討論。</td><td>與前段醫師錄音疑似「一天一顆」有表面衝突，亦可能是轉錄把不同藥混在一起；取藥時必須逐顆核對。</td></tr>
+      <tr><td><span class="med-name">小白球</span></td><td>作旅行備用；若出現粉紅色出血，護理人員口頭說可立即使用 2 顆。</td><td>建議備用約 10 顆。</td><td>使用途徑、一天上限與後續是否續用未在錄音中說清，需看處方並聯絡診所。</td></tr>
+      <tr><td><span class="med-name">黃體油針</span></td><td>作出血備用；鮮紅色出血段落提到使用油針。</td><td>攜帶 2 支／2 組。</td><td>確切啟用條件、注射劑量與是否同時聯絡診所需再確認。</td></tr>
+      <tr><td><span class="med-name">止血藥</span></td><td>鮮紅色出血段落提到使用止血藥。</td><td>手邊約 6 顆；後續又提「再備用 6 顆」，最終領取總數需現場確認。</td><td>藥名、單次顆數、間隔與每日上限未清楚轉錄。</td></tr>
+    </tbody></table></div>
+
+    <h3>四、出血時的診所口頭備援</h3>
+    <div class="two-column-grid">
+      <div class="caution-box"><strong>粉紅色出血</strong><p>護理人員口頭交代：可立即使用小白球 2 顆。錄音沒有清楚說明使用途徑、後續頻率與何時停用，須依藥袋並聯絡診所確認。</p></div>
+      <div class="alert-box"><strong>鮮紅色出血</strong><p>錄音可辨識為：使用黃體油針及止血藥；若當天那支「愛酸痛／愛栓通」尚未注射，先停一次。由於藥名、劑量與句讀仍有轉錄疑義，鮮紅色出血時應同時立即聯絡診所或就近婦產科，不可只依錄音自行處理。</p></div>
+    </div>
+    <p class="small">任何大量出血、持續腹痛、暈厥、肩痛、呼吸困難或症狀快速惡化，直接依第十二章急症層級處理。</p>
+
+    <h3>五、9/21 回診安排</h3>
+    <ul><li><strong>日期時間：</strong>2026/09/21（週一）08:00，最早時段。</li><li><strong>抽血：</strong>錄音可辨識為雌激素、黃體素與血栓相關檢驗；正式檢驗名稱以診所單據為準。</li><li><strong>檢查流程：</strong>約 1 小時等待報告，之後安排醫師超音波／整體評估。</li><li><strong>總停留時間：</strong>診所建議預留約 2–3 小時。</li><li><strong>針劑：</strong>錄音交代當天早上、抽血前先打一支；請於回診前再次向診所確認。</li></ul>
+    <p class="privacy-note">護照英文姓名與號碼屬敏感資料；錄音雖有念出部分字元，本報告刻意不保存或顯示。</p>
+  </section>
+
+  <section class="card" id="chance">
+    <h2>📈 五、目前成功可能性評估</h2>
+    <p><span class="chance-tag unknown">目前難以判斷</span> <strong>適用情境：</strong>若「成功」是指活產或排除重大異常，僅靠本次 CRL、FHR、MVP、Cx、E2、P4 與 D-dimer 無法定性。若只描述「截至 9/10 的持續妊娠追蹤方向」，本次有多項正面訊號。</p>
+    <div class="two-column-grid"><div class="success-box"><strong>✅ 已確認的正面訊號</strong><ul><li>CRL 較 9/7 增加。</li><li>FHR 154，醫師口頭稱 OK。</li><li>羊水量與子宮頸被醫師口頭稱足夠／OK。</li><li>E2 與 P4 較 9/7 同步上升。</li><li>D-dimer 在影像提供的院方範圍內且接近持平。</li></ul></div><div class="warning-box"><strong>⚠️ 無法完成機率判斷的資料</strong><ul><li>正式 11–14 週超音波與 NT／早期解剖結果未提供。</li><li>染色體篩檢／診斷結果未提供。</li><li>孕婦年齡與完整病史未提供。</li><li>完整處方、劑量及減藥對象仍有錄音疑義。</li><li>靜態影像不能完整呈現胎兒結構與動態。</li></ul></div></div>
+  </section>
+
+  <section class="card" id="risk">
+    <h2>⚠️ 六、可能問題與風險分析</h2>
+    <ol>
+      <li><strong>減藥執行錯誤：</strong>錄音中的部分藥名、劑量不清；最實際的風險是把「打兩天休一天」套用到錯誤針劑。必須用藥袋／處方逐項核對。</li>
+      <li><strong>旅行期間出血或腹痛：</strong>醫師談話的主要旅行顧慮是出血。雖然當下未述出血，仍應先建立當地就醫與聯絡方式。</li>
+      <li><strong>頭暈、頭痛：</strong>錄音僅記錄偶發，沒有血壓、持續時間、嚴重度或伴隨症狀，故不能判定原因；若加重或合併神經症狀應及時就醫。</li>
+      <li><strong>D-dimer 的範圍限制：</strong>0.125 低於本張上限，但不能單靠這一項排除血栓，也不能作為自行停藥依據。</li>
+      <li><strong>產前篩檢缺口：</strong>CRL 與心跳不等於完整早期結構與染色體評估。</li>
+    </ol>
+  </section>
+
+  <section class="card" id="research">
+    <h2>📚 七、調研資料摘要</h2>
+    <ul><li><strong>11–14 週評估：</strong>一般臨床實務會把胎兒存活、孕週、胎數、早期解剖及院所安排的染色體篩檢一起評估；單看 CRL 與 FHR 不足以取代完整掃描。</li><li><strong>荷爾蒙趨勢：</strong>E2、P4 的血值會受妊娠週數、外源性支持、給藥途徑與採血時間影響，通常應在相近條件下看同院趨勢。</li><li><strong>孕期旅行：</strong>是否適合旅行取決於個人產科狀況、症狀、目的地醫療可近性與主治醫師評估；備藥需依正式處方，不能只靠轉錄文字。</li></ul>
+  </section>
+
+  <section class="card" id="tests">
+    <h2>🧪 八、建議補充檢查</h2>
+    <ol><li>取得 9/10 正式超音波報告，確認 CRL、FHR、MVP、Cx 的正式採用值與量測途徑。</li><li>確認 NT、早期解剖與院所安排的染色體篩檢是否已完成或已排程。</li><li>依 9/21 回診計畫追蹤 E2、P4 與血栓相關檢驗；保留採血時間與最後一次用藥／注射時間，提升可比性。</li><li>若頭暈／頭痛持續，記錄血壓、發作時間、嚴重度與伴隨症狀，交由醫師評估是否需要追加檢查。</li><li>請診所列印完整用藥清單，尤其確認「一天一顆」、「早晚各一顆」與「打兩天休一天」各對應哪個藥。</li></ol>
+  </section>
+
+  <section class="card" id="steps">
+    <h2>🪜 九、步驟指引</h2>
+    <div class="two-column-grid"><div class="tip-box"><strong>9/11 出發前</strong><ol><li>以藥袋逐項核對正式藥名、劑量、途徑與日期節奏。</li><li>確認針劑證明列有實際品項與數量；針劑 4 支及油針 2 支／2 組依診所交代隨身攜帶。</li><li>確認小白球、止血藥最終領取數量與書面用法。</li><li>備份 9/10 報告、旅行保險、診所與日本當地醫療資訊。</li></ol></div><div class="info-box"><strong>9/21 08:00 回診</strong><ol><li>先確認是否依錄音在抽血前注射一支。</li><li>抽 E2、P4 與血栓相關檢驗，等待報告後接受醫師超音波／整體評估。</li><li>確認針劑是否進一步改為一天打、一天休。</li><li>核對所有口服藥頻率及 NT／早期結構／染色體篩檢進度。</li></ol></div></div>
+    <div class="warning-box"><strong>盡快就醫：</strong>若頭痛明顯加劇、反覆嘔吐、視力改變、單側無力／麻木，或出現出血、持續腹痛，旅行中也不要等待返台。</div>
+  </section>
+
+  <section class="card" id="advice">
+    <h2>💡 十、生活與治療建議</h2>
+    <ul><li>所有口服藥與針劑按主治醫師的正式處方執行；本報告中的錄音整理只供核對，不作為唯一給藥依據。</li><li>日本 9/11–9/17 行程依醫師建議採短距離、避免走太遠；安排休息、補水並保留彈性。</li><li>針劑依診所建議置於隨身手提行李，連同原包裝及針劑證明；保存溫度與安檢規定仍需向診所、航空公司確認。</li><li>事先查住宿地附近可處理婦產科急症的醫療院所，保留診所聯絡方式。</li><li>頭暈時避免獨自行走、駕駛或站在高處；坐下休息並記錄情況。症狀持續或加劇時就醫。</li></ul>
+  </section>
+
+  <section class="card" id="questions">
+    <h2>🗣️ 十一、建議與醫師討論的關鍵問題</h2>
+    <ol><li>錄音中的「搏擊」、「艾賓克／艾…」、「奎寧」各自正式藥名與每顆劑量為何？</li><li>哪一種藥從 9/11 起一天一顆？哪一種維持早晚各一顆？</li><li>「打兩天、休一天」對應哪一支針？9/10–9/21 的逐日表是否正確？</li><li>9/21 抽血前是否確定要先打一支？會不會影響檢驗判讀？</li><li>若改成一天打、一天休，判斷依據是哪些檢驗或症狀？</li><li>粉紅色出血使用小白球 2 顆的途徑、後續頻率與一天上限為何？</li><li>鮮紅色出血時，黃體油針、止血藥與停一次針劑的確切順序和劑量為何？何種情況直接急診？</li><li>針劑 4 支、黃體油針 2 支／2 組及證明上的數量是否完全一致？保存方式為何？</li><li>9/21 要抽的正式檢驗名稱有哪些？報告後會做哪些超音波項目？</li><li>偶爾頭暈、頭痛需要量血壓或追加哪些評估？哪些伴隨症狀要直接急診？</li></ol>
+  </section>
+
+  <section class="card" id="redflags">
+    <h2>🚨 十二、警示訊號</h2>
+    <div class="alert-box"><strong>立即急診／呼叫當地緊急服務：</strong>大量陰道出血、劇烈或持續腹痛、單側疼痛合併肩痛或暈厥、胸痛、呼吸困難、咳血、單側腿部突然腫痛、意識改變、突然劇烈頭痛、視力改變、單側無力／麻木、持續高燒或嚴重寒顫。</div>
+    <div class="warning-box"><strong>當天聯絡產科：</strong>少量但持續／反覆出血、腹痛、發燒、惡臭分泌物、疑似水樣液體持續流出、嚴重嘔吐無法進水、頭暈／頭痛持續加重或明顯藥物副作用。</div>
+    <p class="small">急性睪丸疼痛腫脹亦屬生殖醫學急症，但與本次孕期個案不直接相關。</p>
+  </section>
+
+  <section class="card" id="disclaimer">
+    <h2>📌 十三、重要聲明</h2>
+    <p>本報告依使用者提供的 9/10 超音波與驗血影像、醫師看診錄音、旅行與用藥護理諮詢轉錄，以及 9/7 前已核對的歷史報告整理，只供病程追蹤、衛教與門診溝通。它不是正式診斷、處方、超音波報告、旅行適航證明或妊娠結果保證。影像未附參考範圍者沒有自行補值；錄音不清或互相衝突的藥名、頻率與劑量沒有擅自還原。針劑日曆與出血備援均是對診所口頭內容的結構化轉錄，執行時必須以藥袋、針盒、攜藥證明及診所最新書面指示為準。所有用藥、減藥、旅行及檢查決策應由主治醫師依完整病歷與正式處方確認。</p>
+  </section>
+  <div class="footer-note">本機私密報告 · 無 JavaScript · 更新日期 2026/09/10</div>
+</div>
+</body>
+</html>
